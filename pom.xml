@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>PLPlusANZ</artifactId>
+    <groupId>com.thomsonreuters.plplusanz</groupId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+    <description>PPI ANZ Tests</description>
+
+    <properties>
+        <surefire.fork.count>10</surefire.fork.count>
+        <driverType>firefox</driverType>
+        <chromeDriverPath>${basedir}\src\main\resources\drivers\chromedriver.exe</chromeDriverPath>
+        <ieDriverPath>${basedir}\src\main\resources\drivers\IEDriverServer.exe</ieDriverPath>
+        <browserStackLocal>${basedir}\src\main\resources\BrowserStackLocal.exe</browserStackLocal>
+        <sonar.projectName>PLPlus ANZ Tests</sonar.projectName>
+        <sonar.language>java</sonar.language>
+        <newSession>false</newSession>
+        <jenkinsStyleReports>true</jenkinsStyleReports>
+        <routing>false</routing>
+        <mergingAllModulesReports>true</mergingAllModulesReports>
+    </properties>
+
+    <modules>
+        
+        <module>PPIANZ-Browse</module>
+        <!--
+        <module>PPIANZ-Delivery</module>
+        <module>PPIANZ-Document</module>
+        <module>PPIANZ-Favourite</module>
+        <module>PPIANZ-Folders</module>
+        <module>PPIANZ-Footer</module>
+        <module>PPIANZ-Glossary</module>
+        <module>PPIANZ-Header</module>
+        <module>PPIANZ-History</module>
+        <module>PPIANZ-LegalUpdate</module>
+        <module>PPIANZ-Linking</module>
+        <module>PPIANZ-Login</module>
+        <module>PPIANZ-Search</module>
+        <module>PPIANZ-PageObjects</module>
+        <module>PPIANZ-Widgets</module>
+        <module>PPIANZ-URLs</module>
+        -->
+    </modules>
+
+    <build>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>main.java.com.thomsonreuters.tests.ReportAccumulator</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.thomsonreuters.pageobjects</groupId>
+            <artifactId>PPIUK-pageobjects</artifactId>
+            <version>1a.0.1</version>
+        </dependency>
+      
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+
+      <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-server-standalone</artifactId>
+        <version>2.47.0</version>
+      </dependency>
+    </dependencies>
+
+</project>
