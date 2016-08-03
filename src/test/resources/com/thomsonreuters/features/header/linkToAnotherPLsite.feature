@@ -5,7 +5,7 @@ Feature: [809948][850090] Link to another Practical Law web site
   Scenario Outline: Logged in User verifies the "Country Toggle Drop-down" links and styling
     Given ANZ user is logged in with following details
       | userName | ANZtestuser2 |
-    When user hovers over the country toggle dropdown
+    When user clicks on the country toggle dropdown
     Then user should see the following countries with respective links
       | Country    | Link                                                                                             |
       | Australia  | https://au.practicallaw.demo.thomsonreuters.com/?transitionType=Default&contextData=(sc.Default) |
@@ -30,8 +30,7 @@ Feature: [809948][850090] Link to another Practical Law web site
   Scenario: Logged in User verifies the Westlaw AU  links
     Given ANZ user is logged in with following details
       | userName | ANZtestuser2  |
-
-    When user hovers over the country toggle dropdown  
+    When user clicks on the country toggle dropdown
     And the user selects "Westlaw AU"
     And the user is taken to the login page in WLAU
  
@@ -40,7 +39,7 @@ Feature: [809948][850090] Link to another Practical Law web site
   Scenario Outline: User verifies the "Country Toggle Drop-down" links and styling
     Given the user navigates to the main PLANZ page
     And ANZ user is not logged in
-    When user hovers over the country toggle dropdown
+    When user clicks on the country toggle dropdown
     Then user should see the following countries with respective links
       | Country    | Link                                                                                             |
       | Australia  | https://au.practicallaw.demo.thomsonreuters.com/?transitionType=Default&contextData=(sc.Default) |
@@ -64,7 +63,7 @@ Feature: [809948][850090] Link to another Practical Law web site
   Scenario: Open Web User verifies the Westlaw AU  links
     Given the user navigates to the main PLANZ page
     And ANZ user is not logged in
-    When user hovers over the country toggle dropdown  
+    When user clicks on the country toggle dropdown
     And the user selects "Westlaw AU"
     And the user is taken to the login page in PLAU
        

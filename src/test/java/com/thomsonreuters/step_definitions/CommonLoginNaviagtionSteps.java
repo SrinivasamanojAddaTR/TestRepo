@@ -92,6 +92,12 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 		super.anzUserIsLoggedInWithFollowingDetails(plPlusUserList);
 	}
 
+    @When("^the user navigates to the main PLANZ page$")
+    public void theUserNavigatesToTheMainPLANZPage() throws Throwable {
+        navigationCobalt.navigateToPLANZPlus();
+        navigationCobalt.waitForPageToLoad();
+    }
+
 	/**
 	 * EDGE Case where the test has no option but to go to the routing page.
 	 * This may be to turn off an IAC or something
