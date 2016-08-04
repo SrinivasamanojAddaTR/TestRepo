@@ -16,7 +16,7 @@ Feature: [820792][822937] As a PLAU user,  I want to view folders, favourites an
 
 
   Scenario: User wants to see Favourite, Folders and History links not available in open web
-    When ANZ user is not logged in
+    When PL+ ANZ user navigates to home page
     Then user should not see the "Folders" link
     And user should not see the "History" link
     And user should not see the "Favourites" link
