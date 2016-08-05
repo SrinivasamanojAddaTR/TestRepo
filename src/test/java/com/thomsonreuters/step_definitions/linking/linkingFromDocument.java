@@ -13,7 +13,6 @@ public class linkingFromDocument {
 
 	private static final String WLAU_SIGN_ON= "Westlaw AU Signon";
 	private static final String PLAU_SIGN_ON = "Practical Law Australia";
-	private static final String PRACTICAL_LAW = "Practical Law";
 
 	private AssetPageUtils assetPageUtils = new AssetPageUtils();
     private WLAUPageUtils wlauPageUtils = new WLAUPageUtils();

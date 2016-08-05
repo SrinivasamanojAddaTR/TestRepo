@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema id="results" xmlns="http://www.w3.org/2001/XMLSchema"  >
+    <element name="results">
+   	<complexType>
+    		<sequence>
+    			<element name="document" minOccurs="1" maxOccurs="5">
+    			    	<complexType>
+    			    		<sequence>
+    			    			<element name="resourceUrl"
+    			    				type="string" maxOccurs="1">
+    			    			</element>
+    			    			<element name="lastModifiedDate"
+    			    				type="string" maxOccurs="1">
+    			    			</element>
+    			    		</sequence>
+    			    	</complexType>
+    			</element>
+    		</sequence>
+    	</complexType>
+    </element>
+</schema>
