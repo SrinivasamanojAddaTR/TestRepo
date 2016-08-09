@@ -1,0 +1,341 @@
+package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
+
+import com.thomsonreuters.pageobjects.common.CommonMethods;
+import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;
+import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage;
+import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentNavigationPage;
+import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.enums.DocumentPrimaryLink;
+import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.enums.ExpandAndCollapse;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+import org.assertj.core.api.SoftAssertions;
+import org.junit.Assert;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.Assert.*;
+import static com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage.ResourceType.PRACTICE_NOTES;
+
+
+public class CommonDocumentSteps extends DocumentDisplayStep {
+
+    private StandardDocumentPage standardDocumentPage = new StandardDocumentPage();
+    private CommonMethods commonMethods = new CommonMethods();
+    private DocumentNavigationPage documentNavigationPage = new DocumentNavigationPage();
+    private TopicPage topicPage = new TopicPage();
+
+    public String[] searchTerms;
+
+    @When("^user enters search with \"(.*?)\"$")
+    public void enterSearchTerm(String docName) throws Throwable {
+        goToDocument(docName);
+        documentObject = docsMap.get(docName);
+        searchHomePage.enterSearchText("adv: \"" + documentObject.getDocName() + "\"");
+    }
+
+    @When("^User selects \"(.*?)\"$")
+    public void userSelects(String docName) throws Throwable {
+        assertTrue(docName + " is missing/not able to find in search results",
+                resultsPage.isResultItemDisplayed(documentObject.getDocName()));
+        resultsPage.clickOnResultItem(documentObject.getDocName());
+        selectViewDocument();
+    }
+
+    @Then("^Document displayed in three column layout$")
+    public void documentShowsInThreeColumnLayout() throws Throwable {
+        assertTrue("Document column layout is wrong", caseDocumentPage.isDocumentDisplayedInThreeColumnLayout());
+    }
+
+    @Then("^User is able to see all primary menu links \"(.*?)\"$")
+    public void userIsAbleToSeeAllPrimaryMenuLinks(String docName) throws Throwable {
+        documentObject = docsMap.get(docName);
+        Set<String> expectedPrimaryLinks = documentObject.getPrimaryLinks();
+        List<String> actualPrimaryLinkNames = legislationDocumentNavigationPage.getPrimaryLinkNames();
+        assertEquals(expectedPrimaryLinks.size(), actualPrimaryLinkNames.size());
+        for (String primaryLink : expectedPrimaryLinks) {
+            assertTrue(primaryLink + "Primary link is missing", actualPrimaryLinkNames.contains(primaryLink));
+        }
+    }
+
+    /**
+     * Note: This step def is not valid for the primary menus which does not
+     * have child links, that needs to be excluded in the below steps.
+     */
+    @Then("^\"(.*?)\" secondary menus will be displayed$")
+    public void secondaryMenusWillBeDisplayed(String primaryMenuName) throws Throwable {
+        List<String> expectedChildLinks = documentObject.getSecondaryLinks().get(primaryMenuName.trim());
+        List<String> actualChildLinkNames = legislationDocumentNavigationPage.getChilidMenuLinkNames(primaryMenuName);
+        assertEquals(expectedChildLinks.size(), actualChildLinkNames.size());
+        for (String primaryLink : expectedChildLinks) {
+            assertTrue(primaryLink + "Child link is missing for " + primaryMenuName, actualChildLinkNames.contains(primaryLink));
+        }
+    }
+
+    @Then("^\"(.*?)\" menu will be expanded$")
+    public void menuWillBeExpanded(String primaryMenuLink) throws Throwable {
+        assertTrue(primaryMenuLink + "Primary link is not expanded",
+                legislationDocumentNavigationPage.isPrimaryMenuExpanded(DocumentPrimaryLink.getLink(primaryMenuLink)));
+    }
+
+    @Then("^All child data within the \"(.*?)\" secondary menus will be displayed$")
+    public void allChildDataWithinTheSecondaryMenusWillBeDisplayed(String primaryMenuName) throws Throwable {
+        List<String> actualChildLinkNames = legislationDocumentNavigationPage.getChilidMenuLinkNames(primaryMenuName);
+        for (String childLink : actualChildLinkNames) {
+            legislationDocumentNavigationPage.selectChildMenuLink(childLink);
+            assertTrue(childLink + "Section is missing", provisionPage.isSelectedChildLinkSectionDisplayed(childLink));
+            assertTrue(childLink + "Header is missing", provisionPage.isSelectedChildLinkHeaderDisplayed(childLink));
+        }
+    }
+
+    @And("^Verify expand and collapse icon present on primary links$")
+    public void expandCollapsePresent() throws Throwable {
+        List<String> primaryLinkNames = legislationDocumentNavigationPage.getPrimaryLinkNames();
+        assertTrue(primaryLinkNames.size() > 0);
+        for (String primaryMenu : primaryLinkNames) {
+            assertTrue(primaryMenu + "Expand and Collapse link is missing",
+                    provisionPage.isExpandAndCollapsePresentOnNavigationPrimaryLink(primaryMenu));
+        }
+    }
+
+    @And("^Verify expand button is expanding When clicking on the primary menu link and others are collapsing$")
+    public void expandIsWorking() throws Throwable {
+        List<String> primaryLinkNames = legislationDocumentNavigationPage.getPrimaryLinkNames();
+        assertTrue(primaryLinkNames.size() > 0);
+        for (String primaryMenu : primaryLinkNames) {
+            legislationDocumentNavigationPage.selectExpandAndCollapseOnPrimaryNavigationLink(primaryMenu, ExpandAndCollapse.EXPAND);
+            assertTrue(primaryMenu + "section is not collapsed",
+                    legislationDocumentNavigationPage.isOtherPrimaryMenuAreCollapsed(DocumentPrimaryLink.getLink(primaryMenu)));
+
+            legislationDocumentNavigationPage.selectExpandAndCollapseOnPrimaryNavigationLink(primaryMenu, ExpandAndCollapse.COLLAPSE);
+            assertFalse(primaryMenu + "section is not expanded",
+                    legislationDocumentNavigationPage.isPrimaryMenuExpanded(DocumentPrimaryLink.getLink(primaryMenu)));
+        }
+    }
+
+    @When("^user enters search specific document \"(.*?)\"$")
+    public void userEnterSearchSpecificDocument(String searchTerm) throws Throwable {
+        logger.info("Search item : " + searchTerm);
+        searchTerms = searchTerm.split("_");
+        searchHomePage.enterSearchText("adv: \"" + searchTerms[0] + "\"");
+    }
+
+    @When("^User selects specific \"(.*?)\" based on name$")
+    public void clickOnDocument(String docName) throws Throwable {
+        if (searchTerms.length > 1) {
+            resultsPage.clickOnResultItem(searchTerms[1]);
+        } else {
+            resultsPage.clickOnResultItem(searchTerms[0]);
+        }
+    }
+
+    @When("^User navigates to the \"(.*?)\" \"(.*?)\"$")
+    public void userNavigatesToTheDocument(String docType, String searchTerm) throws Throwable {
+        ukNewContentTypeClick.clickUKNewContentType().click();
+        if (docType.contains("Legislation")) {
+            legislation.ukLegislationClick().click();
+        } else if (docType.contains("Case")) {
+            cases.ukCasesClick().click();
+        }
+        searchTerms = searchTerm.split("_");
+        searchHomePage.enterSearchText("adv: \"" + searchTerms[0] + "\"");
+        searchHomePage.searchButton().click();
+        expandCollapse.sortByRelevency();
+        if (docType.contains("Judgment")) {
+            expandCollapse.dropDown().click();
+            expandCollapse.less().click();
+            resultsPage.navigateToOfficialTranscript(searchTerm);
+        } else {
+            if (searchTerms.length > 1) {
+                resultsPage.clickOnResultItem(searchTerms[1]);
+            } else {
+                resultsPage.clickOnResultItem(searchTerms[0]);
+            }
+        }
+    }
+
+    @Then("^The Primary and Secondary menus should appear on the left hand side of the screen$")
+    public void thePrimaryAndSecondaryMenusShouldAppearOnTheLeftHandSideOfTheScreen() throws Throwable {
+        assertTrue("Document Navigation links are not displaying in left hand side of the document",
+                documentNavigationPage.isLinksAreDisplayedInLeftHandSideNavigation());
+    }
+
+    @Then("^\"(.*?)\" Secondary menus are jump links$")
+    public void secondaryMenusAreJumpLinks(String primaryMenu) throws Throwable {
+        assertTrue(primaryMenu + " child links are not jump links", documentNavigationPage.isSecondaryMenusAreJumpLinks(primaryMenu));
+    }
+
+    @Then("^Verify the \"(.*?)\" child menu is present under \"(.*?)\" menu$")
+    public void verifyTheChildMenuIsPresentUnderMenu(String childLink, String primaryLink) throws Throwable {
+        assertTrue(childLink + "is not present under primary menu " + primaryLink,
+                documentNavigationPage.isChildLinkPresentUnderGivenPrimaryMenu(childLink, primaryLink));
+    }
+
+    @When("^User selects \"(.*?)\" as child menu$")
+    public void userSelectsAsChildMenu(String childLink) throws Throwable {
+        documentNavigationPage.selectChildMenuLink(childLink);
+    }
+
+    @And("^Verify the \"(.*?)\" child menu is not present under \"(.*?)\" menu$")
+    public void verifyTheChildMenuIsNotPresentUnderMenu(String childLink, String primaryLink) throws Throwable {
+        assertFalse(childLink + " jump link should not exists under primary menu " + primaryLink,
+                documentNavigationPage.isChildLinkPresentUnderGivenPrimaryMenu(childLink, primaryLink));
+    }
+
+    @When("^User selects \"(.*?)\" as primary menu$")
+    public void selectAnyDocumentLink(String primaryMenuName) throws Throwable {
+        documentNavigationPage.selectPrimaryMenuLink(primaryMenuName);
+    }
+
+    @Then("^Other primary menus will be collapsed except the selected \"(.*?)\" menu$")
+    public void allOtherPrimaryMenusWillBeCollapsed(String primaryMenuName) throws Throwable {
+        assertTrue(primaryMenuName + "Primary menu is not expanded",
+                documentNavigationPage.isPrimaryMenuExpanded(DocumentPrimaryLink.getLink(primaryMenuName)));
+        assertTrue("Other Primary menus are should be collapsed",
+                documentNavigationPage.isOtherPrimaryMenuAreCollapsed(DocumentPrimaryLink.getLink(primaryMenuName)));
+    }
+
+    @Then("^Verify the \"(.*?)\" is present$")
+    public void verifyThePrimaryMenuLinkIsPresent(String link) throws Throwable {
+        assertTrue(legislationDocumentNavigationPage.isPrimaryMenuPresent(link));
+    }
+
+    @Then("^\"(.*?)\" secondary menus will be displayed underneath it$")
+    public void verifyThatMenuChildItemsDisplayedUnderneathIt(String primaryLink) throws Throwable {
+        for (String childName : documentNavigationPage.getChilidMenuLinkNames(primaryLink)) {
+            assertTrue(documentNavigationPage.isChildLinkPresentUnderGivenPrimaryMenu(childName, primaryLink));
+        }
+    }
+
+    @When("^User selects child menu \"(.*?)\"$")
+    public void userSelectsTheChildMenuLinksUnderPrimaryMenu(String childLinkName) throws Throwable {
+        documentNavigationPage.selectChildMenuLink(childLinkName);
+    }
+
+    @Then("^Verify the \"(.*?)\" menu link is not present$")
+    public void verifyThePrimaryMenuLinkIsNotPresent(String link) throws Throwable {
+        assertFalse(documentNavigationPage.isPrimaryMenuPresent(link));
+    }
+
+    @Then("^Verify the \"(.*?)\" child menus are not present$")
+    public void verifyTheChildLinksAreNotPresent(String link) throws Throwable {
+        assertTrue(documentNavigationPage.getChilidMenuLinkNames(link).size() == 0);
+    }
+
+    @Then("^User is able to see StarPagings$")
+    public void seeStarPaging(List<String> starPagingWords) throws Throwable {
+        for (String starPagingWord : starPagingWords) {
+            assertTrue(caseDocumentPage.isStarPagingWordPresent(starPagingWord));
+        }
+    }
+
+    @Then("^the user click on View Document button$")
+    public void theUserClickOnViewDocumentButton() throws Throwable {
+        standardDocumentPage.clickOnViewDocumentButton();
+    }
+
+    @Then("^document summary contains \"(.*?)\"$")
+    public void documentSummaryContains(String summary) {
+        String actualSummary = standardDocumentPage.getDocumentSummary().getText();
+
+        assertTrue("Document summary '" + commonMethods.firstHundredChars(actualSummary) + "' does not contain expected text",
+                actualSummary.contains(summary));
+
+    }
+
+    @Then("^the full text document will be displayed including \"(.*?)\"$")
+    public void theFullTextDocumentWillBeDisplayed(String text) {
+        String documentBody = standardDocumentPage.getFullDocumentBody().getText();
+        assertTrue("Document '" + commonMethods.firstHundredChars(documentBody) + "' does not contain expected text",
+                documentBody.contains(text));
+
+    }
+
+    @Then("^the resource ID \"(.*?)\" will be displayed$")
+    public void theResourceIDWillBeDisplayed(String id) {
+        String resourceId = standardDocumentPage.getResourceId().getText();
+        assertTrue("Resource id '" + resourceId + "' does not contain expected value", resourceId.contains(id));
+    }
+
+    @Then("^the copyright will be displayed$")
+    public void theCopyrightWillBeDisplayed() {
+        WebElement copyright = standardDocumentPage.getCopyright();
+        Assert.assertNotNull("Could not find copyright", copyright);
+    }
+
+    @Then("link in related content is present with title \"(.*?)\" and status \"(.*?)\"")
+    public void linkInRelatedContentIsPresent(String title, String status) {
+        String actualStatus = standardDocumentPage.getStatusForLinkInRelatedContent(title).getText();
+        assertTrue("Document status '" + actualStatus + "' does not contain expected text", actualStatus.contains(status));
+    }
+
+    @When("the user clicks on link in related content with title \"(.*?)\"")
+    public void theUserClicksOnLinkInRelatedContent(String title) {
+        standardDocumentPage.getLinkInRelatedContent(title).click();
+    }
+
+    @Then("there will be text informing the user to login to view full text document")
+    public void thereWillBeTextInformingToLogin() {
+        String documentBody = standardDocumentPage.getFullDocumentBody().getText();
+        String message = "To access this resource, log in below or register for free access";
+        assertTrue("Document '" + commonMethods.firstHundredChars(documentBody) + "' does not contain expected text",
+                documentBody.contains(message));
+    }
+
+    @Then("\"(.*?)\" button is present in document body")
+    public void buttonIsPresentInDocumentBody(String title) {
+		WebElement button = standardDocumentPage.getLinkFromSection("", title);
+		assertTrue("Button with text '" + title + "' is not present in document", button.isDisplayed());
+	}
+
+	@When("^the user clicks on button with title \"(.*?)\"$")
+	public void theUserClicksOnButtonWithTitle(String title) {
+		WebElement button = standardDocumentPage.getLinkFromSection("", title);
+		button.click();
+    }
+
+	@Then("document body does not contain text \"(.*?)\"")
+	public void documentBodyDoesNotContainText(String text) {
+		String documentBody = standardDocumentPage.getFullDocumentBody().getText();
+		assertFalse("Document '" + commonMethods.firstHundredChars(documentBody) + "' contains text that should not be there",
+				documentBody.contains(text));
+	}
+
+	@Then("document body contains lines")
+	public void documentBodyContainsStrings(List<String> lines) {
+        String documentBody = standardDocumentPage.getFullDocumentBody().getText();
+		SoftAssertions softly = new SoftAssertions();
+		for (String line : lines) {
+			softly.assertThat(documentBody.contains(line))
+					.overridingErrorMessage(
+							"Document '" + commonMethods.firstHundredChars(documentBody) + "' does not contain text: " + line).isTrue();
+		}
+		softly.assertAll();
+    }
+
+
+    @Then("^the user should see the Practice Note document with the title \"(.*?)\"$")
+    public void checkThatPracticeNoteWithTitlePresent(String documentTitle) {
+        assertTrue("Document title is not '" + documentTitle + "'", standardDocumentPage.isDocumentTitleEquals(documentTitle));
+        assertTrue("Document resource type is not '" + PRACTICE_NOTES.getName() + "'", standardDocumentPage.isResourceTypeEquals(PRACTICE_NOTES));
+    }
+
+    @Then("^the user sees Also found in section$")
+    public void theUserSeesAlsoFoundInSection() {
+        assertTrue("'Also found in' section is not present", documentNavigationPage.linkInAlsoFoundInSection().isDisplayed());
+    }
+
+    @Then("^Also Found In section includes link to the relevant Topic page$")
+    public void alsoFoundInSectionIncludeLinkToTheRelevantTopicPage() {
+        String linkToRelevantTopicPage = documentNavigationPage.linkInAlsoFoundInSection().getAttribute("href").split
+                ("\\?")[0];
+        documentNavigationPage.linkInAlsoFoundInSection().click();
+        topicPage.waitForPageToLoad();
+        String actualUrl = topicPage.getCurrentUrl().split("\\?")[0];
+        assertEquals("'Also Found In' section has link to irrelevant Topic page", linkToRelevantTopicPage, actualUrl);
+    }
+
+}
+
