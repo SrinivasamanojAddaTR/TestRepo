@@ -1,18 +1,19 @@
 Feature: Annotations functionality
 
   Scenario: Verify Annotations links on Document delivery tool bar and title on mouse over
-    When PL+ user is logged in
-    When user navigates directly to document with guid "I33f1066be8cd11e398db8b09b4f043e0"
+    Given ANZ user is logged in with following details
+      | userName | topsecret1234 |
+    When user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     Then the user is able to see new annotations link is present
     And verify new annotations link is clickable
     When the user moves the mouse over on add annotations link
     Then New annotation tooltip should be displayed
 
-  @AnnotationsSmokeTests @e2e
+  @AnnotationsSmokeTests @e2e  @deletionAnnotations
   Scenario: Verify Annotations feature and modify annotations
-    When PL+ user is logged in
-    And the user removes all annotations for the document with GUID "I33f1066be8cd11e398db8b09b4f043e0"
-    And user navigates directly to document with guid "I33f1066be8cd11e398db8b09b4f043e0"
+    Given ANZ user is logged in with following details
+      | userName | topsecret1234 |
+    And user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     And user click on new Annotations link
     Then annotations textbox will be displayed with tinymce editor
     When the user can insert the text and save it
@@ -23,11 +24,11 @@ Feature: Annotations functionality
     And saving the annotation
     Then modified annotations text will be displayed with metadata
 
-  @e2e
+  @e2e  @deletionAnnotations
   Scenario: Delete Annotations, undo Deleted Annotations and close link on Delete Annotations
-    When PL+ user is logged in
-    And the user removes all annotations for the document with GUID "I33f1066be8cd11e398db8b09b4f043e0"
-    And user navigates directly to document with guid "I33f1066be8cd11e398db8b09b4f043e0"
+    Given ANZ user is logged in with following details
+      | userName | topsecret1234 |
+    And user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     And user added new annotation
     And user clicks the saved annotation
     Then annotations text box will be displayed with delete icon

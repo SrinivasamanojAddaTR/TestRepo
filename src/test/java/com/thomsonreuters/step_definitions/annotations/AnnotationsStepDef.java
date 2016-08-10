@@ -22,6 +22,7 @@ import com.thomsonreuters.pageobjects.utils.RoutingPage;
 import com.thomsonreuters.pageobjects.utils.User;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.PendingException;
+import cucumber.api.java.After;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -67,7 +68,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     private StandardDocumentPage standardDocumentPage;
     private RestServiceFFHImpl restServiceFFHImpl;
     private RestServiceAnnotationsImpl restServiceAnnotations;
-
+    private String guidDoc;
     public static String input;
     public static String modifiedInput;
 
@@ -181,6 +182,12 @@ public class AnnotationsStepDef extends BaseStepDef {
         sharedAnnotationsPage.amendInput(input);
         sharedAnnotationsPage.selectText();
         LOG.info("The text has been highlighted with the cursor");
+    }
+    @When("^user looks through the body of the document and select text with colour \"(.*?)\"$")
+    public void selectTextFromDocument(String colour) throws Throwable {
+        sharedAnnotationsPage.selectTextFromDocument();
+        sharedAnnotationsPage.chooseColorForNote(colour);
+        LOG.info("Select text from document");
     }
 
     @When("^highlighted text$")
@@ -384,7 +391,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user has added the URL string into the text box");
     }
 
-    @When("^the user can insert the text|URL and save it$")
+    @When("^the user can insert the text and save it$")
     public void theUserCanInsertTheURLAndSaveIt() throws Throwable {
         input = "input" + System.currentTimeMillis();
         sharedAnnotationsPage.amendInput(input);
@@ -728,6 +735,42 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The saved annotations text will be displayed with metadata");
     }
 
+    @Then("^check that annotations at the top are expanded$")
+    public void checkAtTheTopAnnotationIsExpanded() {
+        assertTrue("Annotation body at the top is not diplayed",sharedAnnotationsPage.isBodyAnnotationPresent());
+        LOG.info("Annotation is displayed");
+    }
+    @And("^user collaps annotations at the top$")
+    public void userCollapsAnnotationsAtTheTop() {
+        sharedAnnotationsPage.clickOnCollapsOptionAtTheTop();
+        LOG.info("Click on the collaps option");
+
+    }
+    @And("^user expands annotations at the top$")
+    public void userExpandsAnnotationsAtTheTop() {
+        sharedAnnotationsPage.clickOnExpandOptionAtTheTop();
+        LOG.info("Click on the expand option at the top");
+
+    }
+
+    @Then("^check that annotations at the top are collapsed$")
+    public void checkThatAnnotationCollapsed() {
+        assertFalse("Annotations are not collapsed", sharedAnnotationsPage.isBodyAnnotationPresent());
+
+    }
+
+    @Then("^check that inline annotations is collapsed$")
+    public void checkInlineAnnotationIsCollapsed() {
+        assertTrue("Body of inline annotation is displayed", sharedAnnotationsPage.isBodyInlineAnnotationNotPresent());
+        LOG.info("Inline annotation is not displayed");
+        }
+
+    @Then("^the inline annotation is expanded$")
+    public void inlineAnnotationIsExpanded() {
+        assertFalse("Body of inline annotation is not displayed", sharedAnnotationsPage.isBodyInlineAnnotationNotPresent());
+        LOG.info("Inline annotation is expanded");
+    }
+
     @Then("^verify saved annotations text is displayed$")
     public void verifySavedAnnotationsTextWillBeDisplyed() throws Throwable {
         assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayed(input, SharedAnnotationsPage.ExpectedResult.VISIBLE));
@@ -830,7 +873,45 @@ public class AnnotationsStepDef extends BaseStepDef {
         input = "input" + System.currentTimeMillis();
         sharedAnnotationsPage.amendInput(input);
         sharedAnnotationsPage.saveAnnotation();
-        LOG.info("The user has added annotations");
+        LOG.info("The user has added annotations at the top");
+
+    }
+
+    @When("user added new inline annotation")
+    public void userAddedNewInlineAnnotation() {
+        input = "input" + System.currentTimeMillis();
+        sharedAnnotationsPage.amendInput(input);
+        sharedAnnotationsPage.saveAnnotation();
+        LOG.info("The user has added inline annotations");
+
+    }
+    @When("user refreshes page")
+    public void userRefreshPage() {
+        sharedAnnotationsPage.refreshPage();
+        navigationCobalt.waitForPageToLoad();
+        navigationCobalt.waitForPageToLoadAndJQueryProcessing();
+        LOG.info("The user refreshes the page");
+
+    }
+
+    @When("inline annotation is collapsed")
+    public void inlineAnnotationIsCollapsed() {
+        sharedAnnotationsPage.saveAnnotation();
+        LOG.info("Inline annotation is collapsed");
+
+    }
+
+    @When("the user clicks on the inline annotation icon")
+    public void clickOnInlineAnnotationIcon() {
+        sharedAnnotationsPage.clickOnInlineAnnotationIcon();
+        LOG.info("Click on inline annotation icon");
+
+    }
+
+    @When("the user clicks on minimize option inline annotation icon")
+    public void clickOnMinimizeOptionForInlineAnnotation() {
+        sharedAnnotationsPage.clickOnMinimizeOptionForInlineAnnotation();
+        LOG.info("Click on minimize option for inline annotation");
 
     }
 
@@ -901,6 +982,15 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void removeAllAnnotationsForWLNDocument(String guid) throws Throwable {
         userNavigatesDirectlyToDocumentWithGuid(guid);
         restServiceAnnotations.deleteAnnotations(guid);
+    }
+
+    @When("^user navigates directly to document with guid \"(.*?)\" on PL AU website$")
+    public void theUserOpensUrlOnPLAUSite(String guid) throws Throwable {
+        this.guidDoc = guid;
+        navigationCobalt.navigateToPLCANZSpecificURL("/Document/" + guid + "/View/FullText.html");
+        sharedAnnotationsPage.waitForPageToLoad();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
+        LOG.info("The user has navigated directly to the document with guid " + guid);
     }
 
     @Given("^user navigates directly to document with guid \"(.*?)\"$")
@@ -1216,4 +1306,24 @@ public class AnnotationsStepDef extends BaseStepDef {
         }
         LOG.info("The user has verified that the results list page is displayed");
     }
+
+
+    @When("^the user opens '(.+)' link in the search result and store its title and guid$")
+    public void openSearchResultLinkAtPositionAndStore(String linkPosition) throws Throwable {
+        searchResultsPage.searchResultPosition(linkPosition).click();
+        try {
+            searchResultsPage.waitForPageToLoad();
+            searchResultsPage.waitForPageToLoadAndJQueryProcessing();
+        } catch (Exception e) {
+            LOG.info("The document failed to load", e);
+        }
+        LOG.info("The user has opened '(.+)' link in the search result and stored its title and guid");
+    }
+    @After("@deletionAnnotations")
+    public void after() throws Throwable {
+
+        navigationCobalt.navigateToPLCANZSpecificURL("/Document/" + guidDoc + "/View/FullText.html");
+        restServiceAnnotations.deleteAnnotations(guidDoc);
+    }
+
 }
