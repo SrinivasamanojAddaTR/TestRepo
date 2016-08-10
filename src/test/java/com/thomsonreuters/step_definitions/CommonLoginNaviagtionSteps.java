@@ -150,4 +150,15 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 	public void plUserLoginAndSearch(String userName, String term) throws Throwable {
 		super.plUserLoginAndSearch(userName, term);
 	}
+
+	@Given("^user deletes all cookies$")
+	public void userDeletesAllCookies() throws Throwable {
+		try {
+            wlnHeader.signOff();
+		} catch (Exception e) {
+			LOG.info("Could not sign off. Supposing that user was not logged in: " + e.getMessage());
+		}
+		getDriver().manage().deleteAllCookies();
+		resetCurrentUser();
+	}
 }

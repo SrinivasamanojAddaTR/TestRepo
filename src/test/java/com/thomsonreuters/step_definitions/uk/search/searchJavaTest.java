@@ -663,8 +663,8 @@ public class searchJavaTest extends BaseStepDef {
 
     @Then("^the user verifies the deals are sorted by 'Date administrators appointed'$")
     public void theUserVerifiesTheDealsAreSortedByDateAdministratorsAppointed() throws Throwable {
-        List<String> date = whatsMarketComparisonReportPage.getDealComparisonReportDateAdminAppointed();
-        assertTrue(commonMethods.isSorted(date, SortOptions.ASC));
+        List<WebElement> date = whatsMarketComparisonReportPage.getDealComparisonReportDateAdminAppointed();
+        assertTrue(commonMethods.isResultsSortedByDate(date, SortOptions.ASC));
     }
 
     @When("^the user selects the option to Select All$")
