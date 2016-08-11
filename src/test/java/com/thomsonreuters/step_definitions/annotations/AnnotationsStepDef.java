@@ -1307,21 +1307,8 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user has verified that the results list page is displayed");
     }
 
-
-    @When("^the user opens '(.+)' link in the search result and store its title and guid$")
-    public void openSearchResultLinkAtPositionAndStore(String linkPosition) throws Throwable {
-        searchResultsPage.searchResultPosition(linkPosition).click();
-        try {
-            searchResultsPage.waitForPageToLoad();
-            searchResultsPage.waitForPageToLoadAndJQueryProcessing();
-        } catch (Exception e) {
-            LOG.info("The document failed to load", e);
-        }
-        LOG.info("The user has opened '(.+)' link in the search result and stored its title and guid");
-    }
     @After("@deletionAnnotations")
     public void after() throws Throwable {
-
         navigationCobalt.navigateToPLCANZSpecificURL("/Document/" + guidDoc + "/View/FullText.html");
         restServiceAnnotations.deleteAnnotations(guidDoc);
     }
