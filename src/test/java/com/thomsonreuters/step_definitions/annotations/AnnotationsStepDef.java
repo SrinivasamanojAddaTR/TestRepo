@@ -256,6 +256,12 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The annotations text box has been displayed with tinymce editor");
     }
 
+    @Then("^annotations textbox will not be displayed with tinymce editor$")
+    public void annotationsTextboxWillNotBeDisplayedWithTinymceEditor() throws Throwable {
+        assertFalse("TextBox is displayed", sharedAnnotationsPage.isTextBoxDisplayed());
+        LOG.info("The annotations text box has  not been displayed with tinymce editor");
+    }
+
     @When("^enter the sample text$")
     public void creatingANewNote() throws Throwable {
         input = "input" + System.currentTimeMillis();
@@ -698,6 +704,12 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The new annotations link is clickable");
     }
 
+    @Then("^add annotation link is not displayed$")
+    public void addAnnotationsLinkIsNotDisplayed() throws Throwable {
+        assertFalse("Annotation link is displayed",deliveryPage.isAnnotationLinkPresent());
+        LOG.info("The new annotations link is not displayed");
+    }
+
     @When("^the user is able to see new annotations link is present$")
     public void theUserIsAbleToSeeNewAnnotationsLinkIsPresent() throws Throwable {
         assertTrue(deliveryPage.isLinkPresent(DocumentDeliveryPage.Links.NEW_ANNOTATION));
@@ -735,9 +747,21 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The saved annotations text will be displayed with metadata");
     }
 
+    @Then("^check that annotation count at the top is displayed \"(.*?)\"$")
+    public void checkAnnotationCountAtTheTop(String count) throws Throwable {
+        assertTrue("Count is not correct",count.equals(sharedAnnotationsPage.getCountAtTheTop()));
+        LOG.info("Annotation count displays: " + sharedAnnotationsPage.getCountAtTheTop());
+    }
+
+    @Then("^user see annotation icon on the top of annotation box$")
+    public void verifyAnnotationIconOnAnnotationBox() throws Throwable {
+        assertTrue("Annotation icon is not displayed at the top",sharedAnnotationsPage.isAddAnnotationIconPresentAtTheTop());
+        LOG.info("Annotation icon is displayed on the top of annotation box");
+    }
+
     @Then("^check that annotations at the top are expanded$")
     public void checkAtTheTopAnnotationIsExpanded() {
-        assertTrue("Annotation body at the top is not diplayed",sharedAnnotationsPage.isBodyAnnotationPresent());
+        assertTrue("Annotation body at the top is not diplayed", sharedAnnotationsPage.isBodyAnnotationPresent());
         LOG.info("Annotation is displayed");
     }
     @And("^user collaps annotations at the top$")
@@ -763,7 +787,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void checkInlineAnnotationIsCollapsed() {
         assertTrue("Body of inline annotation is displayed", sharedAnnotationsPage.isBodyInlineAnnotationNotPresent());
         LOG.info("Inline annotation is not displayed");
-        }
+    }
 
     @Then("^the inline annotation is expanded$")
     public void inlineAnnotationIsExpanded() {
@@ -877,6 +901,14 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     }
 
+    @When("user added text for annotation")
+    public void userAddedTextForAnnotation() {
+        deliveryPage.clickOnLink(DocumentDeliveryPage.Links.NEW_ANNOTATION);
+        input = "input" + System.currentTimeMillis();
+        sharedAnnotationsPage.amendInput(input);
+        LOG.info("The user has added text for annotation");
+    }
+
     @When("user added new inline annotation")
     public void userAddedNewInlineAnnotation() {
         input = "input" + System.currentTimeMillis();
@@ -885,13 +917,25 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user has added inline annotations");
 
     }
+    @When("user clicks on cancel button")
+    public void userClicksOnCancelButton() {
+        sharedAnnotationsPage.clickOnCancelButton();
+        LOG.info("The user clicks on cancel button");
+    }
+
     @When("user refreshes page")
     public void userRefreshPage() {
         sharedAnnotationsPage.refreshPage();
-        navigationCobalt.waitForPageToLoad();
-        navigationCobalt.waitForPageToLoadAndJQueryProcessing();
+        sharedAnnotationsPage.waitForPageToLoad();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         LOG.info("The user refreshes the page");
 
+    }
+
+    @When("user click on the annotation icon on the top of annotation box")
+    public void clickOnTheAnnotationIconOnTheTop() {
+        sharedAnnotationsPage.clickOnAddAnnotationIconAtTheTop();
+        LOG.info("The user clicks on the annotation icon on the top of annotation box");
     }
 
     @When("inline annotation is collapsed")
@@ -925,15 +969,16 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user has entered an annotation text with " + length + " chars length");
     }
 
-    @Then("^user verifies Save button is (enabled|disabled)$")
-    public void userVerifiesSaveButtonIsDisabled(String status) {
-        if (status.equals("enabled")) {
-            assertTrue(sharedAnnotationsPage.isSaveAnnotationEnabled());
-            LOG.info("The user has verified Save button is enabled");
-        } else if (status.equals("disabled")) {
-            assertFalse(sharedAnnotationsPage.isSaveAnnotationEnabled());
-            LOG.info("The user has verified Save button is disabled");
-        }
+    @Then("^user check that save button is disabled$")
+    public void userVerifiesSaveButtonIsDisabled() {
+        assertFalse("Save button is enabled", sharedAnnotationsPage.isSaveAnnotationEnabled());
+        LOG.info("The user has verified Save button is disabled");
+    }
+
+    @Then("^user check that save button is enabled$")
+    public void userVerifiesSaveButtonIsEnabled() {
+        assertTrue("Save button is disabled", sharedAnnotationsPage.isSaveAnnotationEnabled());
+        LOG.info("The user has verified Save button is enabled");
     }
 
     @When("user added WLN new annotation")

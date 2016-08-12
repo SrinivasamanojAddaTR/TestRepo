@@ -85,3 +85,24 @@ Feature: [825681] View annotation
     Then the inline annotation is expanded
     When the user clicks on minimize option inline annotation icon
     Then check that inline annotations is collapsed
+
+  @deletionAnnotations
+  Scenario: User should be able to see notes added icon in search results list if user added annotation at the top
+    Given ANZ user is logged in with following details
+      | userName | topsecret1234 |
+    When the user runs a free text search for the query "Children"
+    And the user opens '1' link in the search result and store its title and guid
+    Then user added new annotation
+    When the user runs a free text search for the query "Children"
+    Then the search result "1" document will be displayed along with nodes added link
+
+  @deletionAnnotations
+  Scenario: User should be able to see notes added icon in search results list if user added  inline annotation
+    Given ANZ user is logged in with following details
+      | userName | topsecret1234 |
+    When the user runs a free text search for the query "Test"
+    And the user opens '1' link in the search result and store its title and guid
+    And user looks through the body of the document and select text with colour "blueBox"
+    And user added new inline annotation
+    When the user runs a free text search for the query "Test"
+    Then the search result "1" document will be displayed along with nodes added link
