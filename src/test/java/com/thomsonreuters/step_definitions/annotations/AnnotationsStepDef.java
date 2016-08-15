@@ -187,6 +187,14 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void selectTextFromDocument(String colour) throws Throwable {
         sharedAnnotationsPage.selectTextFromDocument();
         sharedAnnotationsPage.chooseColorForNote(colour);
+        editOption = "toolbar";
+        LOG.info("Select text from document");
+    }
+
+    @When("^user looks through the body of the document and select text$")
+    public void selectTextFromDocument() throws Throwable {
+        sharedAnnotationsPage.selectTextFromDocument();
+        editOption = "toolbar";
         LOG.info("Select text from document");
     }
 
@@ -709,6 +717,11 @@ public class AnnotationsStepDef extends BaseStepDef {
         assertFalse("Annotation link is displayed",deliveryPage.isAnnotationLinkPresent());
         LOG.info("The new annotations link is not displayed");
     }
+    @Then("^choosing colour panel is not displayed$")
+    public void choosingColourPanelIsNotDisplayed() throws Throwable {
+        assertFalse("Choosing colour panel is displayed",sharedAnnotationsPage.isColourForNotePresent());
+        LOG.info("Choosing colour panel is not displayed");
+    }
 
     @When("^the user is able to see new annotations link is present$")
     public void theUserIsAbleToSeeNewAnnotationsLinkIsPresent() throws Throwable {
@@ -969,6 +982,15 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user has entered an annotation text with " + length + " chars length");
     }
 
+    @When("user enters inline annotation text with \"(.*?)\" chars length")
+    public void userAddedNewInlineAnnotationWithLength(String length) {
+        if (!length.equals("empty")) {
+            input = commonMethods.getRandomStringWithGivenLength(Integer.parseInt(length));
+            sharedAnnotationsPage.amendInput(input);
+        }
+        LOG.info("The user has entered an annotation text with " + length + " chars length");
+    }
+
     @Then("^user check that save button is disabled$")
     public void userVerifiesSaveButtonIsDisabled() {
         assertFalse("Save button is enabled", sharedAnnotationsPage.isSaveAnnotationEnabled());
@@ -1041,18 +1063,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     @Given("^user navigates directly to document with guid \"(.*?)\"$")
     public void userNavigatesToDocumentWithGuid(String guid) throws Throwable {
         navigationCobalt.navigateToWLNSpecificResourcePage("/Document/" + guid + "/View/FullText.html");
-        navigationCobalt.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(CUSTOM_DRIVER_WAIT_TIME);
         LOG.info("The user has navigated directly to the document with guid " + guid);
-    }
-
-    @When("^user navigates directly to document with guid and removes annotations on it$")
-    public void userNavigatesDirectlyToDocumentWithGuid(List<String> guids) throws Throwable {
-        for (String guid : guids) {
-            navigationCobalt.navigateToWLNSpecificResourcePage("/Document/" + guid + "/View/FullText.html");
-            //navigationCobalt.waitForPageToLoad();
-            sharedAnnotationsPage.deleteAllAnnotations(getUserFullName(currentUser.getUserName()));
-        }
-        LOG.info("The user navigates directly to the document with the guid and removes annotations from it");
     }
 
     @When("^user selects the text \"(.*?)\"$")
