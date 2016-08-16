@@ -191,6 +191,42 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("Select text from document");
     }
 
+    @When("^user looks through the body of the document and select text with colour \"(.*?)\" for highlight text$")
+    public void selectTextFromDocumentForHighlightText(String colour) throws Throwable {
+        sharedAnnotationsPage.selectTextFromDocument();
+        sharedAnnotationsPage.chooseColorForHighlightText(colour);
+        editOption = "toolbar";
+        LOG.info("Select text from document");
+    }
+
+    @When("^user looks through the body of the document and select text with Copy without reference option$")
+    public void selectTextFromDocumentAndCopyWithoutReference() throws Throwable {
+        sharedAnnotationsPage.selectTextFromDocument();
+        sharedAnnotationsPage.clickOnCopyWithoutReference();
+        editOption = "toolbar";
+        LOG.info("Select text from document and copy without reference");
+    }
+
+    @When("^user looks through the body of the document and select text with Copy with reference option$")
+    public void selectTextFromDocumentAndCopyWithReference() throws Throwable {
+        sharedAnnotationsPage.selectTextFromDocument();
+        sharedAnnotationsPage.clickOnCopyWithReference();
+        editOption = "toolbar";
+        LOG.info("Select text from document and copy with reference");
+    }
+
+    @When("^user clicks on highlighted \"(.*?)\" text$")
+    public void clickOnHighlightedText(String colour) throws Throwable {
+        sharedAnnotationsPage.clickOnHighlightedText(colour);
+        LOG.info("User clicks on the highlighted text with: " + colour + " colour");
+    }
+
+    @When("^user clicks on delete highlighted text$")
+    public void clickOnDeleteHighlightedText() throws Throwable {
+        sharedAnnotationsPage.clickOnDeleteHighlight();
+        LOG.info("User clicks on the delete highlighted text");
+    }
+
     @When("^user looks through the body of the document and select text$")
     public void selectTextFromDocument() throws Throwable {
         sharedAnnotationsPage.selectTextFromDocument();
@@ -758,6 +794,33 @@ public class AnnotationsStepDef extends BaseStepDef {
         assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayed(input, SharedAnnotationsPage.ExpectedResult.VISIBLE));
         assertTrue(sharedAnnotationsPage.isMetaDataDispalyed(input));
         LOG.info("The saved annotations text will be displayed with metadata");
+    }
+
+    @Then("^verify that saved highlighted text is displayed with \"(.*?)\" colour$")
+    public void verifySavedHighlightedTextWillBeDisplayedWithColour(String colour) throws Throwable {
+        assertTrue("The highlighted text is not displayed", sharedAnnotationsPage.isHighlightedTextPresent(colour));
+        LOG.info("The highlighted text is displayed with: " + colour + " colour");
+    }
+
+    @Then("^verify that highlighted text with \"(.*?)\" colour was deleted$")
+    public void verifyDeletedHighlightText(String colour) throws Throwable {
+        assertFalse("The highlighted text is displayed",sharedAnnotationsPage.isHighlightedTextPresent(colour));
+        LOG.info("The highlighted text is not displayed");
+    }
+
+    @Then("^user checks that text was copied without reference and equals \"(.*?)\"$")
+    public void verifyTextWithoutReference(String expectedResult) throws Throwable {
+        String textWithoutReference = sharedAnnotationsPage.getClipBoard();
+        assertTrue("Different expected text and text without reference. Text without reference: " + textWithoutReference, expectedResult.equals(textWithoutReference));
+        LOG.info("Text was copied without reference");
+    }
+
+    @Then("^user checks that text was copied with reference and equals \"(.*?)\"$")
+    public void verifyTextWithReference(String expectedResult) throws Throwable {
+        String textWithReference = sharedAnnotationsPage.getClipBoard();
+        textWithReference = textWithReference.replaceAll("\\n", " ");
+        assertTrue("Different expected text and text with reference. Text with reference: " + textWithReference, expectedResult.equals(textWithReference));
+        LOG.info("Text was copied with reference");
     }
 
     @Then("^check that annotation count at the top is displayed \"(.*?)\"$")
