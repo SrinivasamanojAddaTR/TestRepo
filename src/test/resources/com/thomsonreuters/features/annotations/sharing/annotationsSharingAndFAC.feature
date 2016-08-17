@@ -2,7 +2,7 @@
 Feature: Annotations FAC
 
   #Annotations Sharing Scenarios
-
+  @wip
   Scenario: Share annotations, Contacts, Groups options and  verify the Contact is available
     When PL+ user is logged in
     And user navigates directly to document with guid "Ib5551f79e83211e398db8b09b4f043e0"
@@ -13,7 +13,7 @@ Feature: Annotations FAC
     When search for Contact "librarian3"
     Then "librarian3" is found in the contacts list
 
-  @AnnotationsSmokeTests @e2e
+  @AnnotationsSmokeTests @e2e @wip
   Scenario:User should be able to share the annotations with reviewer and see them after relogin
     When PL+ user is logged in
     And the user removes all annotations for the document with GUID "I33f12c20e8cd11e398db8b09b4f043e0"
@@ -32,7 +32,7 @@ Feature: Annotations FAC
     When user navigates directly to document with guid "I33f12c20e8cd11e398db8b09b4f043e0"
     Then shared annotation should be displayed
 
-  @e2e
+  @e2e  @wip
   Scenario:User should be able to share the annotations with group and user from Group should be able to see the shared annotations
     When PL+ user is logged in
     And the user removes all annotations for the document with GUID "Icecfe81ee58c11e398db8b09b4f043e0"
@@ -63,7 +63,7 @@ Feature: Annotations FAC
     When click on shared url link
     Then hyperlinked url will be opened in new tab with title "Google"
     And user logs out
-
+  @wip
   Scenario:User should be able to see the annotations shared icon and reviewer should be able to see the annotations shared icon
     When PL+ user is logged in
     And the user removes all annotations for the document with GUID "Ie6a01717518811e498db8b09b4f043e0"
@@ -80,7 +80,7 @@ Feature: Annotations FAC
     And verify that user sharing icon is displayed before the createdby
 
   #Annotations FAC Scenarios
-
+  @wip
   Scenario: Librarian should be able to access Contacts/Previously Shared links, to see the BLOCK SHARE NOTE LINK FAC in routing and as PL+ read only user should not be able to see Contacts/Previously Shared links after relogin
     When PL+ user is logged in with following details
       | newSession | TRUE |
@@ -102,7 +102,7 @@ Feature: Annotations FAC
       | Grant   |
       | Deny    |
 
-  @testAnnotationsScenario
+  @testAnnotationsScenario  @wip
   Scenario: Delete All Annotations Present on Document
     When PL+ user is logged in with following details
       | userName | annotationsUser7 |

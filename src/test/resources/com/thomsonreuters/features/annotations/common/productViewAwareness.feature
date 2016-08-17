@@ -1,5 +1,5 @@
 Feature: Product View Awareness functionality, PL+ annotations should be not accessible to WLN for the documents and its vice versa.
-
+  @wip
   Scenario: Create Annotations on PL+ document and verify PL+ Annotations are not accessible in WLN
     Given PL+ user is logged in with following details
       | userName   | myAnnotationUser |
@@ -17,7 +17,7 @@ Feature: Product View Awareness functionality, PL+ annotations should be not acc
     And user navigates directly to WLN document with guid "I33f12c20e8cd11e398db8b09b4f043e0"
     Then user should not be able to see the annotations created in WLN site
 
-  @wip 
+  @wip #this wip already present
   Scenario: Create Annotations on WLN document and verify WLN Annotations are not accessible in PL+
     Given WLN user is logged in with following details
       | userName         | myAnnotationUser |
@@ -34,7 +34,7 @@ Feature: Product View Awareness functionality, PL+ annotations should be not acc
       | newSession | TRUE             |
     When user navigates directly to document with guid "Ic9d547982b9f11e598dc8b09b4f043e0"
     Then user should not be able to see the annotations created in WLN site
-
+  @wip
   Scenario: Creating annotations in PLC site and verifying the shared annotations in PLC site will not be visible in WLN site
     Given PL+ user is logged in with following details
       | userName   | myAnnotationUser |
@@ -52,7 +52,7 @@ Feature: Product View Awareness functionality, PL+ annotations should be not acc
       | newSession       | TRUE            |
     And user navigates directly to WLN document with guid "I33f12c20e8cd11e398db8b09b4f043e0"
     Then user should not be able to see the annotations created in PLC site
-
+  @wip  #this wip already present
   Scenario: User shared annotation in PL+ group to verify that shared annotations are visible in WLN by login as a user from group and verifying in WLN to make sure those group memebers are not able to see the annotations
     Given PL+ user is logged in with following details
       | userName   | myAnnotationUser |
@@ -70,7 +70,7 @@ Feature: Product View Awareness functionality, PL+ annotations should be not acc
     And user navigates directly to WLN document with guid "I63cd7ba5e68b11e398db8b09b4f043e0"
     Then user should not be able to see the annotations created in WLN site
 
-  @wip 
+  @wip #this wip already present
   Scenario: User shared annotation in WLN group to verify that shared annotations are visible in PL+ by login as a user from group and verifying in PL+ to make sure those group members are not able to see the annotations
     Given WLN user is logged in with following details
       | userName         | myAnnotationUser |

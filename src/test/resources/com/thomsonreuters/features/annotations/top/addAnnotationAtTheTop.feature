@@ -244,7 +244,7 @@ Feature:[825682] Add annotation at the top of the document
     Then add annotation link is not displayed
 
   @deletionAnnotations
-  Scenario: Check document icon on the top of annotations box
+  Scenario: Check annotation count on the top of annotations box
     Given ANZ user is logged in with following details
       | userName | topsecret1234 |
     And user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
