@@ -45,7 +45,7 @@ Feature: Annotations FAC
       | newSession | TRUE       |
     When user navigates directly to document with guid "Icecfe81ee58c11e398db8b09b4f043e0"
     Then shared annotation should be displayed
-
+  @wip
   Scenario: Sharing the annotations to reviewer with the links and reviewer should be able to see the annotations with the links
     Given PL+ user is logged in with following details
       | newSession | TRUE |

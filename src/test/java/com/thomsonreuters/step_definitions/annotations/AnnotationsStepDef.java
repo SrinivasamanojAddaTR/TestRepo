@@ -946,6 +946,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void userClicksTheUndoLink() throws Throwable {
         sharedAnnotationsPage.undoDelete();
         LOG.info("The user has clicked the undo link");
+        sharedAnnotationsPage.waitForInlineIconPresentAfterUndo();
     }
 
     @When("^user able to see the deleted annotations are displayed$")

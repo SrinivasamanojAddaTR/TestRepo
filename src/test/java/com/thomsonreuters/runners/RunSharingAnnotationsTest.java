@@ -10,20 +10,20 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "html:target/cucumber-htmlreport/AnnotationsFunctionalityReport", "junit:target/junit_cucumber.xml", "json:target/json-files/RunAnnotationsFunctionalityTest.json"},
-        features = "src/test/resources/com/thomsonreuters/features/annotations/common",
+        plugin = {"pretty", "html:target/cucumber-htmlreport/SharingAnnotationsReport", "junit:target/junit_cucumber.xml", "json:target/json-files/RunSharingAnnotationsTest.json"},
+        features = "src/test/resources/com/thomsonreuters/features/annotations/sharing",
         tags = {"~@wip", "~@manual"},
         glue = {"com.thomsonreuters.step_definitions"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
-public class RunAnnotationsFunctionalityTest {
-    private static final Logger LOG = LoggerFactory.getLogger(RunAnnotationsFunctionalityTest.class);
+public class RunSharingAnnotationsTest {
+    private static final Logger LOG = LoggerFactory.getLogger(RunSharingAnnotationsTest.class);
 
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "annotationsUser1");
-            System.setProperty("password", "Password1");
+            System.setProperty("username", "librarian1");
+            System.setProperty("password", "Password2016!");
             LOG.info("The credentials have been set");
         } else {
             LOG.info("Username is pre-defined in the Run Command as: " + System.getProperty("username"));
