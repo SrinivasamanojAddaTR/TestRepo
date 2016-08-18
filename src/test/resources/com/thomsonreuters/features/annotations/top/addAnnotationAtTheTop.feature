@@ -3,7 +3,7 @@ Feature:[825682] Add annotation at the top of the document
   @AnnotationsSmokeTests @e2e  @deletionAnnotations
   Scenario: Check document icon on the top of annotations box
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     And user added new annotation
     Then verify saved annotations text will be displayed with metadata
@@ -14,7 +14,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario: 803697 Verify ClientId is not displayed as part of Annotations metadata
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     And user added new annotation
     Then verify saved annotations text will be displayed with metadata
@@ -23,7 +23,7 @@ Feature:[825682] Add annotation at the top of the document
 
   Scenario: User should be able to see notes added icon in history and folders
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     When adds current document to "root" folder
     When the user clicks on 'History' link on the header
@@ -35,7 +35,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario: User should be able to see the disabled save button when annotation text exceeds 3000 chars length and to save annotation text equals 3000 chars length
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     And user enters annotation text with "3001" chars length
     Then user should be able to see the warning message for exceeded text
@@ -48,7 +48,7 @@ Feature:[825682] Add annotation at the top of the document
 
   Scenario: User should be able to see the disabled save button when annotation textbox is empty
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     And user enters annotation text with "empty" chars length
     Then user check that save button is disabled
@@ -61,7 +61,7 @@ Feature:[825682] Add annotation at the top of the document
 
   Scenario Outline: Verifying that text can be displayed in bold/italic/underline/strikethrough for annotation at the top
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     Then the user has accessed annotations text box
     When clearing existing styles and annotation text
@@ -77,7 +77,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario Outline: Adding Annotaiton with character Styles: bold/italic/ALIGN_LEFT/ALIGN_CENTER/ALIGN_RIGHT/strikethrough/underlined/number/bullet applying to selected text for the annotation at the top
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And clearing existing styles and annotation text
@@ -101,7 +101,7 @@ Feature:[825682] Add annotation at the top of the document
 
   Scenario Outline: Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE selected after entering text
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And selecting Inline format "<style>" and writing text
@@ -116,7 +116,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario Outline: Adding Annotaiton with Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE applying to selected text
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And highlighted text with the cursor
@@ -135,7 +135,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario Outline: Bullet and number styles for annotation at the top
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And selecting "<style>" from the toolbar and writing text in multiple lines
@@ -150,7 +150,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario Outline: Inline Styles: Adding Annotaiton with Alignment Styles: LEFT/CENTER/RIGHT applying to selected text
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And highlighted text with the cursor
@@ -167,7 +167,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario Outline: Header Styles: HEADING/SUB_HEADING Styles and adding Annotaiton with Header Styles: HEADING/SUB_HEADING Applying to selected text
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     Then the user has accessed annotations text box
     And highlighted text with the cursor
@@ -187,7 +187,7 @@ Feature:[825682] Add annotation at the top of the document
 
   Scenario: Blocks Styles: PARAGRAPH style by default
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     Then the user has accessed annotations text box
     And enter the sample text
@@ -196,7 +196,7 @@ Feature:[825682] Add annotation at the top of the document
 
   Scenario Outline: Cut/Copy/Paste
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And use the "<input>" to select options
@@ -216,7 +216,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario: Convert Pasted URL strings into Links
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     And the user has accessed annotations text box
     And the user has inserted the url string "http://google.co.uk" into textbox
@@ -230,7 +230,7 @@ Feature:[825682] Add annotation at the top of the document
 
   Scenario: Verifying cancel button
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     And user added text for annotation
     Then annotations textbox will be displayed with tinymce editor
@@ -246,7 +246,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario: Check annotation count on the top of annotations box
     Given ANZ user is logged in with following details
-      | userName | topsecret1234 |
+      | userName | auAnnotationUser1 |
     And user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     And user added new annotation
     Then verify saved annotations text will be displayed with metadata
