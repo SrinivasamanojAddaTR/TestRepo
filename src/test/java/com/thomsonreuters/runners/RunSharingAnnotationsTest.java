@@ -22,8 +22,8 @@ public class RunSharingAnnotationsTest {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "librarian1");
-            System.setProperty("password", "Password2016!");
+            System.setProperty("username", "topsecret1234");
+            System.setProperty("password", "Automation1234!");
             LOG.info("The credentials have been set");
         } else {
             LOG.info("Username is pre-defined in the Run Command as: " + System.getProperty("username"));

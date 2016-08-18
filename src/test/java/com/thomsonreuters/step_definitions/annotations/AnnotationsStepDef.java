@@ -946,6 +946,12 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void userClicksTheUndoLink() throws Throwable {
         sharedAnnotationsPage.undoDelete();
         LOG.info("The user has clicked the undo link");
+    }
+
+    @When("^user clicks undo link and wait annotation icon$")
+    public void userClicksUndoLinkAndWaitAnnotationIcon() throws Throwable {
+        sharedAnnotationsPage.undoDelete();
+        LOG.info("The user has clicked the undo link");
         sharedAnnotationsPage.waitForInlineIconPresentAfterUndo();
     }
 
@@ -978,6 +984,12 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     }
 
+    @When("user closes pop up from below")
+    public void userClosesPopUpFromBelow() {
+        sharedAnnotationsPage.closePopUpFromBelow();
+        LOG.info("The pop up from below was closed");
+    }
+
     @When("user added text for annotation")
     public void userAddedTextForAnnotation() {
         deliveryPage.clickOnLink(DocumentDeliveryPage.Links.NEW_ANNOTATION);
@@ -994,6 +1006,17 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user has added inline annotations");
 
     }
+
+    @When("user added inline annotation after annotation at the top")
+    public void userAddedInlineAnnotationAfterAtTheTop() {
+        input = "input" + System.currentTimeMillis();
+        sharedAnnotationsPage.amendInput(input);
+        sharedAnnotationsPage.saveAnnotationAfterAtTheTop();
+        LOG.info("The user has added inline annotations");
+
+    }
+
+
     @When("user clicks on cancel button")
     public void userClicksOnCancelButton() {
         sharedAnnotationsPage.clickOnCancelButton();

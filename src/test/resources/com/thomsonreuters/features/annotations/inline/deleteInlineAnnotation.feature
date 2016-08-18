@@ -12,7 +12,7 @@ Feature:[845628] Delete an inline annotation
     And user deletes the annotations
     Then "Note has been deleted" text will be displayed with undo and close links
     Then user unable to find the deleted annotations
-    And user clicks the undo link
+    And user clicks undo link and wait annotation icon
     And user refreshes page
     And the user clicks on the inline annotation icon
     Then user able to see the deleted annotations are displayed
