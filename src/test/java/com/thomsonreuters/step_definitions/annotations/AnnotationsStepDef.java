@@ -555,6 +555,12 @@ public class AnnotationsStepDef extends BaseStepDef {
         verifySharedAnnotationIsDisplayed(input);
     }
 
+    @Then("^shared annotation is not displayed$")
+    public void sharedAnnotationIsNotDisplayedToViewer() throws Throwable {
+        assertFalse(sharedAnnotationsPage.isSavedAnnotationDisplayed(input, SharedAnnotationsPage.ExpectedResult.NOT_VISIBLE));
+        LOG.info("Annotation with text: " + input + " is not displayed");
+    }
+
     @Then("^shared annotation should be displayed with \"(.*?)\"$")
     public void sharedAnnotationIsDisplayedToViewer(String linkName) throws Throwable {
         verifySharedAnnotationIsDisplayed(linkName);
@@ -697,6 +703,8 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("^user has shared the annotations with another contact \"(.*?)\"$")
     public void userHasSharedTheAnnotationsWithAnotherContact(String contact) throws Throwable {
         sharedAnnotationsPage.clickOnContactsLink();
+        sharedAnnotationsPage.waitForPageToLoad();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         sharedAnnotationsPage.searchContact(contact);
         sharedAnnotationsPage.selectContact(contact);
         sharedAnnotationsPage.selectInsertButtonOnContactsPage();
@@ -892,6 +900,13 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("^user clicks the saved annotation$")
     public void userClicksTheSavedAnnotation() throws Throwable {
         sharedAnnotationsPage.selectEditMode(input);
+        LOG.info("The user has clicked on the saved annotation");
+    }
+
+    @When("^user clicks on shared with and stop sharing annotation with \"(.*?)\" user$")
+    public void userStopSharingAnnotation(String userName) throws Throwable {
+        sharedAnnotationsPage.clickOnSharedWith();
+        sharedAnnotationsPage.removeUserWhomSharedAnnotation(userName);
         LOG.info("The user has clicked on the saved annotation");
     }
 
