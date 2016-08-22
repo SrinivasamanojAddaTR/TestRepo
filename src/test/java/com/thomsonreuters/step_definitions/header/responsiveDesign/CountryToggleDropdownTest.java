@@ -48,13 +48,13 @@ public class CountryToggleDropdownTest extends BaseStepDef {
     @Then("^the user selects \"(.*?)\"$")
     public void theUserSelects(String countryName) throws Throwable {
         header.countryLink(countryName).click();
-        navigationCobalt.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(120);
+        header.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(120);
     }
 
     @Then("^the Practical Law Country \"(.*?)\" web site \"(.*?)\" will be launched in the same window and tab$")
     public void thePracticalLawCountryWebSiteWillBeLaunchedInTheSameWindowAndTab(String websiteUrl, String websiteTitle) throws Throwable {
-        String currentPageTitle = navigationCobalt.getPageTitle();
-        String currentPageUrl = navigationCobalt.getCurrentUrl();
+        String currentPageTitle = header.getPageTitle();
+        String currentPageUrl = header.getCurrentUrl();
         assertTrue("User was redirected to another page", websiteTitle.equalsIgnoreCase(currentPageTitle) && currentPageUrl.contains(websiteUrl));
     }
 

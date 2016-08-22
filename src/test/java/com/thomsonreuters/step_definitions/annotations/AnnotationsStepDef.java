@@ -719,6 +719,8 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("^user has shared the annotations with new group and \"(.*?)\" as member$")
     public void userHasSharedTheAnnotationsWithAnotherGroup(String contact) throws Throwable {
         sharedAnnotationsPage.clickOnContactsLink();
+        sharedAnnotationsPage.waitForPageToLoad();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         sharedAnnotationsPage.searchGroup(groupName);
         if (!sharedAnnotationsPage.isGroupFoundInSearch(groupName)) {
             sharedAnnotationsPage.addGroup(groupName, getUserNameStartswithLastName(contact));
@@ -999,9 +1001,9 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     }
 
-    @When("user closes pop up from below")
-    public void userClosesPopUpFromBelow() {
-        sharedAnnotationsPage.closePopUpFromBelow();
+    @When("user closes disclaimer in the bottom")
+    public void userClosesDisclaimer() {
+        sharedAnnotationsPage.closeDisclaimer();
         LOG.info("The pop up from below was closed");
     }
 
