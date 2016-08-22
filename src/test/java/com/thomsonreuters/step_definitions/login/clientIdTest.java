@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class ClientIdTest extends BaseStepDef {
+public class clientIdTest extends BaseStepDef {
 	
     private WLNHeader wlnHeader = new WLNHeader();
 	private abilityToChangeClientIDAfterLogin abilityToChangeClientIDAfterLogin = new abilityToChangeClientIDAfterLogin();
