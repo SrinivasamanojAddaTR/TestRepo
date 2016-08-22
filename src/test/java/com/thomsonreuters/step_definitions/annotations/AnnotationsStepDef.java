@@ -27,6 +27,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -732,6 +733,37 @@ public class AnnotationsStepDef extends BaseStepDef {
         sharedAnnotationsPage.saveAnnotation();
         assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedInWLN(input));
         LOG.info("The user has shared annotations with a new group and " + contact + " as a member");
+    }
+
+    public static final String groupNameAvailableToOthers = "annotationsTestGroupAvailableToOthers";
+
+    @When("^user shared the annotations with group and \"(.*?)\" as member and this group available to others$")
+    public void userSharedTheAnnotationsWithAnotherGroupAndGroupIsAvailableToOthers(String contact) throws Throwable {
+        sharedAnnotationsPage.clickOnContactsLink();
+        sharedAnnotationsPage.waitForPageToLoad();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
+        sharedAnnotationsPage.searchGroup(groupNameAvailableToOthers);
+        if (!sharedAnnotationsPage.isGroupFoundInSearch(groupNameAvailableToOthers)) {
+            sharedAnnotationsPage.addGroupAvailableToOthers(groupNameAvailableToOthers, getUserNameStartswithLastName(contact));
+        }
+        sharedAnnotationsPage.selectGroup(groupNameAvailableToOthers);
+        assertFalse("User's group was not selected", sharedAnnotationsPage.getSharedGroupLinks().isEmpty());
+        assertTrue("Selected group is not correct", sharedAnnotationsPage.getSharedGroupLinks().get(0).getText().contains(groupName));
+        sharedAnnotationsPage.selectInsertButtonOnContactsPage();
+        sharedAnnotationsPage.saveAnnotation();
+        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedInWLN(input));
+        LOG.info("The user has shared annotations with a new group and " + contact + " as a member");
+    }
+
+    @When("^user verifies that shared group is displayed on groups tab$")
+    public void userVerifiesThatSharedGroupIsDisplayed() throws Throwable {
+        sharedAnnotationsPage.clickOnContactsLink();
+        sharedAnnotationsPage.waitForPageToLoad();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
+        sharedAnnotationsPage.searchGroup(groupNameAvailableToOthers);
+        assertTrue("Group is not displayed on groups tab", sharedAnnotationsPage.isGroupFoundInSearch(groupNameAvailableToOthers));
+        sharedAnnotationsPage.closeContactsForm();
+        LOG.info("Shared group is displayed on groups tab");
     }
 
     @When("^\"(.*?)\" clicks the link$")
