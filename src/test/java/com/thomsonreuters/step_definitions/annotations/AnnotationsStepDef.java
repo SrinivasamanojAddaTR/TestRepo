@@ -628,13 +628,13 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^search for Contact \"(.*?)\"$")
     public void searchForContact(String contact) throws Throwable {
-        sharedAnnotationsPage.searchContact(getUserFullName(contact));
+        sharedAnnotationsPage.searchContact(contact);
         LOG.info("Contact " + contact + " has been found");
     }
 
     @Then("^\"(.*?)\" is found in the contacts list$")
     public void isFoundInTheContactsList(String contact) throws Throwable {
-        assertTrue(sharedAnnotationsPage.isContactFoundInSearch(getUserNameStartswithLastName(contact)));
+        assertTrue(sharedAnnotationsPage.isContactFoundInSearch(contact));
         LOG.info(contact + " has ben found in the contacts list");
     }
 
@@ -674,8 +674,8 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("^user shared the annotations with another contact \"(.*?)\"$")
     public void userSharedTheAnnotationsWithAnotherContact(String contact) throws Throwable {
         sharedAnnotationsPage.clickOnContactsLink();
-        sharedAnnotationsPage.searchContact(getUserFullName(contact));
-        sharedAnnotationsPage.selectContact(getUserNameStartswithLastName(contact));
+        sharedAnnotationsPage.searchContact(contact);
+        sharedAnnotationsPage.selectContact(contact);
         sharedAnnotationsPage.selectInsertButtonOnContactsPage();
         sharedAnnotationsPage.scrollToTinyMceEditor();
         sharedAnnotationsPage.saveAnnotation();
@@ -724,7 +724,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         sharedAnnotationsPage.searchGroup(groupName);
         if (!sharedAnnotationsPage.isGroupFoundInSearch(groupName)) {
-            sharedAnnotationsPage.addGroup(groupName, getUserNameStartswithLastName(contact));
+            sharedAnnotationsPage.addGroup(groupName, contact);
         }
         sharedAnnotationsPage.selectGroup(groupName);
         assertFalse("User's group was not selected", sharedAnnotationsPage.getSharedGroupLinks().isEmpty());
@@ -744,7 +744,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         sharedAnnotationsPage.searchGroup(groupNameAvailableToOthers);
         if (!sharedAnnotationsPage.isGroupFoundInSearch(groupNameAvailableToOthers)) {
-            sharedAnnotationsPage.addGroupAvailableToOthers(groupNameAvailableToOthers, getUserNameStartswithLastName(contact));
+            sharedAnnotationsPage.addGroupAvailableToOthers(groupNameAvailableToOthers, contact);
         }
         sharedAnnotationsPage.selectGroup(groupNameAvailableToOthers);
         assertFalse("User's group was not selected", sharedAnnotationsPage.getSharedGroupLinks().isEmpty());
@@ -1214,24 +1214,6 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user has selected an add note color link");
     }
 
-    public String getUserFullName(String contact) {
-        User user = annotationUsers.get(contact);
-        if (StringUtils.isEmpty(user)) {
-            throw new PageOperationException("Usernames are not matching between usernameAndPassword properties and plPlusUser username value.");
-        }
-        LOG.info("A full user's name is got");
-        return user.getFullName();
-    }
-
-    public String getUserNameStartswithLastName(String contact) {
-        User user = annotationUsers.get(contact);
-        if (StringUtils.isEmpty(user)) {
-            throw new PageOperationException("Usernames are not matching between usernameAndPassword properties and plPlusUser username value.");
-        }
-        LOG.info("The user's name started with a last name is got");
-        return user.getLastName() + ", " + user.getFirstName();
-    }
-
     private FormatType getFormatType(String style) {
         LOG.info("The format type is got");
         return FormatType.valueOf(style.toUpperCase().trim());
@@ -1350,13 +1332,6 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("Displayed annotations are hidden");
     }
 
-    @When("^user deletes All annotations$")
-    public void userDeletesAllAnnotations() {
-        sharedAnnotationsPage.deleteAllAnnotations(getUserFullName(currentUser.getUserName()));
-        sharedAnnotationsPage.deleteInlineAnnotations();
-        LOG.info("The user has deleted All annotations");
-    }
-
     private static int annotationsCount;
 
     @When("^the user verifies the annotations count under link$")
@@ -1370,14 +1345,6 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void annotationsCountShouldMatchWithAnnotationsPresentOnDocument() throws Throwable {
         assertTrue(annotationsCount == sharedAnnotationsPage.getTotalNotesOnDocument());
         LOG.info("The annotations count match with the annotations present on a document");
-    }
-
-    @Then("^Annotations count should be displayed as zero$")
-    public void annotationsCountShouldBeDisplayedAsZero() throws Throwable {
-        sharedAnnotationsPage.deleteAllAnnotations(getUserFullName(currentUser.getUserName()));
-        sharedAnnotationsPage.deleteInlineAnnotations();
-        assertTrue(0 == sharedAnnotationsPage.getTotalNotesOnDocument());
-        LOG.info("The annotations count are displayed as zero");
     }
 
     public String saveToFolder(String folder) {
