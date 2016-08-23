@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.annotations;
 
-import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.annotations.FormatType;
@@ -19,7 +18,6 @@ import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceAnnotationsImpl;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceFFHImpl;
 import com.thomsonreuters.pageobjects.utils.RoutingPage;
-import com.thomsonreuters.pageobjects.utils.User;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.PendingException;
 import cucumber.api.java.After;
@@ -27,7 +25,6 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.junit.Assert;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -937,9 +934,17 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user has clicked on the saved annotation");
     }
 
+    @When("^user clicks on previously shared$")
+    public void userClicksOnPreviouslyShared() throws Throwable {
+        sharedAnnotationsPage.clickOnPreviouslySharedLink();
+        sharedAnnotationsPage.waitForPageToLoad();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
+        LOG.info("The user has clicked on the previously shared link");
+    }
+
     @When("^user clicks on shared with and stop sharing annotation with \"(.*?)\" user$")
     public void userStopSharingAnnotation(String userName) throws Throwable {
-        sharedAnnotationsPage.clickOnSharedWith();
+        sharedAnnotationsPage.clickOnSharedWithLink();
         sharedAnnotationsPage.removeUserWhomSharedAnnotation(userName);
         LOG.info("The user has clicked on the saved annotation");
     }
@@ -983,6 +988,11 @@ public class AnnotationsStepDef extends BaseStepDef {
         assertTrue(sharedAnnotationsPage.isUndoButtonDisplayed());
         assertTrue(sharedAnnotationsPage.isCloseButtonDisplayed());
         LOG.info(message + " text is displayed with undo and has closed links");
+    }
+    @Then("^user should see \"(.*?)\" user$")
+    public void userCanSeePreviouslyUser(String userName) throws Throwable {
+        assertTrue("User: " + userName + " is not displayed",sharedAnnotationsPage.isUserExist(userName));
+        LOG.info("User: " + userName + " is displayed");
     }
 
     @Then("^user unable to find the deleted annotations$")

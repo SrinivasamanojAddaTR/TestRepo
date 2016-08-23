@@ -15,7 +15,7 @@ Feature: Annotation functionallity on the delivery widget
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
     When user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
-    And user closes pop up from below
+    And user closes disclaimer in the bottom
     And user added new annotation
     And user looks through the body of the document and select text with colour "blueBox"
     And user added inline annotation after annotation at the top

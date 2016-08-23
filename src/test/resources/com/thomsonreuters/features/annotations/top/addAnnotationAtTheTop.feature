@@ -237,7 +237,7 @@ Feature:[825682] Add annotation at the top of the document
     And user clicks on cancel button
     Then annotations textbox will not be displayed with tinymce editor
 
-
+  @wip
   Scenario: Verifying that not logged in user can't see annotation link
     Given ANZ user is not logged in
     And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
