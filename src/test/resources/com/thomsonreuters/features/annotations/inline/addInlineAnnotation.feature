@@ -3,7 +3,7 @@ Feature:[825694] Add inline annotation for the document
    @deletionAnnotations
   Scenario: Checking that user can save  inline annotation
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "I23c506d9c07111e598dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
@@ -15,7 +15,7 @@ Feature:[825694] Add inline annotation for the document
   @deletionAnnotations
   Scenario: User should be able to see the disabled save button when inline annotation text exceeds 3000 chars length and to save annotation text equals 3000 chars length
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "I23c506d9c07111e598dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And user enters inline annotation text with "3001" chars length
@@ -29,7 +29,7 @@ Feature:[825694] Add inline annotation for the document
 
   Scenario: User should be able to see the disabled save button when inline annotation textbox is empty
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "I23c506d9c07111e598dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And user enters inline annotation text with "empty" chars length
@@ -43,8 +43,8 @@ Feature:[825694] Add inline annotation for the document
 
   Scenario Outline: Verifying that text can be displayed in bold/italic/underline/strikethrough for inline annotation
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     When clearing existing styles and annotation text
     And selecting "<style>" and writing text
@@ -59,8 +59,8 @@ Feature:[825694] Add inline annotation for the document
   @deletionAnnotations
   Scenario Outline: Adding Annotaiton with character Styles: bold/italic/ALIGN_LEFT/ALIGN_CENTER/ALIGN_RIGHT/strikethrough/underlined/number/bullet applying to selected text for the inline annotation
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And clearing existing styles and annotation text
     And highlighted text with the cursor
@@ -83,8 +83,8 @@ Feature:[825694] Add inline annotation for the document
 
   Scenario Outline: Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE selected after entering text
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And selecting Inline format "<style>" and writing text
     Then text displays with "<style>" Inline style
@@ -98,8 +98,8 @@ Feature:[825694] Add inline annotation for the document
   @deletionAnnotations
   Scenario Outline: Adding Annotaiton with Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE applying to selected text
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And highlighted text with the cursor
     And selecting Inline format "<style>"
@@ -117,8 +117,8 @@ Feature:[825694] Add inline annotation for the document
   @deletionAnnotations
   Scenario Outline: Bullet and number styles for inline annotation
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And selecting "<style>" from the toolbar and writing text in multiple lines
     Then multiple lines text displays same "<style>" format
@@ -132,8 +132,8 @@ Feature:[825694] Add inline annotation for the document
   @deletionAnnotations
   Scenario Outline: Inline Styles: Adding Annotaiton with Alignment Styles: LEFT/CENTER/RIGHT applying to selected text
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And highlighted text with the cursor
     And selecting Alignment format "<style>"
@@ -149,8 +149,8 @@ Feature:[825694] Add inline annotation for the document
   @deletionAnnotations
   Scenario Outline: Header Styles: HEADING/SUB_HEADING Styles and adding Annotaiton with Header Styles: HEADING/SUB_HEADING Applying to selected text
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And highlighted text with the cursor
     And selecting Headers format "<style>"
@@ -169,8 +169,8 @@ Feature:[825694] Add inline annotation for the document
 
   Scenario: Blocks Styles: PARAGRAPH style by default
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And enter the sample text
     Then text should be added with the "Paragraph" style by default
@@ -178,8 +178,8 @@ Feature:[825694] Add inline annotation for the document
 
   Scenario Outline: Cut/Copy/Paste
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And use the "<input>" to select options
     And highlighted text with the cursor
@@ -198,8 +198,8 @@ Feature:[825694] Add inline annotation for the document
   @deletionAnnotations
   Scenario: Convert Pasted URL strings into Links
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And the user has inserted the url string "http://google.co.uk" into textbox
     And saving the annotation
@@ -212,8 +212,8 @@ Feature:[825694] Add inline annotation for the document
 
   Scenario: Verifying cancel button
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I2436c8a5e0c011e598dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And user added text for annotation
     Then annotations textbox will be displayed with tinymce editor
@@ -223,7 +223,7 @@ Feature:[825694] Add inline annotation for the document
   @wip
   Scenario: Verifying that not logged in user can't see annotation link
     Given ANZ user is not logged in
-    And user navigates directly to document with guid "I2436c8a5e0c011e598dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text
     Then choosing colour panel is not displayed
 

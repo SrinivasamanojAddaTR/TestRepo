@@ -3,8 +3,8 @@ Feature:[845624] Edit an inline annotation
   @AnnotationsSmokeTests @e2e  @deletionAnnotations
   Scenario: Verify that user can modify inline annotations
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    When user navigates directly to document with guid "If9293e5fdb5911e598dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    When user navigates directly to document with guid "I1b74907e995911e598dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
     Then verify saved annotations text will be displayed with metadata
@@ -17,8 +17,8 @@ Feature:[845624] Edit an inline annotation
   @deletionAnnotations
   Scenario: Verify that inline annotation will not be updated if user clicks on cancel button
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    When user navigates directly to document with guid "If9293e5fdb5911e598dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    When user navigates directly to document with guid "I1b74907e995911e598dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
     Then verify saved annotations text will be displayed with metadata

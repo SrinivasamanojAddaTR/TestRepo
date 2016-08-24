@@ -62,7 +62,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario Outline: Verifying that text can be displayed in bold/italic/underline/strikethrough for annotation at the top
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     Then the user has accessed annotations text box
     When clearing existing styles and annotation text
     And selecting "<style>" and writing text
@@ -78,7 +78,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario Outline: Adding Annotaiton with character Styles: bold/italic/ALIGN_LEFT/ALIGN_CENTER/ALIGN_RIGHT/strikethrough/underlined/number/bullet applying to selected text for the annotation at the top
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And clearing existing styles and annotation text
     And highlighted text with the cursor
@@ -102,7 +102,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario Outline: Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE selected after entering text
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And selecting Inline format "<style>" and writing text
     Then text displays with "<style>" Inline style
@@ -117,7 +117,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario Outline: Adding Annotaiton with Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE applying to selected text
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And highlighted text with the cursor
     And selecting Inline format "<style>"
@@ -136,7 +136,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario Outline: Bullet and number styles for annotation at the top
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And selecting "<style>" from the toolbar and writing text in multiple lines
     Then multiple lines text displays same "<style>" format
@@ -151,7 +151,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario Outline: Inline Styles: Adding Annotaiton with Alignment Styles: LEFT/CENTER/RIGHT applying to selected text
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And highlighted text with the cursor
     And selecting Alignment format "<style>"
@@ -168,7 +168,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario Outline: Header Styles: HEADING/SUB_HEADING Styles and adding Annotaiton with Header Styles: HEADING/SUB_HEADING Applying to selected text
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     Then the user has accessed annotations text box
     And highlighted text with the cursor
     And selecting Headers format "<style>"
@@ -188,7 +188,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario: Blocks Styles: PARAGRAPH style by default
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     Then the user has accessed annotations text box
     And enter the sample text
     Then text should be added with the "Paragraph" style by default
@@ -197,7 +197,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario Outline: Cut/Copy/Paste
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     When the user has accessed annotations text box
     And use the "<input>" to select options
     And highlighted text with the cursor
@@ -217,7 +217,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario: Convert Pasted URL strings into Links
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And the user has accessed annotations text box
     And the user has inserted the url string "http://google.co.uk" into textbox
     And saving the annotation
@@ -231,7 +231,7 @@ Feature:[825682] Add annotation at the top of the document
   Scenario: Verifying cancel button
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user added text for annotation
     Then annotations textbox will be displayed with tinymce editor
     And user clicks on cancel button
@@ -240,14 +240,14 @@ Feature:[825682] Add annotation at the top of the document
   @wip
   Scenario: Verifying that not logged in user can't see annotation link
     Given ANZ user is not logged in
-    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     Then add annotation link is not displayed
 
   @deletionAnnotations
   Scenario: Check annotation count on the top of annotations box
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
-    And user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     And user added new annotation
     Then verify saved annotations text will be displayed with metadata
     Then check that annotation count at the top is displayed "1"

@@ -22,7 +22,7 @@ public class RunAnnotationsCommonTest {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "auAnnotationUser1");
+            System.setProperty("username", "auAnnotationUser3");
             System.setProperty("password", "Password1");
             LOG.info("The credentials have been set");
         } else {

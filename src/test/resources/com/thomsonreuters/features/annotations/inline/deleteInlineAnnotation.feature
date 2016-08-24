@@ -3,8 +3,8 @@ Feature:[845628] Delete an inline annotation
   @e2e  @deletionAnnotations
   Scenario: Delete inline annotation, undo Deleted Annotations and close link on Delete Annotations
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
-    When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
+      | userName | auAnnotationUser2 |
+    When user navigates directly to document with guid "I3646c6209aaf11e598dc8b09b4f043e0" on PL AU website
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
     And user clicks the saved annotation
