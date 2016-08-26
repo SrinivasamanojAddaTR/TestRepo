@@ -81,3 +81,18 @@ Feature: Sharing annotations
     And user clicks the saved annotation
     And user clicks on previously shared
     Then user should see "0057 PL_TEST_GEN" user
+
+  @AnnotationsSmokeTests @e2e
+  Scenario:User can create, edit and delete a group
+    Given ANZ user is logged in with following details
+      | userName | shareAnnotationUser1 |
+    When user navigates directly to document with guid "I445609a69ab311e598dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
+    And user navigates to annotations textbox with text
+    And user creates new group
+    Then user verifies that this group is displayed and user count is "2"
+    Then group info pop up contains users from group
+    And user edits the group "0057 PL_TEST_GEN" and remove one memeber
+    Then user verifies that user count for group is "1"
+    And user removes group
+    Then message "The personal group was deleted" appears

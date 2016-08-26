@@ -1,6 +1,7 @@
 package com.thomsonreuters.step_definitions.annotations;
 
 import com.thomsonreuters.pageobjects.common.CommonMethods;
+import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.annotations.FormatType;
 import com.thomsonreuters.pageobjects.pages.annotations.InsertEditLink;
@@ -56,7 +57,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     private SaveToPopup saveToPopup;
 
     private KnowHowSearchResultsPage knowHowSearchResultsPage;
-
+    private PageActions pageActions;
     private ResearchOrganizerPage researchOrganizerPage;
     private PracticalLawUKCategoryPage practicalLawUKCategoryPage;
     private SearchResultsPage searchResultsPage;
@@ -69,6 +70,8 @@ public class AnnotationsStepDef extends BaseStepDef {
     private String guidDoc;
     public static String input;
     public static String modifiedInput;
+    private ArrayList<String> contacts;
+
 
     public static List<String> numbersList;
 
@@ -100,6 +103,8 @@ public class AnnotationsStepDef extends BaseStepDef {
         standardDocumentPage = new StandardDocumentPage();
         restServiceFFHImpl = new RestServiceFFHImpl();
         restServiceAnnotations = new RestServiceAnnotationsImpl();
+        pageActions = new PageActions();
+        contacts = new ArrayList<String>();
     }
 
     @When("^the user has accessed annotations text box$")
@@ -187,6 +192,12 @@ public class AnnotationsStepDef extends BaseStepDef {
         sharedAnnotationsPage.chooseColorForNote(colour);
         editOption = "toolbar";
         LOG.info("Select text from document");
+    }
+
+    @When("^user gets guid from url$")
+    public void userGetsGuidFromURL() throws Throwable {
+        guidDoc = getDocumentGUIDFromURL();
+        LOG.info("User set guidDoc:" + guidDoc);
     }
 
     @When("^user looks through the body of the document and select text with colour \"(.*?)\" for highlight text$")
@@ -453,6 +464,34 @@ public class AnnotationsStepDef extends BaseStepDef {
         input = "input" + System.currentTimeMillis();
         sharedAnnotationsPage.insertInput(input);
         LOG.info("The user has navigated to the annotations text box with text");
+    }
+    String randomGroup = "group" + System.currentTimeMillis();
+    @When("^user creates new group$")
+    public void theUserCreatesNewGroup() throws Throwable {
+        contacts.add("PL_TEST_GEN, 0057");
+        contacts.add("PL_TEST_GEN, 0058");
+        sharedAnnotationsPage.clickOnContactsLink();
+        sharedAnnotationsPage.waitForPageToLoad();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
+        sharedAnnotationsPage.createNewRandomGroup(randomGroup, contacts);
+        LOG.info("User creates new random group");
+    }
+
+    @When("^user edits the group \"(.*?)\" and remove one memeber$")
+    public void theUserEditsTheGroup(String user) throws Throwable {
+        pageActions.mouseOver(sharedAnnotationsPage.getGroupsListItem());
+        sharedAnnotationsPage.clickOnEditOption();
+        sharedAnnotationsPage.removeUserFromGroupAndSaveGroup(user);
+        LOG.info("User edits the group and remove one member");
+
+    }
+
+    @When("^user removes group$")
+    public void theUserRemovesTheGroup() throws Throwable {
+        pageActions.mouseOver(sharedAnnotationsPage.getGroupsListItem());
+        sharedAnnotationsPage.removeGroup();
+        LOG.info("User removes the group");
+
     }
 
     @When("^user navigates to WLN annotations textbox with text$")
@@ -995,6 +1034,38 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("User: " + userName + " is displayed");
     }
 
+    @Then("^user verifies that this group is displayed and user count is \"(.*?)\"$")
+    public void userVerifiesRandomGroupAndCount(String count) throws Throwable {
+        sharedAnnotationsPage.searchGroup(randomGroup);
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
+        assertTrue("Group: " + randomGroup + " is not displayed",sharedAnnotationsPage.isGroupFoundInSearch(randomGroup));
+        assertTrue("Count is different. Count into the group: " + sharedAnnotationsPage.getUserCountForGroup(), count.equals(sharedAnnotationsPage.getUserCountForGroup()));
+        LOG.info("Group: " + randomGroup + " is displayed");
+    }
+
+    @Then("^group info pop up contains users from group$")
+    public void infoPopUpContainsUsersFromGroup() throws Throwable {
+        pageActions.mouseOver(sharedAnnotationsPage.getGroupsListItem());
+        sharedAnnotationsPage.clickOnGroupInfo();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
+       for(String user : contacts) {
+           assertTrue("User: " + user + " is  not contained into info pop up", sharedAnnotationsPage.getTextFromPopUpWithMembers().contains(user));
+       }
+        LOG.info("Pop up contains all users from group");
+    }
+
+    @Then("^user verifies that user count for group is \"(.*?)\"$")
+    public void userVerifiesCountForGroup(String count) throws Throwable {
+        assertTrue("Count is different. Count into the group: " + sharedAnnotationsPage.getUserCountForGroup(), count.equals(sharedAnnotationsPage.getUserCountForGroup()));
+        LOG.info("Count: " + sharedAnnotationsPage.getUserCountForGroup() + " is displayed");
+    }
+
+    @Then("^message \"(.*?)\" appears$")
+    public void checkThatGroupWasDeleted(String message) throws Throwable {
+        assertTrue("Group was not deleted ", message.equals(sharedAnnotationsPage.getTextFromPopUpAboutDeletedGroup()));
+        LOG.info("Group was deleted");
+    }
+
     @Then("^user unable to find the deleted annotations$")
     public void userUnableToFindTheDeletedAnnotations() throws Throwable {
         assertFalse(sharedAnnotationsPage.isSavedAnnotationDisplayed(input, SharedAnnotationsPage.ExpectedResult.NOT_VISIBLE));
@@ -1046,7 +1117,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("user closes disclaimer in the bottom")
     public void userClosesDisclaimer() {
         sharedAnnotationsPage.closeDisclaimer();
-        LOG.info("The pop up from below was closed");
+        LOG.info("The disclaimer was closed");
     }
 
     @When("user added text for annotation")
@@ -1474,6 +1545,12 @@ public class AnnotationsStepDef extends BaseStepDef {
             LOG.error("The result page isn't displayed", e);
         }
         LOG.info("The user has verified that the results list page is displayed");
+    }
+
+    private String getDocumentGUIDFromURL() {
+        String urlString[] = getDriver().getCurrentUrl().split("/Document/");
+        String guid[] = urlString[1].split("/");
+        return guid[0];
     }
 
     @After("@deletionAnnotations")

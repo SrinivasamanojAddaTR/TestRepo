@@ -100,9 +100,10 @@ Feature: [825681] View annotation
   Scenario: User should be able to see notes added icon in search results list if user added  inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
-    When the user runs a free text search for the query "Test"
+    When the user runs a free text search for the query "Rule"
     And the user opens '1' link in the search result and store its title and guid
+    And user gets guid from url
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
-    When the user runs a free text search for the query "Test"
+    When the user runs a free text search for the query "Rule"
     Then the search result "1" document will be displayed along with nodes added link
