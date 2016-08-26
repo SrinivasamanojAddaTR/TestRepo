@@ -1116,7 +1116,9 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("user closes disclaimer in the bottom")
     public void userClosesDisclaimer() {
-        sharedAnnotationsPage.closeDisclaimer();
+        if(sharedAnnotationsPage.isDisclaimerPresent()) {
+            sharedAnnotationsPage.closeDisclaimer();
+        }
         LOG.info("The disclaimer was closed");
     }
 
