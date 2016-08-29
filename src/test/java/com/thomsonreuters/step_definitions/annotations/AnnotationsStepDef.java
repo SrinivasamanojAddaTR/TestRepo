@@ -190,6 +190,8 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void selectTextFromDocument(String colour) throws Throwable {
         sharedAnnotationsPage.selectTextFromDocument();
         sharedAnnotationsPage.chooseColorForNote(colour);
+        sharedAnnotationsPage.waitForPageToLoad();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         editOption = "toolbar";
         LOG.info("Select text from document");
     }
@@ -1107,6 +1109,8 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("user added new annotation")
     public void userAddedNewAnnotation() {
         deliveryPage.clickOnLink(DocumentDeliveryPage.Links.NEW_ANNOTATION);
+        sharedAnnotationsPage.waitForPageToLoad();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         input = "input" + System.currentTimeMillis();
         sharedAnnotationsPage.amendInput(input);
         sharedAnnotationsPage.saveAnnotation();
