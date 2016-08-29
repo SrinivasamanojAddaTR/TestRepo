@@ -366,4 +366,14 @@ public class AnzHistoryViewTest extends BaseStepDef {
         }
     }
 
+    @When("^the user clicks on the facet \"(.*?)\" checkbox$")
+    public void theUserClicksOnTheFacetCheckbox(String arg1) throws Throwable {
+
+    }
+
+    @Then("^the user should see the results from both \"(.*?)\" or \"(.*?)\" and \"(.*?)\"$")
+    public void theUserShouldSeeTheResultsFromBothOrAnd(String arg1, String arg2, String arg3) throws Throwable {
+
+    }
+
 }
