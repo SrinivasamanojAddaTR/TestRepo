@@ -5,6 +5,7 @@ Feature: [825681] View annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
     When user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
     And user added new annotation
     Then verify saved annotations text will be displayed with metadata
     Then check that annotations at the top are expanded
@@ -17,6 +18,7 @@ Feature: [825681] View annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
     When user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
     And user added new annotation
     Then check that annotations at the top are expanded
     And user collaps annotations at the top
@@ -29,6 +31,7 @@ Feature: [825681] View annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
     When user navigates directly to document with guid "<guid>" on PL AU website
+    And user closes disclaimer in the bottom
     And user added new annotation
     Then check that annotations at the top are expanded
     Examples:
@@ -45,6 +48,7 @@ Feature: [825681] View annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
     When user navigates directly to document with guid "Ifbf497fd995811e598dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
     Then verify saved annotations text will be displayed with metadata
@@ -57,6 +61,7 @@ Feature: [825681] View annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
     When user navigates directly to document with guid "<guid>" on PL AU website
+    And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
     Then verify saved annotations text will be displayed with metadata
@@ -76,6 +81,7 @@ Feature: [825681] View annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
     When user navigates directly to document with guid "Ifbf497fd995811e598dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
     Then verify saved annotations text will be displayed with metadata
@@ -92,8 +98,9 @@ Feature: [825681] View annotation
       | userName | auAnnotationUser3 |
     When the user runs a free text search for the query "Children"
     And the user opens '1' link in the search result and store its title and guid
-    Then user added new annotation
-    When the user runs a free text search for the query "Children"
+    And user closes disclaimer in the bottom
+    And user added new annotation
+    And the user runs a free text search for the query "Children"
     Then the search result "1" document will be displayed along with nodes added link
 
   @deletionAnnotations
@@ -102,8 +109,9 @@ Feature: [825681] View annotation
       | userName | auAnnotationUser3 |
     When the user runs a free text search for the query "Rule"
     And the user opens '1' link in the search result and store its title and guid
+    And user closes disclaimer in the bottom
     And user gets guid from url
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
-    When the user runs a free text search for the query "Rule"
+    And the user runs a free text search for the query "Rule"
     Then the search result "1" document will be displayed along with nodes added link

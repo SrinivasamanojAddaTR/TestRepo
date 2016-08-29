@@ -5,6 +5,7 @@ Feature:[845628] Delete an inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "I3646c6209aaf11e598dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
     And user clicks the saved annotation

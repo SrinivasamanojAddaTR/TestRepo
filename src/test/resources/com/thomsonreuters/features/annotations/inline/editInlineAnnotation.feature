@@ -5,6 +5,7 @@ Feature:[845624] Edit an inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "I1b74907e995911e598dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
     Then verify saved annotations text will be displayed with metadata
@@ -19,6 +20,7 @@ Feature:[845624] Edit an inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "I1b74907e995911e598dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
     Then verify saved annotations text will be displayed with metadata

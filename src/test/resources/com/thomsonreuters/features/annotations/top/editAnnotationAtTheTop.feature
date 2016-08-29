@@ -5,6 +5,7 @@ Feature:[825683] Edit an annotation at the top of the document
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
     When user navigates directly to document with guid "I5114280ee4c611e598dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
     And user click on new Annotations link
     Then annotations textbox will be displayed with tinymce editor
     And the user can insert the text and save it
@@ -20,6 +21,7 @@ Feature:[825683] Edit an annotation at the top of the document
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
     When user navigates directly to document with guid "I5114280ee4c611e598dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
     And user click on new Annotations link
     Then annotations textbox will be displayed with tinymce editor
     And the user can insert the text and save it

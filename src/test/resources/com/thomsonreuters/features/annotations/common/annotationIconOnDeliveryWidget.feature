@@ -4,6 +4,7 @@ Feature: Annotation functionallity on the delivery widget
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
     When user navigates directly to document with guid "I7e704ac6b3ec11e598dc8b09b4f043e0" on PL AU website
+    And user closes disclaimer in the bottom
     Then the user is able to see new annotations link is present
     And verify new annotations link is clickable
     When the user moves the mouse over on add annotations link
