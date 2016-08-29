@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
         plugin = {"pretty", "html:target/cucumber-htmlreport/SharingAnnotationsReport", "junit:target/junit_cucumber.xml", "json:target/json-files/RunSharingAnnotationsTest.json"},
         features = "src/test/resources/com/thomsonreuters/features/annotations/sharing",
         tags = {"~@wip", "~@manual"},
-        glue = {"com.thomsonreuters.step_definitions"},
+        glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
 public class RunSharingAnnotationsTest {

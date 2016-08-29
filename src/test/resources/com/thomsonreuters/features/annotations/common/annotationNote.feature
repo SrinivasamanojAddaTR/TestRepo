@@ -20,7 +20,9 @@ Feature:[825696][825697] Annotation note: Highlight text, copy with or without r
     When user navigates directly to document with guid "I2436c8a5e0c011e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with Copy without reference option
-    Then user checks that text was copied without reference and equals "dismissal "
+    And the user has accessed annotations text box
+    And user copies text from clipboard to annotation text box
+    Then user checks that text was copied without reference and equals "victimisation"
 
 
   Scenario: Checking that user can copy with reference
@@ -29,4 +31,6 @@ Feature:[825696][825697] Annotation note: Highlight text, copy with or without r
     When user navigates directly to document with guid "I2436c8a5e0c011e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with Copy with reference option
-    Then user checks that text was copied with reference and equals "dismissal   Federal dismissal: jurisdiction: dismissed, Practical Law ANZ Practice Note w-001-4736"
+    And the user has accessed annotations text box
+    And user copies text from clipboard to annotation text box
+    Then user checks that text was copied with reference and equals "victimisation  Age discrimination: overview of the Age Discrimination Act 2004 (Cth), Practical Law ANZ Practice Note w-001-4954"

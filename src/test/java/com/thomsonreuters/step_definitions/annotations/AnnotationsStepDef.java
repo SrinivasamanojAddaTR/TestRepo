@@ -110,8 +110,16 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("^the user has accessed annotations text box$")
     public void theUserHasAccessedAnnotationsTextBox() throws Throwable {
         deliveryPage.clickOnLink(DocumentDeliveryPage.Links.NEW_ANNOTATION);
+        deliveryPage.waitForPageToLoad();
+        deliveryPage.waitForPageToLoadAndJQueryProcessing();
         editOption = "toolbar";
         LOG.info("The user has accessed annotations text box");
+    }
+
+    @When("^user copies text from clipboard to annotation text box$")
+    public void theUserCopiesTextFromClipboardToAnnotationTextBox() throws Throwable {
+       sharedAnnotationsPage.copyTextFromClipboardToTinyMceTextBox();
+        LOG.info("Text was copied to the annotation text body");
     }
 
     @When("^clearing existing styles and annotation text$")
@@ -890,14 +898,16 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^user checks that text was copied without reference and equals \"(.*?)\"$")
     public void verifyTextWithoutReference(String expectedResult) throws Throwable {
-        String textWithoutReference = sharedAnnotationsPage.getClipBoard();
+        String textWithoutReference =  sharedAnnotationsPage.getAnnotationTextBox().getText();
+        assertTrue("Clipboard is empty", !textWithoutReference.isEmpty());
         assertTrue("Different expected text and text without reference. Text without reference: " + textWithoutReference, expectedResult.equals(textWithoutReference));
         LOG.info("Text was copied without reference");
     }
 
     @Then("^user checks that text was copied with reference and equals \"(.*?)\"$")
     public void verifyTextWithReference(String expectedResult) throws Throwable {
-        String textWithReference = sharedAnnotationsPage.getClipBoard();
+        String textWithReference =  sharedAnnotationsPage.getAnnotationTextBox().getText();
+        assertTrue("Clipboard is empty", !textWithReference.isEmpty());
         textWithReference = textWithReference.replaceAll("\\n", " ");
         assertTrue("Different expected text and text with reference. Text with reference: " + textWithReference, expectedResult.equals(textWithReference));
         LOG.info("Text was copied with reference");
