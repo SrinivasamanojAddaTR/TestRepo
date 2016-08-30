@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2016: Thomson Reuters. All Rights Reserved. Proprietary and Confidential information of Thomson Reuters. Disclosure, Use or Reproduction without the written authorization of Thomson Reuters is prohibited. -->
+<!-- Empty required-subscription means the email is free, eg EMPLC, EMAILGC -->
+
+<email-subscription>
+
+  <category name="AU">
+    
+    <email-products>
+      <common-name>Employment</common-name>
+      <!--Daily subscription is temporarily hidden -->
+      <!--<product freq="D">
+        <name>PLAUEMPDAY</name>
+        <description>Employment (Daily)</description>
+      </product>-->
+      <product freq="W">
+        <name>PLAUEMPWKLY</name>
+        <description>Employment (Weekly)</description>
+      </product>
+      <required-subscription>ADST-AU-EMPLOYMENT</required-subscription>
+    </email-products>
+  </category>
+
+</email-subscription>
