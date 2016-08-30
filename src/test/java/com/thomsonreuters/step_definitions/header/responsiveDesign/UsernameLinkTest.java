@@ -50,7 +50,7 @@ public class UsernameLinkTest extends BaseStepDef {
 
     @Then("^user clicks on \"(.*)\" link$")
     public void userClicksOnLink(String linkText) throws Throwable {
-        comMethods.waitElementByLinkText(linkText).click();
+        header.scrollIntoViewAndClick(comMethods.waitElementByLinkText(linkText));
     }
 
     @Then("^user should navigate to (.*)$")
