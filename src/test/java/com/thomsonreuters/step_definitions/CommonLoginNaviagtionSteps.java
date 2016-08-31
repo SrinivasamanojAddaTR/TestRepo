@@ -85,6 +85,7 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 	@Given("^ANZ user is not logged in$")
 	public void anzUserIsNotLoggedIn() throws Throwable {
 		super.anzUserIsNotLoggedIn();
+		resetCurrentUser();
 	}
 
 	@Given("^ANZ user is logged in with following details$")
