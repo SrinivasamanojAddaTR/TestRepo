@@ -1464,13 +1464,6 @@ public class AnnotationsStepDef extends BaseStepDef {
         return folderName;
     }
 
-    @Then("^user logs out$")
-    public void userLogsOut() throws Throwable {
-        wlnHeader.signOff();
-        LOG.info("The user has logged out");
-        //onePassLogin.waitForPageToLoad();
-    }
-
     @When("^the user clicks on '(.+)' link on the header$")
     public void theUserClicksOnLinkOnTheHeader(String linkName) throws Throwable {
         researchOrganizerPage.waitForPageToLoad();

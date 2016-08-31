@@ -2,10 +2,12 @@ package com.thomsonreuters.step_definitions;
 
 import com.thomsonreuters.pageobjects.common.BaseCommonLoginNavigation;
 import com.thomsonreuters.pageobjects.utils.CobaltUser;
+import com.thomsonreuters.pageobjects.utils.Product;
 import cucumber.api.Transpose;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -114,6 +116,14 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 	@Given("^ANZ user is logged in with routing details$")
 	public void anzUserIsLoggedInWithRoutingDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
 		super.anzUserIsLoggedInWithRoutingDetails(plPlusUserList);
+	}
+
+	@Given("^ANZ user is applying routing without login$")
+	public void anzUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+		for(CobaltUser user : plPlusUserList) {
+			user.setProduct(Product.ANZ);
+		}
+		plUserIsApplyingRoutingWithoutLogin(plPlusUserList);
 	}
 
 	@Given("^PL\\+ user is applying routing without login$")
