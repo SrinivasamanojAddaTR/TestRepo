@@ -38,7 +38,7 @@ So that I do not have to perform a new search
       | query   | facet1    	|facet11							| facet2       		| facet22 					| 
    	  | tax 	| Company Law 	|Company administration and meetings| Practice Notes	| Practice note: overview 	| 
   
-  @RemoveSRMOptionANZ @new
+  @RemoveSRMOptionANZ
   Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
     Given ANZ user is logged in with following details
       | userName | ANZtestuser2						|

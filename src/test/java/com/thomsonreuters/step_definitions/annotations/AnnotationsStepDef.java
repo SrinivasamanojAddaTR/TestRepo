@@ -33,9 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1493,39 +1490,6 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user clicked on '(.+)' tab on the History page");
     }
 
-    @When("^the user runs a free text search for the query \"(.*)\"$")
-    public void theUserRunsAFreeTextSearchForTheQuery(String query) throws Throwable {
-
-        //paste string into the system clipboard instead
-        StringSelection stringSelection = new StringSelection(query);
-        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-
-        // Ensure the search button has rendered
-        practicalLawUKCategoryPage.searchButton().isDisplayed();
-
-        practicalLawUKCategoryPage.freeTextField().clear();
-        //sendKeys isn't always working
-        //practicalLawUKCategoryPage.freeTextField().sendKeys(query);
-
-        //Paste the clipboard text if the query contains brackets or ampersand
-        if (query.contains("(") || query.contains(")") || query.contains("&")) {
-            clpbrd.setContents(stringSelection, null);
-            practicalLawUKCategoryPage.freeTextField().sendKeys(Keys.CONTROL + "v");
-        } else {
-            practicalLawUKCategoryPage.freeTextField().sendKeys(query);
-        }
-
-//        if (practicalLawUKCategoryPage.getDriver().getClass().equals(ChromeDriver.class)) {
-//            pageActions.keyPress(Keys.ENTER);
-//        } else {
-        practicalLawUKCategoryPage.searchButton().click();
-        //}
-
-        // Wait for the results list to display
-        theUserVerifiesThatTheResultsListPageIsDisplayed();
-        LOG.info("The user has run a free text search for the query " + query);
-    }
-
     protected void openHistoryTab(HistoryTabs tab) {
         researchOrganizerPage.waitForPageToLoad();
         researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
@@ -1541,19 +1505,6 @@ public class AnnotationsStepDef extends BaseStepDef {
             throw new RuntimeException("History tab '" + tab.getName() + "' absent!");
         }
         LOG.info("A history tab is opened");
-    }
-
-    @When("^the user verifies that the results list page is displayed$")
-    public void theUserVerifiesThatTheResultsListPageIsDisplayed() throws Throwable {
-        //Waiting for page to refresh
-        searchResultsPage.waitForPageToLoad();
-        try {
-            searchResultsPage.resultsListHeader().isDisplayed();
-            searchResultsPage.filterHeader().isDisplayed();
-        } catch (Exception e) {
-            LOG.error("The result page isn't displayed", e);
-        }
-        LOG.info("The user has verified that the results list page is displayed");
     }
 
     private String getDocumentGUIDFromURL() {

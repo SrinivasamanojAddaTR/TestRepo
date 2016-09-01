@@ -9,8 +9,8 @@ import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
-import com.thomsonreuters.step_definitions.annotations.AnnotationsStepDef;
 import com.thomsonreuters.step_definitions.login.clientIdTest;
+import com.thomsonreuters.step_definitions.uk.search.BasicKnowHowSearchUKS101Test;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -36,7 +36,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private CommonMethods commonMethods = new CommonMethods();
     private com.thomsonreuters.step_definitions.login.clientIdTest clientIdTest = new clientIdTest();
-    private AnnotationsStepDef annotationsStepDef = new AnnotationsStepDef();
+    private BasicKnowHowSearchUKS101Test basicKnowHowSearchUKS101Test = new BasicKnowHowSearchUKS101Test();
     private WLNHeader wlnHeader = new WLNHeader();
 
     private String storedTitle=null;
@@ -344,7 +344,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
         }
     }
     private void runTheSearchAndGetBackToHistoryPage(String searchTerm) throws Throwable{
-        annotationsStepDef.theUserRunsAFreeTextSearchForTheQuery(searchTerm);
+        basicKnowHowSearchUKS101Test.theUserRunsAFreeTextSearchForTheQuery(searchTerm);
         legalUpdatesResultsPage.getAllUpdatesTitles().get(0).click();
         commonMethods.waitElementByLinkText("History").click();
 
