@@ -63,7 +63,7 @@ Feature: [829761] Link back to the page  from where performed a search
     Examples:
     |query		|
     |document	|
-@new
+
   Scenario Outline: Verify Back link is displayed on history search results page
     Given the user clicks on 'History' link on the header
     When the user runs a free text search for the query "<query>"
