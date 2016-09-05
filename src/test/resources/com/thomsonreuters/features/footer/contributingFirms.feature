@@ -3,8 +3,7 @@ Feature: [809413] I want to view the Contributing Firms pages
 As a PL Australia User I want to view the Contributing Firms pages so that I can find out who the has contributed to the Practical Law website
 
   Background: 
-    Given ANZ user is logged in with following details
-      | userName         |ANZtestuser2 |
+    Given ANZ user is logged in
 	And user clicks on "Contributing Firms" link
 
 @wip 

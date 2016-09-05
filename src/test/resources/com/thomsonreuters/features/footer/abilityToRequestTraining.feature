@@ -4,8 +4,7 @@ Feature: [809732] Request a Training
 	So that I can learn how to use the Practical Law web site
 
   Background:
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
 
   Scenario: The request training link takes user to request-training web page
     When the user clicks link 'Request Training' on footer

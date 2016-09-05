@@ -3,8 +3,7 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
   [809401]As a PL Australia User (PLAU) i want to navigate from one our team tab to another our team tab So that I can find out information about the practical law team and contributing firms
 
   Background: 
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
 
   Scenario Outline: 
     When user clicks on "<Page>" link

@@ -4,8 +4,7 @@ Feature: [809732] Request User Guides
 	So that I can learn about practical law Australia
 
   Background:
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
 
   Scenario: The User Guides link takes user to User Guides web page
     When the user clicks link 'User Guides' on footer

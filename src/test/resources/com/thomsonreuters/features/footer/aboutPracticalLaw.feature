@@ -1,8 +1,7 @@
 Feature: [809369] I want to view the "About Practical Law"
 
   Scenario Outline: [809369]I want to view the "About Us - About Practical Law" page So that I can find out what is practical law
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
     When user clicks on "<Page>" link
     Then the user verifies that the current PageTitle contains '<pageTitle>'
     And tab "<tab>" in Table of Contents is active

@@ -1,8 +1,7 @@
 Feature: [809111]As a user, I want to see the "Legal Information" and "Privacy" link functional on the footer
 
   Background: 
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
 
   Scenario Outline: User verifies the functionality of "Privacy" and "Legal Information"
     When user should see footer

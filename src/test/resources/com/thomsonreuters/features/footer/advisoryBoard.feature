@@ -1,8 +1,7 @@
 Feature: [809395] I want to view the "Advisory Boards"
 
   Scenario: [809395] As a PLAU user I want to view the "Advisory Boards" pages. So that I can find out who the professional advisor are who advise Practical Law
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
      When user clicks on "Advisory Board" link
     Then the user verifies that the current PageTitle contains 'Advisory board'
     And the table of contents on Advisory Boards page is hidden
