@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:target/cucumber-htmlreport/ANZDocumentReport", "junit:target/junit_cucumber.xml", "json:target/json-files/RunDocumentTest.json"},
         features = "src/test/resources/com/thomsonreuters/features/document",
         tags = {"~@wip", "~@manual"},
-        glue = {"com.thomsonreuters.step_definitions"},
+        glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
 public class RunDocumentTest {

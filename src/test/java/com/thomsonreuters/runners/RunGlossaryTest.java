@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:target/cucumber-htmlreport/ANZGlossaryReport", "junit:target/junit_cucumber.xml", "json:target/json-files/RunGlossaryTest.json"},
         features = "src/test/resources/com/thomsonreuters/features/glossary",
         tags = {"~@wip", "~@manual"},
-        glue = {"com.thomsonreuters.step_definitions"},
+        glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
 public class RunGlossaryTest {

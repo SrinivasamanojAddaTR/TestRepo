@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:target/cucumber-htmlreport/ANZFoldersReport", "junit:target/junit_cucumber.xml", "json:target/json-files/RunFoldersTest.json"},
         features = "src/test/resources/com/thomsonreuters/features/folders",
         tags = {"~@wip", "~@manual"},
-        glue = {"com.thomsonreuters.step_definitions"},
+        glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
 public class RunFoldersTest {
