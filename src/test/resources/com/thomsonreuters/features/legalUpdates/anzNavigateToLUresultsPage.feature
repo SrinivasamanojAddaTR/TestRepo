@@ -3,8 +3,7 @@ As a PLAU User I want to view legal updates on selected practice area and all ex
 
 
 	Background:
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
 
   Scenario Outline: [848112] User verifies the Legal updates by Practice Area going through Legal Update Resource page
     When the user select Legal Updates link on Resource tab area

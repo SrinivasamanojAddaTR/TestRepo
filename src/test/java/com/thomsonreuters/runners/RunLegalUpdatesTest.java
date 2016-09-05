@@ -19,7 +19,7 @@ public class RunLegalUpdatesTest {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "ANZtestuser2");
+            System.setProperty("username", "AUtestuser1");
             System.setProperty("password", "Password1");
         }
         else {
