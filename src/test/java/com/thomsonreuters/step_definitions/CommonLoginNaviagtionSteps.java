@@ -9,6 +9,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,6 +83,13 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 	@When("^user is navigated to routing$")
 	public void userNavitedToRoutingPage() {
 		super.userNavitedToRoutingPage();
+	}
+
+	@Given("^ANZ user is logged in$")
+	public void anzUserIsLoggedIn() throws Throwable {
+        List<CobaltUser> plPlusUserList = new ArrayList<>();
+        plPlusUserList.add(new CobaltUser());
+        super.anzUserIsLoggedInWithFollowingDetails(plPlusUserList);
 	}
 
 	@Given("^ANZ user is not logged in$")

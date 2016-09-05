@@ -2,8 +2,7 @@ Feature: [825619]As a PLAU User, I want to view a Resource Type by Practice Area
 
 
   Scenario: User verifies the Pratice area pages and its relative tabs
-   Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
     When user selects the following tab and see the relative links or content
       |tab | content |
       | Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary, Global guides|

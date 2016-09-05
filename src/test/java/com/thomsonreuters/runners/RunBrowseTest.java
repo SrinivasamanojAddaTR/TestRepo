@@ -19,7 +19,7 @@ public class RunBrowseTest {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "ANZtestuser2");
+            System.setProperty("username", "AUtestuser3");
             System.setProperty("password", "Password1");
         }
         else {

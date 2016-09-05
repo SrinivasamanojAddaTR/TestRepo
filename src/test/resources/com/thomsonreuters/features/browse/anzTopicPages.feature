@@ -1,8 +1,7 @@
 Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view the documents available for that Topic
 
  Scenario Outline: [831936] User verifies the topic page.
-   Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
    And user opens "Practice areas" link
    And the user navigates to practice area "<PA>" filtered by "<Topic Page>" topic page
    Then user verifies that there is no metadata and summary on the page
@@ -16,8 +15,7 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
         |Corporate Transactions |Share acquisitions: private          | Practice notes, Checklists, Glossary          |
 
   Scenario Outline: User verifies topic page faceting
-   Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
     And user opens "Practice areas" link
     And the user navigates to practice area "<PA>" filtered by "<Topic Page>" topic page
 	And the user is able to verify the absence of the facet group heading Jurisdiction
