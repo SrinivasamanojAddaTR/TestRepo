@@ -2,8 +2,7 @@ Feature: [813317] As a PLAU User,  I want to perform a pre-filtered scoped searc
   So that I can select and retrieve a document I am interested in researching without having to browse to that page
 
 Background:
-	Given ANZ user is logged in with following details 
-		| userName         | ANZtestuser2 |
+	Given ANZ user is logged in
 
 
   Scenario: Verify valid search results for single and multiple terms

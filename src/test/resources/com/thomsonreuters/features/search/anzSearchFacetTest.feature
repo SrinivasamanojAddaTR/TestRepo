@@ -2,8 +2,7 @@ Feature: [814276] As a PLAU user, I want to narrow my search results
   So that I can display resource types, practice areas, topics and jurisdictions that are relevant to my work needs
 
   Background:
-      Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+      Given ANZ user is logged in
     When the user runs a free text search for the query "law"
 
 

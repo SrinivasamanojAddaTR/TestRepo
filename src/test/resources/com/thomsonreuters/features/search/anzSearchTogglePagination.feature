@@ -2,8 +2,7 @@ Feature: [813335] As a PLAU user, I want to view the page number for my search r
   So that I can identify which page of search results I am viewing
 
   Background: 
-   Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
 
   Scenario: User checks the "Pagination" appearance for KH search results.
     When the user runs a free text search for the query "law"

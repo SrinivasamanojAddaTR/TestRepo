@@ -2,8 +2,7 @@ Feature: [813347] As a PLAU user, I want to increase or decrease the number of s
   So that I can display the search results relevant to my work needs
 
  Background: Loging in and Searching in the phrase
-      Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+      Given ANZ user is logged in
      When the user runs a free text search for the query "contract"
 
   Scenario: Option to select number of results per Page Control option

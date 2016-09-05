@@ -3,8 +3,7 @@ Feature: [829761] Link back to the page  from where performed a search
 	So that I can view the page I was viewing before I performed a search
 
   Background:
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
      And the user is on the home page
 
   Scenario: Verify back to home link is displayed on search results page

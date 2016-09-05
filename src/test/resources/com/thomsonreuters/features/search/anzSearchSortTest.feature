@@ -5,8 +5,7 @@ Feature: [815735] As a PLAU User, I want to sort my search results by relevancy,
 
 @bug
   Scenario: [815735] Verify sort results by date. Verify that the user is able to sort search results by relevancy
-   Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
     When the user runs a free text search for the query "contract"
     And the user verifies that the option for sorting by relevance is displayed by default
     And the user obtains the title of the first, second and third result and stores it

@@ -5,8 +5,7 @@ Feature: [813300] As a PLAU user, I want to display less, more or most detail fo
 #bug 863546 Bug [PLAU & PLUK] Search: Less, More and Most Detail icon titles should be in sentence case
 
  Background:
-   Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
  
  
   Scenario Outline: Verify default setting for more detail in open web

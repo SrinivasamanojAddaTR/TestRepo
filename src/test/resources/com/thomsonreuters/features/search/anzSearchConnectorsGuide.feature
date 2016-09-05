@@ -2,8 +2,7 @@ Feature: [810047]As a PLAU User, I want to view a list of search operators and w
   So that I understand how to build searches that will help me narrow my search results
 
   Scenario: User verifies the search connector guides display correctly
-    Given ANZ user is logged in with following details
-          | userName | ANZtestuser2 |
+    Given ANZ user is logged in
     When user clicks on the "i"
     Then user should see the search guide popup
     And user should see the following character with its related explanation on the popup

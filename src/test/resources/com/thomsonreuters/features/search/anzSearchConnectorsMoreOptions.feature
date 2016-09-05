@@ -3,8 +3,7 @@ As a PLAU User I want to apply search operators within my search query
 So that I can narrow my search results and ensure only relevant results are returned 
 
 Background:
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 	|
+    Given ANZ user is logged in
 
   Scenario Outline: verify that a user can submit a phrase search
   	When the user runs a free text search for the query "\"federal circuit\""
