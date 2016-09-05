@@ -19,7 +19,7 @@ public class RunGlossaryTest {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "AUtestuser7");
+            System.setProperty("username", "AUtestuser8");
             System.setProperty("password", "Password1");
         }
         else {

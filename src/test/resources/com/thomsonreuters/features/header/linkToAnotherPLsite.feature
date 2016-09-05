@@ -3,8 +3,7 @@ Feature: [809948][850090] Link to another Practical Law web site
 #bug 869259 [PLAU] all links to Westlaw AU are failing
 
   Scenario Outline: Logged in User verifies the "Country Toggle Drop-down" links and styling
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
     When user clicks on the country toggle dropdown
     Then user should see the following countries with respective links
       | Country    | Link                                                                                             |
@@ -28,8 +27,7 @@ Feature: [809948][850090] Link to another Practical Law web site
 
 
   Scenario: Logged in User verifies the Westlaw AU  links
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2  |
+    Given ANZ user is logged in
     When user clicks on the country toggle dropdown
     And the user selects "Westlaw AU"
     And the user is taken to the login page in WLAU

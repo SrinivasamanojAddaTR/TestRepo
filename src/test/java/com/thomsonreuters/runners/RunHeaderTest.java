@@ -19,7 +19,7 @@ public class RunHeaderTest {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "ANZtestuser2");
+            System.setProperty("username", "AUtestuser9");
             System.setProperty("password", "Password1");
         }
         else {

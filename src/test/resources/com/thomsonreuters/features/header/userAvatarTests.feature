@@ -1,8 +1,7 @@
 Feature: [809918]Edit Preferences (User Preferences)
 
   Scenario: [809918] As a PLAU user I want to edit my profile (i.e. one pass profile) So that I change my password and security questions
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
     When the user selects the user profile symbol
     Then the Edit Profile option will be displayed
     Then the user selects Edit profile option
