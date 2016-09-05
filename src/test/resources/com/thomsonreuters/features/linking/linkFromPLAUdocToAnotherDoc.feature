@@ -1,8 +1,7 @@
 Feature: [826373][826378] Linking from PLAU document to another PLAU document and external website
 
 Background:
-Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 	|
+Given ANZ user is logged in
 
 Scenario Outline: [826373] Linking from one PLAU document to another PLAU document   
 	As a PLAU User

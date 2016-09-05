@@ -1,8 +1,7 @@
 Feature: [836861] Remove / Hide the Pause Session from PLAU (when linking to other Websites) 
 
 Background:
-	Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 	|
+	Given ANZ user is logged in
 
   Scenario Outline: [836861]Linking from one PLAU document to an number
     Given has selected the link entitled International
