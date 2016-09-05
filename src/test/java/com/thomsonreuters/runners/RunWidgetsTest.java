@@ -19,7 +19,7 @@ public class RunWidgetsTest {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "ANZtestuser2");
+            System.setProperty("username", "AUtestuser12");
             System.setProperty("password", "Password1");
         }
         else {

@@ -1,8 +1,7 @@
 Feature: [821883][821884][821885][821886][821887] International Widgets
 
   Background: 
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
 
   Scenario Outline: Widgets on country page
     When the user opens "<link>" url on PL AU website

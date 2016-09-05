@@ -1,8 +1,7 @@
 Feature: [820326] As a PLAU User I want to view my recent history So that I can view and link to the documents I have recently accessed
    
   Scenario: [820326] The user should see recent history widget
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
     When API cleans all folders and history and user relogs in
     And ANZ user navigates directly to documents with guids and saves their details
       | I53cfffa798de11e598dc8b09b4f043e0 |
