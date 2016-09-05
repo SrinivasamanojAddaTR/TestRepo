@@ -1,8 +1,7 @@
 Feature: [817996] As a PLAU user I want to view a table of contents So that I can see what sections are included in the document
 
   Background: 
-   Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
 
   Scenario Outline: [817996] The case documents contain Table of content
     When ANZ user navigates directly to document with guid "<guid>"

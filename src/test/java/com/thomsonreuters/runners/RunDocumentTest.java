@@ -19,7 +19,7 @@ public class RunDocumentTest {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "ANZtestuser2");
+            System.setProperty("username", "AUtestuser5");
             System.setProperty("password", "Password1");
         }
         else {

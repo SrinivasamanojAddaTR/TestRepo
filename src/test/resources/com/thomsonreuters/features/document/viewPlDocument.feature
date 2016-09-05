@@ -1,8 +1,7 @@
 Feature: [817979] View PL Document 
 
 Background:
-   Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
 
 
 Scenario: [817979] As a PL AU login/password user I want to view document 

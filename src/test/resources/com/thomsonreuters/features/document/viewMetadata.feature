@@ -3,8 +3,7 @@ As a User I want to view State Jurisdiction within document view So that I know 
 #There are no documents with Resource History section. Need to add in future.
 
 Background:
-   Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
 
 Scenario Outline: [818000] As a PL AU login/password user I want to view document metadata 
 	Given ANZ user navigates directly to document with guid "<guid>"
