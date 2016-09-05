@@ -5,8 +5,7 @@ Feature: [812864] Time out - bookmarked pages
 
 Scenario: [812864] Non-SRM user - bookmark to topic page 
 	Given ANZ user is logged in with following details 
-		| userName         | ANZtestuser2 |
-		| routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |	  
+		| routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |
 	    | mandatoryRouting | YES                              |	  
 	And the user opens "/topic/w-000-5049" url on PL AU website 
 	And the user saves the page url into bookmark 
@@ -17,8 +16,7 @@ Scenario: [812864] Non-SRM user - bookmark to topic page
 
 Scenario: [812864] Non-SRM user - bookmark to document 
 	Given ANZ user is logged in with following details 
-		| userName         | ANZtestuser2 |
-		| routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |	  
+		| routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |
 	    | mandatoryRouting | YES                              |	  
 	And ANZ user navigates directly to document with guid "Ifb5c26cb995811e598dc8b09b4f043e0" 
 	And the user saves the page url into bookmark 
@@ -28,7 +26,6 @@ Scenario: [812864] Non-SRM user - bookmark to document
 	
 Scenario: [812864] Non-SRM user - bookmark to search result 
 	Given ANZ user is logged in with following details 
-		| userName         | ANZtestuser2 |
 		| routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |
 	    | mandatoryRouting | YES                              |	  
 	And the user runs a free text cobalt search with query "test" 
@@ -40,7 +37,6 @@ Scenario: [812864] Non-SRM user - bookmark to search result
 @RemoveSRMOptionANZ
 Scenario: [812864] SRM user - bookmark to topic page 
 	Given ANZ user is logged in with following details 
-		| userName         | ANZtestuser2 |
 		| role     | SUPER_REMEMBER_ME_USER |
 		| routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |	  
 	    | mandatoryRouting | YES                              |	  		
@@ -53,7 +49,6 @@ Scenario: [812864] SRM user - bookmark to topic page
 @RemoveSRMOptionANZ
 Scenario: [812864] SRM user - bookmark to document 
 	Given ANZ user is logged in with following details 
-		| userName         | ANZtestuser2 |
 		| role     | SUPER_REMEMBER_ME_USER |
 		| routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |	  
 	    | mandatoryRouting | YES                              |	  
@@ -66,7 +61,6 @@ Scenario: [812864] SRM user - bookmark to document
 @RemoveSRMOptionANZ	
 Scenario: [812864] SRM user - bookmark to search result 
 	Given ANZ user is logged in with following details 
-		| userName         | ANZtestuser2 |
 		| role     | SUPER_REMEMBER_ME_USER |
 		| routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |	  
 	    | mandatoryRouting | YES                              |	  

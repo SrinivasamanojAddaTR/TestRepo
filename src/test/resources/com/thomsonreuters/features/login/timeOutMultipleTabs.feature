@@ -5,7 +5,6 @@ So that I do not have to login and perform another search or find the document I
 
   Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
     Given ANZ user is logged in with following details
-      | userName | ANZtestuser2						|
       | mandatoryRouting | YES  					|
       | routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |
     When the user runs a free text search for the query "<query>"
@@ -27,7 +26,6 @@ So that I do not have to login and perform another search or find the document I
   @RemoveSRMOptionANZ
   Scenario Outline: Users who have logged in and selected the Super Remember Me Option
     Given ANZ user is logged in with following details
-      | userName | ANZtestuser2						|
       | mandatoryRouting | YES  					|
       | routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES                  |
       | role     | SUPER_REMEMBER_ME_USER |

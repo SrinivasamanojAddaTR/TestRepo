@@ -8,9 +8,8 @@ So that I do not have to perform a new search
 	@bug
   Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
     Given ANZ user is logged in with following details
-      | userName | ANZtestuser2						|
-      | mandatoryRouting | YES  					|
-      | routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |
+      | mandatoryRouting | YES  					        |
+      | routing          | SPECIFIED_USER_TIMEOUT_3_MINUTES |
     When the user runs a free text cobalt search with query "<query>"
     And the user clicks 'select multiple filters' button
     And the user expands the know how facet "<facet1>"
@@ -30,7 +29,7 @@ So that I do not have to perform a new search
     And the user saves the page title
     And the user clicks Log in button
     And a PPI user enter its username and password
-      | userName | ANZtestuser2						|
+      | userName | ANZuser2						|
     And clicks on Sign in
     Then user gets redirected to the search page that he was visiting and is logged in
     And the user verifies that the know how facet is selected "<facet22>"
@@ -41,10 +40,9 @@ So that I do not have to perform a new search
   @RemoveSRMOptionANZ
   Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
     Given ANZ user is logged in with following details
-      | userName | ANZtestuser2						|
-      | routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES                  |
-      | role     | SUPER_REMEMBER_ME_USER |
-      | mandatoryRouting | YES  					|
+      | routing          | SPECIFIED_USER_TIMEOUT_3_MINUTES |
+      | role             | SUPER_REMEMBER_ME_USER           |
+      | mandatoryRouting | YES          					|
     When the user runs a free text cobalt search with query "<query>"
     And the user clicks 'select multiple filters' button
     And the user expands the know how facet "<facet1>"
