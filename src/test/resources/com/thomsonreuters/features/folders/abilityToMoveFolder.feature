@@ -1,8 +1,7 @@
 Feature: [821543] As a PLAU User I want to move a folder from one folder to another So that I can organise my folders in the structure I require
 
   Scenario: 
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
     When API cleans all folders and history
     And user relogs in
     And the user clicks on 'Folders' link on the header

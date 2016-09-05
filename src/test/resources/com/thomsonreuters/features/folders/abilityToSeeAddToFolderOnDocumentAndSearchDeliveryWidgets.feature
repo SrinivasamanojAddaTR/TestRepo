@@ -2,8 +2,7 @@ Feature: [821528] As a PLAU User I want to view the folder option on my document
   [823569]As a PLAU User I want to view the folder option on my search resulrs view  So that I can folder the one or many documents in my search results
 
   Scenario Outline: 
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
     Given ANZ user navigates directly to document with guid "<guid>"
     Then folders widget on document will be displayed after print option and before the download option
     And user clicks on Add To Folder icon on document delivery
@@ -15,8 +14,7 @@ Feature: [821528] As a PLAU User I want to view the folder option on my document
 
 
   Scenario: 
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
     When the user runs a free text search for the query "tax"
     And the user waits search result to load
     And the user selects the checkbox associated with result "1"

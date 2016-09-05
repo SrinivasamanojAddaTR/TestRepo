@@ -171,7 +171,6 @@ Scenario Outline: [818051] Email document - PDF format, drafting notes included
 ###########################################################################################################################################
 #download
 ###########################################################################################################################################
-@new
 Scenario Outline: [818051] Download document - MS Word format 
 	Given ANZ user navigates directly to document with guid "<guid>"
 	When clicks on Download delivery option for the document 

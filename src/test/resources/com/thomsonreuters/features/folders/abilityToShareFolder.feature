@@ -2,8 +2,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
   [821927] As a PLAU User I want to view my contacts and groups So that I can insert people and groups to the list of recipients I want to share my folder with
 
   Background: 
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
 
   Scenario: 
     When API cleans all folders and history

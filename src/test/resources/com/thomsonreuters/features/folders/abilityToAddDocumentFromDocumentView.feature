@@ -5,8 +5,7 @@ Feature: [821529][821558] Add, remove documents to folder
 #TO FIX: date utils to use timezones
 
   Background: 
-     Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+     Given ANZ user is logged in
 
   Scenario:
     When API cleans all folders and history

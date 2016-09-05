@@ -5,8 +5,7 @@ Feature: [821898] As a PLAU user I want to filter my foldered documents So that 
 
   #Legal updates link is temporary absent. Lisa will add link and notify Kostya.
   Scenario:
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
     When API cleans all folders and history
     And user relogs in
    	#Know-how

@@ -1,8 +1,7 @@
 Feature: [821548] As a PLAU User I want to be able to delete a folder So that I can remove folders I am no longer using 
 
   Scenario Outline: 
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
     When API cleans all folders and history
     And user relogs in
     And the user clicks on 'Folders' link on the header

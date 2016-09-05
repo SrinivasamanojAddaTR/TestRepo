@@ -1,8 +1,7 @@
 Feature: [821888] As a PLAU User I want to view the Trash can feature So that I can permanently delete my foldered documents
 
   Scenario Outline: 
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
     When API cleans all folders and history and user relogs in
     When the user opens 'Resources' link
     And the user opens 'Standard documents and drafting notes' link

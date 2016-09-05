@@ -2,8 +2,7 @@ Feature: [821529] As a PLAU UserI want to be able to add a document to a folder 
   [821558] As a PLAU User I want to remove a document from my folder So that I can ensure my folder only contains documents I am interested in working with
 
   Background: 
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
 
   Scenario: 
     When API cleans all folders and history

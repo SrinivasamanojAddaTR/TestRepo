@@ -2,8 +2,7 @@
 Feature: [821891] As a PLAU user I want to search for a document in my folders So that I can find a document I want to view
 
 Background:
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
 
 #bug 852192 Bug [PLAU Only] Search in History and Folders does not return any results
 

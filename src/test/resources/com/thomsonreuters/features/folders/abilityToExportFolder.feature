@@ -1,8 +1,7 @@
 Feature: [821552] View Folders Page - Options "Export Folder" Feature
 
 Background: 
-	Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+	Given ANZ user is logged in
 
 
 ###############################################################################################################

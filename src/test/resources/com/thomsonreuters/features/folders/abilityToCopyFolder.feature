@@ -1,8 +1,7 @@
 Feature: [821542] As a PLAU User I want to copy a folder and its contents So that I can save time creating folders and adding documents
 
   Scenario: 
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
     When API cleans all folders and history
     And user relogs in
     And the user clicks on 'Folders' link on the header
