@@ -16,7 +16,7 @@ Feature: [825619]As a PLAU User, I want to view a Resource Type by Practice Area
 
   Scenario Outline:[815726] I want to view a Resource Type by [Practice Area X] page So that I can link to a document I am interested in working
    Given ANZ user is logged in with following details
-	 | userName         | ANZtestuser2 |
+	 | userName         | AUtestuser3 |
     When user selects the following tab and see the relative links or content
       |tab | content |
       | Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary, Global guides|
@@ -35,7 +35,7 @@ Feature: [825619]As a PLAU User, I want to view a Resource Type by Practice Area
       
    Scenario: [848134] Facets on resource type pages
 	Given ANZ user is logged in with following details
-		  | userName         | ANZtestuser2 |
+		  | userName         | AUtestuser3 |
 	And user navigates to resource type "Practice notes" for practice area "Company Law"
     When the user selects the know how following parent facets with single selection
       | Company administration and meetings |

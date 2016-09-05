@@ -3,8 +3,7 @@ Feature: [818824] Search - Standard Delivery Features
 #bug 863546 Bug [PLAU & PLUK] Search: Less, More and Most Detail icon titles should be in sentence case
 
 Background: 
-	Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+	Given ANZ user is logged in
 
 ###############################################################################################################
 ## Print 	

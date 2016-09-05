@@ -7,8 +7,8 @@ Feature: [818051] Document - Standard delivery features
 
 
 Background:
-Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
+
 ###########################################################################################################################################
 #email delivery
 ###########################################################################################################################################
@@ -171,7 +171,7 @@ Scenario Outline: [818051] Email document - PDF format, drafting notes included
 ###########################################################################################################################################
 #download
 ###########################################################################################################################################
-
+@new
 Scenario Outline: [818051] Download document - MS Word format 
 	Given ANZ user navigates directly to document with guid "<guid>"
 	When clicks on Download delivery option for the document 

@@ -3,9 +3,10 @@ Feature: [831297] View History Page - Deliver Documents  listed within my docume
 #some tests may intermittently fail due to:
 #bug 830073 [REGRESSION] Several documents don't display in History
 
+#The user name was ANZtestuser1
 Background: 
-	Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser1 |
+	Given ANZ user is logged in
+
 ###############################################################################################################
 ## Print 	
 ###############################################################################################################		

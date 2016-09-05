@@ -1,8 +1,7 @@
 Feature: [821556] View Folders Page - Deliver Documents within a folder
 
 Background: 
-	Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+	Given ANZ user is logged in
 
 Scenario: Clean folders
 	Given API cleans all folders and history

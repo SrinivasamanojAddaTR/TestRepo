@@ -5,8 +5,7 @@ So that I can work with my document off line
 
 
 Background:
-Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+Given ANZ user is logged in
 
 Scenario Outline: [830655] Download standard document - MS Word format 
 	Given the user opens "<plc ref>" url on PL AU website
