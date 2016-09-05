@@ -6,8 +6,7 @@ Feature: [820474] Glossary Delivery
 	
 	
 Background: 
-	Given ANZ user is logged in with following details
-	  | userName         | ANZtestuser2 |
+	Given ANZ user is logged in
 	And user navigates to a glossary page 
 
 #intermittent issue:

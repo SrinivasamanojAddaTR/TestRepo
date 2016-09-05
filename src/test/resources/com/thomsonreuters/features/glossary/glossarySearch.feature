@@ -5,8 +5,7 @@ Feature: [820475] Search within Glossary
 	So that I can find and link to the glossary document I am interested in using
 	
 Background: 
-	Given ANZ user is logged in with following details
-		| userName         | ANZtestuser2 |
+	Given ANZ user is logged in
 	And user navigates to a glossary page 
 
 #intermittent issue:
