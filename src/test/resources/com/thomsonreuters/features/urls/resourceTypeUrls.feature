@@ -1,8 +1,7 @@
 Feature: [822642] ResourceTypePage URLs
 
   Background: 
-    Given ANZ user is logged in with following details
-      | userName | ANZtestuser2 |
+    Given ANZ user is logged in
 
 	
   Scenario Outline: Resource Type page URL

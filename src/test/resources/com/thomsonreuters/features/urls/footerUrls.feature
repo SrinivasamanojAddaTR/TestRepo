@@ -1,8 +1,7 @@
 Feature: [826012] Footer URLs
 
   Background: 
-   Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
 
   Scenario Outline: Footer pages URLs
     When the user opens "<url>" url on PL AU website

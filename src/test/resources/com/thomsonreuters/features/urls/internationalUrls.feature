@@ -1,8 +1,7 @@
 Feature: [822645] International Page URLs
 
   Background: 
-   Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
 
 	#bug 834766 International - 'Indonesia Recently Published' page title does not contain colon
 

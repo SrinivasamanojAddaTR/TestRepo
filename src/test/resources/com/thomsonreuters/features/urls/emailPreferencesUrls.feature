@@ -1,8 +1,7 @@
 Feature: [826011] Email Preferences URL
 
 Background:
-   Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+   Given ANZ user is logged in
 
 Scenario Outline: Email Preferences URL
 	When the user opens "<url>" url on PL AU website

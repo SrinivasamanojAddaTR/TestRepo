@@ -1,8 +1,7 @@
 Feature: [822634] Topics URL
 
   Background: 
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
 
   Scenario Outline: Topics page URL
     When the user opens "<topicUrl>" url on PL AU website
