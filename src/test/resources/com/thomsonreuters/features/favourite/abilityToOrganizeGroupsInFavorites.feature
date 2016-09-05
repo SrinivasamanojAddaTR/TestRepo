@@ -3,8 +3,7 @@ Feature: [821261][821248] As a PLAU User I want to Organise my favourite groups 
   [821309]As a PLAU User I want to change the order of my page links within a group So that I can display page links in the order that I require
 
 Background:
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser2 |
+    Given ANZ user is logged in
     When API cleans all folders and history
     And user relogs in
 
