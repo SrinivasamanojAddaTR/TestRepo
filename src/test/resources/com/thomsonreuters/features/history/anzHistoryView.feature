@@ -1,8 +1,7 @@
 Feature: [821953] As a PLAU User, I want to view my history So that I can view my recent searches and the documents I have recently viewed
 
 Background:
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser1 |
+  Given ANZ user is logged in
 
   Scenario Outline: user verifies the search tab
     And the user runs a free text search for the query "<search term>"

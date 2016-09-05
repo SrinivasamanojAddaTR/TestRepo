@@ -1,8 +1,7 @@
 Feature: [821979]As a PLAU user, I want to filter my history  So that I can quickly find my previous searches and the documents that I have viewed
  
   Scenario Outline: [821979]As a PLAU user, I want to filter my history  So that I can quickly find my previous searches and the documents that I have viewed
-    Given ANZ user is logged in with following details
-      | userName         | ANZtestuser1 |
+    Given ANZ user is logged in
     When the user clicks on 'History' link on the header
     And the user clicks on History left side facet "<HistoryFacet>"
     And  the user clicks 'select multiple filters' button

@@ -1,9 +1,7 @@
 Feature: [821965]As a PLAU User, I want to be able to search within my history So that I can find searches and documents that I recently performed and viewed
 
 Background:
-     Given ANZ user is logged in with following details
-        | userName         | ANZtestuser2 |
-
+     Given ANZ user is logged in
 
 #bug: 830076 Java Bug [PLAU & PLUK TBC] History Search & Facet Filter : Combination of "Search within results" and Facets (like ClientID and Content Type) does not work all the time and results go in loading mode for indefinite time.
 #bug 852192 Bug [PLAU Only] Search in History and Folders does not return any results

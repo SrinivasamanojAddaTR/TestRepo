@@ -6,8 +6,7 @@ Feature: [821959] As a PLAU User, I want to view my history based on a specific 
 
 	@bug 
   Scenario Outline: User verifies date picker is present with all the options
-    Given ANZ user is logged in with following details
-        | userName         | ANZtestuser1 |
+    Given ANZ user is logged in
     When the user clicks on 'History' link on the header
     Then the user should be seeing Date Picker dropdown
     When the user clicks on the Date Pikcer dropdown
