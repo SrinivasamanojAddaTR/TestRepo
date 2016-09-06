@@ -5,6 +5,7 @@ import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.utils.document.StandardDocumentUtils;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -28,6 +29,7 @@ public class HomePageSteps extends BaseStepDef {
     private PracticalLawHomepage plcHomePage = new PracticalLawHomepage();
     private WLNHeader wlnHeader = new WLNHeader();
     private StandardDocumentUtils standardDocumentUtils = new StandardDocumentUtils();
+    private FooterUtils footerUtils = new FooterUtils();
 
     @Then("^user can view three tabs: Practice Areas, Resources and International$")
     public void userCanViewThreeTabsPracticeAreasResourcesAndInternational() throws Throwable {
@@ -203,6 +205,7 @@ public class HomePageSteps extends BaseStepDef {
     public void userSelectsFirstTwoQuestionsAndClicksOnButton(String arg1) throws Throwable {
         homePage.selectQuestionsPageCheckboxList().get(0).click();
         homePage.selectQPageSelectJurisdictionButton().click();
+        footerUtils.closeDisclaimerMessage();
     }
 
     @When("^user selects two following countries and clicks on \"(.*?)\" button$")
@@ -231,6 +234,7 @@ public class HomePageSteps extends BaseStepDef {
 
     @Then("^user should see the \"(.*?)\" appearing on L\\.H\\.S column in the comparison tool and on the page$")
     public void userShouldSeeTheAppearingOnLHSColumnInTheComparisonToolAndOnThePage(String country) throws Throwable {
+        homePage.waitForPageToLoadAndJQueryProcessing();
         Is.is(homePage.comparePageLeftColumnCountryNameLink(country).isDisplayed());
     }
 

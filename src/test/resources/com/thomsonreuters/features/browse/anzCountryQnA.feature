@@ -7,7 +7,6 @@ Background:
     When the user opens "/QACompare/Builder/Country" url on PL AU website
     Then user verifies the "Country Q&A" page
 
-
   Scenario: [813151]User verifies the functionality of "Edit country" button on the L.H.S of the Country Q&A comparison document
     When user navigates to the "Country Q&A" tool by clicking "Start comapring" button using "International" tab on the homepage
     And user selects the topic "Arbitration"
