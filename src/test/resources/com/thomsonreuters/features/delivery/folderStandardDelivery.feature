@@ -237,6 +237,7 @@ Scenario Outline: [821556][847182]  Email resource link only
     When user clicks on Download delivery option for Folder
     And the user edits the basic download options as follows
       | Table of Contents | Selected |
+      | Format            | PDF |
     Then user downloads the document with name "Financial Assistance" and extension ".pdf"
     When user relogs in
     And the user opens testFolder folder with the set of documents
