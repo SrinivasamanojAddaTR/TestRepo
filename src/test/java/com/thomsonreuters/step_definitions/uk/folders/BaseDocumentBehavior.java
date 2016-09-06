@@ -216,12 +216,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
     public void checkFolderIsEmpty(String folder) throws Throwable {
         foldersUtils.openFolder(folder);
         researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
-        try {
-            researchOrganizerPage.isLinkToDocumenttPresent();
-        } catch (NoSuchElementException e) {
-            return;
-        }
-        throw new RuntimeException("There is a document in the folder");
+        assertFalse("There is a document in the folder", researchOrganizerPage.isLinkToDocumenttPresent());
     }
 
 	@When("^the user opens the link to the glossary term \"([^\"]*)\" and store its title and guid$")
