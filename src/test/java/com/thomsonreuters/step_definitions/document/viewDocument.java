@@ -1,9 +1,9 @@
 package com.thomsonreuters.step_definitions.document;
 
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
-import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentRightPanelPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -17,13 +17,13 @@ public class viewDocument extends BaseStepDef {
 	private KHResourcePage resourcePage = new KHResourcePage();
 	private DocumentRightPanelPage rightPanelPage = new DocumentRightPanelPage();
 	private NavigationCobalt navigationCobalt = new NavigationCobalt();
-    private SharedAnnotationsPage sharedAnnotationsPage = new SharedAnnotationsPage();
+	private FooterUtils footerUtils = new FooterUtils();
 
 	@Given("^ANZ user navigates directly to document with guid \"(.*?)\"$")
 	public void anzUserNavigatesDirectlyToDocumentWithGuid(String guid) throws Throwable {
 		navigationCobalt.navigateToANZSpecificResourcePage("/Document/" + guid + "/View/FullText.html");
 		resourcePage.waitForPageToLoadAndJQueryProcessing();
-		sharedAnnotationsPage.closeDisclaimer();
+		footerUtils.closeDisclaimerMessage();
 	}
 
 	@Then("^user should not see drafting notes$")
