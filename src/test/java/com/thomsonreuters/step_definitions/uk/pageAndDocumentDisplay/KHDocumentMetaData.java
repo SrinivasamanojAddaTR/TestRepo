@@ -4,6 +4,7 @@ import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentRightPanelPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DraftingNotes;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -29,6 +30,7 @@ public class KHDocumentMetaData extends BaseStepDef {
     private NavigationCobalt navigationCobalt = new NavigationCobalt();
     private DocumentRightPanelPage rightPanelPage = new DocumentRightPanelPage();
     private KHResourcePage resourcePage = new KHResourcePage();
+    private FooterUtils footerUtils = new FooterUtils();
 
     public int notesIcons;
 
@@ -233,7 +235,7 @@ public class KHDocumentMetaData extends BaseStepDef {
 
     @Then("^back to top sticky link is displayed$")
     public void backToTopIsDisplayed() throws Throwable {
-        Thread.sleep(2000);
+        footerUtils.closeDisclaimerMessage();
         assertThat(resourcePage.backToTop().isDisplayed(), Is.is(true));
     }
 
