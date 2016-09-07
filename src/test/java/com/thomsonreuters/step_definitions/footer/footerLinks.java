@@ -1,9 +1,11 @@
 package com.thomsonreuters.step_definitions.footer;
 
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
 import com.thomsonreuters.pageobjects.pages.company.AboutCompanyPage;
 import com.thomsonreuters.pageobjects.pages.company.AboutCompanyPageTabs;
 import com.thomsonreuters.pageobjects.pages.footer.WLNFooter;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
@@ -20,8 +22,9 @@ public class footerLinks extends BaseStepDef {
 	private WLNFooter footer = new WLNFooter();
 	
 	private NavigationCobalt navigationCobalt = new NavigationCobalt();
-	
-	AboutCompanyPage aboutCompanyPage = new AboutCompanyPage();
+    private FooterUtils footerUtils = new FooterUtils();
+    private SharedAnnotationsPage sharedAnnotationsPage = new SharedAnnotationsPage();
+	private AboutCompanyPage aboutCompanyPage = new AboutCompanyPage();
 	
 	@Then("^user should see the \"(.*?)\" page is opened$")
     public void userShouldseethePage(String pageTitle) throws Throwable {
@@ -106,15 +109,17 @@ public class footerLinks extends BaseStepDef {
 	
 	@When("^the user clicks link '(.*?)' on footer$")
 	public void theUserClicksButtonRequestATrialOnFooter(String link) throws Throwable {
-		switch (link) {
+        footerUtils.closeDisclaimerMessage();
+        sharedAnnotationsPage.waitForDisclaimerAbsent();
+        switch (link) {
 		case "Request Training":
-			footer.requestTraining().click();
+            footer.scrollIntoViewAndClick(footer.requestTraining());
 			break;
 		case "User Guides":
-			footer.userGuides().click();
+            footer.scrollIntoViewAndClick(footer.userGuides());
 			break;
 		case "Request a Trial":
-			footer.requestTrial().click();
+            footer.scrollIntoViewAndClick(footer.requestTrial());
 			break;
 		}
 
