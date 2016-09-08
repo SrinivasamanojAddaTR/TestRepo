@@ -232,8 +232,8 @@ public class HomePageSteps extends BaseStepDef {
 
     @Then("^user selects the \"(.*?)\" country and save it\\.$")
     public void userSelectsTheCountryAndSaveIt(String country) throws Throwable {
-        homePage.selectJurisdictionCheckbox(country).click();
-        homePage.editPopupSaveChangesButton().click();
+        homePage.scrollIntoViewAndClick(homePage.selectJurisdictionCheckbox(country));
+        homePage.scrollIntoViewAndClick(homePage.editPopupSaveChangesButton());
     }
 
     @Then("^user should see the \"(.*?)\" appearing on L\\.H\\.S column in the comparison tool and on the page$")
