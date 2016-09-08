@@ -7,7 +7,7 @@ Feature: [812218]  Password Authentication: Login to Practical Law Australia
 
   Scenario: [812218] As a PPI User I want to be able to login by using the saved username
     When a PPI user enter its username and password
-      | userName | ANZuser1 |
+      | userName | AUtestuser14 |
     And user selects Save my Username checkbox
     And clicks on Sign in
     Then user logs out
@@ -16,7 +16,7 @@ Feature: [812218]  Password Authentication: Login to Practical Law Australia
 
   Scenario: [812218] As a PPI User I want to be able to login using the previously saved login credentials
     When a PPI user enter its username and password
-      | userName | ANZuser1 |
+      | userName | AUtestuser14 |
     And user selects Save my Username and Password checkbox
     And clicks on Sign in
     Then user logs out

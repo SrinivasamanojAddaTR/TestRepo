@@ -29,7 +29,7 @@ So that I do not have to perform a new search
     And the user saves the page title
     And the user clicks Log in button
     And a PPI user enter its username and password
-      | userName | ANZuser2						|
+      | userName | AUtestuser14						|
     And clicks on Sign in
     Then user gets redirected to the search page that he was visiting and is logged in
     And the user verifies that the know how facet is selected "<facet22>"

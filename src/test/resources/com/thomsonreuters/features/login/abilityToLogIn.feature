@@ -5,7 +5,7 @@ Feature: [850067] Not logged in user can log in as username and password
     When the user navigates to the main PLANZ page
     And the user clicks on Sign On link on the header
     Then the user is able to sign in with OnePass
-     | userName | ANZuser2 |
+     | userName | AUtestuser14 |
     And Sign On link is not shown to user
     And Sign In link is not shown to user
 
@@ -14,6 +14,6 @@ Feature: [850067] Not logged in user can log in as username and password
     When the user navigates to the main PLANZ page
     And the user clicks on Sign In link on the footer
     Then the user is able to sign in with OnePass
-      | userName | ANZuser2 |
+      | userName | AUtestuser14 |
     And Sign In link is not shown to user
     And Sign On link is not shown to user

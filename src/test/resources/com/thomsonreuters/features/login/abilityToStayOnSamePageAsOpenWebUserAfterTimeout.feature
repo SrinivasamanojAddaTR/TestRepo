@@ -4,7 +4,7 @@ Feature: [812856] As a PLAU user I want to see an open web view of my document w
     Given ANZ user is logged in with routing details
       | mandatoryRouting | YES                              |
       | routing          | SPECIFIED_USER_TIMEOUT_3_MINUTES |
-      | userName         | ANZuser1                     |
+      | userName         | AUtestuser14                     |
     When he is viewing a free ANZ document "/Document/Ifb5c26cb995811e598dc8b09b4f043e0/View/FullText.html"
     And he has a session open and timed out
     Then he should stay on same document page as OpenWeb user
@@ -19,7 +19,7 @@ Feature: [812856] As a PLAU user I want to see an open web view of my document w
     Given ANZ user is not logged in
     When the user navigates to the main PLANZ page
     Given a username/password user in the login screen
-      | userName | ANZuser1           |
+      | userName | AUtestuser14           |
       | routing  | NONE                   |
       | role     | SUPER_REMEMBER_ME_USER |
     When he selects the option to be remembered on this computer
@@ -28,7 +28,7 @@ Feature: [812856] As a PLAU user I want to see an open web view of my document w
     Given ANZ user is applying routing without login
       | mandatoryRouting | YES                              |
       | routing          | SPECIFIED_USER_TIMEOUT_3_MINUTES |
-      | userName         | ANZuser1                     |
+      | userName         | AUtestuser14                     |
     When he is viewing a free ANZ document "/Document/Ifb5c26cb995811e598dc8b09b4f043e0/View/FullText.html"
     And he has a session open and timed out
     Then user gets redirected to the document page that he was visiting and is logged in
@@ -42,7 +42,7 @@ Feature: [812856] As a PLAU user I want to see an open web view of my document w
     Given ANZ user is not logged in
     When the user navigates to the main PLANZ page
     Given a username/password user in the login screen
-      | userName | ANZuser3           |
+      | userName | AUtestuser14           |
       | routing  | NONE                   |
       | role     | SUPER_REMEMBER_ME_USER |
     When he selects the option to be remembered on this computer
@@ -51,7 +51,7 @@ Feature: [812856] As a PLAU user I want to see an open web view of my document w
     Given ANZ user is applying routing without login
       | mandatoryRouting | YES                              |
       | routing          | SPECIFIED_USER_TIMEOUT_3_MINUTES |
-      | userName         | ANZuser3                    |
+      | userName         | AUtestuser14                    |
     When he is viewing a free ANZ document "/Document/Ifb5c26cb995811e598dc8b09b4f043e0/View/FullText.html"
     And he has a session open and timed out
     When the PLAU refreshes the page

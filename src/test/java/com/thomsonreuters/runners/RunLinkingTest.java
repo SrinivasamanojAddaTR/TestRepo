@@ -19,7 +19,7 @@ public class RunLinkingTest {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "ANZuser4");
+            System.setProperty("username", "AUtestuser13");
             System.setProperty("password", "Password1");
         }
         else {

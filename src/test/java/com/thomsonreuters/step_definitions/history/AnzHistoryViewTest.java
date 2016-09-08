@@ -7,6 +7,7 @@ import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesResultsPage
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.step_definitions.login.clientIdTest;
@@ -38,6 +39,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     private com.thomsonreuters.step_definitions.login.clientIdTest clientIdTest = new clientIdTest();
     private BasicKnowHowSearchUKS101Test basicKnowHowSearchUKS101Test = new BasicKnowHowSearchUKS101Test();
     private WLNHeader wlnHeader = new WLNHeader();
+    private FooterUtils footerUtils = new FooterUtils();
 
     private String storedTitle=null;
     private String searchResultAndCount=null;
@@ -218,6 +220,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     @When("^the user selects the date (.*) with (.*)$")
     public void theUserSelectsTheDateToday(String option, String date) throws Throwable {
       if(!researchOrganizerPage.datePickerDropdownSelectedOption().getText().equalsIgnoreCase(option)) {
+          footerUtils.closeDisclaimerMessage();
           do { researchOrganizerPage.historyPageDatePickerDropdownLink().click();
           }while (commonMethods.waitForElementToBeVisible(researchOrganizerPage.datePickerDropdownByOptionsPopup(), 1000) == null);
           for (WebElement optionElement : researchOrganizerPage.datePickerDropdownOptionsList()) {

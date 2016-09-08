@@ -18,7 +18,7 @@ Feature: [809784] As a PLAU User I want add my client ID So that I can track how
       | QWERTY1   |
     And user clicks on Sign out
     And ANZ user is logged in with following details
-      | userName | ANZuser2 |
+      | userName | AUtestuser14 |
     And user is able to see default client id "PRACTICAL LAW AU" in the header
     And user clicks on client id "PRACTICAL LAW AU"
     And user see a list of recent client ids

@@ -9,7 +9,6 @@ Feature: [812636]  Super Remember Me Option
   @RemoveSRMOptionANZ 
   Scenario: [752718]
   	Given a username/password user in the login screen
-      | userName | ANZuser1          |
       | routing  | NONE                   |
       | role     | SUPER_REMEMBER_ME_USER |
     When he selects the option to be remembered on this computer
@@ -23,7 +22,6 @@ Feature: [812636]  Super Remember Me Option
   @RemoveSRMOptionANZ  
   Scenario: [752718]
     Given a username/password user in the login screen
-      | userName | ANZuser1             |
       | routing  | NONE                   |
       | role     | SUPER_REMEMBER_ME_USER |
     When he selects the option to be remembered on this computer

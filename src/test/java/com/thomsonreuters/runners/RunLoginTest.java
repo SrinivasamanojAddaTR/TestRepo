@@ -19,7 +19,7 @@ public class RunLoginTest {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "ANZuser2");
+            System.setProperty("username", "AUtestuser14");
             System.setProperty("password", "Password1");
         }
         else {
