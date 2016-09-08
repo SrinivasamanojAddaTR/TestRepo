@@ -40,7 +40,7 @@ public class abilityToSeeAlertsControlsOnASinglePage extends BaseStepDef {
 
     @When("^the user saves his preferences$")
     public void theUserSavesHisPreferences() throws Throwable {
-        subscriptionPreferencePage.saveButton().click();
+        subscriptionPreferencePage.saveButtonANZ().click();
         subscriptionPreferencePage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(90);
     }
 
@@ -75,34 +75,34 @@ public class abilityToSeeAlertsControlsOnASinglePage extends BaseStepDef {
 
     @Then("^the user should be presented with two radio buttons as email options$")
     public void theUserShouldBePresentedWithTwoRadioButtonsAsEmailOptions() throws Throwable {
-        assertTrue("one of radiobuttons is absent", subscriptionPreferencePage.htmlRadioButton().isDisplayed() && subscriptionPreferencePage.textOnlyRadioButton().isDisplayed());
+        assertTrue("one of radiobuttons is absent", subscriptionPreferencePage.htmlRadioButtonANZ().isDisplayed() && subscriptionPreferencePage.textOnlyRadioButtonANZ().isDisplayed());
     }
 
     @Then("^the options should include HTML and Text Only$")
     public void theOptionsShouldIncludeHTMLAndTextOnly() throws Throwable {
-        String htmlRB = subscriptionPreferencePage.htmlRadioButtonLabel().getText();
-        String textRB = subscriptionPreferencePage.textOnlyRadioButtonLabel().getText();
+        String htmlRB = subscriptionPreferencePage.htmlRadioButtonLabelANZ().getText();
+        String textRB = subscriptionPreferencePage.textOnlyRadioButtonLabelANZ().getText();
         assertTrue("Label for radio button is incorrect", htmlRB.contains(HTML_RADIOBUTTON_LABEL) && textRB.contains(TEXT_RADIOBUTTON_LABEL));
     }
 
     @Then("^the user should be presented with a checkbox for 'Receive an email even if there are no new items'$")
     public void theUserShouldBePresentedWithACheckboxForReceiveAnEmailEvenIfThereAreNoNewItems() throws Throwable {
-        assertTrue("Checkbox 'I would like to receive 'No new items to report' emails' is absent", subscriptionPreferencePage.recieveNoNewItemsCheckBox().isDisplayed());
+        assertTrue("Checkbox 'I would like to receive 'No new items to report' emails' is absent", subscriptionPreferencePage.recieveNoNewItemsCheckBoxANZ().isDisplayed());
     }
 
     @Then("^the user should be presented with two buttons to save their preferences or cancel their changes$")
     public void theUserShouldBePresentedWithTwoButtonsToSaveTheirPreferencesOrCancelTheirChanges() throws Throwable {
-        assertTrue("one of save/cancel buttons is absent", subscriptionPreferencePage.saveButton().isDisplayed() && subscriptionPreferencePage.cancelButton().isDisplayed());
+        assertTrue("one of save/cancel buttons is absent", subscriptionPreferencePage.saveButtonANZ().isDisplayed() && subscriptionPreferencePage.cancelButtonANZ().isDisplayed());
     }
 
     @Then("^one button should be labelled 'Save preferences'$")
     public void oneButtonShouldBeLabelledSavePreferences() throws Throwable {
-        assertTrue("Save button label is incorrect", subscriptionPreferencePage.saveButton().getText().equals(SAVE_BUTTON_LABEL));
+        assertTrue("Save button label is incorrect", subscriptionPreferencePage.saveButtonANZ().getText().equals(SAVE_BUTTON_LABEL));
     }
 
     @Then("^one button should be labelled 'cancel changes'$")
     public void oneButtonShouldBeLabelledCancelChanges() throws Throwable {
-        assertTrue("Cancel button label is incorrect", subscriptionPreferencePage.cancelButton().getText().equals(CANCEL_BUTTON_LABEL));
+        assertTrue("Cancel button label is incorrect", subscriptionPreferencePage.cancelButtonANZ().getText().equals(CANCEL_BUTTON_LABEL));
     }
 
 }

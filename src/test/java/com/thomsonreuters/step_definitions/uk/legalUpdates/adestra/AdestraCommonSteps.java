@@ -1,9 +1,9 @@
 package com.thomsonreuters.step_definitions.uk.legalUpdates.adestra;
 
 import com.thomsonreuters.pageobjects.pages.adestra.SubscriptionPreferencePage;
-import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.utils.adestra.AdestraUtils;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
@@ -15,7 +15,7 @@ public class AdestraCommonSteps extends BaseStepDef {
     private SubscriptionPreferencePage subscriptionPreferencePage = new SubscriptionPreferencePage();
     private WLNHeader wlnHeader = new WLNHeader();
     private AdestraUtils adestraUtils = new AdestraUtils();
-    private SharedAnnotationsPage sharedAnnotationsPage = new SharedAnnotationsPage();
+    private FooterUtils footerUtils= new FooterUtils();
 
     @Given("^a user creates subscription to the \"(.*?)\" \"(.*?)\" email service with \"(.*?)\"$")
     public void aUserCreatesSubscriptionToTheEmailServiceWith(String region, String service, List<String> frequencies) throws Throwable {
@@ -27,7 +27,7 @@ public class AdestraCommonSteps extends BaseStepDef {
     public void aUserIsViewingTheEmailPreferencePage() throws Throwable {
         wlnHeader.openEmailPreferences();
         subscriptionPreferencePage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(90);
-        sharedAnnotationsPage.closeDisclaimer();
+        footerUtils.closeDisclaimerMessage();
     }
 
     @After(order = 100000, value = "@UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption")

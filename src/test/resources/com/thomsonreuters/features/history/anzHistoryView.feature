@@ -64,7 +64,6 @@ Background:
 
   Scenario: [821985] As a PLAU User,I want to increase or decrease the number of documents and searches listed in my history page view
   So that I can view a list of documents and searches based on my needs
-
     When the user clicks on 'History' link on the header
     And the user selects the date All with -
     When the user selects the "20" from per page dropdown

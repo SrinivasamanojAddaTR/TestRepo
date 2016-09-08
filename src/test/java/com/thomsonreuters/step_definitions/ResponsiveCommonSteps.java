@@ -17,6 +17,7 @@ import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.WhatsMarketSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
@@ -51,6 +52,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 	private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
     private AskResourcePage askResourcePage =  new AskResourcePage();
     private PracticalLawUKCategoryPage practicalLawUKCategoryPage =  new PracticalLawUKCategoryPage();
+    private FooterUtils footerUtils = new FooterUtils();
 
     private String favGroupName=null;
 
@@ -107,6 +109,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 
     @Then("^the user selects the \"(.*?)\" from per page dropdown$")
     public void theUserSelectsThePerPagefromPerPageDropdown(String perPageNo) throws Throwable {
+        footerUtils.closeDisclaimerMessage();
         if(!legalUpdatesResultsPage.resultsPerPageLink().getText().contains(perPageNo)) {
             knowHowSearchResultsPage.searchPerPageDrodownLink().click();
             for (WebElement link : knowHowSearchResultsPage.searchPerPageDrodownListItemLinks()) {
