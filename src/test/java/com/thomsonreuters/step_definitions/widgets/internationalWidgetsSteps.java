@@ -1,6 +1,7 @@
 package com.thomsonreuters.step_definitions.widgets;
 
 import com.thomsonreuters.pageobjects.pages.widgets.InternationalWidgetsPanel;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
@@ -14,6 +15,7 @@ import java.util.List;
 public class internationalWidgetsSteps extends BaseStepDef {
 
 	private InternationalWidgetsPanel widgets = new InternationalWidgetsPanel();
+    private FooterUtils footerUtils = new FooterUtils();
 
 	@Then("^the following widgets should(| not) be displayed$")
 	public void theFollowingWidgetsShouldBeDisplayed(String not, DataTable dataTable) {
@@ -31,6 +33,7 @@ public class internationalWidgetsSteps extends BaseStepDef {
 
 	@When("^the user clicks on button \"(.*)\" on widget \"(.*)\"$")
 	public void theUserClicksOnButtonOnWidget(String buttonText, String widgetTitle) {
+        footerUtils.closeDisclaimerMessage();
 		widgets.buttonOnWidgetWithTitle(widgetTitle, buttonText).click();
 	}
 

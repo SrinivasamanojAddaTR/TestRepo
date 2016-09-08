@@ -8,6 +8,7 @@ import com.thomsonreuters.pageobjects.pages.landingPage.UKPLCSitePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DraftingNotes;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
 import com.thomsonreuters.pageobjects.pages.search.*;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import cucumber.api.Transpose;
@@ -43,6 +44,7 @@ public class facetJavaTest extends BaseStepDef {
     private SearchUtils searchUtils = new SearchUtils();
     private PPIGenericDocDisplay ppiGenericDocDisplay = new PPIGenericDocDisplay();
     private KHResourcePage resourcePage = new KHResourcePage();
+    private FooterUtils footerUtils = new FooterUtils();
     
     private String mainWindowHandle;
     private int facetsDocsCount = 0;
@@ -188,6 +190,7 @@ public class facetJavaTest extends BaseStepDef {
 
     @When("^the user selects the know how following parent facets with single selection$")
     public void theUserSelectsTheKnowHowFollowingParentFacetWithSingleSelection(List<String> facets) throws Throwable {
+        footerUtils.closeDisclaimerMessage();
         WebElement cancelFilterButton=commonMethods.waitForElement(researchOrganizerPage.cancelByFilters(), 1000);
         if(cancelFilterButton!=null){
             cancelFilterButton.click();

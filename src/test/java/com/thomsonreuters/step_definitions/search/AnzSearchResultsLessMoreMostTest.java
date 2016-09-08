@@ -4,6 +4,7 @@ import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.CommonResourcePage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.step_definitions.uk.search.BasicKnowHowSearchUKS101Test;
 import com.thomsonreuters.step_definitions.uk.search.facetJavaTest;
@@ -27,6 +28,7 @@ public class AnzSearchResultsLessMoreMostTest extends BaseStepDef {
     private facetJavaTest facetJavatest = new facetJavaTest();
     private CommonResourcePage commonResourcePage = new CommonResourcePage();
     private BasicKnowHowSearchUKS101Test basicKnowHowSearchUKS101Test = new BasicKnowHowSearchUKS101Test();
+    private FooterUtils footerUtils = new FooterUtils();
 
 
     @When("^the user should verify the presence of following search structure for \"(.*)\" option$")
@@ -63,6 +65,7 @@ public class AnzSearchResultsLessMoreMostTest extends BaseStepDef {
 
     @Then("^the user should see the each search result with search term \"(.*)\" in the search result snippet$")
     public void theUserShouldSeeTheEachSearchResultAccordingToTheTerm(String searchTerm) throws Throwable {
+        footerUtils.closeDisclaimerMessage();
         commonMethods.waitForElement(knowHowSearchResultsPage.searchResultByCountLabel(), 3000);
         assertTrue("Search term row count is not matching..!", isTermFound(searchTerm));
     }
