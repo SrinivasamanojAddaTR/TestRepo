@@ -1,6 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.pageCreation;
 
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
@@ -30,6 +31,7 @@ public class HomePageSteps extends BaseStepDef {
     private WLNHeader wlnHeader = new WLNHeader();
     private StandardDocumentUtils standardDocumentUtils = new StandardDocumentUtils();
     private FooterUtils footerUtils = new FooterUtils();
+    private SharedAnnotationsPage sharedAnnotationsPage = new SharedAnnotationsPage();
 
     @Then("^user can view three tabs: Practice Areas, Resources and International$")
     public void userCanViewThreeTabsPracticeAreasResourcesAndInternational() throws Throwable {
@@ -205,7 +207,6 @@ public class HomePageSteps extends BaseStepDef {
     public void userSelectsFirstTwoQuestionsAndClicksOnButton(String arg1) throws Throwable {
         homePage.selectQuestionsPageCheckboxList().get(0).click();
         homePage.selectQPageSelectJurisdictionButton().click();
-        footerUtils.closeDisclaimerMessage();
     }
 
     @When("^user selects two following countries and clicks on \"(.*?)\" button$")
@@ -213,12 +214,15 @@ public class HomePageSteps extends BaseStepDef {
         for(String country : countryList){
            homePage.selectJurisdictionCheckbox(country).click();
         }
+        footerUtils.closeDisclaimerMessage();
+        sharedAnnotationsPage.waitForDisclaimerAbsent();
         homePage.jurisdictionPageCompareButton().click();
     }
 
     @When("^user sees the comparison page and clicks on the \"(.*?)\" button on L\\.H\\.S$")
     public void userSeesTheComparisonPageAndClicksOnTheButtonOnLHS(String edit) throws Throwable {
-       homePage.comparePageCountryEditButton().click();
+        homePage.waitForPageToLoadAndJQueryProcessing();
+        homePage.waitForElementVisible(homePage.comparePageCountryEditButton(), 10).click();
      }
 
     @Then("^user should see \"(.*?)\" popup with the list of countries$")

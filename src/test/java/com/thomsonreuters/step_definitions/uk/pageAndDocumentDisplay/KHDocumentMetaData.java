@@ -1,6 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentRightPanelPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DraftingNotes;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
@@ -31,6 +32,7 @@ public class KHDocumentMetaData extends BaseStepDef {
     private DocumentRightPanelPage rightPanelPage = new DocumentRightPanelPage();
     private KHResourcePage resourcePage = new KHResourcePage();
     private FooterUtils footerUtils = new FooterUtils();
+    private SharedAnnotationsPage sharedAnnotationsPage = new SharedAnnotationsPage();
 
     public int notesIcons;
 
@@ -236,6 +238,7 @@ public class KHDocumentMetaData extends BaseStepDef {
     @Then("^back to top sticky link is displayed$")
     public void backToTopIsDisplayed() throws Throwable {
         footerUtils.closeDisclaimerMessage();
+        sharedAnnotationsPage.waitForDisclaimerAbsent();
         assertThat(resourcePage.backToTop().isDisplayed(), Is.is(true));
     }
 
