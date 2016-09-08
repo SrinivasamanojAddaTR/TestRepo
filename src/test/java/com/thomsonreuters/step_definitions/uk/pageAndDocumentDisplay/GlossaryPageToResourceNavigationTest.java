@@ -1,6 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -11,9 +12,11 @@ import static org.junit.Assert.assertTrue;
 public class GlossaryPageToResourceNavigationTest extends BaseStepDef {
 
     private GlossaryPage glossaryPage = new GlossaryPage();
+	private FooterUtils footerUtils = new FooterUtils();
 
     @When("^the user clicks on glossary term \"(.*?)\"$")
     public void theUserClicksOnGlossaryTerm(String termLink) throws Throwable {
+		footerUtils.closeDisclaimerMessage();
         glossaryPage.glossaryTerm(termLink).click();
     }
 

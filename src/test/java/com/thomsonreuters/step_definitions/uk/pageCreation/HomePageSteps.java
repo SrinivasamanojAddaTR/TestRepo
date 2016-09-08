@@ -1,7 +1,6 @@
 package com.thomsonreuters.step_definitions.uk.pageCreation;
 
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
-import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
@@ -31,7 +30,6 @@ public class HomePageSteps extends BaseStepDef {
     private WLNHeader wlnHeader = new WLNHeader();
     private StandardDocumentUtils standardDocumentUtils = new StandardDocumentUtils();
     private FooterUtils footerUtils = new FooterUtils();
-    private SharedAnnotationsPage sharedAnnotationsPage = new SharedAnnotationsPage();
 
     @Then("^user can view three tabs: Practice Areas, Resources and International$")
     public void userCanViewThreeTabsPracticeAreasResourcesAndInternational() throws Throwable {
@@ -215,7 +213,6 @@ public class HomePageSteps extends BaseStepDef {
            homePage.selectJurisdictionCheckbox(country).click();
         }
         footerUtils.closeDisclaimerMessage();
-        sharedAnnotationsPage.waitForDisclaimerAbsent();
         homePage.jurisdictionPageCompareButton().click();
     }
 

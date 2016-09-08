@@ -4,6 +4,7 @@ import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
 import com.thomsonreuters.pageobjects.pages.onePass.OnePassLogoutPage;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import org.junit.Assert;
@@ -22,7 +23,8 @@ public class UsernameLinkTest extends BaseStepDef {
 
     private CommonMethods comMethods = new CommonMethods();
     
-	OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
+	private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
+    private FooterUtils footerUtils = new FooterUtils();
 
 	@Then("^user should (|not )see user icon link$")
 	public void userShouldSeeUserIconLink(String not) throws Throwable {
@@ -50,6 +52,7 @@ public class UsernameLinkTest extends BaseStepDef {
 
     @Then("^user clicks on \"(.*)\" link$")
     public void userClicksOnLink(String linkText) throws Throwable {
+        footerUtils.closeDisclaimerMessage();
         header.scrollIntoViewAndClick(comMethods.waitElementByLinkText(linkText));
     }
 

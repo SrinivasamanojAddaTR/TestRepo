@@ -1,6 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -10,6 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class GlossaryPageTest extends BaseStepDef {
 
     private GlossaryPage glossaryPage = new GlossaryPage();
+    private FooterUtils footerUtils = new FooterUtils();
 
     private String selectedAlphabet = null;
     private String selectedLinkText = null;
@@ -24,6 +26,7 @@ public class GlossaryPageTest extends BaseStepDef {
 
     @Then("^the glossary list rolls up and the first term in the respective list is selected \\(except x, Y and Z\\)$")
     public void theGlossaryListRollsUpAndTheFirstTermInTheRespectiveListIsSelectedExceptXYAndZ() throws Throwable {
+        footerUtils.closeDisclaimerMessage();
         selectedLinkText = glossaryPage.selectedGlossaryTermLink().getText().trim();
         boolean isTermSelected = false;
         if (glossaryPage.nextElementToAlphabetTitle(selectedAlphabet).getText().trim().equalsIgnoreCase(selectedLinkText)) {
@@ -71,14 +74,15 @@ public class GlossaryPageTest extends BaseStepDef {
     @Then("^clicking on the scroll up button the user should be able to roll up the list of terms$")
     public void clickingOnTheScrollUpButtonTheUserShouldBeAbleToRollUpTheListOfTerms() throws Throwable {
         for (int i = 0; i < 9; i++) {
-            glossaryPage.scrollUpButton().click();
+            glossaryPage.scrollIntoViewAndClick(glossaryPage.scrollUpButton());
         }
     }
 
     @Then("^clicking on the scroll down button the user should be able to traverse down the list of terms$")
     public void clickingOntHeScrollDownButtonTheUserShouldBeAbleToTraverseDownTheListOfTerms() throws Throwable {
         for (int i = 0; i < 9; i++) {
-            glossaryPage.scrollDownButton().click();
+            footerUtils.closeDisclaimerMessage();
+            glossaryPage.scrollIntoViewAndClick(glossaryPage.scrollDownButton());
         }
     }
 

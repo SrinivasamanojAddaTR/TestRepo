@@ -7,6 +7,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.hamcrest.core.Is;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 import java.util.Collections;
@@ -104,7 +105,7 @@ public class GlossarySearchTest extends BaseStepDef {
         // TODO - Find better way to assert expected exception
         try {
             glossaryPage.selectedGlossaryAlphabetLink();
-        } catch (NoSuchElementException nse) {
+        } catch (NoSuchElementException | TimeoutException e) {
             LOG.info("As expected no alphabets are selected");
         }
     }
