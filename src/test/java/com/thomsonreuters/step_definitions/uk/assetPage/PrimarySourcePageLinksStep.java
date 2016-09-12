@@ -30,7 +30,7 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 
 	@When("^the user click on \"(.*?)\" Legislation link$")
 	public void theUserClickOnLegislationLink(String legislationLinkText) throws Throwable {
-		assetPageUtils.getBaseParameters();
+		assetPageUtils.readBasePageParameters();
 		primarySourceDocumentPage.legislationLink(legislationLinkText).click();
 	}
 
@@ -54,7 +54,7 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 	@Then("^the user is taken to \"(.*?)\" resource$")
 	public void theUserIsTakenToResource(String linkText) throws Throwable {
 		primarySourceDocumentPage.waitForPageToLoad();
-		assetPageUtils.getBaseParameters();
+		assetPageUtils.readBasePageParameters();
 		assertTrue("The user doesn't taken to the selected resource",
 				assetPageUtils.isTheUserTakenToTheSelectedResource(linkText));
 	}
@@ -67,7 +67,7 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 
 	@When("^the user clicks on this \"(.*?)\" link$")
 	public void theUserClicksOnThisLink(String linkText) throws Throwable {
-		assetPageUtils.getBaseParameters();
+		assetPageUtils.readBasePageParameters();
 		hrefAtribute = primarySourceDocumentPage.linkInPrimarySource(linkText).getAttribute("href");
 		primarySourceDocumentPage.linkInPrimarySource(linkText).click();
 	}
@@ -101,7 +101,7 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 
 	@When("^the user clicks on this \"(.*?)\" link in Specific provision coverage section$")
 	public void theUserClicksOnThisLinkInSpecificProvisionCoverageSection(String linkText) throws Throwable {
-		assetPageUtils.getBaseParameters();
+		assetPageUtils.readBasePageParameters();
 		hrefAtribute = primarySourceDocumentPage.linkInSpecificProvisionCoverageSection(linkText).getAttribute("href");
 		primarySourceDocumentPage.linkInSpecificProvisionCoverageSection(linkText).click();
 	}

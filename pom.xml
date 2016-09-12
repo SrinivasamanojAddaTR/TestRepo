@@ -180,7 +180,7 @@
         <dependency>
             <groupId>com.thomsonreuters.pageobjects</groupId>
             <artifactId>ppiuk-pageobjects</artifactId>
-            <version>1a.1.1</version>
+            <version>LATEST</version>
         </dependency>
     </dependencies>
 
