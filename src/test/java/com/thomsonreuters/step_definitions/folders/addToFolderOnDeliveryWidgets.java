@@ -16,9 +16,9 @@ import static org.junit.Assert.assertTrue;
 public class addToFolderOnDeliveryWidgets extends BaseStepDef {
 	
 	
-    private DocumentDeliveryPage documentDeliveryPage;
-	private ListOfItemsDeliveryOptionsPage listOfItemsDeliveryOptionsPage;
-	private SaveToPopup saveToPopup;
+    private DocumentDeliveryPage documentDeliveryPage = new DocumentDeliveryPage();
+	private ListOfItemsDeliveryOptionsPage listOfItemsDeliveryOptionsPage = new ListOfItemsDeliveryOptionsPage();
+	private SaveToPopup saveToPopup = new SaveToPopup();
 	
 	@When("^user clicks on Add To Folder icon on document delivery$")
 	public void userClicksOnAddToFolderIconOnDocumentDelivery() throws Throwable {
