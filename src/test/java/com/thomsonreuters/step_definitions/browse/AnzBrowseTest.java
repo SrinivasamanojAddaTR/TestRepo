@@ -253,6 +253,7 @@ public class AnzBrowseTest extends BaseStepDef {
                      glossaryPage.waitForExpectedElement(By.linkText(linkText));
                  }
                  wlnHeader.companyLogo().click();
+                 wlnHeader.waitForPageToLoad();
                  homePage.specificTab("Resources").click();
              }
          }
@@ -261,6 +262,7 @@ public class AnzBrowseTest extends BaseStepDef {
 	@When("^the user navigates to resource page \"(.*?)\" filtered by \"(.*?)\" practice area$")
 	public void theUserNavigatesToPracticeAreaFilteredByTopicPage(String resource, String pa) throws Throwable {
 		homePage.selectLinkPresentOnTab(resource);
+        homePage.waitForPageToLoad();
 		commonMethods.waitElementByLinkText(pa).click();
 		homePage.waitForPageToLoad();
 	}
