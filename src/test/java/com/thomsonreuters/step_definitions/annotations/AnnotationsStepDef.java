@@ -1446,8 +1446,8 @@ public class AnnotationsStepDef extends BaseStepDef {
         saveToPopup.waitForPageToLoad();
         saveToPopup.waitForPageToLoadAndJQueryProcessing();
         if (folder.equals("root")) {
-            saveToPopup.selectRootFolder().click();
-            folderName = saveToPopup.selectRootFolder().getText();
+            saveToPopup.rootFolder().click();
+            folderName = saveToPopup.rootFolder().getText();
         } else {
             saveToPopup.waitForPageToLoadAndJQueryProcessing();
             try {
