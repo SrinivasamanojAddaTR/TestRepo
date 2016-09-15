@@ -23,6 +23,11 @@ public class linkingFromDocument {
 	public void theTargetPLAUDocumentIsDisplayed() throws Throwable {
 		assertTrue("The target PLAU document is not displayed in the same tab", assetPageUtils.isTheUserTakenToTheLegalUpdates());
 	}
+
+    @When("^the user clicks on hardcoded \"(.*?)\" link$")
+    public void theUserClicksOnHardcodedLink(String linkText) throws Throwable {
+        assetPageUtils.clickOnHardcodedLink(linkText);
+    }
 	
 	@Then("^the source document with guid \"(.*?)\" remains open and new tab opens$")
 	public void theSourceDocumentRemainsOpen(String guid) throws Throwable {	

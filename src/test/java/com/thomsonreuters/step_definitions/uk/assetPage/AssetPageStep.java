@@ -45,11 +45,6 @@ public class AssetPageStep extends BaseStepDef {
 		assertTrue("The user doesn't see hardcoded links", assetPageUtils.isTheUserSeeHardcodedLinks(linkText));
 	}
 
-	@When("^the user clicks on hardcoded \"(.*?)\" link$")
-	public void theUserClicksOnHardcodedLink(String linkText) throws Throwable {
-		assetPageUtils.clickOnHardcodedLink(linkText);
-	}
-
 	@Then("^the user is taken to the legal updates$")
 	public void theUserIsTakenToTheLegalUpdates() throws Throwable {
 		assertTrue("The user doesn't taken to the legal updates", assetPageUtils.isTheUserTakenToTheLegalUpdates());
