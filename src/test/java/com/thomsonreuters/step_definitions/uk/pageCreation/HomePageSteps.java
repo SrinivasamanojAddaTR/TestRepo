@@ -203,6 +203,7 @@ public class HomePageSteps extends BaseStepDef {
 
     @When("^user selects first questions and clicks on \"(.*?)\" button$")
     public void userSelectsFirstTwoQuestionsAndClicksOnButton(String arg1) throws Throwable {
+        footerUtils.closeDisclaimerMessage();
         homePage.selectQuestionsPageCheckboxList().get(0).click();
         homePage.selectQPageSelectJurisdictionButton().click();
     }
@@ -235,6 +236,7 @@ public class HomePageSteps extends BaseStepDef {
 
     @Then("^user should see the \"(.*?)\" appearing on L\\.H\\.S column in the comparison tool and on the page$")
     public void userShouldSeeTheAppearingOnLHSColumnInTheComparisonToolAndOnThePage(String country) throws Throwable {
+        homePage.waitForPageToLoad();
         homePage.waitForPageToLoadAndJQueryProcessing();
         Is.is(homePage.comparePageLeftColumnCountryNameLink(country).isDisplayed());
     }
