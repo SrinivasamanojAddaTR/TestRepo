@@ -21,7 +21,7 @@ Scenario Outline: Verify valid search results for single and multiple terms
 		| Search Term        |
 		| Tax                |
 		| TAX DEED           |
-		| Tax And Account |
+		| Tax And Account    |
 		| TAX Or DEED        |
 		
 Scenario Outline: Verify invalid search results for single and multiple terms 

@@ -106,6 +106,7 @@ public class HomePageSteps extends BaseStepDef {
 
     @When("^the user clicks link '(.*)' on '(.*)' page$")
     public void theUserClicksLinkOnPage(String link, String page) throws Throwable {
+        footerUtils.closeDisclaimerMessage();
         if (!link.equals("")) {
             if (page.contains("Browse")) {
                 homePage.findChildElement(homePage.getPracticeAreasBrowseMenuContainer(), By.linkText((link))).click();

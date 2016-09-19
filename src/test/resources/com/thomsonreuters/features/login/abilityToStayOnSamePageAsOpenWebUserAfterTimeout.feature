@@ -10,7 +10,7 @@ Feature: [812856] As a PLAU user I want to see an open web view of my document w
     Then he should stay on same document page as OpenWeb user
     And the user clicks Log in button
     When a PPI user enter its username and password
-      | userName | ANZuser1 |
+      | userName | AUtestuser14 |
     And clicks on Sign in
     Then user gets redirected to the document page that he was visiting and is logged in
 

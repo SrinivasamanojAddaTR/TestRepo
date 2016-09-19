@@ -1,5 +1,4 @@
-@bug
-Feature: [820472][820473] View and Navigate within Glossary 
+Feature: [820472][820473] View and Navigate within Glossary
 	As a PLAU User
 	I want to view a document within the glossary section of Practical Law Australia
 	So that I can understand the meaning of a legal term
@@ -10,10 +9,7 @@ Background:
 	Given ANZ user is logged in
 	And user navigates to a glossary page 
 
-#intermittent issue:
-#848623 Bug [PLAU only] Glossary: Error when opening glossary article (Stream not readable)
-
-Scenario: Verify Tabbed Alphabets functionality 
+Scenario: Verify Tabbed Alphabets functionality
 	When the user is able to see the tabbed alphabetical list 
 	And the user clicks on the alphabet "B" in the tabbed alphabetical list 
 	Then letter "B" should be selected on the alphabet tab
@@ -22,7 +18,6 @@ Scenario: Verify Tabbed Alphabets functionality
 	And the corresponding terms for "B" are displayed
 	And the term "Australian Human Rights Commission (AHRC)" is not visible in the list
 
-	
 
 Scenario: Scroll up and down buttons	
 	When the user clicks on the alphabet "D" in the tabbed alphabetical list 
@@ -38,8 +33,7 @@ Scenario: Scroll up and down buttons
     Then the title "Disability" is displayed in the definition
     And the definition contains text "A total or partial loss"
     And letter "D" should be selected on the alphabet tab
-    
-    
+
 
 Scenario: Verification of the navigation from glossary definition page to actual know how resource
     When the user clicks on glossary term "Disability Discrimination Act 1992 (Cth) (DDA)"

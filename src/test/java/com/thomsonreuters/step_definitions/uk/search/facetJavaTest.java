@@ -777,7 +777,7 @@ public class facetJavaTest extends BaseStepDef {
     }
     
     private void openDraftingNotesIfPresent(){
-    	if (resourcePage.draftingNotesDeliveryIcon().isDisplayed()){
+    	if (resourcePage.isDraftingNotesDeliveryIconExist()){
     		resourcePage.selectShowAndHideDraftingNotesLink();
         	resourcePage.selectOptionFromDraftingNotes(DraftingNotes.SHOW_ALL);
     	}
