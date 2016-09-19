@@ -109,7 +109,7 @@ public class HomePageSteps extends BaseStepDef {
         footerUtils.closeDisclaimerMessage();
         if (!link.equals("")) {
             if (page.contains("Browse")) {
-                homePage.findChildElement(homePage.getPracticeAreasBrowseMenuContainer(), By.linkText((link))).click();
+                homePage.scrollIntoViewAndClick(homePage.findChildElement(homePage.getPracticeAreasBrowseMenuContainer(), By.linkText(link)));
             } else {
                 try {
                     homePage.waitForExpectedElement(By.linkText(link), 2).click();

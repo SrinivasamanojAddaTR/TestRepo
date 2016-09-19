@@ -17,7 +17,7 @@ public class GlossaryPageToResourceNavigationTest extends BaseStepDef {
     @When("^the user clicks on glossary term \"(.*?)\"$")
     public void theUserClicksOnGlossaryTerm(String termLink) throws Throwable {
 		footerUtils.closeDisclaimerMessage();
-        glossaryPage.glossaryTerm(termLink).click();
+        glossaryPage.scrollIntoViewAndClick(glossaryPage.glossaryTerm(termLink));
     }
 
 	@When("^clicks on the (know how resource|glossary term) link \"(.*?)\" in the definition page$")
