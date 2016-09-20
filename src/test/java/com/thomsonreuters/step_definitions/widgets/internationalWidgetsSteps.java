@@ -34,7 +34,7 @@ public class internationalWidgetsSteps extends BaseStepDef {
 	@When("^the user clicks on button \"(.*)\" on widget \"(.*)\"$")
 	public void theUserClicksOnButtonOnWidget(String buttonText, String widgetTitle) {
         footerUtils.closeDisclaimerMessage();
-		widgets.buttonOnWidgetWithTitle(widgetTitle, buttonText).click();
+		widgets.scrollIntoViewAndClick(widgets.buttonOnWidgetWithTitle(widgetTitle, buttonText));
 	}
 
 	@Then("^the user can see the button \"(.*)\" on widget \"(.*)\"$")

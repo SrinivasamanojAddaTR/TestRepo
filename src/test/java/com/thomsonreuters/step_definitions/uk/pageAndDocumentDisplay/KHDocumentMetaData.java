@@ -1,6 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.pages.generic.PPIGenericDocDisplay;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentRightPanelPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DraftingNotes;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
@@ -31,6 +32,7 @@ public class KHDocumentMetaData extends BaseStepDef {
     private DocumentRightPanelPage rightPanelPage = new DocumentRightPanelPage();
     private KHResourcePage resourcePage = new KHResourcePage();
     private FooterUtils footerUtils = new FooterUtils();
+    private PPIGenericDocDisplay ppiGenericDocDisplay = new PPIGenericDocDisplay();
 
     public int notesIcons;
 
@@ -115,7 +117,7 @@ public class KHDocumentMetaData extends BaseStepDef {
 
     @Then("^document title is displayed as \"(.*?)\"$")
     public void titleIsDisplayedAs(String title) throws Throwable {
-        assertThat(resourcePage.title().getText().trim().replaceAll("\\n", " "), Is.is(title.replaceAll("\\\\n", " ")));
+        assertThat(ppiGenericDocDisplay.titleNoToc().getText().trim().replaceAll("\\n", " "), Is.is(title.replaceAll("\\\\n", " ")));
     }
 
     @Then("^plc reference is displayed as \"(.*?)\"$")
