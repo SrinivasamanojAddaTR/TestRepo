@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.urls;
 
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;
+import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
@@ -11,7 +11,7 @@ import org.junit.Assert;
 public class urlsSteps extends BaseStepDef {
 
 	private NavigationCobalt navigationCobalt = new NavigationCobalt();
-	private TopicPage page = new TopicPage();
+	private HomePage page = new HomePage();
 	private CategoryPage categoryPage = new CategoryPage();
 
 	@When("^the user opens \"(.*?)\" url on PL AU website$")
@@ -50,7 +50,7 @@ public class urlsSteps extends BaseStepDef {
 	@Then("^the user is presented with comparison tool page with header \"(.*?)\"$")
 	public void theUserIsPresentedWithComparisonToolPageWithhHeader(String header) {
 		Assert.assertTrue(
-				String.format("Page header '%s' does not contain expected text '%s'", page.getSpecialPageTitleLabel().getText(), header),
-				page.getSpecialPageTitleLabel().getText().toLowerCase().contains(header.toLowerCase()));
+				String.format("Page header '%s' does not contain expected text '%s'", page.getTitle().getText(), header),
+				page.getTitle().getText().toLowerCase().contains(header.toLowerCase()));
 	}
 }
