@@ -115,9 +115,14 @@ public class KHDocumentMetaData extends BaseStepDef {
         }
     }
 
+    @Then("^document international widget title is displayed as \"(.*?)\"$")
+    public void internationalWidgetTitleIsDisplayedAs(String title) throws Throwable {
+        assertThat(ppiGenericDocDisplay.titleNoToc().getText().trim().replaceAll("\\n", " "), Is.is(title.replaceAll("\\\\n", " ")));
+    }
+
     @Then("^document title is displayed as \"(.*?)\"$")
     public void titleIsDisplayedAs(String title) throws Throwable {
-        assertThat(ppiGenericDocDisplay.titleNoToc().getText().trim().replaceAll("\\n", " "), Is.is(title.replaceAll("\\\\n", " ")));
+        assertThat(resourcePage.title().getText().trim().replaceAll("\\n", " "), Is.is(title.replaceAll("\\\\n", " ")));
     }
 
     @Then("^plc reference is displayed as \"(.*?)\"$")

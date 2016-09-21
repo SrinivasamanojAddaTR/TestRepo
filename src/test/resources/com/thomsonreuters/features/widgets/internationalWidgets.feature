@@ -145,7 +145,7 @@ Feature: [821883][821884][821885][821886][821887] International Widgets
   Scenario Outline: [821887] Doing business in country widget
     When the user opens "<link>" url on PL AU website
     And the user clicks on button "Find out more" on widget "Doing business in <country>?"
-    Then document title is displayed as "Doing business in <country2>"
+    Then document international widget title is displayed as "Doing business in <country2>"
       Examples: 
       | link                                              | country                  | country2  |
 #      | /Browse/Home/International/Argentina              | ARGENTINA                | Argentina  |
