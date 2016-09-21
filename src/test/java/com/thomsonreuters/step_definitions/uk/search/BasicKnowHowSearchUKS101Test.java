@@ -13,10 +13,6 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-
 import static org.junit.Assert.assertTrue;
 
 public class BasicKnowHowSearchUKS101Test extends BaseStepDef {
@@ -42,22 +38,13 @@ public class BasicKnowHowSearchUKS101Test extends BaseStepDef {
 
     @When("^the user runs a free text search for the query \"(.*)\"$")
     public void theUserRunsAFreeTextSearchForTheQuery(String query) throws Throwable {
-
-        //paste string into the system clipboard instead
-        StringSelection stringSelection = new StringSelection(query);
-        Clipboard clpbrd = Toolkit.getDefaultToolkit().getSystemClipboard();
-
         // Ensure the search button has rendered
         practicalLawUKCategoryPage.searchButton().isDisplayed();
-
         practicalLawUKCategoryPage.freeTextField().clear();
-        //sendKeys isn't always working
-        //practicalLawUKCategoryPage.freeTextField().sendKeys(query);
-        
+
         //Paste the clipboard text if the query contains brackets or ampersand
-        if (query.contains("(") || query.contains(")") || query.contains("&")) {
-            clpbrd.setContents(stringSelection, null);
-            practicalLawUKCategoryPage.freeTextField().sendKeys(Keys.CONTROL + "v");
+        if (query.contains("(")) {
+            practicalLawUKCategoryPage.freeTextField().sendKeys(query.replace("(", Keys.chord(Keys.SHIFT, "9")));
         } else {
             practicalLawUKCategoryPage.freeTextField().sendKeys(query);
         }
