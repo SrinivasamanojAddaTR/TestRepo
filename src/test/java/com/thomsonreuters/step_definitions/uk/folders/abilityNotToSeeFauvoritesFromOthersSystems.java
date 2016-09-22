@@ -78,7 +78,7 @@ public class abilityNotToSeeFauvoritesFromOthersSystems extends BaseStepDef {
     @Then("^the favourites group '(.+)' is absent on Favourites page$")
     public void checkFavoriteGroupAbsent(String groupName) throws Throwable {
         Thread.sleep(500);
-        favouritesPage.checkFavouriteGroupIsAbsent(groupName);
+        favouritesPage.waitFavouriteGroupIsAbsent(groupName);
     }
 
     @When("^the user renames the favourites group '(.+)' to '(.+)'$")
