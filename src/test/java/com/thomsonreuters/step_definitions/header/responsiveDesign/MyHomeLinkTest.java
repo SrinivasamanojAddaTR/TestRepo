@@ -5,7 +5,9 @@ import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.login.WLNextHomePage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
+import org.openqa.selenium.By;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class MyHomeLinkTest extends BaseStepDef {
@@ -27,7 +29,7 @@ public class MyHomeLinkTest extends BaseStepDef {
 
     @Then("^user should not see the (.*?) link$")
     public void userShouldNotSeeTheLink(String linkText) throws Throwable {
-        assertTrue(linkText + " is present..!", comMethods.waitElementByLinkText(linkText) == null);
+        assertFalse(linkText + " is present..!", comMethods.isExists(By.linkText(linkText)));
     }
 
     @Then("^user should see default PLCUK home page$")
