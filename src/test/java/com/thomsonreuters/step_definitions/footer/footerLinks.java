@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.footer;
 
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.company.AboutCompanyPage;
 import com.thomsonreuters.pageobjects.pages.company.AboutCompanyPageTabs;
 import com.thomsonreuters.pageobjects.pages.footer.WLNFooter;
@@ -19,14 +18,12 @@ import static org.junit.Assert.assertTrue;
 public class footerLinks extends BaseStepDef {
 
 	private WLNFooter footer = new WLNFooter();
-	
-	private NavigationCobalt navigationCobalt = new NavigationCobalt();
     private FooterUtils footerUtils = new FooterUtils();
 	private AboutCompanyPage aboutCompanyPage = new AboutCompanyPage();
 	
 	@Then("^user should see the \"(.*?)\" page is opened$")
     public void userShouldseethePage(String pageTitle) throws Throwable {
-        assertTrue("Title is Not matching..!", navigationCobalt.getPageTitle().contains(pageTitle));
+        assertTrue("Title " + aboutCompanyPage.getPageTitle() + " is Not contains " + pageTitle, aboutCompanyPage.getPageTitle().contains(pageTitle));
     }
 	
 	@Then("^user should see the following FooterLinks under heading \"(.*?)\" with links to pages$")

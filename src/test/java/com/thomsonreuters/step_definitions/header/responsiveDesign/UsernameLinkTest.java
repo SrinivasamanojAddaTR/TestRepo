@@ -54,6 +54,7 @@ public class UsernameLinkTest extends BaseStepDef {
     public void userClicksOnLink(String linkText) throws Throwable {
         footerUtils.closeDisclaimerMessage();
         header.scrollIntoViewAndClick(comMethods.waitElementByLinkText(linkText));
+        header.waitForPageToLoad();
     }
 
     @Then("^user should navigate to (.*)$")
