@@ -112,7 +112,7 @@ public class BrowseMenuTest extends BaseStepDef {
             } else { // In all other cases regular page with selected PA section is opened
                 placeToCheck = header.pageHeaderLabel().getText();
             }
-            comMethods.browserGoBack();
+            header.browserGoBack();
             softAssertions.assertThat(placeToCheck)
                     .withFailMessage("Page '" + linkName + "' is not opened")
                     .contains(linkName);

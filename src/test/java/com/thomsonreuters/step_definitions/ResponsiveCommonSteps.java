@@ -118,7 +118,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
                     break;
                 }
             }
-            assertTrue("Count is not right..!", commonMethods.isTextPresent(knowHowSearchResultsPage.searchResultByCountLabel(), perPageNo, 5000));
+            assertTrue("Count is not right..!", knowHowSearchResultsPage.isTextPresent(knowHowSearchResultsPage.searchResultByCountLabel(), perPageNo, 5000));
         }
     }
 

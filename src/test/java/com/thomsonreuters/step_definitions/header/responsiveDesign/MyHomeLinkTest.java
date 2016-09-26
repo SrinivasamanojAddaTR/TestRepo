@@ -29,7 +29,7 @@ public class MyHomeLinkTest extends BaseStepDef {
 
     @Then("^user should not see the (.*?) link$")
     public void userShouldNotSeeTheLink(String linkText) throws Throwable {
-        assertFalse(linkText + " is present..!", comMethods.isExists(By.linkText(linkText)));
+        assertFalse(linkText + " is present..!", homePage.isExists(By.linkText(linkText)));
     }
 
     @Then("^user should see default PLCUK home page$")

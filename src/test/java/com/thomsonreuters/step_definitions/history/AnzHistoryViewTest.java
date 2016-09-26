@@ -97,7 +97,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     @Then("^the user should be seeing \"(.*?)\" per page selected$")
     public void userShouldbeSeeingPerPage(String perPageNo) throws Throwable {
       //   legalUpdatesResultsPage.resultsPerPageLink().click();
-        assertTrue(perPageNo + "Count is not right..!", commonMethods.isTextPresent(knowHowSearchResultsPage.searchResultByCountLabel(), perPageNo, 5000));
+        assertTrue(perPageNo + "Count is not right..!", searchResultsPage.isTextPresent(knowHowSearchResultsPage.searchResultByCountLabel(), perPageNo, 5000));
     }
 
 	@Given("^the user changes the clientID to \"(.*?)\"$")

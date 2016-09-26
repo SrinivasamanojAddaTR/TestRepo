@@ -67,7 +67,7 @@ public class UsernameLinkTest extends BaseStepDef {
             assertTrue("Sign off page not displayed..!", onePassLogoutPage.signOffPageSignOnButton().isDisplayed());
             resetCurrentUser();
         } else if (resultPage.equalsIgnoreCase("Email preferences")) {
-            assertTrue("Sign off page not displayed..!", comMethods.isTextPresent(header.emailPreferencesByHeading(), resultPage, 2000));
+            assertTrue("Sign off page not displayed..!", onePassLogoutPage.isTextPresent(header.emailPreferencesByHeading(), resultPage, 2000));
         }
     }
 

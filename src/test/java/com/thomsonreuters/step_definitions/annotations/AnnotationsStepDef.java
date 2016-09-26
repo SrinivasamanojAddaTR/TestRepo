@@ -553,8 +553,8 @@ public class AnnotationsStepDef extends BaseStepDef {
     @Then("^hyperlinked url will be opened in new tab with title \"(.*?)\"$")
     public void hyperlinkedUrlWillBeOpenedInNewWindow(String windowName) throws Throwable {
         commonMethods.switchDriverToAnotherWindow(windowName);
-        commonMethods.close();
-        commonMethods.switchToWindow(mainWindow);
+        sharedAnnotationsPage.close();
+        sharedAnnotationsPage.switchToWindow(mainWindow);
         LOG.info("The hyperlinked URL have been opened in a new tab with a title " + windowName);
     }
 

@@ -1,6 +1,7 @@
 package com.thomsonreuters.step_definitions.linking;
 
 import com.thomsonreuters.pageobjects.common.CommonMethods;
+import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.utils.Linking.WLAUPageUtils;
 import com.thomsonreuters.pageobjects.utils.plPlusResearchDocDisplay.AssetPageUtils;
 import cucumber.api.java.en.Given;
@@ -17,6 +18,7 @@ public class linkingFromDocument {
 	private AssetPageUtils assetPageUtils = new AssetPageUtils();
     private WLAUPageUtils wlauPageUtils = new WLAUPageUtils();
     private CommonMethods commonMethods = new CommonMethods();
+    private HomePage homePage = new HomePage();
 	
 	
 	@Then("^the target PLAU document is displayed in the same tab$")
@@ -63,10 +65,10 @@ public class linkingFromDocument {
                 product = PLAU_SIGN_ON;
                 break;
         }
-        commonMethods.switchToOpenedWindow();
-        assertTrue("Product: " + product + "; Title: " + commonMethods.getPageTitle(), commonMethods.getPageTitle().contains(product));
-		commonMethods.close();
-		commonMethods.switchToMainWindow();
+        homePage.switchToOpenedWindow();
+        assertTrue("Product: " + product + "; Title: " + homePage.getPageTitle(), homePage.getPageTitle().contains(product));
+        homePage.close();
+        homePage.switchToMainWindow();
 	}
 
 }
