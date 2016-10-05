@@ -194,7 +194,7 @@ public class HomePageSteps extends BaseStepDef {
     @When("^user navigates to the \"(.*?)\" tool by clicking \"(.*?)\" button using \"(.*?)\" tab on the homepage$")
     public void userNavigatesToTheToolByClickingButtonUsingTabOnTheHomepage(String arg1, String arg2, String tabName) throws Throwable {
         homePage.specificTab(tabName).click();
-        homePage.homePageStartComparingButton().click();
+        homePage.scrollIntoViewAndClick(homePage.homePageStartComparingButton());
     }
 
     @When("^user selects the topic \"(.*?)\"$")

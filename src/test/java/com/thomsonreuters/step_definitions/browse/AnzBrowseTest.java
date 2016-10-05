@@ -10,6 +10,7 @@ import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowDocumentPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
@@ -37,6 +38,7 @@ public class AnzBrowseTest extends BaseStepDef {
     private GlossaryPage glossaryPage = new GlossaryPage();
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private CategoryPage categoryPage = new CategoryPage();
+    private FooterUtils footerUtils = new FooterUtils();
 
     @Then("^user navigates directly to url \"(.*)\"$")
 	public void userNavigatesDirectlyToUrl(String url) throws Throwable {
@@ -175,6 +177,7 @@ public class AnzBrowseTest extends BaseStepDef {
     public void userSelectsFollowingLinksAndShouldSeeTheirRespectivePages(List<String> linksList) throws Throwable {
            homePage.specificTab("International").click();
            for(String linkText : linksList){
+               footerUtils.closeDisclaimerMessage();
                if(linkText.equalsIgnoreCase("Country Q&A comparison tool")){
                    commonMethods.waitElementByLinkText("Start comparing").click();
                    assertTrue(linkText + " page is not displayed..!", commonMethods.waitForElementToBeVisible(knowHowDocumentPage.getDocumentTitle(),1000)
@@ -185,7 +188,6 @@ public class AnzBrowseTest extends BaseStepDef {
                }
                getDriver().navigate().back();
                homePage.specificTab("International").click();
-
            }
     }
 
