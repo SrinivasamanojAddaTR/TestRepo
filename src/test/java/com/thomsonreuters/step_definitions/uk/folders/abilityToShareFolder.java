@@ -203,6 +203,7 @@ public class abilityToShareFolder extends BaseStepDef {
     	foldersUtils.shareFolder(folderName);
         shareFolderPopup.contacts().click();
         shareFolderPopup.waitForPageToLoadAndJQueryProcessing();
+        foldersUtils.deleteGroupToShareFolderIfExists(groupName);
         shareFolderPopup.newGroup().click();
         shareFolderPopup.waitForPageToLoadAndJQueryProcessing();
         foldersUtils.createNewGroupToShareFolder(groupName, member);
