@@ -13,15 +13,13 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.File;
 
-
 public class AnzSiteMap extends BaseStepDef {
-
 
     private RestServiceDeliveryImpl deliveryService = new RestServiceDeliveryImpl();
 
 	private static final File baseUserDir = new File(System.getProperty("user.dir"));
 	private static final File schemaLocation = new File(baseUserDir + "/src/test/resources/siteMap.xsd");
-	private static final String path = "https://a.au.practicallaw.demo.thomsonreuters.com/sitemap/build?cs=w_plc_anz_algo&content=KNOWHOW&num=5";
+	private static final String path = "https://a.au.practicallaw." + System.getProperty("base.url") + ".thomsonreuters.com/sitemap/build?cs=w_plc_anz_algo&content=KNOWHOW&num=5";
 
      
     @Then("^user verifies the site map xml$")
@@ -37,7 +35,4 @@ public class AnzSiteMap extends BaseStepDef {
         		Assert.fail("xml file is not valid: "+e.getLocalizedMessage());
         	}        
     }
-
-
-
 }
