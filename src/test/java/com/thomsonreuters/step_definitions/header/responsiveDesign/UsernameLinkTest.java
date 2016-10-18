@@ -53,7 +53,8 @@ public class UsernameLinkTest extends BaseStepDef {
     @Then("^user clicks on \"(.*)\" link$")
     public void userClicksOnLink(String linkText) throws Throwable {
         footerUtils.closeDisclaimerMessage();
-        header.scrollIntoViewAndClick(comMethods.waitElementByLinkText(linkText));
+        header.waitForPageToLoadAndJQueryProcessing();
+        comMethods.waitElementByLinkText(linkText).click();
         header.waitForPageToLoad();
     }
 
