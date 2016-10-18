@@ -789,7 +789,7 @@ public class searchJavaTest extends BaseStepDef {
     public void theUserVerifiesTheOrganizeColumnsPopupIsClosed() throws Throwable {
         Boolean popupPresent = false;
         try{
-            whatsMarketComparisonReportPage.organizeColumnsLightBox().isDisplayed();
+            searchResultsPage.waitForExpectedElement(whatsMarketComparisonReportPage.organizeColumnsLightBoxLocator()).isDisplayed();
             popupPresent = true;
         } catch (TimeoutException e) {
         }
