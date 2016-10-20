@@ -35,7 +35,6 @@ public class internationalWidgetsSteps extends BaseStepDef {
 	public void theUserClicksOnButtonOnWidget(String buttonText, String widgetTitle) {
         footerUtils.closeDisclaimerMessage();
 		widgets.waitForPageToLoadAndJQueryProcessing();
-		widgets.scrollIntoView(widgets.buttonOnWidgetWithTitle(widgetTitle, buttonText), true);
 		widgets.buttonOnWidgetWithTitle(widgetTitle, buttonText).click();
 	}
 
