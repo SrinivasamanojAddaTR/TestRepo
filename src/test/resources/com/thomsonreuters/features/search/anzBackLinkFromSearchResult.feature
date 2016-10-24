@@ -41,7 +41,7 @@ Feature: [829761] Link back to the page  from where performed a search
 	Then the user see title of opened document as '<title of document>'
     Examples:
     |query		|title of document		|
-    |document	|Board minutes: transfer of shares  |
+    |document	|Execution of deeds and documents by companies incorporated under the Corporations Act 2001 (Cth)|
    
 
   Scenario Outline: Verify Back to country link is displayed on country search results page
