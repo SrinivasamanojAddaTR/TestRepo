@@ -59,8 +59,8 @@ Scenario Outline: [821556] Download list of items in PDF format
 	And the document does not include document body that contains text "<docText1>" 
 	And the document does not include document body that contains text "<docText2>" 
 	Examples: 
-		| 	folder 		|  title1 													| title2 				| docText1 									| docText2 |
-		|	testFolder 	|  Dismissing an ill or injured employee: adverse action: case law	| Financial assistance 	| This note summarises how the courts	| Why is financial assistance prohibited?|
+		| 	folder 		|  title1 													                            | title2 				| docText1 									| docText2 |
+		|	testFolder 	|  Summary of significant adverse action case law involving ill or injured employees	| Financial assistance 	| This note summarises how the courts	    | Why is financial assistance prohibited?|
 
 Scenario Outline: [821556] Download list of items in CSV format
 	Given the user opens <folder> folder with the set of documents
