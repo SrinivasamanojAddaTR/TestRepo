@@ -175,7 +175,7 @@ public class facetJavaTest extends BaseStepDef {
     public void theUserSelectsTheKnowHowFollowingParentFacets(List<String> facets) throws Throwable {
        WebElement multipleFilterButton=commonMethods.waitForElementToBeVisible(researchOrganizerPage.selectMultipleByFilters(),1000);
        if(multipleFilterButton!=null){
-          multipleFilterButton.click();
+           knowHowSearchResultsPage.scrollIntoViewAndClick(multipleFilterButton);
        }
        if(commonMethods.waitForElementToBeVisible(knowHowSearchResultsPage.moreJuridictionByLink(),2000)!=null){
             commonMethods.scrollUpOrDown(200);

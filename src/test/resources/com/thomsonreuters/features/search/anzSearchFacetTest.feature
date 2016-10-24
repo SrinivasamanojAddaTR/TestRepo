@@ -37,7 +37,6 @@ Feature: [814276] As a PLAU user, I want to narrow my search results
       | Glossary       |
 
   Scenario: Verify the selection of different groups with multiple filter button
-
     And the user selects the know how following parent facets with single selection
       | Practice Notes |
       | Employment     |
