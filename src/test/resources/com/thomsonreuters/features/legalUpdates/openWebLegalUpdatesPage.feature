@@ -20,7 +20,8 @@ So that I can find the latest updates in the industry
       | Employment   |
 
   Scenario Outline: [850132] Open web user verifies the Legal updates by Practice Area going through PA page
-    When the user opens "<practiceArea>" link
+    When the user clicks on the tab "Practice areas"
+    And the user opens "<practiceArea>" link
 	Then the user is presented with a page with header "<practiceArea>"
     When the user select Legal Updates link on Resource tab area
     Then the user should be presented with a list of LU documents
