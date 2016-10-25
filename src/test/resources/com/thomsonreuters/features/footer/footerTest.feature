@@ -12,7 +12,7 @@ Feature: [809111]As a user, I want to see the "Legal Information" and "Privacy" 
 
     Examples: 
       | Link         | PageTitle                                                               |
-      | Privacy      | Privacy Policy - Thomson Reuters Australia                              |
+      | Privacy      | Privacy Policy \| Australia \| Thomson Reuters                          |
       | Master Terms | AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
 
   Scenario: [809111]User verifies the "Footer Link Items" for the respetive Page's links
