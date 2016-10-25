@@ -75,9 +75,9 @@ Scenario Outline: [821552] Download list of items in PDF format
 	And the document includes title "<title2>"
 	And the document does not include document body that contains text "<docText1>" 
 	And the document does not include document body that contains text "<docText2>" 
-	Examples: 
-		| 	folder 		|  title1 								| title2 				| docText1 												| docText2 |
-		|	testFolder 	|  Dismissing an ill or injured employee: adverse action: case law  	| Financial assistance 	| This note summarises how the courts have decided	| Why is financial assistance prohibited?|
+	Examples:
+      | folder 	   | title1 													                       | title2 			  | docText1 							| docText2 |
+      |	testFolder | Summary of significant adverse action case law involving ill or injured employees | Financial assistance | This note summarises how the courts	| Why is financial assistance prohibited?|
 
 Scenario Outline: [821552] Download list of items in CSV format
 	Given the user has <folder> folder with the set of documents
@@ -134,11 +134,11 @@ Scenario Outline: [821552] Download list of items in PDF format from 2+ folders
 	And the document includes title "<title1>"
 	And the document includes title "<title2>"
 	And the document includes title "<folder1>" 
-	And the document includes title "<folder2>" 
-	Examples: 
-		| 	folder1 	| 	folder2 		|  title1 								| title2 | 
-		|	testFolder 	|	secondFolder 	|  Dismissing an ill or injured employee: adverse action: case law 	| Heads of agreement|
-	
+	And the document includes title "<folder2>"
+	Examples:
+		| 	folder1 	| 	folder2 		|  title1 								                                             | title2 |
+		|	testFolder 	|	secondFolder 	|  Summary of significant adverse action case law involving ill or injured employees | Heads of agreement|
+
 ###############################################################################################################
 ## Cancel button and Back button
 ###############################################################################################################
