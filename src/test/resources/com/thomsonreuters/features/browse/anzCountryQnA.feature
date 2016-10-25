@@ -12,8 +12,8 @@ Background:
     And user selects the topic "Arbitration"
     And user selects first questions and clicks on "Select Jurisdictions" button
     And user selects two following countries and clicks on "Comapare" button
-    |Brazil|
-    |Canada|
+    |Brazil  |
+    |Bulgaria|
     And user sees the comparison page and clicks on the "Edit" button on L.H.S
     Then user should see "Edit" popup with the list of countries
     And user selects the "China" country and save it.
