@@ -11,7 +11,7 @@
     <description>PPI ANZ Tests</description>
 
     <properties>
-        <surefire.fork.count>10</surefire.fork.count>
+        <surefire.fork.count>15</surefire.fork.count>
         <driverType>firefox</driverType>
         <chromeDriverPath>${basedir}\src\main\resources\drivers\chromedriver.exe</chromeDriverPath>
         <ieDriverPath>${basedir}\src\main\resources\drivers\IEDriverServer.exe</ieDriverPath>
