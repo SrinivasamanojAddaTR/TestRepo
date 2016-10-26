@@ -14,6 +14,6 @@ Feature: [809387] I want to view the "Meet the Team"
 
     Examples: 
       | Page          | pageTitle | PA                     | numberOfProfiles |
-      | Meet the Team | Our team  | Company Law            | 4                |
-      | Meet the Team | Our team  | Corporate Transactions | 4                |
+      | Meet the Team | Our team  | Company Law            | 5                |
+      | Meet the Team | Our team  | Corporate Transactions | 5                |
       | Meet the Team | Our team  | Employment             | 3                |
