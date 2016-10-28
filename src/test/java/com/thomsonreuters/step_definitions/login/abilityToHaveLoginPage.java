@@ -24,7 +24,8 @@ public class abilityToHaveLoginPage extends BaseStepDef {
 
     @Then("^he will be able to see a link to Forget my username and password$")
     public void heWillBeAbleToSeeALinkToForgetMyUsernameAndPassword() throws Throwable {
-        assertTrue("User is not able to see a link to Forget my username and password", onePassLoginUtils.isForgotMyUsernameOrPasswordLinkPresent());
+        assertTrue("User is not able to see the link Forgot username", onePassLogin.isForgotUsernameLinkPresent());
+        assertTrue("User is not able to see the link Forgot password", onePassLogin.isForgotPasswordLinkPresent());
     }
 
     @Then("^he will be able to select a save username option$")
