@@ -28,8 +28,8 @@ Feature: [829761] Link back to the page  from where performed a search
 	And the user clicks link 'Back to <TopicTitle>' on 'search' page
 	Then the user is presented with a page with header "<TopicTitle>"
     Examples:
-    |paName			|TopicLink 			| TopicTitle		|query		|
-    |Employment  	|Unfair dismissal  |Unfair Dismissal  |	award		|
+    |paName			|TopicLink 			       | TopicTitle		          |query		|
+    |Employment  	|Federal unfair dismissal  |Federal unfair dismissal  |	award		|
  
 
   Scenario Outline: Verify Back to document link is displayed on search results page
