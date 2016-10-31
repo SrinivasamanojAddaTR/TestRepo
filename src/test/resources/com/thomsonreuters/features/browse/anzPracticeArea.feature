@@ -13,7 +13,7 @@ Feature: [808905]As a PLAU User, I want to view the home page So that I can view
       | Topics    | <Topics>                                                                                                         |
       | Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary |
     Examples:
-      | PA                     | Topics                                                                                                              |
-      | Company Law            | Company administration and meetings, Company formation and constitution, Directors' duties and corporate governance |
-      | Corporate Transactions | Share acquisitions: private                                                                                         |
-      | Employment             | Discrimination and harassment, Ill and injured employees, Unfair dismissal |
+      | PA                     | Topics                                                                                     |
+      | Company Law            | Company administration and meetings, Company formation and constitution, Directors         |
+      | Corporate Transactions | Share acquisitions: private                                                                |
+      | Employment             | Federal discrimination and harassment, Ill and injured employees, Federal unfair dismissal |
