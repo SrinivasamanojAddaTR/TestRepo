@@ -44,6 +44,7 @@ public class CurrentAwarenessCommonSteps extends BaseStepDef {
 
     @Given("^a user navigate to a \"(.*?)\" Topic page from a \"(.*?)\" Practice Area page$")
     public void aUserNavigateToATopicPageFromAPracticeAreaPage(String topicName, String paName) throws Throwable {
+        homepage.practiceAreasTab().click();
         homepage.selectLinkPresentOnTab(paName);
         homepage.waitForPageToLoad();
         legalUpdatesTopicPage.topicsLink(topicName).click();
@@ -115,6 +116,7 @@ public class CurrentAwarenessCommonSteps extends BaseStepDef {
 
     @Given("^a user is on a \"(.*?)\" PA page$")
     public void aUserIsOnAPAPage(String practiceArea) throws Throwable {
+        homepage.practiceAreasTab().click();
         legalUpdatesPracticeAreaPage.specificPracticeAreaLink(practiceArea).click();
         legalUpdatesTopicPage.waitForPageToLoad();
     }
