@@ -41,10 +41,10 @@ So that I can view and find out more information about practical law
     Then user was taken to url "<url>"
     And user should see the "<PageTitle>" page is opened
 	Examples: 
-	|footer				|url							|PageTitle|
-	|Careers			|http://thomsonreuters.com/en/careers.html  	|Careers|
-	|User Guides		|http://training.thomsonreuters.com.au/products/practical-law-au/|Training at Thomson Reuters AU|
-	|Request Training	|http://training.thomsonreuters.com.au/request-training/|Request Training|
-	|Privacy			|http://legal.thomsonreuters.com.au/terms/privacy-policy.aspx|Privacy Policy \| Australia \| Thomson Reuters|
+	|footer				|url							                                   |PageTitle|
+	|Careers			|http://thomsonreuters.com/en/careers.html  	                   |Careers|
+	|User Guides		|http://training.thomsonreuters.com.au/products/practical-law-au/  |Training at Thomson Reuters AU|
+	|Request Training	|http://training.thomsonreuters.com.au/request-training/           |Request Training|
+	|Privacy			|https://thomsonreuters.com.au/en/product-terms/privacy-policy.html|Privacy Policy \| Australia \| Thomson Reuters|
     |Master Terms       |http://legal.thomsonreuters.com.au/terms/pdf/AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf| AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
 	
