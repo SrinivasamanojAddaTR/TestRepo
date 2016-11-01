@@ -38,7 +38,7 @@ Scenario: Scroll up and down buttons
 Scenario: Verification of the navigation from glossary definition page to actual know how resource
     When the user clicks on glossary term "Disability Discrimination Act 1992 (Cth) (DDA)"
     And clicks on the know how resource link "Practice note: Disability discrimination: an overview of the operation of the Disability Discrimination Act 1992 (Cth)" in the definition page
-    Then document title is displayed as "Disability discrimination: overview of the Disability Discrimination Act 1992 (Cth)"
+    Then document title is displayed as "Overview of federal disability discrimination"
 
 
 Scenario: Navigation from one glossary page to another
