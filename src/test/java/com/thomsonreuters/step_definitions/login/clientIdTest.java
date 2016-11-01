@@ -41,7 +41,6 @@ public class clientIdTest extends BaseStepDef {
 	public void userIsAbleToChangeClientId(List<String> newClientID) throws Throwable {
 		for (String clientID : newClientID) {
 			String clientIdText = wlnHeader.clientIdLink().getText();
-            wlnHeader.expandUserAvatarDropDown();
 			abilityToChangeClientIDAfterLogin.userClicksOnClientId(clientIdText);
 			wlnHeader.changeClientID(clientID);
 		}

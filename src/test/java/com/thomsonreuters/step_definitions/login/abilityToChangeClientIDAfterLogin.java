@@ -16,8 +16,6 @@ public class abilityToChangeClientIDAfterLogin extends BaseStepDef {
     public void userIsAbleToSeeDefaultClientIdInTheHeader(String defaultClientID) throws Throwable {
 		wlnHeader.waitForPageToLoadAndJQueryProcessing();
 		assertTrue("Client ID is not displayed..!", wlnHeader.clientIdLink(defaultClientID).isDisplayed());
-        //we will close UserAvatarDropDown because double expand is equals to close UserAvatarDropDown
-        wlnHeader.expandUserAvatarDropDown();
     }
 
     @When("^user clicks on client id \"(.*?)\"$")
@@ -28,8 +26,7 @@ public class abilityToChangeClientIDAfterLogin extends BaseStepDef {
 	
 	@Then("^user is able to change client id \"(.*?)\"$")
 	public void userIsAbleToChangeClientId(String newClientID) throws Throwable {
-		
-			wlnHeader.changeClientID(newClientID);
+        wlnHeader.changeClientID(newClientID);
 	}
 
     @Then("^user can see new client id \"(.*?)\" in the header$")

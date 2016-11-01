@@ -7,6 +7,7 @@ Feature: [809784] As a PLAU User I want add my client ID So that I can track how
     When user clicks on client id "PRACTICAL LAW AU"
     Then user is able to change client id "TESTACCOUNTID"
     And user can see new client id "TESTACCOUNTID" in the header
+    And user clicks on Sign out
 
 
   Scenario: [809784] As a PLAU User I want add my client ID So that I can track how much time I spent on a specific client
