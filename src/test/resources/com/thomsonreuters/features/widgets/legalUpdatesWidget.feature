@@ -30,7 +30,7 @@ As a PLAU User I want to quickly check the latest legal updates so that I can de
     Given ANZ user is logged in
     Given a user is on a "Employment" PA page
     And the user is presented with the Legal Updates widget
-    And the user should see 2 updates on a "Legal updates" widget
+    And the user should see 3 updates on a "Legal updates" widget
     And "Legal updates" widget should display publication dates of documents
     And the user should not be presented with an 'RSS' Link
     When the user clicks on the 'View all' link of the "Legal updates" widget
