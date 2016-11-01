@@ -21,7 +21,7 @@ Feature: [809948][850090] Link to another Practical Law web site
     Examples: 
       | countryName | url                                                    | websiteTitle                  |
       | US          | http://us.practicallaw.com/                            | Practical Law - Home - US     |
-      | UK          | https://uk.practicallaw.thomsonreuters.com/Search/Home | UK Homepage \| Practical Law  |
+      | UK          | https://uk.practicallaw.thomsonreuters.com/Search/Home | Home \| Practical Law  |
       | Canada      | http://ca.practicallaw.com/                            | Practical Law - Home - Canada |
       | Global      | http://global.practicallaw.com/                        | Practical Law - Home - Global |
 
@@ -54,7 +54,7 @@ Feature: [809948][850090] Link to another Practical Law web site
     Examples: 
       | countryName | url                                                    | websiteTitle                  |
       | US          | http://us.practicallaw.com/                            | Practical Law - Home - US     |
-      | UK          | https://uk.practicallaw.thomsonreuters.com/Search/Home | UK Homepage \| Practical Law |
+      | UK          | https://uk.practicallaw.thomsonreuters.com/Search/Home | Home \| Practical Law |
       | Canada      | http://ca.practicallaw.com/                            | Practical Law - Home - Canada |
       | Global      | http://global.practicallaw.com/                        | Practical Law - Home - Global |
 
