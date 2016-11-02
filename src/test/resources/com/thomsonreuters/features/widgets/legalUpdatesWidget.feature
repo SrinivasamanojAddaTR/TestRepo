@@ -22,7 +22,7 @@ As a PLAU User I want to quickly check the latest legal updates so that I can de
     And "Legal Updates" widget should display publication dates of documents
     And the user should not be presented with an 'RSS' Link
     When the user clicks on the 'View all' link of the "Legal Updates" widget
-    Then the user should be taken to the "Unfair Dismissal" Topic LU results list
+    Then the user should be taken to the "Federal unfair dismissal" Topic LU results list
     Then the user should be presented with a list of LU documents
 
 #LU widget contains only 2 updates. Needs to update tests when there will be 5 or more LU. 
