@@ -54,7 +54,7 @@ public class legalUpdatesWidget extends BaseStepDef {
     
     @Then("^Out of plan badge appears on the right top of the link$")
     public void theOutOfPlanMarkIsPresent() throws Throwable {
-        assertTrue("Out of plan mark is displayed", luWidget.isOutOfPlanPresent());
+        assertTrue("Out of plan mark is not displayed", luWidget.isOutOfPlanPresent());
     }
 
 }
