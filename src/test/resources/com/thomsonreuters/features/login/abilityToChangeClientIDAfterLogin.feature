@@ -28,3 +28,4 @@ Feature: [809784] As a PLAU User I want add my client ID So that I can track how
       | QWERTY1   |
     And the user selects a recent client ID "QWERTY12"
     Then selected Client ID "QWERTY12" will be the new Client ID for the session
+    And user clicks on Sign out
