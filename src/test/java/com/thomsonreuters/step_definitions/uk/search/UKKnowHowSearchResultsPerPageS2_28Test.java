@@ -62,11 +62,14 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
         practicalLawUKCategoryPage.freeTextField().sendKeys(query);
         practicalLawUKCategoryPage.searchButton().click();
         knowHowSearchResultsPage.waitForSearchResults();
-        knowHowSearchResultsPage.clickOnSelectMultipleFilters();
+        if (knowHowSearchResultsPage.isSelectMultipleFiltersPresent()) {
+            knowHowSearchResultsPage.clickOnSelectMultipleFilters();
+        }
     }
 
     @Then("^the user is able to verify the presence of text confirming that results \"([^\"]*)\" are displayed on the page$")
-    public void theUserIsAbleToVerifyThePresenceOfTextConfirmingThatResultsAreDisplayedOnThePage(String results) throws Throwable {
+    public void theUserIsAbleToVerifyThePresenceOfTextConfirmingThatResultsAreDisplayedOnThePage(String
+                                                                                                         results) throws Throwable {
         WebElement heading = searchResultsPage.resultsPerPageText();
         assertTrue(heading.getText().contains(results));
     }
@@ -219,20 +222,18 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
         // Wait 3 seconds
         robot.delay(5000);
 
-        while (waitForNewPage){
+        while (waitForNewPage) {
             try {
                 System.out.println("Clicking to page " + pageToClick);
                 searchResultsPage.nonSelectedPage(pageToClick).click();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
 
             try {
                 searchResultsPage.currentSelectedPage(pageToClick).isDisplayed();
                 System.out.println("Page displayed as expected");
                 waitForNewPage = false;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 waitForNewPage = true;
             }
 
@@ -267,14 +268,13 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
         System.out.println("Expecting page " + pageToClick);
         searchResultsPage.nextPageNavigationArrow().click();
 
-        while (waitForNewPage){
+        while (waitForNewPage) {
 
             try {
                 searchResultsPage.currentSelectedPage(pageToClick).isDisplayed();
                 System.out.println("Page displayed as expected");
                 waitForNewPage = false;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 waitForNewPage = true;
             }
 
@@ -305,18 +305,16 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
         System.out.println("Capturing current first result number which is: " + numberOfFirstResult);
         System.out.println("Clicking the first page navigation arrow");
 
-        while (waitForNewPage){
+        while (waitForNewPage) {
 
             try {
                 searchResultsPage.firstPageNavigationArrow().click();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
 
             try {
                 resultCheck = searchResultsPage.theFirstSearchResult().getText();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 resultCheck = numberOfFirstResult;
             }
 
@@ -350,18 +348,16 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
         System.out.println("Capturing current first result number which is: " + numberOfFirstResult);
         System.out.println("Clicking the last page navigation arrow");
 
-        while (waitForNewPage){
+        while (waitForNewPage) {
 
             try {
                 searchResultsPage.lastPageNavigationArrow().click();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
             }
 
             try {
                 resultCheck = searchResultsPage.theFirstSearchResult().getText();
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 resultCheck = numberOfFirstResult;
             }
 
@@ -399,14 +395,13 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
         System.out.println("Expecting page " + pageToClick);
         searchResultsPage.previousPageNavigationArrow().click();
 
-        while (waitForNewPage){
+        while (waitForNewPage) {
 
             try {
                 searchResultsPage.currentSelectedPage(pageToClick).isDisplayed();
                 System.out.println("Page displayed as expected");
                 waitForNewPage = false;
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 waitForNewPage = true;
             }
 
@@ -432,9 +427,7 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
         try {
             searchResultsPage.nextPageNavigationArrow().isDisplayed();
             isPresent = true;
-            }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.info("context", e);
         }
         assertFalse(isPresent);
@@ -447,9 +440,7 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
         try {
             searchResultsPage.previousPageNavigationArrow().isDisplayed();
             isPresent = true;
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.info("context", e);
         }
         assertFalse(isPresent);
@@ -463,9 +454,7 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
         try {
             searchResultsPage.firstPageNavigationArrow().isDisplayed();
             isPresent = true;
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.info("context", e);
         }
         assertFalse(isPresent);
@@ -479,9 +468,7 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
         try {
             searchResultsPage.lastPageNavigationArrow().isDisplayed();
             isPresent = true;
-        }
-
-        catch (Exception e) {
+        } catch (Exception e) {
             LOG.info("context", e);
         }
         assertFalse(isPresent);

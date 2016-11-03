@@ -88,7 +88,8 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 
     @Then("^user should see footer$")
     public void userShouldSeeFooter() throws Throwable {
-        commonMethods.scrollUpOrDown(1300);
+        header.waitForPageToLoad();
+        //commonMethods.scrollUpOrDown(1300);
         assertTrue("Footer is not displayed..!", footer.footerWidget().isDisplayed());
     }
 
