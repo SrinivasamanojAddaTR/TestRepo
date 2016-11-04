@@ -1,7 +1,6 @@
 package com.thomsonreuters.step_definitions.document;
 
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
-import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentRightPanelPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
@@ -22,7 +21,6 @@ public class viewDocument extends BaseStepDef {
 
 	@Given("^ANZ user navigates directly to document with guid \"(.*?)\"$")
 	public void anzUserNavigatesDirectlyToDocumentWithGuid(String guid) throws Throwable {
-		LOG.info("Current ClientID: " + new WLNHeader().clientIdLink().getText());
 		navigationCobalt.navigateToANZSpecificResourcePage("/Document/" + guid + "/View/FullText.html");
 		resourcePage.waitForPageToLoadAndJQueryProcessing();
 		footerUtils.closeDisclaimerMessage();
