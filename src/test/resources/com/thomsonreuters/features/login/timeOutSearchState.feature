@@ -9,13 +9,13 @@ Feature: [812852] Time Out: Search State
   Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
     Given ANZ user is logged in with following details
       | mandatoryRouting | YES                              |
-      | routing          | SPECIFIED_USER_TIMEOUT_3_MINUTES |
+      | routing          | SPECIFIED_USER_TIMEOUT_7_MINUTES |
     When the user runs a free text cobalt search with query "<query>"
 #    And the user clicks 'select multiple filters' button
     And the user expands the know how facet "<facet1>"
     And the user selects the know how child facet "<facet11>"
     And the user selects the know how option to apply filters
-    And he has a session open and timed out after "100" sec
+    And he has a session open and timed out after "300" sec
     Then the user is presented with a warning message that session is expired
     And he should stay on same search page as OpenWeb user
     And the user verifies that the know how facet is selected "<facet11>"

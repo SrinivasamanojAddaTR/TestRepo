@@ -26,11 +26,11 @@ Scenario: [812864] Non-SRM user - bookmark to document
 	
 Scenario: [812864] Non-SRM user - bookmark to search result 
 	Given ANZ user is logged in with following details 
-		| routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |
+		| routing  | SPECIFIED_USER_TIMEOUT_7_MINUTES |
 	    | mandatoryRouting | YES                              |	  
 	And the user runs a free text cobalt search with query "test" 
 	And the user saves the page url into bookmark 
-	And the user goes to third-party site and stays there for "200" seconds 
+	And the user goes to third-party site and stays there for "300" seconds
 	When the user selects a bookmark 
 	Then he should stay on same search page as OpenWeb user 
 	
@@ -62,11 +62,11 @@ Scenario: [812864] SRM user - bookmark to document
 Scenario: [812864] SRM user - bookmark to search result 
 	Given ANZ user is logged in with following details 
 		| role     | SUPER_REMEMBER_ME_USER |
-		| routing  | SPECIFIED_USER_TIMEOUT_3_MINUTES |	  
+		| routing  | SPECIFIED_USER_TIMEOUT_7_MINUTES |
 	    | mandatoryRouting | YES                              |	  
 	And the user runs a free text cobalt search with query "test" 
 	And the user saves the page url into bookmark 
-	And the user goes to third-party site and stays there for "200" seconds 
+	And the user goes to third-party site and stays there for "300" seconds
 	When the user selects a bookmark 
 	Then user gets redirected to the search page that he was visiting and is logged in 
 	
