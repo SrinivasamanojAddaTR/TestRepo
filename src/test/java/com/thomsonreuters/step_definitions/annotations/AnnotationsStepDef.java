@@ -1293,6 +1293,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     @Given("^user navigates directly to document with guid \"(.*?)\"$")
     public void userNavigatesToDocumentWithGuid(String guid) throws Throwable {
         navigationCobalt.navigateToWLNSpecificResourcePage("/Document/" + guid + "/View/FullText.html");
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         LOG.info("The user has navigated directly to the document with guid " + guid);
     }
 
