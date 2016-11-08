@@ -40,7 +40,7 @@ Feature: [812852] Time Out: Search State
   @RemoveSRMOptionANZ
   Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
     Given ANZ user is logged in with following details
-      | routing          | SPECIFIED_USER_TIMEOUT_3_MINUTES |
+      | routing          | SPECIFIED_USER_TIMEOUT_7_MINUTES |
       | role             | SUPER_REMEMBER_ME_USER           |
       | mandatoryRouting | YES                              |
     When the user runs a free text cobalt search with query "<query>"
@@ -48,7 +48,7 @@ Feature: [812852] Time Out: Search State
     And the user expands the know how facet "<facet1>"
     And the user selects the know how child facet "<facet2>"
     And the user selects the know how option to apply filters
-    And he has a session open and timed out after "200" sec
+    And he has a session open and timed out after "400" sec
     Then user gets redirected to the search page that he was visiting and is logged in
     And the user verifies that the know how facet is selected "<facet2>"
 
