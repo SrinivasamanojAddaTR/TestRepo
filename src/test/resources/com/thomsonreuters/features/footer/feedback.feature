@@ -6,6 +6,7 @@ Feature: [857832] Feedback form changes
     And user should see footer
     And user clicks on "Feedback" link
     Then the user is taken to "http://www.nicereply.com/thomson-reuters-anz.plau/practical-law-australia" resource
+    And user clicks on Sign out
  
   Scenario:  [857832] Feedback link leads to nicereply.com - PA user
     Given ANZ user is logged in
