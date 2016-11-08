@@ -24,6 +24,7 @@ public class viewDocument extends BaseStepDef {
 		navigationCobalt.navigateToANZSpecificResourcePage("/Document/" + guid + "/View/FullText.html");
 		resourcePage.waitForPageToLoadAndJQueryProcessing();
 		footerUtils.closeDisclaimerMessage();
+		resourcePage.waitForPageToLoad();
 	}
 
 	@Then("^user should not see drafting notes$")

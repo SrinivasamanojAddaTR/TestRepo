@@ -7,7 +7,7 @@ Feature: [821959] As a PLAU User, I want to view my history based on a specific 
 	@bug
   Scenario Outline: User verifies date picker is present with all the options
     Given ANZ user is logged in
-    And user navigates directly to document with guid "I2ef128851ed511e38578f7ccc38dcbee"
+    And ANZ user navigates directly to document with guid "I53cfffa798de11e598dc8b09b4f043e0"
     When the user clicks on 'History' link on the header
     Then the user should be seeing Date Picker dropdown
     When the user clicks on the Date Pikcer dropdown
