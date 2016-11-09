@@ -17,4 +17,5 @@ Feature: [810047]As a PLAU User, I want to view a list of search operators and w
     |    +n     | Preceding within n terms of                          |
     |    *      | Universal character                                  |
     |    #      | Turn off plurals and equivalents                     |
+    |    !      | Search for terms with multiple endings               |
 
