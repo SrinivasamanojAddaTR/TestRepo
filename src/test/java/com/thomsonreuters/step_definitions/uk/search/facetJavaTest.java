@@ -15,6 +15,7 @@ import cucumber.api.Transpose;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
@@ -190,15 +191,15 @@ public class facetJavaTest extends BaseStepDef {
 
     @When("^the user selects the know how following parent facets with single selection$")
     public void theUserSelectsTheKnowHowFollowingParentFacetWithSingleSelection(List<String> facets) throws Throwable {
-        footerUtils.closeDisclaimerMessage();
-        WebElement cancelFilterButton=commonMethods.waitForElement(researchOrganizerPage.cancelByFilters(), 1000);
-        if(cancelFilterButton!=null){
-            cancelFilterButton.click();
+        if(researchOrganizerPage.isElementDisplayed(researchOrganizerPage.cancelByFilters())){
+            knowHowSearchResultsPage.getCancelButton().click();
         }
+        SoftAssertions softAssertions = new SoftAssertions();
         for (String facet : facets) {
             knowHowSearchResultsPage.knowHowFacetCheckbox(facet).click();
-            assertTrue("Check box not selected..!", isCheckboxSeleted(facet));
+            softAssertions.assertThat(isCheckboxSeleted(facet)).withFailMessage("Check box not selected..!").isTrue();
         }
+        softAssertions.assertAll();
     }
 
     @When("^the user verifies that the know how following facet is selected$")
