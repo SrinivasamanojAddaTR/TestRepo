@@ -915,11 +915,11 @@ public class searchJavaTest extends BaseStepDef {
 
 	@Then("^there is no error message on search results page$")
 	public void thereIsNoErrorMessageOnSearchResultsPage() {
-		try{
-		String error = searchResultsPage.errorMessage().getText().trim();
-		assertTrue("There is an error on the page: \n" + error, error.isEmpty());
-		} catch (TimeoutException e) {
-		}
+        if(searchResultsPage.isElementDisplayed(searchResultsPage.errorMessageBy())){
+		    String error = searchResultsPage.errorMessage().getText().trim();
+            assertTrue("There is an error on the page: \n" + error, error.isEmpty());
+        }
+        LOG.info("There are not errors on the page");
 	}
 
 
