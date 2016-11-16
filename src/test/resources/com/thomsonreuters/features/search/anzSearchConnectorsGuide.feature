@@ -8,11 +8,11 @@ Feature: [810047]As a PLAU User, I want to view a list of search operators and w
     And user should see the following character with its related explanation on the popup
     | Character | Explanation                                          |
     |    &      | Search terms in the same document                    |
-    |   or      | Either search or both                                |
+    |   or      | Either search term or both terms                     |
     |    %      | Not containing terms                                 |
     |   ""      | Terms appear in the same order as in quotation marks |
-    |    /p     | In same paragraph                                    |
-    |    +p     | Preceding within same paragraph                      |
+    |    /p     | Terms in same paragraph                              |
+    |    +p     | Preceding term within same paragraph                 |
     |    /n     | Within n terms of                                    |
     |    +n     | Preceding within n terms of                          |
     |    *      | Universal character                                  |
