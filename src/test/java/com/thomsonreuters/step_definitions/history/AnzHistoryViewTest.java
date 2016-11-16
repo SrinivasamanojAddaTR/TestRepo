@@ -262,6 +262,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
          Calendar today = Calendar.getInstance();
          Date todayDate = null;
          Date customDate1, customDate2;
+         researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
          for (int rowCount = 1; rowCount <= researchOrganizerPage.historyPageResultTitleLinks().size(); rowCount++) {
              String rowStrDate = researchOrganizerPage.getDateAtRowPosition(String.valueOf(rowCount)).getText();
              Date rowOriginalDate = rowDateFormat.parse(rowStrDate);
