@@ -46,9 +46,3 @@ As a PLAU User I want to quickly check the latest legal updates so that I can de
       | practiceArea               | 
       | Company Law                | 
       | Corporate Transactions     | 
-
-#The user must be replaced by another user without subscription to Employment PA
-  Scenario: If user doesn't have a subscription for the update doc area - Out of plan badge should appear on the right top of the link.
-    Given ANZ user is logged in
-   When a user is on a "Employment" PA page
-   Then Out of plan badge appears on the right top of the link
