@@ -3,7 +3,6 @@ Feature: [821898] As a PLAU user I want to filter my foldered documents So that 
 
 #Search checks are absent, because there are no Cases, Legislation, Journals and Current Awareness documents type on PL+ now.
 
-  #Legal updates link is temporary absent. Lisa will add link and notify Kostya.
   Scenario:
     Given ANZ user is logged in
     When API cleans all folders and history
@@ -19,7 +18,6 @@ Feature: [821898] As a PLAU user I want to filter my foldered documents So that 
     #Know-how
     And the user come back on to Home page
     When the user opens 'Resources' link
-    #Legal updates link is temporary absent. Lisa will add link and notify Kostya
     When the user opens 'Legal updates' link
     And the user runs a free text search for the query "law"
     And the user waits search result to load
