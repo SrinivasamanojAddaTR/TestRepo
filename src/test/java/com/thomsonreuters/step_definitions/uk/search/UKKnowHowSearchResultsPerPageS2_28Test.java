@@ -68,8 +68,7 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
     }
 
     @Then("^the user is able to verify the presence of text confirming that results \"([^\"]*)\" are displayed on the page$")
-    public void theUserIsAbleToVerifyThePresenceOfTextConfirmingThatResultsAreDisplayedOnThePage(String
-                                                                                                         results) throws Throwable {
+    public void theUserIsAbleToVerifyThePresenceOfTextConfirmingThatResultsAreDisplayedOnThePage(String results) throws Throwable {
         WebElement heading = searchResultsPage.resultsPerPageText();
         assertTrue(heading.getText().contains(results));
     }
