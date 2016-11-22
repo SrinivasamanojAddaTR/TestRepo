@@ -38,11 +38,13 @@ public class prescopingFacetsAndSortingByDateOnLUResultsPages extends BaseStepDe
 
     @Then("^the user should be presented with a list of LU documents$")
     public void theUserShouldBePresentedWithAListOfLUDocuments() throws Throwable {
+        legalUpdatesResultsPage.waitForPageToLoadAndJQueryProcessing();
         assertTrue("Results list is not displayed", legalUpdatesResultsPage.isResultsListDisplayed());
     }
 
     @Then("^the results should be from the relevant PA \"(.*?)\"$")
     public void theResultsShouldBeFromTheRelevantPA(String practiceAreaTag) throws Throwable {
+        legalUpdatesResultsPage.waitForPageToLoadAndJQueryProcessing();
         assertTrue("Results are not from relevant PA. Expected PA: " + practiceAreaTag + " actual PA: " + legalUpdatesResultsPage.headerMetaDataTagText(), legalUpdatesResultsPage.headerMetaDataTagText().contains(practiceAreaTag));
     }
 
