@@ -18,7 +18,7 @@ As a PLAU User I want to quickly check the latest legal updates so that I can de
     Given ANZ user is logged in
     Given a user navigate to a "Federal unfair dismissal" Topic page from a "Employment" Practice Area page
     And the user is presented with the Legal Updates widget
-    And the user should see 1 updates on a "Legal Updates" widget
+    And the user should see 2 updates on a "Legal Updates" widget
     And "Legal Updates" widget should display publication dates of documents
     And the user should not be presented with an 'RSS' Link
     When the user clicks on the 'View all' link of the "Legal Updates" widget
