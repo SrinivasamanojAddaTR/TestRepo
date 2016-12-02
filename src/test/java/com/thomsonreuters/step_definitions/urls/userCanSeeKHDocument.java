@@ -48,7 +48,7 @@ public class userCanSeeKHDocument extends BaseStepDef {
 
     @Then("^the user is redirected to an error page$")
     public void theUserIsRedirectedToAnErrorPage() throws Throwable {
-        assertTrue("Error page not found", errorPage.isErrorPageBlockPresent());
+        assertTrue("Error page not found", errorPage.isErrorPageBlockPresentAU());
     }
 
     @Then("^the document opens correctly with PLC Ref$")
