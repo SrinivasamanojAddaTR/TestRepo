@@ -243,6 +243,7 @@ public class KHDocumentMetaData extends BaseStepDef {
     @Then("^back to top sticky link is displayed$")
     public void backToTopIsDisplayed() throws Throwable {
         footerUtils.closeDisclaimerMessage();
+        resourcePage.waitForPageToLoadAndJQueryProcessing();
         assertThat(resourcePage.backToTop().isDisplayed(), Is.is(true));
     }
 
