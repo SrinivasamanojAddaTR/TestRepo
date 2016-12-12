@@ -22,6 +22,7 @@ public class UKKnowHowSearchResultChangeDetailLevelS2_90Test extends BaseStepDef
     public void theUserCanSelectTheOptionToShowLessDetail() throws Throwable {
         searchResultsPage.moreOrLessDetailAnchor().click();
         searchResultsPage.lessDetailOption().click();
+        searchResultsPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     @Then("^the user is able to verify a brief description of the content is not displayed$")
