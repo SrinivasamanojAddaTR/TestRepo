@@ -14,6 +14,7 @@ public class linkingFromDocument {
 
 	private static final String WLAU_SIGN_ON= "Westlaw AU Signon";
 	private static final String PLAU_SIGN_ON = "Practical Law Australia";
+	private static final int SINGLE = 1;
 
 	private AssetPageUtils assetPageUtils = new AssetPageUtils();
     private WLAUPageUtils wlauPageUtils = new WLAUPageUtils();
@@ -67,7 +68,9 @@ public class linkingFromDocument {
         }
         homePage.switchToOpenedWindow();
         assertTrue("Product: " + product + "; Title: " + homePage.getPageTitle(), homePage.getPageTitle().contains(product));
-        homePage.close();
+		if(homePage.getWindowHandles().size() > SINGLE) {
+			homePage.close();
+		}
         homePage.switchToMainWindow();
 	}
 
