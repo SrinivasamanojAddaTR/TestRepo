@@ -1,12 +1,14 @@
 package com.thomsonreuters.step_definitions;
 
 import com.thomsonreuters.pageobjects.common.BaseCommonLoginNavigation;
+import com.thomsonreuters.pageobjects.common.ExcelFileReader;
 import com.thomsonreuters.pageobjects.utils.CobaltUser;
 import com.thomsonreuters.pageobjects.utils.Product;
 import cucumber.api.Transpose;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -179,5 +181,15 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 		}
 		getDriver().manage().deleteAllCookies();
 		resetCurrentUser();
+	}
+
+	@Override
+	protected CobaltUser updateFieldsForPlPlusUser(CobaltUser plPlusUser) {
+		if (StringUtils.isEmpty(plPlusUser.getUserName())) {
+			plPlusUser.setUserName(!"None".equalsIgnoreCase(System.getProperty("username"))
+					? System.getProperty("username") : ExcelFileReader.getDefaultUser());
+			CobaltUser.updateMissingFields(plPlusUser);
+		}
+		return plPlusUser;
 	}
 }
