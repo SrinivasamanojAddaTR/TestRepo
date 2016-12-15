@@ -58,3 +58,16 @@ Feature: [821529] As a PLAU UserI want to be able to add a document to a folder 
     Examples:
       | folder |
       | root   |
+
+    @manual
+    Scenario: Add Description to document in folder
+      When the user go to folders
+      And the user selects any folder from LHS pane
+      And the user hovers the mouse cursor over any document link
+      Then edit pencil icon appears
+      When the user clicks on edit pencil icon
+      And the user enters random text till its maximum character
+      And the user clicks on save button
+      Then the text is not exceed the frame (There isn't scroll the horizontal scroll bar to RHS)
+      Then The entered text can be edited (should be Edit link)
+
