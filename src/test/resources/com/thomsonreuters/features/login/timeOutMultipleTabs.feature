@@ -11,7 +11,7 @@ So that I do not have to login and perform another search or find the document I
     And the user opens new tab and switch on it
     And ANZ user navigates directly to document with guid "Ifb5c26cb995811e598dc8b09b4f043e0" 
     And the user saves the page title for second tab
-    And he has a session open and timed out after "400" sec
+    And he has a session open and timed out after "300" sec
     Then the user is presented with a warning message that session is expired
     And he should stay on same document page as OpenWeb user on second tab
     And he should stay on same search page as OpenWeb user on first tab
