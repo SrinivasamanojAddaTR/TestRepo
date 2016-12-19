@@ -86,7 +86,9 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
   Scenario: [848639] As a user i want to have ability to unsubcribe from update for out of plan subscription.
     Given a user "AUtestuser1@mailinator.com" has subscription for "PLAUEMPWKLY" out of plan email service
     Given ANZ user is logged in with following details
-      | userName | AUtestuser1 |
+      | userName         | AUtestuser1                |
+      | routing          | ANZ_ADESTRA_AU_EMPLOYMENT  |
+      | mandatoryRouting | YES                        |
     Given a user is viewing the email preference page
     Then the user should be presented with their Employment email service row
     And the weekly check box should be ticked
