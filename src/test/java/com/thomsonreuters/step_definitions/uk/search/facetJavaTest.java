@@ -229,6 +229,7 @@ public class facetJavaTest extends BaseStepDef {
 
     public boolean isCheckboxSeleted(String facet) {
         for (int i = 0; i < 3; i++) {
+            knowHowSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
             if (!knowHowSearchResultsPage.knowHowFacetCheckbox(facet).isSelected()) {
                 knowHowSearchResultsPage.practiceAreaFacetLabel().click();
                 knowHowSearchResultsPage.knowHowFacetCheckbox(facet).click();
