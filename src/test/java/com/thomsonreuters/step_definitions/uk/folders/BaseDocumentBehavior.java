@@ -75,9 +75,8 @@ public class BaseDocumentBehavior extends BaseStepDef {
     //TODO to rewrite
     @When("^the user waits search result to load$")
     public void waitSearchResults() throws Throwable {
-    	Thread.sleep(5000);
 		searchResultsPage.waitForPageToLoad();
-		Thread.sleep(5000);
+        searchResultsPage.waitForPageToLoadAndJQueryProcessing();
 	}
 
     private void openSearchResultLinkAtPositionAndStoreItsTitleAndGuid(String linkPosition) throws Throwable {
@@ -177,7 +176,6 @@ public class BaseDocumentBehavior extends BaseStepDef {
     public void addDocumentToFolderFromDocumentView(String folder, String parentFolder) throws Throwable {
     	documentDeliveryPage.waitForPageToLoadAndJQueryProcessing();
         documentDeliveryPage.clickOnAddToFolderLink();
-		Thread.sleep(1000);
         baseFoldersBehavior.saveToNewFolder(folder, parentFolder);
         researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
         String message = searchResultsPage.folderingPopupMessage().getText();
@@ -222,9 +220,6 @@ public class BaseDocumentBehavior extends BaseStepDef {
 	@When("^the user opens the link to the glossary term \"([^\"]*)\" and store its title and guid$")
 	public void openGlossaryTermAndStoreItsTitleAndGuid(String position) throws Throwable {
 		singleDocument = new Document();
-		// Wait for this document to load
-		// TODO to remove
-		Thread.sleep(20000);
 		glossaryPage.waitForPageToLoad();
 		glossaryPage.waitForPageToLoadAndJQueryProcessing();
 		glossaryPage.glossaryTermLinkByPosition(position).click();
@@ -236,10 +231,8 @@ public class BaseDocumentBehavior extends BaseStepDef {
 	@When("^the user opens the link to the glossary and store its title and guid$")
 	public void openGlossaryAndStoreItsTitleAndGuid() throws Throwable {
 		singleDocument = new Document();
-		// Wait for this document to load
-		// TODO to remove
-		Thread.sleep(20000);
 		glossaryPage.waitForPageToLoad();
+        glossaryPage.waitForPageToLoadAndJQueryProcessing();
 		singleDocument.setTitle(standardDocumentPage.documentTitle().getText());
 		singleDocument.setGuid(getDocumentGUID());
 	}

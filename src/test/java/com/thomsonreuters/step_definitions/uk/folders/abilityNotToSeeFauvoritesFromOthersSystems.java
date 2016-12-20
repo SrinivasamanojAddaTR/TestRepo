@@ -77,7 +77,7 @@ public class abilityNotToSeeFauvoritesFromOthersSystems extends BaseStepDef {
 
     @Then("^the favourites group '(.+)' is absent on Favourites page$")
     public void checkFavoriteGroupAbsent(String groupName) throws Throwable {
-        Thread.sleep(500);
+        favouritesPage.waitForPageToLoadAndJQueryProcessing();
         favouritesPage.waitFavouriteGroupIsAbsent(groupName);
     }
 
@@ -103,7 +103,6 @@ public class abilityNotToSeeFauvoritesFromOthersSystems extends BaseStepDef {
 
     @When("^the user deletes the favourites page '(.+)'$")
     public void deleteFavoritePage(String pageName) throws Throwable {
-		Thread.sleep(1000);
 		favouritesPage.organize().click();
         pageActions.mouseOver(favouritesPage.pageInFavourite(pageName));
         favouritesPage.deletePageFromFavourite(pageName).click();

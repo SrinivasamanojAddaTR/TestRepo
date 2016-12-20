@@ -70,7 +70,6 @@ public class GlossarySearchTest extends BaseStepDef {
 
     @Then("^the user should be able to see a list of resulting glossary terms containing this search \"(.*?)\" highlighted$")
     public void theUserShouldBeAbleToSeeAListOfResultingGlossaryTermsContainingThisSearchHighlighted(String term) throws Throwable {
-        Thread.sleep(3000);
         for (WebElement element : glossaryPage.glossaryTermsWithSearchTermList()) {
             assertTrue(term + " not found in " + element.getText().trim(), element.getText().trim().toLowerCase().contains(term));
         }
@@ -92,7 +91,6 @@ public class GlossarySearchTest extends BaseStepDef {
         do {
             found = glossaryPage.glossaryHeading().getText().trim().contains(element.getText().trim());
             counter--;
-            Thread.sleep(2000);
         }
         while (!found && counter > 0);
         if (!found) {

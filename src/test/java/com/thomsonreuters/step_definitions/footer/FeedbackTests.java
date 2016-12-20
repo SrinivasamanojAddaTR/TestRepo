@@ -27,8 +27,6 @@ public class FeedbackTests extends BaseStepDef {
     @When("^the user clicks on Beta Feedback button on footer$")
     public void theUserClicksOnBetaFeedbackButton() throws InterruptedException {
         footer.betaFeedbackLink().click();
-        Thread.sleep(1000); // wait until page fully loaded (unable to identify
-        // which element is a blocker)
     }
 
     @When("^user clicks on the Feedback link on the footer$")

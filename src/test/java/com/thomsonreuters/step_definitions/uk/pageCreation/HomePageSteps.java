@@ -117,7 +117,6 @@ public class HomePageSteps extends BaseStepDef {
                     homePage.waitForExpectedElement(By.partialLinkText(link), 5).click();
                 }
             }
-            Thread.sleep(2000);
             homePage.waitForPageToLoad();
         }
     }

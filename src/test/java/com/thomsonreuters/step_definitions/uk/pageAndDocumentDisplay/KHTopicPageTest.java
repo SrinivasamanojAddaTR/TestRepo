@@ -38,7 +38,6 @@ public class KHTopicPageTest extends BaseStepDef {
         homePage.selectLinkPresentOnTab(practiceArea);
         categoryPage.openPageByText(TOPIC_TAB);
         topicPage.clickTopicLinkOnPAPage(topicName).click();
-        Thread.sleep(2000);
         resourcePage.waitForPageToLoad();
     }
 
@@ -159,7 +158,6 @@ public class KHTopicPageTest extends BaseStepDef {
     public void theNumberOfResourcesDisplayedOnTheFirstPageIs(int maxNoOfResources) throws Throwable {
         resourcePage.waitForPageToLoad();
         commonMethods.waitForElement(topicPage.resourceDocByTitle(), 5000);
-        Thread.sleep(100);
         int size = topicPage.totalResourcesOnFirstPage();
         assertThat(topicPage.totalResourcesOnFirstPage(), Is.is(maxNoOfResources));
     }
@@ -197,7 +195,6 @@ public class KHTopicPageTest extends BaseStepDef {
     public void clicksOnTheFacetGroup(String facetName) throws Throwable {
         topicPage.facetNameLink(facetName).click();
         topicPage.waitForPageToLoad();
-        Thread.sleep(1000);
     }
 
     @Then("^the documents listed under resource group \"(.*?)\" should be alphabetically ordered as below$")

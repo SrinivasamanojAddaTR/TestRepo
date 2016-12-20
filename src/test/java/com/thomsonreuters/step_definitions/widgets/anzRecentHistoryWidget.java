@@ -38,8 +38,8 @@ public class anzRecentHistoryWidget extends BaseStepDef {
 		documents = new ArrayList<Document>();
 		for (String documentGUID : documentGUIDs) {
 			viewDocument.anzUserNavigatesDirectlyToDocumentWithGuid(documentGUID);
-			//Wait for this document appears in History. If it is to quickly the document could be missing
-	        Thread.sleep(15000);
+			homepage.waitForPageToLoad();
+			homepage.waitForPageToLoadAndJQueryProcessing();
 			document = new Document();
 			document.setTitle(standardDocumentPage.documentTitle().getText().trim());
 			document.setStatus(standardDocumentPage.documentStatus().getText().trim());

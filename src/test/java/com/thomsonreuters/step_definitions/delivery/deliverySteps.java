@@ -112,13 +112,11 @@ public class deliverySteps extends BaseStepDef {
 
 	@When("^Email button is clicked$")
 	public void emailButtonIsClicked() throws Throwable {
-		Thread.sleep(1000);
 		email.emailButton().click();
 	}
 
 	@When("^user (downloads|prints|exports) the document with name \"(.*?)\" and extension \"(.*?)\"$")
 	public void userDownloadsTheDocument(String action, String name, String extension) throws Throwable {
-		Thread.sleep(1000);
 		if (action.equals("downloads")) {
 			download.downloadButton().click();
 			assertDocumentReadyToDownload();

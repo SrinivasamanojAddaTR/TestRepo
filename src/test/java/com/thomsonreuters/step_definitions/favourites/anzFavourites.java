@@ -34,7 +34,6 @@ public class anzFavourites extends BaseStepDef {
 	@When("^the user should see the page '(.*)' comes first than page '(.*)'$")
     public void UserShouldSeeThePage01ComesFirstThanPage02(String firsPage, String secondPage) throws Throwable {
         favouritesPage.waitForPageToLoadAndJQueryProcessing();
-        Thread.sleep(1000);
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(favouritesPage.pagesInFavouriteFroup().get(0).getText().trim().contains(firsPage)).overridingErrorMessage("Expected first page is: <%s> but actual: <%s>", firsPage, favouritesPage.pagesInFavouriteFroup().get(0).getText()).isTrue();
         softly.assertThat(favouritesPage.pagesInFavouriteFroup().get(1).getText().trim().contains(secondPage)).overridingErrorMessage("Expected second page is: <%s> but actual: <%s>", secondPage, favouritesPage.pagesInFavouriteFroup().get(1).getText()).isTrue();

@@ -189,7 +189,6 @@ public class KHDocumentMetaData extends BaseStepDef {
             case "new":
                 String currentWindowHandle = getDriver().getWindowHandle();
                 if (authorOrExternal.equalsIgnoreCase("external")) {
-                    //Thread.sleep(2000);
                     try {
                         resourcePage.contentBody().findElement(By.linkText(link)).click();
                     } catch (Exception e) {
@@ -207,9 +206,7 @@ public class KHDocumentMetaData extends BaseStepDef {
             case "same":
                 String documentTitle = resourcePage.title().getText().trim();
                 resourcePage.author().findElement(By.linkText(link)).click();
-                Thread.sleep(2000);
                 getDriver().navigate().back();
-                Thread.sleep(2000);
                 assertThat(resourcePage.title().getText().trim(), Is.is(documentTitle));
                 break;
 
@@ -250,7 +247,6 @@ public class KHDocumentMetaData extends BaseStepDef {
     @Then("^user can navigate to top from anywhere in the document by clicking on the back to top link$")
     public void navigateToTop() throws Throwable {
         resourcePage.backToTop().click();
-        Thread.sleep(2000);
         // TODO -Figure out how to implement this
         // One way to check that sticky bar is no more visible
     }

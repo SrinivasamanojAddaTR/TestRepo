@@ -36,14 +36,12 @@ public class abilityToDownloadFDProject extends BaseStepDef {
 
     @When("^the user exports Form E as editable PDF$")
     public void exportEditablePDF() throws Throwable {
-        Thread.sleep(10000);
         draftViewPage.export().click();
         windowHandler.fileDownloadAutomatically(draftViewPage.exportEditablePDF());
     }
 
     @When("^the user exports Form E as editable PDF with changes$")
     public void exportEditablePDFWithChanges() throws Throwable {
-        Thread.sleep(10000);
         draftViewPage.export().click();
         windowHandler.fileDownloadAutomatically(draftViewPage.exportEditablePDF());
     }
@@ -86,7 +84,6 @@ public class abilityToDownloadFDProject extends BaseStepDef {
 
     @When("^the user exports Form E as printable PDF$")
     public void exportPrintablePDF() throws Throwable {
-        Thread.sleep(10000);
         draftViewPage.export().click();
         windowHandler.fileDownloadAutomatically(draftViewPage.exportPrintablePDF());
     }
@@ -98,11 +95,6 @@ public class abilityToDownloadFDProject extends BaseStepDef {
 
     @Then("^draft file with extension \"([^\"]*)\" should download to the users machine$")
     public void fileShouldDownloadToTheUsersMachine(String extension) throws Throwable {
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         Robot robot = new Robot();
         robot.keyPress(KeyEvent.VK_ESCAPE);
         robot.keyRelease(KeyEvent.VK_ESCAPE);

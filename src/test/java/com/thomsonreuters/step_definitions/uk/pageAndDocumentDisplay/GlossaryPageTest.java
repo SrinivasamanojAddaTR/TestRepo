@@ -21,7 +21,6 @@ public class GlossaryPageTest extends BaseStepDef {
         glossaryPage.glossaryLetter(alphabet).click();
         selectedAlphabet = alphabet;
 		glossaryPage.waitForPageToLoad();
-		Thread.sleep(500);	//sometimes page not loaded in time
     }
 
     @Then("^the glossary list rolls up and the first term in the respective list is selected \\(except x, Y and Z\\)$")
