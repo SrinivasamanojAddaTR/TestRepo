@@ -174,7 +174,7 @@ Scenario Outline: [818824] Download document without table of contents in PDF fo
 ###############################################################################################################
 	Scenario Outline: [818824] Email document in Microsoft Word format
 	Given the user runs a free text search for the query "<query>"
-    And the user selects the checkbox associated with result "1"
+    And the user selects the checkbox associated with result "2"
     When user clicks on Email delivery option for Search
 	And the user should be able to see Email basic tab options as follows 
 		| Subject       | <subject> |
@@ -184,7 +184,7 @@ Scenario Outline: [818824] Download document without table of contents in PDF fo
 	And Email button is clicked 
 	Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<subject>" 
 	Examples: 
-		| query	 	| subject			| mailbox |
+		| query	 	| subject		                                 | mailbox                            |
 		|BOOT		| Practical Law - Better off overall test (BOOT) |  tr-anz-tester1@yandex.com         |
 	 
 

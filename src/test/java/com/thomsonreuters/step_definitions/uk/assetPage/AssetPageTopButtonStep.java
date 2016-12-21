@@ -33,7 +33,7 @@ public class AssetPageTopButtonStep extends BaseStepDef {
     @Then("^the user scrolled to the top of the document$")
     public void theUserScrolledToTheTopOfTheDocument() throws Throwable {
         assertTrue("The user doesn't scrolled to the top of the document",
-                assetPageUtils.isTheUserScrolledToTheTopOfTheDocument());
+                assetDocumentPage.isElementDisplayed(assetDocumentPage.partyNames()));
     }
 
     @Then("^apply document settings$")

@@ -71,9 +71,10 @@ public class AnnotationsStepDef extends BaseStepDef {
 
 
     public static List<String> numbersList;
+    public static String mainWindow;
 
     private static final Logger LOG = LoggerFactory.getLogger(AnnotationsStepDef.class);
-
+    public static final String groupNameAvailableToOthers = "annotationsTestGroupAvailableToOthers";
     private static final String ANNOTATIONS_RICH_TEXT_WARNING_MESSAGE_1 = "Yournotecannotbesavedbecauseitcontainstoomuchformatting/hiddenHTMLstyling(mostlikelyduetotextcopiedfromawebpage).Pleaseremovesomeoftheformattingandtryagain.Suggestions:";
     private static final String ANNOTATIONS_RICH_TEXT_WARNING_MESSAGE_2 = "UseCtrl+Shift+Vorrightclickandselect\"pasteasplaintext\"topastethetextcopiedfromelsewherewithoutformatting;itshouldstillbepossibletoaddformattingwithourtool.";
     private static final String ANNOTATIONS_RICH_TEXT_WARNING_MESSAGE_3 = "Copyandpasteyourtextintoaworddocumentandthenpasteitbackwithreducedformatting";
@@ -521,8 +522,6 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The URL is hyperlinked to the selected text");
     }
 
-    public static String mainWindow;
-
     @When("^click on that link text$")
     public void clickOnLinkText() throws Throwable {
         mainWindow = sharedAnnotationsPage.getCurrentWindowHandle();
@@ -777,8 +776,6 @@ public class AnnotationsStepDef extends BaseStepDef {
         assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedInWLN(input));
         LOG.info("The user has shared annotations with a new group and " + contact + " as a member");
     }
-
-    public static final String groupNameAvailableToOthers = "annotationsTestGroupAvailableToOthers";
 
     @When("^user shared the annotations with group and \"(.*?)\" as member and this group available to others$")
     public void userSharedTheAnnotationsWithAnotherGroupAndGroupIsAvailableToOthers(String contact) throws Throwable {
