@@ -74,7 +74,7 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
     @Then("^the user is presented with a warning message that session is expired$")
     public void warningMessageDisplayed() throws Throwable {
         assertTrue("Session time out pop up is not visible", practicalLawHomepage.isTimeoutPopUpPresent(100));
-        TimeoutUtils.sleepInSeconds(100);
+        TimeoutUtils.sleepInSeconds(150);
     }
 
     @Then("^the user is presented with a warning message that session is expired on all tabs$")
