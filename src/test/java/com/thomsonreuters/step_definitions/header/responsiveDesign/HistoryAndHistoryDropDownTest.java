@@ -45,15 +45,8 @@ public class HistoryAndHistoryDropDownTest extends BaseStepDef {
     @Then("^user clicks on recent searches view all links and should see history searches$")
     public void userClicksOnRecentDocsViewAllLinksAndShouldSeeHistorySearches() throws Throwable {
         plcHomePage.waitForPageToLoadAndJQueryProcessing();
-        int count = 0;
-        do {
-            header.historyArrowLink().click();
-            if (count == 50) {
-                break;
-            }
-            count++;
-        } while (comMethods.waitForElementToBeVisible(header.historySearchViewAllByLink(), 500) == null);
-        comMethods.waitForElement(header.historySearchViewAllLink(), 2000);
+        header.historyArrowLink().click();
+        header.waitForPageToLoad();
         header.historySearchViewAllLink().click();
         Assert.assertTrue("History Searches page not displayed..!", header.historyHeadingTitle().getText().contains("Searches"));
     }

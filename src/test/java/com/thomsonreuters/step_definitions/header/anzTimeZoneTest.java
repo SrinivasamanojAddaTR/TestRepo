@@ -48,9 +48,6 @@ public class anzTimeZoneTest extends BaseStepDef {
           listFunctions.SelectValueInList(header.timeZoneSelectDropdown(), "AUS Eastern Standard Time");
       }
       header.timeZoneSaveButton().click();
-      do {
-      }while(commonMethods.waitForElement(header.timeZoneByPopup(),2000)!=null);
-
     }
 
     @When("^user navigates to the History Page to store the time at row \"(.*?)\"$")
@@ -67,7 +64,6 @@ public class anzTimeZoneTest extends BaseStepDef {
         String currentDate=researchOrganizerPage.getDateAtRowPosition(rowNo).getText();
         String currentTime[]= currentDate.split(" ");
         Calendar currentCalTime=convertInCalendar(currentTime[3]);
-
         if(country.equalsIgnoreCase("US")){
           storedCalTime.add(Calendar.HOUR, US_TIME_ZONE);
         }else if(country.equalsIgnoreCase("Sydney")){

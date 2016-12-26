@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 public class GlossarySearchTest extends BaseStepDef {
 
     private GlossaryPage glossaryPage = new GlossaryPage();
-    
+
     private Map<String, List<String>> listOfterms = new HashMap<>();
 
     @Then("^the user should be able to see the Search text box on the right hand side of the page$")
@@ -55,16 +55,16 @@ public class GlossarySearchTest extends BaseStepDef {
     @And("^the result list displayed should be sorted alphabetically as below$")
     public void theResultsListedShouldBeSortedAlphabet(List<String> results) {
         assertTrue(results.equals(glossaryPage.getGlossarySearchResultsList()));
-    }   
+    }
 
     @Then("^the user saves the list of terms containing \"(.*?)\"$")
     public void theSaveListOfTerms(String term) throws Throwable {
-    	listOfterms.put(term, glossaryPage.alphabetListWithTermToString(term));
+        listOfterms.put(term, glossaryPage.alphabetListWithTermToString(term));
     }
-    
+
     @And("^the result list for the term \"(.*?)\" displayed should be sorted alphabetically$")
     public void theResultsListedShouldBeSortedAlphabet(String term) {
-    	Collections.sort(listOfterms.get(term));
+        Collections.sort(listOfterms.get(term));
         assertTrue(listOfterms.get(term).equals(glossaryPage.getGlossarySearchResultsList()));
     }
 
@@ -85,14 +85,8 @@ public class GlossarySearchTest extends BaseStepDef {
         WebElement element = glossaryPage.glossaryTermsWithSearchTermList().get(index - 1);
         element.click();
         element.click();
-		glossaryPage.waitForPageToLoad();
-        boolean found = false;
-        int counter = 10;
-        do {
-            found = glossaryPage.glossaryHeading().getText().trim().contains(element.getText().trim());
-            counter--;
-        }
-        while (!found && counter > 0);
+        glossaryPage.waitForPageToLoad();
+        boolean found = glossaryPage.glossaryHeading().getText().trim().contains(element.getText().trim());
         if (!found) {
             throw new AssertionError("Glossary Heading does not match. Expected: " + element.getText().trim() + "\n But was: " + glossaryPage.glossaryHeading().getText().trim());
         }
@@ -142,7 +136,7 @@ public class GlossarySearchTest extends BaseStepDef {
 
     @Then("^the total matches for the term \"(.*?)\" should be displayed$")
     public void theTotalForTermShouldBeDisplayed(String term) throws Throwable {
-        assertThat(glossaryPage.searchMatchesText().getText().trim(), Is.is(Integer.toString(listOfterms.get(term).size())+" matches"));
+        assertThat(glossaryPage.searchMatchesText().getText().trim(), Is.is(Integer.toString(listOfterms.get(term).size()) + " matches"));
     }
 
 }

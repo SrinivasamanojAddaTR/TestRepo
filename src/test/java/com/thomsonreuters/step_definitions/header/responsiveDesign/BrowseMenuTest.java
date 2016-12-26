@@ -28,12 +28,9 @@ public class BrowseMenuTest extends BaseStepDef {
 
     @Given("^user clicks on \"(.*?)\" dropdown$")
     public void userClicksOnDropdown(String arg1) throws Throwable {
-        comMethods.waitForElement(header.browseMenuButton(), 5000);
-        int count = 0;
-        do {
-            count++;
-            header.browseMenuButton().click();
-        } while ((comMethods.waitForElement(header.browseMenuPopup(), 500) == false) && count < 4);
+        header.waitForPageToLoad();
+        header.waitForPageToLoadAndJQueryProcessing();
+        header.browseMenuButton().click();
     }
 
     @Then("^user should see the \"(.*?)\" button arrow and hover behavior according to design document$")
@@ -67,7 +64,7 @@ public class BrowseMenuTest extends BaseStepDef {
     }
 
     @Then("^user selects sub-menu \"(.*)\" and clicks on the link \"(.*)\"$") // Maybe @When should be there?
-    public void userClicksOnSubMenuAndSeeTheRespectiveLinks(String subMenuLink,String linkText) throws Throwable {
+    public void userClicksOnSubMenuAndSeeTheRespectiveLinks(String subMenuLink, String linkText) throws Throwable {
         currentSection = subMenuLink;
         comMethods.waitElementByLinkText(subMenuLink).click();
         comMethods.waitElementByLinkText(linkText).click();
@@ -96,7 +93,7 @@ public class BrowseMenuTest extends BaseStepDef {
     }
 
     @Then("the following links should be present on the section and every link opens page with selected resource")
-    public void sectionLinksIsPresentAndOpensProperly(@Transpose List<String> linkNames) throws  Throwable {
+    public void sectionLinksIsPresentAndOpensProperly(@Transpose List<String> linkNames) throws Throwable {
         sectionLinksIsPresent(linkNames);
         SoftAssertions softAssertions = new SoftAssertions();
         String placeToCheck; // Where we will check presence of expected page name
