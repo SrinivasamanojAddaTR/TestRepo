@@ -86,7 +86,7 @@ public class CurrentAwarenessCommonSteps extends BaseStepDef {
 
     @Given("^a user is on the Media & Telecoms practice area page$")
     public void aUserIsOnTheMediaTelecomsPracticeAreaPage() throws Throwable {
-        navigationCobalt.navigateToPLCUKPlusSpecificURL(MEDIA_AND_TELECOMS);
+        navigationCobalt.navigateToPLUKPlus(MEDIA_AND_TELECOMS);
         legalUpdatesPracticeAreaPage.waitForPageToLoadAndJQueryProcessing();
     }
 
@@ -97,20 +97,20 @@ public class CurrentAwarenessCommonSteps extends BaseStepDef {
 
     @Given("^a user is viewing the month selector on the mini calendar$")
     public void aUserIsViewingTheMonthSelectorOnTheMiniCalendar() throws Throwable {
-        navigationCobalt.navigateToPLCUKPlusSpecificURL("/browse/home/legalupdateslightbox");
+        navigationCobalt.navigateToPLUKPlus("/browse/home/legalupdateslightbox");
         legalUpdatesPracticeAreaPage.waitForPageToLoadAndJQueryProcessing();
         calendarWidget.miniCalendarSelectedOptionInDropDown().click();
     }
 
     @Given("^user is on full calendar view page$")
     public void userIsOnFullCalendarViewPage() throws Throwable {
-        navigationCobalt.navigateToPLCUKPlusSpecificURL(FULL_CALENDAR_PAGE);
+        navigationCobalt.navigateToPLUKPlus(FULL_CALENDAR_PAGE);
         keyDatesPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     @Given("^a user is on a legal updates results page \"(.*?)\"$")
     public void aUserIsOnALegalUpdatesResultsPage(String legalUpdatesResultsPageUrl) throws Throwable {
-        navigationCobalt.navigateToPLCUKPlusSpecificURL(legalUpdatesResultsPageUrl);
+        navigationCobalt.navigateToPLUKPlus(legalUpdatesResultsPageUrl);
         legalUpdatesResultsPage.waitForPageToLoad();
     }
 

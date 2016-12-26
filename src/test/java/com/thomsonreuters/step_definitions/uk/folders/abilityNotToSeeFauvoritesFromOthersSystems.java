@@ -24,7 +24,7 @@ public class abilityNotToSeeFauvoritesFromOthersSystems extends BaseStepDef {
 
     @When("^the user come back on to WLN Home page$")
     public void userComeBackOnToWLNHomePage() throws Throwable {
-        navigationCobalt.waitForPageToLoad();
+        categoryPage.waitForPageToLoad();
         if (!isHomePage()) {
             navigationCobalt.navigateToWLNHomePage();
         }
@@ -32,10 +32,10 @@ public class abilityNotToSeeFauvoritesFromOthersSystems extends BaseStepDef {
 
     @When("^the user come back on to Home page$")
     public void userComeBackOnToHomePage() throws Throwable {
-        navigationCobalt.waitForPageToLoad();
+        categoryPage.waitForPageToLoad();
         if (!isHomePage()) {
             navigationCobalt.navigateToHomePage();
-            navigationCobalt.waitForPageToLoad();
+            categoryPage.waitForPageToLoad();
         }
     }
 

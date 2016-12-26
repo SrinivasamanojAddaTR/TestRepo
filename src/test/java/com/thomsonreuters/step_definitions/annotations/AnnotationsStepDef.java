@@ -42,17 +42,11 @@ import static junit.framework.Assert.assertTrue;
 public class AnnotationsStepDef extends BaseStepDef {
 
     private DocumentDeliveryPage deliveryPage;
-
     private CommonMethods commonMethods;
-
     private NavigationCobalt navigationCobalt;
-
     private SharedAnnotationsPage sharedAnnotationsPage;
-
     private InsertEditLink insertEditLink;
-
     private SaveToPopup saveToPopup;
-
     private KnowHowSearchResultsPage knowHowSearchResultsPage;
     private PageActions pageActions;
     private ResearchOrganizerPage researchOrganizerPage;
@@ -1263,7 +1257,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("^user navigates directly to WLN document with guid \"(.*?)\"$")
     public void userNavigatesDirectlyToDocumentWithGuid(String guid) throws Throwable {
         navigationCobalt.navigateToWLNSpecificURL("/Document/" + guid + "/View/FullText.html");
-        navigationCobalt.waitForPageToLoadAndJQueryProcessing();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         LOG.info("The user has navigated directly to WLN document with guid " + guid);
     }
 
@@ -1289,7 +1283,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Given("^user navigates directly to document with guid \"(.*?)\"$")
     public void userNavigatesToDocumentWithGuid(String guid) throws Throwable {
-        navigationCobalt.navigateToWLNSpecificResourcePage("/Document/" + guid + "/View/FullText.html");
+        navigationCobalt.navigateToPLUKPlus("/Document/" + guid + "/View/FullText.html");
         sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         LOG.info("The user has navigated directly to the document with guid " + guid);
     }

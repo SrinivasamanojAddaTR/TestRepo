@@ -19,15 +19,10 @@ import static org.junit.Assert.assertTrue;
 public class anzTimeZoneTest extends BaseStepDef {
 	
     private WLNHeader header = new WLNHeader();
-
     private CommonMethods commonMethods = new CommonMethods();
-
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
-
     private ListFunctions listFunctions = new ListFunctions();
-
     private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
-
     private String storedDate=null;
     public static final int US_TIME_ZONE = -6;
     public static final int SYDNEY_TIME_ZONE = 9;

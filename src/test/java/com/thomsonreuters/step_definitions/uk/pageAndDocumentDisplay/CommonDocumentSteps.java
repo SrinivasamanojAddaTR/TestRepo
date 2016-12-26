@@ -6,6 +6,7 @@ import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.St
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentNavigationPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.enums.DocumentPrimaryLink;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.enums.ExpandAndCollapse;
+import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -26,6 +27,7 @@ public class CommonDocumentSteps extends DocumentDisplayStep {
     private CommonMethods commonMethods = new CommonMethods();
     private DocumentNavigationPage documentNavigationPage = new DocumentNavigationPage();
     private TopicPage topicPage = new TopicPage();
+    private SearchUtils searchUtils = new SearchUtils();
 
     public String[] searchTerms;
 
@@ -33,7 +35,7 @@ public class CommonDocumentSteps extends DocumentDisplayStep {
     public void enterSearchTerm(String docName) throws Throwable {
         goToDocument(docName);
         documentObject = docsMap.get(docName);
-        searchHomePage.enterSearchText("adv: \"" + documentObject.getDocName() + "\"");
+        searchUtils.enterSearchText("adv: \"" + documentObject.getDocName() + "\"");
     }
 
     @When("^User selects \"(.*?)\"$")
@@ -119,7 +121,7 @@ public class CommonDocumentSteps extends DocumentDisplayStep {
     public void userEnterSearchSpecificDocument(String searchTerm) throws Throwable {
         logger.info("Search item : " + searchTerm);
         searchTerms = searchTerm.split("_");
-        searchHomePage.enterSearchText("adv: \"" + searchTerms[0] + "\"");
+        searchUtils.enterSearchText("adv: \"" + searchTerms[0] + "\"");
     }
 
     @When("^User selects specific \"(.*?)\" based on name$")
@@ -140,7 +142,7 @@ public class CommonDocumentSteps extends DocumentDisplayStep {
             cases.ukCasesClick().click();
         }
         searchTerms = searchTerm.split("_");
-        searchHomePage.enterSearchText("adv: \"" + searchTerms[0] + "\"");
+        searchUtils.enterSearchText("adv: \"" + searchTerms[0] + "\"");
         searchHomePage.searchButton().click();
         expandCollapse.sortByRelevency();
         if (docType.contains("Judgment")) {

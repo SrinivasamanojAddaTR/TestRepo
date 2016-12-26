@@ -36,12 +36,12 @@ public class userCanSeeKHDocument extends BaseStepDef {
 
     @Then("^the user should see the same titles on new (.+) and old (.+) pages$")
     public void theUserShouldSeeTheSameContentOnBothOldAndNewPages(String urlNew, String urlOld) throws Throwable {
-        navigationCobalt.navigateToPLCUKPlusSpecificURL(urlNew);
-        navigationCobalt.waitForPageToLoadAndJQueryProcessing();
+        navigationCobalt.navigateToPLUKPlus(urlNew);
+        documentPagePLCUK.waitForPageToLoadAndJQueryProcessing();
         String titleNew = documentPagePLCUK.getDocumentTitle();
         urlOld = URLsCommonBehaviorPracticalLaw.oldDomain + urlOld;
-        navigationCobalt.navigate(urlOld);
-        navigationCobalt.waitForPageToLoadAndJQueryProcessing();
+        documentPagePLCUK.navigate(urlOld);
+        documentPagePLCUK.waitForPageToLoadAndJQueryProcessing();
         String titleOld = documentPagePracticalLaw.getDocumentTitle();
         assertEquals("Titles of documents not equals", titleNew, titleOld);
     }

@@ -15,7 +15,7 @@ public class hideMakeStartPageForNotLoggedInUser extends BaseStepDef {
 
     @When("^he navigates to a page \"(.*?)\" eligible to be selected as Start Page$")
     public void heNavigatesToAPageEligibleToBeSelectedAsStartPage(String url) throws Throwable {
-        navigationCobalt.navigateToPLCUKPlusSpecificURL(url);
+        navigationCobalt.navigateToPLUKPlus(url);
         categoryPage.waitForPageToLoad();
     }
 

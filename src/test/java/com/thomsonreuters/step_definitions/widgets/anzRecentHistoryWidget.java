@@ -34,7 +34,6 @@ public class anzRecentHistoryWidget extends BaseStepDef {
 	
 	@When("^ANZ user navigates directly to documents with guids and saves their details$")
 	public void userNavigatesDirectlyToDocumentsWithGuidsAndSavesTheirDetails(List<String> documentGUIDs) throws Throwable {
-
 		documents = new ArrayList<Document>();
 		for (String documentGUID : documentGUIDs) {
 			viewDocument.anzUserNavigatesDirectlyToDocumentWithGuid(documentGUID);
@@ -47,7 +46,6 @@ public class anzRecentHistoryWidget extends BaseStepDef {
 					.getText().trim());
 			documents.add(document);
 		}
-
 	}
 	
 	@Then("^user should see recent history widget which contains recently opened documents$")

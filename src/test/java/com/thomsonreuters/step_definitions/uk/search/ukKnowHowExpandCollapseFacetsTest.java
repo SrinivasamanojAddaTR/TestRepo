@@ -13,7 +13,6 @@ public class ukKnowHowExpandCollapseFacetsTest {
 
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
 
-
     @When("^the user expands the know how facet \"(.*?)\"$")
     public void theUserExpandsTheKnowHowFacet(String arg1) throws Throwable {
         knowHowSearchResultsPage.expandFacet(arg1).click();
@@ -32,11 +31,6 @@ public class ukKnowHowExpandCollapseFacetsTest {
 
     @And("^the user can verify that the topic is no longer displayed \"(.*?)\"$")
     public void theUserCanVerifyThatTheTopicIsNoLongerDisplayed(String arg1) throws Throwable {
-        boolean isVisible = false;
-        try {
-            isVisible = knowHowSearchResultsPage.facetName(arg1).isDisplayed();
-        } catch (Exception e) {
-        }
-        assertFalse(isVisible);
+        assertFalse(knowHowSearchResultsPage.facetName(arg1).isDisplayed());
     }
 }

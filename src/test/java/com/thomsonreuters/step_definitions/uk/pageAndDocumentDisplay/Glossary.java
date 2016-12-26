@@ -38,7 +38,7 @@ public class Glossary extends BaseStepDef {
     @Given("^user navigates to a (.+) resource$")
     public void userNavigatesToAPracticeNoteResource(String resource) throws Throwable {
         if (resource.equals("Practice Note")) {
-            navigation.navigateToWLNSpecificResourcePage("/Document/I0206eb261cb611e38578f7ccc38dcbee/View/FullText.html");
+            navigation.navigateToPLUKPlus("/Document/I0206eb261cb611e38578f7ccc38dcbee/View/FullText.html");
         }
     }
 

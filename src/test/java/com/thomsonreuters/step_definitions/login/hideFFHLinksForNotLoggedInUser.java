@@ -4,6 +4,7 @@ import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.search.SearchHomePage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
+import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -16,10 +17,11 @@ public class hideFFHLinksForNotLoggedInUser extends BaseStepDef {
     private SearchHomePage searchHomePage = new SearchHomePage();
     private CommonMethods comMethods = new CommonMethods();
     private WLNHeader wlnHeader = new WLNHeader();
+    private SearchUtils searchUtils = new SearchUtils();
 
     @When("^he does a search \"(.*?)\"$")
     public void heDoesASearch(String searchText) throws Throwable {
-        searchHomePage.enterSearchText(searchText);
+        searchUtils.enterSearchText(searchText);
         searchHomePage.searchButton().click();
         searchHomePage.waitForPageToLoad();
     }

@@ -24,7 +24,6 @@ public abstract class DocumentDisplayStep extends BaseStepDef {
     protected static Map<String, DocumentObject> docsMap = new HashMap<String, DocumentObject>();
     protected static int routingCount = 0;
     protected DocumentObject documentObject;
-
     protected UKNewContentTypeClick ukNewContentTypeClick = new UKNewContentTypeClick();
     protected Legislationpage legislation = new Legislationpage();
     protected CasesPage cases = new CasesPage();

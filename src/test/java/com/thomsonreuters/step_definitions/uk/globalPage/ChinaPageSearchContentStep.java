@@ -14,7 +14,7 @@ public class ChinaPageSearchContentStep {
 
 	@When("^the user navigates to the China Category Page$")
 	public void theUserNavigatesToTheChinaCategoryPage() throws Throwable {
-		navigation.navigateToPLCUKPlusSpecificURL(PATH_TO_CHINA_PAGE);
+		navigation.navigateToPLUKPlus(PATH_TO_CHINA_PAGE);
 	}
 
 	@Then("^the China Category Page opens correctly$")

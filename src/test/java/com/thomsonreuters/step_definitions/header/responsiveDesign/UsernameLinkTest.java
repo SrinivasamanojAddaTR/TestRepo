@@ -18,11 +18,8 @@ import static org.junit.Assert.assertTrue;
 public class UsernameLinkTest extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
-
     private OnepassLogin onePass = new OnepassLogin();
-
     private CommonMethods comMethods = new CommonMethods();
-    
 	private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
     private FooterUtils footerUtils = new FooterUtils();
 

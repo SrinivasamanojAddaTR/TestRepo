@@ -17,7 +17,7 @@ public class urlsSteps extends BaseStepDef {
 	@When("^the user opens \"(.*?)\" url on PL AU website$")
 	public void theUserOpensUrlOnPLAUSite(String url) throws Throwable {
 		navigationCobalt.navigateToPLCANZSpecificURL(url);
-		navigationCobalt.waitForPageToLoad();
+		categoryPage.waitForPageToLoad();
 	}
 
 	@Then("^Add Page to Favorites icon is displayed$")

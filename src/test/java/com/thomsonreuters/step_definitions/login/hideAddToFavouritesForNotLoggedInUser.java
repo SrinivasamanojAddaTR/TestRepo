@@ -15,7 +15,7 @@ public class hideAddToFavouritesForNotLoggedInUser extends BaseStepDef {
 
     @When("^he navigate to a page \"(.*?)\" eligible to be selected as Favourite$")
     public void heNavigateToAPageEligibleToBeSelectedAsFavourite(String url) throws Throwable {
-        navigationCobalt.navigateToPLCUKPlusSpecificURL(url);
+        navigationCobalt.navigateToPLUKPlus(url);
         categoryPage.waitForPageToLoad();
     }
 

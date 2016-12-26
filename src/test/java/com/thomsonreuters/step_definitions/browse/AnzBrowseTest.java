@@ -150,7 +150,7 @@ public class AnzBrowseTest extends BaseStepDef {
 
     @Given("^the user verifies the topic facet \"(.*?)\" count is equivalent to no\\. of results displayed$")
     public void theUserVerifiesTheTopicFacetCountIsEquivalentToNoOfResultsDisplayed(String facetName) throws Throwable {
-        commonMethods.waitForElement(topicPage.resourceDocByTitle(), 5000);
+        searchResultsPage.waitForExpectedElement(topicPage.resourceDocByTitle(), 5000);
         int docRowCount = topicPage.resourceDocTitleAllList().size();
         int resourceFacetCount = Integer.parseInt(topicPage.specificFacetCount(facetName).getText());
         assertTrue(docRowCount + " & " + resourceFacetCount + " are not matching..!", docRowCount == resourceFacetCount);

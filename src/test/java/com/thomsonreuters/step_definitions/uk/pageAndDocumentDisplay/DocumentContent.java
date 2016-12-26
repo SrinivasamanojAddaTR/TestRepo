@@ -16,8 +16,8 @@ public class DocumentContent extends BaseStepDef {
 
     @When("^the user opens document with (.+) guid$")
     public void theUserOpensDocumentWithGuid(String guid) throws Throwable {
-        navigationCobalt.navigateToPLCUKPlusSpecificURL("/Document/" + guid + "/View/FullText.html");
-        navigationCobalt.waitForPageToLoad();
+        navigationCobalt.navigateToPLUKPlus("/Document/" + guid + "/View/FullText.html");
+        documentPagePLCUK.waitForPageToLoad();
     }
 
     @Then("^the document opens correctly$")

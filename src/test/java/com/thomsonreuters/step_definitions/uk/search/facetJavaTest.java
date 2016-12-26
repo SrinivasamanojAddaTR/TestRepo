@@ -8,7 +8,6 @@ import com.thomsonreuters.pageobjects.pages.landingPage.UKPLCSitePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DraftingNotes;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
 import com.thomsonreuters.pageobjects.pages.search.*;
-import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import cucumber.api.Transpose;
@@ -45,12 +44,8 @@ public class facetJavaTest extends BaseStepDef {
     private SearchUtils searchUtils = new SearchUtils();
     private PPIGenericDocDisplay ppiGenericDocDisplay = new PPIGenericDocDisplay();
     private KHResourcePage resourcePage = new KHResourcePage();
-    private FooterUtils footerUtils = new FooterUtils();
-    
     private String mainWindowHandle;
     private int facetsDocsCount = 0;
-
-    private List<String> actualFacets;
 
     @When("^the user starts a new record of facet counts$")
     public void theUserStartsANewRecordOfFacetCounts() throws Throwable {
@@ -230,7 +225,7 @@ public class facetJavaTest extends BaseStepDef {
     }
 
     public boolean isCheckboxSeleted(String facet) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {//magic number 3 !!!!!!
             knowHowSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
             if (!knowHowSearchResultsPage.knowHowFacetCheckbox(facet).isSelected()) {
                 knowHowSearchResultsPage.practiceAreaFacetLabel().click();
@@ -282,7 +277,6 @@ public class facetJavaTest extends BaseStepDef {
         WebElement text = casesDocumentPage.caseAnalysisFullText();
         Boolean resultIsTrue = false;
         if ((text.getText().contains(arg1) && text.getText().contains(arg2)) || (text.getText().contains(arg3) && text.getText().contains(arg4)))
-            ;
         {
             resultIsTrue = true;
         }
@@ -394,9 +388,7 @@ public class facetJavaTest extends BaseStepDef {
     @When("^the user verifies the presence of the whats market facet groups$")
     public void theUserVerifiesThePresenceOfTheWhatsMarketFacetGroups(List<String> actualFacets) throws Throwable {
         for(String facet : actualFacets) {
-
             assertTrue(whatsMarketSearchResultsPage.whatsMarketFacetGroupName(facet).isDisplayed());
-
         }
     }
 
@@ -894,7 +886,7 @@ public class facetJavaTest extends BaseStepDef {
             facetsDocsCount += commonMethods.getIntFromString(knowHowSearchResultsPage.facetCount(filterName).getText());
         }
         if (!knowHowSearchResultsPage.isCancelButtonExists()) { // Filter state can be stored after previous sessions
-            knowHowSearchResultsPage.selectMultipleFiltersButton().click();
+            knowHowSearchResultsPage.selectMultipleFilters().click();
         }
         knowHowSearchResultsPage.applyFiltersButton().click();
         knowHowSearchResultsPage.waitForPageToLoad();

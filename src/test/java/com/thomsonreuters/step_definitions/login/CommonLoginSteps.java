@@ -28,38 +28,38 @@ public class CommonLoginSteps extends BaseStepDef {
     @When("^the user navigates to the main PLCUK page$")
     public void theUserNavigatesToTheMainPLCUKPage() throws Throwable {
         navigationCobalt.navigateToPLUKPlus();
-        navigationCobalt.waitForPageToLoad();
+        practicalLawHomepage.waitForPageToLoad();
     }
 
 	@When("^the user navigates to the main PL ANZ page$")
 	public void theUserNavigatesToTheMainPLANZPage() throws Throwable {
 		navigationCobalt.navigateToPLANZPlus();
-		navigationCobalt.waitForPageToLoad();
+        practicalLawHomepage.waitForPageToLoad();
 	}
 
     @When("^he is viewing a free document \"(.*?)\"$")
     public void heIsViewingAFreeDocument(String documentURL) throws Throwable {
-        navigationCobalt.navigateToPLCUKPlusSpecificURL(documentURL);
-        navigationCobalt.waitForPageToLoad();
+        navigationCobalt.navigateToPLUKPlus(documentURL);
+        practicalLawHomepage.waitForPageToLoad();
     }
 
     @When("^he is viewing a free ANZ document \"(.*?)\"$")
     public void heIsViewingAFreeAnzDocument(String documentURL) throws Throwable {
         navigationCobalt.navigateToPLCANZSpecificURL(documentURL);
-        navigationCobalt.waitForPageToLoad();
+        practicalLawHomepage.waitForPageToLoad();
     }
 
     @After(order = 40000, value = "@RemoveSRMOptionANZ")
     public void removeSRMOptionANZ() throws IOException, InterruptedException {
         navigationCobalt.navigateToPLANZPlus();
-        navigationCobalt.waitForPageToLoad();
+        practicalLawHomepage.waitForPageToLoad();
         removeSRMOption();
     }
     
     @After(order = 40000, value = "@RemoveSRMOptionUK")
     public void removeSRMOptionUK() throws IOException, InterruptedException {
         navigationCobalt.navigateToPLUKPlus();
-        navigationCobalt.waitForPageToLoad();
+        practicalLawHomepage.waitForPageToLoad();
         removeSRMOption();
     }
     

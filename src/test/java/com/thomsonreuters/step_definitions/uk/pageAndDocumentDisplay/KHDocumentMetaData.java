@@ -38,7 +38,7 @@ public class KHDocumentMetaData extends BaseStepDef {
 
     @When("^user navigates directly to document with plcref \"(.*?)\"$")
     public void userNavigatesDirectlyToDocumentWithPlcref(String plcRef) throws Throwable {
-        navigationCobalt.navigateToWLNSpecificResourcePage("/" + plcRef);
+        navigationCobalt.navigateToPLUKPlus("/" + plcRef);
         resourcePage.waitForPageToLoadAndJQueryProcessing();
     }
 
@@ -77,7 +77,7 @@ public class KHDocumentMetaData extends BaseStepDef {
     @Then("^'(Related Content|View Resource History)' link is (displayed|Not displayed) on the right hand panel$")
     public void relatedContentLinkIsDisplayedOnTheRightHandPanel(String linkText, String display) throws Throwable {
         try {
-            navigationCobalt.waitForPageToLoadAndJQueryProcessing();
+            rightPanelPage.waitForPageToLoadAndJQueryProcessing();
             WebElement element = rightPanelPage.relatedOrHistoryLink(linkText);
             assertThat(element.isDisplayed(), Is.is(true));
         } catch (NoSuchElementException npe) {

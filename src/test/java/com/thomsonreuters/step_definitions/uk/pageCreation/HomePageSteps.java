@@ -62,7 +62,7 @@ public class HomePageSteps extends BaseStepDef {
         for (String link : links) {
             if (link.contains("/")) {
                 navigationCobalt.navigateToRelativeURL(link);
-                navigationCobalt.waitForPageToLoad();
+                homePage.waitForPageToLoad();
             }
         }
     }
@@ -77,9 +77,9 @@ public class HomePageSteps extends BaseStepDef {
                 if (link.equalsIgnoreCase("Browse Menu")) {
                     wlnHeader.browseMenuButton().click();
                 } else {
-                    navigationCobalt.waitForElementPresent(By.linkText(link)).click();
+                    wlnHeader.waitForElementPresent(By.linkText(link)).click();
                 }
-                navigationCobalt.waitForPageToLoad();
+                wlnHeader.waitForPageToLoad();
             }
         }
         assertTrue(wlnHeader.pageHeaderLabel().getText().equals(expectedTitle));

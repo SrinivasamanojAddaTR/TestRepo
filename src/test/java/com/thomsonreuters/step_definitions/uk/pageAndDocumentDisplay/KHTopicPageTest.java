@@ -157,8 +157,7 @@ public class KHTopicPageTest extends BaseStepDef {
     @Then("^the number of resources displayed on the first page is (\\d+)$")
     public void theNumberOfResourcesDisplayedOnTheFirstPageIs(int maxNoOfResources) throws Throwable {
         resourcePage.waitForPageToLoad();
-        commonMethods.waitForElement(topicPage.resourceDocByTitle(), 5000);
-        int size = topicPage.totalResourcesOnFirstPage();
+        resourcePage.waitForExpectedElement(topicPage.resourceDocByTitle(), 5000);
         assertThat(topicPage.totalResourcesOnFirstPage(), Is.is(maxNoOfResources));
     }
 

@@ -439,7 +439,6 @@ public class searchJavaTest extends BaseStepDef {
 
     @When("^the user is able to verify that a deal summary for the first result is not displayed \"([^\"]*)\"$")
     public void theUserIsAbleToVerifyThatADealSummaryForTheFirstResultIsNotDisplayed(String arg1) throws Throwable {
-
         Boolean isPresent = false;
         try {
             WebElement text = whatsMarketSearchResultsPage.resultSummary(arg1);
@@ -447,10 +446,8 @@ public class searchJavaTest extends BaseStepDef {
             isPresent = true;
         } catch (Exception e) {
             LOG.info("context", e);
-
         }
         assertFalse(isPresent);
-
     }
 
     @When("^the user is able to verify that a date of announcement for the first result is not displayed \"([^\"]*)\"$")
@@ -625,8 +622,6 @@ public class searchJavaTest extends BaseStepDef {
 
     @When("^the user verifies the absence of a column entitled \"([^\"]*)\"$")
     public void theUserVerifiesTheAbsenceOfAColumnEntitled(String arg1) throws Throwable {
-
-
         Boolean isPresent = false;
         try {
             WebElement text = whatsMarketComparisonReportPage.columnHeader(arg1);
@@ -944,8 +939,6 @@ public class searchJavaTest extends BaseStepDef {
     public void theUserCanVerifyThatTheDocumentContainsTheHeaderAlsoFoundIn() throws Throwable {
         knowHowDocumentPage.alsoFoundInHeader().isDisplayed();
     }
-
-
 }
 
 

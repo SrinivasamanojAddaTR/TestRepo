@@ -165,9 +165,8 @@ public class ResponsiveCommonSteps extends BaseStepDef {
     @Then("^the user should be seeing \"(.*?)\" per page$")
     public void userShouldbeSeeingPerPage(String perPageNo) throws Throwable {
         int expectedNoOfResults = Integer.parseInt(perPageNo);
-        commonMethods.waitForElement(knowHowSearchResultsPage.searchResultsItemsList().get(0), 5000);
+        knowHowSearchResultsPage.waitForElementVisible(knowHowSearchResultsPage.searchResultsItemsList().get(0), 5000);
         commonMethods.scrollUpOrDown(70000);
-        //commonMethods.waitForElement(legalUpdatesResultsPage.resultsList(), 5000);
         int actualNoOfResults = knowHowSearchResultsPage.searchResultsItemsList().size();
         if(actualNoOfResults>expectedNoOfResults) {
 			assertTrue("Number of results not matching: expected " + expectedNoOfResults + " , actual " + actualNoOfResults,
@@ -283,7 +282,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 
     @When("^user should see the group '(.+)'$")
     public void UserShouldSeeTheGroup(String groupName) throws Throwable {
-        commonMethods.waitForElement(favouritesPage.favouriteByGroup(groupName), 3000);
+        favouritesPage.waitForExpectedElement(favouritesPage.favouriteByGroup(groupName), 3000);
         assertTrue(groupName + " not displayed..!", favouritesPage.checkFavouriteGroupIsPresent(groupName));
     }
     @When("^the user navigates to \"(.*)\" resource Page$")
@@ -302,7 +301,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
         for(WebElement tab : footer.pageTabLinks()) {
             if(tab.getText().trim().contains("Topics")){
                 tab.click();
-                commonMethods.waitForElement(tab,2000);
+                header.waitForElementVisible(tab,2000);
                 break;
             }
         }
@@ -342,7 +341,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
                 record++;
             }
             if(!flag) {
-                commonMethods.waitForElement(searchResultsPage.selectNextPageByLink(), 4000).click();
+                searchResultsPage.waitForExpectedElement(searchResultsPage.selectNextPageByLink(), 4000).click();
             }
         }
         for(Map.Entry<String, String> rowEntry : table.entrySet() ){

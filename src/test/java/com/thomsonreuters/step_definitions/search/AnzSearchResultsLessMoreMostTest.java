@@ -66,7 +66,7 @@ public class AnzSearchResultsLessMoreMostTest extends BaseStepDef {
     @Then("^the user should see the each search result with search term \"(.*)\" in the search result snippet$")
     public void theUserShouldSeeTheEachSearchResultAccordingToTheTerm(String searchTerm) throws Throwable {
         footerUtils.closeDisclaimerMessage();
-        commonMethods.waitForElement(knowHowSearchResultsPage.searchResultByCountLabel(), 3000);
+        searchResultsPage.waitForExpectedElement(knowHowSearchResultsPage.searchResultByCountLabel(), 3000);
         assertTrue("Search term row count is not matching..!", isTermFound(searchTerm));
     }
 
@@ -128,10 +128,10 @@ public class AnzSearchResultsLessMoreMostTest extends BaseStepDef {
          searchTerm1=searchTerm1.toLowerCase();
          searchTerm2=searchTerm2.toLowerCase();
          knowHowSearchResultsPage.knowHowSearchResultTitle(String.valueOf(rowNumber)).click();
-         commonMethods.waitForElement(commonResourcePage.title(), 1000);
+         knowHowSearchResultsPage.waitForElementVisible(commonResourcePage.title(), 1000);
          facetJavatest.theUserCanVerifyTheSearchResultContainsTheSearchTermsAndAlsoWithinTheFullText(searchTerm1, searchTerm2);
          commonMethods.waitElementByLinkText("Return to list").click();
-         commonMethods.waitForElement(knowHowSearchResultsPage.searchResultByCountLabel(), 3000);
+         knowHowSearchResultsPage.waitForExpectedElement(knowHowSearchResultsPage.searchResultByCountLabel(), 3000);
 
      }
 

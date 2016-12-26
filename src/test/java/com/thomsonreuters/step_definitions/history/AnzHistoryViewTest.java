@@ -110,13 +110,13 @@ public class AnzHistoryViewTest extends BaseStepDef {
 
     @When("^the user clicks on the clientID \"(.*?)\" checkbox$")
     public void theUserClicksOnTheClientID(String facet) throws Throwable {
-        commonMethods.waitForElement(knowHowSearchResultsPage.clientIDByFacetCheckbox(facet), 2000);
+        wlnHeader.waitForElementVisible(knowHowSearchResultsPage.clientIDByFacetCheckbox(facet), 2000);
         knowHowSearchResultsPage.clientIDFacetCheckbox(facet).click();
     }
 
     @Then("^the user should see the results from both \"(.*?)\" or \"(.*?)\" clientID$")
     public void theUserShouldSeeTheResultsFromBothOrClientID(String facet01, String facet02) throws Throwable {
-        commonMethods.waitForElement(knowHowSearchResultsPage.clientIDByFacetCheckbox(facet01), 2000);
+        wlnHeader.waitForElementVisible(knowHowSearchResultsPage.clientIDByFacetCheckbox(facet01), 2000);
         int facet01Count = Integer.parseInt(knowHowSearchResultsPage.clientIDFacetCount(facet01).getText());
         int facet02Count = Integer.parseInt(knowHowSearchResultsPage.clientIDFacetCount(facet02).getText());
         int clientIDRowCount01 = 0;
@@ -139,7 +139,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
 
     @Then("^the user should see the results from clientID \"(.*)\" and event \"(.*)\" facet$")
     public void theUserShouldSeeTheResultsFromClientIDAndSearch(String clientFacet, String eventFacet) throws Throwable {
-        commonMethods.waitForElement(knowHowSearchResultsPage.clientIDByFacetCheckbox(clientFacet), 2000);
+        wlnHeader.waitForElementVisible(knowHowSearchResultsPage.clientIDByFacetCheckbox(clientFacet), 2000);
         int clientFacetCount = Integer.parseInt(knowHowSearchResultsPage.clientIDFacetCount(clientFacet).getText());
         int eventFacetCoutn = Integer.parseInt(knowHowSearchResultsPage.eventFacetCount(eventFacet).getText());
         assertTrue("Total facet count is not equal to cliendID row count..!",
@@ -179,7 +179,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     @Then("^the user should see the each search result according to the term \"(.*)\" (?:in folders|in history)$")
     public void theUserShouldSeeTheEachSearchResultAccordingToTheTerm(String searchTerm) throws Throwable {
         String searchTermArray[] = searchTerm.split(" ");
-        commonMethods.waitForElement(researchOrganizerPage.historyPageResultByTitleLink(), 2000);
+        researchOrganizerPage.waitForExpectedElement(researchOrganizerPage.historyPageResultByTitleLink(), 2000);
         int historyRowCount = researchOrganizerPage.historyPageResultTitleLinks().size();
         int searchTermCount = researchOrganizerPage.totalSelectedSearchTerm().size();
 
@@ -338,7 +338,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
                 }
             }
             String todayDate = CalendarAndDate.getCurrentDate();
-            if (commonMethods.waitForElement(researchOrganizerPage.historyPageResultByTitleLink(), 1000) != null) {
+            if (researchOrganizerPage.waitForExpectedElement(researchOrganizerPage.historyPageResultByTitleLink(), 1000) != null) {
                 String actualDate = researchOrganizerPage.getDateAtRowPosition("1").getText();
                 if (!actualDate.contains(todayDate)) {
                     runTheSearchAndGetBackToHistoryPage(searchTerm);

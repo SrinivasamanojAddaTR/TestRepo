@@ -42,7 +42,7 @@ public class GlPageSearchContentStep {
 
 	@When("^the user navigates to the Global Page$")
 	public void theUserNavigatesToTheGlobalPage() throws Throwable {
-		navigation.navigateToPLCUKPlusSpecificURL(PATH_TO_GLOBAL_PAGE);
+		navigation.navigateToPLUKPlus(PATH_TO_GLOBAL_PAGE);
 		globalCategoryPage.waitForPageToLoad();
 	}
 
@@ -190,7 +190,7 @@ public class GlPageSearchContentStep {
 	public void theUserSelectsTheFollowingFacetsInMoreJurisdictionsInPopupBoxInGlobalSearchResultPage(
 			List<String> facets) throws Throwable {
 		if (!knowHowSearchResultsPage.isCancelButtonExists()) { // Filter state can be stored after previous sessions
-            knowHowSearchResultsPage.selectMultipleFiltersButton().click();
+            knowHowSearchResultsPage.selectMultipleFilters().click();
         }
 		globalPageUtils.clickMoreOptionOnKnowHowGlobalJurisdiction();
 		morePopUpPage.selectSearchItem(facets);

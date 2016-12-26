@@ -30,7 +30,7 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
     @Given("^the user saves the page url into bookmark$")
     public void theUserSavesUrlIntoBookmark() {
         bookmarkUrl = practicalLawHomepage.getCurrentUrl();
-        expectedPageTitle = navigationCobalt.getPageTitle();
+        expectedPageTitle = practicalLawHomepage.getPageTitle();
     }
 
     @When("^the user goes to third-party site and stays there for \"(\\d+)\" seconds$")
@@ -42,24 +42,24 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
     @When("^the user selects a bookmark$")
     public void theUserSelectsBookmark() {
         wlnHeader.goTo(bookmarkUrl);
-        navigationCobalt.waitForPageToLoadAndJQueryProcessing();
+        wlnHeader.waitForPageToLoadAndJQueryProcessing();
     }
 
     @When("^he has a session open and timed out$")
     public void heHasASessionOpenAndTimedOut() throws Throwable {
-        expectedPageTitle = navigationCobalt.getPageTitle();
+        expectedPageTitle = practicalLawHomepage.getPageTitle();
         TimeoutUtils.sleepInSeconds(200);
     }
 
     @When("^he has a session open and timed out after \"(\\d+)\" sec$")
     public void heHasASessionOpenAndTimedOutAfter(int sec) throws Throwable {
-        expectedPageTitle = navigationCobalt.getPageTitle();
+        expectedPageTitle = practicalLawHomepage.getPageTitle();
         TimeoutUtils.sleepInSeconds(sec);
     }
 
     @When("^the user opens new tab and switch on it$")
     public void userOpensNewTab() throws Throwable {
-        expectedPageTitleForFirstTab = navigationCobalt.getPageTitle();
+        expectedPageTitleForFirstTab = practicalLawHomepage.getPageTitle();
         windowHandleFirstTab = getDriver().getWindowHandle();
         wlnHeader.header().sendKeys(Keys.valueOf("CONTROL") + "n");
         wlnHeader.switchToOpenedWindow();
@@ -68,7 +68,7 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
 
     @When("^the user saves the page title for second tab$")
     public void userSavesPageUrlForSecondTab() throws Throwable {
-        expectedPageTitleForSecondTab = navigationCobalt.getPageTitle();
+        expectedPageTitleForSecondTab = practicalLawHomepage.getPageTitle();
     }
 
     @Then("^the user is presented with a warning message that session is expired$")
@@ -82,7 +82,7 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
         Set<String> windowHandles = getDriver().getWindowHandles();
         for (String windowHandle : windowHandles) {
             wlnHeader.switchToWindow(windowHandle);
-            assertTrue("Session time out pop up is not visible on page " + navigationCobalt.getPageTitle(), practicalLawHomepage.isTimeoutPopUpPresent(200));
+            assertTrue("Session time out pop up is not visible on page " + practicalLawHomepage.getPageTitle(), practicalLawHomepage.isTimeoutPopUpPresent(200));
         }
         TimeoutUtils.sleepInSeconds(100);
     }
@@ -102,13 +102,13 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
 
     @When("^the user saves the page title$")
     public void savePageTitle() throws Throwable {
-        expectedPageTitle = navigationCobalt.getPageTitle();
+        expectedPageTitle = practicalLawHomepage.getPageTitle();
     }
 
     @Then("^he should stay on same (?:document|search|category) page as OpenWeb user$")
     public void heShouldStayOnSameDocumentPageAsOpenWebUser() throws Throwable {
-        navigationCobalt.waitForPageToLoadAndJQueryProcessing();
-        String currentPageTitle = navigationCobalt.getPageTitle();
+        practicalLawHomepage.waitForPageToLoadAndJQueryProcessing();
+        String currentPageTitle = practicalLawHomepage.getPageTitle();
         assertTrue("User was redirected to another page after timed out session, the current title is " + currentPageTitle, expectedPageTitle.equals(currentPageTitle));
         assertTrue("User is logged in", wlnHeader.isSignInLinkPresent());
     }
@@ -121,8 +121,8 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
 
     @Then("^user gets redirected to the (?:document|search|category) page that he was visiting and is logged in$")
     public void userGetsRedirectedToTheDocumentPageThatHeWasVisiting() throws Throwable {
-        navigationCobalt.waitForPageToLoad();
-        String currentPageTitle = navigationCobalt.getPageTitle();
+        practicalLawHomepage.waitForPageToLoad();
+        String currentPageTitle = practicalLawHomepage.getPageTitle();
         assertTrue("User was redirected to another page after new session from page was started",
                 expectedPageTitle.equals(currentPageTitle));
         assertTrue("User is not logged in", !wlnHeader.isSignInLinkPresent());
@@ -136,16 +136,16 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
 
     private void verifyTabTitle(String tab) {
         String currentPageTitle;
-        navigationCobalt.waitForPageToLoadAndJQueryProcessing();
+        practicalLawHomepage.waitForPageToLoadAndJQueryProcessing();
         switch (tab) {
             case "first":
                 wlnHeader.switchToWindow(windowHandleFirstTab);
-                currentPageTitle = navigationCobalt.getPageTitle();
+                currentPageTitle = practicalLawHomepage.getPageTitle();
                 assertTrue("User was redirected to another page after timed out session, the current title is " + currentPageTitle, expectedPageTitleForFirstTab.equals(currentPageTitle));
                 break;
             case "second":
                 wlnHeader.switchToWindow(windowHandleSecondTab);
-                currentPageTitle = navigationCobalt.getPageTitle();
+                currentPageTitle = practicalLawHomepage.getPageTitle();
                 assertTrue("User was redirected to another page after timed out session, the current title is " + currentPageTitle, expectedPageTitleForSecondTab.equals(currentPageTitle));
                 break;
         }

@@ -40,7 +40,7 @@ public class FoldersAndFoldersDropDownTest extends BaseStepDef {
     public void userShouldSeeRecentFolders(int noOfFolders) throws Throwable {
         Assert.assertTrue("Recent Folders not displayed..!", header.foldersRecentFoldersSubTitle().isDisplayed());
         Assert.assertTrue("View all Link not displayed..!", header.folderViewAllLink().isDisplayed());
-        comMethods.waitForElement(header.foldersRecentFoldersLinks().get(0), 3000);
+        header.waitForElementVisible(header.foldersRecentFoldersLinks().get(0), 3000);
         int noOfActualFolder = header.foldersRecentFoldersLinks().size();
         Assert.assertTrue(noOfFolders + " not displayed..!", noOfFolders == noOfActualFolder);
     }

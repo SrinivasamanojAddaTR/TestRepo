@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.header.responsiveDesign;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
@@ -11,7 +10,6 @@ public class HistoryAndHistoryDropDownTest extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
     private PracticalLawHomepage plcHomePage = new PracticalLawHomepage();
-    private CommonMethods comMethods = new CommonMethods();
 
     @Then("^user should see history link$")
     public void userShouldSeeHitoryLink() throws Throwable {
@@ -38,7 +36,7 @@ public class HistoryAndHistoryDropDownTest extends BaseStepDef {
     @Then("^user clicks on recent docs view all links and should see history searches$")
     public void userClicksOnRecentSearchesViewAllLinksAndShouldSeeHistorySearches() throws Throwable {
         header.historyDocViewAllLink().click();
-        comMethods.waitForElement(header.historyHeadingTitle(), 3000);
+        header.waitForElementVisible(header.historyHeadingTitle(), 3000);
         Assert.assertTrue("History Documents page not displayed..!", header.historyHeadingTitle().getText().contains("Documents"));
     }
 

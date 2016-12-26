@@ -109,12 +109,12 @@ public class BasicKnowHowSearchUKS101Test extends BaseStepDef {
     public void theUserIsAbleToCheckWhetherTheOptionToApplyFiltersIsDisplayedAndIfNotToEnsureThatItIs() {
         Boolean isPresent = false;
         try {
-            if (knowHowSearchResultsPage.selectMultipleFiltersButton().isDisplayed()) {
+            if (knowHowSearchResultsPage.selectMultipleFilters().isDisplayed()) {
                 isPresent = true;
             }
         } catch (Exception e) {
         }
-        if (isPresent = true) {
+        if (isPresent) {
             knowHowSearchResultsPage.clickOnSelectMultipleFilters();
         }
     }

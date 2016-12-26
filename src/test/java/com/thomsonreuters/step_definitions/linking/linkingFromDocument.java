@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.linking;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.utils.Linking.WLAUPageUtils;
 import com.thomsonreuters.pageobjects.utils.plPlusResearchDocDisplay.AssetPageUtils;
@@ -18,7 +17,6 @@ public class linkingFromDocument {
 
 	private AssetPageUtils assetPageUtils = new AssetPageUtils();
     private WLAUPageUtils wlauPageUtils = new WLAUPageUtils();
-    private CommonMethods commonMethods = new CommonMethods();
     private HomePage homePage = new HomePage();
 	
 	
