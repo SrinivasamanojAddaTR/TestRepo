@@ -5,12 +5,12 @@ Feature: [831297] View History Page - Deliver Documents  listed within my docume
 
 #The user name was ANZtestuser1
 Background: 
-	Given ANZ user is logged in
+	Given ANZ user is logged in with following details
+		| userName | ANZtestuser1 |
 
 ###############################################################################################################
 ## Print 	
-###############################################################################################################		
-
+###############################################################################################################
 Scenario Outline: [831297] Print a single document 
 	When the user clicks on 'History' link on the header
 	And the user clicks on 'Documents' tab on the History page
@@ -24,7 +24,6 @@ Scenario Outline: [831297] Print a single document
 ###############################################################################################################
 ## Download	
 ###############################################################################################################
-
 Scenario Outline: [831297] Download documents in PDF format
 	Given ANZ user navigates directly to document with guid "<guid1>"
 	And ANZ user navigates directly to document with guid "<guid2>"
@@ -82,7 +81,7 @@ Scenario Outline: [831297] Download list of items in PDF format
 	Examples: 
 		|guid1							  |guid2							|title1 									| title2 						| docText1 						| docText2 |
 		|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0|Transfer of shares | Due diligence: acquisitions	|When are shares transferable?	|What is due diligence?|
- 
+
 
 Scenario Outline: [831297] Download list of items in CSV format
 	Given ANZ user navigates directly to document with guid "<guid1>"
@@ -98,8 +97,8 @@ Scenario Outline: [831297] Download list of items in CSV format
 	Then user downloads the document with name "Practical Law - List of 2 items" and extension ".csv" 
 	Examples: 
 		|guid1							  |guid2							|
-		|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0| 
- 
+		|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0|
+
 
 Scenario Outline: [831297] Download document in RTF format
 	Given ANZ user navigates directly to document with guid "<guid>"
@@ -113,7 +112,7 @@ Scenario Outline: [831297] Download document in RTF format
 	Examples: 
 		|guid								| name |							
 		|If13ba3b4d4d811e598dc8b09b4f043e0 	| Transfer of shares |
- 
+
 
 Scenario Outline: [831297] Download document in Microsoft Word format
 	Given ANZ user navigates directly to document with guid "<guid>"
@@ -146,7 +145,7 @@ Scenario Outline: [831297] Download document with table of contents in PDF forma
 	And the document includes table of contents that contains title "<contentsText>" 
 	Examples: 
 		|guid								| name 							|docText 			| contentsText |
-		|If13ba3b4d4d811e598dc8b09b4f043e0  | Transfer of shares 	|As a general rule 	| Steps for transferring shares  |		 
+		|If13ba3b4d4d811e598dc8b09b4f043e0  | Transfer of shares 	|As a general rule 	| Steps for transferring shares  |
 
 
 Scenario Outline: [831297] Download document without table of contents in PDF format
@@ -184,7 +183,7 @@ Scenario Outline: [831297] Download document without table of contents in PDF fo
 	Examples: 
 		|guid								| subject			| mailbox |
 		|If13ba3b4d4d811e598dc8b09b4f043e0 	| Practical Law - Transfer of shares | tr-anz-tester1@yandex.com |
-		
+
 Scenario Outline: [831297][847182] Email resource link only
 	Given ANZ user navigates directly to document with guid "<guid>"
 	When the user clicks on 'History' link on the header

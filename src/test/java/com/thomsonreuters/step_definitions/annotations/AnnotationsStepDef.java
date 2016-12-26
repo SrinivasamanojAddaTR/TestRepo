@@ -1477,6 +1477,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^the user clicks on '(.+)' tab on the History page$")
     public void theUserClicksOnTabOnHistoryPage(String tabName) throws Throwable {
+        researchOrganizerPage.waitForPageToLoad();
         researchOrganizerPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(60);
         HistoryTabs tab = HistoryTabs.valueOf(tabName);
         openHistoryTab(tab);
