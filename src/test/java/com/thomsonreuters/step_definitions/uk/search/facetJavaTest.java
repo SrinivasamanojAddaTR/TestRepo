@@ -217,11 +217,13 @@ public class facetJavaTest extends BaseStepDef {
         ((JavascriptExecutor) getDriver()).executeScript("scroll(250,0);");
         // Click the element
         elementToClick.click();
+        knowHowSearchResultsPage.waitForPageToLoad();
     }
 
     @Then("^the user verifies that the following parent facets are not selected$")
     public void theUserVerifiesThatTheFollowingParentFacetsIsNotSelected(List<String> facets) throws Throwable {
-        commonMethods.waitForElement(knowHowSearchResultsPage.resourceTypeFacetGroupByTitle(), 2000);
+        casesSearchResultsPage.waitForPageToLoad();
+        casesSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
         for (String facet : facets) {
             assertFalse(facet+" is still Selected..!",casesSearchResultsPage.facetCheckbox(facet).isSelected());
         }
