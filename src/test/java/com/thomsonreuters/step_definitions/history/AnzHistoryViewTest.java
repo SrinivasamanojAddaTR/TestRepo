@@ -116,7 +116,8 @@ public class AnzHistoryViewTest extends BaseStepDef {
 
     @Then("^the user should see the results from both \"(.*?)\" or \"(.*?)\" clientID$")
     public void theUserShouldSeeTheResultsFromBothOrClientID(String facet01, String facet02) throws Throwable {
-        wlnHeader.waitForElementVisible(knowHowSearchResultsPage.clientIDByFacetCheckbox(facet01), 2000);
+        knowHowSearchResultsPage.waitForPageToLoad();
+        knowHowSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
         int facet01Count = Integer.parseInt(knowHowSearchResultsPage.clientIDFacetCount(facet01).getText());
         int facet02Count = Integer.parseInt(knowHowSearchResultsPage.clientIDFacetCount(facet02).getText());
         int clientIDRowCount01 = 0;
@@ -139,7 +140,8 @@ public class AnzHistoryViewTest extends BaseStepDef {
 
     @Then("^the user should see the results from clientID \"(.*)\" and event \"(.*)\" facet$")
     public void theUserShouldSeeTheResultsFromClientIDAndSearch(String clientFacet, String eventFacet) throws Throwable {
-        wlnHeader.waitForElementVisible(knowHowSearchResultsPage.clientIDByFacetCheckbox(clientFacet), 2000);
+        knowHowSearchResultsPage.waitForPageToLoad();
+        knowHowSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
         int clientFacetCount = Integer.parseInt(knowHowSearchResultsPage.clientIDFacetCount(clientFacet).getText());
         int eventFacetCoutn = Integer.parseInt(knowHowSearchResultsPage.eventFacetCount(eventFacet).getText());
         assertTrue("Total facet count is not equal to cliendID row count..!",
@@ -338,7 +340,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
                 }
             }
             String todayDate = CalendarAndDate.getCurrentDate();
-            if (researchOrganizerPage.waitForExpectedElement(researchOrganizerPage.historyPageResultByTitleLink(), 1000) != null) {
+            if (researchOrganizerPage.waitForExpectedElements(researchOrganizerPage.historyPageResultByTitleLink(), 10).size()!=0) {
                 String actualDate = researchOrganizerPage.getDateAtRowPosition("1").getText();
                 if (!actualDate.contains(todayDate)) {
                     runTheSearchAndGetBackToHistoryPage(searchTerm);
