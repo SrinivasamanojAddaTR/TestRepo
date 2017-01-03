@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.header;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.ListFunctions;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
@@ -19,7 +18,6 @@ import static org.junit.Assert.assertTrue;
 public class anzTimeZoneTest extends BaseStepDef {
 	
     private WLNHeader header = new WLNHeader();
-    private CommonMethods commonMethods = new CommonMethods();
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private ListFunctions listFunctions = new ListFunctions();
     private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
@@ -47,7 +45,9 @@ public class anzTimeZoneTest extends BaseStepDef {
 
     @When("^user navigates to the History Page to store the time at row \"(.*?)\"$")
     public void userNavigatesToTheHistoryPageToStoreTheTime(String rowNo) throws Throwable {
-        commonMethods.waitElementByLinkText("History").click();
+        researchOrganizerPage.waitForPageToLoad();
+        researchOrganizerPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(30);
+        researchOrganizerPage.getElementByLinkText("History").click();
         researchOrganizerPage.historyPageResultTitleLinks().get(0).isDisplayed();
         storedDate=researchOrganizerPage.getDateAtRowPosition(rowNo).getText();
     }

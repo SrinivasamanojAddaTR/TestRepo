@@ -11,9 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class userAvatarDropDownTests extends BaseStepDef {
 	
 	private WLNHeader wlnHeader = new WLNHeader();
-	
 	private OnepassLogin onepassLogin = new OnepassLogin();
-	
 	private final String ONEPASS_LOGIN_FORM_TITLE = "manage onepass";
 	
 	@When("^the user selects the user profile symbol$")

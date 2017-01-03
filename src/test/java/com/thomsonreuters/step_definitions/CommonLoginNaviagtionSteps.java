@@ -108,7 +108,7 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
     @When("^the user navigates to the main PLANZ page$")
     public void theUserNavigatesToTheMainPLANZPage() throws Throwable {
         navigationCobalt.navigateToPLANZPlus();
-        navigationCobalt.waitForPageToLoad();
+		wlnHeader.waitForPageToLoad();
     }
 
 	/**

@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.header.responsiveDesign;
 
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.DataTable;
@@ -13,8 +12,6 @@ import static org.junit.Assert.assertTrue;
 public class CountryToggleDropdownTest extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
-
-    private NavigationCobalt navigationCobalt = new NavigationCobalt();
 
     @Then("^user clicks on the country toggle dropdown$")
     public void userHoversOverTheCountryTogglePage() throws Throwable {

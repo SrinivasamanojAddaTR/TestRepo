@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.login;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.search.SearchHomePage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
@@ -15,7 +14,6 @@ import static org.junit.Assert.assertTrue;
 public class hideFFHLinksForNotLoggedInUser extends BaseStepDef {
 
     private SearchHomePage searchHomePage = new SearchHomePage();
-    private CommonMethods comMethods = new CommonMethods();
     private WLNHeader wlnHeader = new WLNHeader();
     private SearchUtils searchUtils = new SearchUtils();
 
@@ -59,7 +57,7 @@ public class hideFFHLinksForNotLoggedInUser extends BaseStepDef {
     private void checkIfLinksVisible(List<String> ffhLinks) {
         int result = 0;
         for (String ffhLink : ffhLinks) {
-            if (comMethods.getElementByLinkText(ffhLink) != null) {
+            if (wlnHeader.getElementByLinkText(ffhLink) != null) {
                 LOG.info(ffhLink + " link is visvible for user");
                 result++;
             }

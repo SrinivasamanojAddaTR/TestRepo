@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.header.responsiveDesign;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage;
 import com.thomsonreuters.pageobjects.pages.plcLegacy.PLCLegacyBooksPage;
@@ -20,10 +19,8 @@ import static org.junit.Assert.assertTrue;
 public class BrowseMenuTest extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
-    private CommonMethods comMethods = new CommonMethods();
     private GlossaryPage glossaryPage = new GlossaryPage();
     private PLCLegacyBooksPage plcLegacyBooksPage = new PLCLegacyBooksPage();
-
     private String currentSection;
 
     @Given("^user clicks on \"(.*?)\" dropdown$")
@@ -47,7 +44,7 @@ public class BrowseMenuTest extends BaseStepDef {
     @Then("^user clicks on following sub-menu and see the respective links according to the design$")
     public void userClicksOnSubMenuAndSeeTheRespectiveLinksAccordingToTheDesign(List<String> subMenuList) throws Throwable {
         for (int linkCount = 0; linkCount < subMenuList.size(); linkCount++) {
-            comMethods.getElementByLinkText(subMenuList.get(linkCount)).click();
+            header.getElementByLinkText(subMenuList.get(linkCount)).click();
             if (subMenuList.get(linkCount).trim().equalsIgnoreCase("Practice areas")) {
                 assertTrue("Practice Area Links are not displayed..!", header.practiceAreaFirstColumnLinks().get(0).isDisplayed());
             } else if (subMenuList.get(linkCount).trim().equalsIgnoreCase("Resources")) {
@@ -66,14 +63,16 @@ public class BrowseMenuTest extends BaseStepDef {
     @Then("^user selects sub-menu \"(.*)\" and clicks on the link \"(.*)\"$") // Maybe @When should be there?
     public void userClicksOnSubMenuAndSeeTheRespectiveLinks(String subMenuLink, String linkText) throws Throwable {
         currentSection = subMenuLink;
-        comMethods.waitElementByLinkText(subMenuLink).click();
-        comMethods.waitElementByLinkText(linkText).click();
+        header.getElementByLinkText(subMenuLink).click();
+        header.waitForPageToLoad();
+        header.getElementByLinkText(linkText).click();
     }
 
     @When("^user selects sub-menu '(.*)'$")
     public void userClicksOnSubMenu(String subMenuLink) throws Throwable {
         currentSection = subMenuLink;
-        comMethods.waitElementByLinkText(subMenuLink).click();
+        header.waitForPageToLoad();
+        header.getElementByLinkText(subMenuLink).click();
     }
 
     @Then("^the following links should be present on the section$")

@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.browse;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesResultsPage;
 import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesWidget;
@@ -8,7 +7,6 @@ import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowDocumentPage;
-import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
@@ -31,12 +29,10 @@ public class AnzBrowseTest extends BaseStepDef {
     private KnowHowDocumentPage knowHowDocumentPage = new KnowHowDocumentPage();
     private WLNHeader wlnHeader = new WLNHeader();
     private HomePage homePage = new HomePage();
-    private CommonMethods commonMethods = new CommonMethods();
     private LegalUpdatesWidget legalUpdatesWidget = new LegalUpdatesWidget();
     private LegalUpdatesResultsPage legalUpdatesResultsPage = new LegalUpdatesResultsPage();
     private TopicPage topicPage = new TopicPage();
     private GlossaryPage glossaryPage = new GlossaryPage();
-    private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private CategoryPage categoryPage = new CategoryPage();
     private FooterUtils footerUtils = new FooterUtils();
 
@@ -106,7 +102,7 @@ public class AnzBrowseTest extends BaseStepDef {
                 String linksArray[] = entry.getValue().split(",");
                 homePage.specificTab(entry.getKey()).click();
                 for (String link : linksArray) {
-                    assertTrue(entry.getValue() + " not present..!", commonMethods.waitElementByLinkText(link.trim()).isDisplayed());
+                    assertTrue(entry.getValue() + " not present..!", homePage.isElementDisplayed(homePage.getElementByLinkText(link.trim())));//commonMethods.waitElementByLinkText(link.trim()).isDisplayed());
                 }
             }
         }
@@ -120,11 +116,11 @@ public class AnzBrowseTest extends BaseStepDef {
 
     @Then("^user verifies the \"(.*?)\" sections are displayed on topic page in alphabetical order$")
     public void userVerifiesTheFollowingResourcesSectionsAreDisplayedOnTopicPageInAlphabeticalOrder(String resources) throws Throwable {
-        if (commonMethods.waitForElementToBeVisible(searchResultsPage.searchByTitleAndCount(), 2000) == null) {
-            String resourceList[] = resources.split(",");
-            for (String resourceName : resourceList) {
-                assertTrue(resourceName + " is not displayed..!", topicPage.resourceHeading(resourceName.trim()).isDisplayed());
-            }
+        topicPage.waitForPageToLoad();
+        topicPage.waitForPageToLoadAndJQueryProcessing();
+        String resourceList[] = resources.split(",");
+        for (String resourceName : resourceList) {
+            assertTrue(resourceName + " is not displayed..!", topicPage.resourceHeading(resourceName.trim()).isDisplayed());
         }
     }
 
@@ -132,7 +128,8 @@ public class AnzBrowseTest extends BaseStepDef {
     public void userVerifiesTheFollowingFacetsAreDisplayedOnTheTopicPage(String resources) throws Throwable {
         String facetList[] = resources.split(",");
         boolean isPresent = false;
-        if (commonMethods.waitForElementToBeVisible(searchResultsPage.searchByTitleAndCount(), 2000) == null) {
+        topicPage.waitForPageToLoad();
+        topicPage.waitForPageToLoadAndJQueryProcessing();
             for (String facetName : facetList) {
                 for (WebElement facet : topicPage.facetNameLinksList()) {
                     String actualFacetText = facet.getText().toLowerCase().trim();
@@ -145,12 +142,12 @@ public class AnzBrowseTest extends BaseStepDef {
                 assertTrue(facetName + " is not displayed..!", isPresent);
                 isPresent = false;
             }
-        }
     }
 
     @Given("^the user verifies the topic facet \"(.*?)\" count is equivalent to no\\. of results displayed$")
     public void theUserVerifiesTheTopicFacetCountIsEquivalentToNoOfResultsDisplayed(String facetName) throws Throwable {
-        searchResultsPage.waitForExpectedElement(topicPage.resourceDocByTitle(), 5000);
+        topicPage.waitForPageToLoad();
+        topicPage.waitForPageToLoadAndJQueryProcessing();
         int docRowCount = topicPage.resourceDocTitleAllList().size();
         int resourceFacetCount = Integer.parseInt(topicPage.specificFacetCount(facetName).getText());
         assertTrue(docRowCount + " & " + resourceFacetCount + " are not matching..!", docRowCount == resourceFacetCount);
@@ -162,8 +159,9 @@ public class AnzBrowseTest extends BaseStepDef {
             if (country.equalsIgnoreCase("Russian Federation")) {
                 homePage.countryLink("russian_federation").click();
             } else {
-                commonMethods.waitElementByLinkText(country).isDisplayed();
-                commonMethods.waitElementByLinkText(country).click();
+                homePage.waitForPageToLoad();
+                homePage.waitForPageToLoadAndJQueryProcessing();
+                homePage.getElementByLinkText(country).click();
                 assertTrue(country + " resources tab is not matching..!", homePage.specificTab("All " + country + " resources").isDisplayed());
             }
             assertTrue(country + " page is not displayed..!", wlnHeader.pageHeaderLabel().getText().contains(country));
@@ -181,11 +179,13 @@ public class AnzBrowseTest extends BaseStepDef {
         for (String linkText : linksList) {
             footerUtils.closeDisclaimerMessage();
             if (linkText.equalsIgnoreCase("Country Q&A comparison tool")) {
-                commonMethods.waitElementByLinkText("Start comparing").click();
-                assertTrue(linkText + " page is not displayed..!", commonMethods.waitForElementToBeVisible(knowHowDocumentPage.getDocumentTitle(), 1000)
+                homePage.waitForPageToLoad();
+                homePage.getElementByLinkText("Start comparing").click();
+                assertTrue(linkText + " page is not displayed..!", homePage.waitForElementVisible(knowHowDocumentPage.getDocumentTitle())
                         .getText().trim().contains("comparison tool"));
             } else {
-                commonMethods.waitElementByLinkText(linkText).click();
+                homePage.waitForPageToLoad();
+                homePage.getElementByLinkText(linkText).click();
                 assertTrue(linkText + " page is not displayed..!", wlnHeader.pageHeaderLabel().getText().contains(linkText));
             }
             getDriver().navigate().back();
@@ -198,7 +198,7 @@ public class AnzBrowseTest extends BaseStepDef {
         wlnHeader.browseMenuButton().click();
         for (String country : countriesList) {
             wlnHeader.browseMenuButton().click();
-            commonMethods.getElementByLinkText("International").click();
+            wlnHeader.getElementByLinkText("International").click();
             if (country.equalsIgnoreCase("Australia")) {
                 homePage.countryBrowseMenuLink(country).click();
                 assertTrue(country + " resources tab is not matching..!", homePage.specificTab("All " + country + " resources").isDisplayed());
@@ -206,8 +206,8 @@ public class AnzBrowseTest extends BaseStepDef {
                 homePage.countryBrowseMenuLink(country).click();
                 assertTrue(country + " resources tab is not matching..!", homePage.specificTab("All Russia resources").isDisplayed());
             } else {
-                commonMethods.waitElementByLinkText(country).isDisplayed();
-                commonMethods.waitElementByLinkText(country).click();
+                homePage.waitForPageToLoad();
+                homePage.getElementByLinkText(country).click();
                 assertTrue(country + " resources tab is not matching..!", homePage.specificTab("All " + country + " resources").isDisplayed());
             }
             assertTrue(country + " page is not displayed..!", wlnHeader.pageHeaderLabel().getText().contains(country));
@@ -219,8 +219,9 @@ public class AnzBrowseTest extends BaseStepDef {
     public void userSelectsFollowingLinksAndShouldSeeTheirRespectivePagesThroughBrowseMenu(List<String> linksList) throws Throwable {
         for (String linkText : linksList) {
             wlnHeader.browseMenuButton().click();
-            commonMethods.getElementByLinkText("International").click();
-            commonMethods.waitElementByLinkText(linkText).click();
+            wlnHeader.getElementByLinkText("International").click();
+            wlnHeader.waitForPageToLoad();
+            wlnHeader.getElementByLinkText(linkText).click();
             assertTrue(linkText + " page is not displayed..!", wlnHeader.pageHeaderLabel().getText().contains(linkText));
         }
     }
@@ -231,13 +232,15 @@ public class AnzBrowseTest extends BaseStepDef {
         Map<String, String> resourceMap = dataTable.asMap(String.class, String.class);
         for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
             if (entry.getKey().equalsIgnoreCase("Glossary")) {
-                commonMethods.waitElementByLinkText("Glossary").click();
-                glossaryPage.glossaryHeading().isDisplayed();
+                glossaryPage.waitForPageToLoad();
+                glossaryPage.waitForPageToLoadAndJQueryProcessing();
+                glossaryPage.getElementByLinkText("Glossary").click();
                 getDriver().navigate().back();
             } else if (!entry.getKey().equalsIgnoreCase("Resource Types")) {
                 practiceAreas = entry.getValue().split(",");
                 glossaryPage.waitForPageToLoad();
-                commonMethods.waitElementByLinkText(entry.getKey()).click();
+                glossaryPage.waitForPageToLoadAndJQueryProcessing();
+                glossaryPage.getElementByLinkText(entry.getKey()).click();
                 for (String pa : practiceAreas) {
                     String linkText = pa.trim();
                     LOG.warn("Resource type: " + entry.getKey() + "; Practice area: " + linkText);
@@ -260,7 +263,7 @@ public class AnzBrowseTest extends BaseStepDef {
     public void theUserNavigatesToPracticeAreaFilteredByTopicPage(String resource, String pa) throws Throwable {
         homePage.selectLinkPresentOnTab(resource);
         homePage.waitForPageToLoad();
-        commonMethods.waitElementByLinkText(pa).click();
+        homePage.getElementByLinkText(pa).click();
         homePage.waitForPageToLoad();
     }
 
@@ -278,9 +281,12 @@ public class AnzBrowseTest extends BaseStepDef {
 
     @When("^user navigates to resource type \"(.*?)\" for practice area \"(.*?)\"$")
     public void userNavigatesToResourceTypeForPracticeArea(String resourceType, String practiceArea) {
-        commonMethods.waitElementByLinkText("Resources").click();
-        commonMethods.waitElementByLinkText(resourceType).click();
-        commonMethods.waitElementByLinkText(practiceArea).click();
+        categoryPage.getElementByLinkText("Resources").click();
+        categoryPage.waitForPageToLoad();
+        categoryPage.getElementByLinkText(resourceType).click();
+        categoryPage.waitForPageToLoad();
+        categoryPage.getElementByLinkText(practiceArea).click();
+        categoryPage.waitForPageToLoad();
     }
 
     @And("^user opens \"(.*)\" link")

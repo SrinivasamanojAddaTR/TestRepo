@@ -37,7 +37,7 @@ public class facetJavaTest extends BaseStepDef {
     private KnowHowDocumentPage knowHowDocumentPage = new KnowHowDocumentPage();
     private CommonMethods commonMethods = new CommonMethods();
     private LegislationSearchResultsPage legislationSearchResultsPage = new LegislationSearchResultsPage();
-    private JournalsSearchResultsPage journalsSearchResultsPage = new JournalsSearchResultsPage() ;
+    private JournalsSearchResultsPage journalsSearchResultsPage = new JournalsSearchResultsPage();
     private CasesDocumentPage casesDocumentPage = new CasesDocumentPage();
     private WhatsMarketDocumentPage whatsMarketDocumentPage = new WhatsMarketDocumentPage();
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
@@ -169,14 +169,14 @@ public class facetJavaTest extends BaseStepDef {
 
     @When("^the user selects the know how following parent facets$")
     public void theUserSelectsTheKnowHowFollowingParentFacets(List<String> facets) throws Throwable {
-       WebElement multipleFilterButton=commonMethods.waitForElementToBeVisible(researchOrganizerPage.selectMultipleByFilters(),1000);
-       if(multipleFilterButton!=null){
-           knowHowSearchResultsPage.scrollIntoViewAndClick(multipleFilterButton);
-       }
-       if(commonMethods.waitForElementToBeVisible(knowHowSearchResultsPage.moreJuridictionByLink(),2000)!=null){
+        WebElement multipleFilterButton = commonMethods.waitForElementToBeVisible(researchOrganizerPage.selectMultipleByFilters(), 1000);
+        if (multipleFilterButton != null) {
+            knowHowSearchResultsPage.scrollIntoViewAndClick(multipleFilterButton);
+        }
+        if (commonMethods.waitForElementToBeVisible(knowHowSearchResultsPage.moreJuridictionByLink(), 2000) != null) {
             commonMethods.scrollUpOrDown(200);
-            commonMethods.waitForElementToBeVisible(knowHowSearchResultsPage.moreJuridictionByLink(),100).click();
-       }
+            knowHowSearchResultsPage.waitForElementVisible(knowHowSearchResultsPage.moreJuridictionByLink()).click();
+        }
 
         for (String facet : facets) {
             knowHowSearchResultsPage.knowHowFacetCheckbox(facet).click();
@@ -186,7 +186,7 @@ public class facetJavaTest extends BaseStepDef {
 
     @When("^the user selects the know how following parent facets with single selection$")
     public void theUserSelectsTheKnowHowFollowingParentFacetWithSingleSelection(List<String> facets) throws Throwable {
-        if(researchOrganizerPage.isElementDisplayed(researchOrganizerPage.cancelByFilters())){
+        if (researchOrganizerPage.isElementDisplayed(researchOrganizerPage.cancelByFilters())) {
             knowHowSearchResultsPage.getCancelButton().click();
         }
         SoftAssertions softAssertions = new SoftAssertions();
@@ -220,7 +220,7 @@ public class facetJavaTest extends BaseStepDef {
         casesSearchResultsPage.waitForPageToLoad();
         casesSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
         for (String facet : facets) {
-            assertFalse(facet+" is still Selected..!",casesSearchResultsPage.facetCheckbox(facet).isSelected());
+            assertFalse(facet + " is still Selected..!", casesSearchResultsPage.facetCheckbox(facet).isSelected());
         }
     }
 
@@ -276,8 +276,7 @@ public class facetJavaTest extends BaseStepDef {
     public void theUserIsAbleToVerifyThatTheFirstResultContainsTheCasesTextAndTheTextOrTheCasesTextAndTheText(String arg1, String arg2, String arg3, String arg4) throws Throwable {
         WebElement text = casesDocumentPage.caseAnalysisFullText();
         Boolean resultIsTrue = false;
-        if ((text.getText().contains(arg1) && text.getText().contains(arg2)) || (text.getText().contains(arg3) && text.getText().contains(arg4)))
-        {
+        if ((text.getText().contains(arg1) && text.getText().contains(arg2)) || (text.getText().contains(arg3) && text.getText().contains(arg4))) {
             resultIsTrue = true;
         }
         assertTrue(resultIsTrue);
@@ -387,7 +386,7 @@ public class facetJavaTest extends BaseStepDef {
 
     @When("^the user verifies the presence of the whats market facet groups$")
     public void theUserVerifiesThePresenceOfTheWhatsMarketFacetGroups(List<String> actualFacets) throws Throwable {
-        for(String facet : actualFacets) {
+        for (String facet : actualFacets) {
             assertTrue(whatsMarketSearchResultsPage.whatsMarketFacetGroupName(facet).isDisplayed());
         }
     }
@@ -515,10 +514,10 @@ public class facetJavaTest extends BaseStepDef {
 
                 String currentTerm = eachTerms[dataRow].toUpperCase();
                 // remove any white spaces
-                currentTerm = currentTerm.replaceAll("\\s+","");
+                currentTerm = currentTerm.replaceAll("\\s+", "");
 
                 // Ignore And and Or
-                if((!currentTerm.equals("AND")) && (!currentTerm.equals("&")) && (!currentTerm.equals("OR"))) {
+                if ((!currentTerm.equals("AND")) && (!currentTerm.equals("&")) && (!currentTerm.equals("OR"))) {
 
                     if (currentTerm.length() > 0) {
                         termFound = false;
@@ -544,7 +543,7 @@ public class facetJavaTest extends BaseStepDef {
                             }
 
                         }
-                        assertTrue("Term '" + currentTerm + "' was not found",termFound);
+                        assertTrue("Term '" + currentTerm + "' was not found", termFound);
 
                     }
 
@@ -556,13 +555,13 @@ public class facetJavaTest extends BaseStepDef {
 
     // Taken from  http://www.rgagnon.com/javadetails/java-0515.html
     // This is to allow wildcard matches
-    public static String wildcardToRegex(String wildcard){
+    public static String wildcardToRegex(String wildcard) {
         String outputString;
         StringBuffer s = new StringBuffer(wildcard.length());
         s.append('^');
         for (int i = 0, is = wildcard.length(); i < is; i++) {
             char c = wildcard.charAt(i);
-            switch(c) {
+            switch (c) {
                 case '*':
                     s.append(".*");
                     break;
@@ -570,8 +569,16 @@ public class facetJavaTest extends BaseStepDef {
                     s.append(".");
                     break;
                 // escape special regexp-characters
-                case '(': case ')': case '[': case ']': case '$':
-                case '^': case '.': case '{': case '}': case '|':
+                case '(':
+                case ')':
+                case '[':
+                case ']':
+                case '$':
+                case '^':
+                case '.':
+                case '{':
+                case '}':
+                case '|':
                 case '\\':
                     s.append("\\");
                     s.append(c);
@@ -584,12 +591,13 @@ public class facetJavaTest extends BaseStepDef {
         s.append('$');
         outputString = s.toString();
         //System.out.println(" ...Changing string to regex '" + outputString + "'");
-        return(outputString);
+        return (outputString);
     }
 
     @Then("^returns to the WM search results by Return to list$")
     public void returnstotheWMsearchresultsbyReturntolist() {
-        commonMethods.waitElementByLinkText("Return to list").click();
+        knowHowSearchResultsPage.waitForPageToLoad();
+        knowHowSearchResultsPage.getElementByLinkText("Return to list").click();
     }
 
     @Then("^the user verifies the search result contains the search terms \"(.*?)\" as a phrase within the full text$")
@@ -602,7 +610,7 @@ public class facetJavaTest extends BaseStepDef {
     public void theUserVerifiesTheSearchResultContainsTheSearchTermsWithinASingleParagraphInTheFullText(String firstTerm, String secondTerm) {
         assertTrue(isSearchTermsPresentInParagraph(CommonDocumentPage.TermsInSequence.NO, firstTerm, secondTerm));
     }
-    
+
     @Then("^the user verifies the search result contains the search terms \"(.*?)\" \"(.*?)\" within the same sentence in the full text$")
     public void theUserVerifiesTheSearchResultContainsTheSearchTermsWithinSentenceInTheFullText(String firstTerm, String secondTerm) {
         assertTrue(isSearchTermsPresentInSentence(CommonDocumentPage.TermsInSequence.NO, firstTerm, secondTerm));
@@ -634,12 +642,13 @@ public class facetJavaTest extends BaseStepDef {
         assertTrue(result);
 
     }
+
     @Then("^the user verifies the search result contains the search terms \"(.*?)\" \"(.*?)\" in the full text where the first precedes the second in the same sentence$")
     public void theUserVerifiesTheSearchResultContainsTheSearchTermsInTheFullTextWhereTheFirstPrecedesTheSecondInTheSameSentence(String firstTerm, String secondTerm) {
         assertTrue(isSearchTermsPresentInSentence(CommonDocumentPage.TermsInSequence.YES, firstTerm, secondTerm));
     }
-        
-        
+
+
     @Then("^the user verifies the search result contains the both search terms \"(.*?)\" \"(.*?)\" \"(.*?)\" terms of each other in the full text with the first preceding the second$")
     public void theUserVerifiesTheResultsWithNumberOfTermsWithEachOtherInSequence(String firstTerm, String secondTerm, String withInWords) {
         assertTrue("Unable to find the search terms with the preceding sequence", isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence.YES, Integer.valueOf(withInWords), firstTerm, secondTerm));
@@ -764,19 +773,19 @@ public class facetJavaTest extends BaseStepDef {
     private String getFullText() {
         String docText;
         if (commonMethods.isCurrentDocumentFromKnowHow()) {
-        	openDraftingNotesIfPresent();
+            openDraftingNotesIfPresent();
             docText = knowHowDocumentPage.getFullText();
         } else {
             docText = whatsMarketDocumentPage.getFullText();
         }
         return docText;
     }
-    
-    private void openDraftingNotesIfPresent(){
-    	if (resourcePage.isDraftingNotesDeliveryIconExist()){
-    		resourcePage.selectShowAndHideDraftingNotesLink();
-        	resourcePage.selectOptionFromDraftingNotes(DraftingNotes.SHOW_ALL);
-    	}
+
+    private void openDraftingNotesIfPresent() {
+        if (resourcePage.isDraftingNotesDeliveryIconExist()) {
+            resourcePage.selectShowAndHideDraftingNotesLink();
+            resourcePage.selectOptionFromDraftingNotes(DraftingNotes.SHOW_ALL);
+        }
     }
 
     private boolean isSearchTermsPresentInParagraph(KnowHowDocumentPage.TermsInSequence termsInSequence, String firstTerm, String secondTerm) {
@@ -786,14 +795,14 @@ public class facetJavaTest extends BaseStepDef {
             return whatsMarketDocumentPage.isSearchTermsPresentInParagraph(termsInSequence, firstTerm, secondTerm);
         }
     }
-    
+
     private boolean isSearchTermsPresentInSentence(KnowHowDocumentPage.TermsInSequence termsInSequence, String firstTerm, String secondTerm) {
         return knowHowDocumentPage.isSearchTermsPresentInSentence(termsInSequence, firstTerm, secondTerm);
     }
 
     private boolean isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence termsInSequence, int noOfTerms, String firstTerm, String secondTerm) {
-    	if (commonMethods.isCurrentDocumentFromKnowHow()) {
-    		openDraftingNotesIfPresent();
+        if (commonMethods.isCurrentDocumentFromKnowHow()) {
+            openDraftingNotesIfPresent();
             return knowHowDocumentPage.isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, noOfTerms, firstTerm, secondTerm);
         } else {
             return whatsMarketDocumentPage.isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, noOfTerms, firstTerm, secondTerm);

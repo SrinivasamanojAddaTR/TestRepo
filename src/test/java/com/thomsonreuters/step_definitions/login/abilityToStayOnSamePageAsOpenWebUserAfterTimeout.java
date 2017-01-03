@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.login;
 
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
@@ -15,16 +14,13 @@ import static org.junit.Assert.assertTrue;
 public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDef {
 
     private WLNHeader wlnHeader = new WLNHeader();
-    private NavigationCobalt navigationCobalt = new NavigationCobalt();
     private PracticalLawHomepage practicalLawHomepage = new PracticalLawHomepage();
     private String expectedPageTitle;
     private String expectedPageTitleForFirstTab;
     private String expectedPageTitleForSecondTab;
     private String windowHandleFirstTab;
     private String windowHandleSecondTab;
-
     private String bookmarkUrl;
-
     private String thirdPartySiteUrl = "https://www.yandex.com/";
 
     @Given("^the user saves the page url into bookmark$")

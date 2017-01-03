@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.header.responsiveDesign;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
 import com.thomsonreuters.pageobjects.pages.onePass.OnePassLogoutPage;
@@ -19,7 +18,6 @@ public class UsernameLinkTest extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
     private OnepassLogin onePass = new OnepassLogin();
-    private CommonMethods comMethods = new CommonMethods();
 	private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
     private FooterUtils footerUtils = new FooterUtils();
 
@@ -50,8 +48,9 @@ public class UsernameLinkTest extends BaseStepDef {
     @Then("^user clicks on \"(.*)\" link$")
     public void userClicksOnLink(String linkText) throws Throwable {
         footerUtils.closeDisclaimerMessage();
+        header.waitForPageToLoad();
         header.waitForPageToLoadAndJQueryProcessing();
-        comMethods.waitElementByLinkText(linkText).click();
+        header.getElementByLinkText(linkText).click();
         header.waitForPageToLoad();
     }
 

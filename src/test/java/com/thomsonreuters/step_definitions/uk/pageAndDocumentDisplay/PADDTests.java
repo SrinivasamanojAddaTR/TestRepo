@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
@@ -11,9 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class PADDTests extends BaseStepDef {
 
-    private CommonMethods comMethods = new CommonMethods();
     private KHResourcePage khResourcePage = new KHResourcePage();
-
     int draftingNotesCount=0;
 
     @Then("^the user should see the related content button on the sticky header$")
@@ -71,6 +68,6 @@ public class PADDTests extends BaseStepDef {
 
     @Then("^the user should see ToC hidden with menu toggle button on left side$")
     public void theUserShouldSeeToCHiddenWithMenuToggleButtonOnLeftSide() throws Throwable {
-        assertTrue("Cross Icon displayed..!", comMethods.isElementDisplayed(khResourcePage.tocMenuTogglCollapsedButton()));
+        assertTrue("Cross Icon displayed..!", khResourcePage.isElementDisplayed(khResourcePage.tocMenuTogglCollapsedButton()));
     }
 }

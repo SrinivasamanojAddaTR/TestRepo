@@ -23,6 +23,7 @@ public class abilityToCreateFolder extends BaseStepDef {
     @When("^the user creates new folder \"([^\"]*)\" in \"([^\"]*)\" folder$")
     public void createFolder(String folderName, String parentFolder) throws Throwable {
         foldersUtils.openFolder(parentFolder);
+        researchOrganizerPage.waitForPageToLoad();
         researchOrganizerPage.createNewFolderButton().click();
         baseFoldersBehavior.createNewFolder(folderName, parentFolder);
     }

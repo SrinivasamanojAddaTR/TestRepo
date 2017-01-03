@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.header.responsiveDesign;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.login.WLNextHomePage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
@@ -12,13 +11,12 @@ import static org.junit.Assert.assertTrue;
 
 public class MyHomeLinkTest extends BaseStepDef {
 
-    private CommonMethods comMethods = new CommonMethods();
     private WLNHeader header = new WLNHeader();
     private WLNextHomePage homePage = new WLNextHomePage();
 
     @Then("^user should see the \"(.*?)\" link$")
     public void userShouldSeeLink(String linkText) throws Throwable {
-        assertTrue(linkText + " link not present..!", comMethods.waitElementByLinkText(linkText) != null);
+        assertTrue(linkText + " link not present..!", homePage.isElementDisplayed(homePage.getElementByLinkText(linkText)));
     }
 
     @Then("^user should see United Kingdom as a home page$")

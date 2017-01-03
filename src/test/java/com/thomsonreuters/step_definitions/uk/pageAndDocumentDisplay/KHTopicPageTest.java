@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.delivery.EmailOptionsPage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
@@ -27,7 +26,6 @@ public class KHTopicPageTest extends BaseStepDef {
     private EmailOptionsPage email = new EmailOptionsPage();
     private HomePage homePage = new HomePage();
     private ListOfItemsDeliveryOptionsPage listOfItemsDeliveryOptionsPage = new ListOfItemsDeliveryOptionsPage();
-    private CommonMethods commonMethods = new CommonMethods();
     private CategoryPage categoryPage = new CategoryPage();
 
     public static final String TOPIC_TAB = "Topics";

@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.favourites;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.pageobjects.pages.folders.FavouritesPage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
@@ -11,12 +10,10 @@ import com.thomsonreuters.step_definitions.ResponsiveCommonSteps;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.assertj.core.api.SoftAssertions;
-
 import static org.junit.Assert.assertTrue;
 
 public class anzFavourites extends BaseStepDef {
-	
-    private CommonMethods commonMethods = new CommonMethods();
+
     private FavouritesPage favouritesPage = new FavouritesPage();
     private PageActions pageActions = new PageActions();
 	private ResponsiveCommonSteps responsiveCommonSteps = new ResponsiveCommonSteps();
@@ -27,7 +24,9 @@ public class anzFavourites extends BaseStepDef {
     @When("^user makes practice area page '(.*)' as start page$")
     public void userAddsPAToFavouriteGroup(String paLinkText) throws Throwable {
     	wlnHeader.companyLogo().click();
-        commonMethods.waitElementByLinkText(paLinkText).click();
+		categoryPage.waitForPageToLoad();
+		categoryPage.waitForPageToLoadAndJQueryProcessing();
+        categoryPage.getElementByLinkText(paLinkText).click();
         categoryPage.makeThisMyStartPage();
     }
 	

@@ -40,7 +40,6 @@ public class AnzHistoryViewTest extends BaseStepDef {
     private BasicKnowHowSearchUKS101Test basicKnowHowSearchUKS101Test = new BasicKnowHowSearchUKS101Test();
     private WLNHeader wlnHeader = new WLNHeader();
     private FooterUtils footerUtils = new FooterUtils();
-
     private String storedTitle = null;
     private String searchResultAndCount = null;
 
@@ -355,7 +354,9 @@ public class AnzHistoryViewTest extends BaseStepDef {
     private void runTheSearchAndGetBackToHistoryPage(String searchTerm) throws Throwable {
         basicKnowHowSearchUKS101Test.theUserRunsAFreeTextSearchForTheQuery(searchTerm);
         legalUpdatesResultsPage.getAllUpdatesTitles().get(0).click();
-        commonMethods.waitElementByLinkText("History").click();
+        legalUpdatesResultsPage.waitForPageToLoad();
+        legalUpdatesResultsPage.waitForPageToLoadAndJQueryProcessing();
+        legalUpdatesResultsPage.getElementByLinkText("History").click();
 
     }
 

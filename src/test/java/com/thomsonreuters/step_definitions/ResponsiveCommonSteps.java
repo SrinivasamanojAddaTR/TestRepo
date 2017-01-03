@@ -49,16 +49,16 @@ public class ResponsiveCommonSteps extends BaseStepDef {
     private TopicPage topicPage = new TopicPage();
     private WhatsMarketSearchResultsPage whatsMarketSearchResultsPage = new WhatsMarketSearchResultsPage();
     private PageActions pageActions = new PageActions();
-	private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
-    private AskResourcePage askResourcePage =  new AskResourcePage();
-    private PracticalLawUKCategoryPage practicalLawUKCategoryPage =  new PracticalLawUKCategoryPage();
+    private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
+    private AskResourcePage askResourcePage = new AskResourcePage();
+    private PracticalLawUKCategoryPage practicalLawUKCategoryPage = new PracticalLawUKCategoryPage();
     private FooterUtils footerUtils = new FooterUtils();
 
-    private String favGroupName=null;
+    private String favGroupName = null;
 
     @When("^the user clicks on \"(.*?)\" link$")
     public void theUserClicksOnLink(String linkText) {
-        commonMethods.clickLink(linkText);
+        knowHowSearchResultsPage.getElementByLinkText(linkText).click();
     }
 
     @Then("^the user is able to see the search results with following features according to the design document$")
@@ -95,8 +95,9 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 
     @When("^user clicks the \"(.*?)\" link$")
     public void userClicksTheUnitedKingdomLink(String linkText) throws Throwable {
-        commonMethods.waitElementByLinkText(linkText);
-        commonMethods.clickLink(linkText);
+        header.waitForPageToLoad();
+        header.waitForPageToLoadAndJQueryProcessing();
+        header.getElementByLinkText(linkText).click();
         header.waitForPageToLoad();
     }
 
@@ -111,7 +112,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
     @Then("^the user selects the \"(.*?)\" from per page dropdown$")
     public void theUserSelectsThePerPagefromPerPageDropdown(String perPageNo) throws Throwable {
         footerUtils.closeDisclaimerMessage();
-        if(!legalUpdatesResultsPage.resultsPerPageLink().getText().contains(perPageNo)) {
+        if (!legalUpdatesResultsPage.resultsPerPageLink().getText().contains(perPageNo)) {
             knowHowSearchResultsPage.searchPerPageDrodownLink().click();
             for (WebElement link : knowHowSearchResultsPage.searchPerPageDrodownListItemLinks()) {
                 if (link.getText().trim().contains(perPageNo)) {
@@ -165,12 +166,13 @@ public class ResponsiveCommonSteps extends BaseStepDef {
     @Then("^the user should be seeing \"(.*?)\" per page$")
     public void userShouldbeSeeingPerPage(String perPageNo) throws Throwable {
         int expectedNoOfResults = Integer.parseInt(perPageNo);
-        knowHowSearchResultsPage.waitForElementVisible(knowHowSearchResultsPage.searchResultsItemsList().get(0), 5000);
+        knowHowSearchResultsPage.waitForPageToLoad();
+        knowHowSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
         commonMethods.scrollUpOrDown(70000);
         int actualNoOfResults = knowHowSearchResultsPage.searchResultsItemsList().size();
-        if(actualNoOfResults>expectedNoOfResults) {
-			assertTrue("Number of results not matching: expected " + expectedNoOfResults + " , actual " + actualNoOfResults,
-					expectedNoOfResults == actualNoOfResults);
+        if (actualNoOfResults > expectedNoOfResults) {
+            assertTrue("Number of results not matching: expected " + expectedNoOfResults + " , actual " + actualNoOfResults,
+                    expectedNoOfResults == actualNoOfResults);
         }
     }
 
@@ -238,35 +240,36 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 
     @When("^user clicks on \"(.*?)\" button$")
     public void userClicksOnButton(String buttonText) throws Throwable {
-        if(buttonText.equalsIgnoreCase("organize")) {
+        if (buttonText.equalsIgnoreCase("organize")) {
             favouritesPage.organize().click();
-        }else if(buttonText.equalsIgnoreCase("done")){
+        } else if (buttonText.equalsIgnoreCase("done")) {
             favouritesPage.doneOrganizing().click();
-        }else if(buttonText.equalsIgnoreCase("Cancel")){
+        } else if (buttonText.equalsIgnoreCase("Cancel")) {
             favouritesPage.favGroupCancelButton(favGroupName).click();
         }
     }
 
     @Then("^user should see \"Done\" button$")
     public void userShouldSeeButton() throws Throwable {
-        assertTrue("Done Button not displayed..!", commonMethods.isElementDisplayed(favouritesPage.doneOrganizing()));
+        assertTrue("Done Button not displayed..!", favouritesPage.isElementDisplayed(favouritesPage.doneOrganizing()));
     }
 
     @When("^user creates new favourites group '(.+)'$")
     public void UsercreateNewFavoriteGroup(String groupName) throws Throwable {
-    	favouritesPage.waitForPageToLoadAndJQueryProcessing();
+        favouritesPage.waitForPageToLoadAndJQueryProcessing();
         if (favouritesPage.checkFavouriteGroupIsPresent(groupName)) {
             favouritesPage.organize().click();
             commonMethods.mouseOver(favouritesPage.favouriteGroup(groupName));
             favouritesPage.deleteFavouriteGroupButton(groupName).click();
             favouritesPage.doneOrganizing().click();
         }
-            favouritesPage.addGroupLink().click();
-            createGroupPopup.groupName().sendKeys(groupName);
-            createGroupPopup.save().click();
-            createGroupPopup.waitForPageToLoad();
+        favouritesPage.addGroupLink().click();
+        createGroupPopup.groupName().sendKeys(groupName);
+        createGroupPopup.save().click();
+        createGroupPopup.waitForPageToLoad();
         favGroupName = groupName;
-            commonMethods.waitForElementToBeVisible(favouritesPage.favouriteByGroup(groupName), 3000);
+        favouritesPage.waitForPageToLoad();
+        favouritesPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     @When("^user hovers over the group '(.+)'$")
@@ -276,8 +279,8 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 
     @When("^user should see the aligned \"Save\" and \"Cancel\" button for group \'(.*)\'$")
     public void UsercShouldSeeTheSavveAndCancelButtons(String groupName) throws Throwable {
-        assertTrue("Save Button not displayed..!", commonMethods.isElementDisplayed(favouritesPage.renameFavouriteOKGroupButton(groupName)));
-        assertTrue("Cancel Button not displayed..!", commonMethods.isElementDisplayed(favouritesPage.renameGroupCancelButton(groupName)));
+        assertTrue("Save Button not displayed..!", header.isElementDisplayed(favouritesPage.renameFavouriteOKGroupButton(groupName)));
+        assertTrue("Cancel Button not displayed..!", header.isElementDisplayed(favouritesPage.renameGroupCancelButton(groupName)));
     }
 
     @When("^user should see the group '(.+)'$")
@@ -285,73 +288,78 @@ public class ResponsiveCommonSteps extends BaseStepDef {
         favouritesPage.waitForExpectedElement(favouritesPage.favouriteByGroup(groupName), 3000);
         assertTrue(groupName + " not displayed..!", favouritesPage.checkFavouriteGroupIsPresent(groupName));
     }
+
     @When("^the user navigates to \"(.*)\" resource Page$")
     public void the_user_navigates_to_whats_Market_Page(String resourceType) throws Throwable {
-         header.browseMenuButton().click();
-         assertTrue("Browse Menu not displayed..!", header.browseMenuPopup().isDisplayed());
-         commonMethods.clickLink("Resources");
-         commonMethods.waitElementByLinkText(resourceType).click();
+        header.browseMenuButton().click();
+        assertTrue("Browse Menu not displayed..!", header.browseMenuPopup().isDisplayed());
+        header.getElementByLinkText("Resources").click();
+        header.getElementByLinkText(resourceType).click();
     }
+
     @When("^the user navigating to topic page \"(.*)\" of practice area \"(.*)\"$")
     public void the_user_navigates_to_topicpage_of_Practice_area(String topicName, String PAName) throws Throwable {
         header.browseMenuButton().click();
         assertTrue("Browse Menu not displayed..!", header.browseMenuPopup().isDisplayed());
-        commonMethods.clickLink(PAName);
+        header.getElementByLinkText(PAName).click();
         assertTrue(PAName + " not displayed..!", header.pageHeaderLabel().getText().contains(PAName));
-        for(WebElement tab : footer.pageTabLinks()) {
-            if(tab.getText().trim().contains("Topics")){
+        for (WebElement tab : footer.pageTabLinks()) {
+            if (tab.getText().trim().contains("Topics")) {
                 tab.click();
-                header.waitForElementVisible(tab,2000);
+                header.waitForElementVisible(tab, 2000);
                 break;
             }
         }
-        commonMethods.clickLink(topicName);
+        header.getElementByLinkText(topicName).click();
         assertTrue(topicName + " not displayed..!", header.pageHeaderLabel().getText().contains(topicName));
     }
+
     @Then("^the user should see the page no \"(.*?)\"$")
     public void userShouldseethePageNo(String pageNo) throws Throwable {
         assertTrue("Page No " + pageNo + " not displayed..!", topicPage.currentPageSelected().trim().contains(pageNo));
     }
-      //the user varifies each page by navigates through each of the following pages
-      @Then("^the user varifies each page by navigates through each of the following pages$")
-      public void theUserVarifiesEachPageByNavigatesThroughEachOfFollowingPage(List<String> pageNos) throws Throwable {
-          for(String pageNo : pageNos){
-              if(!pageNo.equalsIgnoreCase("Pages")) {
-                  commonMethods.clickLink(pageNo);
-                  assertTrue("Page No " + pageNo + " not displayed..!", topicPage.currentPageSelected().trim().contains(pageNo));
-              }
-          }
 
-      }
+    //the user varifies each page by navigates through each of the following pages
+    @Then("^the user varifies each page by navigates through each of the following pages$")
+    public void theUserVarifiesEachPageByNavigatesThroughEachOfFollowingPage(List<String> pageNos) throws Throwable {
+        for (String pageNo : pageNos) {
+            if (!pageNo.equalsIgnoreCase("Pages")) {
+                topicPage.getElementByLinkText(pageNo).click();
+                assertTrue("Page No " + pageNo + " not displayed..!", topicPage.currentPageSelected().trim().contains(pageNo));
+            }
+        }
+
+    }
+
     @Then("^user should see the following metadata in the deal \"(.*?)\"$")
     public void userShouldsethePageNo(String dealTitle, DataTable dataTable) throws Throwable {
-        Map<String, String> table= dataTable.asMap(String.class, String.class);
-        int record=0;
-        boolean flag=false;
+        Map<String, String> table = dataTable.asMap(String.class, String.class);
+        int record = 0;
+        boolean flag = false;
         searchResultsPage.moreOrLessDetailAnchor().click();
         searchResultsPage.mostDetailOption().click();
-        commonMethods.waitForElementToBeVisible(whatsMarketSearchResultsPage.searchResultsByTitleLink(1),5000);
-        while(!flag) {
+        searchResultsPage.waitForElementVisible(whatsMarketSearchResultsPage.searchResultsByTitleLink(1));
+        while (!flag) {
             for (WebElement actualDealTitleLink : whatsMarketSearchResultsPage.searchResultsTitleLinks()) {
                 if (actualDealTitleLink.getText().contains(dealTitle)) {
                     ++record;
-                    flag=true;
+                    flag = true;
                     break;
                 }
                 record++;
             }
-            if(!flag) {
+            if (!flag) {
                 searchResultsPage.waitForExpectedElement(searchResultsPage.selectNextPageByLink(), 4000).click();
             }
         }
-        for(Map.Entry<String, String> rowEntry : table.entrySet() ){
-            if(rowEntry.getKey().equalsIgnoreCase("Announcement Date")){
+        for (Map.Entry<String, String> rowEntry : table.entrySet()) {
+            if (rowEntry.getKey().equalsIgnoreCase("Announcement Date")) {
                 assertTrue(rowEntry.getValue() + " not displayed..!", whatsMarketSearchResultsPage.resultDate(String.valueOf(record)).getText().contains(rowEntry.getValue()));
-            }else if (rowEntry.getKey().equalsIgnoreCase("Deal Type")){
+            } else if (rowEntry.getKey().equalsIgnoreCase("Deal Type")) {
                 assertTrue(rowEntry.getValue() + " not displayed..!", whatsMarketSearchResultsPage.resultDealType(String.valueOf(record), rowEntry.getValue()).getText().contains(rowEntry.getValue()));
-            }else if (rowEntry.getKey().equalsIgnoreCase("Deal Value")){
+            } else if (rowEntry.getKey().equalsIgnoreCase("Deal Value")) {
                 assertTrue(rowEntry.getValue() + " not displayed..!", whatsMarketSearchResultsPage.resultValue(String.valueOf(record)).getText().contains(rowEntry.getValue()));
-            }else if (rowEntry.getKey().equalsIgnoreCase("Deal Summary")){
+            } else if (rowEntry.getKey().equalsIgnoreCase("Deal Summary")) {
                 assertTrue(rowEntry.getValue() + " not displayed..!", whatsMarketSearchResultsPage.resultSummary(String.valueOf(record)).getText().contains(rowEntry.getValue()));
             }
         }
@@ -388,7 +396,9 @@ public class ResponsiveCommonSteps extends BaseStepDef {
     @When("^user adds practice area '(.*)' to favourite group '(.*)'$")
     public void userAddsPAToFavouriteGroup(String paLinkText, String groupName) throws Throwable {
         header.companyLogo().click();
-        commonMethods.waitElementByLinkText(paLinkText).click();
+        header.waitForPageToLoad();
+        header.waitForPageToLoadAndJQueryProcessing();
+        header.getElementByLinkText(paLinkText).click();
         categoryPage.addToFavourites(groupName);
     }
 
@@ -396,17 +406,17 @@ public class ResponsiveCommonSteps extends BaseStepDef {
     public void UserDragsPage01DownToPage02(String firstPage, String secondPage) throws Throwable {
         pageActions.dragAndDrop(favouritesPage.pageInFavourite(firstPage), favouritesPage.pageInFavourite(secondPage));
     }
-    
+
     @When("^user drags group '(.*)' down to group '(.*)'$")
     public void UserDragsGroup01DownToGroup02(String firstGroup, String secondGroup) throws Throwable {
         pageActions.dragAndDrop(favouritesPage.favouriteGroup(firstGroup), favouritesPage.favouriteGroup(secondGroup));
-     //   assertTrue(linkText + " not stricken through..!", favouritesPage.favouriteStrickenThroughGroupLink(groupName, linkText).isDisplayed());
+        //   assertTrue(linkText + " not stricken through..!", favouritesPage.favouriteStrickenThroughGroupLink(groupName, linkText).isDisplayed());
     }
 
 
     @When("^the user should see the group '(.*)' comes first than group '(.*)'$")
     public void UserShouldSeeTheGroup01ComesFirstThanGroup02(String firstGroup, String secondGroup) throws Throwable {
-        commonMethods.waitForElementToBeVisible(favouritesPage.favouriteByGroup(firstGroup), 3000);
+        favouritesPage.waitForElementVisible(favouritesPage.favouriteByGroup(firstGroup));
         assertTrue(firstGroup + " not visible as a first group..!",
                 favouritesPage.favouriteGroupNames().get(0).getText().trim().contains(firstGroup));
         assertTrue(secondGroup + " not visible as a first group..!",
@@ -414,20 +424,20 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 
     }
 
-	@Then("^the footer is displayed below the end of the document$")
-	public void theFooterIsDisplayedBelowTheEndOfTheDocument() {
-		boolean footerBelowDoc = khResourcePage.compareElementsLocationByHeight(standardDocumentPage.endOfDocument(), footer.footerWidget()) < 0;
-		assertTrue("Footer is overlapping the document body", footerBelowDoc);
-	}
+    @Then("^the footer is displayed below the end of the document$")
+    public void theFooterIsDisplayedBelowTheEndOfTheDocument() {
+        boolean footerBelowDoc = khResourcePage.compareElementsLocationByHeight(standardDocumentPage.endOfDocument(), footer.footerWidget()) < 0;
+        assertTrue("Footer is overlapping the document body", footerBelowDoc);
+    }
 
     @When("^the user searches for term \"(.*)\"$")
     public void theUserRunsAFreeTextSearchForTheQuery(String query) throws Throwable {
         practicalLawUKCategoryPage.searchButton().isDisplayed();
         practicalLawUKCategoryPage.freeTextField().clear();
         practicalLawUKCategoryPage.freeTextField().sendKeys(query);
-        if(commonMethods.waitForElementToBeVisible(practicalLawUKCategoryPage.suggestedByTerm(query.toUpperCase()),1000)!=null){
+        if (commonMethods.waitForElementToBeVisible(practicalLawUKCategoryPage.suggestedByTerm(query.toUpperCase()), 1000) != null) {
             practicalLawUKCategoryPage.suggestedTerm(query.toUpperCase()).click();
-        }else {
+        } else {
             practicalLawUKCategoryPage.freeTextField().sendKeys(Keys.ENTER);
         }
     }

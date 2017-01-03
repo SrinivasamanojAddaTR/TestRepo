@@ -1,6 +1,5 @@
 package com.thomsonreuters.step_definitions.search;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.CommonResourcePage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
@@ -24,7 +23,6 @@ public class AnzSearchResultsLessMoreMostTest extends BaseStepDef {
 
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
-    private CommonMethods commonMethods = new CommonMethods();
     private facetJavaTest facetJavatest = new facetJavaTest();
     private CommonResourcePage commonResourcePage = new CommonResourcePage();
     private BasicKnowHowSearchUKS101Test basicKnowHowSearchUKS101Test = new BasicKnowHowSearchUKS101Test();
@@ -130,7 +128,8 @@ public class AnzSearchResultsLessMoreMostTest extends BaseStepDef {
          knowHowSearchResultsPage.knowHowSearchResultTitle(String.valueOf(rowNumber)).click();
          knowHowSearchResultsPage.waitForElementVisible(commonResourcePage.title(), 1000);
          facetJavatest.theUserCanVerifyTheSearchResultContainsTheSearchTermsAndAlsoWithinTheFullText(searchTerm1, searchTerm2);
-         commonMethods.waitElementByLinkText("Return to list").click();
+         knowHowSearchResultsPage.waitForPageToLoad();
+         knowHowSearchResultsPage.getElementByLinkText("Return to list").click();
          knowHowSearchResultsPage.waitForExpectedElement(knowHowSearchResultsPage.searchResultByCountLabel(), 3000);
 
      }

@@ -30,15 +30,6 @@ public class GlossaryPageToResourceNavigationTest extends BaseStepDef {
         assertTrue("Practice note not displayed..!", glossaryPage.glossaryHeading().getText().equals("Legal Aid, Sentencing and Punishment of Offenders Act 2012"));
     }
 
-//    @When("^the user clicks on the glossary terms in this document \\(terms with blue dotted lines\\)$")
-//    public void theUserClicksOnTheGlossaryTermsInThisDocumentTermsWithBlueDottedLines() throws Throwable {
-//        String termLink = "A v A application";
-//        navigation.navigateToWLNGlossaryPage();
-//        glossaryPage.glossaryTerm(termLink).click();
-//        glossaryPage.laspoPracticeNoteLink().click();
-//        assertTrue("LASPO Practice note displayed..!", glossaryPage.glossaryHeading().getText().contains("LASPO"));
-//    }
-
     @Then("^the definition of the selected term should be displayed$")
     public void theDefinitionOfTheSelectedTermShouldBeDisplayed() throws Throwable {
         assertTrue("Glossary Term definition is not displayed on the modal box",

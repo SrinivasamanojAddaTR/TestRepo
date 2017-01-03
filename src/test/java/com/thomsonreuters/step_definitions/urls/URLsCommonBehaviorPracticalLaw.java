@@ -1,12 +1,12 @@
 package com.thomsonreuters.step_definitions.urls;
 
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.When;
 
 public class URLsCommonBehaviorPracticalLaw extends BaseStepDef {
 
-    private NavigationCobalt navigationCobalt = new NavigationCobalt();
+    private HomePage homePage = new HomePage();
 
     public static final String oldDomain = "http://uk.practicallaw.com";
 
@@ -15,7 +15,7 @@ public class URLsCommonBehaviorPracticalLaw extends BaseStepDef {
         if (url.startsWith("/")) {
             url = oldDomain + url;
         }
-        navigationCobalt.navigate(url);
+        homePage.navigate(url);
     }
 
 }

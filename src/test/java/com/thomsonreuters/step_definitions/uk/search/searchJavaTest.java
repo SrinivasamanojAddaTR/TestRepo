@@ -330,7 +330,7 @@ public class searchJavaTest extends BaseStepDef {
 
     @When("^the user verifies the presence of a pop up entitled Print Documents$")
     public void theUserVerifiesThePresenceOfAPopUpEntitledPrintDocuments() throws Throwable {
-        commonMethods.acceptDialogIfAppears();
+        searchResultsPage.acceptDialogIfAppears();
         searchResultsPage.printDocumentsPopUp().isDisplayed();
     }
 

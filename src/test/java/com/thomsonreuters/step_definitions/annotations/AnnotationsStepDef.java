@@ -36,8 +36,8 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class AnnotationsStepDef extends BaseStepDef {
 
@@ -1478,7 +1478,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("^the user clicks on '(.+)' tab on the History page$")
     public void theUserClicksOnTabOnHistoryPage(String tabName) throws Throwable {
         researchOrganizerPage.waitForPageToLoad();
-        researchOrganizerPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(60);
+        researchOrganizerPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(80);
         HistoryTabs tab = HistoryTabs.valueOf(tabName);
         openHistoryTab(tab);
         LOG.info("The user clicked on '(.+)' tab on the History page");
