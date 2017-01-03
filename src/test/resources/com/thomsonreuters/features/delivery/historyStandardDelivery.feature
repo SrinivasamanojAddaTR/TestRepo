@@ -11,15 +11,12 @@ Background:
 ###############################################################################################################
 ## Print 	
 ###############################################################################################################
-Scenario Outline: [831297] Print a single document 
+Scenario: [831297] Print a single document
 	When the user clicks on 'History' link on the header
 	And the user clicks on 'Documents' tab on the History page
     And the user selects the checkbox associated with document "1"
     And user clicks on Print delivery option for History
 	And user prints the document with name "Print" and extension ".pdf"
-		Examples: 
-		| 	folder 	| 
-		|	testFolder |
 
 ###############################################################################################################
 ## Download	
@@ -28,6 +25,7 @@ Scenario Outline: [831297] Download documents in PDF format
 	Given ANZ user navigates directly to document with guid "<guid1>"
 	And ANZ user navigates directly to document with guid "<guid2>"
 	When the user clicks on 'History' link on the header
+	And the user selects the date Today with -
 	And the user clicks on 'Documents' tab on the History page
     And the user selects the checkbox associated with document "1"
     And the user selects the checkbox associated with document "2"
@@ -40,7 +38,7 @@ Scenario Outline: [831297] Download documents in PDF format
 	And the document includes document body that contains text "<docText1>" 
 	And the document includes document body that contains text "<docText2>" 
 	Examples: 
-		|guid1							  |guid2							|docText1							|docText2|
+		|guid1							  |guid2							|docText1							|docText2              |
       	|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0|When are shares transferable?		|What is due diligence?|
 
 
@@ -48,6 +46,7 @@ Scenario Outline: [831297] Download documents in zip file
 	Given ANZ user navigates directly to document with guid "<guid1>"
 	And ANZ user navigates directly to document with guid "<guid2>"
 	When the user clicks on 'History' link on the header
+	And the user selects the date Today with -
 	And the user clicks on 'Documents' tab on the History page
     And the user selects the checkbox associated with document "1"
     And the user selects the checkbox associated with document "2"
@@ -58,7 +57,7 @@ Scenario Outline: [831297] Download documents in zip file
 		| As			| Multiple Files (zip) |
 	Then user downloads the document with name "Practical Law - 2 full text items" and extension "zip"
 	Examples: 
-		|guid1							  |guid2|
+		|guid1							  |guid2                            |
       	|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0|
 
 
@@ -66,6 +65,7 @@ Scenario Outline: [831297] Download list of items in PDF format
 	Given ANZ user navigates directly to document with guid "<guid1>"
 	And ANZ user navigates directly to document with guid "<guid2>"
 	When the user clicks on 'History' link on the header
+	And the user selects the date Today with -
 	And the user clicks on 'Documents' tab on the History page
     And the user selects the checkbox associated with document "1"
     And the user selects the checkbox associated with document "2"
@@ -87,6 +87,7 @@ Scenario Outline: [831297] Download list of items in CSV format
 	Given ANZ user navigates directly to document with guid "<guid1>"
 	And ANZ user navigates directly to document with guid "<guid2>"
 	When the user clicks on 'History' link on the header
+	And the user selects the date Today with -
 	And the user clicks on 'Documents' tab on the History page
     And the user selects the checkbox associated with document "1"
     And the user selects the checkbox associated with document "2"
