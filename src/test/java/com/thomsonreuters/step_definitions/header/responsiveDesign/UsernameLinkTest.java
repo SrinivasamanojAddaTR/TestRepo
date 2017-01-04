@@ -49,8 +49,7 @@ public class UsernameLinkTest extends BaseStepDef {
     public void userClicksOnLink(String linkText) throws Throwable {
         footerUtils.closeDisclaimerMessage();
         header.waitForPageToLoad();
-        header.waitForPageToLoadAndJQueryProcessing();
-        header.getElementByLinkText(linkText).click();
+        header.scrollIntoViewAndClick(header.getElementByLinkText(linkText));
         header.waitForPageToLoad();
     }
 
