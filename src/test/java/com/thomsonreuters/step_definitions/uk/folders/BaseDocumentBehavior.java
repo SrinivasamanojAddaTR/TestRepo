@@ -25,6 +25,7 @@ import com.thomsonreuters.pageobjects.utils.document.content.Section;
 import com.thomsonreuters.pageobjects.utils.document.metadata.Jurisdiction;
 import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import com.thomsonreuters.pageobjects.utils.form.CheckBoxOrRadioButton;
+import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.And;
@@ -62,6 +63,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
     private PrintOptionsPage printOptionsPage = new PrintOptionsPage();
     private SeleniumKeyboard seleniumKeyboard = new SeleniumKeyboard();
     private DocumentDeliveryOptionsPage documentDeliveryOptionsPage = new DocumentDeliveryOptionsPage();
+    private FooterUtils footerUtils = new FooterUtils();
 
     private List<Document> documents = new ArrayList<>();
     private Document singleDocument;
@@ -77,6 +79,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
     public void waitSearchResults() throws Throwable {
         searchResultsPage.waitForPageToLoad();
         searchResultsPage.waitForPageToLoadAndJQueryProcessing();
+        footerUtils.closeDisclaimerMessage();
     }
 
     private void openSearchResultLinkAtPositionAndStoreItsTitleAndGuid(String linkPosition) throws Throwable {
