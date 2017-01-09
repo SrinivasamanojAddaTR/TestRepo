@@ -1,5 +1,6 @@
 package com.thomsonreuters.step_definitions.browse;
 
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesResultsPage;
 import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesWidget;
@@ -35,6 +36,7 @@ public class AnzBrowseTest extends BaseStepDef {
     private GlossaryPage glossaryPage = new GlossaryPage();
     private CategoryPage categoryPage = new CategoryPage();
     private FooterUtils footerUtils = new FooterUtils();
+    private CommonMethods commonMethods = new CommonMethods();
 
     @Then("^user navigates directly to url \"(.*)\"$")
     public void userNavigatesDirectlyToUrl(String url) throws Throwable {
@@ -263,8 +265,8 @@ public class AnzBrowseTest extends BaseStepDef {
     public void theUserNavigatesToPracticeAreaFilteredByTopicPage(String resource, String pa) throws Throwable {
         homePage.selectLinkPresentOnTab(resource);
         homePage.waitForPageToLoad();
-        homePage.getElementByLinkText(pa).click();
-        homePage.waitForPageToLoad();
+        commonMethods.clickElementUsingJS(homePage.getElementByLinkText(pa));
+        homePage.waitForPageToLoadAndJQueryProcessing();
     }
 
 

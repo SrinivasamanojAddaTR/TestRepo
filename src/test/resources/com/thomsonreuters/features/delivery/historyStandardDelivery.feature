@@ -25,8 +25,8 @@ Scenario Outline: [831297] Download documents in PDF format
 	Given ANZ user navigates directly to document with guid "<guid1>"
 	And ANZ user navigates directly to document with guid "<guid2>"
 	When the user clicks on 'History' link on the header
-	And the user selects the date Today with -
 	And the user clicks on 'Documents' tab on the History page
+	And the user selects the date Today with -
     And the user selects the checkbox associated with document "1"
     And the user selects the checkbox associated with document "2"
     When user clicks on Download delivery option for History
@@ -46,8 +46,8 @@ Scenario Outline: [831297] Download documents in zip file
 	Given ANZ user navigates directly to document with guid "<guid1>"
 	And ANZ user navigates directly to document with guid "<guid2>"
 	When the user clicks on 'History' link on the header
-	And the user selects the date Today with -
 	And the user clicks on 'Documents' tab on the History page
+	And the user selects the date Today with -
     And the user selects the checkbox associated with document "1"
     And the user selects the checkbox associated with document "2"
     When user clicks on Download delivery option for History
@@ -65,8 +65,8 @@ Scenario Outline: [831297] Download list of items in PDF format
 	Given ANZ user navigates directly to document with guid "<guid1>"
 	And ANZ user navigates directly to document with guid "<guid2>"
 	When the user clicks on 'History' link on the header
-	And the user selects the date Today with -
 	And the user clicks on 'Documents' tab on the History page
+	And the user selects the date Today with -
     And the user selects the checkbox associated with document "1"
     And the user selects the checkbox associated with document "2"
     When user clicks on Download delivery option for History
@@ -80,15 +80,15 @@ Scenario Outline: [831297] Download list of items in PDF format
 	And the document does not include document body that contains text "<docText2>" 
 	Examples: 
 		|guid1							  |guid2							|title1 									| title2 						| docText1 						| docText2 |
-		|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0|Transfer of shares | Due diligence: acquisitions	|When are shares transferable?	|What is due diligence?|
+		|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0|Transfer of shares | Legal due diligence: acquisitions	|When are shares transferable?	|What is due diligence?|
 
 
 Scenario Outline: [831297] Download list of items in CSV format
 	Given ANZ user navigates directly to document with guid "<guid1>"
 	And ANZ user navigates directly to document with guid "<guid2>"
 	When the user clicks on 'History' link on the header
-	And the user selects the date Today with -
 	And the user clicks on 'Documents' tab on the History page
+	And the user selects the date Today with -
     And the user selects the checkbox associated with document "1"
     And the user selects the checkbox associated with document "2"
     When user clicks on Download delivery option for History
