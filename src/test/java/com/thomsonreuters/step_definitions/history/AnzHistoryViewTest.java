@@ -162,7 +162,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
         } else if (buttonText.equalsIgnoreCase("Clear all filters")) {
             knowHowSearchResultsPage.historyPageClearAllFiltersLink().click();
         }
-
+        researchOrganizerPage.waitContentToLoad();
 
     }
 
