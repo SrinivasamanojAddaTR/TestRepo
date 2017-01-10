@@ -287,8 +287,9 @@ public class AnzBrowseTest extends BaseStepDef {
         categoryPage.waitForPageToLoad();
         categoryPage.getElementByLinkText(resourceType).click();
         categoryPage.waitForPageToLoad();
-        categoryPage.getElementByLinkText(practiceArea).click();
-        categoryPage.waitForPageToLoad();
+        commonMethods.clickElementUsingJS(categoryPage.getElementByLinkText(practiceArea));
+       // categoryPage.getElementByLinkText(practiceArea).click();
+        categoryPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     @And("^user opens \"(.*)\" link")
