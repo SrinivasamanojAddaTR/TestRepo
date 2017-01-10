@@ -107,16 +107,7 @@ public class BasicKnowHowSearchUKS101Test extends BaseStepDef {
 
     @Then("^the user is able to check whether the option to apply filters is displayed and  if not to ensure that it is$")
     public void theUserIsAbleToCheckWhetherTheOptionToApplyFiltersIsDisplayedAndIfNotToEnsureThatItIs() {
-        Boolean isPresent = false;
-        try {
-            if (knowHowSearchResultsPage.selectMultipleFilters().isDisplayed()) {
-                isPresent = true;
-            }
-        } catch (Exception e) {
-        }
-        if (isPresent) {
-            knowHowSearchResultsPage.clickOnSelectMultipleFilters();
-        }
+        assertTrue("Select multiple filters button was not displayed", knowHowSearchResultsPage.isSelectMultipleFiltersPresent());
     }
 
     @Then("^the user is presented with a message confirming that the user needs a whats market subscription to view the results$")

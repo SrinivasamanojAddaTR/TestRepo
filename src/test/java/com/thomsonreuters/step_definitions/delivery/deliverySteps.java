@@ -156,12 +156,12 @@ public class deliverySteps extends BaseStepDef {
 
     @Then("^the document (includes|does not include) (document body that contains text|title) \"(.*?)\"$")
     public void emailedDocumentIncludesBodyWithText(String includes, String bodyOrTitle, String text) throws IOException {
-            String pdfText = pdfBoxUtil.extractText(downloadedFile.getAbsolutePath());
-            if (includes.equals("includes")) {
-                Assert.assertTrue("PDF document does not contain expected text '" + text + "'", pdfText.contains(text));
-            } else {
-                Assert.assertFalse("PDF document contains document body with text '" + text + "'", pdfText.contains(text));
-            }
+        String pdfText = pdfBoxUtil.extractText(downloadedFile.getAbsolutePath());
+        if (includes.equals("includes")) {
+            Assert.assertTrue("PDF document does not contain expected text '" + text + "'", pdfText.contains(text));
+        } else {
+            Assert.assertFalse("PDF document contains document body with text '" + text + "'", pdfText.contains(text));
+        }
     }
 
     @Then("^the user saves (.*?) from following results$")

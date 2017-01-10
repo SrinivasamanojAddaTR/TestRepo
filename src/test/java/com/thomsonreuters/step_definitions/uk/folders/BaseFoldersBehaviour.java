@@ -135,7 +135,7 @@ public class BaseFoldersBehaviour extends BaseStepDef {
         try {
             researchOrganizerPage.linkToFolderInRecentDropdown(folderName).isDisplayed();
         } catch (NoSuchElementException e) {
-            return;
+            LOG.info("Element link to folder in recent dropdown was not found");
         }
         throw new RuntimeException("Folder '" + folderName + "' is present in recent folders drop down");
     }
@@ -219,23 +219,23 @@ public class BaseFoldersBehaviour extends BaseStepDef {
             folderName = saveToPopup.rootFolder().getText();
         } else {
             saveToPopup.waitForPageToLoadAndJQueryProcessing();
-			try {
-				saveToPopup.expandRootFolderWait().click();
-			} catch (NoSuchElementException | TimeoutException e) {
-				LOG.info("Root folder is already expanded");
-			}
+            try {
+                saveToPopup.expandRootFolderWait().click();
+            } catch (NoSuchElementException | TimeoutException e) {
+                LOG.info("Root folder is already expanded");
+            }
             try {
                 saveToPopup.selectFolderWait(folder).click();
             } catch (NoSuchElementException e) {
-            	throw new RuntimeException("Folder '" + folder + "'doesn't present");
+                throw new RuntimeException("Folder '" + folder + "'doesn't present");
             }
         }
         saveToPopup.save().click();
         return folderName;
     }
-    
+
     public String saveToFolder(String folder) {
-    	return saveToFolder(folder, null);
+        return saveToFolder(folder, null);
     }
 
     public String createNewFolder(String newFolderName, String parentFolder) {
@@ -261,18 +261,18 @@ public class BaseFoldersBehaviour extends BaseStepDef {
             saveToPopup.expandRootFolder().click();
             saveToPopup.selectFolder(folderName).click();
         } catch (NoSuchElementException e) {
-            return;
+            LOG.info("Folder with " + folderName + " name was not found");
         }
         throw new RuntimeException("Folder '" + folderName + "' presents");
     }
 
     public String moveFolder(String destinationFolderName) {
-    	moveFolderPopUp.waitForPageToLoad();
+        moveFolderPopUp.waitForPageToLoad();
         if (destinationFolderName.equals("root")) {
             newFolderPopup.selectRootFolder().click();
             destinationFolderName = newFolderPopup.selectRootFolder().getText();
         } else {
-        	moveFolderPopUp.selectFolder(destinationFolderName).click();
+            moveFolderPopUp.selectFolder(destinationFolderName).click();
         }
         moveFolderPopUp.waitForPageToLoad();
         moveFolderPopUp.waitForPageToLoadAndJQueryProcessing();
@@ -282,12 +282,12 @@ public class BaseFoldersBehaviour extends BaseStepDef {
     }
 
     public String copyFolder(String destinationFolderName) {
-    	copyFolderPopUp.waitForPageToLoad();
+        copyFolderPopUp.waitForPageToLoad();
         if (destinationFolderName.equals("root")) {
             newFolderPopup.selectRootFolder().click();
             destinationFolderName = newFolderPopup.selectRootFolder().getText();
         } else {
-        	copyFolderPopUp.selectFolder(destinationFolderName).click();
+            copyFolderPopUp.selectFolder(destinationFolderName).click();
         }
         copyFolderPopUp.waitForPageToLoad();
         copyFolderPopUp.waitForPageToLoadAndJQueryProcessing();
@@ -295,33 +295,34 @@ public class BaseFoldersBehaviour extends BaseStepDef {
         copyFolderPopUp.waitForPageToLoadAndJQueryProcessing();
         return destinationFolderName;
     }
+
     public void chooseFolderforExport(String folderName) {
-    	exportFolderPopUp.waitForPageToLoad();
-    	if (!(exportFolderPopUp.isFolderVisible(folderName))){
-    		exportFolderPopUp.expandFolder().click();
-        	exportFolderPopUp.waitForPageToLoadAndJQueryProcessing();
-    	}
-   		exportFolderPopUp.checkBox(folderName).click();
+        exportFolderPopUp.waitForPageToLoad();
+        if (!(exportFolderPopUp.isFolderVisible(folderName))) {
+            exportFolderPopUp.expandFolder().click();
+            exportFolderPopUp.waitForPageToLoadAndJQueryProcessing();
+        }
+        exportFolderPopUp.checkBox(folderName).click();
     }
 
-	public void moveToOriginalFolder(String folderName) {
-		restoreFromTrashPopup.waitForPageToLoad();
-		restoreFromTrashPopup.selectFolder(folderName).click();
-		restoreFromTrashPopup.moveButton().click();
-	}
+    public void moveToOriginalFolder(String folderName) {
+        restoreFromTrashPopup.waitForPageToLoad();
+        restoreFromTrashPopup.selectFolder(folderName).click();
+        restoreFromTrashPopup.moveButton().click();
+    }
 
-	public void createFolderWithContent(String folder, List<String> listOfGuid){
+    public void createFolderWithContent(String folder, List<String> listOfGuid) {
         researchOrganizerPage.createNewFolderButton().click();
         createNewFolder(folder, "root");
-    	for (String entry : listOfGuid) {
-   	    	navigationCobalt.navigateToANZSpecificResourcePage("/Document/" + entry+ "/View/FullText.html");
-   	    	documentDeliveryPage.waitForPageToLoadAndJQueryProcessing();
-   	        documentDeliveryPage.clickOnAddToFolderLink();
-   	    	saveToFolder(folder);   	    		   	      	       	
-        }      
-    	researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
-    	header.foldersLink().click();
-	}
-    
+        for (String entry : listOfGuid) {
+            navigationCobalt.navigateToANZSpecificResourcePage("/Document/" + entry + "/View/FullText.html");
+            documentDeliveryPage.waitForPageToLoadAndJQueryProcessing();
+            documentDeliveryPage.clickOnAddToFolderLink();
+            saveToFolder(folder);
+        }
+        researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
+        header.foldersLink().click();
+    }
+
 
 }

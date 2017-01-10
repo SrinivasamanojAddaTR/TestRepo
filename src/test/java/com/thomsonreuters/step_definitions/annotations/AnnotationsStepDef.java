@@ -29,8 +29,6 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -66,8 +64,6 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     public static List<String> numbersList;
     public static String mainWindow;
-
-    private static final Logger LOG = LoggerFactory.getLogger(AnnotationsStepDef.class);
     public static final String groupNameAvailableToOthers = "annotationsTestGroupAvailableToOthers";
     private static final String ANNOTATIONS_RICH_TEXT_WARNING_MESSAGE_1 = "Yournotecannotbesavedbecauseitcontainstoomuchformatting/hiddenHTMLstyling(mostlikelyduetotextcopiedfromawebpage).Pleaseremovesomeoftheformattingandtryagain.Suggestions:";
     private static final String ANNOTATIONS_RICH_TEXT_WARNING_MESSAGE_2 = "UseCtrl+Shift+Vorrightclickandselect\"pasteasplaintext\"topastethetextcopiedfromelsewherewithoutformatting;itshouldstillbepossibletoaddformattingwithourtool.";

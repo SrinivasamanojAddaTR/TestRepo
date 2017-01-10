@@ -156,15 +156,7 @@ public class facetJavaTest extends BaseStepDef {
 
     @When("^the user verifies that the know how parent facet \"(.*?)\" is not displayed$")
     public void theUserVerifiesThatTheKnowHowParentFacetIsNotDisplayed(String arg1) throws Throwable {
-        Boolean isPresent = false;
-        try {
-            knowHowSearchResultsPage.facetName(arg1).isDisplayed();
-            isPresent = true;
-        } catch (Exception e) {
-
-        }
-
-        assertFalse(isPresent);
+        assertFalse(knowHowSearchResultsPage.facetName(arg1).isDisplayed());
     }
 
     @When("^the user selects the know how following parent facets$")
@@ -527,7 +519,7 @@ public class facetJavaTest extends BaseStepDef {
                         for (int dataRowTwo = 0; dataRowTwo < equivalentTerms.length; dataRowTwo++) {
                             currentTerm = equivalentTerms[dataRowTwo];
 
-                            LOG.info(" ...Checking that the term '" + currentTerm + "' is marked up as a hit");
+                            LOG.info("Checking that the term '" + currentTerm + "' is marked up as a hit");
 
                             List<WebElement> searchTermsFound = ppiGenericDocDisplay.ppiTermNavigationHitMarkupCheckTermsAsList();
 
@@ -536,7 +528,7 @@ public class facetJavaTest extends BaseStepDef {
                             for (WebElement element : searchTermsFound) {
                                 textFromElement = element.getText().toUpperCase();
                                 if (Pattern.matches(wildcardToRegex("*" + currentTerm + "*"), textFromElement)) {
-                                    System.out.println(" ...Checking for term '" + currentTerm + "' within " + textFromElement);
+                                    LOG.info("Checking for term '" + currentTerm + "' within " + textFromElement);
                                     termFound = true;
                                     break;
                                 }
@@ -590,7 +582,6 @@ public class facetJavaTest extends BaseStepDef {
         }
         s.append('$');
         outputString = s.toString();
-        //System.out.println(" ...Changing string to regex '" + outputString + "'");
         return (outputString);
     }
 
@@ -630,7 +621,7 @@ public class facetJavaTest extends BaseStepDef {
             for (int dataRowTwo = 0; dataRowTwo < secondEachTerms.length; dataRowTwo++) {
                 String secondTermToCheck = secondEachTerms[dataRowTwo];
                 if (!result) {
-                    System.out.println("Checking term " + firstTermToCheck + " precedes " + secondTermToCheck);
+                    LOG.info("Checking term " + firstTermToCheck + " precedes " + secondTermToCheck);
                     result = isSearchTermsPresentInParagraph(KnowHowDocumentPage.TermsInSequence.YES, firstTermToCheck, secondTermToCheck);
                 } else {
                     // Test has passed

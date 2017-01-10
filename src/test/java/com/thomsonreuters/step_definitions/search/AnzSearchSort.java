@@ -45,12 +45,12 @@ public class AnzSearchSort extends BaseStepDef {
 
     @When("^the user verifies the search results count \"(.*)\"$")
     public void theUserVerifiesTheSearchResultCount(String count) throws Throwable {
-        String expectedCount=count.replaceAll("[^0-9]","");
-        System.out.println("Expected Count : "+expectedCount);
+        String expectedCount = count.replaceAll("[^0-9]", "");
+        LOG.info("Expected Count : " + expectedCount);
         String actualCount = knowHowSearchResultsPage.knowHowSearchResultCount().getText();
         actualCount = actualCount.replaceAll("[^0-9]", "");
-        System.out.println("Actual Count : "+actualCount);
-        assertTrue(expectedCount+" not matching..!",actualCount.equalsIgnoreCase(expectedCount));
+        LOG.info("Actual Count : " + actualCount);
+        assertTrue(expectedCount + " not matching..!", actualCount.equalsIgnoreCase(expectedCount));
 
     }
 

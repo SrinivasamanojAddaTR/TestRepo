@@ -306,7 +306,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
                     customDate1 = originalDateFormat.parse(date);
                     String customStrDate1 = rowDateFormat.format(customDate1);
                     String rowOriginalStrDate = rowDateFormat.format(rowOriginalDate);
-                    System.out.println("rowOrigiginalStrDate :" + rowOriginalStrDate + " , customStrDate1 :" + customStrDate1);
+                    LOG.info("rowOrigiginalStrDate :" + rowOriginalStrDate + " , customStrDate1 :" + customStrDate1);
                     if (rowOriginalStrDate.contains(customStrDate1)) {
                         isCriteriaTrue = true;
                     }

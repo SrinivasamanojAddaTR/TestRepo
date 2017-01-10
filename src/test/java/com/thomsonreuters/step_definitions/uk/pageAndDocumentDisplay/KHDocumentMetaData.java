@@ -192,7 +192,7 @@ public class KHDocumentMetaData extends BaseStepDef {
                     try {
                         resourcePage.contentBody().findElement(By.linkText(link)).click();
                     } catch (Exception e) {
-                        resourcePage.contentBody().findElement(By.linkText(link)).click();
+                       LOG.info("External link was not found");
                     }
                 } else {
                     resourcePage.author().findElement(By.linkText(link)).click();
@@ -354,7 +354,7 @@ public class KHDocumentMetaData extends BaseStepDef {
         try {
             resourcePage.embeddedResourceLink(embeddedLink).click();
         } catch (Exception e) {
-            resourcePage.embeddedResourceLink(embeddedLink).click();
+           LOG.info("Embedded resource link was not found");
         }
     }
 

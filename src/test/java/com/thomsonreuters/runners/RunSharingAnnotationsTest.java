@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
 public class RunSharingAnnotationsTest {
+
     private static final Logger LOG = LoggerFactory.getLogger(RunSharingAnnotationsTest.class);
 
     @BeforeClass

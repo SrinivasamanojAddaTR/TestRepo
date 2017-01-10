@@ -32,7 +32,7 @@ public class abilityToDownloadFDProject extends BaseStepDef {
     private WindowHandler windowHandler = new WindowHandler();
     private PDFBoxUtil pdfBoxUtil = new PDFBoxUtil();
     private FastDraftUtils fastDraftUtils = new FastDraftUtils();
-	private FileActions fileActions = new FileActions();
+    private FileActions fileActions = new FileActions();
 
     @When("^the user exports Form E as editable PDF$")
     public void exportEditablePDF() throws Throwable {
@@ -73,7 +73,7 @@ public class abilityToDownloadFDProject extends BaseStepDef {
             writer.println("The second line");
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.info("Exception creating file", e.getMessage());
         }
     }
 
@@ -98,13 +98,13 @@ public class abilityToDownloadFDProject extends BaseStepDef {
         Robot robot = new Robot();
         robot.keyPress(KeyEvent.VK_ESCAPE);
         robot.keyRelease(KeyEvent.VK_ESCAPE);
-		downloadedFile = fileActions.findFile(DRAFT, extension, DOWNLOADED_FILE_PATH);
+        downloadedFile = fileActions.findFile(DRAFT, extension, DOWNLOADED_FILE_PATH);
         assertTrue("File was not downloaded", downloadedFile != null && downloadedFile.exists());
     }
 
     @Then("^the file should be removed$")
     public void deleteDownloadedDocFile() throws Throwable {
-		fileActions.deleteFile(downloadedFile);
+        fileActions.deleteFile(downloadedFile);
     }
 
     @When("^the user deletes all files with name \"([^\"]*)\" and extension \"([^\"]*)\" from Downloads$")

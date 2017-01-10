@@ -190,13 +190,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 
     @Then("^user should not see any filters on the left hand side$")
     public void userShouldNotSeeAnyFiltersOnLeft() throws Throwable {
-        try {
-            if (knowHowSearchResultsPage.searchFilterFacet().isDisplayed()) {
-                assertTrue(false);
-            }
-        } catch (Exception e) {
-            assertTrue(true);
-        }
+        assertFalse("User able to see search filter facets", knowHowSearchResultsPage.isSearchFilterFacetDisplayed());
     }
 
     @Then("^the user clicks on search result \"(.*)\" title link$")

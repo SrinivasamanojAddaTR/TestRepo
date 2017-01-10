@@ -26,17 +26,17 @@ public class hideDeliveryOptionsForNotLoggedInUser extends BaseStepDef {
     public void heIsNotAbleToUseTheseFeaturesOnDocumentPage() throws Throwable {
         try {
             documentDeliveryOptionsPage.download().click();
-			Assert.fail("User is able to click on download");
+            Assert.fail("User is able to click on download");
         } catch (PageOperationException poe) {
         }
         try {
             documentDeliveryOptionsPage.print().click();
-			Assert.fail("User is able to click on print");
+            Assert.fail("User is able to click on print");
         } catch (PageOperationException poe) {
         }
         try {
             documentDeliveryOptionsPage.email().click();
-			Assert.fail("User is able to click on email");
+            Assert.fail("User is able to click on email");
         } catch (PageOperationException poe) {
         }
     }
@@ -48,13 +48,7 @@ public class hideDeliveryOptionsForNotLoggedInUser extends BaseStepDef {
 
     @Then("^he is not able to use these features on search page$")
     public void heIsNotAbleToUseTheseFeaturesOnSearchPage() throws Throwable {
-        boolean isUserAbleToUseDeliveryOptions = true;
-        try {
-            searchResultsPage.deliveryDropButton().click();
-        } catch (TimeoutException ex) {
-            isUserAbleToUseDeliveryOptions = false;
-        }
-        assertFalse("User is not able to use delivery options", isUserAbleToUseDeliveryOptions);
+        assertFalse("User is not able to use delivery options", searchResultsPage.isDeliveryDropButtonPresent());
     }
 
     @Then("^he does not see on a legal updates results page any link related to delivery options \\(email, download, print\\)$")

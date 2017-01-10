@@ -147,7 +147,7 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
             try {
                 result = knowHowSearchResultsPage.knowHowFacetCheckbox(facet).isSelected();
             } catch (Exception e) {
-                LOG.info("context", e);
+                LOG.info("Element Know how facet checkbox was not found", e);
             }
             assertFalse(result);
         }

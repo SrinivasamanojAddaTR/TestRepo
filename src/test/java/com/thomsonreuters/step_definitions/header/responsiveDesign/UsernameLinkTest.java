@@ -29,6 +29,7 @@ public class UsernameLinkTest extends BaseStepDef {
 			try {
 				Assert.assertFalse("User Icon link displayed..!", header.usernameLink().isDisplayed());
 			} catch (NoSuchElementException | TimeoutException e) {
+                LOG.info("Icon link was not found");
 			}
 		}
     }

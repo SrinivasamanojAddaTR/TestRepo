@@ -71,7 +71,7 @@ public class AdvisoryBoards extends BaseStepDef {
 		try {
 			return consultationBoardsPage.tableOfContentSection().isDisplayed();
 		} catch (PageOperationException poe) {
-			LOG.info("context", poe);
+			LOG.info("Element table of content section was not found", poe);
 			return false;
 		}
 	}

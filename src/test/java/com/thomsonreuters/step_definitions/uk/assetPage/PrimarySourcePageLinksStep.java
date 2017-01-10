@@ -41,7 +41,7 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 					primarySourceDocumentPage.isElementDisplayed(primarySourceDocumentPage
 							.legislationLink(legislationLinkText)));
 		} catch (PageOperationException poe) {
-			LOG.info("context", poe);
+			LOG.info("Legislation link was not found", poe);
 		}
 	}
 

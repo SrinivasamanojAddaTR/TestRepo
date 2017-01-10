@@ -8,6 +8,7 @@ import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -16,12 +17,12 @@ import java.util.TimeZone;
 import static org.junit.Assert.assertTrue;
 
 public class anzTimeZoneTest extends BaseStepDef {
-	
+
     private WLNHeader header = new WLNHeader();
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private ListFunctions listFunctions = new ListFunctions();
     private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
-    private String storedDate=null;
+    private String storedDate = null;
     public static final int US_TIME_ZONE = -6;
     public static final int SYDNEY_TIME_ZONE = 9;
 
@@ -33,14 +34,14 @@ public class anzTimeZoneTest extends BaseStepDef {
 
     @When("^user changes the time-zone to \"(.*?)\"$")
     public void userChangesTheTimeZoneTo(String country) throws Throwable {
-      if(country.equalsIgnoreCase("US")) {
-          listFunctions.SelectValueInList(header.timeZoneSelectDropdown(), "Central Standard Time");
-      }else if(country.equalsIgnoreCase("London")) {
-          listFunctions.SelectValueInList(header.timeZoneSelectDropdown(), "GMT Standard Time");
-      }else if(country.equalsIgnoreCase("Sydney")) {
-          listFunctions.SelectValueInList(header.timeZoneSelectDropdown(), "AUS Eastern Standard Time");
-      }
-      header.timeZoneSaveButton().click();
+        if (country.equalsIgnoreCase("US")) {
+            listFunctions.SelectValueInList(header.timeZoneSelectDropdown(), "Central Standard Time");
+        } else if (country.equalsIgnoreCase("London")) {
+            listFunctions.SelectValueInList(header.timeZoneSelectDropdown(), "GMT Standard Time");
+        } else if (country.equalsIgnoreCase("Sydney")) {
+            listFunctions.SelectValueInList(header.timeZoneSelectDropdown(), "AUS Eastern Standard Time");
+        }
+        header.timeZoneSaveButton().click();
     }
 
     @When("^user navigates to the History Page to store the time at row \"(.*?)\"$")
@@ -48,25 +49,26 @@ public class anzTimeZoneTest extends BaseStepDef {
         researchOrganizerPage.waitForPageToLoad();
         researchOrganizerPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(30);
         researchOrganizerPage.getElementByLinkText("History").click();
+        researchOrganizerPage.waitForPageToLoad();
         researchOrganizerPage.historyPageResultTitleLinks().get(0).isDisplayed();
-        storedDate=researchOrganizerPage.getDateAtRowPosition(rowNo).getText();
+        storedDate = researchOrganizerPage.getDateAtRowPosition(rowNo).getText();
     }
 
     @Then("^user verifies the time at row \"(.*?)\" on History page changes to \"(.*?)\" time$")
     public void userVerifiesResultTimeChangesToTime(String rowNo, String country) throws Throwable {
-        String storedTime[]= storedDate.split(" ");
-        Calendar storedCalTime=convertInCalendar(storedTime[3]);
-        String currentDate=researchOrganizerPage.getDateAtRowPosition(rowNo).getText();
-        String currentTime[]= currentDate.split(" ");
-        Calendar currentCalTime=convertInCalendar(currentTime[3]);
-        if(country.equalsIgnoreCase("US")){
-          storedCalTime.add(Calendar.HOUR, US_TIME_ZONE);
-        }else if(country.equalsIgnoreCase("Sydney")){
+        String storedTime[] = storedDate.split(" ");
+        Calendar storedCalTime = convertInCalendar(storedTime[3]);
+        String currentDate = researchOrganizerPage.getDateAtRowPosition(rowNo).getText();
+        String currentTime[] = currentDate.split(" ");
+        Calendar currentCalTime = convertInCalendar(currentTime[3]);
+        if (country.equalsIgnoreCase("US")) {
+            storedCalTime.add(Calendar.HOUR, US_TIME_ZONE);
+        } else if (country.equalsIgnoreCase("Sydney")) {
             storedCalTime.add(Calendar.HOUR, SYDNEY_TIME_ZONE);
         }
-		assertTrue(
-				"Current Time is not equal to stored time: current hour is " + currentCalTime.get(Calendar.HOUR_OF_DAY) + " while stored hour is " + storedCalTime.get(Calendar.HOUR_OF_DAY),
-				currentCalTime.get(Calendar.HOUR_OF_DAY) == storedCalTime.get(Calendar.HOUR_OF_DAY));
+        assertTrue(
+                "Current Time is not equal to stored time: current hour is " + currentCalTime.get(Calendar.HOUR_OF_DAY) + " while stored hour is " + storedCalTime.get(Calendar.HOUR_OF_DAY),
+                currentCalTime.get(Calendar.HOUR_OF_DAY) == storedCalTime.get(Calendar.HOUR_OF_DAY));
     }
 
     @Then("^user verifies the sign out time is according to \"(.*?)\" time-zone$")
@@ -87,12 +89,12 @@ public class anzTimeZoneTest extends BaseStepDef {
         assertTrue("Current Time is not equal to stored time..!", cal.get(Calendar.HOUR_OF_DAY) == signOffCalTime.get(Calendar.HOUR_OF_DAY));
     }
 
-    public Calendar convertInCalendar(String time){
+    public Calendar convertInCalendar(String time) {
         String[] parts = time.split(":");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(parts[0]));
         cal.set(Calendar.MINUTE, Integer.parseInt(parts[1]));
-     return cal;
+        return cal;
     }
 
 }

@@ -5,6 +5,8 @@ import cucumber.api.SnippetType;
 import cucumber.api.junit.Cucumber;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
@@ -16,6 +18,8 @@ import org.junit.runner.RunWith;
         snippets = SnippetType.CAMELCASE)
 public class RunHeaderTest {
 
+    private static final Logger LOG = LoggerFactory.getLogger(RunHeaderTest.class);
+
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
@@ -23,7 +27,7 @@ public class RunHeaderTest {
             System.setProperty("password", "Password1");
         }
         else {
-            System.out.println("Username is pre-defined in the Run Command as: " + System.getProperty("username"));
+            LOG.info("Username is pre-defined in the Run Command as: " + System.getProperty("username"));
         }
     }
 }

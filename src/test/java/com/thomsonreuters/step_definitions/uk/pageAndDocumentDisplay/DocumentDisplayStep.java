@@ -11,15 +11,12 @@ import com.thomsonreuters.pageobjects.pages.search.SearchHomePage;
 import com.thomsonreuters.pageobjects.utils.RoutingPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import org.openqa.selenium.WebElement;
-import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 
 public abstract class DocumentDisplayStep extends BaseStepDef {
-
-    protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(DocumentDisplayStep.class);
 
     protected static Map<String, DocumentObject> docsMap = new HashMap<String, DocumentObject>();
     protected static int routingCount = 0;
@@ -63,7 +60,7 @@ public abstract class DocumentDisplayStep extends BaseStepDef {
                 routingCount++;
 
             } catch (Throwable t) {
-                logger.warn("Error is processing routing, so routing aborted.");
+                LOG.warn("Error is processing routing, so routing aborted.");
                 navigationCobalt.navigateToPLUKPlus();
             }
         }
@@ -134,7 +131,7 @@ public abstract class DocumentDisplayStep extends BaseStepDef {
                     }
                 }
             } catch (IOException e1) {
-                logger.warn(" Unable to find the file.");
+                LOG.warn(" Unable to find the file.");
             }
         }
 

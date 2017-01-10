@@ -115,14 +115,13 @@ public class searchJavaTest extends BaseStepDef {
         }
     }
 
-	@Then("^the user can verify that the full text of the document contains the search term \"(.*?)\"$")
-	public void theUserCanVerifyThatTheFullTextOfTheKHDocumentContainsTheSearchTermsAnd(String firstTerm) throws Throwable {
-		String docText = null;
-		docText = knowHowDocumentPage.getFullText().toLowerCase();
-		for (String term : firstTerm.toLowerCase().split(" ")) {
-			assertTrue("Document body does not contain the search term", docText.contains(term));
-		}
-	}
+    @Then("^the user can verify that the full text of the document contains the search term \"(.*?)\"$")
+    public void theUserCanVerifyThatTheFullTextOfTheKHDocumentContainsTheSearchTermsAnd(String firstTerm) throws Throwable {
+        String docText = knowHowDocumentPage.getFullText().toLowerCase();
+        for (String term : firstTerm.toLowerCase().split(" ")) {
+            assertTrue("Document body does not contain the search term", docText.contains(term));
+        }
+    }
 
     @Then("^the user can verify that the full text of the whats market document contains the search terms \"(.*?)\" and \"(.*?)\"$")
     public void theUserCanVerifyThatTheFullTextOfTheWMDocumentContainsTheSearchTermsAnd(String firstTerm, String secondTerm) throws Throwable {
@@ -404,7 +403,7 @@ public class searchJavaTest extends BaseStepDef {
         sdf.setLenient(false);
         //if not valid, it will throw ParseException
         Date date = sdf.parse(dateToValidate);
-        System.out.println(date);
+        LOG.info("Date is " + date);
     }
 
     @When("^the user is presented with a message offering a free trial in order to access the full resource$")
@@ -439,45 +438,17 @@ public class searchJavaTest extends BaseStepDef {
 
     @When("^the user is able to verify that a deal summary for the first result is not displayed \"([^\"]*)\"$")
     public void theUserIsAbleToVerifyThatADealSummaryForTheFirstResultIsNotDisplayed(String arg1) throws Throwable {
-        Boolean isPresent = false;
-        try {
-            WebElement text = whatsMarketSearchResultsPage.resultSummary(arg1);
-            text.isDisplayed();
-            isPresent = true;
-        } catch (Exception e) {
-            LOG.info("context", e);
-        }
-        assertFalse(isPresent);
+        assertFalse(whatsMarketSearchResultsPage.resultSummary(arg1).isDisplayed());
     }
 
     @When("^the user is able to verify that a date of announcement for the first result is not displayed \"([^\"]*)\"$")
     public void theUserIsAbleToVerifyThatADateOfAnnouncementForTheFirstResultIsNotDisplayed(String arg1) throws Throwable {
-        Boolean isPresent = false;
-        try {
-            WebElement text = whatsMarketSearchResultsPage.resultDate(arg1);
-            text.isDisplayed();
-            isPresent = true;
-        } catch (Exception e) {
-            LOG.info("context", e);
-
-        }
-        assertFalse(isPresent);
-
+        assertFalse(whatsMarketSearchResultsPage.resultDate(arg1).isDisplayed());
     }
 
     @When("^the user is able to verify that a deal value for the first result is not displayed \"([^\"]*)\"$")
     public void theUserIsAbleToVerifyThatADealValueForTheFirstResultIsNotDisplayed(String arg1) throws Throwable {
-        Boolean isPresent = false;
-        try {
-            WebElement text = whatsMarketSearchResultsPage.resultValue(arg1);
-            text.isDisplayed();
-            isPresent = true;
-        } catch (Exception e) {
-            LOG.info("context", e);
-
-        }
-        assertFalse(isPresent);
-
+        assertFalse(whatsMarketSearchResultsPage.resultValue(arg1).isDisplayed());
     }
 
     @When("^has selected the link entitled International$")
@@ -491,14 +462,14 @@ public class searchJavaTest extends BaseStepDef {
     }
 
     @When("^the user can verify that the scoped search dropdown states \"([^\"]*)\"$")
-    public void theUserCanVerifyThatTheScopedSearchDropdownStates(String expectedText ) throws Throwable {
+    public void theUserCanVerifyThatTheScopedSearchDropdownStates(String expectedText) throws Throwable {
         String returnedText;
 
         // Strip spaces from the string
-        expectedText = expectedText.replaceAll("\\s+","");
+        expectedText = expectedText.replaceAll("\\s+", "");
 
         // Strip spaces from the string
-        returnedText = searchScopeControl.scopedSearchDropdownTitle().getText().replaceAll("\\s+","");
+        returnedText = searchScopeControl.scopedSearchDropdownTitle().getText().replaceAll("\\s+", "");
 
         assertTrue(returnedText.equals(expectedText));
     }
@@ -522,7 +493,7 @@ public class searchJavaTest extends BaseStepDef {
     @Then("^the search drop down options provided on \"(.*?)\" are as below$")
     public void theSearchDropDownOptionsProvidedOnAreAsBelow(String currentPage, List<String> expectedOptions) throws Throwable {
         for (String option : searchScopeControl.scopedSearchDropdownOptionsList()) {
-            System.out.println(option);
+            LOG.info("Option from dropdown list is " + option);
             int count = 0;
             for (String expectedOption : expectedOptions) {
                 //assertTrue("Optional blocks not displayed as expected", blockTitle.equals(expectedTitle));
@@ -558,7 +529,7 @@ public class searchJavaTest extends BaseStepDef {
 
     @When("^the user can verify that the title listed above the search results is \"([^\"]*)\"$")
     public void theUserCanVerifyThatTheTitleListedAboveTheSearchResultsIs(String arg1) throws Throwable {
-        arg1="\"" + arg1 +"\"";
+        arg1 = "\"" + arg1 + "\"";
         searchResultsPage.resultPageTitle(arg1).isDisplayed();
     }
 
@@ -569,10 +540,10 @@ public class searchJavaTest extends BaseStepDef {
 
     @When("^has selected the link to the deal type \"([^\"]*)\"$")
     public void hasSelectedTheLinkToTheDealType(String arg1) throws Throwable {
-        if(arg1.equals("Administrations")){
+        if (arg1.equals("Administrations")) {
             whatsMarketHomePage.Administrations().click();
-        }else if(arg1.equals("Public M & A"))
-        whatsMarketHomePage.PublicMandALink().click();
+        } else if (arg1.equals("Public M & A"))
+            whatsMarketHomePage.PublicMandALink().click();
     }
 
     @When("^has selected the link to the practice area \"([^\"]*)\"$")
@@ -616,23 +587,13 @@ public class searchJavaTest extends BaseStepDef {
 
     @When("^the user selects the profile option to display \"([^\"]*)\"$")
     public void theUserSelectsTheProfileOptionToDisplay(String profileName) throws Throwable {
-            whatsMarketComparisonReportPage.whatsMarketCheckboxByName(profileName).click();
+        whatsMarketComparisonReportPage.whatsMarketCheckboxByName(profileName).click();
     }
 
 
     @When("^the user verifies the absence of a column entitled \"([^\"]*)\"$")
     public void theUserVerifiesTheAbsenceOfAColumnEntitled(String arg1) throws Throwable {
-        Boolean isPresent = false;
-        try {
-            WebElement text = whatsMarketComparisonReportPage.columnHeader(arg1);
-            text.isDisplayed();
-            isPresent = true;
-        }
-        catch (Exception e) {
-            LOG.info("context", e);
-        }
-        assertFalse(isPresent);
-
+        assertFalse(whatsMarketComparisonReportPage.columnHeader(arg1).isDisplayed());
     }
 
     @When("^the user verifies the presence of a column entitled \"([^\"]*)\"$")
@@ -782,12 +743,7 @@ public class searchJavaTest extends BaseStepDef {
 
     @When("^the user verifies the Organize Columns popup is closed$")
     public void theUserVerifiesTheOrganizeColumnsPopupIsClosed() throws Throwable {
-        Boolean popupPresent = false;
-        try{
-            searchResultsPage.waitForExpectedElement(whatsMarketComparisonReportPage.organizeColumnsLightBoxLocator()).isDisplayed();
-            popupPresent = true;
-        } catch (TimeoutException e) {
-        }
+        Boolean popupPresent = searchResultsPage.waitForExpectedElement(whatsMarketComparisonReportPage.organizeColumnsLightBoxLocator()).isDisplayed();
         assertFalse(popupPresent);
     }
 
@@ -839,7 +795,7 @@ public class searchJavaTest extends BaseStepDef {
 
     @And("^the user adds whats market deal comparison report to new \"([^\"]*)\" folder with parent folder \"([^\"]*)\"$")
     public void addDocumentToFolderFromDocumentView(String folder, String parentFolder) throws Throwable {
-    	documentDeliveryPage.waitForPageToLoadAndJQueryProcessing();
+        documentDeliveryPage.waitForPageToLoadAndJQueryProcessing();
         documentDeliveryPage.clickOnAddToFolderLink();
         // Use the save button to help determine the pop-up has rendered as the test wasn't waiting before
         saveToPopup.saveButton().isDisplayed();
@@ -896,7 +852,6 @@ public class searchJavaTest extends BaseStepDef {
     }
 
 
-
     @When("^the user selects the download icon on the comparison report page$")
     public void theUserSelectsTheDownloadIconOnTheComparisonReportPage() throws Throwable {
         whatsMarketComparisonReportPage.downloadIcon().click();
@@ -908,14 +863,14 @@ public class searchJavaTest extends BaseStepDef {
         whatsMarketComparisonReportPage.emailIcon().click();
     }
 
-	@Then("^there is no error message on search results page$")
-	public void thereIsNoErrorMessageOnSearchResultsPage() {
-        if(searchResultsPage.isElementDisplayed(searchResultsPage.errorMessageBy())){
-		    String error = searchResultsPage.errorMessage().getText().trim();
+    @Then("^there is no error message on search results page$")
+    public void thereIsNoErrorMessageOnSearchResultsPage() {
+        if (searchResultsPage.isElementDisplayed(searchResultsPage.errorMessageBy())) {
+            String error = searchResultsPage.errorMessage().getText().trim();
             assertTrue("There is an error on the page: \n" + error, error.isEmpty());
         }
         LOG.info("There are not errors on the page");
-	}
+    }
 
 
     @When("^the user selects the select all option on the results page$")

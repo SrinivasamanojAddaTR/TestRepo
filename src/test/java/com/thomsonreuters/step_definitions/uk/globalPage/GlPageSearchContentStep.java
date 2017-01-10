@@ -26,7 +26,7 @@ public class GlPageSearchContentStep {
 
 	private static final String PATH_TO_GLOBAL_PAGE = "/Browse/Home/Global";
 
-	protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CommonMethods.class);
+	protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(GlPageSearchContentStep.class);
 
 	private NavigationCobalt navigation = new NavigationCobalt();
 	private GlobalCategoryPage globalCategoryPage = new GlobalCategoryPage();
@@ -98,7 +98,7 @@ public class GlPageSearchContentStep {
 			try {
 				result = knowHowSearchResultsPage.knowHowFacetCheckbox(facet).isSelected();
 			} catch (Exception e) {
-				LOG.info("context", e);
+				LOG.info("Element Know how facet checkbox was not found", e);
 			}
 			assertTrue(result);
 		}

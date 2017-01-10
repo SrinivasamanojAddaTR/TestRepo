@@ -119,7 +119,7 @@ public class CommonDocumentSteps extends DocumentDisplayStep {
 
     @When("^user enters search specific document \"(.*?)\"$")
     public void userEnterSearchSpecificDocument(String searchTerm) throws Throwable {
-        logger.info("Search item : " + searchTerm);
+        LOG.info("Search item : " + searchTerm);
         searchTerms = searchTerm.split("_");
         searchUtils.enterSearchText("adv: \"" + searchTerms[0] + "\"");
     }

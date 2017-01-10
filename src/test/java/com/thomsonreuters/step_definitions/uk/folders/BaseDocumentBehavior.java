@@ -271,8 +271,8 @@ public class BaseDocumentBehavior extends BaseStepDef {
         researchOrganizerPage.waitForPageToLoad();
         String actualResourceType = researchOrganizerPage.getResourceType(singleDocument.getGuid());
         String currentResourceType = restSteps.getDocumentResourceType(singleDocument.getGuid());
-        System.out.println("The current resource type is: " + currentResourceType);
-        System.out.println("The actual resource type is: " + actualResourceType);
+        LOG.info("The current resource type is: " + currentResourceType);
+        LOG.info("The actual resource type is: " + actualResourceType);
         assertEquals("Resource type is incorrect, the current resource " + currentResourceType + " is not the same as the actual resource " + actualResourceType, currentResourceType, actualResourceType);
     }
 
@@ -314,6 +314,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
                 researchOrganizerPage.linkToDocument(singleDocument.getGuid(), singleDocument.getTitle()).isDisplayed();
             }
         } catch (NoSuchElementException e) {
+            LOG.info("Such element was not found");
             return false;
         }
         return true;
@@ -530,8 +531,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
     @When("^the user clicks on '(.*)' link in '(.*)' section of the document$")
     public void theUserClicksOnPracticeNoteLinLinkInSectionLinkSectionOfTheDocument(String linkName, String sectionName) {
         WebElement sectionLinkElement = standardDocumentPage.getLinkFromSection(sectionName, linkName);
-        // Hack for Chrome to avoid "Element not clickable" error
-
+//        Hack for Chrome to avoid "Element not clickable" error
 //        if (webDriverDiscovery.getDriverType().equalsIgnoreCase("chrome")) {
 //            comMethods.clickElementUsingJS(sectionLinkElement);
 //        } else {

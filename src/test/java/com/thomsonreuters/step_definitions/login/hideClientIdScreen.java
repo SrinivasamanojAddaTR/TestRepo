@@ -29,6 +29,7 @@ public class hideClientIdScreen extends BaseStepDef {
         try {
             welcomePage.clientID();
         } catch (NoSuchElementException | TimeoutException nse) {
+            LOG.info("Element Client ID was not found");
             isClientIDScreenVisible = false;
         }
         assertFalse("ClienID screen is visible for user", isClientIDScreenVisible);
