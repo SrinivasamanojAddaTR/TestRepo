@@ -1,9 +1,9 @@
 Feature: [824488]As a PLAU user, I want to change my locale So that my dates and times are displayed in the locale that I have selected
 
-
   Scenario: User verifies the change of time-zone on history page results
     Given ANZ user is logged in
     And the user runs a free text search for the query "test"
+    And the user opens the result in position "1"
     When the user opens time-zone popup using user dropdown
     And user changes the time-zone to "London"
     And user navigates to the History Page to store the time at row "1"

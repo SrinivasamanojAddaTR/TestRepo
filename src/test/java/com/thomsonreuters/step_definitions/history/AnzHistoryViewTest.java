@@ -253,6 +253,8 @@ public class AnzHistoryViewTest extends BaseStepDef {
                     break;
                 }
             }
+            researchOrganizerPage.waitForPageToLoad();
+            researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
         }
     }
 
