@@ -24,21 +24,9 @@ public class hideDeliveryOptionsForNotLoggedInUser extends BaseStepDef {
 
     @Then("^he is not able to use these features on document page$")
     public void heIsNotAbleToUseTheseFeaturesOnDocumentPage() throws Throwable {
-        try {
-            documentDeliveryOptionsPage.download().click();
-            Assert.fail("User is able to click on download");
-        } catch (PageOperationException poe) {
-        }
-        try {
-            documentDeliveryOptionsPage.print().click();
-            Assert.fail("User is able to click on print");
-        } catch (PageOperationException poe) {
-        }
-        try {
-            documentDeliveryOptionsPage.email().click();
-            Assert.fail("User is able to click on email");
-        } catch (PageOperationException poe) {
-        }
+        assertFalse("Download option is displayed for OpenWeb user", documentDeliveryOptionsPage.isDownloadPresent());
+        assertFalse("Print option is displayed for OpenWeb user", documentDeliveryOptionsPage.isPrintPresent());
+        assertFalse("Email option is displayed for OpenWeb user", documentDeliveryOptionsPage.isEmailPresent());
     }
 
     @Then("^he does not see in the search results page any link related to delivery options \\(email, download, print\\)$")
