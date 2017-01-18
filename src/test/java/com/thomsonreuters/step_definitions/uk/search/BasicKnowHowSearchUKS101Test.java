@@ -23,7 +23,7 @@ public class BasicKnowHowSearchUKS101Test extends BaseStepDef {
     private PracticalLawUKCategoryPage practicalLawUKCategoryPage = new PracticalLawUKCategoryPage();
     private PageActions pageActions = new PageActions();
     private WhatsMarketSearchResultsPage whatsMarketSearchResultsPage = new WhatsMarketSearchResultsPage();
-    private FacetJavaTest facetJava = new FacetJavaTest();
+    private FacetJavaTest1 facetJava = new FacetJavaTest1();
 
 
     @Given("^has selected the link to United Kingdom$")

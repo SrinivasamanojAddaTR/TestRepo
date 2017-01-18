@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class AdestraOutOfPlan extends BaseStepDef {
+public class AdestraOutOfPlan1 extends BaseStepDef {
 
 	private SubscriptionPreferencePage subscriptionPreferencePage = new SubscriptionPreferencePage();
 	private AdestraUtils adestraUtils = new AdestraUtils();

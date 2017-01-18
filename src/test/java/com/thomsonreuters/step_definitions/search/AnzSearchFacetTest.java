@@ -3,7 +3,6 @@ package com.thomsonreuters.step_definitions.search;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
-import com.thomsonreuters.step_definitions.uk.search.FacetJavaTest;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 

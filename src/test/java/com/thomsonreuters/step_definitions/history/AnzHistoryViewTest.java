@@ -10,7 +10,7 @@ import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
-import com.thomsonreuters.step_definitions.login.ClientIdTest;
+import com.thomsonreuters.step_definitions.login.ClientIdTest1;
 import com.thomsonreuters.step_definitions.uk.search.BasicKnowHowSearchUKS101Test;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -36,7 +36,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private CommonMethods commonMethods = new CommonMethods();
-    private ClientIdTest clientIdTest = new ClientIdTest();
+    private ClientIdTest1 clientIdTest = new ClientIdTest1();
     private BasicKnowHowSearchUKS101Test basicKnowHowSearchUKS101Test = new BasicKnowHowSearchUKS101Test();
     private WLNHeader wlnHeader = new WLNHeader();
     private FooterUtils footerUtils = new FooterUtils();

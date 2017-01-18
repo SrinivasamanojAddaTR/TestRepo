@@ -6,7 +6,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
-public class LinkingFromInternationalTab {
+public class LinkingFromInternationalTab1 {
 	
     private InternationalLandingPage internationalLandingPage = new InternationalLandingPage();
 

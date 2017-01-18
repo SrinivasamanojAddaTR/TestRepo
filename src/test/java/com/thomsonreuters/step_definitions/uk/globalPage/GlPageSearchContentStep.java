@@ -10,7 +10,7 @@ import com.thomsonreuters.pageobjects.pages.search.MorePopUpPage;
 import com.thomsonreuters.pageobjects.pages.search.WhatsMarketSearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.globalPage.GlobalPageUtils;
 import com.thomsonreuters.step_definitions.ResponsiveCommonSteps;
-import com.thomsonreuters.step_definitions.uk.search.UKKnowHowSelectDeselectSingleFacetTest;
+import com.thomsonreuters.step_definitions.uk.search.UKKnowHowSelectDeselectSingleFacetTest1;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.assertj.core.api.SoftAssertions;
@@ -34,7 +34,7 @@ public class GlPageSearchContentStep {
 	private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
 	private HomePage homePage = new HomePage();
 	private WhatsMarketSearchResultsPage whatsMarketSearchResultsPage = new WhatsMarketSearchResultsPage();
-	private UKKnowHowSelectDeselectSingleFacetTest selectDeselectSingleFacetTest = new UKKnowHowSelectDeselectSingleFacetTest();
+	private UKKnowHowSelectDeselectSingleFacetTest1 selectDeselectSingleFacetTest = new UKKnowHowSelectDeselectSingleFacetTest1();
 	private PracticalLawUKCategoryPage practicalLawUKCategoryPage = new PracticalLawUKCategoryPage();
 	private MorePopUpPage morePopUpPage = new MorePopUpPage();
 	private ResponsiveCommonSteps responsiveCommonSteps = new ResponsiveCommonSteps();

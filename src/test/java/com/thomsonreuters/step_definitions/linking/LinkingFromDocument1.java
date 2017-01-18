@@ -9,7 +9,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
-public class LinkingFromDocument {
+public class LinkingFromDocument1 {
 
 	private static final String WLAU_SIGN_ON= "Westlaw AU Signon";
 	private static final String PLAU_SIGN_ON = "Practical Law Australia";

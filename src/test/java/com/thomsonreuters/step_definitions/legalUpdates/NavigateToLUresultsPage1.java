@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class NavigateToLUresultsPage extends BaseStepDef {
+public class NavigateToLUresultsPage1 extends BaseStepDef {
 
 	private HomePage homepage = new HomePage();
 	private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();

@@ -15,7 +15,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
-public class FooterLinks extends BaseStepDef {
+public class FooterLinks1 extends BaseStepDef {
 
 	private WLNFooter footer = new WLNFooter();
     private FooterUtils footerUtils = new FooterUtils();

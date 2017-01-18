@@ -5,7 +5,7 @@ import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.When;
 
-public class AbilityToCopyAndMoveFolder extends BaseStepDef {
+public class AbilityToCopyAndMoveFolder1 extends BaseStepDef {
 
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private FoldersUtils foldersUtils = new FoldersUtils();

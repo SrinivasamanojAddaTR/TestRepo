@@ -6,8 +6,8 @@ import com.thomsonreuters.pageobjects.pages.widgets.RecentHistoryWidget;
 import com.thomsonreuters.pageobjects.utils.document.Document;
 import com.thomsonreuters.pageobjects.utils.document.SortDocumentsByTitle;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
-import com.thomsonreuters.step_definitions.document.ViewDocument;
-import com.thomsonreuters.step_definitions.favourites.AnzFavourites;
+import com.thomsonreuters.step_definitions.document.ViewDocument1;
+import com.thomsonreuters.step_definitions.favourites.AnzFavourites1;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.WebElement;
@@ -21,12 +21,12 @@ import static org.junit.Assert.assertTrue;
 public class AnzRecentHistoryWidget1 extends BaseStepDef {
 	
 	private Document document = new Document();
-	private ViewDocument viewDocument = new ViewDocument();
+	private ViewDocument1 viewDocument = new ViewDocument1();
 	private RecentHistoryWidget recentHistoryWidget = new RecentHistoryWidget();
 	private StandardDocumentPage standardDocumentPage = new StandardDocumentPage();
 	private SortDocumentsByTitle sortDocumentsByName = new SortDocumentsByTitle();
     private HomePage homepage = new HomePage();
-	private AnzFavourites anzFavourites = new AnzFavourites();
+	private AnzFavourites1 anzFavourites = new AnzFavourites1();
 	
 	private ArrayList<Document> documents;
 	

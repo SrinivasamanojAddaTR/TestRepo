@@ -12,7 +12,7 @@ import cucumber.api.java.en.When;
 import org.assertj.core.api.SoftAssertions;
 import static org.junit.Assert.assertTrue;
 
-public class AnzFavourites extends BaseStepDef {
+public class AnzFavourites1 extends BaseStepDef {
 
     private FavouritesPage favouritesPage = new FavouritesPage();
     private PageActions pageActions = new PageActions();

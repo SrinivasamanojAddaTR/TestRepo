@@ -17,7 +17,7 @@ import java.util.TimeZone;
 
 import static org.junit.Assert.assertTrue;
 
-public class AnzTimeZoneTest extends BaseStepDef {
+public class AnzTimeZoneTest1 extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();

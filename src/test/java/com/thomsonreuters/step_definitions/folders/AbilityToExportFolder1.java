@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class AbilityToExportFolder extends BaseStepDef {
+public class AbilityToExportFolder1 extends BaseStepDef {
 
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private ExportFolderPopup exportFolderPopup = new ExportFolderPopup();

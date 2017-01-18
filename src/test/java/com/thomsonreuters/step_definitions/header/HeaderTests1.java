@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
-public class HeaderTests extends BaseStepDef {
+public class HeaderTests1 extends BaseStepDef {
 	
     private WLNHeader header = new WLNHeader();
 	
