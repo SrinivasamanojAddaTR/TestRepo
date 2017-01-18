@@ -263,7 +263,7 @@ public class KHDocumentMetaData extends BaseStepDef {
     public void userScrollDownTheResourceToHeading(String heading) throws Throwable {
         for (WebElement headingElement : resourcePage.allHeadings()) {
             if (headingElement.getText().trim().equalsIgnoreCase(heading)) {
-                scrollToElement(headingElement);
+                ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", headingElement);
             }
         }
     }
@@ -271,10 +271,6 @@ public class KHDocumentMetaData extends BaseStepDef {
     @Then("^scrolled heading \"(.*?)\" is displayed on the sticky bar$")
     public void scrolledHeadingIsDisplayedOnTheStickyBar(String expectedHeading) throws Throwable {
         assertThat(resourcePage.subSectionHeadingOnStickyBar().getText().trim(), Is.is(expectedHeading));
-    }
-
-    private void scrollToElement(WebElement element) {
-        ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     @Then("^'Related Content' link is displayed on the sticky bar$")

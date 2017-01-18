@@ -12,7 +12,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
-public class abilityToSignOffAndRemoveSRMOption extends BaseStepDef {
+public class AbilityToSignOffAndRemoveSRMOption extends BaseStepDef {
 
     private WLNHeader wlnHeader = new WLNHeader();
     private OnepassLogin onePassLogin = new OnepassLogin();

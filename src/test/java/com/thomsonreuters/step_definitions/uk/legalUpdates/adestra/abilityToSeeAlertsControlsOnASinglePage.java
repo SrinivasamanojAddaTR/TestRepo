@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class abilityToSeeAlertsControlsOnASinglePage extends BaseStepDef {
+public class AbilityToSeeAlertsControlsOnASinglePage extends BaseStepDef {
 
     private SubscriptionPreferencePage subscriptionPreferencePage = new SubscriptionPreferencePage();
     private AdestraUtils adestraUtils = new AdestraUtils();

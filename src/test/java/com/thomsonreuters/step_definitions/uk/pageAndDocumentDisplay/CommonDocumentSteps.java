@@ -2,38 +2,62 @@ package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;
+import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.CaseDocumentPage;
+import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.ProvisionPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentNavigationPage;
+import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.LegislationDocumentNavigationPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.enums.DocumentPrimaryLink;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.enums.ExpandAndCollapse;
+import com.thomsonreuters.pageobjects.pages.plPlusResearchSearch.*;
+import com.thomsonreuters.pageobjects.pages.search.SearchHomePage;
+import com.thomsonreuters.pageobjects.utils.document.DocumentObject;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
+import com.thomsonreuters.pageobjects.utils.document.StandardDocumentUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static org.junit.Assert.*;
 import static com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage.ResourceType.PRACTICE_NOTES;
 
 
-public class CommonDocumentSteps extends DocumentDisplayStep {
+public class CommonDocumentSteps {
 
     private StandardDocumentPage standardDocumentPage = new StandardDocumentPage();
     private CommonMethods commonMethods = new CommonMethods();
     private DocumentNavigationPage documentNavigationPage = new DocumentNavigationPage();
     private TopicPage topicPage = new TopicPage();
     private SearchUtils searchUtils = new SearchUtils();
-
+    private StandardDocumentUtils standardDocumentUtils = new StandardDocumentUtils();
+    private static Map<String, DocumentObject> docsMap = new HashMap<String, DocumentObject>();
+    private DocumentObject documentObject;
+    private BaseResultsPage resultsPage = new BaseResultsPage();
+    private CaseDocumentPage caseDocumentPage = new CaseDocumentPage();
+    private LegislationDocumentNavigationPage legislationDocumentNavigationPage = new LegislationDocumentNavigationPage();
+    private UKNewContentTypeClick ukNewContentTypeClick = new UKNewContentTypeClick();
+    private ProvisionPage provisionPage = new ProvisionPage();
+    private Legislationpage legislation = new Legislationpage();
+    private CasesPage cases = new CasesPage();
+    private SearchHomePage searchHomePage = new SearchHomePage();
+    private ExpandCollapse expandCollapse = new ExpandCollapse();
     public String[] searchTerms;
+
+    private static final Logger LOG = LoggerFactory.getLogger(CommonDocumentSteps.class);
 
     @When("^user enters search with \"(.*?)\"$")
     public void enterSearchTerm(String docName) throws Throwable {
-        goToDocument(docName);
+        standardDocumentUtils.goToDocument(docName);
         documentObject = docsMap.get(docName);
         searchUtils.enterSearchText("adv: \"" + documentObject.getDocName() + "\"");
     }
@@ -43,7 +67,7 @@ public class CommonDocumentSteps extends DocumentDisplayStep {
         assertTrue(docName + " is missing/not able to find in search results",
                 resultsPage.isResultItemDisplayed(documentObject.getDocName()));
         resultsPage.clickOnResultItem(documentObject.getDocName());
-        selectViewDocument();
+        standardDocumentUtils.selectViewDocument();
     }
 
     @Then("^Document displayed in three column layout$")
@@ -288,33 +312,33 @@ public class CommonDocumentSteps extends DocumentDisplayStep {
 
     @Then("\"(.*?)\" button is present in document body")
     public void buttonIsPresentInDocumentBody(String title) {
-		WebElement button = standardDocumentPage.getLinkFromSection("", title);
-		assertTrue("Button with text '" + title + "' is not present in document", button.isDisplayed());
-	}
-
-	@When("^the user clicks on button with title \"(.*?)\"$")
-	public void theUserClicksOnButtonWithTitle(String title) {
-		WebElement button = standardDocumentPage.getLinkFromSection("", title);
-		button.click();
+        WebElement button = standardDocumentPage.getLinkFromSection("", title);
+        assertTrue("Button with text '" + title + "' is not present in document", button.isDisplayed());
     }
 
-	@Then("document body does not contain text \"(.*?)\"")
-	public void documentBodyDoesNotContainText(String text) {
-		String documentBody = standardDocumentPage.getFullDocumentBody().getText();
-		assertFalse("Document '" + commonMethods.firstHundredChars(documentBody) + "' contains text that should not be there",
-				documentBody.contains(text));
-	}
+    @When("^the user clicks on button with title \"(.*?)\"$")
+    public void theUserClicksOnButtonWithTitle(String title) {
+        WebElement button = standardDocumentPage.getLinkFromSection("", title);
+        button.click();
+    }
 
-	@Then("document body contains lines")
-	public void documentBodyContainsStrings(List<String> lines) {
+    @Then("document body does not contain text \"(.*?)\"")
+    public void documentBodyDoesNotContainText(String text) {
         String documentBody = standardDocumentPage.getFullDocumentBody().getText();
-		SoftAssertions softly = new SoftAssertions();
-		for (String line : lines) {
-			softly.assertThat(documentBody.contains(line))
-					.overridingErrorMessage(
-							"Document '" + commonMethods.firstHundredChars(documentBody) + "' does not contain text: " + line).isTrue();
-		}
-		softly.assertAll();
+        assertFalse("Document '" + commonMethods.firstHundredChars(documentBody) + "' contains text that should not be there",
+                documentBody.contains(text));
+    }
+
+    @Then("document body contains lines")
+    public void documentBodyContainsStrings(List<String> lines) {
+        String documentBody = standardDocumentPage.getFullDocumentBody().getText();
+        SoftAssertions softly = new SoftAssertions();
+        for (String line : lines) {
+            softly.assertThat(documentBody.contains(line))
+                    .overridingErrorMessage(
+                            "Document '" + commonMethods.firstHundredChars(documentBody) + "' does not contain text: " + line).isTrue();
+        }
+        softly.assertAll();
     }
 
 

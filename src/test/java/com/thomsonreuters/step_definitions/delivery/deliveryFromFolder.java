@@ -1,27 +1,28 @@
 package com.thomsonreuters.step_definitions.delivery;
 
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
+import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import com.thomsonreuters.step_definitions.annotations.AnnotationsStepDef;
-import com.thomsonreuters.step_definitions.uk.folders.BaseFoldersBehaviour;
 import cucumber.api.java.en.When;
 
 import java.util.List;
 
-public class deliveryFromFolder {
+public class DeliveryFromFolder {
 
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
-    private BaseFoldersBehaviour baseFoldersBehavior = new BaseFoldersBehaviour();
     private AnnotationsStepDef annotationsStepDef = new AnnotationsStepDef();
+    private FoldersUtils foldersUtils = new FoldersUtils();
 
     @When("^the user (opens|has) (.*?) folder with the set of documents$")
     public void theUserOpenFolder(String action, String folder, List<String> listOfGuid) throws Throwable {
         annotationsStepDef.theUserClicksOnLinkOnTheHeader("Folders");
         if (!researchOrganizerPage.isFolderPresentInLeftFrame(folder, "root")) {
-            baseFoldersBehavior.createFolderWithContent(folder, listOfGuid);
+            foldersUtils.createFolderWithContent(folder, listOfGuid);
         }
         if (action.equals("opens")) {
-            baseFoldersBehavior.openFolder(folder);
+            foldersUtils.openFolder(folder);
         }
+        researchOrganizerPage.waitForPageToLoad();
     }
 
 

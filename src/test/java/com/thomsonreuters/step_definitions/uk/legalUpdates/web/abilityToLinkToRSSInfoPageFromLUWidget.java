@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.legalUpdates.web;
 
 import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesPracticeAreaPage;
-import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesWidget;
+import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesWidgetPage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
@@ -11,10 +11,10 @@ import cucumber.api.java.en.When;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class abilityToLinkToRSSInfoPageFromLUWidget extends BaseStepDef {
+public class AbilityToLinkToRSSInfoPageFromLUWidget extends BaseStepDef {
 
     private HomePage practicalLawHomepage = new HomePage();
-    private LegalUpdatesWidget legalUpdatesWidget = new LegalUpdatesWidget();
+    private LegalUpdatesWidgetPage legalUpdatesWidget = new LegalUpdatesWidgetPage();
     private LegalUpdatesPracticeAreaPage legalUpdatesPracticeAreaPage = new LegalUpdatesPracticeAreaPage();
     private StandardDocumentPage standardDocumentPage = new StandardDocumentPage();
 

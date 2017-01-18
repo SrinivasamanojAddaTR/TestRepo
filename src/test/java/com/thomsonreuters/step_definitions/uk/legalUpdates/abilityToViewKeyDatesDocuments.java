@@ -8,7 +8,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
-public class abilityToViewKeyDatesDocuments extends BaseStepDef {
+public class AbilityToViewKeyDatesDocuments extends BaseStepDef {
 
     private LegalUpdatesTopicPage legalUpdatesTopicPage = new LegalUpdatesTopicPage();
     private StandardDocumentPage standardDocumentPage = new StandardDocumentPage();

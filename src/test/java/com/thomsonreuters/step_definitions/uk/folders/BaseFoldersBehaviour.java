@@ -3,10 +3,7 @@ package com.thomsonreuters.step_definitions.uk.folders;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.DocumentColumn;
 import com.thomsonreuters.pageobjects.common.SortOptions;
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.folders.*;
-import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentDeliveryPage;
 import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.step_definitions.annotations.AnnotationsStepDef;
@@ -15,28 +12,16 @@ import cucumber.api.java.en.When;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 public class BaseFoldersBehaviour extends BaseStepDef {
 
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
-    private WLNHeader header = new WLNHeader();
     private CommonMethods comMethods = new CommonMethods();
-    private NewFolderPopup newFolderPopup = new NewFolderPopup();
-    private SaveToPopup saveToPopup = new SaveToPopup();
-    private CopyFolderPopUp copyFolderPopUp = new CopyFolderPopUp();
-    private MoveFolderPopUp moveFolderPopUp = new MoveFolderPopUp();
-    private ExportFolderPopup exportFolderPopUp = new ExportFolderPopup();
-    private RestoreFromTrashPopup restoreFromTrashPopup = new RestoreFromTrashPopup();
     private FoldersUtils foldersUtils = new FoldersUtils();
-    private NavigationCobalt navigationCobalt = new NavigationCobalt();
-    private DocumentDeliveryPage documentDeliveryPage = new DocumentDeliveryPage();
     private AnnotationsStepDef annotationsStepDef = new AnnotationsStepDef();
 
     private String folderName;
@@ -140,7 +125,6 @@ public class BaseFoldersBehaviour extends BaseStepDef {
         throw new RuntimeException("Folder '" + folderName + "' is present in recent folders drop down");
     }
 
-
     @Then("^all the folders listed$")
     public void checkThatFoldersPresent(List<String> folderNames) {
         for (String folderName : folderNames) {
@@ -153,7 +137,6 @@ public class BaseFoldersBehaviour extends BaseStepDef {
         foldersUtils.openFolder(folderName);
         this.folderName = folderName;
     }
-
 
     @When("^the user goes to folder '(.*)'$")
     public void theUserGoesToFolderSubFolder(String folderName) throws Throwable {
@@ -196,133 +179,4 @@ public class BaseFoldersBehaviour extends BaseStepDef {
         Assert.assertTrue("Documents not sorted by value in column '" + documentColumn.getName() + "', descending",
                 foldersUtils.isDocSortedBy(documentColumn, SortOptions.DESC));
     }
-
-    public String saveToNewFolder(String newFolderName, String parentFolder) {
-        String folderName = null;
-        saveToPopup.waitForPageToLoad();
-        saveToPopup.waitForPageToLoadAndJQueryProcessing();
-        saveToPopup.newFolder().click();
-        saveToPopup.waitForPageToLoadAndJQueryProcessing();
-        folderName = createNewFolder(newFolderName, parentFolder);
-        saveToPopup.waitForPageToLoadAndJQueryProcessing();
-        saveToPopup.waitFolderSelected(newFolderName);
-        saveToPopup.save().click();
-        return folderName;
-    }
-
-    public String saveToFolder(String folder, String resourceType) {
-        String folderName = null;
-        saveToPopup.waitForPageToLoad();
-        saveToPopup.waitForPageToLoadAndJQueryProcessing();
-        if (folder.equals("root")) {
-            saveToPopup.rootFolder().click();
-            folderName = saveToPopup.rootFolder().getText();
-        } else {
-            saveToPopup.waitForPageToLoadAndJQueryProcessing();
-            try {
-                saveToPopup.expandRootFolderWait().click();
-            } catch (NoSuchElementException | TimeoutException e) {
-                LOG.info("Root folder is already expanded");
-            }
-            try {
-                saveToPopup.selectFolderWait(folder).click();
-            } catch (NoSuchElementException e) {
-                throw new RuntimeException("Folder '" + folder + "'doesn't present");
-            }
-        }
-        saveToPopup.save().click();
-        return folderName;
-    }
-
-    public String saveToFolder(String folder) {
-        return saveToFolder(folder, null);
-    }
-
-    public String createNewFolder(String newFolderName, String parentFolder) {
-        newFolderPopup.waitForPageToLoad();
-        newFolderPopup.waitForPageToLoadAndJQueryProcessing();
-        newFolderPopup.newFolderInput().sendKeys(newFolderName);
-        if (parentFolder.equals("root")) {
-            newFolderPopup.selectRootFolder().click();
-            parentFolder = newFolderPopup.selectRootFolder().getText();
-        } else {
-            newFolderPopup.selectFolder(parentFolder).click();
-        }
-        newFolderPopup.waitForPageToLoadAndJQueryProcessing();
-        newFolderPopup.save().click();
-        newFolderPopup.waitForPageToLoadAndJQueryProcessing();
-        return parentFolder;
-    }
-
-    public void checksFolderAbsent(String folderName) {
-        saveToPopup.waitForPageToLoad();
-        saveToPopup.waitForPageToLoad();
-        try {
-            saveToPopup.expandRootFolder().click();
-            saveToPopup.selectFolder(folderName).click();
-        } catch (NoSuchElementException e) {
-            LOG.info("Folder with " + folderName + " name was not found");
-        }
-        throw new RuntimeException("Folder '" + folderName + "' presents");
-    }
-
-    public String moveFolder(String destinationFolderName) {
-        moveFolderPopUp.waitForPageToLoad();
-        if (destinationFolderName.equals("root")) {
-            newFolderPopup.selectRootFolder().click();
-            destinationFolderName = newFolderPopup.selectRootFolder().getText();
-        } else {
-            moveFolderPopUp.selectFolder(destinationFolderName).click();
-        }
-        moveFolderPopUp.waitForPageToLoad();
-        moveFolderPopUp.waitForPageToLoadAndJQueryProcessing();
-        moveFolderPopUp.save().click();
-        moveFolderPopUp.waitForPageToLoadAndJQueryProcessing();
-        return destinationFolderName;
-    }
-
-    public String copyFolder(String destinationFolderName) {
-        copyFolderPopUp.waitForPageToLoad();
-        if (destinationFolderName.equals("root")) {
-            newFolderPopup.selectRootFolder().click();
-            destinationFolderName = newFolderPopup.selectRootFolder().getText();
-        } else {
-            copyFolderPopUp.selectFolder(destinationFolderName).click();
-        }
-        copyFolderPopUp.waitForPageToLoad();
-        copyFolderPopUp.waitForPageToLoadAndJQueryProcessing();
-        copyFolderPopUp.save().click();
-        copyFolderPopUp.waitForPageToLoadAndJQueryProcessing();
-        return destinationFolderName;
-    }
-
-    public void chooseFolderforExport(String folderName) {
-        exportFolderPopUp.waitForPageToLoad();
-        if (!(exportFolderPopUp.isFolderVisible(folderName))) {
-            exportFolderPopUp.expandFolder().click();
-            exportFolderPopUp.waitForPageToLoadAndJQueryProcessing();
-        }
-        exportFolderPopUp.checkBox(folderName).click();
-    }
-
-    public void moveToOriginalFolder(String folderName) {
-        restoreFromTrashPopup.waitForPageToLoad();
-        restoreFromTrashPopup.selectFolder(folderName).click();
-        restoreFromTrashPopup.moveButton().click();
-    }
-
-    public void createFolderWithContent(String folder, List<String> listOfGuid) {
-        researchOrganizerPage.createNewFolderButton().click();
-        createNewFolder(folder, "root");
-        for (String entry : listOfGuid) {
-            navigationCobalt.navigateToANZSpecificResourcePage("/Document/" + entry + "/View/FullText.html");
-            documentDeliveryPage.waitForPageToLoadAndJQueryProcessing();
-            documentDeliveryPage.clickOnAddToFolderLink();
-            saveToFolder(folder);
-        }
-        researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
-        header.foldersLink().click();
-    }
-
-
 }

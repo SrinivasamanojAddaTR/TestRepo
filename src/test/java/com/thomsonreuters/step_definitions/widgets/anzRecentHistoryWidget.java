@@ -6,8 +6,8 @@ import com.thomsonreuters.pageobjects.pages.widgets.RecentHistoryWidget;
 import com.thomsonreuters.pageobjects.utils.document.Document;
 import com.thomsonreuters.pageobjects.utils.document.SortDocumentsByTitle;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
-import com.thomsonreuters.step_definitions.document.viewDocument;
-import com.thomsonreuters.step_definitions.favourites.anzFavourites;
+import com.thomsonreuters.step_definitions.document.ViewDocument;
+import com.thomsonreuters.step_definitions.favourites.AnzFavourites;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.WebElement;
@@ -18,15 +18,15 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class anzRecentHistoryWidget extends BaseStepDef {
+public class AnzRecentHistoryWidget extends BaseStepDef {
 	
 	private Document document = new Document();
-	private viewDocument viewDocument = new viewDocument();
+	private ViewDocument viewDocument = new ViewDocument();
 	private RecentHistoryWidget recentHistoryWidget = new RecentHistoryWidget();
 	private StandardDocumentPage standardDocumentPage = new StandardDocumentPage();
 	private SortDocumentsByTitle sortDocumentsByName = new SortDocumentsByTitle();
     private HomePage homepage = new HomePage();
-	private anzFavourites anzFavourites = new anzFavourites();
+	private AnzFavourites anzFavourites = new AnzFavourites();
 	
 	private ArrayList<Document> documents;
 	
@@ -82,6 +82,4 @@ public class anzRecentHistoryWidget extends BaseStepDef {
 		assertTrue("Wrong document was opened from history widget", standardDocumentPage.documentTitle().getText().trim().equals(documentTitleFromWidget));
 
 	}
-
-
 }

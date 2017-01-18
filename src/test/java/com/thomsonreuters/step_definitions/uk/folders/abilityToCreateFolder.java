@@ -11,7 +11,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertEquals;
 
-public class abilityToCreateFolder extends BaseStepDef {
+public class AbilityToCreateFolder extends BaseStepDef {
 
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private NewFolderPopup newFolderPopup = new NewFolderPopup();
@@ -25,7 +25,7 @@ public class abilityToCreateFolder extends BaseStepDef {
         foldersUtils.openFolder(parentFolder);
         researchOrganizerPage.waitForPageToLoad();
         researchOrganizerPage.createNewFolderButton().click();
-        baseFoldersBehavior.createNewFolder(folderName, parentFolder);
+        foldersUtils.createNewFolder(folderName, parentFolder);
     }
 
     @Then("^the folder \"([^\"]*)\" appears in the \"([^\"]*)\" folder$")
@@ -40,7 +40,7 @@ public class abilityToCreateFolder extends BaseStepDef {
     public void checkCannotCreateDuplicates(String folderName, String parentFolder) throws Throwable {
         foldersUtils.openFolder(parentFolder);
         researchOrganizerPage.createNewFolderButton().click();
-        String parentFolderName = baseFoldersBehavior.createNewFolder(folderName, parentFolder);
+        String parentFolderName = foldersUtils.createNewFolder(folderName, parentFolder);
         String actualError = newFolderPopup.getErrorMessage().getText();
         String expectedError = "Another '" + folderName + "' cannot be added to '" + parentFolderName + "'";
         assertEquals("Error is incorrect", actualError, expectedError);
@@ -50,7 +50,7 @@ public class abilityToCreateFolder extends BaseStepDef {
 
     @When("^the user deletes the folder \"([^\"]*)\"$")
     public void userDeleteFolder(String folderName) throws Throwable {
-        deleteFolder(folderName);
+        foldersUtils.deleteFolder(folderName);
         deleteFolderPopup.clickOK().click();
         deleteFolderPopup.waitForPageToLoad();
         String actualMessage = deleteFolderPopup.getDeletedMessage().getText();
@@ -62,32 +62,7 @@ public class abilityToCreateFolder extends BaseStepDef {
 
     @When("^the user deletes the folder \"([^\"]*)\" if it exists$")
     public void userDeleteFolderIfExists(String folderName) throws Throwable {
-        deleteFolderIfExists(folderName);
-    }
-
-    private void deleteFolderIfExists(String folderName) {
-        if (foldersUtils.doesFolderExist(folderName)) {
-            foldersUtils.openFolder(folderName);
-            researchOrganizerPage.optionsButton().click();
-            researchOrganizerPage.deleteOptionButton().click();
-            researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
-            researchOrganizerPage.waitForPageToLoad();
-            deleteFolderPopup.clickOK().click();
-            deleteFolderPopup.waitForPageToLoad();
-            String actualMessage = deleteFolderPopup.getDeletedMessage().getText();
-            String expectedMessage = "The contents of '" + folderName + "' were moved to Trash.";
-            assertEquals("Message is incorrect", actualMessage, expectedMessage);
-            deleteFolderPopup.clickOK().click();
-            deleteFolderPopup.waitForPageToLoad();
-        }
-    }
-
-    private void deleteFolder(String folderName) {
-        foldersUtils.openFolder(folderName);
-        researchOrganizerPage.optionsButton().click();
-        researchOrganizerPage.deleteOptionButton().click();
-        researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
-        researchOrganizerPage.waitForPageToLoad();
+        foldersUtils.deleteFolderIfExists(folderName);
     }
 
     @Then("^the folder \"([^\"]*)\" disappear from \"([^\"]*)\" folder$")
@@ -100,35 +75,22 @@ public class abilityToCreateFolder extends BaseStepDef {
 
     @When("^the user renames folder \"([^\"]*)\" to \"([^\"]*)\" by double click$")
     public void renameFolderByDoubleClick(String folderName, String newFolderName) throws Throwable {
-        renameFolderDoubleClick(folderName);
+        foldersUtils.renameFolderDoubleClick(folderName);
         renameFolderPopup.waitForPageToLoad();
         renameFolderPopup.renameFolder().clear();
         renameFolderPopup.renameFolder().sendKeys(newFolderName);
         renameFolderPopup.save().click();
         renameFolderPopup.waitForPageToLoad();
-    }
-
-    private void renameFolderDoubleClick(String folderName) {
-        researchOrganizerPage.waitForPageToLoad();
-        researchOrganizerPage.rootFolderLinkLeftFrame().click();
-        researchOrganizerPage.folderLinkLeftFrame(folderName).click();
-        researchOrganizerPage.folderLinkLeftFrame(folderName).click();
     }
 
     @When("^the user renames folder \"([^\"]*)\" to \"([^\"]*)\"$")
     public void renameFolder(String folderName, String newFolderName) throws Throwable {
-        renameFolder(folderName);
+        foldersUtils.renameFolder(folderName);
         renameFolderPopup.waitForPageToLoad();
         renameFolderPopup.renameFolder().clear();
         renameFolderPopup.renameFolder().sendKeys(newFolderName);
         renameFolderPopup.save().click();
         renameFolderPopup.waitForPageToLoad();
-    }
-
-    private void renameFolder(String folderName) {
-        foldersUtils.openFolder(folderName);
-        researchOrganizerPage.optionsButton().click();
-        researchOrganizerPage.renameOptionButton().click();
     }
 
     @Then("^the folder \"([^\"]*)\" with parent folder \"([^\"]*)\" is absent$")

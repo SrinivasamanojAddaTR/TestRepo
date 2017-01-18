@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class UkKnowHowSortByRelevancyS2_56Test extends BaseStepDef {
+public class UKKnowHowSortByRelevancyS2_56Test extends BaseStepDef {
 
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();

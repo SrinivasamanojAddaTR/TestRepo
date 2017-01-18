@@ -20,7 +20,7 @@ public class CurrentAwarenessCommonSteps extends BaseStepDef {
     private LegalUpdatesResultsPage legalUpdatesResultsPage = new LegalUpdatesResultsPage();
     private ResearchFoldersWidget researchFoldersWidget = new ResearchFoldersWidget();
     private LegalUpdatesPracticeAreaPage legalUpdatesPracticeAreaPage = new LegalUpdatesPracticeAreaPage();
-    private LegalUpdatesWidget legalUpdatesWidget = new LegalUpdatesWidget();
+    private LegalUpdatesWidgetPage legalUpdatesWidget = new LegalUpdatesWidgetPage();
     private NavigationCobalt navigationCobalt = new NavigationCobalt();
     private CalendarWidget calendarWidget = new CalendarWidget();
     private StandardDocumentPage standardDocumentPage = new StandardDocumentPage();

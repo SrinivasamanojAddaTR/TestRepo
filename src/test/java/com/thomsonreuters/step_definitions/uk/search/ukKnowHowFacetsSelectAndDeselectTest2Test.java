@@ -5,7 +5,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertFalse;
 
-public class ukKnowHowFacetsSelectAndDeselectTest2Test {
+public class UKKnowHowFacetsSelectAndDeselectTest2Test {
 
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
 

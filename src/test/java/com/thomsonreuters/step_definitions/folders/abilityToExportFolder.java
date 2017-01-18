@@ -2,8 +2,8 @@ package com.thomsonreuters.step_definitions.folders;
 
 import com.thomsonreuters.pageobjects.pages.folders.ExportFolderPopup;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
+import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
-import com.thomsonreuters.step_definitions.uk.folders.BaseFoldersBehaviour;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -12,16 +12,16 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class abilityToExportFolder extends BaseStepDef {
+public class AbilityToExportFolder extends BaseStepDef {
 
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private ExportFolderPopup exportFolderPopup = new ExportFolderPopup();
-    private BaseFoldersBehaviour baseFoldersBehavior = new BaseFoldersBehaviour();
+	private FoldersUtils foldersUtils = new FoldersUtils();
 
     @When("^the user selects option Export and chooses the \"(.*?)\" folder$")
 	public void theUserExportFolder(String sourceFolderName) throws Throwable {
-    	theUserSelectExport(); 
-		baseFoldersBehavior.chooseFolderforExport(sourceFolderName);   
+    	theUserSelectExport();
+		foldersUtils.chooseFolderforExport(sourceFolderName);
 		exportFolderPopup.next().click();
 		exportFolderPopup.waitForPageToLoadAndJQueryProcessing();
 	}
@@ -30,7 +30,7 @@ public class abilityToExportFolder extends BaseStepDef {
 	public void theUserSeesExportWizardAndChooseFolder(List<String> folderNames) throws Throwable {
     	theUserSelectExport(); 
     	for (String folderName:folderNames) {
-    		baseFoldersBehavior.chooseFolderforExport(folderName);			
+			foldersUtils.chooseFolderforExport(folderName);
 		}
     	exportFolderPopup.next().click();
     	exportFolderPopup.waitForPageToLoadAndJQueryProcessing();

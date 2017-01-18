@@ -9,7 +9,7 @@ import static org.junit.Assert.assertFalse;
 /**
  * Created by Steph Armytage on 11/02/2015.
  */
-public class ukKnowHowExpandCollapseFacetsTest {
+public class UKKnowHowExpandCollapseFacetsTest {
 
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
 

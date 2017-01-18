@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class addToFolderOnDeliveryWidgets extends BaseStepDef {
+public class AddToFolderOnDeliveryWidgets extends BaseStepDef {
 	
 	
     private DocumentDeliveryPage documentDeliveryPage = new DocumentDeliveryPage();

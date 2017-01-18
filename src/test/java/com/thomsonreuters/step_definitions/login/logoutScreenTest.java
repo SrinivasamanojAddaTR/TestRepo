@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 
 import static org.junit.Assert.assertTrue;
 
-public class logoutScreenTest extends BaseStepDef {
+public class LogoutScreenTest extends BaseStepDef {
 	
     private OnepassLoginUtils onepassLoginUtils = new OnepassLoginUtils();
     private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();

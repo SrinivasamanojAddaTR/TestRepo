@@ -11,7 +11,7 @@ import cucumber.api.java.en.When;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class abilityToUseSaveUserNameOption extends BaseStepDef {
+public class AbilityToUseSaveUserNameOption extends BaseStepDef {
 
     private OnepassLogin onePassLogin = new OnepassLogin();
     private WLNHeader wlnHeader = new WLNHeader();

@@ -7,44 +7,42 @@ import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class abilityToAddDocumentsToFolder extends BaseStepDef {
+public class AbilityToAddDocumentsToFolder extends BaseStepDef {
 
 	private SearchResultsPage searchResultsPage = new SearchResultsPage();
 	private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
-	private BaseFoldersBehaviour baseFoldersBehavior = new BaseFoldersBehaviour();
     private FoldersUtils foldersUtils = new FoldersUtils();
-
-	private List<String> guids;
-	private List<String> titles;
+	private Map<String,List<String>> mapOfValues = new HashMap<>();
 	private int documentCount;
 
 	@When("^the user selects '(.+)' documents, stores its titles and guids and saves to \"([^\"]*)\" folder$")
 	public void selectDocumentsAndSave(String count, String folder) throws Throwable {
-		selectDocuments(count);
+		mapOfValues = foldersUtils.selectDocuments(count);
 		searchResultsPage.saveToFolder().click();
-		String folderName = baseFoldersBehavior.saveToFolder(folder);
+		String folderName = foldersUtils.saveToFolder(folder);
 		searchResultsPage.waitForPageToLoad();
 		String message = searchResultsPage.folderingPopupMessage().getText();
 		LOG.info(message);
 		if (Integer.valueOf(count) > 1) {
 			assertEquals("Message is incorrect", count + " of " + count + " items saved to '" + folderName + "'.", message);
 		} else {
-			assertEquals("Message is incorrect", titles.get(0) + " saved to '" + folderName + "'.", message);
+			assertEquals("Message is incorrect", mapOfValues.get("titles").get(0) + " saved to '" + folderName + "'.", message);
 		}
 	}
 
 	@When("^the user selects '(.+)' documents, stores its titles and guids and saves to new \"([^\"]*)\" folder with parent folder \"([^\"]*)\"$")
 	public void selectDocumentsAndSaveToNewFolder(String count, String folder, String parentFolder) throws Throwable {
-		selectDocuments(count);
+		mapOfValues = foldersUtils.selectDocuments(count);
+		documentCount = Integer.parseInt(count);
 		searchResultsPage.saveToFolder().click();
-		baseFoldersBehavior.saveToNewFolder(folder, parentFolder);
+		foldersUtils.saveToNewFolder(folder, parentFolder);
 		searchResultsPage.waitForPageToLoad();
 		searchResultsPage.waitForPageToLoadAndJQueryProcessing();
 		String message = searchResultsPage.folderingPopupMessage().getText();
@@ -52,31 +50,15 @@ public class abilityToAddDocumentsToFolder extends BaseStepDef {
 		if (Integer.valueOf(count) > 1) {
 			assertEquals("Message is incorrect", count + " of " + count + " items saved to '" + folder + "'.", message);
 		} else {
-			assertEquals("Message is incorrect", titles.get(0) + " saved to '" + folder + "'.", message);
+			assertEquals("Message is incorrect", mapOfValues.get("titles").get(0) + " saved to '" + folder + "'.", message);
 		}
 	}
 	
 	@Then("^the user selects '(.+)' documents and checks \"([^\"]*)\" folder is absent in root folder$")
 	public void selectDocumentsAndChecksFolderAbsent(String count, String folder) throws Throwable {
-		selectDocuments(count);
+		foldersUtils.selectDocuments(count);
 		searchResultsPage.saveToFolder().click();
-		baseFoldersBehavior.checksFolderAbsent(folder);
-	}
-
-	private void selectDocuments(String count) {
-		documentCount = Integer.parseInt(count);
-		guids = new ArrayList<>();
-		titles = new ArrayList<>();
-		searchResultsPage.waitForPageToLoad();
-		for (int i = 1; i <= documentCount; i++) {
-			searchResultsPage.searchResultPositionCheckbox(i).click();
-			WebElement document = searchResultsPage.searchResultPosition(String.valueOf(i));
-			String guid = document.getAttribute("docguid");
-			String documentName = document.getText();
-			LOG.info("Document guid is '" + guid + "'. Document name is '" + documentName + "'");
-			guids.add(guid);
-			titles.add(documentName);
-		}
+		foldersUtils.checksFolderAbsent(folder);
 	}
 
 	@Then("^all documents present in the \"([^\"]*)\" folder$")
@@ -85,8 +67,8 @@ public class abilityToAddDocumentsToFolder extends BaseStepDef {
 		foldersUtils.openFolder(folder);
 		researchOrganizerPage.waitForPageToLoad();
 		for (int i = 1; i <= documentCount; i++) {
-			String guid = guids.get(i - 1);
-			String documentName = titles.get(i - 1);
+			String guid = mapOfValues.get("guids").get(i - 1);
+			String documentName = mapOfValues.get("titles").get(i - 1);
 			LOG.info("Check document with name '" + documentName + "' presents");
 			try {
 				researchOrganizerPage.linkToDocument(guid, documentName).isDisplayed();

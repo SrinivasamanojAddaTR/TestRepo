@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.legalUpdates.web;
 
 import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesResultsPage;
-import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesWidget;
+import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesWidgetPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Given;
@@ -12,9 +12,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class legalUpdatesWidget extends BaseStepDef {
+public class LegalUpdatesWidget extends BaseStepDef {
 
-    private LegalUpdatesWidget luWidget = new LegalUpdatesWidget();
+    private LegalUpdatesWidgetPage luWidget = new LegalUpdatesWidgetPage();
     private LegalUpdatesResultsPage legalUpdatesResultsPage = new LegalUpdatesResultsPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
 

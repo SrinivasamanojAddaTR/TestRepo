@@ -8,7 +8,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
-public class abilityToChangeClientIDAfterLogin extends BaseStepDef {
+public class AbilityToChangeClientIDAfterLogin extends BaseStepDef {
 
     private WLNHeader wlnHeader = new WLNHeader();
 

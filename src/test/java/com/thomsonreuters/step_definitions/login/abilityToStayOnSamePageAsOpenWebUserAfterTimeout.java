@@ -3,6 +3,7 @@ package com.thomsonreuters.step_definitions.login;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
+import com.thomsonreuters.pageobjects.utils.document.StandardDocumentUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,10 +12,11 @@ import org.openqa.selenium.Keys;
 import java.util.Set;
 import static org.junit.Assert.assertTrue;
 
-public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDef {
+public class AbilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDef {
 
     private WLNHeader wlnHeader = new WLNHeader();
     private PracticalLawHomepage practicalLawHomepage = new PracticalLawHomepage();
+    private StandardDocumentUtils standartDocumentUtils = new StandardDocumentUtils();
     private String expectedPageTitle;
     private String expectedPageTitleForFirstTab;
     private String expectedPageTitleForSecondTab;
@@ -111,7 +113,14 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
 
     @Then("^he should stay on same (?:document|search|category) page as OpenWeb user on (first|second) tab$")
     public void heShouldStayOnSameDocumentPageAsOpenWebUserOnSpecifiedTab(String tab) throws Throwable {
-        verifyTabTitle(tab);
+        boolean isTabTitleExpected = false;
+        if(tab.equals("first")){
+            isTabTitleExpected = standartDocumentUtils.verifyTabTitle(windowHandleFirstTab,expectedPageTitleForFirstTab);
+
+        }else {
+            isTabTitleExpected = standartDocumentUtils.verifyTabTitle(windowHandleSecondTab,expectedPageTitleForSecondTab);
+        }
+        assertTrue("User was redirected to another page after timed out session", isTabTitleExpected);
         assertTrue("User is logged in", wlnHeader.isSignInLinkPresent());
     }
 
@@ -126,25 +135,15 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
 
     @Then("^user gets redirected to the (?:document|search|category) page on (first|second) tab that he was visiting and is logged in$")
     public void userGetsRedirectedToTheDocumentPageThatHeWasVisitingOnSpecifiedTab(String tab) throws Throwable {
-        verifyTabTitle(tab);
-        assertTrue("User is not logged in", !wlnHeader.isSignInLinkPresent());
-    }
+        boolean isTabTitleExpected = false;
+        if(tab.equals("first")){
+            isTabTitleExpected = standartDocumentUtils.verifyTabTitle(windowHandleFirstTab,expectedPageTitleForFirstTab);
 
-    private void verifyTabTitle(String tab) {
-        String currentPageTitle;
-        practicalLawHomepage.waitForPageToLoadAndJQueryProcessing();
-        switch (tab) {
-            case "first":
-                wlnHeader.switchToWindow(windowHandleFirstTab);
-                currentPageTitle = practicalLawHomepage.getPageTitle();
-                assertTrue("User was redirected to another page after timed out session, the current title is " + currentPageTitle, expectedPageTitleForFirstTab.equals(currentPageTitle));
-                break;
-            case "second":
-                wlnHeader.switchToWindow(windowHandleSecondTab);
-                currentPageTitle = practicalLawHomepage.getPageTitle();
-                assertTrue("User was redirected to another page after timed out session, the current title is " + currentPageTitle, expectedPageTitleForSecondTab.equals(currentPageTitle));
-                break;
+        }else {
+            isTabTitleExpected = standartDocumentUtils.verifyTabTitle(windowHandleSecondTab,expectedPageTitleForSecondTab);
         }
+        assertTrue("User was redirected to another page after timed out session", isTabTitleExpected);
+        assertTrue("User is not logged in", !wlnHeader.isSignInLinkPresent());
     }
 
     @Then("^user closes second page$")
@@ -153,5 +152,4 @@ public class abilityToStayOnSamePageAsOpenWebUserAfterTimeout extends BaseStepDe
         getDriver().close();
         wlnHeader.switchToWindow(windowHandleFirstTab);
     }
-
 }

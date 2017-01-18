@@ -211,5 +211,4 @@ public class KHTopicPageTest extends BaseStepDef {
         List<WebElement> otherResourceTypes = getDriver().findElements(By.xpath("//div[@id='cobalt_search_knowhowtopicuk_results']/div[2]"));
         assertTrue(otherResourceTypes.isEmpty());
     }
-
 }

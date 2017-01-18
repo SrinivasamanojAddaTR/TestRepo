@@ -18,11 +18,10 @@ import com.thomsonreuters.pageobjects.rest.DeliveryBaseUtils;
 import com.thomsonreuters.pageobjects.rest.DocumentBaseUtils;
 import com.thomsonreuters.pageobjects.rest.LinkingBaseUtils;
 import com.thomsonreuters.pageobjects.rest.model.request.delivery.initiateDelivery.InitiateDelivery;
-import com.thomsonreuters.pageobjects.utils.Product;
 import com.thomsonreuters.pageobjects.utils.document.ContentType;
 import com.thomsonreuters.pageobjects.utils.document.Document;
-import com.thomsonreuters.pageobjects.utils.document.content.Section;
-import com.thomsonreuters.pageobjects.utils.document.metadata.Jurisdiction;
+import com.thomsonreuters.pageobjects.utils.document.StandardDocumentUtils;
+import com.thomsonreuters.pageobjects.utils.document.XMLDocumentUtils;
 import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import com.thomsonreuters.pageobjects.utils.form.CheckBoxOrRadioButton;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
@@ -53,6 +52,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
     private FoldersUtils foldersUtils = new FoldersUtils();
     private DeliveryBaseUtils deliveryBaseUtils = new DeliveryBaseUtils();
     private StandardDocumentPage standardDocumentPage = new StandardDocumentPage();
+    private StandardDocumentUtils standardDocumentUtils = new StandardDocumentUtils();
     private AssetDocumentPage assetDocumentPage = new AssetDocumentPage();
     private GlossaryPage glossaryPage = new GlossaryPage();
     private LinkingBaseUtils linkingUtils = new LinkingBaseUtils();
@@ -64,14 +64,16 @@ public class BaseDocumentBehavior extends BaseStepDef {
     private SeleniumKeyboard seleniumKeyboard = new SeleniumKeyboard();
     private DocumentDeliveryOptionsPage documentDeliveryOptionsPage = new DocumentDeliveryOptionsPage();
     private FooterUtils footerUtils = new FooterUtils();
+    private XMLDocumentUtils xmlDocumentUtils = new XMLDocumentUtils();
 
     private List<Document> documents = new ArrayList<>();
     private Document singleDocument;
     private String jumpLinkSection;
+    private static final String CLIENT_ID = "PRACTICAL LAW AU";
 
     @When("^the user opens '(.+)' link in the search result and store its title and guid$")
     public void openSearchResultLinkAtPositionAndStore(String linkPosition) throws Throwable {
-        openSearchResultLinkAtPositionAndStoreItsTitleAndGuid(linkPosition);
+        singleDocument = standardDocumentUtils.openSearchResultLinkAtPositionAndStoreItsTitleAndGuid(linkPosition);
     }
 
     //TODO to rewrite
@@ -82,45 +84,16 @@ public class BaseDocumentBehavior extends BaseStepDef {
         footerUtils.closeDisclaimerMessage();
     }
 
-    private void openSearchResultLinkAtPositionAndStoreItsTitleAndGuid(String linkPosition) throws Throwable {
-        searchResultsPage.waitForPageToLoad();
-        singleDocument = new Document();
-        searchResultsPage.searchResultPosition(linkPosition).click();
-        // The following page object documentTitle is being used to ensure the document has rendered
-        standardDocumentPage.documentTitle().isDisplayed();
-        // Now store the title and guid
-        singleDocument.setTitle(standardDocumentPage.documentTitle().getText());
-        singleDocument.setGuid(getDocumentGUIDFromURL());
-    }
-
     @Then("^the '(.+)' link contains the document title and guid$")
     public void linkContainsDocumentNameAndGuid(String position) throws Throwable {
         String title = singleDocument.getTitle();
         String guid = singleDocument.getGuid();
-        linkContainsTextAndHrefAttribute(position, title, guid);
+        assertTrue("Current URL or current document title does not contain expected value", standardDocumentUtils.linkContainsTextAndHrefAttribute(position, title, guid));
     }
 
     @Then("^the '(.+)' link contains text \"([^\"]*)\" and url '(.+)'$")
     public void linkContainsTextAndHref(String position, String text, String url) throws Throwable {
-        linkContainsTextAndHrefAttribute(position, text, url);
-    }
-
-    private void linkContainsTextAndHrefAttribute(String position, String text, String url) throws Throwable {
-        researchOrganizerPage.waitForPageToLoad();
-        WebElement actualDocument = researchOrganizerPage.getLinkToDocumentAtRowPosition(position);
-        String currentText = actualDocument.getText();
-        String currentUrl = actualDocument.getAttribute("href");
-        text = foldersUtils.makeDocumentShorterForFoldersAndHistoryChecks(text);
-        SoftAssertions softAssertions = new SoftAssertions();
-        softAssertions.assertThat(currentUrl)
-                .withFailMessage("Current URL '" + currentUrl + "' does not contain expected '" + url + "'")
-                .contains(url);
-        softAssertions
-                .assertThat(currentText)
-                .withFailMessage(
-                        "Current document title '" + currentText + "' does not contain expected text '" + text + "'")
-                .contains(text);
-        softAssertions.assertAll();
+        assertTrue("Current URL or current document title does not contain expected value", standardDocumentUtils.linkContainsTextAndHrefAttribute(position, text, url));
     }
 
     @Then("^the '(.+)' link contains event type '(.+)'$")
@@ -156,8 +129,8 @@ public class BaseDocumentBehavior extends BaseStepDef {
         String actualClientId = researchOrganizerPage.getClientIdAtRowPosition(position).getText();
         String actualDate = researchOrganizerPage.getDateAtRowPosition(position).getText();
         String expectedDate = CalendarAndDate.getCurrentDate();
-        if (!actualClientId.equals(getClientID())) {
-            throw new RuntimeException("Current ClientId is not correct, actual: " + actualClientId + " while expected: " + getClientID());
+        if (!actualClientId.equals(CLIENT_ID)) {
+            throw new RuntimeException("Current ClientId is not correct, actual: " + actualClientId + " while expected: " + CLIENT_ID);
         }
         if (!actualDate.contains(expectedDate) || !actualDate.contains(":")) {
             throw new RuntimeException("Current date is not correct: " + actualDate + " while expected " + expectedDate);
@@ -166,10 +139,10 @@ public class BaseDocumentBehavior extends BaseStepDef {
 
     @And("^the user adds current document to \"([^\"]*)\" folder$")
     public void addDocumentToFolderFromDocumentView(String folder) throws Throwable {
-        String resourceType = restSteps.getDocumentResourceType(singleDocument.getGuid());
+//        String resourceType = restSteps.getDocumentResourceType(singleDocument.getGuid());
         documentDeliveryPage.waitForPageToLoadAndJQueryProcessing();
         documentDeliveryPage.clickOnAddToFolderLink();
-        String folderName = baseFoldersBehavior.saveToFolder(folder, resourceType);
+        String folderName = foldersUtils.saveToFolder(folder);
         researchOrganizerPage.waitForPageToLoad();
         String message = searchResultsPage.folderingPopupMessage().getText();
         assertEquals("Message is incorrect", singleDocument.getTitle() + " saved to '" + folderName + "'.", message);
@@ -179,7 +152,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
     public void addDocumentToFolderFromDocumentView(String folder, String parentFolder) throws Throwable {
         documentDeliveryPage.waitForPageToLoadAndJQueryProcessing();
         documentDeliveryPage.clickOnAddToFolderLink();
-        baseFoldersBehavior.saveToNewFolder(folder, parentFolder);
+        foldersUtils.saveToNewFolder(folder, parentFolder);
         researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
         String message = searchResultsPage.folderingPopupMessage().getText();
         assertEquals("Message is incorrect", singleDocument.getFullTitle() + " saved to '" + folder + "'.", message);
@@ -228,7 +201,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
         glossaryPage.glossaryTermLinkByPosition(position).click();
         glossaryPage.waitForPageToLoadAndJQueryProcessing();
         singleDocument.setTitle(standardDocumentPage.documentTitle().getText());
-        singleDocument.setGuid(getDocumentGUID());
+        singleDocument.setGuid(standardDocumentUtils.getDocumentGUID());
     }
 
     @When("^the user opens the link to the glossary and store its title and guid$")
@@ -237,17 +210,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
         glossaryPage.waitForPageToLoad();
         glossaryPage.waitForPageToLoadAndJQueryProcessing();
         singleDocument.setTitle(standardDocumentPage.documentTitle().getText());
-        singleDocument.setGuid(getDocumentGUID());
-    }
-
-    private String getDocumentGUID() {
-        return standardDocumentPage.documentMetaInfo().getAttribute("id").split("_")[3];
-    }
-
-    private String getDocumentGUIDFromURL() {
-        String urlString[] = getDriver().getCurrentUrl().split("/Document/");
-        String guid[] = urlString[1].split("/");
-        return guid[0];
+        singleDocument.setGuid(standardDocumentUtils.getDocumentGUID());
     }
 
     @Then("^the document Content type is correct$")
@@ -294,30 +257,14 @@ public class BaseDocumentBehavior extends BaseStepDef {
 
     @Then("^document present in the \"([^\"]*)\" folder$")
     public void checkDocumentPresent(String folder) throws Throwable {
-        assertTrue("Document is '" + singleDocument.getTitle() + "' absent", checkDocumentPresence(folder));
+        assertTrue("Document is '" + singleDocument.getTitle() + "' absent", foldersUtils.isDocumentPresentInTheFolder(folder, singleDocument));
     }
 
     @Then("^document does not present in the \"([^\"]*)\" folder$")
     public void checkDocumentAbsent(String folder) throws Throwable {
-        if (checkDocumentPresence(folder)) {
+        if (foldersUtils.isDocumentPresentInTheFolder(folder, singleDocument)) {
             throw new RuntimeException("Document '" + singleDocument.getTitle() + "' present");
         }
-    }
-
-    private boolean checkDocumentPresence(String folder) {
-        foldersUtils.openFolder(folder);
-        researchOrganizerPage.waitForPageToLoad();
-        try {
-            if (folder.equals("Trash")) {
-                researchOrganizerPage.linkToDocumentInTrash(singleDocument.getTitle()).isDisplayed();
-            } else {
-                researchOrganizerPage.linkToDocument(singleDocument.getGuid(), singleDocument.getTitle()).isDisplayed();
-            }
-        } catch (NoSuchElementException e) {
-            LOG.info("Such element was not found");
-            return false;
-        }
-        return true;
     }
 
     @Then("^the user checks history is empty$")
@@ -336,21 +283,17 @@ public class BaseDocumentBehavior extends BaseStepDef {
 
     @When("^the user opens '(.+)' link in the search result and store its details$")
     public void openDocumentAndSaveDetails(String linkPosition) throws Throwable {
-        openSearchResultLinkAtPositionAndStoreItsTitleAndGuid(linkPosition);
+        singleDocument = standardDocumentUtils.openSearchResultLinkAtPositionAndStoreItsTitleAndGuid(linkPosition);
         singleDocument.setContentType(ContentType.getContentTypeByMetaInfoName(restSteps.getDocumentContentType(singleDocument.getGuid())).getPLCUKName());
         documents.add(singleDocument);
     }
 
-    /**
-     * Get documents with expected Content types
-     *
-     * @param expectedContentTypes
-     * @return List of documents
-     */
-    private List<Document> getExpectedDisplayedDocument(List<String> expectedContentTypes) {
+    @Then("^the following documents content type present only$")
+    public void checkDocumentsWithContentTypesPresentOnly(List<String> expectedContentTypes) throws Throwable {
+        StringBuffer error = new StringBuffer();
+        int actualDocumentsCount = researchOrganizerPage.getDocumentCountInFolders();
         List<Document> expectedDocuments = new ArrayList<Document>();
-        int expectedDocumentsCount = documents.size();
-        for (int i = 0; i < expectedDocumentsCount; i++) {
+        for (int i = 0; i < documents.size(); i++) {
             Document doc = documents.get(i);
             for (String expectedContentType : expectedContentTypes) {
                 if (expectedContentType.equals(doc.getContentType())) {
@@ -358,15 +301,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
                 }
             }
         }
-        return expectedDocuments;
-    }
-
-    @Then("^the following documents content type present only$")
-    public void checkDocumentsWithContentTypesPresentOnly(List<String> expectedContentTypes) throws Throwable {
-        StringBuffer error = new StringBuffer();
-        int actualDocumentsCount = researchOrganizerPage.getDocumentCountInFolders();
-        List<Document> documentsWithExpectedContentTypes = getExpectedDisplayedDocument(expectedContentTypes);
-        int expectedDocumentsCount = documentsWithExpectedContentTypes.size();
+        int expectedDocumentsCount = expectedDocuments.size();
         //Check actual and expect documents quantity are equal
         if (actualDocumentsCount != expectedDocumentsCount) {
             error.append("Actual document count is wrong. Expected '" + expectedDocumentsCount + "'. Actual '"
@@ -374,7 +309,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
         }
         //Check expected documents present
         for (int i = 0; i < expectedDocumentsCount; i++) {
-            Document docToCheck = documentsWithExpectedContentTypes.get(i);
+            Document docToCheck = expectedDocuments.get(i);
             try {
                 researchOrganizerPage.linkToDocumentContentType(docToCheck.getGuid(), docToCheck.getContentType());
             } catch (NoSuchElementException e) {
@@ -469,7 +404,8 @@ public class BaseDocumentBehavior extends BaseStepDef {
     public void downloadDocumentInExtension(String extension) throws Throwable {
         selectDocFormatInDeliveryOptionsWindow(extension);
         clickDownloadInDeliveryOptionsWindow();
-        assertDocumentReadyToDownload();
+        assertTrue("Download button absent", downloadOptionsDialog.getDownloadButtonWhenDocReadyToDownload().isDisplayed());
+        assertTrue("Document is not ready to download", downloadOptionsDialog.getReadyForDownloadWindow().getText().contains("ready"));
         InitiateDelivery.DocFormat docFormat = InitiateDelivery.DocFormat.getFormatIgnoreCase(extension);
         assertTrue("Document not downloaded",
                 deliveryBaseUtils.isDocDownloadedAndChecked(docFormat, false));
@@ -488,12 +424,11 @@ public class BaseDocumentBehavior extends BaseStepDef {
                 downloadedDocument, InitiateDelivery.DocFormat.Pdf, phrasesToExists, phrasesToAbsent));
     }
 
-
     @When("^the user selects the document and moves back to original folder \"([^\"]*)\"$")
     public void selectDocumentAndRestore(String folderName) {
         researchOrganizerPage.getDocumentCheckbox(singleDocument.getTitle()).click();
         researchOrganizerPage.getSaveToFolderButton().click();
-        baseFoldersBehavior.moveToOriginalFolder(folderName);
+        foldersUtils.moveToOriginalFolder(folderName);
     }
 
     @Then("^the document should be removed from Trash and be moved to folder \"([^\"]*)\"$")
@@ -507,19 +442,11 @@ public class BaseDocumentBehavior extends BaseStepDef {
         softAssertions.assertAll();
     }
 
-
-    private String getClientID() {
-        if (currentUser.getProduct() == Product.ANZ) {
-            return "PRACTICAL LAW AU";
-        }
-        return "PRACTICAL LAW";
-    }
-
     @Then("^the user store title and guid of primary source document$")
     public void theUserStoreTitleAndGuidOfPrimarySourceDocument() throws Throwable {
         singleDocument = new Document();
         singleDocument.setTitle(standardDocumentPage.documentTitle().getText());
-        singleDocument.setGuid(getDocumentGUID());
+        singleDocument.setGuid(standardDocumentUtils.getDocumentGUID());
     }
 
     @When("^the user clicks on '(.*)' link in table of contents$")
@@ -549,9 +476,9 @@ public class BaseDocumentBehavior extends BaseStepDef {
                 comMethods.getTextsFromWebElements(commonResourcePage.allHeadings()) : new ArrayList<String>();
         List<String> productsMetadata = comMethods.getTextsFromWebElements(standardDocumentPage.getProductsFromMetadata(), ",");
         List<String> jurisdictionsMetadata = rhsPanel.getVisibleJurisdictions();
-        List<String> xmlSections = getSectionTitlesFromXml(docMetaData.getSections());
-        List<String> xmlProducts = getProductNamesFromXml(docMetaData.getProducts());
-        List<String> xmlJurisdictions = getJurisdictionNamesFromXml(docMetaData.getJurisdictions());
+        List<String> xmlSections = xmlDocumentUtils.getSectionTitlesFromXml(docMetaData.getSections());
+        List<String> xmlProducts = xmlDocumentUtils.getProductNamesFromXml(docMetaData.getProducts());
+        List<String> xmlJurisdictions = xmlDocumentUtils.getJurisdictionNamesFromXml(docMetaData.getJurisdictions());
 
         // XML data is expected, page data - is actual. So, let's remove actual results from expected.
         // And if result list will be with 0 elements than all necessary data are present on the page.
@@ -580,7 +507,8 @@ public class BaseDocumentBehavior extends BaseStepDef {
         selectWhatToDeliverOptionInDeliveryOptionsWindow(whatToDeliverOptionString);
         selectDocFormatInDeliveryOptionsWindow(format);
         clickDownloadInDeliveryOptionsWindow();
-        assertDocumentReadyToDownload();
+        assertTrue("Download button absent", downloadOptionsDialog.getDownloadButtonWhenDocReadyToDownload().isDisplayed());
+        assertTrue("Document is not ready to download", downloadOptionsDialog.getReadyForDownloadWindow().getText().contains("ready"));
         File downloadedDocument = deliveryBaseUtils.downloadAndGetDocument(false);
         assertTrue("Document was not downloaded", downloadedDocument != null && downloadedDocument.exists());
         assertTrue("Document text does not meet the expectations",
@@ -643,52 +571,5 @@ public class BaseDocumentBehavior extends BaseStepDef {
     @When("^the user sets Table of Contents option to '(selected|unselected)' state$")
     public void deliveryOptionsSetTableOfContents(String state) {
         new CheckBoxOrRadioButton().editValue(assetDocumentPage.inputCheckboxTableOfContent(), state);
-    }
-
-    /**
-     * Get list with product names from the product list, which got from Legacy Fatwire
-     *
-     * @param products List with {@link }s
-     * @return List with product names
-     */
-    private List<String> getProductNamesFromXml(List<com.thomsonreuters.pageobjects.utils.document.metadata.Product> products) {
-        List<String> result = new ArrayList<>();
-        for (com.thomsonreuters.pageobjects.utils.document.metadata.Product product : products) {
-            result.add(product.getName());
-        }
-        return result;
-    }
-
-    /**
-     * Get list with section titles from the section list, which got from Legacy Fatwire
-     *
-     * @param sections List with {@link Section}s
-     * @return List with section titles
-     */
-    private List<String> getSectionTitlesFromXml(List<Section> sections) {
-        List<String> result = new ArrayList<>();
-        for (Section section : sections) {
-            result.add(section.getTitle());
-        }
-        return result;
-    }
-
-    /**
-     * Get list with jurisdiction names from the jurisdiction list, which got from Legacy Fatwire
-     *
-     * @param jurisdictions List with {@link Jurisdiction}s
-     * @return List with jurisdiction names
-     */
-    private List<String> getJurisdictionNamesFromXml(List<Jurisdiction> jurisdictions) {
-        List<String> result = new ArrayList<>();
-        for (Jurisdiction jurisdiction : jurisdictions) {
-            result.add(jurisdiction.getName());
-        }
-        return result;
-    }
-
-    private void assertDocumentReadyToDownload() {
-        assertTrue("Download button absent", downloadOptionsDialog.getDownloadButtonWhenDocReadyToDownload().isDisplayed());
-        assertTrue("Document is not ready to download", downloadOptionsDialog.getReadyForDownloadWindow().getText().contains("ready"));
     }
 }

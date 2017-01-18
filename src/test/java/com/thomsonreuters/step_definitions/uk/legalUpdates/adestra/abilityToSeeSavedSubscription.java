@@ -12,7 +12,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class abilityToSeeSavedSubscription extends BaseStepDef {
+public class AbilityToSeeSavedSubscription extends BaseStepDef {
 
     private SubscriptionPreferencePage subscriptionPreferencePage = new SubscriptionPreferencePage();
     private AdestraUtils adestraUtils = new AdestraUtils();

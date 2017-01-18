@@ -11,7 +11,7 @@ import org.openqa.selenium.TimeoutException;
 
 import static org.junit.Assert.assertFalse;
 
-public class hideDeliveryOptionsForNotLoggedInUser extends BaseStepDef {
+public class HideDeliveryOptionsForNotLoggedInUser extends BaseStepDef {
 
     private DocumentDeliveryOptionsPage documentDeliveryOptionsPage = new DocumentDeliveryOptionsPage();
     private SearchResultsPage searchResultsPage = new SearchResultsPage();

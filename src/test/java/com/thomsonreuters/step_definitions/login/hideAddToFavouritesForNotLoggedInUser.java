@@ -8,7 +8,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertFalse;
 
-public class hideAddToFavouritesForNotLoggedInUser extends BaseStepDef {
+public class HideAddToFavouritesForNotLoggedInUser extends BaseStepDef {
 
     private NavigationCobalt navigationCobalt = new NavigationCobalt();
     private CategoryPage categoryPage = new CategoryPage();

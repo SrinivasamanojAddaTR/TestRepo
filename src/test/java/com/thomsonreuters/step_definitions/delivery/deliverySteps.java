@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 
 import static org.junit.Assert.assertTrue;
 
-public class deliverySteps extends BaseStepDef {
+public class DeliverySteps extends BaseStepDef {
 
     private EmailOptionsPage email = new EmailOptionsPage();
     private DownloadOptionsPage download = new DownloadOptionsPage();
@@ -117,18 +117,21 @@ public class deliverySteps extends BaseStepDef {
     public void userDownloadsTheDocument(String action, String name, String extension) throws Throwable {
         if (action.equals("downloads")) {
             download.downloadButton().click();
-            assertDocumentReadyToDownload();
+            assertTrue("Download button absent", download.getDownloadButtonWhenDocReadyToDownload().isDisplayed());
+            assertTrue("Document is not ready to download", download.getReadyForDownloadWindow().getText().contains("ready"));
         } else if (action.equals("exports")) {
             download.exportButton().click();
-            assertDocumentReadyToDownload();
+            assertTrue("Download button absent", download.getDownloadButtonWhenDocReadyToDownload().isDisplayed());
+            assertTrue("Document is not ready to download", download.getReadyForDownloadWindow().getText().contains("ready"));
         } else { // print
             print.printButton().click();
             download.waitForPageToLoad();
             // Minimize delivery window to prevent Download browser pop-up showing up
             // seleniumKeyboard.sendEscape();
         }
-
-        doDownloadUsingRestApi(extension, action.equals("prints"));
+        InitiateDelivery.DocFormat docFormat = InitiateDelivery.DocFormat.getFormatIgnoreCase(extension.replace(".", ""));
+        assertTrue("Document not downloaded", deliveryBaseUtils.isDocDownloadedAndChecked(docFormat, action.equals("prints")));
+        downloadedFile = deliveryBaseUtils.getDownloadedDoc();
 
         if (!action.equals("prints")) {
             Assert.assertTrue("The file name is different: " + downloadedFile.getName() + ", while expected: " + name, downloadedFile
@@ -270,16 +273,4 @@ public class deliverySteps extends BaseStepDef {
                 break;
         }
     }
-
-    private void assertDocumentReadyToDownload() {
-        assertTrue("Download button absent", download.getDownloadButtonWhenDocReadyToDownload().isDisplayed());
-        assertTrue("Document is not ready to download", download.getReadyForDownloadWindow().getText().contains("ready"));
-    }
-
-    private void doDownloadUsingRestApi(String extension, boolean printable) throws BadLocationException {
-        InitiateDelivery.DocFormat docFormat = InitiateDelivery.DocFormat.getFormatIgnoreCase(extension.replace(".", ""));
-        assertTrue("Document not downloaded", deliveryBaseUtils.isDocDownloadedAndChecked(docFormat, printable));
-        downloadedFile = deliveryBaseUtils.getDownloadedDoc();
-    }
-
 }

@@ -19,6 +19,8 @@ import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceAnnotationsImpl;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceFFHImpl;
 import com.thomsonreuters.pageobjects.utils.RoutingPage;
+import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
+import com.thomsonreuters.pageobjects.utils.folders.HistoryUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.PendingException;
 import cucumber.api.java.After;
@@ -44,26 +46,26 @@ public class AnnotationsStepDef extends BaseStepDef {
     private NavigationCobalt navigationCobalt;
     private SharedAnnotationsPage sharedAnnotationsPage;
     private InsertEditLink insertEditLink;
-    private SaveToPopup saveToPopup;
+    private HistoryUtils historyUtils;
     private KnowHowSearchResultsPage knowHowSearchResultsPage;
     private PageActions pageActions;
     private ResearchOrganizerPage researchOrganizerPage;
-    private PracticalLawUKCategoryPage practicalLawUKCategoryPage;
-    private SearchResultsPage searchResultsPage;
     private RoutingPage routingPage;
-    private OnepassLogin onePassLogin;
     private WLNHeader wlnHeader;
-    private StandardDocumentPage standardDocumentPage;
-    private RestServiceFFHImpl restServiceFFHImpl;
     private RestServiceAnnotationsImpl restServiceAnnotations;
     private String guidDoc;
-    public static String input;
-    public static String modifiedInput;
     private ArrayList<String> contacts;
+    private FoldersUtils foldersUtils;
 
 
     public static List<String> numbersList;
+    public static String editOption;
     public static String mainWindow;
+    public static String input;
+    public static String modifiedInput;
+    private static int annotationsCount;
+
+    public static final String groupName = "annotationsTestGroup";
     public static final String groupNameAvailableToOthers = "annotationsTestGroupAvailableToOthers";
     private static final String ANNOTATIONS_RICH_TEXT_WARNING_MESSAGE_1 = "Yournotecannotbesavedbecauseitcontainstoomuchformatting/hiddenHTMLstyling(mostlikelyduetotextcopiedfromawebpage).Pleaseremovesomeoftheformattingandtryagain.Suggestions:";
     private static final String ANNOTATIONS_RICH_TEXT_WARNING_MESSAGE_2 = "UseCtrl+Shift+Vorrightclickandselect\"pasteasplaintext\"topastethetextcopiedfromelsewherewithoutformatting;itshouldstillbepossibletoaddformattingwithourtool.";
@@ -71,8 +73,6 @@ public class AnnotationsStepDef extends BaseStepDef {
     private static final String ANNOTATIONS_TEXT_WARNING_MESSAGE = "You have exceeded the 3,000 character limit for this field. Please remove some of your text and try again.";
     private static final String richTextInput = "<h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span>";
     private static final String exactLengthRichText = "<h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4><p>vbnvbn<span style=\"text-decoration: underline;\"><em><strong>v</strong></em></span><h4 style=\"text-align: center;\">Sample of complex formatting</h4>";
-
-    private final static int CUSTOM_DRIVER_WAIT_TIME = 120;
 
     public AnnotationsStepDef() {
         deliveryPage = new DocumentDeliveryPage();
@@ -83,16 +83,12 @@ public class AnnotationsStepDef extends BaseStepDef {
         knowHowSearchResultsPage = new KnowHowSearchResultsPage();
         researchOrganizerPage = new ResearchOrganizerPage();
         routingPage = new RoutingPage();
-        saveToPopup = new SaveToPopup();
-        onePassLogin = new OnepassLogin();
+        historyUtils = new HistoryUtils();
         wlnHeader = new WLNHeader();
-        practicalLawUKCategoryPage = new PracticalLawUKCategoryPage();
-        searchResultsPage = new SearchResultsPage();
-        standardDocumentPage = new StandardDocumentPage();
-        restServiceFFHImpl = new RestServiceFFHImpl();
         restServiceAnnotations = new RestServiceAnnotationsImpl();
         pageActions = new PageActions();
         contacts = new ArrayList<String>();
+        foldersUtils = new FoldersUtils();
     }
 
     @When("^the user has accessed annotations text box$")
@@ -106,7 +102,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^user copies text from clipboard to annotation text box$")
     public void theUserCopiesTextFromClipboardToAnnotationTextBox() throws Throwable {
-       sharedAnnotationsPage.copyTextFromClipboardToTinyMceTextBox();
+        sharedAnnotationsPage.copyTextFromClipboardToTinyMceTextBox();
         LOG.info("Text was copied to the annotation text body");
     }
 
@@ -119,7 +115,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("^selecting \"(.*?)\" and writing text$")
     public void selectingAndWritingText(String style) throws Throwable {
         input = "input" + System.currentTimeMillis();
-        sharedAnnotationsPage.selectStyle(getFormatType(style));
+        sharedAnnotationsPage.selectStyle(FormatType.getFormatType(style));
         sharedAnnotationsPage.amendInput(input);
         LOG.info(style + " has been selected, and text has been written");
     }
@@ -129,7 +125,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         input = "input" + System.currentTimeMillis();
         sharedAnnotationsPage.selectStyleGroupFromFormatsMenu(styleGroupName);
         String style = styleGroupName + "_" + StringUtils.trimAllWhitespace(menuItem);
-        sharedAnnotationsPage.selectStyle(getFormatType(style));
+        sharedAnnotationsPage.selectStyle(FormatType.getFormatType(style));
         sharedAnnotationsPage.amendInput(input);
         LOG.info("The style group has been selected from 'Formats' menu, and the text has been written");
     }
@@ -138,40 +134,41 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void selectedMenuFormatStyle(String menu, String styleName) {
         sharedAnnotationsPage.selectStyleGroupFromFormatsMenu(menu);
         String style = menu + "_" + StringUtils.trimAllWhitespace(styleName);
-        sharedAnnotationsPage.selectStyle(getFormatType(style));
+        sharedAnnotationsPage.selectStyle(FormatType.getFormatType(style));
         LOG.info("The style group has been selected from 'Formats' menu");
     }
 
     @Then("^highlighted text changes to (Headers|Inline|Blocks|Alignment) format \"(.*?)\"$")
     public void highLightedTextChangesToMenuFormat(String menu, String styleName) {
         String style = menu + "_" + StringUtils.trimAllWhitespace(styleName);
-        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(getFormatType(style), input));
+        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(FormatType.getFormatType(style), input));
         LOG.info("The highlighted text has been changed");
     }
 
     @Then("^text displays with \"(.*?)\" character style$")
     public void textDisplaysWithCharacterStyle(String style) throws Throwable {
-        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(getFormatType(style), input));
+        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(FormatType.getFormatType(style), input));
         LOG.info("The text has been displayed with " + style + " character style");
     }
 
     @Then("^text displays with \"(.*?)\" (Headers|Inline|Blocks|Alignment) style$")
     public void textDisplaysWithCharacterStyle(String styleName, String styleGroupName) throws Throwable {
         String style = styleGroupName + "_" + StringUtils.trimAllWhitespace(styleName);
-        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(getFormatType(style), input));
+        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(FormatType.getFormatType(style), input));
         LOG.info("The annotation's text has been displayed with an appropriate character style");
     }
 
     @Then("^multiple lines text displays same \"(.*?)\" format$")
     public void textInLinesWithStyle(String styleName) throws Throwable {
-        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(getFormatType(styleName), numbersList.get(0), numbersList.get(2), numbersList.get(2)));
+        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(FormatType.getFormatType(styleName), numbersList.get(0),
+        numbersList.get(2), numbersList.get(2)));
         LOG.info("The text has displayed in character style");
     }
 
     @Then("^text displays with (Headers|Inline|Blocks|Alignment) \"(.*?)\" style$")
     public void textDisplaysWithMenuStyle(String styleGroupName, String menuItem) throws Throwable {
         String style = styleGroupName + "_" + StringUtils.trimAllWhitespace(menuItem);
-        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(getFormatType(style), input));
+        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(FormatType.getFormatType(style), input));
         LOG.info("The text has been displayed");
     }
 
@@ -182,6 +179,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         sharedAnnotationsPage.selectText();
         LOG.info("The text has been highlighted with the cursor");
     }
+
     @When("^user looks through the body of the document and select text with colour \"(.*?)\"$")
     public void selectTextFromDocument(String colour) throws Throwable {
         sharedAnnotationsPage.selectTextFromDocument();
@@ -194,7 +192,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^user gets guid from url$")
     public void userGetsGuidFromURL() throws Throwable {
-        guidDoc = getDocumentGUIDFromURL();
+        guidDoc = commonMethods.getDocumentGUIDFromCurrentURL();
         LOG.info("User set guidDoc:" + guidDoc);
     }
 
@@ -259,7 +257,7 @@ public class AnnotationsStepDef extends BaseStepDef {
                 styleChar = "x";
             sharedAnnotationsPage.amendInput(Keys.chord(Keys.CONTROL + styleChar));
         } else {
-            sharedAnnotationsPage.selectStyle(getFormatType(style));
+            sharedAnnotationsPage.selectStyle(FormatType.getFormatType(style));
         }
         LOG.info(style + " has been selected");
     }
@@ -285,7 +283,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^character style of highlighted text changes to \"(.*?)\"$")
     public void characterStyleOfHighlightedTextChangesTo(String style) throws Throwable {
-        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(getFormatType(style), input));
+        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(FormatType.getFormatType(style), input));
         LOG.info("Character style of the highlighted text has changed to " + style);
     }
 
@@ -322,13 +320,13 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^verify the \"(.*?)\" is enabled$")
     public void verifyTheOptionEnabled(String style) {
-        assertTrue(sharedAnnotationsPage.isLinkOptionEnabled(getFormatType(style)));
+        assertTrue(sharedAnnotationsPage.isLinkOptionEnabled(FormatType.getFormatType(style)));
         LOG.info("The " + style + " has been enabled");
     }
 
     @Then("^verify the \"(.*?)\" is disabled$")
     public void verifyTheOptionDisabled(String style) {
-        assertFalse(sharedAnnotationsPage.isLinkOptionEnabled(getFormatType(style)));
+        assertFalse(sharedAnnotationsPage.isLinkOptionEnabled(FormatType.getFormatType(style)));
         LOG.info(style + " has been disabled");
     }
 
@@ -340,7 +338,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^selecting \"(.*?)\" from the toolbar and writing text in multiple lines$")
     public void selectingFromTheToolbarAndWritingTextInMultipleLines(String style) throws Throwable {
-        sharedAnnotationsPage.selectStyle(getFormatType(style));
+        sharedAnnotationsPage.selectStyle(FormatType.getFormatType(style));
         numbersList = new ArrayList<String>();
         numbersList.add("input" + 1);
         numbersList.add("input" + 2);
@@ -366,8 +364,6 @@ public class AnnotationsStepDef extends BaseStepDef {
         sharedAnnotationsPage.amendInput(numbersList.get(2));
         LOG.info("the user has accessed annotations text box in multiple lines");
     }
-
-    public static String editOption;
 
     @When("^use the \"(.*?)\" to select options$")
     public void useTheToSelectOptions(String option) throws Throwable {
@@ -463,7 +459,9 @@ public class AnnotationsStepDef extends BaseStepDef {
         sharedAnnotationsPage.insertInput(input);
         LOG.info("The user has navigated to the annotations text box with text");
     }
+
     String randomGroup = "group" + System.currentTimeMillis();
+
     @When("^user creates new group$")
     public void theUserCreatesNewGroup() throws Throwable {
         contacts.add("PL_TEST_GEN, 0057");
@@ -556,7 +554,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^clicking on the \"(.*?)\" button from the toolbar$")
     public void clickingOnTheButtonFromTheToolbar(String style) throws Throwable {
-        sharedAnnotationsPage.selectStyle(getFormatType(style));
+        sharedAnnotationsPage.selectStyle(FormatType.getFormatType(style));
         LOG.info("The button " + style + " has been clicked from the toolbar");
     }
 
@@ -571,12 +569,8 @@ public class AnnotationsStepDef extends BaseStepDef {
         if (!menu.equals("selected Link")) {
             styleOption = menu + "_" + StringUtils.trimAllWhitespace(styleOption);
         }
-        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedWithSelectedStyle(getFormatType(styleOption), SharedAnnotationsPage.ExpectedResult.VISIBLE, input));
+        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedWithSelectedStyle(FormatType.getFormatType(styleOption), SharedAnnotationsPage  .ExpectedResult.VISIBLE, input));
         LOG.info("The saved annotation text has been saved in the selected format");
-    }
-
-    public void verifySharedAnnotationIsDisplayed(String input) {
-        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayed(input, SharedAnnotationsPage.ExpectedResult.VISIBLE));
     }
 
     @Then("^shared annotation should be displayed$")
@@ -585,7 +579,7 @@ public class AnnotationsStepDef extends BaseStepDef {
             deliveryPage.clickOnLink(DocumentDeliveryPage.Links.SHOW_HIDE_ANNOTATIONS);
         }
         LOG.info("Annotation contains text: " + input);
-        verifySharedAnnotationIsDisplayed(input);
+        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayed(input, SharedAnnotationsPage.ExpectedResult.VISIBLE));
     }
 
     @Then("^shared annotation is not displayed$")
@@ -596,7 +590,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^shared annotation should be displayed with \"(.*?)\"$")
     public void sharedAnnotationIsDisplayedToViewer(String linkName) throws Throwable {
-        verifySharedAnnotationIsDisplayed(linkName);
+        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayed(linkName, SharedAnnotationsPage.ExpectedResult.VISIBLE));
         LOG.info("The shared annotation has displayed with " + linkName);
     }
 
@@ -615,7 +609,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^the saved annotations multiple text should be displayed in the \"(.*?)\" format$")
     public void theAnnotationsTextShouldBeDisplayedInTheFormat(String styleOption) throws Throwable {
-        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedWithSelectedStyle(getFormatType(styleOption), SharedAnnotationsPage.ExpectedResult.VISIBLE, numbersList.get(0), numbersList.get(1), numbersList.get(2)));
+        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedWithSelectedStyle(FormatType.getFormatType(styleOption), SharedAnnotationsPage.ExpectedResult.VISIBLE, numbersList.get(0), numbersList.get(1), numbersList.get(2)));
         LOG.info("The saved annotation multiple text has been displayed in the " + styleOption + " format");
     }
 
@@ -624,7 +618,6 @@ public class AnnotationsStepDef extends BaseStepDef {
         assertTrue("Contacts Link is not displayed", sharedAnnotationsPage.isContactsLinkDisplayed());
         assertTrue("Previously Shared Link is not displayed", sharedAnnotationsPage.isPreviousContactsLinkDisplayed());
         LOG.info("The shared with Contacts and Previous Contacts link is present");
-
     }
 
     @Then("^verify that below options is present in BlockShareNoteLink dropdown$")
@@ -698,7 +691,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void userHasCreatedTheAnnotationsWith(String style) throws Throwable {
         deliveryPage.clickOnLink(DocumentDeliveryPage.Links.NEW_ANNOTATION);
         input = "input" + System.currentTimeMillis();
-        sharedAnnotationsPage.selectStyle(getFormatType(style));
+        sharedAnnotationsPage.selectStyle(FormatType.getFormatType(style));
         sharedAnnotationsPage.amendInput(input);
         LOG.info("The user has created the annotation with " + style);
     }
@@ -716,13 +709,13 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^annotations saved with the \"(.*?)\"$")
     public void annotationsSavedWithThe(String style) throws Throwable {
-        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(getFormatType(style), input));
+        assertTrue(sharedAnnotationsPage.isAnnoatationsTextDisplayedWithCharacterStyle(FormatType.getFormatType(style), input));
         LOG.info("The annotations have been saved with the " + style);
     }
 
     @Then(("^the annotations text should be displayed in the \"(.*?)\" format$"))
     public void theAnnotationTextShouldBeDisplayedInStyleFormat(String style) {
-        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedWithSelectedStyle(getFormatType(style), SharedAnnotationsPage.ExpectedResult.VISIBLE, input));
+        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedWithSelectedStyle(FormatType.getFormatType(style), SharedAnnotationsPage.ExpectedResult.VISIBLE, input));
         LOG.info("The annotations text is displayed in the " + style + " format");
     }
 
@@ -746,8 +739,6 @@ public class AnnotationsStepDef extends BaseStepDef {
         assertTrue("Application having page loading issue", sharedAnnotationsPage.isMetaDataDispalyed(input));
         LOG.info("The user has shared the annotation with a contact " + contact);
     }
-
-    public static final String groupName = "annotationsTestGroup";
 
     @When("^user has shared the annotations with new group and \"(.*?)\" as member$")
     public void userHasSharedTheAnnotationsWithAnotherGroup(String contact) throws Throwable {
@@ -822,12 +813,13 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^add annotation link is not displayed$")
     public void addAnnotationsLinkIsNotDisplayed() throws Throwable {
-        assertFalse("Annotation link is displayed",deliveryPage.isAnnotationLinkPresent());
+        assertFalse("Annotation link is displayed", deliveryPage.isAnnotationLinkPresent());
         LOG.info("The new annotations link is not displayed");
     }
+
     @Then("^choosing colour panel is not displayed$")
     public void choosingColourPanelIsNotDisplayed() throws Throwable {
-        assertFalse("Choosing colour panel is displayed",sharedAnnotationsPage.isColourForNotePresent());
+        assertFalse("Choosing colour panel is displayed", sharedAnnotationsPage.isColourForNotePresent());
         LOG.info("Choosing colour panel is not displayed");
     }
 
@@ -876,13 +868,13 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^verify that highlighted text with \"(.*?)\" colour was deleted$")
     public void verifyDeletedHighlightText(String colour) throws Throwable {
-        assertFalse("The highlighted text is displayed",sharedAnnotationsPage.isHighlightedTextPresent(colour));
+        assertFalse("The highlighted text is displayed", sharedAnnotationsPage.isHighlightedTextPresent(colour));
         LOG.info("The highlighted text is not displayed");
     }
 
     @Then("^user checks that text was copied without reference and equals \"(.*?)\"$")
     public void verifyTextWithoutReference(String expectedResult) throws Throwable {
-        String textWithoutReference =  sharedAnnotationsPage.getAnnotationTextBox().getText();
+        String textWithoutReference = sharedAnnotationsPage.getAnnotationTextBox().getText();
         assertTrue("Clipboard is empty", !textWithoutReference.isEmpty());
         assertTrue("Different expected text and text without reference. Text without reference: " + textWithoutReference, expectedResult.equals(textWithoutReference));
         LOG.info("Text was copied without reference");
@@ -890,7 +882,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^user checks that text was copied with reference and equals \"(.*?)\"$")
     public void verifyTextWithReference(String expectedResult) throws Throwable {
-        String textWithReference =  sharedAnnotationsPage.getAnnotationTextBox().getText();
+        String textWithReference = sharedAnnotationsPage.getAnnotationTextBox().getText();
         assertTrue("Clipboard is empty", !textWithReference.isEmpty());
         textWithReference = textWithReference.replaceAll("\\n", " ");
         assertTrue("Different expected text and text with reference. Text with reference: " + textWithReference, expectedResult.equals(textWithReference));
@@ -899,13 +891,13 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^check that annotation count at the top is displayed \"(.*?)\"$")
     public void checkAnnotationCountAtTheTop(String count) throws Throwable {
-        assertTrue("Count is not correct",count.equals(sharedAnnotationsPage.getCountAtTheTop()));
+        assertTrue("Count is not correct", count.equals(sharedAnnotationsPage.getCountAtTheTop()));
         LOG.info("Annotation count displays: " + sharedAnnotationsPage.getCountAtTheTop());
     }
 
     @Then("^user see annotation icon on the top of annotation box$")
     public void verifyAnnotationIconOnAnnotationBox() throws Throwable {
-        assertTrue("Annotation icon is not displayed at the top",sharedAnnotationsPage.isAddAnnotationIconPresentAtTheTop());
+        assertTrue("Annotation icon is not displayed at the top", sharedAnnotationsPage.isAddAnnotationIconPresentAtTheTop());
         LOG.info("Annotation icon is displayed on the top of annotation box");
     }
 
@@ -914,12 +906,14 @@ public class AnnotationsStepDef extends BaseStepDef {
         assertTrue("Annotation body at the top is not diplayed", sharedAnnotationsPage.isBodyAnnotationPresent());
         LOG.info("Annotation is displayed");
     }
+
     @And("^user collaps annotations at the top$")
     public void userCollapsAnnotationsAtTheTop() {
         sharedAnnotationsPage.clickOnCollapsOptionAtTheTop();
         LOG.info("Click on the collaps option");
 
     }
+
     @And("^user expands annotations at the top$")
     public void userExpandsAnnotationsAtTheTop() {
         sharedAnnotationsPage.clickOnExpandOptionAtTheTop();
@@ -1024,9 +1018,10 @@ public class AnnotationsStepDef extends BaseStepDef {
         assertTrue(sharedAnnotationsPage.isCloseButtonDisplayed());
         LOG.info(message + " text is displayed with undo and has closed links");
     }
+
     @Then("^user should see \"(.*?)\" user$")
     public void userCanSeePreviouslyUser(String userName) throws Throwable {
-        assertTrue("User: " + userName + " is not displayed",sharedAnnotationsPage.isUserExist(userName));
+        assertTrue("User: " + userName + " is not displayed", sharedAnnotationsPage.isUserExist(userName));
         LOG.info("User: " + userName + " is displayed");
     }
 
@@ -1034,7 +1029,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void userVerifiesRandomGroupAndCount(String count) throws Throwable {
         sharedAnnotationsPage.searchGroup(randomGroup);
         sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
-        assertTrue("Group: " + randomGroup + " is not displayed",sharedAnnotationsPage.isGroupFoundInSearch(randomGroup));
+        assertTrue("Group: " + randomGroup + " is not displayed", sharedAnnotationsPage.isGroupFoundInSearch(randomGroup));
         assertTrue("Count is different. Count into the group: " + sharedAnnotationsPage.getUserCountForGroup(), count.equals(sharedAnnotationsPage.getUserCountForGroup()));
         LOG.info("Group: " + randomGroup + " is displayed");
     }
@@ -1044,9 +1039,9 @@ public class AnnotationsStepDef extends BaseStepDef {
         pageActions.mouseOver(sharedAnnotationsPage.getGroupsListItem());
         sharedAnnotationsPage.clickOnGroupInfo();
         sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
-       for(String user : contacts) {
-           assertTrue("User: " + user + " is  not contained into info pop up", sharedAnnotationsPage.getTextFromPopUpWithMembers().contains(user));
-       }
+        for (String user : contacts) {
+            assertTrue("User: " + user + " is  not contained into info pop up", sharedAnnotationsPage.getTextFromPopUpWithMembers().contains(user));
+        }
         LOG.info("Pop up contains all users from group");
     }
 
@@ -1114,7 +1109,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("user closes disclaimer in the bottom")
     public void userClosesDisclaimer() {
-        if(sharedAnnotationsPage.isDisclaimerPresent()) {
+        if (sharedAnnotationsPage.isDisclaimerPresent()) {
             sharedAnnotationsPage.closeDisclaimer();
         }
         LOG.info("The disclaimer was closed");
@@ -1262,6 +1257,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         userNavigatesToDocumentWithGuid(guid);
         restServiceAnnotations.deleteAnnotations(guid);
     }
+
     @When("^the user removes all annotations for WLN document with GUID \"(.*)\"$")
     public void removeAllAnnotationsForWLNDocument(String guid) throws Throwable {
         userNavigatesDirectlyToDocumentWithGuid(guid);
@@ -1296,15 +1292,10 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user has selected an add note color link");
     }
 
-    private FormatType getFormatType(String style) {
-        LOG.info("The format type is got");
-        return FormatType.valueOf(style.toUpperCase().trim());
-    }
-
     @When("^adds current document to \"(.*?)\" folder$")
     public void addToFolder(String folderName) {
         deliveryPage.clickOnAddToFolderLink();
-        saveToFolder(folderName);
+        foldersUtils.saveToFolder(folderName);
         deliveryPage.waitForPageToLoad();
         LOG.info("A current document is added to " + folderName + " folder");
     }
@@ -1414,8 +1405,6 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("Displayed annotations are hidden");
     }
 
-    private static int annotationsCount;
-
     @When("^the user verifies the annotations count under link$")
     public void theUserVerifiesTheAnnotationsCountUnderLink() throws Throwable {
         assertTrue(sharedAnnotationsPage.isAnnotationsCountDisplayed());
@@ -1427,26 +1416,6 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void annotationsCountShouldMatchWithAnnotationsPresentOnDocument() throws Throwable {
         assertTrue(annotationsCount == sharedAnnotationsPage.getTotalNotesOnDocument());
         LOG.info("The annotations count match with the annotations present on a document");
-    }
-
-    public String saveToFolder(String folder) {
-        String folderName = null;
-        saveToPopup.waitForPageToLoad();
-        saveToPopup.waitForPageToLoadAndJQueryProcessing();
-        if (folder.equals("root")) {
-            saveToPopup.rootFolder().click();
-            folderName = saveToPopup.rootFolder().getText();
-        } else {
-            saveToPopup.waitForPageToLoadAndJQueryProcessing();
-            try {
-                saveToPopup.expandRootFolderWait().click();
-                saveToPopup.selectFolderWait(folder).click();
-            } catch (NoSuchElementException e) {
-                throw new RuntimeException("Folder '" + folder + "'doesn't present");
-            }
-        }
-        saveToPopup.save().click();
-        return folderName;
     }
 
     @When("^the user clicks on '(.+)' link on the header$")
@@ -1476,31 +1445,8 @@ public class AnnotationsStepDef extends BaseStepDef {
         researchOrganizerPage.waitForPageToLoad();
         researchOrganizerPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(80);
         HistoryTabs tab = HistoryTabs.valueOf(tabName);
-        openHistoryTab(tab);
+        historyUtils.openHistoryTab(tab);
         LOG.info("The user clicked on '(.+)' tab on the History page");
-    }
-
-    protected void openHistoryTab(HistoryTabs tab) {
-        researchOrganizerPage.waitForPageToLoad();
-        researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
-        WebElement historyTabNonClicked = researchOrganizerPage.findElement(tab.getId());
-        WebElement historyTabClicked = researchOrganizerPage.findElement(tab.getIdClickable());
-        if (historyTabNonClicked.isDisplayed()) {
-            historyTabNonClicked.click();
-            researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
-        }
-        if (historyTabClicked.isDisplayed()) {
-            researchOrganizerPage.waitForElementPresent(tab.getPageHeader());
-        } else {
-            throw new RuntimeException("History tab '" + tab.getName() + "' absent!");
-        }
-        LOG.info("A history tab is opened");
-    }
-
-    private String getDocumentGUIDFromURL() {
-        String urlString[] = getDriver().getCurrentUrl().split("/Document/");
-        String guid[] = urlString[1].split("/");
-        return guid[0];
     }
 
     @After("@deletionAnnotations")

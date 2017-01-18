@@ -8,7 +8,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
-public class userAvatarDropDownTests extends BaseStepDef {
+public class UserAvatarDropDownTests extends BaseStepDef {
 	
 	private WLNHeader wlnHeader = new WLNHeader();
 	private OnepassLogin onepassLogin = new OnepassLogin();

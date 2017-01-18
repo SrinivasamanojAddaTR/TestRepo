@@ -10,7 +10,7 @@ import cucumber.api.java.en.Then;
 
 import static org.junit.Assert.*;
 
-public class userCanSeeKHDocument extends BaseStepDef {
+public class UserCanSeeKHDocument extends BaseStepDef {
 
     public static final String REGEX = ".+(com/)(\\w{1})-(\\d{3})-(\\d{4}).+";
 

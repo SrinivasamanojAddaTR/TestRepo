@@ -10,7 +10,7 @@ import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
-import com.thomsonreuters.step_definitions.login.clientIdTest;
+import com.thomsonreuters.step_definitions.login.ClientIdTest;
 import com.thomsonreuters.step_definitions.uk.search.BasicKnowHowSearchUKS101Test;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -36,7 +36,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private CommonMethods commonMethods = new CommonMethods();
-    private com.thomsonreuters.step_definitions.login.clientIdTest clientIdTest = new clientIdTest();
+    private ClientIdTest clientIdTest = new ClientIdTest();
     private BasicKnowHowSearchUKS101Test basicKnowHowSearchUKS101Test = new BasicKnowHowSearchUKS101Test();
     private WLNHeader wlnHeader = new WLNHeader();
     private FooterUtils footerUtils = new FooterUtils();
@@ -341,26 +341,16 @@ public class AnzHistoryViewTest extends BaseStepDef {
                 }
             }
             String todayDate = CalendarAndDate.getCurrentDate();
-            if (researchOrganizerPage.waitForExpectedElements(researchOrganizerPage.historyPageResultByTitleLink(), 10).size()!=0) {
+            if (researchOrganizerPage.waitForExpectedElements(researchOrganizerPage.historyPageResultByTitleLink(), 10).size() != 0) {
                 String actualDate = researchOrganizerPage.getDateAtRowPosition("1").getText();
-                if (!actualDate.contains(todayDate)) {
-                    runTheSearchAndGetBackToHistoryPage(searchTerm);
-                }
-            } else {
-                runTheSearchAndGetBackToHistoryPage(searchTerm);
+                basicKnowHowSearchUKS101Test.theUserRunsAFreeTextSearchForTheQuery(searchTerm);
+                legalUpdatesResultsPage.getAllUpdatesTitles().get(0).click();
+                legalUpdatesResultsPage.waitForPageToLoad();
+                legalUpdatesResultsPage.waitForPageToLoadAndJQueryProcessing();
+                legalUpdatesResultsPage.getElementByLinkText("History").click();
+
             }
-
-        }
-    }
-
-    private void runTheSearchAndGetBackToHistoryPage(String searchTerm) throws Throwable {
-        basicKnowHowSearchUKS101Test.theUserRunsAFreeTextSearchForTheQuery(searchTerm);
-        legalUpdatesResultsPage.getAllUpdatesTitles().get(0).click();
-        legalUpdatesResultsPage.waitForPageToLoad();
-        legalUpdatesResultsPage.waitForPageToLoadAndJQueryProcessing();
-        legalUpdatesResultsPage.getElementByLinkText("History").click();
-
-    }
+        }}
 
     @Then("^user should see the page \"(.*?)\"$")
     public void userShouldSeeThePage(String page) throws Throwable {

@@ -7,7 +7,7 @@ import cucumber.api.java.en.Then;
 
 import static org.junit.Assert.assertTrue;
 
-public class abilityToHaveLoginPage extends BaseStepDef {
+public class AbilityToHaveLoginPage extends BaseStepDef {
 
     private OnepassLoginUtils onePassLoginUtils = new OnepassLoginUtils();
     private OnepassLogin onePassLogin = new OnepassLogin();

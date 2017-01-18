@@ -16,7 +16,7 @@ import javax.mail.Message;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class abilityToShareFolder extends BaseStepDef {
+public class AbilityToShareFolder extends BaseStepDef {
 
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private BaseFoldersBehaviour baseFoldersBehavior = new BaseFoldersBehaviour();
@@ -26,7 +26,7 @@ public class abilityToShareFolder extends BaseStepDef {
     private ShareFolderRolesPopup shareFolderRolesPopup = new ShareFolderRolesPopup();
     private FoldersUtils foldersUtils = new FoldersUtils();
     private NewFolderPopup newFolderPopup = new NewFolderPopup();
-    private abilityToCreateFolder abilityToCreateFolder = new abilityToCreateFolder();
+    private AbilityToCreateFolder abilityToCreateFolder = new AbilityToCreateFolder();
 	private EmailMessageUtils emailMessageUtils = new EmailMessageUtils();
 
 	private String EMAIL_SUBJECT = "would like to share folders with you";
@@ -175,7 +175,7 @@ public class abilityToShareFolder extends BaseStepDef {
             newFolderPopup.waitForPageToLoad();
             newFolderPopup.waitForPageToLoadAndJQueryProcessing();
             softly.assertThat(newFolderPopup.folderRoleInformation().getText().contains(userRole)).overridingErrorMessage("User role is incorrect in information message").isTrue();
-            baseFoldersBehavior.createNewFolder(newFolderName, folderName);
+            foldersUtils.createNewFolder(newFolderName, folderName);
             abilityToCreateFolder.checkFolderPresent(newFolderName,folderName);
         }
         

@@ -1,5 +1,6 @@
 package com.thomsonreuters.step_definitions.login;
 
+import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.search.SearchHomePage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
@@ -11,9 +12,10 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class hideFFHLinksForNotLoggedInUser extends BaseStepDef {
+public class HideFFHLinksForNotLoggedInUser extends BaseStepDef {
 
     private SearchHomePage searchHomePage = new SearchHomePage();
+    private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private WLNHeader wlnHeader = new WLNHeader();
     private SearchUtils searchUtils = new SearchUtils();
 
@@ -26,7 +28,7 @@ public class hideFFHLinksForNotLoggedInUser extends BaseStepDef {
 
     @Then("^he does not see in the search results page any link related to FFH$")
     public void heDoesNotSeeInTheSearchResultsPageAnyLinkRelatedToFFH(List<String> ffhLinks) throws Throwable {
-        checkIfLinksVisible(ffhLinks);
+        assertTrue("FFH is visvible for user", researchOrganizerPage.checkIfLinksVisible(ffhLinks));
     }
 
     @When("^he looks at the header , no matter which page he is at$")
@@ -51,18 +53,7 @@ public class hideFFHLinksForNotLoggedInUser extends BaseStepDef {
 
     @Then("^he does not see in the document page any link related to FFH$")
     public void heDoesNotSeeInTheDocumentPageAnyLinkRelatedToFFH(List<String> ffhLinks) throws Throwable {
-        checkIfLinksVisible(ffhLinks);
-    }
-
-    private void checkIfLinksVisible(List<String> ffhLinks) {
-        int result = 0;
-        for (String ffhLink : ffhLinks) {
-            if (wlnHeader.getElementByLinkText(ffhLink) != null) {
-                LOG.info(ffhLink + " link is visvible for user");
-                result++;
-            }
-        }
-        assertTrue("FFH is visvible for user", result == 0);
+        assertTrue("FFH is visvible for user", researchOrganizerPage.checkIfLinksVisible(ffhLinks));
     }
 
 }

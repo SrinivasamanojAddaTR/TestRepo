@@ -2,7 +2,8 @@ package com.thomsonreuters.step_definitions.search;
 
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
-import com.thomsonreuters.step_definitions.uk.search.facetJavaTest;
+import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
+import com.thomsonreuters.step_definitions.uk.search.FacetJavaTest;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class AnzSearchFacetTest extends BaseStepDef {
 
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
-    private facetJavaTest facetjavaTest = new facetJavaTest();
+    private SearchUtils searchUtils = new SearchUtils();
 
     @When("^the user selects the know how following parent facets with their respective count saved$")
     public void theUserSelectsTheKnowHowFollowingParentFacets(List<String> facets) throws Throwable {
@@ -24,7 +25,7 @@ public class AnzSearchFacetTest extends BaseStepDef {
         for (String facet : facets) {
 
             knowHowSearchResultsPage.knowHowFacetCheckbox(facet).click();
-            assertTrue("Check box not selected..!", facetjavaTest.isCheckboxSeleted(facet));
+            assertTrue("Check box not selected..!", searchUtils.isCheckboxSeleted(facet));
         }
     }
 

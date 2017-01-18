@@ -8,7 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 /**
  * Created by Steph Armytage on 16/02/2015.
  */
-public class ukKnowHowSelectDeselectSingleFacetTest extends BaseStepDef {
+public class UKKnowHowSelectDeselectSingleFacetTest extends BaseStepDef {
 
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
 

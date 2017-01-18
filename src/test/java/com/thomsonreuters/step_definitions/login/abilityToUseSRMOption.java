@@ -20,7 +20,7 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class abilityToUseSRMOption extends BaseStepDef {
+public class AbilityToUseSRMOption extends BaseStepDef {
 
     private OnepassLogin onepassLogin = new OnepassLogin();
     private WLNHeader wlnHeader = new WLNHeader();

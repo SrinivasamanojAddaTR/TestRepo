@@ -11,10 +11,10 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class clientIdTest extends BaseStepDef {
+public class ClientIdTest extends BaseStepDef {
 	
     private WLNHeader wlnHeader = new WLNHeader();
-	private abilityToChangeClientIDAfterLogin abilityToChangeClientIDAfterLogin = new abilityToChangeClientIDAfterLogin();
+	private AbilityToChangeClientIDAfterLogin abilityToChangeClientIDAfterLogin = new AbilityToChangeClientIDAfterLogin();
 
 	
 	@When("^user see a list of recent client ids$")

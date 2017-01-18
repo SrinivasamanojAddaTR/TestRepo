@@ -5,7 +5,7 @@ import com.thomsonreuters.pageobjects.utils.folders.HistoryUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.And;
 
-public class abilityToHavePagesDedicatedToHistoryAndFolders extends BaseStepDef {
+public class AbilityToHavePagesDedicatedToHistoryAndFolders extends BaseStepDef {
 
     private HistoryUtils historyUtils = new HistoryUtils();
 

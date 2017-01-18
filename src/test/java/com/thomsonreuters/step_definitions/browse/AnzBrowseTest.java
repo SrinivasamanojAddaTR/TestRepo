@@ -3,7 +3,7 @@ package com.thomsonreuters.step_definitions.browse;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesResultsPage;
-import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesWidget;
+import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesWidgetPage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;
@@ -30,7 +30,7 @@ public class AnzBrowseTest extends BaseStepDef {
     private KnowHowDocumentPage knowHowDocumentPage = new KnowHowDocumentPage();
     private WLNHeader wlnHeader = new WLNHeader();
     private HomePage homePage = new HomePage();
-    private LegalUpdatesWidget legalUpdatesWidget = new LegalUpdatesWidget();
+    private LegalUpdatesWidgetPage legalUpdatesWidget = new LegalUpdatesWidgetPage();
     private LegalUpdatesResultsPage legalUpdatesResultsPage = new LegalUpdatesResultsPage();
     private TopicPage topicPage = new TopicPage();
     private GlossaryPage glossaryPage = new GlossaryPage();

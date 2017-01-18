@@ -1,5 +1,6 @@
 package com.thomsonreuters.step_definitions.uk.folders;
 
+import com.thomsonreuters.pageobjects.common.BaseCommonLoginNavigation;
 import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.folders.CreateGroupPopup;
@@ -13,19 +14,20 @@ import cucumber.api.java.en.When;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class abilityNotToSeeFauvoritesFromOthersSystems extends BaseStepDef {
+public class AbilityNotToSeeFauvoritesFromOthersSystems extends BaseStepDef {
 
     private NavigationCobalt navigationCobalt = new NavigationCobalt();
     private CategoryPage categoryPage = new CategoryPage();
     private WLNFavoritesWidget wlnFavoritesWidget = new WLNFavoritesWidget();
     private FavouritesPage favouritesPage = new FavouritesPage();
+    private BaseCommonLoginNavigation baseCommonLoginNavigation = new BaseCommonLoginNavigation();
     private CreateGroupPopup createGroupPopup = new CreateGroupPopup();
     private PageActions pageActions = new PageActions();
 
     @When("^the user come back on to WLN Home page$")
     public void userComeBackOnToWLNHomePage() throws Throwable {
         categoryPage.waitForPageToLoad();
-        if (!isHomePage()) {
+        if (!baseCommonLoginNavigation.isHomePage()) {
             navigationCobalt.navigateToWLNHomePage();
         }
     }
@@ -33,7 +35,7 @@ public class abilityNotToSeeFauvoritesFromOthersSystems extends BaseStepDef {
     @When("^the user come back on to Home page$")
     public void userComeBackOnToHomePage() throws Throwable {
         categoryPage.waitForPageToLoad();
-        if (!isHomePage()) {
+        if (!baseCommonLoginNavigation.isHomePage()) {
             navigationCobalt.navigateToHomePage();
             categoryPage.waitForPageToLoad();
         }
@@ -139,7 +141,7 @@ public class abilityNotToSeeFauvoritesFromOthersSystems extends BaseStepDef {
 
     @Then("^the user checks the start page is Home page$")
     public void checkHomePage() throws Throwable {
-        if (!isHomePage()) {
+        if (!baseCommonLoginNavigation.isHomePage()) {
             throw new RuntimeException("Start page is not Home Page");
         }
     }
@@ -164,14 +166,4 @@ public class abilityNotToSeeFauvoritesFromOthersSystems extends BaseStepDef {
     public void openTab(String linkName) throws Throwable {
         categoryPage.openTab(linkName);
     }
-
-    public boolean isHomePage() {
-        if (!(categoryPage.getCurrentUrl().contains("/Search/Home.html")
-                || categoryPage.getCurrentUrl().contains("/Search/BrowseRoot.html") || categoryPage.getCurrentUrl()
-                .contains("Home/Home"))) {
-            return false;
-        }
-        return true;
-    }
-
 }

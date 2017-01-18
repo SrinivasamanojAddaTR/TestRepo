@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
 
 import static org.junit.Assert.assertTrue;
 
-public class ukOpenWebTestsTest extends BaseStepDef {
+public class UKOpenWebTestsTest extends BaseStepDef {
 
     private DemoUnitedKingdomLandingPage demoUnitedKingdomLandingPage = new DemoUnitedKingdomLandingPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();

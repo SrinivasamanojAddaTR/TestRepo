@@ -3,13 +3,11 @@ package com.thomsonreuters.step_definitions.folders;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
-import com.thomsonreuters.step_definitions.uk.folders.BaseFoldersBehaviour;
 import cucumber.api.java.en.When;
 
-public class abilityToCopyAndMoveFolder extends BaseStepDef {
+public class AbilityToCopyAndMoveFolder extends BaseStepDef {
 
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
-    private BaseFoldersBehaviour baseFoldersBehavior = new BaseFoldersBehaviour();
     private FoldersUtils foldersUtils = new FoldersUtils();
 	
 	@When("^the user copies \"(.*?)\" in \"(.*?)\" folder$")
@@ -17,7 +15,7 @@ public class abilityToCopyAndMoveFolder extends BaseStepDef {
 		foldersUtils.openFolder(sourceFolderName);
         researchOrganizerPage.optionsButton().click();
         researchOrganizerPage.optionsCopy().click();
-        baseFoldersBehavior.copyFolder(destinationFolderName);
+        foldersUtils.copyFolder(destinationFolderName);
 	}
 	
 	@When("^the user moves \"(.*?)\" in \"(.*?)\" folder$")
@@ -25,7 +23,7 @@ public class abilityToCopyAndMoveFolder extends BaseStepDef {
 		foldersUtils.openFolder(sourceFolderName);
         researchOrganizerPage.optionsButton().click();
         researchOrganizerPage.optionsMove().click();
-        baseFoldersBehavior.moveFolder(destinationFolderName);
+        foldersUtils.moveFolder(destinationFolderName);
 	}
 	
 	@When("^the folder \"(.*?)\" disappears from \"(.*?)\" folder level$")

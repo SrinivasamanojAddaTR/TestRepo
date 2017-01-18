@@ -5,8 +5,6 @@ import com.thomsonreuters.pageobjects.common.WindowHandler;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.generic.PPIGenericDocDisplay;
 import com.thomsonreuters.pageobjects.pages.landingPage.UKPLCSitePage;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DraftingNotes;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
 import com.thomsonreuters.pageobjects.pages.search.*;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
@@ -25,7 +23,7 @@ import java.util.regex.Pattern;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class facetJavaTest extends BaseStepDef {
+public class FacetJavaTest extends BaseStepDef {
     Integer[] resultArray = new Integer[10];
 
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
@@ -43,7 +41,6 @@ public class facetJavaTest extends BaseStepDef {
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private SearchUtils searchUtils = new SearchUtils();
     private PPIGenericDocDisplay ppiGenericDocDisplay = new PPIGenericDocDisplay();
-    private KHResourcePage resourcePage = new KHResourcePage();
     private String mainWindowHandle;
     private int facetsDocsCount = 0;
 
@@ -172,7 +169,7 @@ public class facetJavaTest extends BaseStepDef {
 
         for (String facet : facets) {
             knowHowSearchResultsPage.knowHowFacetCheckbox(facet).click();
-            assertTrue("Check box not selected..!", isCheckboxSeleted(facet));
+            assertTrue("Check box not selected..!", searchUtils.isCheckboxSeleted(facet));
         }
     }
 
@@ -184,7 +181,7 @@ public class facetJavaTest extends BaseStepDef {
         SoftAssertions softAssertions = new SoftAssertions();
         for (String facet : facets) {
             knowHowSearchResultsPage.knowHowFacetCheckbox(facet).click();
-            softAssertions.assertThat(isCheckboxSeleted(facet)).withFailMessage("Check box not selected..!").isTrue();
+            softAssertions.assertThat(searchUtils.isCheckboxSeleted(facet)).withFailMessage("Check box not selected..!").isTrue();
         }
         softAssertions.assertAll();
     }
@@ -214,19 +211,6 @@ public class facetJavaTest extends BaseStepDef {
         for (String facet : facets) {
             assertFalse(facet + " is still Selected..!", casesSearchResultsPage.facetCheckbox(facet).isSelected());
         }
-    }
-
-    public boolean isCheckboxSeleted(String facet) {
-        for (int i = 0; i < 3; i++) {//magic number 3 !!!!!!
-            knowHowSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
-            if (!knowHowSearchResultsPage.knowHowFacetCheckbox(facet).isSelected()) {
-                knowHowSearchResultsPage.practiceAreaFacetLabel().click();
-                knowHowSearchResultsPage.knowHowFacetCheckbox(facet).click();
-            } else {
-                return true;
-            }
-        }
-        return false;
     }
 
     @When("^the user verifies the presence of the whats market facet \"(.*?)\"$")
@@ -324,12 +308,12 @@ public class facetJavaTest extends BaseStepDef {
 
     @When("^the user is able to verify that the first result contains both \"(.*?)\" and \"(.*?)\" in the same paragraph$")
     public void theUserIsAbleToVerifyThatTheFirstResultContainsBothAndInTheSameParagraph(String arg1, String arg2) throws Throwable {
-        assertTrue(isSearchTermsPresentInParagraph(CommonDocumentPage.TermsInSequence.NO, arg1, arg2));
+        assertTrue(searchUtils.isSearchTermsPresentInParagraph(CommonDocumentPage.TermsInSequence.NO, arg1, arg2));
     }
 
     @When("^the user is able to verify that the first result contains both \"(.*?)\" and \"(.*?)\" in the same paragraph with the first term preceding the second$")
     public void theUserIsAbleToVerifyThatTheFirstResultContainsBothAndInTheSameParagraphWithTheFirstTermPrecedingTheSecond(String arg1, String arg2) throws Throwable {
-        assertTrue(isSearchTermsPresentInParagraph(CommonDocumentPage.TermsInSequence.NO, arg1, arg2));
+        assertTrue(searchUtils.isSearchTermsPresentInParagraph(CommonDocumentPage.TermsInSequence.NO, arg1, arg2));
     }
 
     @When("^the user is able to verify that the first result contains the term \"(.*?)\"$")
@@ -368,12 +352,12 @@ public class facetJavaTest extends BaseStepDef {
 
     @When("^the user is able to verify that the first case result contains the term \"(.*?)\" and the term \"(.*?)\" within \"(.*?)\" terms of each other with the first term preceding the second$")
     public void theUserIsAbleToVerifyThatTheFirstCaseResultContainsTheTermAndTheTermWithinTermsOfEachOtherWithTheFirstTermPrecedingTheSecond(String firstTerm, String withInWords, String secondTerm) throws Throwable {
-        assertTrue(isSearchTermsPresentInParagraphWithInNumberOfWords(CommonDocumentPage.TermsInSequence.YES, Integer.valueOf(withInWords), firstTerm, secondTerm));
+        assertTrue(searchUtils.isSearchTermsPresentInParagraphWithInNumberOfWords(CommonDocumentPage.TermsInSequence.YES, Integer.valueOf(withInWords), firstTerm, secondTerm));
     }
 
     @Then("^the user verifies the search result contains the both search terms \"(.*?)\" \"(.*?)\" within \"(.*?)\" terms of each other within the full text$")
     public void theUserVerifiesTheSearchResultContainsTheBothSearchTermsWithinTermsOfEachOtherWithinTheFullText(String firstTerm, String secondTerm, String withInWords) {
-        assertTrue(isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence.NO, Integer.valueOf(withInWords), firstTerm, secondTerm));
+        assertTrue(searchUtils.isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence.NO, Integer.valueOf(withInWords), firstTerm, secondTerm));
     }
 
     @When("^the user verifies the presence of the whats market facet groups$")
@@ -489,7 +473,7 @@ public class facetJavaTest extends BaseStepDef {
 
     @Then("^the user verifies the search result contains the search terms \"(.*?)\" and also \"(.*?)\" within the full text$")
     public void theUserCanVerifyTheSearchResultContainsTheSearchTermsAndAlsoWithinTheFullText(String firstTerm, String secondTerm) {
-        String docText = getFullText().toLowerCase();
+        String docText = searchUtils.getFullText().toLowerCase();
         assertTrue(docText.contains(firstTerm));
         assertTrue(docText.contains(secondTerm));
     }
@@ -527,7 +511,7 @@ public class facetJavaTest extends BaseStepDef {
 
                             for (WebElement element : searchTermsFound) {
                                 textFromElement = element.getText().toUpperCase();
-                                if (Pattern.matches(wildcardToRegex("*" + currentTerm + "*"), textFromElement)) {
+                                if (Pattern.matches(commonMethods.wildcardToRegex("*" + currentTerm + "*"), textFromElement)) {
                                     LOG.info("Checking for term '" + currentTerm + "' within " + textFromElement);
                                     termFound = true;
                                     break;
@@ -545,46 +529,6 @@ public class facetJavaTest extends BaseStepDef {
         }
     }
 
-    // Taken from  http://www.rgagnon.com/javadetails/java-0515.html
-    // This is to allow wildcard matches
-    public static String wildcardToRegex(String wildcard) {
-        String outputString;
-        StringBuffer s = new StringBuffer(wildcard.length());
-        s.append('^');
-        for (int i = 0, is = wildcard.length(); i < is; i++) {
-            char c = wildcard.charAt(i);
-            switch (c) {
-                case '*':
-                    s.append(".*");
-                    break;
-                case '?':
-                    s.append(".");
-                    break;
-                // escape special regexp-characters
-                case '(':
-                case ')':
-                case '[':
-                case ']':
-                case '$':
-                case '^':
-                case '.':
-                case '{':
-                case '}':
-                case '|':
-                case '\\':
-                    s.append("\\");
-                    s.append(c);
-                    break;
-                default:
-                    s.append(c);
-                    break;
-            }
-        }
-        s.append('$');
-        outputString = s.toString();
-        return (outputString);
-    }
-
     @Then("^returns to the WM search results by Return to list$")
     public void returnstotheWMsearchresultsbyReturntolist() {
         knowHowSearchResultsPage.waitForPageToLoad();
@@ -593,18 +537,18 @@ public class facetJavaTest extends BaseStepDef {
 
     @Then("^the user verifies the search result contains the search terms \"(.*?)\" as a phrase within the full text$")
     public void theUserVerifiesTheSearchResultContainsTheSearchTermsAsAPhraseWithinTheFullText(String phrase) {
-        String docText = getFullText().toLowerCase();
+        String docText = searchUtils.getFullText().toLowerCase();
         assertTrue(docText.contains(phrase));
     }
 
     @Then("^the user verifies the search result contains the search terms \"(.*?)\" \"(.*?)\" within a single paragraph in the full text$")
     public void theUserVerifiesTheSearchResultContainsTheSearchTermsWithinASingleParagraphInTheFullText(String firstTerm, String secondTerm) {
-        assertTrue(isSearchTermsPresentInParagraph(CommonDocumentPage.TermsInSequence.NO, firstTerm, secondTerm));
+        assertTrue(searchUtils.isSearchTermsPresentInParagraph(CommonDocumentPage.TermsInSequence.NO, firstTerm, secondTerm));
     }
 
     @Then("^the user verifies the search result contains the search terms \"(.*?)\" \"(.*?)\" within the same sentence in the full text$")
     public void theUserVerifiesTheSearchResultContainsTheSearchTermsWithinSentenceInTheFullText(String firstTerm, String secondTerm) {
-        assertTrue(isSearchTermsPresentInSentence(CommonDocumentPage.TermsInSequence.NO, firstTerm, secondTerm));
+        assertTrue(searchUtils.isSearchTermsPresentInSentence(CommonDocumentPage.TermsInSequence.NO, firstTerm, secondTerm));
     }
 
     @Then("^the user verifies the search result contains the search terms \"(.*?)\" \"(.*?)\" in the full text where the first precedes the second in the same paragraph$")
@@ -622,7 +566,7 @@ public class facetJavaTest extends BaseStepDef {
                 String secondTermToCheck = secondEachTerms[dataRowTwo];
                 if (!result) {
                     LOG.info("Checking term " + firstTermToCheck + " precedes " + secondTermToCheck);
-                    result = isSearchTermsPresentInParagraph(KnowHowDocumentPage.TermsInSequence.YES, firstTermToCheck, secondTermToCheck);
+                    result = searchUtils.isSearchTermsPresentInParagraph(KnowHowDocumentPage.TermsInSequence.YES, firstTermToCheck, secondTermToCheck);
                 } else {
                     // Test has passed
                     break;
@@ -636,25 +580,25 @@ public class facetJavaTest extends BaseStepDef {
 
     @Then("^the user verifies the search result contains the search terms \"(.*?)\" \"(.*?)\" in the full text where the first precedes the second in the same sentence$")
     public void theUserVerifiesTheSearchResultContainsTheSearchTermsInTheFullTextWhereTheFirstPrecedesTheSecondInTheSameSentence(String firstTerm, String secondTerm) {
-        assertTrue(isSearchTermsPresentInSentence(CommonDocumentPage.TermsInSequence.YES, firstTerm, secondTerm));
+        assertTrue(searchUtils.isSearchTermsPresentInSentence(CommonDocumentPage.TermsInSequence.YES, firstTerm, secondTerm));
     }
 
 
     @Then("^the user verifies the search result contains the both search terms \"(.*?)\" \"(.*?)\" \"(.*?)\" terms of each other in the full text with the first preceding the second$")
     public void theUserVerifiesTheResultsWithNumberOfTermsWithEachOtherInSequence(String firstTerm, String secondTerm, String withInWords) {
-        assertTrue("Unable to find the search terms with the preceding sequence", isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence.YES, Integer.valueOf(withInWords), firstTerm, secondTerm));
+        assertTrue("Unable to find the search terms with the preceding sequence", searchUtils.isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence.YES, Integer.valueOf(withInWords), firstTerm, secondTerm));
     }
 
     @Then("^the user verifies the search result contains the first search term \"(.*?)\" in the full text for the first term and not the second \"(.*?)\"$")
     public void theUserVerifiesTheSearchResultsContainsTheFirstSearchNotTheSecondOne(String firstTerm, String secondTerm) {
-        String docText = getFullText().toLowerCase();
+        String docText = searchUtils.getFullText().toLowerCase();
         assertTrue(docText.contains(firstTerm.toLowerCase().trim()));
         assertFalse(docText.contains(secondTerm.toLowerCase().trim()));
     }
 
     @Then("^the user verifies the search result contains the full text includes one or more of the variants$")
     public void theUserVerifiesTheResultContainsWithOneOrMoreVariants(List<String> results) {
-        String docText = getFullText();
+        String docText = searchUtils.getFullText();
         int count = 0;
         for (String result : results) {
             if (docText.contains(result)) {
@@ -666,14 +610,14 @@ public class facetJavaTest extends BaseStepDef {
 
     @Then("^the user verifies the search result contains full text includes words starting and ending with given \"(.*?)\"$")
     public void theUserVerifiesTheSearchResultContainsWordsStartingAndEndingWithGivenCriteria(String searchTerm) {
-        String docText = getFullText();
+        String docText = searchUtils.getFullText();
         String regExp = searchTerm.replace("**", "[a-zA-Z\\d_]");
         assertTrue(commonMethods.isRegExpFound(regExp, docText));
     }
 
     @Then("^the user verifies the search result contains the full text may include the following terms$")
     public void theUserVerifiesTheSearchResultContainsWordsStartingAndEndingWithGivenCriteria(List<String> results) {
-        String docText = getFullText().toLowerCase();
+        String docText = searchUtils.getFullText().toLowerCase();
         int count = 0;
         for (String result : results) {
             if (docText.contains(result.toLowerCase())) {
@@ -685,14 +629,14 @@ public class facetJavaTest extends BaseStepDef {
 
     @Then("^the user verifies the search result contains the full text will contain the term \"(.*?)\" but not the term \"(.*?)\"$")
     public void theUserVerifiesThatThereIsNoPlurals(String term1, String term2) {
-        String docText = getFullText().toLowerCase();
+        String docText = searchUtils.getFullText().toLowerCase();
         assertTrue(docText.contains(term1));
         assertFalse(docText.contains(term2));
     }
 
     @Then("^the user verifies the search result contains the full text will include the following variants terms$")
     public void theSearchResultContainsVariantTerms(List<String> results) {
-        String docText = getFullText().toLowerCase();
+        String docText = searchUtils.getFullText().toLowerCase();
         int count = 0;
         for (String result : results) {
             if (docText.contains(result.toLowerCase())) {
@@ -704,7 +648,7 @@ public class facetJavaTest extends BaseStepDef {
 
     @Then("^the user verifies the search result contains the full text will contains the term \"(.*?)\"$")
     public void theUserVerifiesTheBracetsSearchWillNotImpactTheTerm(String termText) {
-        String docText = getFullText().toLowerCase();
+        String docText = searchUtils.getFullText().toLowerCase();
         assertTrue(docText.contains(termText));
     }
 
@@ -714,19 +658,19 @@ public class facetJavaTest extends BaseStepDef {
         docText = knowHowDocumentPage.getFullText().toLowerCase();
         assertTrue(docText.contains(term1.toLowerCase().trim()));
         assertFalse(docText.contains(term2.toLowerCase().trim()));
-        assertTrue(isSearchTermsPresentInParagraph(KnowHowDocumentPage.TermsInSequence.NO, term3, term4));
+        assertTrue(searchUtils.isSearchTermsPresentInParagraph(KnowHowDocumentPage.TermsInSequence.NO, term3, term4));
     }
 
     @Then("^the user is able to verify that the full text contains the term \"(.*?)\" within \"(.*?)\" terms of the term \"(.*?)\" or the term \"(.*?)\" within \"(.*?)\" terms of the term \"(.*?)\"$")
     public void theUserVerifiesTheTermSearchingWithOr(String term1, String withInWords, String term2, String term3, String noOfWords, String term4) {
-        boolean firstSetValue = isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence.NO, Integer.valueOf(withInWords), term1, term2);
-        boolean secondSetValue = isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence.YES, Integer.valueOf(noOfWords), term3, term4);
+        boolean firstSetValue = searchUtils.isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence.NO, Integer.valueOf(withInWords), term1, term2);
+        boolean secondSetValue = searchUtils.isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence.YES, Integer.valueOf(noOfWords), term3, term4);
         assertTrue(firstSetValue || secondSetValue);
     }
 
     @Then("^the user is able to verify that the full text will not contain the term \"(.*?)\"$")
     public void theUserVerifiesThatThereIsNoPluralwords(String term1) {
-        String docText = getFullText();
+        String docText = searchUtils.getFullText();
         assertFalse(docText.contains(" " + term1 + " "));
     }
 
@@ -734,7 +678,7 @@ public class facetJavaTest extends BaseStepDef {
     public void whatsMarketEitherOfTheResults(List<String> results) {
         int count, actualCount = 0;
         String resultParts[];
-        String docText = getFullText().toLowerCase();
+        String docText = searchUtils.getFullText().toLowerCase();
         for (String result : results) {
             resultParts = result.split("&");
             count = 0;
@@ -756,48 +700,9 @@ public class facetJavaTest extends BaseStepDef {
 
     @Then("^the user verifies the whats market result contains the search terms \"(.*?)\" and also \"(.*?)\" within the full text$")
     public void theUserCanVerifyThatWhatsMarketResultsContainsBothSearchTerms(String firstTerm, String secondTerm) {
-        String docText = getFullText();
+        String docText = searchUtils.getFullText();
         assertTrue(docText.contains(firstTerm));
         assertTrue(docText.contains(secondTerm));
-    }
-
-    private String getFullText() {
-        String docText;
-        if (commonMethods.isCurrentDocumentFromKnowHow()) {
-            openDraftingNotesIfPresent();
-            docText = knowHowDocumentPage.getFullText();
-        } else {
-            docText = whatsMarketDocumentPage.getFullText();
-        }
-        return docText;
-    }
-
-    private void openDraftingNotesIfPresent() {
-        if (resourcePage.isDraftingNotesDeliveryIconExist()) {
-            resourcePage.selectShowAndHideDraftingNotesLink();
-            resourcePage.selectOptionFromDraftingNotes(DraftingNotes.SHOW_ALL);
-        }
-    }
-
-    private boolean isSearchTermsPresentInParagraph(KnowHowDocumentPage.TermsInSequence termsInSequence, String firstTerm, String secondTerm) {
-        if (commonMethods.isCurrentDocumentFromKnowHow()) {
-            return knowHowDocumentPage.isSearchTermsPresentInParagraph(termsInSequence, firstTerm, secondTerm);
-        } else {
-            return whatsMarketDocumentPage.isSearchTermsPresentInParagraph(termsInSequence, firstTerm, secondTerm);
-        }
-    }
-
-    private boolean isSearchTermsPresentInSentence(KnowHowDocumentPage.TermsInSequence termsInSequence, String firstTerm, String secondTerm) {
-        return knowHowDocumentPage.isSearchTermsPresentInSentence(termsInSequence, firstTerm, secondTerm);
-    }
-
-    private boolean isSearchTermsPresentInParagraphWithInNumberOfWords(KnowHowDocumentPage.TermsInSequence termsInSequence, int noOfTerms, String firstTerm, String secondTerm) {
-        if (commonMethods.isCurrentDocumentFromKnowHow()) {
-            openDraftingNotesIfPresent();
-            return knowHowDocumentPage.isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, noOfTerms, firstTerm, secondTerm);
-        } else {
-            return whatsMarketDocumentPage.isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, noOfTerms, firstTerm, secondTerm);
-        }
     }
 
     @When("^the user gets the cases search result count and stores it as count \"(.*?)\"$")

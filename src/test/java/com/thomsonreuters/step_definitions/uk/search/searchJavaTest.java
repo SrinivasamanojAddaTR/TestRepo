@@ -5,7 +5,7 @@ import com.thomsonreuters.pageobjects.common.SortOptions;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.folders.SaveToPopup;
 import com.thomsonreuters.pageobjects.pages.landingPage.*;
-import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesWidget;
+import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesWidgetPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentDeliveryPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchSearch.BaseResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.*;
@@ -30,7 +30,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class searchJavaTest extends BaseStepDef {
+public class SearchJavaTest extends BaseStepDef {
 
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private WhatsMarketSearchResultsPage whatsMarketSearchResultsPage = new WhatsMarketSearchResultsPage();
@@ -44,7 +44,7 @@ public class searchJavaTest extends BaseStepDef {
     private UKPLCSitePage ukplcSitePage = new UKPLCSitePage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private JournalsSearchResultsPage journalsSearchResultsPage = new JournalsSearchResultsPage();
-    private LegalUpdatesWidget legalUpdatesWidget = new LegalUpdatesWidget();
+    private LegalUpdatesWidgetPage legalUpdatesWidget = new LegalUpdatesWidgetPage();
     private ResourcesPage resourcesPage = new ResourcesPage();
     private PracticalLawHomepage practicalLawHomepage = new PracticalLawHomepage();
     private SearchScopeControl searchScopeControl = new SearchScopeControl();

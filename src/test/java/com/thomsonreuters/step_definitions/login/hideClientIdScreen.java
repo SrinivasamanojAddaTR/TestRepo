@@ -12,7 +12,7 @@ import org.openqa.selenium.TimeoutException;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class hideClientIdScreen extends BaseStepDef {
+public class HideClientIdScreen extends BaseStepDef {
 
     private WLNHeader wlnHeader = new WLNHeader();
     private PracticalLawHomepage practicalLawHomepage = new PracticalLawHomepage();

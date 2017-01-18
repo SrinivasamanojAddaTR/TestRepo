@@ -1,6 +1,7 @@
 package com.thomsonreuters.step_definitions.footer;
 
 import com.thomsonreuters.pageobjects.pages.company.MeetTheTeam;
+import com.thomsonreuters.pageobjects.utils.homepage.HomePageUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import org.assertj.core.api.SoftAssertions;
@@ -16,13 +17,13 @@ public class MeetTheTeamTest extends BaseStepDef {
 	
 	private MeetTheTeam meetTheTeam = new MeetTheTeam();
 	private AboutPracticalLaw aboutPracticalLaw = new AboutPracticalLaw();
-	
+	private HomePageUtils homeUtils = new HomePageUtils();
 	private List<String> notSortedpaNamesFromTOC;
 	private List<String> sortedpaNamesFromTOC;
 	
 	@Then("^the table of contents will list practice areas in alphabetical order$")
     public void tableOfContentsWillListPAinAlphabeticalOrder() throws Throwable { 
-		notSortedpaNamesFromTOC = getPAnamesFromTOC();
+		notSortedpaNamesFromTOC = homeUtils.getPAnamesFromTOC();
 		sortedpaNamesFromTOC = new ArrayList<String>();
 		sortedpaNamesFromTOC.addAll(notSortedpaNamesFromTOC);
 		Collections.sort(sortedpaNamesFromTOC);
@@ -58,15 +59,5 @@ public class MeetTheTeamTest extends BaseStepDef {
 	@Then("^there are '(\\d+)' team members listed$")
 	public void userShouldSeeProfiles(int profilesCount) throws Throwable {
 		assertTrue("Number of profiles is not correct on main page", meetTheTeam.contributorProfiles().size() == profilesCount);
-	}
-	
-	
-	private List<String> getPAnamesFromTOC() {
-		ArrayList<String> paNamesFromTOC = new ArrayList<String>();
-		List<WebElement> practiceAreaTabs = meetTheTeam.tabsInTableOfContents();
-		for(WebElement element: practiceAreaTabs) {
-			paNamesFromTOC.add(element.getText());
-		}
-		return paNamesFromTOC;
 	}
 }

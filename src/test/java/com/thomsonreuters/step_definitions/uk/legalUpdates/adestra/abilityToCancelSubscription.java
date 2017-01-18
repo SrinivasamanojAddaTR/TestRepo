@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class abilityToCancelSubscription extends BaseStepDef {
+public class AbilityToCancelSubscription extends BaseStepDef {
 
     private SubscriptionPreferencePage subscriptionPreferencePage = new SubscriptionPreferencePage();
     private AdestraUtils adestraUtils = new AdestraUtils();
@@ -33,7 +33,7 @@ public class abilityToCancelSubscription extends BaseStepDef {
 
     @When("^the user unchecks \"(.*?)\" the \"(.*?)\" \"(.*?)\" email check box$")
     public void theUserUnchecksTheEmailCheckBox(String region, List<String> frequencies, String service) throws Throwable {
-        editedSpecifiedServices = removeSubscriptionFromSpecifiedServices(specifiedServices, region, service, frequencies);
+        editedSpecifiedServices = adestraUtils.removeSubscriptionFromSpecifiedServices(specifiedServices, region, service, frequencies);
         for (String frequency : frequencies) {
             subscriptionPreferencePage.getSpecifiedCheckBoxAndClickOnIt(service, frequency, region);
         }
@@ -83,17 +83,4 @@ public class abilityToCancelSubscription extends BaseStepDef {
         }
         assertTrue("One of checkboxes is unavailbale", result == 0);
     }
-
-    private List<SubscriptionParameters> removeSubscriptionFromSpecifiedServices(List<SubscriptionParameters> specifiedRegionServices, String region, String service, List<String> frequencies) {
-        for (Iterator<SubscriptionParameters> it = specifiedRegionServices.iterator(); it.hasNext(); ) {
-            SubscriptionParameters subscriptionParameter = it.next();
-            for (String frequency : frequencies) {
-                if (subscriptionParameter.getCategoryName().equals(region) && subscriptionParameter.getCommonName().equals(service) && subscriptionParameter.getProductFrequency().equals(frequency)) {
-                    it.remove();
-                }
-            }
-        }
-        return specifiedRegionServices;
-    }
-
 }

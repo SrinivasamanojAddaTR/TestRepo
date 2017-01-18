@@ -1,5 +1,6 @@
 package com.thomsonreuters.step_definitions.header;
 
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.ListFunctions;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
@@ -16,12 +17,13 @@ import java.util.TimeZone;
 
 import static org.junit.Assert.assertTrue;
 
-public class anzTimeZoneTest extends BaseStepDef {
+public class AnzTimeZoneTest extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private ListFunctions listFunctions = new ListFunctions();
     private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
+    private CommonMethods commonMethods = new CommonMethods();
     private String storedDate = null;
     public static final int US_TIME_ZONE = -6;
     public static final int SYDNEY_TIME_ZONE = 9;
@@ -57,10 +59,10 @@ public class anzTimeZoneTest extends BaseStepDef {
     @Then("^user verifies the time at row \"(.*?)\" on History page changes to \"(.*?)\" time$")
     public void userVerifiesResultTimeChangesToTime(String rowNo, String country) throws Throwable {
         String storedTime[] = storedDate.split(" ");
-        Calendar storedCalTime = convertInCalendar(storedTime[3]);
+        Calendar storedCalTime = commonMethods.convertInCalendar(storedTime[3]);
         String currentDate = researchOrganizerPage.getDateAtRowPosition(rowNo).getText();
         String currentTime[] = currentDate.split(" ");
-        Calendar currentCalTime = convertInCalendar(currentTime[3]);
+        Calendar currentCalTime = commonMethods.convertInCalendar(currentTime[3]);
         if (country.equalsIgnoreCase("US")) {
             storedCalTime.add(Calendar.HOUR, US_TIME_ZONE);
         } else if (country.equalsIgnoreCase("Sydney")) {
@@ -79,7 +81,7 @@ public class anzTimeZoneTest extends BaseStepDef {
         String signOffDateTime = onePassLogoutPage.sessionDateAndTime().getText();
         String signOffTime[] = signOffDateTime.split(" ");
         signOffDateTime = date24Format.format(amPMFormat.parse(signOffTime[7] + " " + signOffTime[8]));
-        Calendar signOffCalTime = convertInCalendar(signOffDateTime);
+        Calendar signOffCalTime = commonMethods.convertInCalendar(signOffDateTime);
         if (country.equalsIgnoreCase("US")) {
             cal.add(Calendar.HOUR, -6);
         } else if (country.equalsIgnoreCase("Sydney")) {
@@ -88,13 +90,4 @@ public class anzTimeZoneTest extends BaseStepDef {
 
         assertTrue("Current Time is not equal to stored time..!", cal.get(Calendar.HOUR_OF_DAY) == signOffCalTime.get(Calendar.HOUR_OF_DAY));
     }
-
-    public Calendar convertInCalendar(String time) {
-        String[] parts = time.split(":");
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(parts[0]));
-        cal.set(Calendar.MINUTE, Integer.parseInt(parts[1]));
-        return cal;
-    }
-
 }

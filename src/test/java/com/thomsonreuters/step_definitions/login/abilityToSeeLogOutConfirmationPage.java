@@ -9,7 +9,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
-public class abilityToSeeLogOutConfirmationPage extends BaseStepDef {
+public class AbilityToSeeLogOutConfirmationPage extends BaseStepDef {
 
     private WLNHeader wlnHeader = new WLNHeader();
     private OnepassLogin onePassLogin = new OnepassLogin();

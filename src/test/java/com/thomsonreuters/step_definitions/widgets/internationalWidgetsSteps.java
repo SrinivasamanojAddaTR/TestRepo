@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class internationalWidgetsSteps extends BaseStepDef {
+public class InternationalWidgetsSteps extends BaseStepDef {
 
 	private InternationalWidgetsPanel widgets = new InternationalWidgetsPanel();
     private FooterUtils footerUtils = new FooterUtils();

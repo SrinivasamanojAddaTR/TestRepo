@@ -16,8 +16,4 @@ public class AnnotationsTest extends BaseStepDef {
 
     private SharedAnnotationsPage sharedAnnotationsPage = new SharedAnnotationsPage();
 
-    protected FormatType getFormatType(String style) {
-        return FormatType.valueOf(style.toUpperCase().trim());
-    }
-
 }

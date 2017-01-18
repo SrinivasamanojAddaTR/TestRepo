@@ -15,19 +15,16 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class abilityToDownloadFDProject extends BaseStepDef {
+public class AbilityToDownloadFDProject extends BaseStepDef {
 
     private final static String DOWNLOADED_FILE_PATH = System.getProperty("user.home") + "/Downloads";
     private static final String DRAFT = "draft";
     private File downloadedFile = null;
-
     private DraftViewPage draftViewPage = new DraftViewPage();
     private WindowHandler windowHandler = new WindowHandler();
     private PDFBoxUtil pdfBoxUtil = new PDFBoxUtil();
@@ -62,19 +59,8 @@ public class abilityToDownloadFDProject extends BaseStepDef {
     @When("^the user uploads new file with name \"([^\"]*)\" end extension \"([^\"]*)\" to the document name \"([^\"]*)\"$")
     public void uploadNewFile(String name, String extension, String documentName) throws Throwable {
         String path = DOWNLOADED_FILE_PATH + "/" + name + extension;
-        createTestFile(path);
+        fileActions.createTestFile(path);
         fastDraftUtils.uploadFormEFromFD(documentName, FileSystems.getDefault().getPath(path).toString());
-    }
-
-    private void createTestFile(String path) {
-        try {
-            PrintWriter writer = new PrintWriter(path, "UTF-8");
-            writer.println("The first line");
-            writer.println("The second line");
-            writer.close();
-        } catch (IOException e) {
-            LOG.info("Exception creating file", e.getMessage());
-        }
     }
 
     @When("^the user Uploads Form E for Form E page$")

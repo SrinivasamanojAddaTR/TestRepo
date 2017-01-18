@@ -15,7 +15,7 @@ import java.util.Map;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class ukKnowHowFacetsDisplayedForKnowHowTest {
+public class UKKnowHowFacetsDisplayedForKnowHowTest {
 
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private SearchResultsPage searchResultsPage = new SearchResultsPage();

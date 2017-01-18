@@ -19,7 +19,7 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class abilityToLogIn extends BaseStepDef {
+public class AbilityToLogIn extends BaseStepDef {
 
     private WLNFooter wlnFooter = new WLNFooter();
     private WLNHeader wlnHeader = new WLNHeader();

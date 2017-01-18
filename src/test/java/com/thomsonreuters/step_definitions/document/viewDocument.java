@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 
 import static org.junit.Assert.assertTrue;
 
-public class viewDocument extends BaseStepDef {
+public class ViewDocument extends BaseStepDef {
 
 	private KHResourcePage resourcePage = new KHResourcePage();
 	private DocumentRightPanelPage rightPanelPage = new DocumentRightPanelPage();
