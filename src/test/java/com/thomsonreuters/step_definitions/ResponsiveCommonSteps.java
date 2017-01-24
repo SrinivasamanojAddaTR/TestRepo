@@ -410,6 +410,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 
     @When("^the user should see the group '(.*)' comes first than group '(.*)'$")
     public void UserShouldSeeTheGroup01ComesFirstThanGroup02(String firstGroup, String secondGroup) throws Throwable {
+        favouritesPage.waitForPageToLoad();
         favouritesPage.waitForElementVisible(favouritesPage.favouriteByGroup(firstGroup));
         assertTrue(firstGroup + " not visible as a first group..!",
                 favouritesPage.favouriteGroupNames().get(0).getText().trim().contains(firstGroup));
