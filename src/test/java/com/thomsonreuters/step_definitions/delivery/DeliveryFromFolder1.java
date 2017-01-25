@@ -18,6 +18,7 @@ public class DeliveryFromFolder1 {
         annotationsStepDef.theUserClicksOnLinkOnTheHeader("Folders");
         if (!researchOrganizerPage.isFolderPresentInLeftFrame(folder, "root")) {
             foldersUtils.createFolderWithContent(folder, listOfGuid);
+            researchOrganizerPage.waitForPageToLoad();
             annotationsStepDef.theUserClicksOnLinkOnTheHeader("Folders");
         }
         if (action.equals("opens")) {
