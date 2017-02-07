@@ -18,7 +18,6 @@ Scenario Outline: [850119] As a PL AU open web user I want to view document meta
 	| Ibd42469eb7e111e598dc8b09b4f043e0   | Maintained						| Australia,Federal		| displayed			| Standard documents		| displayed |
 
 
-
 Scenario Outline: [850119] As a PL AU open web user I want to browse to related content
 	Given ANZ user navigates directly to document with guid "<guid>"
 	Then document title is displayed as "<title>" 
@@ -29,7 +28,7 @@ Scenario Outline: [850119] As a PL AU open web user I want to browse to related 
 	Then document title is displayed as "<relatedtitle>"
 Examples:
 	| guid								| title 						    |	relatedtitle								          | relatedstatus	|
-	| Ifb5c26cc995811e598dc8b09b4f043e0 | Legal due diligence: acquisitions	|  Legal due diligence review template: corporate records | 	Maintained  |
+	| Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence: acquisitions	    |  Legal due diligence review template: corporate records | 	Maintained  |
 
 #bug/story  868506, 871345 - for trial link
 @bug
@@ -56,7 +55,7 @@ Scenario Outline: [850119] As a PL AU open web user I want to view open web vers
     And the user is taken to "http://legal.thomsonreuters.com.au/products/practical-law/contact-us.aspx?utm_source=practical-law-product-site&utm_medium=banner&utm_campaign=practical-law" resource
 Examples:
 	| guid								| title 						    | author 						| 	summary							| body					|
-	| Ifb5c26cc995811e598dc8b09b4f043e0 | Legal due diligence: acquisitions	|by Practical Law Corporate 	| This note considers the purpose 	| The potential buyer	|
+	| Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence: acquisitions   	|by Practical Law Corporate 	| This note considers the purpose 	| The potential buyer	|
 
 
 Scenario Outline: [850119] As a PL AU open web user I want to view full document if it is free to view

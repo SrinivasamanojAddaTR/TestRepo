@@ -80,7 +80,7 @@ Scenario Outline: [831297] Download list of items in PDF format
 	And the document does not include document body that contains text "<docText2>" 
 	Examples: 
 		|guid1							  |guid2							|title1 									| title2 						| docText1 						| docText2 |
-		|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0|Transfer of shares | Legal due diligence: acquisitions	|When are shares transferable?	|What is due diligence?|
+		|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0|Transfer of shares | Due diligence: acquisitions	|When are shares transferable?	|What is due diligence?|
 
 
 Scenario Outline: [831297] Download list of items in CSV format
