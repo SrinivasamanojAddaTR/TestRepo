@@ -11,11 +11,12 @@ Scenario Outline: [826375] Linking from PLAU document to a WestLaw Australia doc
       | guid                              	|linktext|
       |Ifbf42042995811e598dc8b09b4f043e0	|545|  
    
-#User ANZtestuser1 has permission to access to WLAU content   
+#User ANZtestuser1 has permission to access to WLAU content
 Scenario Outline: [826375] Linking from PLAU document to a WestLaw Australia document - user logged into WLAU
 	Given PL+ ANZ user navigates to home page
 	And ANZ user is logged in with following details
-      | userName         | ANZtestuser1 |
+      | userName         | ANZtestuser1          |
+      | role             | SUPER_REMEMBER_ME_USER|
    	And ANZ user navigates directly to document with guid "<guid>"
     When the user clicks on hardcoded "<linktext>" link
     Then the source document with guid "<guid>" remains open and new tab opens
