@@ -42,7 +42,7 @@ So that I can view and find out more information about practical law
     And user should see the "<PageTitle>" page is opened
 	Examples: 
 	|footer				|url							                                   |PageTitle|
-	|Careers			|http://thomsonreuters.com/en/careers.html  	                   |Careers|
+	|Careers			|https://www.thomsonreuters.com/en/careers.html  	                   |Careers|
 	|User Guides		|http://training.thomsonreuters.com.au/products/practical-law-au/  |Training at Thomson Reuters AU|
 	|Request Training	|http://training.thomsonreuters.com.au/request-training/           |Request Training|
 	|Privacy			|https://thomsonreuters.com.au/en/product-terms/privacy-policy.html|Privacy Policy \| Australia \| Thomson Reuters|
