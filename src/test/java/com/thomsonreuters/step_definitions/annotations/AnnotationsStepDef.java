@@ -3,6 +3,7 @@ package com.thomsonreuters.step_definitions.annotations;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.pages.annotations.ContactsForSharingPage;
 import com.thomsonreuters.pageobjects.pages.annotations.FormatType;
 import com.thomsonreuters.pageobjects.pages.annotations.InsertEditLink;
 import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
@@ -56,7 +57,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     private String guidDoc;
     private ArrayList<String> contacts;
     private FoldersUtils foldersUtils;
-
+    private ContactsForSharingPage contactsForSharingPage;
 
     public static List<String> numbersList;
     public static String editOption;
@@ -89,6 +90,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         pageActions = new PageActions();
         contacts = new ArrayList<String>();
         foldersUtils = new FoldersUtils();
+        contactsForSharingPage = new ContactsForSharingPage();
     }
 
     @When("^the user has accessed annotations text box$")
@@ -466,7 +468,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void theUserCreatesNewGroup() throws Throwable {
         contacts.add("PL_TEST_GEN, 0057");
         contacts.add("PL_TEST_GEN, 0058");
-        sharedAnnotationsPage.clickOnContactsLink();
+        foldersUtils.clickOnContactsLink();
         sharedAnnotationsPage.waitForPageToLoad();
         sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         sharedAnnotationsPage.createNewRandomGroup(randomGroup, contacts);
@@ -641,7 +643,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^selecting Contacts link$")
     public void selectingContactsAndGroupsLink() throws Throwable {
-        sharedAnnotationsPage.clickOnContactsLink();
+        foldersUtils.clickOnContactsLink();
         LOG.info("The Contacts link has been selected");
     }
 
@@ -698,13 +700,14 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^user shared the annotations with another contact \"(.*?)\"$")
     public void userSharedTheAnnotationsWithAnotherContact(String contact) throws Throwable {
-        sharedAnnotationsPage.clickOnContactsLink();
+        foldersUtils.clickOnContactsLink();
         sharedAnnotationsPage.searchContact(contact);
         sharedAnnotationsPage.selectContact(contact);
-        sharedAnnotationsPage.selectInsertButtonOnContactsPage();
+        foldersUtils.selectInsertButton();
         sharedAnnotationsPage.scrollToTinyMceEditor();
         sharedAnnotationsPage.saveAnnotation();
         assertTrue("Application having page loading issue", sharedAnnotationsPage.isMetaDataDispalyed(input));
+        LOG.info("The user has shared the annotation with a contact " + contact);
     }
 
     @Then("^annotations saved with the \"(.*?)\"$")
@@ -728,12 +731,12 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^user has shared the annotations with another contact \"(.*?)\"$")
     public void userHasSharedTheAnnotationsWithAnotherContact(String contact) throws Throwable {
-        sharedAnnotationsPage.clickOnContactsLink();
+        foldersUtils.clickOnContactsLink();
         sharedAnnotationsPage.waitForPageToLoad();
         sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         sharedAnnotationsPage.searchContact(contact);
         sharedAnnotationsPage.selectContact(contact);
-        sharedAnnotationsPage.selectInsertButtonOnContactsPage();
+        foldersUtils.selectInsertButton();
         sharedAnnotationsPage.scrollToTinyMceEditor();
         sharedAnnotationsPage.saveAnnotation();
         assertTrue("Application having page loading issue", sharedAnnotationsPage.isMetaDataDispalyed(input));
@@ -742,46 +745,30 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^user has shared the annotations with new group and \"(.*?)\" as member$")
     public void userHasSharedTheAnnotationsWithAnotherGroup(String contact) throws Throwable {
-        sharedAnnotationsPage.clickOnContactsLink();
-        sharedAnnotationsPage.waitForPageToLoad();
-        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
-        sharedAnnotationsPage.searchGroup(groupName);
-        if (!sharedAnnotationsPage.isGroupFoundInSearch(groupName)) {
-            sharedAnnotationsPage.addGroup(groupName, contact);
-        }
-        sharedAnnotationsPage.selectGroup(groupName);
-        assertFalse("User's group was not selected", sharedAnnotationsPage.getSharedGroupLinks().isEmpty());
-        assertTrue("Selected group is not correct", sharedAnnotationsPage.getSharedGroupLinks().get(0).getText().contains(groupName));
-        sharedAnnotationsPage.selectInsertButtonOnContactsPage();
+        foldersUtils.clickOnContactLinkAndCreateGroupIfDoesntExist(groupName,contact);
+        foldersUtils.selectGroup(groupName);
+        contactsForSharingPage.waitForPageToLoadAndJQueryProcessing();
+        foldersUtils.selectInsertButton();
         sharedAnnotationsPage.saveAnnotation();
-        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedInWLN(input));
         LOG.info("The user has shared annotations with a new group and " + contact + " as a member");
     }
 
     @When("^user shared the annotations with group and \"(.*?)\" as member and this group available to others$")
     public void userSharedTheAnnotationsWithAnotherGroupAndGroupIsAvailableToOthers(String contact) throws Throwable {
-        sharedAnnotationsPage.clickOnContactsLink();
-        sharedAnnotationsPage.waitForPageToLoad();
-        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
-        sharedAnnotationsPage.searchGroup(groupNameAvailableToOthers);
-        if (!sharedAnnotationsPage.isGroupFoundInSearch(groupNameAvailableToOthers)) {
-            sharedAnnotationsPage.addGroupAvailableToOthers(groupNameAvailableToOthers, contact);
-        }
-        sharedAnnotationsPage.selectGroup(groupNameAvailableToOthers);
-        assertFalse("User's group was not selected", sharedAnnotationsPage.getSharedGroupLinks().isEmpty());
-        assertTrue("Selected group is not correct", sharedAnnotationsPage.getSharedGroupLinks().get(0).getText().contains(groupName));
-        sharedAnnotationsPage.selectInsertButtonOnContactsPage();
+        foldersUtils.clickOnContactLinkAndCreateGroupIfDoesntExist(groupName,contact);
+        foldersUtils.selectGroup(groupName);
+        contactsForSharingPage.waitForPageToLoadAndJQueryProcessing();
+        foldersUtils.selectInsertButton();
         sharedAnnotationsPage.saveAnnotation();
-        assertTrue(sharedAnnotationsPage.isSavedAnnotationDisplayedInWLN(input));
         LOG.info("The user has shared annotations with a new group and " + contact + " as a member");
     }
 
     @When("^user verifies that shared group is displayed on groups tab$")
     public void userVerifiesThatSharedGroupIsDisplayed() throws Throwable {
-        sharedAnnotationsPage.clickOnContactsLink();
+        foldersUtils.clickOnContactsLink();
         sharedAnnotationsPage.waitForPageToLoad();
         sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
-        sharedAnnotationsPage.searchGroup(groupNameAvailableToOthers);
+        foldersUtils.searchGroup(groupNameAvailableToOthers);
         assertTrue("Group is not displayed on groups tab", sharedAnnotationsPage.isGroupFoundInSearch(groupNameAvailableToOthers));
         sharedAnnotationsPage.closeContactsForm();
         LOG.info("Shared group is displayed on groups tab");
@@ -1027,7 +1014,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^user verifies that this group is displayed and user count is \"(.*?)\"$")
     public void userVerifiesRandomGroupAndCount(String count) throws Throwable {
-        sharedAnnotationsPage.searchGroup(randomGroup);
+        foldersUtils.searchGroup(randomGroup);
         sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         assertTrue("Group: " + randomGroup + " is not displayed", sharedAnnotationsPage.isGroupFoundInSearch(randomGroup));
         assertTrue("Count is different. Count into the group: " + sharedAnnotationsPage.getUserCountForGroup(), count.equals(sharedAnnotationsPage.getUserCountForGroup()));

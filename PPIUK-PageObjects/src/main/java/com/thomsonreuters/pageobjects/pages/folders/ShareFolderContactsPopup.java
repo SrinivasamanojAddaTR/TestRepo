@@ -17,18 +17,6 @@ public class ShareFolderContactsPopup extends AbstractPage {
 		return waitForExpectedElement(By.id("co_folderingShareFolderInclSubfolders"));
 	}
 
-	public WebElement group(String groupName) {
-		return waitForExpectedElement(By.xpath("//a[@class='co_checkbox_unselected' and text()='" + groupName +"']"));
-	}
-
-	public WebElement addGroup() {
-		return waitForExpectedElement(By.id("groupListBoxWidgetAddGroup"));
-	}
-
-	public WebElement insert() {
-		return waitForExpectedElement(By.id("coid_contacts_closeButton"));
-	}
-
 	public WebElement selectRole(String contactName) {
 		return waitForExpectedElement(By.xpath("(//td[text()='" + contactName + "']/parent::tr/td)[2]/select"));
 	}

@@ -1,5 +1,6 @@
 package com.thomsonreuters.step_definitions.uk.folders;
 
+import com.thomsonreuters.pageobjects.pages.annotations.ContactsForSharingPage;
 import com.thomsonreuters.pageobjects.pages.folders.*;
 import com.thomsonreuters.pageobjects.utils.email.EmailMessageUtils;
 import com.thomsonreuters.pageobjects.utils.email.Mailbox;
@@ -28,6 +29,7 @@ public class AbilityToShareFolder1 extends BaseStepDef {
     private NewFolderPopup newFolderPopup = new NewFolderPopup();
     private AbilityToCreateFolder1 abilityToCreateFolder = new AbilityToCreateFolder1();
 	private EmailMessageUtils emailMessageUtils = new EmailMessageUtils();
+    private ContactsForSharingPage contactsForSharingPage = new ContactsForSharingPage();
 
 	private String EMAIL_SUBJECT = "would like to share folders with you";
 
@@ -70,10 +72,10 @@ public class AbilityToShareFolder1 extends BaseStepDef {
     @When("the user share the folder \"([^\"]*)\" with contact '(.+)' as \"([^\"]*)\" and contact '(.+)' as \"([^\"]*)\"")
     public void shareFolderWithContact(String folderName, String contactNameToShare, String role, String contactNameToShare2, String role2) throws Throwable {
     	foldersUtils.shareFolder(folderName);
-        shareFolderPopup.contacts().click();
+        foldersUtils.clickOnContactsLink();
         shareFolderContactsPopup.contact(contactNameToShare).click();
         shareFolderContactsPopup.contact(contactNameToShare2).click();
-        shareFolderContactsPopup.insert().click();
+        foldersUtils.selectInsertButton();
         shareFolderPopup.continueButton().click();
         shareFolderContactsPopup.selectDropDownByVisibleText(shareFolderContactsPopup.selectRole(contactNameToShare), role);
         shareFolderContactsPopup.selectDropDownByVisibleText(shareFolderContactsPopup.selectRole(contactNameToShare2), role2);
@@ -84,9 +86,9 @@ public class AbilityToShareFolder1 extends BaseStepDef {
     @When("the user share the folder \"([^\"]*)\" (with|without) subfolders with contact '(.+)' as \"([^\"]*)\"")
     public void shareFolderWithOneContact(String folderName, String shareSubfoldersAction, String contactNameToShare, String role) throws Throwable {
 		foldersUtils.shareFolder(folderName);
-		shareFolderPopup.contacts().click();
+        foldersUtils.clickOnContactsLink();
 		shareFolderContactsPopup.contact(contactNameToShare).click();
-		shareFolderContactsPopup.insert().click();
+        foldersUtils.selectInsertButton();
 		if ("without".equals(shareSubfoldersAction)) {
 			shareFolderContactsPopup.shareSubFoldersCheckBox().click();
 		}
@@ -103,9 +105,9 @@ public class AbilityToShareFolder1 extends BaseStepDef {
 			shareFolderContactsPopup.shareSubFoldersCheckBox().click();
 		}
 		shareFolderPopup.add().click();
-		shareFolderPopup.contacts().click();
+        foldersUtils.clickOnContactsLink();
 		shareFolderContactsPopup.contact(contactNameToShare).click();
-		shareFolderContactsPopup.insert().click();
+        foldersUtils.selectInsertButton();
 		shareFolderPopup.continueButton().click();
 		shareFolderContactsPopup.selectDropDownByVisibleText(shareFolderContactsPopup.selectRoleOnAddPeopleGroupsForm(contactNameToShare), role);
 		shareFolderRolesPopup.addButton().click();
@@ -200,17 +202,11 @@ public class AbilityToShareFolder1 extends BaseStepDef {
     
     @When("^the user share the folder \"([^\"]*)\" with new group \"([^\"]*)\" and member '(.+)' as \"([^\"]*)\"$")
     public void shareFolderViaEmail(String folderName, String groupName, String member, String role) throws Throwable {
-    	foldersUtils.shareFolder(folderName);
-        shareFolderPopup.contacts().click();
-        shareFolderPopup.waitForPageToLoadAndJQueryProcessing();
-        foldersUtils.deleteGroupToShareFolderIfExists(groupName);
-        shareFolderPopup.newGroup().click();
-        shareFolderPopup.waitForPageToLoadAndJQueryProcessing();
-        foldersUtils.createNewGroupToShareFolder(groupName, member);
-        shareFolderContactsPopup.waitForPageToLoadAndJQueryProcessing();
-        shareFolderContactsPopup.waitForPageToLoad();
-        shareFolderContactsPopup.group(groupName).click();
-        shareFolderContactsPopup.insert().click();
+        foldersUtils.shareFolder(folderName);
+        foldersUtils.clickOnContactLinkAndCreateGroupIfDoesntExist(groupName,member);
+        foldersUtils.selectGroup(groupName);
+        contactsForSharingPage.waitForPageToLoadAndJQueryProcessing();
+        foldersUtils.selectInsertButton();
         shareFolderContactsPopup.waitForPageToLoadAndJQueryProcessing();
         shareFolderPopup.continueButton().click();
         shareFolderContactsPopup.selectDropDownByVisibleText(shareFolderContactsPopup.selectRole(groupName), role);

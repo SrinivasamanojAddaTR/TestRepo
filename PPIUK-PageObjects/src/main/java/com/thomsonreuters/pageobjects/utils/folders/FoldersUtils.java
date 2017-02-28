@@ -4,6 +4,7 @@ import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.*;
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.pages.annotations.ContactsForSharingPage;
 import com.thomsonreuters.pageobjects.pages.folders.*;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentDeliveryPage;
@@ -42,6 +43,7 @@ public class FoldersUtils {
     private MoveFolderPopUp moveFolderPopUp = new MoveFolderPopUp();
     private CopyFolderPopUp copyFolderPopUp = new CopyFolderPopUp();
     private ExportFolderPopup exportFolderPopUp = new ExportFolderPopup();
+    private ContactsForSharingPage contactsForSharingPage = new ContactsForSharingPage();
 
     public void openFolder(String folder) {
         researchOrganizerPage.rootFolderLinkLeftFrame().click();
@@ -113,16 +115,6 @@ public class FoldersUtils {
         newGroupPopup.groupName().sendKeys(groupName);
         commonMethods.clickElementUsingJS(newGroupPopup.people(member));
         newGroupPopup.saveGroup().click();
-    }
-
-    public void deleteGroupToShareFolderIfExists(String groupName) {
-        if (shareFolderPopup.isSpecificGroupExists((groupName))) {
-            commonMethods.mouseOver(shareFolderPopup.getSpecificGroup(groupName));
-            shareFolderPopup.deleteSpecificGroup(groupName).click();
-            shareFolderPopup.waitForPageToLoadAndJQueryProcessing();
-        } else {
-            LOG.info("Such group is not present");
-        }
     }
 
     public void deleteFolderIfExists(String folderName) {
@@ -397,6 +389,42 @@ public class FoldersUtils {
             documentDeliveryPage.waitForPageToLoadAndJQueryProcessing();
             documentDeliveryPage.clickOnAddToFolderLink();
             saveToFolder(folder);
+        }
+    }
+
+    public void addGroup(String groupName, String contact) {
+        contactsForSharingPage.addGroupOption().click();
+        contactsForSharingPage.groupNameField().sendKeys(groupName);
+        contactsForSharingPage.searchByNameField().sendKeys(contact);
+        contactsForSharingPage.searchResult(contact).click();
+        contactsForSharingPage.waitForPageToLoadAndJQueryProcessing();
+        contactsForSharingPage.saveGroupButton().click();
+    }
+
+    public void selectGroup(String group) {
+        contactsForSharingPage.findGroup(group).click();
+    }
+
+    public void searchGroup(String group) {
+        contactsForSharingPage.groupField().clear();
+        contactsForSharingPage.groupField().sendKeys(group);
+    }
+
+    public void clickOnContactsLink() {
+        contactsForSharingPage.contactsLink().click();
+    }
+
+    public void selectInsertButton() {
+        contactsForSharingPage.insertButton().click();
+    }
+
+    public void clickOnContactLinkAndCreateGroupIfDoesntExist(String groupName, String member) {
+        clickOnContactsLink();
+        contactsForSharingPage.waitForPageToLoadAndJQueryProcessing();
+        searchGroup(groupName);
+        contactsForSharingPage.waitForPageToLoadAndJQueryProcessing();
+        if (!contactsForSharingPage.isGroupsItemPresent(groupName)) {
+            addGroup(groupName, member);
         }
     }
 }

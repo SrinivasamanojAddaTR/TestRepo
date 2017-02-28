@@ -892,17 +892,6 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     /**
-     * Clicks on contacts link present under the annotation.
-     */
-    public void clickOnContactsLink() {
-        try {
-            retryingFindElement(By.cssSelector("#sharedNotesHyperlink #contactsId")).click();
-        } catch (PageOperationException te) {
-            throw new PageOperationException("Unable to clickon Contacts link. " + te.getMessage());
-        }
-    }
-
-    /**
      * Verifies the Contacts And Groups popup page is displayed when clicking on contacts link.
      * Returns true if popup page is displayed otherwise false
      *
@@ -957,22 +946,6 @@ public class SharedAnnotationsPage extends AbstractPage {
         }
         return false;
     }
-
-    /**
-     * Searches the given group name in Groups list.
-     *
-     * @param group
-     */
-    public void searchGroup(String group) {
-        try {
-            WebElement element = waitFluentForElement(By.id("coid_contacts_groups_searchBoxInput"));
-            element.clear();
-            element.sendKeys(group);
-        } catch (TimeoutException te) {
-            throw new PageOperationException("Exceeded time to find the search box. " + te.getMessage());
-        }
-    }
-
     /**
      * Verifies that given group name has found or not in Groups popup page.
      * Returns true if given group found otherwise false
@@ -1300,45 +1273,6 @@ public class SharedAnnotationsPage extends AbstractPage {
         }
     }
 
-    /**
-     * Selects the given group from the list of group names present on contacts and groups popup page.
-     *
-     * @param group
-     */
-    public void selectGroup(String group) {
-        try {
-            webDriverDiscovery = commonMethods.getWebDriverDiscovery();
-            WebElement selectedGroup = waitForElementToBeClickableAndReturnElement(By.xpath(String.format("//*[@id='coid_contacts_groupsListItems']//a[@role='checkbox' and text()='%s']", group)));
-            JavascriptExecutor js = (JavascriptExecutor) webDriverDiscovery.getRemoteWebDriver();
-            js.executeScript("arguments[0].click();", selectedGroup);
-        } catch (PageOperationException te) {
-            throw new PageOperationException("Unable to find the group in contacts list: " + group);
-        } catch (StaleElementReferenceException sle) {
-            selectGroup(group);
-        }
-    }
-
-    /**
-     * Adds the given new group name with given contacts as members of the new group.
-     *
-     * @param groupName
-     * @param contacts
-     */
-    public void addGroup(String groupName, String... contacts) {
-        try {
-            getAddGroupOption().click();
-            getGroupNameField().sendKeys(groupName);
-            for (String contact : contacts) {
-                getSearchByNameField().clear();
-                getSearchByNameField().sendKeys(contact);
-                getSearchResult(contact).click();
-            }
-            getSaveGroupButton().click();
-        } catch (PageOperationException poe) {
-            throw new PageOperationException("Having issues in creating group" + poe.getMessage());
-        }
-    }
-
     public void addGroupAvailableToOthers(String groupName, String... contacts) {
         try {
             getAddGroupOption().click();
@@ -1408,13 +1342,6 @@ public class SharedAnnotationsPage extends AbstractPage {
 
     public WebElement getSaveGroupButton() {
         return retryingFindElement(By.id("coid_contacts_newGroup_saveButton"));
-    }
-
-    /**
-     * Clicks on Insert button present on contacts popup page
-     */
-    public void selectInsertButtonOnContactsPage() {
-        waitForExpectedElement(By.id("coid_contacts_closeButton")).click();
     }
 
     /**

@@ -36,10 +36,6 @@ public class ShareFolderPopup extends AbstractPage {
         return waitForExpectedElement(By.id("co_folderingShareFolderClose"));
     }
 
-    public WebElement contacts() {
-        return waitForExpectedElement(By.className("co_folderingShareFolder_contacts"));
-    }
-
     public WebElement contactsInputDisabled() {
         return waitForExpectedElement(By.id("coid_contacts_addedContactsInput"));
     }
@@ -54,10 +50,6 @@ public class ShareFolderPopup extends AbstractPage {
 
     public WebElement endSharingConfirmation() {
         return waitForExpectedElement(By.className("co_dropdownBox_ok"));
-    }
-
-    public WebElement newGroup() {
-        return waitForExpectedElement(By.id("groupListBoxWidgetAddGroup"));
     }
 
     public WebElement emailToNotify() {
