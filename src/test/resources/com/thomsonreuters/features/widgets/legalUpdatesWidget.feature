@@ -36,12 +36,12 @@ As a PLAU User I want to quickly check the latest legal updates so that I can de
     When the user clicks on the 'View all' link of the "Legal updates" widget
     Then the user should be taken to the "Employment" Topic LU results list
     Then the user should be presented with a list of LU documents
-  
-  
-  Scenario Outline: There is no legal updates widget on following PA page
+    
+  # Scenario is modifies as legal updates widget has been added for Company Law and Corporate Transactions page.
+   Scenario Outline: There is legal updates widget on following PA page
   	Given ANZ user is logged in
     Given a user is on a "<practiceArea>" PA page
-    And the user is not presented with the Legal Updates widget
+    And the user is presented with the Legal Updates widget
     Examples: 
       | practiceArea               | 
       | Company Law                | 

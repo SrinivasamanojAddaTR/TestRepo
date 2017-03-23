@@ -4,7 +4,7 @@ Feature: [809387] I want to view the "Meet the Team"
     Given ANZ user is logged in
     When user clicks on "<Page>" link
     Then the user verifies that the current PageTitle contains '<pageTitle>'
-    And there are '18' team members listed
+    And there are '19' team members listed
     And profiles are not empty
     And the table of contents will list practice areas in alphabetical order
     When the user selects a practice area "<PA>" within the table of contents
@@ -14,6 +14,6 @@ Feature: [809387] I want to view the "Meet the Team"
 
     Examples: 
       | Page          | pageTitle | PA                     | numberOfProfiles |
-      | Meet the Team | Our team  | Company Law            | 6                |
-      | Meet the Team | Our team  | Corporate Transactions | 6                |
+      | Meet the Team | Our team  | Company Law            | 7                |
+      | Meet the Team | Our team  | Corporate Transactions | 7                |
       | Meet the Team | Our team  | Employment             | 3                |

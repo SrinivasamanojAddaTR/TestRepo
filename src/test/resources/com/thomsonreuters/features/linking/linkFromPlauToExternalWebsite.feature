@@ -11,7 +11,7 @@ Background:
       | country  	| 	url						| 
       | Canada 		|	http://ca.practicallaw.com/	|
       | China 		|	http://global.practicallaw.com/country/china	|
-      | US			|	http://us.practicallaw.com/	|
+      | US			|	https://content.next.westlaw.com/	|
 
 
       
