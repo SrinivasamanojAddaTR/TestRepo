@@ -172,6 +172,7 @@ Scenario Outline: [818824] Download document without table of contents in PDF fo
 ###############################################################################################################
 ## Email	
 ###############################################################################################################
+	
 	Scenario Outline: [818824] Email document in Microsoft Word format
 	Given the user runs a free text search for the query "<query>"
     And the user selects the checkbox associated with result "2"
@@ -185,7 +186,7 @@ Scenario Outline: [818824] Download document without table of contents in PDF fo
 	Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<subject>" 
 	Examples: 
 		| query	 	| subject		                                 | mailbox                            |
-		|BOOT		| Practical Law - Better off overall test (BOOT) |  tr-anz-tester1@yandex.com         |
+		|BOOT		| Better off overall test (BOOT) |  tr-anz-tester1@yandex.com         |
 	 
 
 Scenario Outline: [818824][847182]Email resource link only
@@ -193,12 +194,12 @@ Scenario Outline: [818824][847182]Email resource link only
     And the user selects the checkbox associated with result "2"
     When user clicks on Email delivery option for Search
 	And the user should be able to see Email basic tab options as follows 
-		| Subject       | Practical Law - <title>|
+		| Subject       | <title>|
 	When the user edits the basic email options as follows 
 		| To            |  <mailbox>         |
 		| Format            | Resource Link Only |
 	And Email button is clicked 
-	Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "Practical Law - <title>" 
+	Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "<title>" 
 	When user copies the link in valid format from email into the browser
 	Then user should be presented with proper document "<title>"
 	Examples: 

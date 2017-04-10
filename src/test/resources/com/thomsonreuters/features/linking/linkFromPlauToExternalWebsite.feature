@@ -10,7 +10,7 @@ Background:
     Examples: 
       | country  	| 	url						| 
       | Canada 		|	http://ca.practicallaw.com/	|
-      | China 		|	http://global.practicallaw.com/country/china	|
+      | China 		|	https://uk.practicallaw.thomsonreuters.com	|
       | US			|	https://content.next.westlaw.com/	|
 
 

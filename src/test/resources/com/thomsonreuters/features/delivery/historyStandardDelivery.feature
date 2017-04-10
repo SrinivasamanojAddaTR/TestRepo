@@ -183,7 +183,7 @@ Scenario Outline: [831297] Download document without table of contents in PDF fo
 	Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<subject>" 
 	Examples: 
 		|guid								| subject			| mailbox |
-		|If13ba3b4d4d811e598dc8b09b4f043e0 	| Practical Law - Transfer of shares | tr-anz-tester1@yandex.com |
+		|If13ba3b4d4d811e598dc8b09b4f043e0 	| Transfer of shares | tr-anz-tester1@yandex.com |
 
 Scenario Outline: [831297][847182] Email resource link only
 	Given ANZ user navigates directly to document with guid "<guid>"
@@ -192,12 +192,12 @@ Scenario Outline: [831297][847182] Email resource link only
     And the user selects the checkbox associated with document "1"
     When user clicks on Email delivery option for History
 	And the user should be able to see Email basic tab options as follows 
-		| Subject       | Practical Law - <title> |
+		| Subject       | <title> |
 	When the user edits the basic email options as follows 
 		| To            |  <mailbox>         |
 		| Format            | Resource Link Only |
 	And Email button is clicked 
-	Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "Practical Law - <title>" 
+	Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "<title>" 
 	When user copies the link in valid format from email into the browser
 	Then user should be presented with proper document "<title>"
 	Examples: 

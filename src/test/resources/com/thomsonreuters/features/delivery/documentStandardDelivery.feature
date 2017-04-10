@@ -29,7 +29,7 @@ Scenario Outline: [818051] Email document - MS Word format
 	
 	Examples: 
 		| guid  							| subject			| mailbox |
-		|I53cfffa798de11e598dc8b09b4f043e0 |  Practical Law - Completing a share transfer form: private acquisitions | tr-anz-tester1@yandex.com |
+		|I53cfffa798de11e598dc8b09b4f043e0 |  Completing a share transfer form: private acquisitions | tr-anz-tester1@yandex.com |
 		
 
 Scenario Outline: [818051] Email document - RTF format 
@@ -44,28 +44,27 @@ Scenario Outline: [818051] Email document - RTF format
 	And user receives an email at "<mailbox>" with document in Word Processor (RTF) format and with subject "<subject>" 
 	Examples: 
 		| guid 								| subject			| mailbox |
-		|I53cfffa798de11e598dc8b09b4f043e0 | Practical Law - Completing a share transfer form: private acquisitions | tr-anz-tester1@yandex.com |
+		|I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | tr-anz-tester1@yandex.com |
 	
 	#intermittent failures on demo
 	#bug 834611 Bug [PLAU & PLUK] document is not available by plc ref on demo pc1
-	@bug 
-Scenario Outline: [818051][847182] Email document - Resource Link Only format 
+	@bug 	
+	Scenario Outline: [818051][847182] Email document - Resource Link Only format 
 	Given ANZ user navigates directly to document with guid "<guid>"
 	When clicks on email delivery option for the document 
 	Then the user should be able to see Email basic tab options as follows 
-		| Subject       | Practical Law - <title> |
+		| Subject       | <title> |
 	When the user edits the basic download options as follows 
 		| Format            | Resource Link Only |
 		| To            |  <mailbox>         |
 	And Email button is clicked 
-	Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "Practical Law - <title>" 
+	Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "<title>" 
 	When user copies the link in valid format from email into the browser
 	Then user should be presented with proper document "<title>"
 	Examples: 
 		| guid 								| title														| mailbox |
 		|I53cfffa798de11e598dc8b09b4f043e0 	| Completing a share transfer form: private acquisitions	|tr-anz-tester1@yandex.com |
 		
-
 Scenario Outline: [818051] Email document - PDF format, table of contents included 
 	Given ANZ user navigates directly to document with guid "<guid>"
 	When clicks on email delivery option for the document 
@@ -81,7 +80,7 @@ Scenario Outline: [818051] Email document - PDF format, table of contents includ
 	And the document includes table of contents that contains title "<contentsText>" 
 	Examples: 
 		| guid							   | subject					   | docText 			   | contentsText | mailbox |
-		|I53cfffa798de11e598dc8b09b4f043e0 | Practical Law - Completing a share transfer form: private acquisitions | When acting for a transferee | Execution by the parties |tr-anz-tester1@yandex.com |
+		|I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | When acting for a transferee | Execution by the parties |tr-anz-tester1@yandex.com |
 		
 
 Scenario Outline: [818051] Email document - PDF format, table of contents not included 
@@ -99,7 +98,7 @@ Scenario Outline: [818051] Email document - PDF format, table of contents not in
 	And the document does not include table of contents that contains title "<contentsText>" 
 	Examples: 
 		| guid							   | subject					   | docText 			   | contentsText | mailbox |
-		|I53cfffa798de11e598dc8b09b4f043e0 | Practical Law - Completing a share transfer form: private acquisitions | When acting for a transferee | Execution by the parties |tr-anz-tester1@yandex.com |
+		|I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | When acting for a transferee | Execution by the parties |tr-anz-tester1@yandex.com |
 		
 		
 
@@ -120,7 +119,7 @@ Scenario Outline: [818051] Email document - PDF format, drafting notes not inclu
 	And the document does not include drafting notes 
 	Examples: 
 		| guid 								| subject			| docText | mailbox |
-		|Ifb5c26ca995811e598dc8b09b4f043e0| Practical Law - Board minutes: transfer of shares | The chairperson reported |tr-anz-tester1@yandex.com |
+		|Ifb5c26ca995811e598dc8b09b4f043e0| Board minutes: transfer of shares | The chairperson reported |tr-anz-tester1@yandex.com |
 		
 		
  
@@ -142,7 +141,7 @@ Scenario Outline: [818051] Email document - PDF format, drafting notes only
 	And the document includes drafting notes 
 	Examples: 
 		| guid 														| subject			| docText | mailbox |
-		|Ifb5c26ca995811e598dc8b09b4f043e0| Practical Law - Board minutes: transfer of shares | The chairperson reported |tr-anz-tester1@yandex.com |
+		|Ifb5c26ca995811e598dc8b09b4f043e0| Board minutes: transfer of shares | The chairperson reported |tr-anz-tester1@yandex.com |
 		
 
 Scenario Outline: [818051] Email document - PDF format, drafting notes included 
@@ -163,7 +162,7 @@ Scenario Outline: [818051] Email document - PDF format, drafting notes included
 	And the document includes drafting notes 
 	Examples: 
 		| guid 														| subject			| docText | mailbox |
-		|Ifb5c26ca995811e598dc8b09b4f043e0| Practical Law - Board minutes: transfer of shares | The chairperson reported |tr-anz-tester1@yandex.com |
+		|Ifb5c26ca995811e598dc8b09b4f043e0| Board minutes: transfer of shares | The chairperson reported |tr-anz-tester1@yandex.com |
 		
 		
 		

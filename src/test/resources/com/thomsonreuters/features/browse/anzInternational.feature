@@ -51,6 +51,7 @@ Feature: [808912]As a PLAU User, I want to browse down to a Country page So that
       |Competition   |
 
 # commented the verification of Url for US as the Url has lrTS=20170323105558268, which is not constant.
+@run
 Scenario Outline: [835281] User uses browse menu to navigate to Global Country page
    Given ANZ user is logged in with following details
 	  | userName         | AUtestuser3 |
@@ -61,7 +62,7 @@ Scenario Outline: [835281] User uses browse menu to navigate to Global Country p
 	Then user was taken to url "<url>"
 	Examples:
 	|country	|url|
-	|China		|http://global.practicallaw.com/country/china|
+   #|China		|https://uk.practicallaw.thomsonreuters.com/Search/Home.html?transitionType=Default&contextData=(sc.Default)&bhcp=1|
 	|Canada		|http://ca.practicallaw.com/|
-	#|US			|https://content.next.westlaw.com/|
+   #|US			|https://content.next.westlaw.com/|
 		
