@@ -11,32 +11,33 @@ Background:
 
 #intermittent issue:
 #848623 Bug [PLAU only] Glossary: Error when opening glossary article (Stream not readable)
+
 Scenario Outline: Email glossary term - MS Word format
 	Given the user clicks on glossary term "<term>"
 	When clicks on email delivery option for the document 
 	Then the user should be able to see Email basic tab options as follows 
-		| Subject       | Practical Law - <term> |
+		| Subject       |  <term> |
 	When the user edits the basic download options as follows 
 		| To            |  <mailbox>         |
 		| Format		| Microsoft Word 				|
-		| Subject       | Practical Law - <term> - test Word|
+		| Subject       | <term> - test Word|
 	And Email button is clicked 
-	Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "Practical Law - <term> - test Word" 
+	Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<term> - test Word" 
 	Examples: 
 		| term 			| mailbox |
 		|Disability | tr-anz-tester1@yandex.com         |
-		
+
 Scenario Outline: Email glossary term - RTF format 
 	Given the user clicks on glossary term "<term>"
 	When clicks on email delivery option for the document 
 	Then the user should be able to see Email basic tab options as follows 
-		| Subject       | Practical Law - <term> |
+		| Subject       | <term> |
 	When the user edits the basic download options as follows 
 		| Format            | Word Processor (RTF) |
 		| To				| <mailbox> |
-		| Subject       | Practical Law - <term> - test RTF|
+		| Subject       | <term> - test RTF|
 	And Email button is clicked 
-	And user receives an email at "<mailbox>" with document in Word Processor (RTF) format and with subject "Practical Law - <term> - test RTF" 
+	And user receives an email at "<mailbox>" with document in Word Processor (RTF) format and with subject " <term> - test RTF" 
 	Examples: 
 		| term 			|  mailbox |
 		|Disability | tr-anz-tester1@yandex.com         |
@@ -46,13 +47,13 @@ Scenario Outline: Email glossary term - PDF format
 	Given the user clicks on glossary term "<term>"
 	When clicks on email delivery option for the document 
 	Then the user should be able to see Email basic tab options as follows 
-		| Subject       | Practical Law - <term> |
+		| Subject       | <term> |
 	When the user edits the basic download options as follows 
 		| Format            | PDF |
 		| To				| <mailbox> |
-		| Subject       | Practical Law - <term> - test PDF|
+		| Subject       | <term> - test PDF|
 	And Email button is clicked 
-	Then user receives an email at "<mailbox>" with document in PDF format and with subject "Practical Law - <term> - test PDF" and downloads the document
+	Then user receives an email at "<mailbox>" with document in PDF format and with subject " <term> - test PDF" and downloads the document
 	And the document includes document body that contains text "<docText>"
 	Examples: 
 		| term 			| docText |  mailbox |
@@ -62,13 +63,13 @@ Scenario Outline: [847182] Email glossary term - Resource Link Only format
 	Given the user clicks on glossary term "<term>"
 	When clicks on email delivery option for the document 
 	Then the user should be able to see Email basic tab options as follows 
-		| Subject       | Practical Law - <term> |
+		| Subject       | <term> |
 	When the user edits the basic download options as follows 
 		| Format            | Resource Link Only |
 		| To				| <mailbox> |
-		| Subject       | Practical Law - <term> - test link|
+		| Subject       | <term> - test link|
 	And Email button is clicked 
-	Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "Practical Law - <term> - test link"
+	Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject " <term> - test link"
 	When user copies the link in valid format from email into the browser
 	Then user should be presented with proper document "<term>" 
 	Examples: 

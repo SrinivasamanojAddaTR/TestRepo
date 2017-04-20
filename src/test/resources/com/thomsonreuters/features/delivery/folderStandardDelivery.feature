@@ -153,7 +153,7 @@ Scenario Outline: [821556] Download document without table of contents in PDF fo
 	Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<subject>" 
 	Examples: 
 		| folder	| subject			|  mailbox |
- 		|testFolder | Practical Law - Financial assistance | tr-anz-tester1@yandex.com |
+ 		|testFolder | Financial assistance | tr-anz-tester1@yandex.com |
 
 Scenario Outline: [821556][847182]  Email resource link only
 	Given the user opens <folder> folder with the set of documents
@@ -162,12 +162,12 @@ Scenario Outline: [821556][847182]  Email resource link only
     And the user selects the checkbox associated with document "1"
     When user clicks on Email delivery option for Folder
 	And the user should be able to see Email basic tab options as follows 
-		| Subject       | Practical Law - <title> |
+		| Subject       | <title> |
 	When the user edits the basic email options as follows 
 		| To            |  <mailbox>         |
 		| Format            | Resource Link Only |
 	And Email button is clicked 
-	Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "Practical Law - <title>"  
+	Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "<title>"  
 	When user copies the link in valid format from email into the browser
 	Then user should be presented with proper document "<title>"
 	Examples: 
