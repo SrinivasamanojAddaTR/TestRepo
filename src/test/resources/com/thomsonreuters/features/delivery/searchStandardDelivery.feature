@@ -47,7 +47,6 @@ Scenario Outline: [818824] Download documents in PDF format
 		| 	query 	| 
 		|	test |
 
-
 Scenario Outline: [818824] Download documents in zip file
 	Given the user runs a free text search for the query "<query>"
     And the user selects the checkbox associated with result "1"
@@ -84,7 +83,6 @@ Scenario Outline: [818824] Download list of items in PDF format
 	Examples: 
 	| 	query 	| 
 	|	test |
-
 
 
 Scenario Outline: [818824] Download list of items in CSV format
@@ -172,10 +170,11 @@ Scenario Outline: [818824] Download document without table of contents in PDF fo
 ###############################################################################################################
 ## Email	
 ###############################################################################################################
-	
+
+# The associated result has been changed from no:2 to no:3	
 	Scenario Outline: [818824] Email document in Microsoft Word format
 	Given the user runs a free text search for the query "<query>"
-    And the user selects the checkbox associated with result "2"
+    And the user selects the checkbox associated with result "3"
     When user clicks on Email delivery option for Search
 	And the user should be able to see Email basic tab options as follows 
 		| Subject       | <subject> |

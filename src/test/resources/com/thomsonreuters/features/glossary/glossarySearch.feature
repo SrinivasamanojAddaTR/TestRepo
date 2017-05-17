@@ -37,10 +37,9 @@ Scenario: Verify the closing of search box functionality
     And clicking on this "cross" icon should reset the page back to the default state
     And the search query is removed from the search input field
 
-# changes made to the term - changed from bookbuild to bullying
 Scenario: Verify zero search results 
 	When searches for the term "bug" using the glossary search 
 	Then the total should be displayed as "0 matches" 
-	And the user should be able to view the definition of the term "bullying" on the page
+	And the user should be able to view the definition of the term "bookbuild" on the page
 	
 	
