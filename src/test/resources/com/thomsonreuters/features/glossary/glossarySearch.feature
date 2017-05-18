@@ -40,6 +40,6 @@ Scenario: Verify the closing of search box functionality
 Scenario: Verify zero search results 
 	When searches for the term "bug" using the glossary search 
 	Then the total should be displayed as "0 matches" 
-	And the user should be able to view the definition of the term "bookbuild" on the page
+	And the user should be able to view the definition of the term "Bookbuild" on the page
 	
 	
