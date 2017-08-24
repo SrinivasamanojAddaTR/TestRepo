@@ -45,6 +45,6 @@ So that I can view and find out more information about practical law
 	|Careers			|https://www.thomsonreuters.com/en/careers.html  	                   |Careers|
 	|User Guides		|http://training.thomsonreuters.com.au/products/practical-law-au/  |Training at Thomson Reuters AU|
 	|Request Training	|http://training.thomsonreuters.com.au/request-training/           |Request Training|
-	|Privacy			|https://thomsonreuters.com.au/en/product-terms/privacy-policy.html|Privacy Policy \| Australia \| Thomson Reuters|
+	|Privacy			|https://www.thomsonreuters.com/en/privacy-statement.html |Privacy Statement | Thomson  Reuters|
     |Master Terms       |http://legal.thomsonreuters.com.au/terms/pdf/AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf| AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
 	
