@@ -19,7 +19,7 @@ Feature: [848112][848110] view legal updates page
 
 
   Scenario Outline: [848112] User verifies the Legal updates by Practice Area going through PA page
-    When the user clicks on the tab "Practice areas"
+    When the user clicks on the tab "Practice Areas"
     And the user opens "<practiceArea>" link
     Then the user is presented with a page with header "<practiceArea>"
     When the user select Legal Updates link on Resource tab area

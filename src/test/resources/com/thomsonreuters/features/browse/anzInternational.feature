@@ -4,7 +4,7 @@ Feature: [808912]As a PLAU User, I want to browse down to a Country page So that
    Given ANZ user is logged in
    When user selects the following tab and see the relative links or content
       |tab | content |
-      |International | Countries, International subscriptions, International practice areas,Country Q&A comparison tool |
+      |International | Countries, International subscriptions, Country Q&A comparison tool |
    Then user should see following countries with "Country Q&A" and "All Country resources" tabs
     | Argentina    |
     | Austria      |

@@ -2,7 +2,7 @@ Feature: [808905]As a PLAU User, I want to view the home page So that I can view
 
   Scenario Outline: User verifies the Pratice area pages and its relative tabs
     Given ANZ user is logged in
-    And user opens "Practice areas" link
+    And user opens "Practice Areas" link
     And user navigates to PA page "<PA>"
     Then user verifies the "<PA>" page
     And user verifies the following tabs are displayed

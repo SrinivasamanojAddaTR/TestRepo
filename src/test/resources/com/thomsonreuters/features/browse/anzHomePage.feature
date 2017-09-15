@@ -4,7 +4,7 @@ Scenario: [814203] User verifies the home page and its relative tabs
 	Given ANZ user is logged in
 	Then user verifies the "Home" page
 	And user verifies the following tabs are displayed
-		|Practice areas|
+		|Practice Areas|
 		|Resources     |
 		|International |
     When user opens "Practice areas" link
@@ -15,4 +15,4 @@ Scenario: [814203] User verifies the home page and its relative tabs
 	When user selects the following tab and see the relative links or content 
 		|tab | content |
 		| Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary, Global guides|
-		|International | Countries, International subscriptions, International practice areas,Country Q&A comparison tool |
+		|International | Countries, International subscriptions, Country Q&A comparison tool |
