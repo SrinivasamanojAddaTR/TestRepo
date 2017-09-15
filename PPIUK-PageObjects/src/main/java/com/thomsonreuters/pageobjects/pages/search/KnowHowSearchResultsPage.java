@@ -741,7 +741,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return WebElement with "Cancel" button
      */
     public WebElement getCancelButton() {
-        return waitForExpectedElement(By.xpath("//a[contains(@onclick, 'cancelMultiFacetMode') and not(contains(@class, 'hideState'))]"));
+       return waitForExpectedElement(By.id("co_multifacet_selector_1_cancelFacetFilter"));
     }
 
     /**
