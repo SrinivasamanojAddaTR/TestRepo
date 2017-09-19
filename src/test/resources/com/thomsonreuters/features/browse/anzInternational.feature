@@ -33,9 +33,9 @@ Feature: [808912]As a PLAU User, I want to browse down to a Country page So that
     Then user selects following links and should see their respective pages
     |International transaction guides|
     |Global guides |
-    |Arbitration   |
-    |EU Law        |
-    |Competition   |
+   # |Arbitration   |
+   # |EU Law        |
+   # |Competition   |
     |Country Q&A comparison tool|
 
 

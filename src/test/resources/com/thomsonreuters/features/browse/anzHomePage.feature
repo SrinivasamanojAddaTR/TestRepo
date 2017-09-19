@@ -7,7 +7,7 @@ Scenario: [814203] User verifies the home page and its relative tabs
 		|Practice Areas|
 		|Resources     |
 		|International |
-    When user opens "Practice areas" link
+    When user opens "Practice Areas" link
 	And user verifies the following practice area links are displayed 
 		|Employment            |
 		|Company Law           |

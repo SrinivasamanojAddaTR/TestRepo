@@ -4,7 +4,7 @@ Feature: [821257] As a PLAU User I want to be able to view my frequently used it
   Given ANZ user is logged in
     When API cleans all folders and history
     And user relogs in
-    And user opens "Practice areas" link
+    And user opens "Practice Areas" link
     And the user opens "Company Law" link
     And user clicks on "Favourites" link
     Then the user checks that 'Company Law' link presents in favourites group 'Frequently Used Items' on Favourites page
