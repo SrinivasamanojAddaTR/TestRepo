@@ -52,7 +52,7 @@ public class OnepassLogin extends AbstractPage {
     }
 
     public WebElement saveMyUsernameCheckBox() {
-        return retryingFindElement(By.xpath(".//*[@id='form0']/div/ul[2]/li[3]/div[1]/label)");
+        return retryingFindElement(By.xpath(".//*[@id='form0']/div/ul[2]/li[3]/div[1]/label"));
     }
 
     public WebElement saveMyUsernameAndPasswordCheckBox() {
