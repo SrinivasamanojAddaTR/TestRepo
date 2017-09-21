@@ -40,11 +40,11 @@ public class OnepassLogin extends AbstractPage {
     }
 
     public WebElement rememeberMeCheckBox() {
-        return waitForExpectedElement(By.id("SuperRememberMe"));
+    	return waitForExpectedElement(By.id("SuperRememberMeLabel"));
     }
 
     public WebElement loginBox() {
-        return retryingFindElement(By.className("signon"));
+        return retryingFindElement(By.className("Form-content"));
     }
 
     public WebElement forgotMyUsernameOrPasswordLink() {
@@ -52,11 +52,11 @@ public class OnepassLogin extends AbstractPage {
     }
 
     public WebElement saveMyUsernameCheckBox() {
-        return retryingFindElement(By.id("SaveUsername"));
+        return retryingFindElement(By.xpath(".//*[@id='form0']/div/ul[2]/li[3]/div[1]/label)");
     }
 
     public WebElement saveMyUsernameAndPasswordCheckBox() {
-        return retryingFindElement(By.id("SaveUsernamePassword"));
+         return retryingFindElement(By.xpath(".//*[@id='form0']/div/ul[2]/li[3]/div[2]/label"));
     }
 
     public WebElement superRememberMeHintLink() {
@@ -68,7 +68,7 @@ public class OnepassLogin extends AbstractPage {
     }
     
     public boolean isSuperRememberMeHintPopUpPresent() {
-        return isExists(By.id("superRememberMeHintTooltip"));
+        return isExists(By.xpath(".//*[@id='srmdialog']/div"));
     }
     
     public WebElement createNewOnePassProfileLink() {
@@ -108,11 +108,11 @@ public class OnepassLogin extends AbstractPage {
 	}
 
     public boolean isForgotUsernameLinkPresent() {
-        return isElementDisplayed(By.partialLinkText("Forgot Username?"));
+        return isElementDisplayed(By.partialLinkText("Forgot username?"));
     }
 
     public boolean isForgotPasswordLinkPresent() {
-        return isElementDisplayed(By.partialLinkText("Forgot Password?"));
+        return isElementDisplayed(By.partialLinkText("Forgot password?"));
     }
 
     public String getCompartmentLogoName(){

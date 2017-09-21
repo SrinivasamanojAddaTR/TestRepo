@@ -87,7 +87,7 @@ public class SearchResultsPage extends AbstractPage {
     }
 
     public WebElement resourceTypeDescription() {
-        return waitForExpectedElement(By.cssSelector("#co_searchResults_citation_1 .co_greenStatus"));
+        return waitForExpectedElement(By.cssSelector("#co_searchResults_citation_1 div.co_search_detailLevel_1:nth-of-type(1)"));
     }
 
     public WebElement backToCategoryPageLink() {
@@ -244,11 +244,11 @@ public class SearchResultsPage extends AbstractPage {
     }
 
     public WebElement jurisdictionsForFirstResult() {
-        return waitForExpectedElement(By.cssSelector("#co_searchResults_citation_1 div.co_search_detailLevel_1:nth-of-type(2)"));
+        return waitForExpectedElement(By.cssSelector("#co_searchResults_citation_1 div.co_search_detailLevel_1:nth-of-type(3)"));
     }
 
     public WebElement statusForFirstResult() {
-        return waitForExpectedElement(By.cssSelector("#co_searchResults_citation_1 div.co_search_detailLevel_1:nth-of-type(3)"));
+        return waitForExpectedElement(By.cssSelector("#co_searchResults_citation_1 div.co_search_detailLevel_1:nth-of-type(2)"));
     }
 
     public WebElement plcRefIdForNthSearchResult(int n) {
