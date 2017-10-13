@@ -12,6 +12,9 @@ public class PracticalLawHomepage extends AbstractPage {
 
     private static final By CLOSE_CONSENT_MESSAGE_XPATH = By.xpath("//div[@id='CookieConsentMessage']//a[text()='Close']");
 	private CommonMethods comMethods;
+	private static final By FLASH_SCREEN = By.xpath("//div[@id='co_welcomeCenterLightbox']/div[2]/div/div/div/ul/li/a");
+	private static final By CLOSE_FLASH_SCREEN_ID = By.id("undefined");
+
 
     public PracticalLawHomepage() {
 
@@ -128,6 +131,17 @@ public class PracticalLawHomepage extends AbstractPage {
         return waitForExpectedElement(By.id("coid_unreleased_category_pages"));
     }
 
+    public void flashScreenPL(){
+        try{
+             if(isElementDisplayed(FLASH_SCREEN))
+             {
+                    waitForExpectedElement(CLOSE_FLASH_SCREEN_ID).click();
+             }
+             
+         }catch(Exception e){
+               
+                        }
+    }
 
 
 

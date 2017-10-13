@@ -1440,4 +1440,16 @@ public class SharedAnnotationsPage extends AbstractPage {
             return element.findElement(By.className("co_noteBody_time")).getText();
         }
     }
+    
+    public boolean cookiesPolicy(){
+        return isExists(By.id("co_cookiePolicyContainer"));
+  
+}
+
+       //close cookies policy
+    public WebElement closeCookiesPolicy(){
+        return waitAndFindElement(By.id("coid_website_cookiePolicyAcknowledged"));
+  
+}
+
 }

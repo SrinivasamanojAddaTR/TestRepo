@@ -235,6 +235,9 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         loginUser(CobaltUser.updateMissingFields(plPlusUserList.get(0)));
         footerUtils.closeDisclaimerMessage();
         LOG.info("The PL+ user has logged in with the following details");
+        plcHomePage.flashScreenPL();
+        footerUtils.ourCookiesPolicy();
+
     }
 
     public void plUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList, String baseUrl) throws Throwable {
@@ -560,7 +563,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     break;
 
                 case ANZ_IAC:
-                    LOG.info("ANZ_IAC routing");
+                    LOG.info("ANZ_IAC_Breadcrumbs routing");
                     routingPage.infrastructureAccessControls().sendKeys("IAC-LIGER-NORT-TEST-FILTER");
                     routingPage.showFeatureSelectionsLink().click();
                     routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
@@ -1099,7 +1102,8 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 		 * "PROD B is being tested."); wlnHeader.signInLink().click(); break;
 		 * default: wlnHeader.signInLink().click(); break; }
 		 */
-        plcHomePage.closeCookieConsentMessage();
+    	plcHomePage.flashScreenPL();
+      //  plcHomePage.closeCookieConsentMessage();
         wlnHeader.signInLink().click();
         wlnHeader.waitForPageToLoad();
         wlnHeader.waitForPageToLoadAndJQueryProcessing();

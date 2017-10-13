@@ -12,4 +12,18 @@ public class FooterUtils {
             sharedAnnotationsPage.waitForDisclaimerAbsent();
         }
     }
+    
+  //cookies policy
+    public void ourCookiesPolicy(){
+       try{
+             if(sharedAnnotationsPage.cookiesPolicy())
+             {
+                    sharedAnnotationsPage.closeCookiesPolicy().click();
+             }
+       }
+       catch (Exception e) {
+
+       }
+    }
+
 }
