@@ -142,6 +142,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         navigationCobalt.navigateToPLANZPlus();
         resetCurrentUser();
         footerUtils.closeDisclaimerMessage();
+        footerUtils.ourCookiesPolicy();
         LOG.info("The PL+ ANZ user has navigated to the home page");
     }
 
