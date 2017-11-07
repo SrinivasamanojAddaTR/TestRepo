@@ -11,8 +11,8 @@ import static org.junit.Assert.assertTrue;
 
 public class LinkingFromDocument1 {
 
-	private static final String WLAU_SIGN_ON= "Westlaw AU Signon";
-	private static final String PLAU_SIGN_ON = "Practical Law Australia";
+	private static final String WLAU_SIGN_ON= "545 Orders that can be made by particular courts | Westlaw AU";
+	private static final String PLAU_SIGN_ON = "Home | Practical Law";
 	private static final int SINGLE = 1;
 
 	private AssetPageUtils assetPageUtils = new AssetPageUtils();
