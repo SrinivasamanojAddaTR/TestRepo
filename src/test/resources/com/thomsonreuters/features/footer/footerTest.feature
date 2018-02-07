@@ -12,8 +12,9 @@ Feature: [809111]As a user, I want to see the "Legal Information" and "Privacy" 
 
     Examples: 
       | Link         | PageTitle                                                               |
-      | Privacy      | Privacy Statement | Thomson Reuters                        |
+      | Privacy      | Privacy statement \| Thomson Reuters                       |
       | Master Terms | AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
+      | How are we using your information?   | How we are using your information |
 
   Scenario: [809111]User verifies the "Footer Link Items" for the respetive Page's links
     When user should see footer

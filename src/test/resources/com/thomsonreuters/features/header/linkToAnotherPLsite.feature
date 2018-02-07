@@ -20,8 +20,8 @@ Feature: [809948][850090] Link to another Practical Law web site
     Examples: 
       | countryName | url                                                                    | websiteTitle                           |
       | US          | https://content.next.westlaw.com/Browse/Home                           | Practical Law |
-      | UK          | https://uk.practicallaw.thomsonreuters.com/Search/Home                 | Home \| Practical Law                  |
-      | Canada      | https://ca.practiallaw.thomsonreuters.com/Search/Home                  | Practical Law Canada         |
+      | UK          | https://uk.practicallaw.thomsonreuters.com/Browse/Home                | Home \| Practical Law                  |
+      | Canada      | https://ca.practicallaw.thomsonreuters.com/Search/Home                  | Practical Law Canada         |
       | Global      | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global          | Global Homepage \| Practical Law       |
       | China       | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China    | Global \| China \| Practical Law       |
 
@@ -53,7 +53,7 @@ Feature: [809948][850090] Link to another Practical Law web site
     Examples:
       | countryName | url                                                                    | websiteTitle                           |
       | US          | https://content.next.westlaw.com/Browse/Home                           | Practical Law |
-      | UK          | https://uk.practicallaw.thomsonreuters.com/Search/Home                 | Home \| Practical Law                  |
+      | UK          | https://uk.practicallaw.thomsonreuters.com/Browse/Home                 | Home \| Practical Law                  |
       | Canada      | https://ca.practicallaw.thomsonreuters.com/Search/Home                 | Practical Law Canada         |
       | Global      | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global          | Global Homepage \| Practical Law       |
       | China       | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China    | Global \| China \| Practical Law       |

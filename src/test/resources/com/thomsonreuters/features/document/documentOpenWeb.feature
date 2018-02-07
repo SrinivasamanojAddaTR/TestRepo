@@ -64,7 +64,7 @@ Scenario Outline: [850119] As a PL AU open web user I want to view full document
 	And the full text document will be displayed including "<body>"
 Examples:
 	| guid								| title 													| 	body							| 	
-	| Ib9aa19f71c9a11e38578f7ccc38dcbee | Arbitration procedures and practice in Brazil: overview	| Over the last the 12 years 	|   
+	| Ib9aa19f71c9a11e38578f7ccc38dcbee | Arbitration procedures and practice in Brazil: overview	| To compare answers across 	|   
 	| Idb567852df4611e598dc8b09b4f043e0 | Control													| In some cases control is given |
 	
 
