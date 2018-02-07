@@ -259,7 +259,8 @@ public class HomePage extends AbstractPage {
     }
 
     public WebElement editPopupSaveChangesButton() {
-        return waitForExpectedElement(By.xpath("//div[@id='jurisdictionsPopup']//button[text()='Save Changes']"));
+       // return waitForExpectedElement(By.xpath("//div[@id='jurisdictionsPopup']//button[text()='Save Changes']"));
+        return waitForExpectedElement(By.xpath("//div[@class='co_actionBtns']/a[contains(text(),'Save Changes')]"));
     }
 
     public WebElement comparePageLeftColumnCountryNameLink(String countryName) {

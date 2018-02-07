@@ -256,6 +256,8 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
             newSession(currentUser);
             navigationCobalt.navigateToPLANZPlus();
             footerUtils.closeDisclaimerMessage();
+            Thread.sleep(300);
+            footerUtils.ourCookiesPolicy();
         } else {
             LOG.info("No need to create new session. Current user: " + currentUser + " is the first user");
         }
