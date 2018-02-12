@@ -1448,8 +1448,9 @@ public class SharedAnnotationsPage extends AbstractPage {
 
        //close cookies policy
     public WebElement closeCookiesPolicy(){
-        return waitAndFindElement(By.id("coid_website_cookiePolicyAcknowledged"));
-  
-}
+      //  return waitAndFindElement(By.id("coid_website_cookiePolicyAcknowledged"));
+        return waitAndFindElement(By.xpath(".//*[@id='coid_website_closeCookiePolicy']"));
+          
+    }
 
 }
