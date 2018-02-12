@@ -8,7 +8,7 @@ Feature: [809732] Request a Training
 
   Scenario: The request training link takes user to request-training web page
     When the user clicks link 'Request Training' on footer
-    Then user was taken to url "support.thomsonreuters.com.au"
+    Then user was taken to url "https://support.thomsonreuters.com.au/"
     
 
     
