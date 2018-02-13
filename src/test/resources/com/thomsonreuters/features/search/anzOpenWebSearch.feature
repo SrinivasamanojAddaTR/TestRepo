@@ -36,11 +36,11 @@ Feature: [850092] As an open web user I want to perform a search So that I can v
 		| term |
 		| law |
 
-  Scenario:[850123] Verify valid search results for multiple terms and also the document retrieved in Open web
+  Scenario: [850123] Verify valid search results for multiple terms and also the document retrieved in Open web
      Given PL+ ANZ user navigates to home page
      When the user runs specific operator search for the query "Tax And Accounting"
      And the user can select the option to show more detail
      And user clicks on "Share purchases" link
      And user verifies the "Share purchases" page Title in Open Web
-     When user clicks on "Return to list" link
+     When user clicks on "Search Results" link
      Then the user is able to verify that a page of search results is displayed

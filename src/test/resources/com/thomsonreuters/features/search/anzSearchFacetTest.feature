@@ -37,15 +37,11 @@ Feature: [814276] As a PLAU user, I want to narrow my search results
       | Glossary       |
 
   Scenario: Verify the selection of different groups with multiple filter button
-    And the user selects the know how following parent facets with single selection
+   And the user selects the know how following parent facets
       | Practice Notes |
       | Employment     |
       | Federal        |
-    And the user selects the know how following parent facets
-      | Practice Notes |
-      | Employment     |
-      | Federal        |
-    When the user clicks on clear all link
+    When the user clicks on cancel link
     Then the user verifies that the following parent facets are not selected
       | Practice Notes |
       | Employment     |

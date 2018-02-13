@@ -45,9 +45,9 @@ Feature: [812218]  Password Authentication: Login to Practical Law Australia
   Scenario: Ability to see error message for incorrect password
     And the user enters their username "Login_Negative" and password "password1"
     When the user selects sign in
-    Then the user is presented with the following "OnePass" error message "Your username and/or password do not match our records. Please try again."
+    Then the user is presented with the following "OnePass" error message "We don't recognise that username and/or password. Both are case sensitive."
 
   Scenario: Ability to see error message for incorrect username
     And the user enters their username "Login_negative" and password "Password1"
     When the user selects sign in
-    Then the user is presented with the following "OnePass" error message "Your username and/or password do not match our records. Please try again."
+    Then the user is presented with the following "OnePass" error message "We don't recognise that username and/or password. Both are case sensitive."

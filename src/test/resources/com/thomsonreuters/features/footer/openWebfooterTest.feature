@@ -12,7 +12,7 @@ So that I can view and find out more information about practical law
       | FooterLink          | LinksToPage                               |
       | About Practical Law | /Browse/Home/About/AboutUs                |
       | Testimonials        | /Browse/Home/About/Testimonials           |
-      | Careers             | http://thomsonreuters.com/en/careers.html |
+      | Careers             | https://thomsonreuters.com/en/careers.html |
     Then user should see the following FooterLinks under heading "Our team" with links to pages
       | Meet the Team      | /Browse/Home/About/OurTeam       |
       | Advisory Board     | /Browse/Home/About/AdvisoryBoard |
@@ -46,6 +46,6 @@ So that I can view and find out more information about practical law
      |User Guides  |https://support.thomsonreuters.com.au/product/practical-law-australia  |Practical Law Australia \| Thomson Reuters|
      |Request Training |https://support.thomsonreuters.com.au |Homepage \| Thomson Reuters|
      |Privacy     |https://www.thomsonreuters.com/en/privacy-statement.html | Privacy statement \| Thomson Reuters|
-     |Master Terms       |http://legal.thomsonreuters.com.au/terms/pdf/AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf| AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
+     |Master Terms       |https://legal.thomsonreuters.com.au/terms/pdf/AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf| AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
 	
 	

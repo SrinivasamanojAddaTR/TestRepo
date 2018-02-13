@@ -44,15 +44,11 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
 
   Scenario: Verify the selection of different groups with multiple filter button
     When the user runs a free text search for the query "law"
-    And the user selects the know how following parent facets with single selection
-      | Practice Notes |
-      | Employment     |
-      | Federal        |
     And the user selects the know how following parent facets
       | Practice Notes |
       | Employment     |
       | Federal        |
-    When the user clicks on clear all link
+    When the user clicks on cancel link
     Then the user verifies that the following parent facets are not selected
       | Practice Notes |
       | Employment     |
@@ -69,7 +65,7 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
 
 
   Scenario: Verify the Search and Selection on Topic Pages
-    When the user selects "Practice areas" tab
+    When the user selects "Practice Areas" tab
     And the user navigates to practice area "Employment" filtered by "Federal unfair dismissal" topic page
     And the user runs a free text search for the query "law"
     Then the user can verify that the scoped search dropdown states "Federal unfair dismissal"

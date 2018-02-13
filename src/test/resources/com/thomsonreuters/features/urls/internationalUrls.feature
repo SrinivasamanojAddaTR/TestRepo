@@ -15,7 +15,7 @@ Feature: [822645] International Page URLs
       | url                                                                                            | header                                                                      |
       ######################################################################################################
       ###########Countries - 4 items selected + 1 with bug
-      | /Browse/Home/International/IndonesiaRecentlyPublished                                          | Indonesia: Recently published                                               |
+      | /Browse/Home/International/IndonesiaRecentlyPublished                                          | Indonesia Recently published                                               |
       | /Browse/Home/International/Argentina                                                           | Argentina                                                                   |
       | /Browse/Home/International/ArgentinaRecentlypublished                                          | Argentina: Recently published                                               |
       | /Browse/Home/International/Australia                                                           | Australia                                                                   |

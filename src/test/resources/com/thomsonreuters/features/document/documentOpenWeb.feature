@@ -52,7 +52,7 @@ Scenario Outline: [850119] As a PL AU open web user I want to view open web vers
 	And "Register now" button is present in document body
 	When the user clicks on button with title "Register now"
 	Then the source document with guid "<guid>" remains open and new tab opens
-    And the user is taken to "http://legal.thomsonreuters.com.au/products/practical-law/contact-us.aspx?utm_source=practical-law-product-site&utm_medium=banner&utm_campaign=practical-law" resource
+    And the user is taken to "https://legal.thomsonreuters.com.au/products/practical-law/contact-us.aspx?utm_source=practical-law-product-site&utm_medium=banner&utm_campaign=practical-law" resource
 Examples:
 	| guid								| title 						    | author 						| 	summary							| body					|
 	| Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence: acquisitions   	|by Practical Law Corporate 	| This note considers the purpose 	| The potential buyer	|
