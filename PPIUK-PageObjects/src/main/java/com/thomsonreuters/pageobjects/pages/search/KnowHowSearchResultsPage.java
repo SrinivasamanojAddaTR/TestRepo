@@ -99,7 +99,8 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * Object representing Practice Area heading for know how facet group
      */
     public WebElement facetGroupHeaderPracticeArea() {
-        return waitForExpectedElement(By.id("co_facetHeaderknowHowPracticeAreaSummary"));
+      //  return waitForExpectedElement(By.id("co_facetHeaderknowHowPracticeAreaSummary"));
+        return waitForExpectedElement(By.id("co_facetHeaderknowHowAuPracticeAreaSummary"));
     }
 
     /**
