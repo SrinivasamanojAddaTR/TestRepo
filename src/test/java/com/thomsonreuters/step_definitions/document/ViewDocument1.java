@@ -24,6 +24,7 @@ public class ViewDocument1 extends BaseStepDef {
 		navigationCobalt.navigateToANZSpecificResourcePage("/Document/" + guid + "/View/FullText.html");
 		resourcePage.waitForPageToLoadAndJQueryProcessing();
 		footerUtils.closeDisclaimerMessage();
+        footerUtils.ourCookiesPolicy();
 		resourcePage.waitForPageToLoad();
 	}
 
