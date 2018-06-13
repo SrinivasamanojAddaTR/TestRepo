@@ -1444,7 +1444,11 @@ public class SharedAnnotationsPage extends AbstractPage {
     public boolean cookiesPolicy(){
         return isExists(By.id("co_cookiePolicyContainer"));
   
-}
+}//cookies policy
+    public boolean isCookiesPolicyPresent(){
+	return isExists(By.xpath(".//*[@id='co_cookiePolicyContainer']"));
+     
+    }
 
        //close cookies policy
     public WebElement closeCookiesPolicy(){
