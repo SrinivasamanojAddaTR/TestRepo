@@ -10,7 +10,7 @@ Feature: [810047]As a PLAU User, I want to view a list of search operators and w
     |    &      | Search terms in the same document                    |
     |   or      | Either search term or both terms                     |
     |    %      | Not containing terms                                 |
-    |   ""      | to-Search for an exact phrase within quotation marks |
+    |   ""      | Search for an exact phrase within quotation marks    |
     |    /p     | Terms in same paragraph                              |
     |    +p     | Preceding term within same paragraph                 |
     |    /n     | Within n terms of                                    |
