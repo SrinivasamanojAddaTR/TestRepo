@@ -14,17 +14,19 @@ public class FooterUtils {
     }
     
   //cookies policy
-    public void ourCookiesPolicy(){
-       try{
-             if(sharedAnnotationsPage.cookiesPolicy())
-             {
-                    sharedAnnotationsPage.closeCookiesPolicy().click();
-             }
-       }
-       catch (Exception e) {
+  public void ourCookiesPolicy(){
+      try{
+          if(sharedAnnotationsPage.isCookiesPolicyPresent())
+          {
+              System.out.println("entered the loop");
+              sharedAnnotationsPage.closeCookiesPolicy().sendKeys(Keys.ENTER);
+          }
+      }
+      catch (Exception e) {
 
-       }
-    }
+          System.out.println("Cookies Policy is not displayed");
+      }
+  }
 
     
  }
