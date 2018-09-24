@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class BreadCrumbPage extends AbstractPage {
+	
+    private static final By BREAD_CRUMBS_BY = By.className("co_breadcrumbs");
 
     public WebElement breadCrumbCurrent(){
         return waitForExpectedElement(By.xpath("//div[@class='co_breadcrumbs']"));
@@ -17,6 +19,10 @@ public class BreadCrumbPage extends AbstractPage {
         return waitForExpectedElement(By.xpath("//div[@class='co_breadcrumbs']//a[@title='" + crumbLink + "']"));
     }
 
+    public WebElement breadcrumbHomeLink(){
+        return waitForExpectedElement(By.xpath("//div[@class='co_breadcrumbs']//a[@title='Home']"));
+    }
+    
     public WebElement breadCrumbDropdownArrow(){
         return waitForExpectedElement(By.xpath("//button[@title='View recent documents']"));
     }
@@ -40,4 +46,23 @@ public class BreadCrumbPage extends AbstractPage {
     public boolean isBreadCrumbPresent(){
         return isElementPresent(By.className("co_breadcrumbs"));
     }
+    
+    public boolean isViewAllLinkPresent(){
+    	return isElementPresent(By.xpath("//div[@class='co_genericBoxFooter']/a"));
+    }
+
+    
+    public WebElement ViewAllLinkPresent(){
+    	return waitForExpectedElement(By.xpath("//div[@class='co_genericBoxFooter']/a"));
+    }
+    
+    public WebElement waitForBreadcrumbToBeDisplayed() { 
+    	return waitForExpectedElement(BREAD_CRUMBS_BY);
+	  		   
+	  		}
+    public WebElement documentName()
+    {
+    	return waitForExpectedElement(By.xpath("//span[@class='co_constrainedCrumbItem']"));	
+    }
+    
 }
