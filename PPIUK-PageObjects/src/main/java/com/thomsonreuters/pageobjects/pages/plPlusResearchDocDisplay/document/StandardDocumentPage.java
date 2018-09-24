@@ -328,5 +328,8 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
     public boolean isErrorMessageOnDocument() {
         return isElementDisplayed(By.xpath("//div[@class='co_genericBoxContent']/*[contains(text(),'not be found') or contains(text(),'not available')]"));
     }
-
+	public boolean waitForDocumentTitle(String name) {
+		
+		return isElementDisplayed(By.xpath("//div[@id='co_docHeaderContainer']/h1[@class='co_title noTOC']"));
+	}
 }
