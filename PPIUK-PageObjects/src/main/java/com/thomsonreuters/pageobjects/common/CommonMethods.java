@@ -986,7 +986,7 @@ public class CommonMethods {
     public boolean isLinkTextDisplayed(String linkText) {
         return homePage.isElementDisplayed(By.linkText(linkText));
     }
-	   public void navigateBack()
+    public void navigateBack()
     {
     	driver.navigate().back();
     }
