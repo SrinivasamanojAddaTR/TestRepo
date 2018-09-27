@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.homepage;
 
 import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
+import org.openqa.selenium.Keys;
 
 public class FooterUtils {
 
