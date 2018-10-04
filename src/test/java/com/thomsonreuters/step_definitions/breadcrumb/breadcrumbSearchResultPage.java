@@ -19,7 +19,7 @@ public class breadcrumbSearchResultPage extends BaseStepDef {
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private TopicPage topicPage = new TopicPage();
     private SearchScopeControl searchScopeControl = new SearchScopeControl();
-    private BreadCrumbPage breadcrumbPage = new BreadCrumbPage();
+    //private BreadCrumbPage breadcrumbPage = new BreadCrumbPage();
 
     @When("^the user selects facets$")
     public void theUserSelectsFacets(List<String> facets) throws Throwable {
@@ -36,7 +36,7 @@ public class breadcrumbSearchResultPage extends BaseStepDef {
         topicPage.waitForPageToLoadAndJQueryProcessing();
         topicPage.waitForPageSourceChangedAfterClick(topicPage.pageNumber(pageNum));
         topicPage.waitForPageToLoadAndJQueryProcessing();
-        breadcrumbPage.waitForBreadcrumbToBeDisplayed();
+        //breadcrumbPage.waitForBreadcrumbToBeDisplayed();
         assertThat(Integer.parseInt(topicPage.currentPageSelected()), Is.is(pageNum));
     }
 
