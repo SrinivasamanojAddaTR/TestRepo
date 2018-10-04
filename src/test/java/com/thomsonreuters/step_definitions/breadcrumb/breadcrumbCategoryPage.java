@@ -1,4 +1,4 @@
-package com.thomsonreuters.step_definitions.breadcrumb;
+/*package com.thomsonreuters.step_definitions.breadcrumb;
 
 
 import com.thomsonreuters.pageobjects.common.BaseCommonLoginNavigation;
@@ -237,7 +237,7 @@ public void theUserCanSeeTopListOfDocuments(List<String> expectedInfoItemsNames)
         assertTrue("Info items do match the first item in list", expectedInfoItemsNames.get(i).equals(TopList));
    }
       
-    /*String firstItem=infoItemsNames.get(0).trim();
+    String firstItem=infoItemsNames.get(0).trim();
     System.out.println("first Item" +firstItem);
   
  String secondItem=infoItemsNames.get(1).trim();
@@ -246,7 +246,7 @@ public void theUserCanSeeTopListOfDocuments(List<String> expectedInfoItemsNames)
  System.out.println(expectedInfoItemsNames);
     assertTrue("Info items do match the first item in list", expectedInfoItemsNames.get(0).equals(firstItem));
     assertTrue("Info items do match the second item in list", expectedInfoItemsNames.get(1).equals(secondItem));
-   */
+   
    
 }
 
@@ -270,3 +270,4 @@ public void theUserclicksonViewlAllbutton()
    
     
 
+*/
