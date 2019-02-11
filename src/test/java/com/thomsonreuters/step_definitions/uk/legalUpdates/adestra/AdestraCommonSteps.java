@@ -7,8 +7,11 @@ import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
+import cucumber.api.java.en.When;
 
 import java.util.List;
+
+import org.openqa.selenium.By;
 
 public class AdestraCommonSteps extends BaseStepDef {
 
@@ -34,6 +37,13 @@ public class AdestraCommonSteps extends BaseStepDef {
     public void unsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption() throws Exception {
     	adestraUtils.removeSubscriptionViaAPI(currentUser.getEmail());
     	 subscriptionPreferencePage.removeUnsubscribeAllOptionANZ();
+    }
+
+
+    @When("^the user opens email preference popup using user dropdown$")
+    public void theUserOpensTimeZonePopupUsingUserDropdown() throws Throwable {
+     wlnHeader.expandUserAvatarDropDown();
+     wlnHeader.waitForExpectedElement(By.linkText("Email preferences")).click();
     }
 
 }

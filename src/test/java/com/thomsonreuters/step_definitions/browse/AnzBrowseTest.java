@@ -295,4 +295,12 @@ public class AnzBrowseTest extends BaseStepDef {
     public void userOpensLink(String textLink) throws Throwable {
         categoryPage.openPageByText(textLink);
     }
+
+
+@Then("^user verifies title \"(.*)\" page$")
+    public void userShouldseetitlePage(String pageTitle) throws Throwable {
+     
+            assertTrue(pageTitle + " page Title is Not matching..!", wlnHeader.pageHeaderLabel().getText().toLowerCase().contains(pageTitle.toLowerCase()));
+            
+            }
 }
