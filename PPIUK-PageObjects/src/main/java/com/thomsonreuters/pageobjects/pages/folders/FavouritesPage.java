@@ -94,7 +94,7 @@ public class FavouritesPage extends AbstractPage {
     }
 
     public List<WebElement> favouriteGroupNames() {
-        return waitForExpectedElements(By.xpath("//h3//label[contains(@for,'checkbox-')]//span"));
+        return waitForExpectedElements(By.xpath("//h3//label[contains(@for,'checkboxId')]//span"));
     }
     public WebElement renameGroupCancelButton(String groupName) {
         return waitForExpectedElement(By.xpath("//a[@class='co_dropdownBox_cancel']/ancestor::h3/label[@for='checkbox-" + groupName + "']"));

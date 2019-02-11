@@ -268,7 +268,8 @@ public class ResponsiveCommonSteps extends BaseStepDef {
 
     @When("^user hovers over the group '(.+)'$")
     public void UsercHoversOveTheGroup(String groupName) throws Throwable {
-        commonMethods.mouseOver(favouritesPage.favouriteGroup(groupName));
+    	pageActions.mouseOver(favouritesPage.favouriteGroup(groupName));
+        //commonMethods.mouseOver(favouritesPage.favouriteGroup(groupName));
     }
 
     @When("^user should see the aligned \"Save\" and \"Cancel\" button for group \'(.*)\'$")

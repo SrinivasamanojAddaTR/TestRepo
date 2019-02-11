@@ -2,15 +2,17 @@ Feature: [821261][821248] As a PLAU User I want to Organise my favourite groups 
   [821282] As a PLAU User I want to delete page links from my favourite groups So that I can remove pages that are no longer my favourites
   [821309]As a PLAU User I want to change the order of my page links within a group So that I can display page links in the order that I require
 
-Background:
+  Background: 
     Given ANZ user is logged in
     When API cleans all folders and history
-    And user relogs in
 
+  #And user relogs in
+  @run123
   Scenario: [821261]user verifies the delete and undo links operation for fav group and also verifies the "Done" button
     When user clicks on "Favourites" link
     Then the user is presented with a page with header "Favourites"
     When user creates new favourites group 'NewFavTestGroup'
+    #When the user deletes the favourites group 'NewFavTestGroup'
     And user clicks on "organize" button
     Then user should see "Done" button
     When user hovers over the group 'NewFavTestGroup'
@@ -34,7 +36,7 @@ Background:
     And user adds practice area 'Employment' to favourite group 'NewFavTestGroup'
     And user clicks on "Favourites" link
     And user clicks on "organize" button
-    And user hovers over the fav group 'NewFavTestGroup' link 'Practice - Employment'
+    And user hovers over the fav group 'NewFavTestGroup' link 'Employment'
     And user clicks on "Delete" link
     And user should see the stricken through link 'Practice - Employment' of group 'NewFavTestGroup'
     And user clicks on "Undo" link
