@@ -37,6 +37,7 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
 	  | Employment             | Federal discrimination and harassment, Ill and injured employees, Federal unfair dismissal |
 
 
+   
   Scenario Outline: [831936] User verifies the topic page in Open Web.
     Given PL+ ANZ user navigates to home page
     When user opens "Practice Areas" link
@@ -45,11 +46,11 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
 	And user verifies the "<Resources>" facets are displayed on the topic page
 	And user verifies the "<Resources>" sections are displayed on topic page in alphabetical order
 	Examples:
-	  |PA                     | Topic Page                                | Resources                             |
-	  |Employment             | Federal unfair dismissal                  | Practice notes,  Checklists, Glossary |
-	  |Employment             | Ill and injured employees                 | Practice notes, Checklists , Glossary |
-	  |Company Law            | Directors                                 | Practice notes                        |
-	  |Corporate Transactions | Share acquisitions: private               | Practice notes, Checklists, Glossary  |
+	  |PA                     | Topic Page                                | Resources                          |
+	  |Employment             | Leave                                     | Practice notes,Checklists,Glossary |
+	  |Employment             | Ill and injured employees                 | Practice notes,Checklists,Glossary |
+	  |Company Law            | Share capital                             | Practice notes,Checklists,Glossary |
+	  |Corporate Transactions | Due diligence: acquisitions               | Practice notes,Checklists,Glossary |
 
 
  Scenario: User verifies the Practice area pages and its relative tabs in Open Web
@@ -100,6 +101,7 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
 	  |Country Q&A Comparison Tool|
    
 
+     
     Scenario: [861977] User verifies the topic page state in login and Open Web state.
         Given PL+ ANZ user navigates to home page
         When user opens "Practice Areas" link
