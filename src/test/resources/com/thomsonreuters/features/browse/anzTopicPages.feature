@@ -1,5 +1,6 @@
 Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view the documents available for that Topic
 
+ 
  Scenario Outline: [831936] User verifies the topic page.
    Given ANZ user is logged in
    And user opens "Practice Areas" link
@@ -9,10 +10,10 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
    And user verifies the "<Resources>" sections are displayed on topic page in alphabetical order
    And user verifies the "<Resources>" facets are displayed on the topic page
    Examples:
-        |PA                     | Topic Page                          | Resources                                     |
-        |Employment             | Ill and injured employees           | Practice notes, Standard documents,Checklists |
-        |Company Law            | Company administration and meetings | Practice notes                                |
-        |Corporate Transactions |Share acquisitions: private          | Practice notes, Checklists, Glossary          |
+        |PA                     | Topic Page                          | Resources                                    |
+        |Employment             | Ill and injured employees           | Practice notes,Standard documents,Checklists |
+        |Company Law            | Corporate governance                | Practice notes, Checklists, Glossary         |
+        |Corporate Transactions | Due diligence: acquisitions         | Practice notes, Checklists, Glossary         |
 
   Scenario Outline: User verifies topic page faceting
    Given ANZ user is logged in
