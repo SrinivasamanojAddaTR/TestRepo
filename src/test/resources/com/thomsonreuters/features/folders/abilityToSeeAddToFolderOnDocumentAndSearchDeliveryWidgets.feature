@@ -1,10 +1,11 @@
 Feature: [821528] As a PLAU User I want to view the folder option on my document view So that I can quickly tell if I can folder a document or not
   [823569]As a PLAU User I want to view the folder option on my search resulrs view  So that I can folder the one or many documents in my search results
 
+  
   Scenario Outline: 
     Given ANZ user is logged in
     Given ANZ user navigates directly to document with guid "<guid>"
-    Then folders widget on document will be displayed after print option and before the download option
+    Then folders widget on document will be displayed after print option and download option
     And user clicks on Add To Folder icon on document delivery
     Then user should see Add To Folder pop up
     Examples: 

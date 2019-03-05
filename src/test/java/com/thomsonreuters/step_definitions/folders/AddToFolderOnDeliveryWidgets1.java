@@ -33,7 +33,7 @@ public class AddToFolderOnDeliveryWidgets1 extends BaseStepDef {
 		
 	}
 	
-	@Then("^folders widget on document will be displayed after print option and before the download option$")
+	@Then("^folders widget on document will be displayed after print option and download option$")
 	public void foldersWidgetOnDocumentWillBeDisplayedAfterPrintOptionAndBeforeTheDownloadOption() throws Throwable {
 		SoftAssertions softly = new SoftAssertions();
 		List<WebElement> deliveryIcons = documentDeliveryPage.deliveryIcons();
@@ -41,8 +41,8 @@ public class AddToFolderOnDeliveryWidgets1 extends BaseStepDef {
 		int addToFolderPosition = deliveryIcons.indexOf(documentDeliveryPage.addToFolderIcon());
 		int printPosition = deliveryIcons.indexOf(documentDeliveryPage.printIcon());
 		int downloadPosition = deliveryIcons.indexOf(documentDeliveryPage.downloadIcon());
-		softly.assertThat(printPosition < addToFolderPosition).overridingErrorMessage("Print icon is displayed after Add to Folder Icon. Print position is: <%s> Add To Folder position is: <%s>", printPosition, addToFolderPosition).isTrue();
-		softly.assertThat(addToFolderPosition < downloadPosition).overridingErrorMessage("Add to Folder Icon is displayed after Donwload Icon. Add To Folder position is: <%s> Download position is: <%s>", addToFolderPosition, downloadPosition).isTrue();
+		softly.assertThat(printPosition < addToFolderPosition).overridingErrorMessage("Add to Folder Icon is displayed after Print icon Icon. Print position is: <%s> Add To Folder position is: <%s>", printPosition, addToFolderPosition).isTrue();
+		softly.assertThat(downloadPosition < addToFolderPosition ).overridingErrorMessage(" Add to Folder Icon is displayed after Download Icon. Add To Folder position is: <%s> Download position is: <%s>", addToFolderPosition, downloadPosition).isTrue();
 		softly.assertAll();
 		
 	}
