@@ -115,8 +115,8 @@
                 <version>3.1</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -180,7 +180,7 @@
         <dependency>
             <groupId>com.thomsonreuters.pageobjects</groupId>
             <artifactId>ppiuk-pageobjects</artifactId>
-            <version>1a.2.1</version>
+            <version>21.3.1</version>
         </dependency>
     </dependencies>
 
