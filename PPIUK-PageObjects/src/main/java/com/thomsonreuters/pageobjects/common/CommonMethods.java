@@ -8,6 +8,8 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.thomsonreuters.driver.configuration.Hosts;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -22,8 +24,8 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.internal.Coordinates;
-import org.openqa.selenium.internal.Locatable;
+import org.openqa.selenium.interactions.Coordinates;
+import org.openqa.selenium.interactions.Locatable;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.UselessFileDetector;
@@ -48,20 +50,20 @@ public class CommonMethods {
     private static final int FLUENT_TIMEOUT_IN_SECONDS = 30;
     private static final int FLUENT_POLLINGTIME_IN_MILLISECONDS = 2000;
 
-    private RemoteWebDriver driver;
+    private WebDriver driver;
     private boolean isGrid = System.getProperty("driverType", "").equalsIgnoreCase("seleniumGrid");
 	private static final String SPLIT_BY_LINE = "\\r?\\n";
 	private HomePage homePage = new HomePage();
 
     public CommonMethods() {
-        this.driver = webDriverDiscovery.getRemoteWebDriver();
+        this.driver = webDriverDiscovery.getWebDriver();
     }
 
     public WebDriverDiscovery getWebDriverDiscovery() {
         return webDriverDiscovery;
     }
 
-    public RemoteWebDriver getDriver() {
+    public WebDriver getDriver() {
         return driver;
     }
 
@@ -148,7 +150,7 @@ public class CommonMethods {
      */
     public static String wildcardToRegex(String wildcard) {
         String outputString;
-        StringBuffer s = new StringBuffer(wildcard.length());
+        StringBuilder s = new StringBuilder(wildcard.length());
         s.append('^');
         for (int i = 0, is = wildcard.length(); i < is; i++) {
             char c = wildcard.charAt(i);
@@ -248,7 +250,7 @@ public class CommonMethods {
     }
     
     public void selectParagraphFromDocumentWithJS(WebElement element) {
-        driver.executeScript("selection = window.getSelection();"
+        homePage.executeScript("selection = window.getSelection();"
         		+ " range = document.createRange();"
         		+ "range.selectNodeContents(arguments[0]);"
         		+ "selection.removeAllRanges();"
@@ -393,20 +395,20 @@ public class CommonMethods {
     }
 
     public WebElement moveToElementUsingJS(WebElement element) {
-        driver.executeScript("arguments[0].scrollIntoView(true);", element);
+        homePage.executeScript("arguments[0].scrollIntoView(true);", element);
         return element;
     }
 
 	public void scrollBy(int offset) {
-		driver.executeScript("window.scrollBy(0," + offset + ");");
+        homePage.executeScript("window.scrollBy(0," + offset + ");");
 	}
 
 	public void scrollTo(int offset) {
-		driver.executeScript("window.scrollTo(0," + offset + ");");
+        homePage.executeScript("window.scrollTo(0," + offset + ");");
 	}
 
     public void moveToElementUsingJSThenClick(WebElement element) {
-        driver.executeScript("arguments[0].scrollIntoView(true);", element);
+        homePage.executeScript("arguments[0].scrollIntoView(true);", element);
         element.click();
     }
 
@@ -797,16 +799,18 @@ public class CommonMethods {
     /**
      * Enable ability to push local file to the remote selenium grid node
      */
-    public void enableLocalFileDetector() {
+    //TODO remove comments once setFileDetector is implemented
+    /*public void enableLocalFileDetector() {
         setFileDetector(true);
-    }
+    }*/
 
     /**
      * Disable ability to push local file to the remote selenium grid node
      */
-    public void disableLocalFileDetector() {
+    //TODO remove comments once setFileDetector is implemented
+   /* public void disableLocalFileDetector() {
         setFileDetector(false);
-    }
+    }*/
 
     /**
      * Get Date object from the string
@@ -830,9 +834,10 @@ public class CommonMethods {
      * TODO @toFramework - this ability should be part of the core framework
      *
      *
-     * @param isLocalFileDetector True - if there is necessary to push local files to remote selenium grid node, otherwise - false.
+     * param isLocalFileDetector True - if there is necessary to push local files to remote selenium grid node, otherwise - false.
      */
-    private void setFileDetector(boolean isLocalFileDetector) {
+    //TODO [phase1] Need to know getFileDetector and setFileDetector purpose and add in TAF accordingly
+    /*private void setFileDetector(boolean isLocalFileDetector) {
         if (isGrid) {
             if (isLocalFileDetector && driver.getFileDetector() instanceof UselessFileDetector) {
                 driver.setFileDetector(new LocalFileDetector());
@@ -840,13 +845,13 @@ public class CommonMethods {
                 driver.setFileDetector(new UselessFileDetector());
             }
         }
-    }
+    }*/
 
     private String getRootAddressFromProperties(Product product, boolean withProtocol) {
         String urlFromProperties;
         switch (product) {
             case PLC:
-                urlFromProperties = homePage.getHostsObject().getPlcukProductBase() + System.getProperty("base.url") + homePage.getHostsObject().getPlcukDomain();
+                urlFromProperties = Hosts.getInstance().getPlcukProductBase()  + System.getProperty("base.url") + Hosts.getInstance().getPlcukProductBase() ;
                 break;
             default:
                 throw new UnsupportedOperationException("Not implemented for product " + product);
@@ -861,7 +866,7 @@ public class CommonMethods {
      * Close welcome pop-up on PL+ UK via JavaScript
      */
     public void closeWelcomePopupPlUk() {
-        getDriver().executeScript("if (typeof jQuery != 'undefined') { $('.co_overlayBox_closeButton').click(); }");
+        homePage.executeScript("if (typeof jQuery != 'undefined') { $('.co_overlayBox_closeButton').click(); }");
     }
 
     public void moveSlider(WebElement slider, int positionOffSet) {
@@ -922,7 +927,7 @@ public class CommonMethods {
 	}
 
 	public void clearSessionstorage() {
-		driver.executeScript("window.sessionStorage.clear();");
+		homePage.executeScript("window.sessionStorage.clear();");
 	}
 
 	public void clickOutsideThePopup(WebElement popup, int offset) {
@@ -960,7 +965,7 @@ public class CommonMethods {
 
 	public boolean isScrolledIntoViewInTheDocumentPageUsingJS(WebElement element) {
 		String distance = getDistanceBetweenTopOfThePageAndWebElementUsingJS(journalDocumentPage.stickyHeader()).toString();
-		return (Boolean) driver.executeScript("function isScrolledIntoView(elem,off) {"
+		return (Boolean) homePage.executeScript("function isScrolledIntoView(elem,off) {"
 				+ " var $elem = $(elem); var $window = $(window); " + "var docViewTop = $window.scrollTop()+off; "
 				+ "var docViewBottom = docViewTop + $window.height();" + "var elemTop = $elem.offset().top;"
 				+ "var elemBottom = elemTop + $elem.height();"
@@ -970,7 +975,7 @@ public class CommonMethods {
 	}
 
 	public Object getDistanceBetweenTopOfThePageAndWebElementUsingJS(WebElement element) {
-		return (Object) driver
+		return (Object) homePage
 				.executeScript("function getDistance(elem){ return elem.getBoundingClientRect().top + elem.getBoundingClientRect().height;}"
 						+ "return getDistance(arguments[0])", element);
 	}

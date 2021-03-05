@@ -1,7 +1,9 @@
 package com.thomsonreuters.pageobjects.common;
 
 import com.thomsonreuters.driver.framework.WebDriverDiscovery;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -35,7 +37,9 @@ public class WindowHandler {
     }
 
     public void fileDownloadAutomatically(WebElement fileDownloadElement) throws InterruptedException, AWTException {
-        if (driver.getRemoteWebDriver().getCapabilities().getBrowserName().equalsIgnoreCase("firefox")) {
+        Capabilities capabilities = ((RemoteWebDriver) driver.getWebDriver()).getCapabilities();
+        String browserName = capabilities.getBrowserName();
+        if (browserName.equalsIgnoreCase("firefox")) {
             fileDownloadElement.click();
             Thread.sleep(25000L);
             // create robot object
@@ -45,20 +49,22 @@ public class WindowHandler {
             robot.keyPress(KeyEvent.VK_ENTER);
             Thread.sleep(5000L);
         }
-        if (driver.getRemoteWebDriver().getCapabilities().getBrowserName().equalsIgnoreCase("chrome")) {
+        if (browserName.equalsIgnoreCase("chrome")) {
             fileDownloadElement.click();
             Thread.sleep(20000L);
         }
     }
 
     public void fileDownload(WebElement fileDownloadElement) throws InterruptedException, AWTException {
-        if (driver.getRemoteWebDriver().getCapabilities().getBrowserName().equalsIgnoreCase("internet explorer")) {
+        Capabilities capabilities = ((RemoteWebDriver) driver.getWebDriver()).getCapabilities();
+        String browserName = capabilities.getBrowserName();
+        if (browserName.equalsIgnoreCase("internet explorer")) {
             fileDownloadInIE(fileDownloadElement);
         }
-        if (driver.getRemoteWebDriver().getCapabilities().getBrowserName().equalsIgnoreCase("firefox")) {
+        if (browserName.equalsIgnoreCase("firefox")) {
             fileDownloadInFF(fileDownloadElement);
         }
-        if (driver.getRemoteWebDriver().getCapabilities().getBrowserName().equalsIgnoreCase("chrome")) {
+        if (browserName.equalsIgnoreCase("chrome")) {
             fileDownloadElement.click();
             Thread.sleep(20000L);
         }
@@ -66,9 +72,9 @@ public class WindowHandler {
 
     public boolean switchWindow(String windowTitle) {
         boolean switched = false;
-        for (String handle : driver.getRemoteWebDriver().getWindowHandles()) {
-            driver.getRemoteWebDriver().switchTo().window(handle);
-            String ActualWindowTitle = driver.getRemoteWebDriver().getTitle();
+        for (String handle : driver.getWebDriver().getWindowHandles()) {
+            driver.getWebDriver().switchTo().window(handle);
+            String ActualWindowTitle = driver.getWebDriver().getTitle();
             if (ActualWindowTitle.toLowerCase().contains(windowTitle.toLowerCase())) {
                 switched = true;
                 break;
@@ -79,23 +85,24 @@ public class WindowHandler {
 
     public boolean closeWindow(String windowTitle) {
         boolean switched = false;
-        for (String handle : driver.getRemoteWebDriver().getWindowHandles()) {
-            driver.getRemoteWebDriver().switchTo().window(handle);
-            String ActualWindowTitle = driver.getRemoteWebDriver().getTitle();
+        for (String handle : driver.getWebDriver().getWindowHandles()) {
+            driver.getWebDriver().switchTo().window(handle);
+            String ActualWindowTitle = driver.getWebDriver().getTitle();
             if (ActualWindowTitle.toLowerCase().contains(windowTitle.toLowerCase())) {
-                driver.getRemoteWebDriver().close();
+                driver.getWebDriver().close();
                 switched = true;
             }
         }
-        for (String handle : driver.getRemoteWebDriver().getWindowHandles()) {
-            driver.getRemoteWebDriver().switchTo().window(handle);
+        for (String handle : driver.getWebDriver().getWindowHandles()) {
+            driver.getWebDriver().switchTo().window(handle);
         }
         return switched;
     }
 
     private void fileDownloadInIE(WebElement fileDownloadElement) throws InterruptedException, AWTException {
         //FOR IE8
-        if (driver.getRemoteWebDriver().getCapabilities().getVersion().equals("8")) {
+        Capabilities capabilities = ((RemoteWebDriver) driver.getWebDriver()).getCapabilities();
+        if (capabilities.getVersion().equals("8")) {
             Thread.sleep(1000);
             // create robot object
             Robot robot = new Robot();

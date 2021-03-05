@@ -12,7 +12,7 @@ public class SeleniumKeyboard {
     private WebDriverDiscovery webDriverDiscovery = new CommonMethods().getWebDriverDiscovery();
 
     public void sendEscape() {
-        Actions action = new Actions(webDriverDiscovery.getRemoteWebDriver());
+        Actions action = new Actions(webDriverDiscovery.getWebDriver());
         action.sendKeys(Keys.ESCAPE);
     }
 

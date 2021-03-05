@@ -21,9 +21,9 @@ import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import com.thomsonreuters.pageobjects.utils.sitestructure.SiteStructureUtils;
 import cucumber.api.Transpose;
 import cucumber.api.java.en.Given;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.hamcrest.core.Is;
-import org.jboss.netty.util.internal.SystemPropertyUtil;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
@@ -1013,8 +1013,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         }
         Properties props = new Properties();
         loadProps(props, ADDITIONAL_IAC_FAC_PROP_FILE_NAME);
-        boolean isDisableUsingAdditionalIacAndFac = SystemPropertyUtil
-                .getBoolean("disableUsingAdditionalFacAndIacFromCli", false);
+        boolean isDisableUsingAdditionalIacAndFac = BooleanUtils.toBoolean(System.getProperty("disableUsingAdditionalFacAndIacFromCli"));
         String[] iacs = (isDisableUsingAdditionalIacAndFac ? props.getProperty("iacs")
                 : getPropertyValue("iacs", props.getProperty("iacs"))).split(",");
         WebElement iacsArea = routingPage.infrastructureAccessTextArea();
@@ -1361,7 +1360,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         assertThat(wlnHeader.favouritesLink().isDisplayed(), Is.is(true));
         assertThat(wlnHeader.foldersLink().isDisplayed(), Is.is(true));
         assertThat(wlnHeader.historyLink().isDisplayed(), Is.is(true));
-        assertThat(resourcePage.waitAndFindElement(By.linkText("Employment")).isDisplayed(), Is.is(true));
+        assertThat(resourcePage.waitForExpectedElement(By.linkText("Employment")).isDisplayed(), Is.is(true));
     }
 
     public boolean isHomePage() {
