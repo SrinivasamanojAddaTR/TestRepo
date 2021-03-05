@@ -1,8 +1,10 @@
 package com.thomsonreuters.pageobjects.adestra.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.apache.xmlrpc.client.XmlRpcSun15HttpTransportFactory;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +31,7 @@ public class AdestraWebService {
         }
     }
 
-    public Object callMethod(String method, Object... params) throws MalformedURLException, XmlRpcException {
+    public Object callMethod(String method, Object... params) throws XmlRpcException {
         return callMethod(method, Arrays.asList(params));
     }
 
@@ -38,17 +40,24 @@ public class AdestraWebService {
         config.setServerURL(new URL(SERVER_URL));
         config.setBasicUserName(USER_NAME);
         config.setBasicPassword(PASSWORD);
+
     }
 
-    public Object callMethod(String method, List params) throws MalformedURLException, XmlRpcException {
+    public Object callMethod(String method, List<Object> params) throws XmlRpcException {
         XmlRpcClient client = getClientConnection();
-        Object result = client.execute(method, params);
-        return result;
+        return client.execute(method, params);
     }
 
-    private XmlRpcClient getClientConnection() throws MalformedURLException {
+    private XmlRpcClient getClientConnection() {
         XmlRpcClient client = new XmlRpcClient();
         client.setConfig(config);
+        //TODO [phase1] Need to verify and change
+        /*String proxyHost = System.getProperty("proxyServerHost");
+        if (StringUtils.isNotBlank(proxyHost)) {
+            XmlRpcSun15HttpTransportFactory transportFactory = new XmlRpcSun15HttpTransportFactory(client);
+            transportFactory.setProxy(proxyHost, Integer.parseInt(System.getProperty("proxyServerPort")));
+            client.setTransportFactory(transportFactory);
+        }*/
         return client;
     }
 

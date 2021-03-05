@@ -39,7 +39,7 @@ public class PreferenceList {
     }
 
     public String toString() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append("Sub Pref: \n");
         sb.append(" - Description: " + getDescription() + ",\n");
         sb.append(" - Name: " + getName() + ",\n");
