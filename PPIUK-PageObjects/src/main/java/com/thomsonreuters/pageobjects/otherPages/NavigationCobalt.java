@@ -1,11 +1,13 @@
 package com.thomsonreuters.pageobjects.otherPages;
 
+import com.thomsonreuters.driver.configuration.Hosts;
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.LoggerFactory;
@@ -25,17 +27,19 @@ public class NavigationCobalt  {
     String baseLegacyUrl = System.getProperty("base.legacy.url");
     
     private HomePage homePage;
-    private RemoteWebDriver driver;
+    private WebDriver driver;
+    private Hosts hosts;
 
     public NavigationCobalt() {
         super();
         homePage = new HomePage();
-        this.driver = HomePage.getDriver;
+        this.driver = homePage.getDriver;
+        hosts = Hosts.getInstance();
     }
     
     // for URLs -  https://practicallaw.thomsonreuters.co.uk - practicallaw.demo.thomsonreuters.co.uk - practicallaw.qed.thomsonreuters.co.uk	
     public void navigateToPracticalLaw(String page) {
-    	driver.get(homePage.getHostsObject().getPracticallawProductBase() + baseUrl + homePage.getPlcukDomain() + page);
+    	homePage.navigate(hosts.getPracticallawProductBase() + baseUrl + hosts.getPlcukDomain() + page);
     }
     
     public void navigateToPracticalLaw() {
@@ -44,7 +48,7 @@ public class NavigationCobalt  {
     
     // for URLs - https://westlawuk.thomsonreuters.co.uk  - https://westlawuk.demo.thomsonreuters.co.uk - https://westlawuk.qed.thomsonreuters.co.uk
     public void navigateToWestlawUk(String page) {
-    	driver.get(homePage.getHostsObject().getWestlawukProductBase() + baseUrl + homePage.getPlcukDomain()+ page);
+    	homePage.navigate(hosts.getWestlawukProductBase() + baseUrl + hosts.getPlcukDomain()+ page);
     } 
     
     public void navigateToWestlawUk() {
@@ -53,19 +57,19 @@ public class NavigationCobalt  {
     
     // for URLs - https://books.thomsonreuters.co.uk -  https://books.demo.thomsonreuters.co.uk  - https://books.qed.thomsonreuters.co.uk    
     public void navigateToBooks() {
-    	 driver.get(homePage.getHostsObject().getBooksProductBase() + baseUrl + homePage.getPlcukDomain());
+    	 homePage.navigate(hosts.getBooksProductBase() + baseUrl + hosts.getPlcukDomain());
     }
     
     public void navigateToWestlawNext() {
-        driver.get(homePage.getWlnProductBase() + baseUrl + homePage.getWlnDomain());
+        homePage.navigate(hosts.getWlnProductBase() + baseUrl + hosts.getWlnDomain());
     }
 
     public void navigateToWestlawNextBrowsePreview() {
-        driver.get(homePage.getWlnProductBase() + baseUrl + homePage.getWlnDomain() + "/BrowsePreview/Home");
+        homePage.navigate(hosts.getWlnProductBase() + baseUrl + hosts.getWlnDomain() + "/BrowsePreview/Home");
     }
 
     public void navigateToWLNSpecificURL(String sitePage) {
-        driver.get(homePage.getWlnProductBase() + baseUrl + homePage.getWlnDomain() + sitePage);
+        homePage.navigate(hosts.getWlnProductBase() + baseUrl + hosts.getWlnDomain() + sitePage);
     }
 
     /**
@@ -73,7 +77,7 @@ public class NavigationCobalt  {
      * onto demo as at 21/01/15
      */
     public void navigateToTempRoutingPage() {
-        driver.get(homePage.getPlcukProductBase() + baseUrl + homePage.getPlcukDomain() + "/routing?SessionStartEventProductNameOverride=PLCUK");
+        homePage.navigate(hosts.getPlcukProductBase() + baseUrl + hosts.getPlcukDomain() + "/routing?SessionStartEventProductNameOverride=PLCUK");
     }
 
     /**
@@ -81,12 +85,12 @@ public class NavigationCobalt  {
      * onto demo as at 03/02/15
      */
     public void navigateToNewTempRoutingPage() {
-        driver.get(homePage.getPlcukProductBase() + baseUrl + homePage.getPlcukDomain()
+        homePage.navigate(hosts.getPlcukProductBase() + baseUrl + hosts.getPlcukDomain()
                 + "/routing?routingOptions=%5B%7B%22WebContentCollectionSet%22%3A%22w_cb_wcmstst_cs%22%7D%2C%7B%22CategoryPageCollectionSet%22%3A%22w_plplus_catpagestst_cs%22%7D%2C%7B%22includeSignOnClick%22%3Atrue%7D%5D");
     }
 
     public void navigateToWLNGlossaryPage() {
-        driver.get(homePage.getPlcukProductBase() + baseUrl + homePage.getPlcukDomain() + "/Glossary/UKPracticallaw");
+        homePage.navigate(hosts.getPlcukProductBase() + baseUrl + hosts.getPlcukDomain() + "/Glossary/UKPracticallaw");
     }
 
     /**
@@ -99,7 +103,7 @@ public class NavigationCobalt  {
     }
     
     public void navigateToANZSpecificResourcePage(String page) {
-        driver.get(homePage.getPlcauProductBase() + baseUrl + homePage.getPlcukDomain() + page);
+        homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain() + page);
     }
 
     /**
@@ -121,41 +125,41 @@ public class NavigationCobalt  {
         }
         switch (baseUrl) {
             case "prod":
-                driver.get(homePage.getPlcukProductBase() + homePage.getPlcukProdDomain() + page);
+                homePage.navigate(hosts.getPlcukProductBase() + hosts.getPlcukProdDomain() + page);
                 break;
             case "prodA":
-                driver.get(homePage.getUkProdA() + homePage.getPlcukProdDomain() + page);
+                homePage.navigate(hosts.getUkProdA() + hosts.getPlcukProdDomain() + page);
                 break;
             case "prodB":
-                driver.get(homePage.getUkProdB() + homePage.getPlcukProdDomain() + page);
+                homePage.navigate(hosts.getUkProdB() + hosts.getPlcukProdDomain() + page);
                 break;
             case "qedA":
-                driver.get(homePage.getUkQedA() + baseUrl + homePage.getPlcukDomain() + page);
+                homePage.navigate(hosts.getUkQedA() + baseUrl + hosts.getPlcukDomain() + page);
                 break;
             case "qedB":
-                driver.get(homePage.getUkQedB() + baseUrl + homePage.getPlcukDomain() + page);
+                homePage.navigate(hosts.getUkQedB() + baseUrl + hosts.getPlcukDomain() + page);
                 break;
             default:
-                driver.get(homePage.getPlcukProductBase() + baseUrl + homePage.getPlcukDomain() + page);
+                homePage.navigate(hosts.getPlcukProductBase() + baseUrl + hosts.getPlcukDomain() + page);
                 break;
         }
     }
     
     public void navigateToPLANZPlus() {
-            driver.get(homePage.getPlcauProductBase() + baseUrl + homePage.getPlcukDomain());
+        homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain());
     }
 
     public void navigateToFirmCentral() {
         //TODO: replace hardcoded string after Sergey's changes in AbstractPage and HOSTS
-        driver.get(homePage.getHostsObject().getFirmCentralProductBase() + baseUrl + "." + homePage.getPlcukProdDomain());
+        homePage.navigate(hosts.getFirmCentralProductBase() + baseUrl + "." + hosts.getPlcukProdDomain());
     }
 
     public void navigateToPLCLegacy() {
-        driver.get(homePage.getPlcLegacyProductBase() + baseLegacyUrl + homePage.getPlcLegacyDomain());
+        homePage.navigate(hosts.getPlcLegacyProductBase() + baseLegacyUrl + hosts.getPlcLegacyDomain());
     }
 
     public void navigateToTempHomePage() {
-        driver.get(homePage.getPlcukProductBase() + baseUrl + homePage.getPlcukDomain() + "/Browse/Home/Practice/Home?transitionType=Default&contextData=(sc.Default)&CobaltRefresh=52840&firstPage=true&bhcp=1");
+        homePage.navigate(hosts.getPlcukProductBase() + baseUrl + hosts.getPlcukDomain() + "/Browse/Home/Practice/Home?transitionType=Default&contextData=(sc.Default)&CobaltRefresh=52840&firstPage=true&bhcp=1");
         waitForPageToLoad();
     }
 
@@ -169,11 +173,11 @@ public class NavigationCobalt  {
     }
 
 	public void navigateToPLCANZSpecificURL(String sitePage) {
-		driver.get(homePage.getPlcauProductBase() + baseUrl + homePage.getPlcukDomain() + sitePage);
+        homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain() + sitePage);
 	}
 
     public void navigateToPLCUKPlusWithRouting(String routingString) {
-        driver.get(homePage.getPlcukProductBase() + baseUrl + homePage.getPlcukDomain() + routingString);
+        homePage.navigate(hosts.getPlcukProductBase() + baseUrl + hosts.getPlcukDomain() + routingString);
     }
 
     public void navigateToRelativeURL(String relativeUrl) {
@@ -189,9 +193,9 @@ public class NavigationCobalt  {
         baseURL = url.getProtocol() + "://" + url.getHost();
 
         if (relativeUrl.startsWith("/")) {
-            driver.get(baseURL + relativeUrl);
+            homePage.navigate(baseURL + relativeUrl);
         } else {
-            driver.get(baseURL + "/" + relativeUrl);
+            homePage.navigate(baseURL + "/" + relativeUrl);
         }
     }
 
@@ -199,12 +203,12 @@ public class NavigationCobalt  {
      * This method takes back to to the home page of PLC UK.
      */
     public void navigateToHomePage() {
-    	homePage.waitFluentForElement(HOME_PAGE_CSS_SELECTOR).click();
+    	homePage.waitForExpectedElement(HOME_PAGE_CSS_SELECTOR).click();
     	homePage.waitForPageToLoad();
     }
 
     public void navigateToWLNHomePage() {
-    	homePage.waitFluentForElement(WLN_HOME_PAGE_CSS_SELECTOR).click();
+    	homePage.waitForExpectedElement(WLN_HOME_PAGE_CSS_SELECTOR).click();
     	homePage.waitForPageToLoad();
     }
 

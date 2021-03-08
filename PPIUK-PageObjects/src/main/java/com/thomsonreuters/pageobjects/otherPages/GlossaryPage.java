@@ -172,7 +172,7 @@ public class GlossaryPage extends AbstractPage {
     }
 
     public WebElement searchMatchesText() {
-        return waitAndFindElement(By.id("co_searchglossary_found_numbers_holder"));
+        return waitForExpectedElement(By.id("co_searchglossary_found_numbers_holder"));
     }
 
     public List<WebElement> glossaryTermsWithSearchTermList() {
@@ -180,11 +180,11 @@ public class GlossaryPage extends AbstractPage {
     }
 
     public WebElement resourcePageGlossaryTermLink() {
-        return waitAndFindElement(By.xpath("//div[@id='co_docContentBody']//span[@class='co_glossaryTerm']//a"));
+        return waitForExpectedElement(By.xpath("//div[@id='co_docContentBody']//span[@class='co_glossaryTerm']//a"));
     }
 
     public WebElement closeGloasaryModalBoxLink() {
-        return waitAndFindElement(By.xpath("//div[@id='co_glossaryLightBox']//a[@id='co_closeGlossary']"));
+        return waitForExpectedElement(By.xpath("//div[@id='co_glossaryLightBox']//a[@id='co_closeGlossary']"));
     }
 
     public By closeGloasaryModalBoxByLink() {
@@ -192,7 +192,7 @@ public class GlossaryPage extends AbstractPage {
     }
 
     public WebElement getParentElement(String linkName) {
-        return waitAndFindElement(By.xpath("//div[@id='co_docContentBody']//span[@class='co_glossaryTerm']//a[text()='" + linkName + "']/../../../../../.."));
+        return waitForExpectedElement(By.xpath("//div[@id='co_docContentBody']//span[@class='co_glossaryTerm']//a[text()='" + linkName + "']/../../../../../.."));
     }
 
     /**

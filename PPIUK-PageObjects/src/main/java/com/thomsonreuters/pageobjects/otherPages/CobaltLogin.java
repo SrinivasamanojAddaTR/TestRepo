@@ -24,30 +24,33 @@ public class CobaltLogin extends AbstractPage {
         loginPage.signOnButton().click();
     }
 
-    public void loginWithClientId(String username, String password, String clientID) {
+    //TODO [Phase1] method is unused need to test and remove
+    /*public void loginWithClientId(String username, String password, String clientID) {
         loginToCobalt(username, password);
         welcome.clientID().clear();
         welcome.clientID().sendKeys(clientID);
         welcome.continueButton().click();
-    }
+    }*/
 
     /**
      * This method does the login into Pl+ site with default username, password and client id.
      */
-    public void loginWithClientId() {
+    //TODO [Phase1] method is unused need to test and remove
+    /*public void loginWithClientId() {
         loginToCobalt(defaultUserName, defaultPassWord);
         welcome.clientID().clear();
         welcome.clientID().sendKeys(clientID);
         welcome.continueButton().click();
         welcome.waitUntilPageLoadedAfterContinue();
-    }
+    }*/
 
     /**
      * This method verifies the signOff button present or not, so that returning boolean value
      *
      * @return boolean
      */
-    public boolean isUserLoggedInAlready() {
+    //TODO [Phase1] method is unused need to test and remove
+    /*public boolean isUserLoggedInAlready() {
         try {
             //waitForExpectedElement(SIGN_OFF_LOCATOR, 10).isDisplayed();
             return (waitForExpectedElement(By.linkText(loginPage.defaultUserName), 10).isDisplayed());
@@ -55,23 +58,26 @@ public class CobaltLogin extends AbstractPage {
             LOG.info("context", te);
         }
         return false;
-    }
+    }*/
 
-    public void loginToCobalt() {
+    //TODO [Phase1] method is unused need to test and remove
+    /*public void loginToCobalt() {
         loginToCobalt(loginPage.defaultUserName, loginPage.defaultPassWord);
-    }
+    }*/
 
-    public void clickSignOnButtonOnSignOffPage() {
+    //TODO [Phase1] method is unused need to test and remove
+   /* public void clickSignOnButtonOnSignOffPage() {
         waitForExpectedElement(SIGN_ON_BUTTON_AFTER_SIGN_OFF).click();
-    }
+    }*/
 
-    public boolean isSignOnButtonOnSignOffPage() {
+    //TODO [Phase1] method is unused need to test and remove
+   /* public boolean isSignOnButtonOnSignOffPage() {
         try {
             return waitForExpectedElement(SIGN_ON_BUTTON_AFTER_SIGN_OFF, 5).isDisplayed();
         } catch (TimeoutException te) {
             LOG.info("context", te);
         }
         return false;
-    }
+    }*/
 
 }
