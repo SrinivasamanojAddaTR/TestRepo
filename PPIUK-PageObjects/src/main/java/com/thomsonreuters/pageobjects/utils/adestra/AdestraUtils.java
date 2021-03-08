@@ -56,7 +56,7 @@ public class AdestraUtils {
     }
 
     public int getUserIDFromAdestra(String userEmail) throws MalformedURLException, XmlRpcException {
-        return (Integer) as.getContactData(userEmail).get(AdestraServiceInterface.ID_KEY);
+        return (Integer) as.getContactData(userEmail).get(AdestraServiceInterface.AdestraService.ID_KEY);
     }
 
     public int getSubscriptionIdFromAdestraByPLCId(String subscriptionPLCID) throws Exception {

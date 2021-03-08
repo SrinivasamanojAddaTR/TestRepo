@@ -117,11 +117,11 @@ public class DashboardPage extends AbstractPage {
     }
 
     public boolean isProjectAbsent(String projectName) {
-        return waitForElementAbsent(By.xpath(String.format(PROJECT, projectName)));
+        return waitForElementToDissappear(By.xpath(String.format(PROJECT, projectName)));
     }
 
     public boolean isNoProjectPresent() {
-        return waitForElementAbsent(By.xpath("//tr[contains(@class,'gradeX project-listing')]"));
+        return waitForElementToDissappear(By.xpath("//tr[contains(@class,'gradeX project-listing')]"));
     }
 
 }

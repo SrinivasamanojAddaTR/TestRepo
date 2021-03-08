@@ -24,7 +24,7 @@ public class AskResourcePage extends CommonResourcePage {
 
     // comments (1st comment is the response)
     public int numberOfComments() {
-        if (isElementPresent(commentsLocator())) {
+        if (isExists(commentsLocator())) {
             return waitForExpectedElements(commentsLocator()).size();
         }
         return 0;
@@ -147,12 +147,12 @@ public class AskResourcePage extends CommonResourcePage {
 
     public WebElement readyMessageOverlayHeader() {
 //        return waitForExpectedElement(By.cssSelector("#co_headerMessage"));
-        return commonMethods.waitFluentForElement(By.xpath("//div[@id='co_headerMessage' and contains(text(),'Ready For')]"),
+        return commonMethods.waitForExpectedElement(By.xpath("//div[@id='co_headerMessage' and contains(text(),'Ready For')]"),
                 TIMEOUT_IN_SECONDS, POLLING_TIME_IN_MILLISECONDS);
     }
 
     public WebElement prepareMessageOverlayHeader() {
-        return commonMethods.waitFluentForElement(By.xpath("//div[@id='co_headerMessage' and contains(text(),'Preparing For')]"),
+        return commonMethods.waitForExpectedElement(By.xpath("//div[@id='co_headerMessage' and contains(text(),'Preparing For')]"),
                 TIMEOUT_IN_SECONDS, POLLING_TIME_IN_MILLISECONDS);
     }
 

@@ -29,19 +29,19 @@ public class ContributingFirmsPage extends AbstractPage {
 	}
 
 	public boolean isMainInformationDisplayed() {
-		return isElementPresent(By.xpath("//div[@id='co_contentColumn']//div[@class='main']"));
+		return isExists(By.xpath("//div[@id='co_contentColumn']//div[@class='main']"));
 	}
 
 	public boolean isContributedResourcesDisplayed() {
-		return isElementPresent(By.xpath("//h3[@class='co_genericBoxHeader' and text()='Contributed resources']"));
+		return isExists(By.xpath("//h3[@class='co_genericBoxHeader' and text()='Contributed resources']"));
 	}
 
 	public boolean isLogoDisplayed() {
-		return isElementPresent(By.xpath("//div[@class='contributor-logo']/img"));
+		return isExists(By.xpath("//div[@class='contributor-logo']/img"));
 	}
 
 	public boolean isContactInformationDisplayed() {
-		return isElementPresent(By.xpath("//div[@class='contributor-contact']/h3[text()='Contact information']"));
+		return isExists(By.xpath("//div[@class='contributor-contact']/h3[text()='Contact information']"));
 	}
 
 

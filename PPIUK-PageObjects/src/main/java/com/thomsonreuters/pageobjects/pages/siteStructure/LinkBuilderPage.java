@@ -76,7 +76,7 @@ public class LinkBuilderPage extends AbstractPage {
         String inputIdName = "LB_TEST_TEXT";
         By inputId = By.id(inputIdName);
         if (!isExists(inputId)) {
-            getDriver.executeScript("$('header').prepend('<input type=\"text\" id=\"" + inputIdName + "\" size=\"200\"/>')");
+            executeScript("$('header').prepend('<input type=\"text\" id=\"" + inputIdName + "\" size=\"200\"/>')");
         }
         return waitForExpectedElement(inputId);
     }

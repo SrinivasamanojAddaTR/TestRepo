@@ -23,17 +23,17 @@ public class XMLDocumentUtils {
 
 	public List<WebElement> getWebElementsOfDocumentFromXMLByTag(String tag, String guid, NovusTools tool) {
 		openDocumentXML(guid, tool);
-		return AbstractPage.getDriver.findElements(By.tagName(tag));
+		return globalCategoryPage.getDriver.findElements(By.tagName(tag));
 	}
 
 	public WebElement getWebElementOfDocumentFromXMLByTag(String tag, String guid, NovusTools tool) {
 		openDocumentXML(guid, tool);
-		return AbstractPage.getDriver.findElement(By.tagName(tag));
+		return globalCategoryPage.getDriver.findElement(By.tagName(tag));
 	}
 	
 	public WebElement getWebElementOfDocumentFromXMLByXpath(String xpath, String guid, NovusTools tool) {
 		openDocumentXML(guid, tool);
-		return AbstractPage.getDriver.findElement(By.xpath(xpath));
+		return globalCategoryPage.getDriver.findElement(By.xpath(xpath));
 	}
 
 	private void openDocumentXML(String guid, NovusTools tool) {
@@ -49,7 +49,7 @@ public class XMLDocumentUtils {
 		default:
 			throw new UnsupportedOperationException("Please specify Novus XML tool");
 		}
-		AbstractPage.getDriver.get(url);
+		globalCategoryPage.getDriver.get(url);
 	}
 
 	public List<String> getValuesOfTagFromXMLOfTheDocument(String tag, String guid, NovusTools tool) {

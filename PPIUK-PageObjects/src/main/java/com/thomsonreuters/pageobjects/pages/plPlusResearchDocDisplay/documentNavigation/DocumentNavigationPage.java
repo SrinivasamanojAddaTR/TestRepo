@@ -60,7 +60,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
      */
     private WebElement getRightCarosalLink() {
         try {
-            return waitFluentForElement(RIGHT_CAROSAL_LOCATOR);
+            return waitForExpectedElement(RIGHT_CAROSAL_LOCATOR);
         } catch (TimeoutException pe) {
             LOG.info("context", pe);
             throw new PageOperationException("Exceeded Time to find the Right carosal link.");
@@ -74,7 +74,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
      */
     private WebElement getLeftCarosalLink() {
         try {
-            return waitFluentForElement(LEFT_CAROSAL_LOCATOR);
+            return waitForExpectedElement(LEFT_CAROSAL_LOCATOR);
         } catch (TimeoutException pe) {
             LOG.info("context", pe);
             throw new PageOperationException("Exceeded Time to find the Left carosal link.");
@@ -111,9 +111,9 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
      */
     public String getDocumentNamePresentOnLeftCarosal() {
         try {
-            commonMethods.mouseOver(waitFluentForElement(PREVIOUS_CAROSAL_LOCATOR));
+            commonMethods.mouseOver(waitForExpectedElement(PREVIOUS_CAROSAL_LOCATOR));
             waitForExpectedElement(By.cssSelector(".co_pageFlipper.is-active"));
-            return waitFluentForElement(LEFT_CAROSAL_TEXT_LOCATOR).getText();
+            return waitForExpectedElement(LEFT_CAROSAL_TEXT_LOCATOR).getText();
         } catch (TimeoutException nse) {
             LOG.warn("Unable to find the document name in left carosal link", nse);
             //The next catch was made because of strange NPE on Production site in previous try block
@@ -130,9 +130,9 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
      */
     public String getDocumentNamePresentOnRightCarosal() {
         try {
-            commonMethods.mouseOver(waitFluentForElement(NEXT_CAROSAL_LOCATOR));
+            commonMethods.mouseOver(waitForExpectedElement(NEXT_CAROSAL_LOCATOR));
             waitForExpectedElement(By.cssSelector(".co_pageFlipper.is-active"));
-            return waitFluentForElement(RIGHT_CAROSAL_TEXT_LOCATOR).getText();
+            return waitForExpectedElement(RIGHT_CAROSAL_TEXT_LOCATOR).getText();
         } catch (TimeoutException nse) {
             logger.warn("Unable to find the document name in right carosal link", nse);
         //The next catch was made because of strange NPE on Production site in previous try block
@@ -172,7 +172,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
      */
     public WebElement getPreviousResultLink() {
         try {
-            return waitFluentForElement(PREVIOUS_RESULT_NAVIGATION_LINK_LOCATOR);
+            return waitForExpectedElement(PREVIOUS_RESULT_NAVIGATION_LINK_LOCATOR);
         } catch (TimeoutException pe) {
             LOG.info("context", pe);
             throw new PageOperationException("Exceeded Time to find the Previous link.");
@@ -195,7 +195,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
      */
     public WebElement getNextResultLink() {
         try {
-            return waitFluentForElement(NEXT_RESULT_NAVIGATION_LINK_LOCATOR);
+            return waitForExpectedElement(NEXT_RESULT_NAVIGATION_LINK_LOCATOR);
         } catch (TimeoutException pe) {
             LOG.info("context", pe);
             throw new PageOperationException("Exceeded Time to find the Next link.");
@@ -258,7 +258,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
      */
     public void waitForResultsNavigationLinksRendering() {
         try {
-            waitAndFindElements(RESULTS_NAVIGATION_LINKS_LOCATOR);
+            waitForExpectedElements(RESULTS_NAVIGATION_LINKS_LOCATOR);
         } catch (TimeoutException te) {
             LOG.info("context", te);
         }
@@ -317,7 +317,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
     List<WebElement> getPrimaryLinkElements() {
         List<WebElement> list = new ArrayList<WebElement>();
         try {
-            list = waitAndFindElements(PRIMARY_LINKS_LOCATOR);
+            list = waitForExpectedElements(PRIMARY_LINKS_LOCATOR);
         } catch (TimeoutException te) {
             LOG.info("context", te);
         }
@@ -379,7 +379,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
             throw new IllegalArgumentException(" Secondary link name is required.");
         }
         try {
-            waitFluentForElement(DocumentSecondaryLink.getLink(name)).click();
+            waitForExpectedElement(DocumentSecondaryLink.getLink(name)).click();
         } catch (TimeoutException te) {
             LOG.info("context", te);
             throw new PageOperationException(te.getMessage());
@@ -397,7 +397,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
             throw new IllegalArgumentException(" Primary link name is required.");
         }
         try {
-            return waitFluentForElement(PRIMARY_MENU_SELECTION_LOCATOR).getText().contains(name);
+            return waitForExpectedElement(PRIMARY_MENU_SELECTION_LOCATOR).getText().contains(name);
         } catch (TimeoutException te) {
             LOG.info("context", te);
         }
@@ -415,7 +415,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
             throw new IllegalArgumentException(" Primary link is required.");
         }
         try {
-            return waitFluentForElement(PRIMARY_MENU_EXPANDED_LOCATOR).getText().contains(primaryLink.getLinkName());
+            return waitForExpectedElement(PRIMARY_MENU_EXPANDED_LOCATOR).getText().contains(primaryLink.getLinkName());
         } catch (TimeoutException te) {
             LOG.info("context", te);
         }
@@ -433,7 +433,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
             throw new IllegalArgumentException(" Primary link is required.");
         }
         try {
-            return waitFluentForElement(PRIMARY_MENU_SELECTION_LOCATOR).getText().contains(primaryLink.getLinkName());
+            return waitForExpectedElement(PRIMARY_MENU_SELECTION_LOCATOR).getText().contains(primaryLink.getLinkName());
         } catch (TimeoutException te) {
             LOG.info("context", te);
         }
@@ -474,7 +474,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         if (StringUtils.isEmpty(primaryMenuName)) {
             throw new IllegalArgumentException(" Primary link is required.");
         }
-        waitFluentForElement(DocumentPrimaryLink.getLink(primaryMenuName).getCssLocator()).click();
+        waitForExpectedElement(DocumentPrimaryLink.getLink(primaryMenuName).getCssLocator()).click();
     }
 
     /**
@@ -587,7 +587,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
      * @return WebElement for highlighted focused term element from the document
      */
     public WebElement getFocusedHighlightedTerm() {
-        return waitAndFindElement(By.cssSelector(".co_currentSearchTerm"));
+        return waitForExpectedElement(By.cssSelector(".co_currentSearchTerm"));
     }
 
     /**

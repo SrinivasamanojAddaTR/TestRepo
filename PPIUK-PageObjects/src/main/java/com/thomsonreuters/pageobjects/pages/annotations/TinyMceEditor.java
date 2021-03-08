@@ -129,7 +129,7 @@ public class TinyMceEditor extends AbstractPage {
      */
     public void openFormatsMenu() {
         try {
-            //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             waitForExpectedElement(By.xpath("//span[text()='Formats']")).click();
         } catch (PageOperationException te) {
             throw new PageOperationException("Unable to select the formatsMenu.");

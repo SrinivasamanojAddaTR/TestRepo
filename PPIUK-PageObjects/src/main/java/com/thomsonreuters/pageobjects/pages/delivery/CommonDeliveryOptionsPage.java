@@ -63,7 +63,7 @@ public class CommonDeliveryOptionsPage extends AbstractPage {
     }
 
     public WebElement expandedMarginForNotes() {
-        return waitAndFindElement(DeliveryFormField.EXPAND_MARGIN_FOR_NOTES.getBy());
+        return waitForExpectedElement(DeliveryFormField.EXPAND_MARGIN_FOR_NOTES.getBy());
     }
 
     public WebElement coverPage() {

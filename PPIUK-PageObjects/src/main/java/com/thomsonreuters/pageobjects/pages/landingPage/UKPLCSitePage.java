@@ -22,7 +22,7 @@ public class UKPLCSitePage extends AbstractPage {
      * show resource details link in right hand panel - this is not a frame
      */
     public WebElement showResourceDetailsLink() {
-        return waitFluentForElement(By.linkText("Show resource details"));
+        return waitForExpectedElement(By.linkText("Show resource details"));
     }
 
     /**

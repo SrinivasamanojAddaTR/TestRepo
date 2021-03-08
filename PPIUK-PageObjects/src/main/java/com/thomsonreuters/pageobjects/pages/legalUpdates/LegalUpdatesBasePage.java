@@ -14,7 +14,7 @@ public class LegalUpdatesBasePage extends AbstractPage {
 
 
     public WebElement headerMetaDataTag() {
-        return retryingFindElement(By.id("co_browsePageLabel"));
+        return waitForExpectedElement(By.id("co_browsePageLabel"));
     }
     
     public String headerMetaDataTagText() {

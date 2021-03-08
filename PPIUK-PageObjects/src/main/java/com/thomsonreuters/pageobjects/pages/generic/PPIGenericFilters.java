@@ -15,6 +15,6 @@ public class PPIGenericFilters extends AbstractPage {
         // Identifies the label for facet, the takes the "for" attribute to identify the matching checkbox
         // This could have been done by expanding the XPath but given it's already long, I decided to use 2 steps
         checkboxIdentifier = waitForExpectedElement((By.xpath("//div[@class='co_divider']/h4[@class='co_facet_header'][text()='" + facetHeading +"']//parent::div//label[text()='" + facetToSelect + "']")),15).getAttribute("for");
-        return waitAndFindElement((By.id(checkboxIdentifier)));
+        return waitForExpectedElement((By.id(checkboxIdentifier)));
     }
 }

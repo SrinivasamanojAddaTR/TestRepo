@@ -64,7 +64,7 @@ public class RestServiceSecurityHeadersImpl extends RestServiceImpl implements R
      * @return The value of cookie
      */
     private String getCoSessionTokenFromCookies() {
-        Set<Cookie> cookies = webDriverDiscovery.getRemoteWebDriver().manage().getCookies();
+        Set<Cookie> cookies = webDriverDiscovery.getWebDriver().manage().getCookies();
         for (Cookie cookie : cookies) {
             if (cookie.getName().equals(CO_SESSION_TOKEN_COOKIE_NAME)) {
                 return cookie.getValue();

@@ -20,7 +20,7 @@ public class JournalsPage extends AbstractPage {
     }
 
     public WebElement DisplayJournalsResults() {
-        return retryingFindElement(By.id("cobalt_search_ukJournal_results"));
+        return waitForExpectedElement(By.id("cobalt_search_ukJournal_results"));
     }
 
     public WebElement UKFacetExpand() {
@@ -29,7 +29,7 @@ public class JournalsPage extends AbstractPage {
 
     public int getFacetCount(String jurisdiction) {
         try {
-            return Integer.valueOf(waitFluentForElement(By.xpath(".//label[text()='" + jurisdiction + "']/../span[@class='co_facetCount']")).getText());
+            return Integer.valueOf(waitForExpectedElement(By.xpath(".//label[text()='" + jurisdiction + "']/../span[@class='co_facetCount']")).getText());
         } catch (TimeoutException te) {
             LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the facet count for : " + jurisdiction);
@@ -43,7 +43,7 @@ public class JournalsPage extends AbstractPage {
     public List<String> getMainJurisdictionFacets() {
         List<String> list = new ArrayList<String>();
         try {
-            for (WebElement facet : retryingFindElements(By.cssSelector(".co_facet_tree>li>label[for^='facet_hierarchy_jurisdictionSummary']"))) {
+            for (WebElement facet : waitForExpectedElements(By.cssSelector(".co_facet_tree>li>label[for^='facet_hierarchy_jurisdictionSummary']"))) {
                 list.add(facet.getText());
             }
         } catch (PageOperationException te) {
@@ -56,7 +56,7 @@ public class JournalsPage extends AbstractPage {
     public List<String> getUKJurisdictionFacets() {
         List<String> list = new ArrayList<String>();
         try {
-            for (WebElement facet : retryingFindElements(By.xpath("//label[text()='UK']/..//ul[contains(@id,'jurisdiction')]//li//label"))) {
+            for (WebElement facet : waitForExpectedElements(By.xpath("//label[text()='UK']/..//ul[contains(@id,'jurisdiction')]//li//label"))) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {
@@ -82,14 +82,14 @@ public class JournalsPage extends AbstractPage {
             temp = xpath.toString();
 
             for (int i = 0; i < facetNames.length - 1; i++) {
-                WebElement checkbox = retryingFindElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
+                WebElement checkbox = waitForExpectedElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
                 if (checkbox.getAttribute("class").equals("co_facet_expand")) {
                     checkbox.click();
                 }
                 xpath.append("/div/ul/li");
             }
             xpath.append("/label[text()='%s']/../span[@class='co_facetCount']");
-            int size = Integer.valueOf(retryingFindElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1]))).getText());
+            int size = Integer.valueOf(waitForExpectedElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1]))).getText());
 
             for (int i = facetNames.length - 2; i >= 0; i--) {
                 String extraURL = "";
@@ -99,9 +99,9 @@ public class JournalsPage extends AbstractPage {
                     j--;
                 }
                 if (extraURL.length() > 0) {
-                    retryingFindElement(By.xpath(temp + extraURL + "/label[text()='" + facetNames[i] + "']/../a")).click();
+                    waitForExpectedElement(By.xpath(temp + extraURL + "/label[text()='" + facetNames[i] + "']/../a")).click();
                 } else {
-                    retryingFindElement(By.xpath(temp + "/label[text()='" + facetNames[i] + "']/../a")).click();
+                    waitForExpectedElement(By.xpath(temp + "/label[text()='" + facetNames[i] + "']/../a")).click();
                 }
             }
             return size;
@@ -112,7 +112,7 @@ public class JournalsPage extends AbstractPage {
     }
 
     public WebElement checkBoxByLabelName(String label) {
-        WebElement findlabel = retryingFindElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[text()='" + label + "']"));
+        WebElement findlabel = waitForExpectedElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[text()='" + label + "']"));
         String labelFor = findlabel.getAttribute("for");
         return waitForExpectedElement(By.id(labelFor));
     }
@@ -159,14 +159,14 @@ public class JournalsPage extends AbstractPage {
             }
 
             for (int i = 0; i < facetNames.length - 1; i++) {
-                WebElement checkbox = retryingFindElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
+                WebElement checkbox = waitForExpectedElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
                 if (checkbox.getAttribute("class").equals("co_facet_expand")) {
                     checkbox.click();
                 }
                 xpath.append("/div/ul/li");
             }
             xpath.append("/label[text()='%s']/../input");
-            return retryingFindElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1])));
+            return waitForExpectedElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1])));
         } catch (TimeoutException te) {
             LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the facet count for : ");
@@ -174,7 +174,7 @@ public class JournalsPage extends AbstractPage {
     }
 
     public int getJournalsCount() {
-        int Size = Integer.valueOf(retryingFindElement(By.cssSelector(".co_search_titleCount")).getText().replace("(", "").replace(")", "").replace(",", "").trim());
+        int Size = Integer.valueOf(waitForExpectedElement(By.cssSelector(".co_search_titleCount")).getText().replace("(", "").replace(")", "").replace(",", "").trim());
         return Size;
     }
 
@@ -183,7 +183,7 @@ public class JournalsPage extends AbstractPage {
      */
     public WebElement journalsFacetCheckbox(String facetName) {
         try {
-            WebElement findlabel = retryingFindElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[text()='" + facetName + "']"));
+            WebElement findlabel = waitForExpectedElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[text()='" + facetName + "']"));
             String labelFor = findlabel.getAttribute("for");
             return waitForExpectedElement(By.id(labelFor));
         } catch (StaleElementReferenceException se) {
@@ -210,14 +210,14 @@ public class JournalsPage extends AbstractPage {
      * this is the facet name - pass in the facet name as a string e.g. Standard clauses
      */
     public WebElement facetName(String Name) throws Exception {
-        return retryingFindElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[contains(text(),'" + Name + "')]"));
+        return waitForExpectedElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[contains(text(),'" + Name + "')]"));
     }
 
     /**
      * This is an object representing the Apply Filters button
      */
     public WebElement applyFiltersButton() {
-        return retryingFindElement(By.linkText("Apply Filters"));
+        return waitForExpectedElement(By.linkText("Apply Filters"));
     }
 
     /**
@@ -247,7 +247,7 @@ public class JournalsPage extends AbstractPage {
      * This is an object representing the facet count associated with each facet (any facet on the journals page)
      */
     public WebElement facetCount(String facetname) {
-        return retryingFindElement(By.xpath("//div[@id='co_narrowResultsBy']//label[contains(text(),'" + facetname + "')]/../span[@class='co_facetCount']"));
+        return waitForExpectedElement(By.xpath("//div[@id='co_narrowResultsBy']//label[contains(text(),'" + facetname + "')]/../span[@class='co_facetCount']"));
     }
 
 }

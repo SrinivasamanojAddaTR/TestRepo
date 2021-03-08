@@ -22,7 +22,7 @@ public class GlobalGuidesLandingPage extends AbstractPage {
 
     public WebElement startComparingLink() {
 
-        return retryingFindElement(By.xpath("//a[@aria-label='Start comparing']"));
+        return waitForExpectedElement(By.xpath("//a[@aria-label='Start comparing']"));
     }
 
 

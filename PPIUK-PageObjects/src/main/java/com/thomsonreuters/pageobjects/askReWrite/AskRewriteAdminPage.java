@@ -28,7 +28,7 @@ public class AskRewriteAdminPage extends AbstractPage{
     }
 
     public WebElement practiceAreaForm() {
-        return waitForElementToBeClickableAndReturnElement(PRACTICE_AREA_FORM);
+        return waitForExpectedAndClickableElement(PRACTICE_AREA_FORM);
     }
 
     public WebElement practiceAreaNameField() {
@@ -48,7 +48,7 @@ public class AskRewriteAdminPage extends AbstractPage{
     }
 
     public boolean isPracticeAreaFormPresent() {
-        return isElementPresent(PRACTICE_AREA_FORM);
+        return isExists(PRACTICE_AREA_FORM);
     }
 
     public void saveChanges() {

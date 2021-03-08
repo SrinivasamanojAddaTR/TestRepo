@@ -15,7 +15,7 @@ public class RBPLHomePage extends RBCommonPage {
 
     // resources tab and research content links
     public WebElement resourcesTab() {
-       return waitAndFindElement(By.linkText("Resources"));
+       return waitForExpectedElement(By.linkText("Resources"));
     }
 
 }

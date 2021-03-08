@@ -20,7 +20,7 @@ public class OnepassLogin extends AbstractPage {
 	}
     
     public WebElement manageOnePassLoginFormTitle() {
-    	return retryingFindElement(By.xpath("//div[@class='signin']//h2"));
+    	return waitForExpectedElement(By.xpath("//div[@class='signin']//h2"));
     }
     
     public WebElement usernameTextField() {
@@ -44,27 +44,27 @@ public class OnepassLogin extends AbstractPage {
     }
 
     public WebElement loginBox() {
-        return retryingFindElement(By.className("Form-content"));
+        return waitForExpectedElement(By.className("Form-content"));
     }
 
     public WebElement forgotMyUsernameOrPasswordLink() {
-        return retryingFindElement(By.partialLinkText("Forgot my username or password"));
+        return waitForExpectedElement(By.partialLinkText("Forgot my username or password"));
     }
 
     public WebElement saveMyUsernameCheckBox() {
-        return retryingFindElement(By.xpath(".//*[@id='form0']/div/ul[2]/li[3]/div[1]/label"));
+        return waitForExpectedElement(By.xpath(".//*[@id='form0']/div/ul[2]/li[3]/div[1]/label"));
     }
 
     public WebElement saveMyUsernameAndPasswordCheckBox() {
-         return retryingFindElement(By.xpath(".//*[@id='form0']/div/ul[2]/li[3]/div[2]/label"));
+         return waitForExpectedElement(By.xpath(".//*[@id='form0']/div/ul[2]/li[3]/div[2]/label"));
     }
 
     public WebElement superRememberMeHintLink() {
-        return retryingFindElement(By.id("superRememberMeHint"));
+        return waitForExpectedElement(By.id("superRememberMeHint"));
     }
 
     public WebElement superRememberMeHintPopUp() {
-        return retryingFindElement(By.id("superRememberMeHintTooltip"));
+        return waitForExpectedElement(By.id("superRememberMeHintTooltip"));
     }
     
     public boolean isSuperRememberMeHintPopUpPresent() {
@@ -72,15 +72,15 @@ public class OnepassLogin extends AbstractPage {
     }
     
     public WebElement createNewOnePassProfileLink() {
-        return retryingFindElement(By.partialLinkText("Create a new OnePass profile"));
+        return waitForExpectedElement(By.partialLinkText("Create a new OnePass profile"));
     }
 
     public WebElement updateExistingOnePassProfileLink() {
-        return retryingFindElement(By.partialLinkText("Update an existing OnePass profile"));
+        return waitForExpectedElement(By.partialLinkText("Update an existing OnePass profile"));
     }
 
     public WebElement learnMoreAboutOnePassLink() {
-        return retryingFindElement(By.partialLinkText("Learn more about OnePass"));
+        return waitForExpectedElement(By.partialLinkText("Learn more about OnePass"));
     }
     
     public WebElement manageOnepassTitle() {
@@ -88,15 +88,15 @@ public class OnepassLogin extends AbstractPage {
     }
       
     public WebElement regKeyRadioButtonByRegKey(String regKey) {
-    	 return retryingFindElement(By.xpath("//label[contains(text(),'" + regKey + "')]//preceding-sibling::input[contains(@id,'SelectedRegistrationKey')]"));
+    	 return waitForExpectedElement(By.xpath("//label[contains(text(),'" + regKey + "')]//preceding-sibling::input[contains(@id,'SelectedRegistrationKey')]"));
     }
     
     public List<WebElement> marketingLinks(){
-        return retryingFindElements(By.xpath("//div[@class='marketing']//a"));
+        return waitForExpectedElements(By.xpath("//div[@class='marketing']//a"));
     }
 
     public List<WebElement> marketingImages(){
-        return retryingFindElements(By.xpath("//div[@class='marketing']//a/img"));
+        return waitForExpectedElements(By.xpath("//div[@class='marketing']//a/img"));
 }
     
     public List<WebElement> marketingImagesOnCompartments(){
@@ -104,7 +104,7 @@ public class OnepassLogin extends AbstractPage {
     }
     
 	public WebElement logoImage() {
-		return retryingFindElement(By.xpath("//div[@class='productimage']/img"));
+		return waitForExpectedElement(By.xpath("//div[@class='productimage']/img"));
 	}
 
     public boolean isForgotUsernameLinkPresent() {
@@ -132,7 +132,7 @@ public class OnepassLogin extends AbstractPage {
     }
     
     public boolean isUsernameAthensPresent(){
-    	return isElementPresent(By.name("username"));
+    	return isExists(By.name("username"));
     }
     
     public WebElement passwordAthens(){
@@ -148,7 +148,7 @@ public class OnepassLogin extends AbstractPage {
     }
     
     public boolean isUsernameShibolethPresent(){
-    	return isElementPresent(By.id("username"));
+    	return isExists(By.id("username"));
     }
     
     public WebElement passwordShiboleth(){

@@ -28,7 +28,7 @@ public class CasesSearchResultsPage extends AbstractPage {
      * Object representing the total search result count for the search
      */
     public WebElement searchResultCount() {
-        return retryingFindElement(By.xpath("//div[@id='coid_website_searchAvailableFacets']//span[@class='co_search_titleCount']"));
+        return waitForExpectedElement(By.xpath("//div[@id='coid_website_searchAvailableFacets']//span[@class='co_search_titleCount']"));
     }
 
     public WebElement expandFacet(String facetname) {
@@ -101,7 +101,7 @@ public class CasesSearchResultsPage extends AbstractPage {
     public List<String> getJurisdictionFacets() {
         List<String> list = new ArrayList<String>();
         try {
-            for (WebElement facet : retryingFindElements(By.xpath("//div[@id='co_narrowResultsBy']/div/h4[contains(text(), 'Jurisdiction')]/../ul/li/label"))) {
+            for (WebElement facet : waitForExpectedElements(By.xpath("//div[@id='co_narrowResultsBy']/div/h4[contains(text(), 'Jurisdiction')]/../ul/li/label"))) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {
@@ -113,7 +113,7 @@ public class CasesSearchResultsPage extends AbstractPage {
     public List<String> getJurisdictionSubFacets(String mainFacet) {
         List<String> list = new ArrayList<String>();
         try {
-            for (WebElement facet : retryingFindElements(By.xpath("//div[@id='co_narrowResultsBy']/div/h4[contains(text(), 'Jurisdiction')]/../ul/li/label[text()='" + mainFacet + "']/../div//label"))) {
+            for (WebElement facet : waitForExpectedElements(By.xpath("//div[@id='co_narrowResultsBy']/div/h4[contains(text(), 'Jurisdiction')]/../ul/li/label[text()='" + mainFacet + "']/../div//label"))) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {
@@ -126,7 +126,7 @@ public class CasesSearchResultsPage extends AbstractPage {
      * Object representing the total search result count for the search
      */
     public WebElement casesSearchResultCount() {
-        return retryingFindElement(By.xpath("//div[@id='coid_website_searchAvailableFacets']//span[@class='co_search_titleCount']"));
+        return waitForExpectedElement(By.xpath("//div[@id='coid_website_searchAvailableFacets']//span[@class='co_search_titleCount']"));
     }
 
     /**
@@ -135,7 +135,7 @@ public class CasesSearchResultsPage extends AbstractPage {
      * @param resultIndex
      */
     public void clickOnResultItem(int resultIndex) {
-        retryingFindElement(By.xpath("//a[@id='cobalt_result_internationalCase_title" + resultIndex + "']/span")).click();
+        waitForExpectedElement(By.xpath("//a[@id='cobalt_result_internationalCase_title" + resultIndex + "']/span")).click();
     }
 
     /**

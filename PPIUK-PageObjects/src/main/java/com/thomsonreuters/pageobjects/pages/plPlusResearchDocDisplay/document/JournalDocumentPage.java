@@ -58,7 +58,7 @@ public class JournalDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement footnoteNumberInDocument(String number) {
-		return retryingFindElement(By.xpath(".//sup[@id='co_footnoteReference_" + number + "']/a"));
+		return waitForExpectedElement(By.xpath(".//sup[@id='co_footnoteReference_" + number + "']/a"));
 	}
 
 	public WebElement footnoteNumberInStickyTitle() {
@@ -70,21 +70,21 @@ public class JournalDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement documentSubsection(String subsection) {
-		return retryingFindElement(By.xpath(".//*[@id='co_docContentBody']//*[contains(text(), \"" + subsection
+		return waitForExpectedElement(By.xpath(".//*[@id='co_docContentBody']//*[contains(text(), \"" + subsection
 				+ "\")]"));
 	}
 
 	public WebElement valueOfSubsection(String subsection) {
-		return retryingFindElement(By.xpath(".//*[@id='co_docContentBody']//*[contains(text(), \"" + subsection
+		return waitForExpectedElement(By.xpath(".//*[@id='co_docContentBody']//*[contains(text(), \"" + subsection
 				+ "\")]/.."));
 	}
 
 	public WebElement providedByWlukIcon() {
-		return retryingFindElement(By.xpath(".//*[@id='co_docContentHeader']//img"));
+		return waitForExpectedElement(By.xpath(".//*[@id='co_docContentHeader']//img"));
 	}
 
 	public WebElement linkInSubsection(String linkText, String subsection) {
-		return retryingFindElement(By.xpath(".//*[contains(text(), '" + subsection
+		return waitForExpectedElement(By.xpath(".//*[contains(text(), '" + subsection
 				+ "')]/following-sibling::*//a[contains(text(), '" + linkText + "')]"));
 	}
 

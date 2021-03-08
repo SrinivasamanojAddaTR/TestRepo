@@ -4,7 +4,6 @@ import com.thomsonreuters.pageobjects.rest.auth.UDSCredentials;
 import com.thomsonreuters.pageobjects.rest.model.request.DocumentMetaInfoRequeset;
 import com.thomsonreuters.pageobjects.rest.model.response.DocumentMetaInfoResponse;
 import com.thomsonreuters.pageobjects.rest.service.RestService;
-import org.jboss.netty.util.internal.SystemPropertyUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class RestServiceDocumentImpl extends RestServiceImpl implements RestService {
 
     protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(RestServiceDocumentImpl.class);
-    private final String DOCUMENT_MODULE_AUTHORITY = SystemPropertyUtil.get("documentModuleAuthority",
+    private final String DOCUMENT_MODULE_AUTHORITY = System.getProperty("documentModuleAuthority",
             "document.int.next." + getEnvironment() + ".westlaw.com");
     private final String DOCUMENT_MODULE_URL = "http://" + DOCUMENT_MODULE_AUTHORITY + "/Document/v1";
 

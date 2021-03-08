@@ -70,7 +70,7 @@ public class RestServiceDeliveryImpl extends RestServiceImpl implements RestServ
         httpHeaders.set("Cookie", getWebDriverDiscovery().getBrowserCookiesAsString());
         httpHeaders.set("Host", getWebDriverDiscovery().getCurrentRootAddress(false));
         httpHeaders.set("Pragma", "no-cache");
-        httpHeaders.set("Referer", getWebDriverDiscovery().getRemoteWebDriver().getCurrentUrl());
+        httpHeaders.set("Referer", getWebDriverDiscovery().getWebDriver().getCurrentUrl());
         return httpHeaders;
     }
 

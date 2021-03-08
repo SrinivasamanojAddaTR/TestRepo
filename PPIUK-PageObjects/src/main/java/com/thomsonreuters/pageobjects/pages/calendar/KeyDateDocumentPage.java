@@ -1,5 +1,6 @@
 package com.thomsonreuters.pageobjects.pages.calendar;
 
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.DocumentDisplayAbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -7,6 +8,8 @@ import java.util.List;
 
 
 public class KeyDateDocumentPage extends DocumentDisplayAbstractPage {
+
+    CommonMethods commonMethods = new CommonMethods();
 
     public WebElement keyDateDocMetaData() {
         return findElement(By.id("co_docContentMetaInfo"));
@@ -35,7 +38,7 @@ public class KeyDateDocumentPage extends DocumentDisplayAbstractPage {
     }
 
     public boolean isDocEventDatePresent() {
-        return isElementPresent(By.id("co_eventDate"));
+        return isExists(By.id("co_eventDate"));
     }
 
     public WebElement metaDataDateIcon() {
@@ -153,7 +156,7 @@ public class KeyDateDocumentPage extends DocumentDisplayAbstractPage {
 
     public boolean isAddToOutlookLinkPresentForEachDoc(){
         for (WebElement item: singleDaySearchResultItems()) {
-            if(!isElementDisplayed(item.findElement(By.xpath(".//form[@class='co_addToOutlookForm']")))){
+            if(!commonMethods.isElementDisplayed(item.findElement(By.xpath(".//form[@class='co_addToOutlookForm']")))){
                 return false;
             }
         }
@@ -180,7 +183,7 @@ public class KeyDateDocumentPage extends DocumentDisplayAbstractPage {
     }
 
     public boolean isFacetPresent(String name){
-        return isElementDisplayed(facetInput(name));
+        return commonMethods.isElementDisplayed(facetInput(name));
     }
 
     public WebElement facetInput(String name){

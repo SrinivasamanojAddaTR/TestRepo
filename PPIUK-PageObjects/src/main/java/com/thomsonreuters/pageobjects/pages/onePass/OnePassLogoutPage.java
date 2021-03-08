@@ -9,11 +9,11 @@ import org.openqa.selenium.WebElement;
 public class OnePassLogoutPage extends AbstractPage {
 	
 	public WebElement logOutBrandingLogo() {
-        return retryingFindElement(By.id("co_logo"));
+        return waitForExpectedElement(By.id("co_logo"));
     }
     
 	public boolean isLogOutBrandingLogoCompartmentsPresent() {
-        return isElementPresent(By.className("legal-compartments_signOut"));
+        return isExists(By.className("legal-compartments_signOut"));
     }
 
     public WebElement sessionSummaryBox() {
@@ -29,7 +29,7 @@ public class OnePassLogoutPage extends AbstractPage {
     }
     
     public WebElement resumeAsCurrentUserLink() {
-        return retryingFindElement(By.partialLinkText("Resume as"));
+        return waitForExpectedElement(By.partialLinkText("Resume as"));
     }
     
     public String sessionSummary() {
@@ -37,7 +37,7 @@ public class OnePassLogoutPage extends AbstractPage {
     }
 
     public WebElement signInWithDifferentAccountLink() {
-        return retryingFindElement(By.partialLinkText("Sign in with a different account"));
+        return waitForExpectedElement(By.partialLinkText("Sign in with a different account"));
     }
 
     public WebElement sessionDateAndTime() {

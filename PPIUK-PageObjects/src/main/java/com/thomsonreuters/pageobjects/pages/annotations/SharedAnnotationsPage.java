@@ -193,7 +193,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void insertInputInWLNAnnotationTextBox(String input) {
         try {
-            //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             waitForExpectedElement(By.cssSelector(".co_noteArea")).sendKeys(input);
         } catch (PageOperationException te) {
             throw new PageOperationException("Exceeded time to find the Annotations text box in WLN" + te.getMessage());
@@ -261,7 +261,7 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     public void waitForDisclaimerAbsent(){
-        //TODO need to verify if waitForElementInvisible works similar to waitForElementAbsent
+        //TODO need to verify if waitForElementInvisible works similar to waitForElementToDissappear
         waitForElementInvisible(By.cssSelector("a#DisclaimerMessageClose"));
     }
 
@@ -431,7 +431,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public int getNotesCountFromShowAndHideIcon() {
         try {
-            //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             return Integer.parseInt(waitForExpectedElement(By.id("co_ToggleAnnotationCount")).getText());
         } catch (PageOperationException | NumberFormatException poe) {
         }
@@ -454,7 +454,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     private int getInlineNotesCount() {
         try {
-            //TODO [Phase1] verify if retryingFindElements works similar to waitForExpectedElements
+            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             return waitForExpectedElements(By.cssSelector("span.co_noteHolderActive>div.co_hideState+a[title='Minimize']")).size();
         } catch (PageOperationException poe) {
         }
@@ -466,7 +466,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void deleteInlineAnnotations() {
         try {
-            //TODO [Phase1] verify if retryingFindElements works similar to waitForExpectedElements
+            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             for (WebElement inlineNote : waitForExpectedElements(By.cssSelector("span.co_noteHolderActive>div.co_hideState+a[title='Minimize']"))) {
                 inlineNote.click();
                 WebElement ele = inlineNote.findElement(By.xpath("./.."));
@@ -704,7 +704,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public boolean isEditModeDisplayedWithText(String input) {
         try {
-            //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             WebElement element = waitForExpectedElement(IFRAME_LOCATOR);
             if (element.isDisplayed()) {
                 return tinyMceEditor.getText().equals(input);
@@ -732,7 +732,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      * @return webelement
      */
     private WebElement getDeleteElement() {
-        //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.xpath("//div[@class='co_dropdownBoxExpanded'][contains(@style,'visible')]//a[@class='co_noteDelete']"));
     }
 
@@ -814,14 +814,14 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
 //    public boolean isDeleteNotesDisplayed(String message) {
 //        try {
-//            return retryingFindElement(By.cssSelector(".co_notes .co_infoBox_message")).getText().contains(message);
+//            return waitForExpectedElement(By.cssSelector(".co_notes .co_infoBox_message")).getText().contains(message);
 //        } catch (PageOperationException te) {
 //        }
 //        return false;
 //    }
 
     public boolean isDeleteNotesDisplayed(String message) {
-        //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return isElementDisplayed(By.cssSelector(".co_notes .co_infoBox_message"))
                 ? waitForExpectedElement(By.cssSelector(".co_notes .co_infoBox_message")).getText().contains(message)
                 : false;
@@ -855,7 +855,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void undoDelete() {
         try {
-            //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             waitForExpectedElement(By.className("co_notes_undoLink")).click();
         } catch (PageOperationException te) {
             throw new PageOperationException("Unable to select undo icon on: " + te.getMessage());
@@ -939,7 +939,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public boolean isContactFoundInSearch(String contact) {
         try {
-            //TODO [Phase1] verify if retryingFindElements works similar to waitForExpectedElements
+            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             for (WebElement result : waitForExpectedElements(By.cssSelector("#coid_contacts_peopleListItems_contacts a[role='checkbox']"))) {
                 if (contact.equals(result.getText())) {
                     return true;
@@ -960,7 +960,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public boolean isGroupFoundInSearch(String group) {
         try {
-            //TODO [Phase1] verify if retryingFindElements works similar to waitForExpectedElements
+            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             for (WebElement result : waitForExpectedElements(By.cssSelector("#coid_contacts_groupsListItems a[role='checkbox']"))) {
                 if (group.equals(result.getText())) {
                     return true;
@@ -1266,7 +1266,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void selectContact(String contact) {
         try {
-            //TODO [Phase1] verify if retryingFindElements works similar to waitForExpectedElements
+            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             for (WebElement result : waitForExpectedElements(By.cssSelector("#coid_contacts_peopleListItems_contacts a[role='checkbox']"))) {
                 if (contact.equals(result.getText())) {
                     result.click();
@@ -1328,32 +1328,32 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     public WebElement getAddGroupOption() {
-        //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.id("groupListBoxWidgetAddGroup"));
     }
 
     public WebElement getGroupNameField() {
-        //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.id("coid_contacts_newGroupName"));
     }
 
     public WebElement getSearchByNameField() {
-        //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.id("coid_contacts_people_searchBoxInput_contacts_edit"));
     }
 
     public WebElement getSearchResult(String contact) {
-        //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.xpath("//ul[@id='coid_contacts_peopleListItems_contacts_edit']//a[@role='checkbox'][text()='" + contact + "']"));
     }
 
     public WebElement getCheckBoxGroupAvailableToOthers() {
-        //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.id("coid_contacts_newGroupPublic"));
     }
 
     public WebElement getSaveGroupButton() {
-        //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.id("coid_contacts_newGroup_saveButton"));
     }
 
@@ -1390,7 +1390,7 @@ public class SharedAnnotationsPage extends AbstractPage {
         }
 
         try {
-            //TODO [Phase1] verify if retryingFindElements works similar to waitForExpectedElements
+            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             for (WebElement element : waitForExpectedElements(By.cssSelector(cssLocator))) {
                 sb.append(element.getText());
             }
@@ -1405,7 +1405,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void selectOKButtonOnWarningMessage() {
         try {
-            //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             waitForExpectedElement(By.className("co_NotesLightBox_okbutton")).click();
         } catch (PageOperationException pe) {
             throw new PageOperationException("Having issues in selection ok button on warning message" + pe.getMessage());
@@ -1467,7 +1467,7 @@ public class SharedAnnotationsPage extends AbstractPage {
 
        //close cookies policy
     public WebElement closeCookiesPolicy(){
-      //  return waitAndFindElement(By.id("coid_website_cookiePolicyAcknowledged"));
+      //  return waitForExpectedElement(By.id("coid_website_cookiePolicyAcknowledged"));
         return waitForExpectedElement(By.xpath(".//*[@id='coid_website_closeCookiePolicy']"));
           
     }

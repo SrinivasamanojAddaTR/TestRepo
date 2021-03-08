@@ -17,11 +17,11 @@ public class RBCommonPage extends AbstractPage {
     }
 
     public WebElement pageHeading() {
-        return waitAndFindElement(By.id("co_browsePageLabel"));
+        return waitForExpectedElement(By.id("co_browsePageLabel"));
     }
 
     public WebElement contentTypeLink(ResearchContentTypeEnum contentType) {
-        return waitAndFindElement(By.linkText(contentType.getLinkText()));
+        return waitForExpectedElement(By.linkText(contentType.getLinkText()));
     }
 
     public WebElement practiceAreaLink(String practiceArea) {
@@ -35,20 +35,20 @@ public class RBCommonPage extends AbstractPage {
     }
 
     public WebElement searchResultHeading() {
-        return waitAndFindElement(By.cssSelector("div.co_search_result_heading_content h1"));
+        return waitForExpectedElement(By.cssSelector("div.co_search_result_heading_content h1"));
     }
 
     // Static Text and Marketing Pages
     public WebElement description() {
-        return waitAndFindElement(By.cssSelector("div.co_searchResults_summary"));
+        return waitForExpectedElement(By.cssSelector("div.co_searchResults_summary"));
     }
 
     public WebElement findOutMoreLink() {
-        return waitAndFindElement(By.linkText("Find out more"));
+        return waitForExpectedElement(By.linkText("Find out more"));
     }
 
     public WebElement waitForPageHeadingText(String text) {
-        return waitAndFindElement(By.xpath("//h1[@id='co_browsePageLabel'][text()=\"" + text + "\"]"));
+        return waitForExpectedElement(By.xpath("//h1[@id='co_browsePageLabel'][text()=\"" + text + "\"]"));
     }
 
     public WebElement firstResentHistoryLink(){
@@ -64,7 +64,7 @@ public class RBCommonPage extends AbstractPage {
     }
 
     public WebElement waitForMarketingPageHeadingText() {
-        return waitAndFindElement(By.xpath("//h3[text()=\"This is a marketing page\"]"));
+        return waitForExpectedElement(By.xpath("//h3[text()=\"This is a marketing page\"]"));
     }
 
 }

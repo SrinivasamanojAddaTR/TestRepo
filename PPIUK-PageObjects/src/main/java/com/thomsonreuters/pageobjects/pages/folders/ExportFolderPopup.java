@@ -14,7 +14,7 @@ public class ExportFolderPopup extends AbstractPage{
 	}
 	
 	public boolean isExportPopupPresent() {
-		return isElementPresent(By.id("co_deliveryFolderExport_folderView"));
+		return isExists(By.id("co_deliveryFolderExport_folderView"));
 	}
 
 	public WebElement expandFolder() {
@@ -22,7 +22,7 @@ public class ExportFolderPopup extends AbstractPage{
 	}
 
 	public boolean isFolderVisible(String folderName) {
-		return isElementPresent(By.xpath("//*[@class='co_deliveryFolderExport_tree']//a[contains(.,'"+folderName+" (')]"));
+		return isExists(By.xpath("//*[@class='co_deliveryFolderExport_tree']//a[contains(.,'"+folderName+" (')]"));
 	}
 
 	public WebElement checkBox(String folderName) {

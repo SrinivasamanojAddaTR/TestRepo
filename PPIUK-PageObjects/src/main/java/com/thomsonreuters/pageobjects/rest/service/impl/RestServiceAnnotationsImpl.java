@@ -50,7 +50,7 @@ public class RestServiceAnnotationsImpl extends RestServiceImpl implements RestS
         httpHeaders.set("Cookie", webDriverDiscovery.getBrowserCookiesAsString());
         httpHeaders.set("Connection", "keep-alive");
         httpHeaders.set("Host", webDriverDiscovery.getCurrentRootAddress(false));
-        httpHeaders.set("Referer", webDriverDiscovery.getCurrentUrl());
+        httpHeaders.set("Referer", webDriverDiscovery.getWebDriver().getCurrentUrl());
         httpHeaders.set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0");
         httpHeaders.set("X-Requested-With", "XMLHttpRequest");
         httpHeaders.set("x-cobalt-exectype", "async");

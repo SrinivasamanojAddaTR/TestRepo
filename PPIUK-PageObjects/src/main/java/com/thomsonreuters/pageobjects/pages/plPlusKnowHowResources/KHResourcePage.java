@@ -34,7 +34,7 @@ public class KHResourcePage extends CommonResourcePage {
     }
 
     public WebElement backToTop() {
-        return waitAndFindElement(By.cssSelector(".kh_icon.icon-up-pointer"));
+        return waitForExpectedElement(By.cssSelector(".kh_icon.icon-up-pointer"));
     }
 
     public WebElement relatedContentSection() {

@@ -191,7 +191,7 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
      * This is the title of the whats market search result in position X
      */
     public WebElement whatsMarketSearchResultTitle(String result) {
-        return waitFluentForElement(By.id("cobalt_result_whatsmarket_title" + result));
+        return waitForExpectedElement(By.id("cobalt_result_whatsmarket_title" + result));
     }
 
     /**

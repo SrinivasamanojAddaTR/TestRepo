@@ -158,7 +158,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
      * @return List with provisions
      */
     public List<WebElement> getProvisionsForSiGroup(String groupName) {
-        return waitAndFindElements(By.xpath("//div[@class='co_searchContent' and contains(., \"" + groupName + "\")]//div[@class='co_searchResults_citation']/span"));
+        return waitForExpectedElements(By.xpath("//div[@class='co_searchContent' and contains(., \"" + groupName + "\")]//div[@class='co_searchResults_citation']/span"));
     }
 
     /**

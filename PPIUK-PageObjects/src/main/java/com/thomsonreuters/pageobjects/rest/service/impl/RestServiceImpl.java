@@ -2,6 +2,7 @@ package com.thomsonreuters.pageobjects.rest.service.impl;
 
 import com.thomsonreuters.driver.framework.WebDriverDiscovery;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
+import com.thomsonreuters.pageobjects.pages.search.KnowHowDocumentPage;
 import com.thomsonreuters.pageobjects.rest.auth.UDSCredentials;
 import com.thomsonreuters.pageobjects.rest.auth.UDSService;
 import com.thomsonreuters.pageobjects.rest.service.RestService;
@@ -10,7 +11,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -36,6 +37,7 @@ public abstract class RestServiceImpl implements RestService {
     private RestTemplate restTemplate = new RestTemplate();
     protected OnepassLoginUtils onepassLoginUtils = new OnepassLoginUtils();
     private UDSService udsService = new UDSService();
+    private KnowHowDocumentPage khDocumentPage = new KnowHowDocumentPage();
 
     private static final String SECURE_PROTOCOL = "https://";
     private static final String PROTOCOL = "http://";
@@ -112,7 +114,7 @@ public abstract class RestServiceImpl implements RestService {
     }
 
     public String getCookies() {
-        RemoteWebDriver driver = webDriverDiscovery.getRemoteWebDriver();
+        WebDriver driver = webDriverDiscovery.getWebDriver();
         StringBuilder stringBuilder = new StringBuilder();
         for (Cookie cookie : driver.manage().getCookies()) {
             try {
@@ -133,7 +135,7 @@ public abstract class RestServiceImpl implements RestService {
             return udsService.getCurrentSession(getUserName(), getUserPassword(), getProductView(), getSiteCookie());
         } else {
             //for Open Web and IP users that do not have user name
-            JavascriptExecutor jsEx = ((JavascriptExecutor) webDriverDiscovery.getRemoteWebDriver());
+            JavascriptExecutor jsEx = ((JavascriptExecutor) webDriverDiscovery.getWebDriver());
             return (String) jsEx.executeScript("return $(Cobalt.User.GetUserName()).selector;");
         }
 	}
@@ -143,7 +145,7 @@ public abstract class RestServiceImpl implements RestService {
 	}
 
     public String getCurrentBaseUrl() {
-        RemoteWebDriver driver = webDriverDiscovery.getRemoteWebDriver();
+        WebDriver driver = webDriverDiscovery.getWebDriver();
         return driver.getCurrentUrl().split("/")[2];
     }
 
@@ -185,7 +187,7 @@ public abstract class RestServiceImpl implements RestService {
      */
     protected String getXCobaltPcId() {
         String jsScript = "return Cobalt.Website && Cobalt.Website.Events && Cobalt.Website.Events.PageEventIdentifier;";
-        return (String) webDriverDiscovery.getRemoteWebDriver().executeScript(jsScript);
+        return (String) khDocumentPage.executeScript(jsScript);
     }
 
     /**
@@ -196,7 +198,7 @@ public abstract class RestServiceImpl implements RestService {
      */
     protected String getXCobaltRtId() {
         String jsScript = "return Cobalt.Website && Cobalt.Website.Events && Cobalt.Website.Events.ResourceToken;";
-        return (String) webDriverDiscovery.getRemoteWebDriver().executeScript(jsScript);
+        return (String) khDocumentPage.executeScript(jsScript);
     }
 
     /**
@@ -208,7 +210,7 @@ public abstract class RestServiceImpl implements RestService {
         String jsScript = "return typeof Cobalt != 'undefined' ?" +
                 " Cobalt.Website.Events.PageEventIdentifier :" +
                 " window['Server/Events'].PageEventIdentifier;";
-        return (String) webDriverDiscovery.getRemoteWebDriver().executeScript(jsScript);
+        return (String) khDocumentPage.executeScript(jsScript);
     }
 
     /**
@@ -221,7 +223,7 @@ public abstract class RestServiceImpl implements RestService {
         String jsScript = "return typeof Cobalt != 'undefined' ?" +
                 " Cobalt.Website.Events.ResourceToken :" +
                 " window['Server/Events'].ResourceToken;";
-        return (String) webDriverDiscovery.getRemoteWebDriver().executeScript(jsScript);
+        return (String) khDocumentPage.executeScript(jsScript);
     }
 
     /**
@@ -232,7 +234,7 @@ public abstract class RestServiceImpl implements RestService {
      */
     protected String getXCobaltDocumentContentCacheKey() {
         String jsScript = "return Cobalt.Document.Provider.DocumentContentCacheKey;";
-        return (String) webDriverDiscovery.getRemoteWebDriver().executeScript(jsScript);
+        return (String) khDocumentPage.executeScript(jsScript);
     }
 
     /**
@@ -242,7 +244,7 @@ public abstract class RestServiceImpl implements RestService {
      */
     protected String getUserClientId() {
         String jsScript = "return Cobalt.User.GetClientId();";
-        return (String) webDriverDiscovery.getRemoteWebDriver().executeScript(jsScript);
+        return (String) khDocumentPage.executeScript(jsScript);
     }
 
 	public void removeDashboardParameters() {

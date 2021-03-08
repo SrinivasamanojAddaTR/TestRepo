@@ -218,7 +218,7 @@ public class CategoryPage extends AbstractPage {
 		LOG.info("Open page '" + pageName + "'");
 		waitForPageToLoadAndJQueryProcessing();
 		String text = Quotes.escape(pageName);
-	    scrollIntoViewAndClick(waitAndFindElement(By.xpath("//*[@id='co_body']//a[text()=" + text + "]")));
+	    scrollIntoViewAndClick(waitForExpectedElement(By.xpath("//*[@id='co_body']//a[text()=" + text + "]")));
 		waitForPageToLoadAndJQueryProcessing();
 	}
 	
@@ -249,12 +249,12 @@ public class CategoryPage extends AbstractPage {
 	}
 
     public Boolean addToFavouritesLinkPresent() {
-    	return isElementPresent(By.xpath(ADD_TO_FAVORITES));
+    	return isExists(By.xpath(ADD_TO_FAVORITES));
     }
     
 	public boolean checkPageIsInFavourites() {
 		waitForPageToLoad();
-		return isElementPresent(By.xpath(EDIT_FAVORITES));
+		return isExists(By.xpath(EDIT_FAVORITES));
 	}
 
 	public WebElement makeThisMyStartPageLink() {

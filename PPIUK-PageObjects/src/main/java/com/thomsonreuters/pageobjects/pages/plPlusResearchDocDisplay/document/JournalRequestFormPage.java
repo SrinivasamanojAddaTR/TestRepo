@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class JournalRequestFormPage extends DocumentDisplayAbstractPage {
 
 	public WebElement widget() {
-		return retryingFindElement(By.xpath("//div[@id='co_purchaseForm_widget']"));
+		return waitForExpectedElement(By.xpath("//div[@id='co_purchaseForm_widget']"));
 	}
 
 	public WebElement widgetTitle() {
@@ -20,7 +20,7 @@ public class JournalRequestFormPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement formFieldLabel(String label) {
-		return retryingFindElement(By.xpath("//form[@id='co_mainForm']//div[@class='co_purchaseForm_line']/label[contains(text(),'" + label
+		return waitForExpectedElement(By.xpath("//form[@id='co_mainForm']//div[@class='co_purchaseForm_line']/label[contains(text(),'" + label
 				+ "')]"));
 	}
 
@@ -29,24 +29,18 @@ public class JournalRequestFormPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement radioButton(String label) {
-		return retryingFindElement(By
+		return waitForExpectedElement(By
 				.xpath("//*[@id='co_purchaseForm_deliveryMethod']/div[@class='co_purchaseForm_line']/label[contains(.,'" + label
 						+ "')]/input"));
 	}
 
 	public WebElement agreeCheckbox() {
-		return retryingFindElement(By.id("co_purchaseForm_policyCheck"));
+		return waitForExpectedElement(By.id("co_purchaseForm_policyCheck"));
 	}
 
 
 	public WebElement xButton() {
-		return retryingFindElement(By.id("co_purchaseForm_lightbox_closeButton"));
-	}
-
-	public Alert waitForAlertDialog() {
-		Wait wait = new WebDriverWait(getDriver, 30);
-		Alert alert = (Alert) wait.until(visibilityOfAlert());
-		return alert;
+		return waitForExpectedElement(By.id("co_purchaseForm_lightbox_closeButton"));
 	}
 
 	public ExpectedCondition<Alert> visibilityOfAlert() {

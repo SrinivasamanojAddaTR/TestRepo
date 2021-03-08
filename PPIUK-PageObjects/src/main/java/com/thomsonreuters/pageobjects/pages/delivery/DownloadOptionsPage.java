@@ -91,14 +91,14 @@ public class DownloadOptionsPage extends CommonDeliveryOptionsPage {
      * Wait while delivery options or delivery waiting / preparing popup won't be absent
      */
     public void waitWhileDeliveryPopupsAbsent() {
-        waitForElementAbsent(By.id("co_deliveryLightbox"));
-        waitForElementAbsent(By.id("co_deliveryWaitMessage"));
+        waitForElementToDissappear(By.id("co_deliveryLightbox"));
+        waitForElementToDissappear(By.id("co_deliveryWaitMessage"));
     }
 
     /**
      * Wait while delivery progress image won;t be absent
      */
     public void waitWhileProgressImageBeAbsent() {
-        waitForElementAbsent(By.id("co_deliveryWaitProgress"));
+        waitForElementToDissappear(By.id("co_deliveryWaitProgress"));
     }
 }

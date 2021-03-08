@@ -21,19 +21,19 @@ public class LegislationDocumentPage extends DocumentDisplayAbstractPage {
 	private static final String LEGISLATION_DOC_WIDGET = ".//h2[text()='%s']/..";
 
 	public List<WebElement> amendmentsNumbers() {
-		return retryingFindElements(By.xpath(".//*[@id='co_footnoteSection']//*[@class='co_footnoteNumber']//a"));
+		return waitForExpectedElements(By.xpath(".//*[@id='co_footnoteSection']//*[@class='co_footnoteNumber']//a"));
 	}
 
 	public List<WebElement> amendmentsDescription() {
-		return retryingFindElements(By.xpath(".//*[@id='co_footnoteSection']//*[@class='co_footnoteBody']"));
+		return waitForExpectedElements(By.xpath(".//*[@id='co_footnoteSection']//*[@class='co_footnoteBody']"));
 	}
 
 	public WebElement footnoteReference(String number) {
-		return retryingFindElement(By.xpath(".//*[@id='co_footnoteReference_" + number + "']/a"));
+		return waitForExpectedElement(By.xpath(".//*[@id='co_footnoteReference_" + number + "']/a"));
 	}
 
 	public WebElement footnoteText(String text) {
-		return retryingFindElement(By.xpath(".//*[@class='co_footnoteHoverTitle']/*[text()='" + text + "']"));
+		return waitForExpectedElement(By.xpath(".//*[@class='co_footnoteHoverTitle']/*[text()='" + text + "']"));
 	}
 
 	public WebElement textInSection(String section, String text) {
@@ -52,16 +52,16 @@ public class LegislationDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public List<WebElement> paragraphsInSection(String section) {
-		return retryingFindElements(By.xpath(".//*[contains(text(), '" + section
+		return waitForExpectedElements(By.xpath(".//*[contains(text(), '" + section
 				+ "')]/following-sibling::*//*[@class='co_paragraph']"));
 	}
 
 	public WebElement sectionInTheDocument(String section) {
-		return retryingFindElement(By.xpath(".//*[@id='co_docContentBody']//*[contains(text(), '" + section + ")]"));
+		return waitForExpectedElement(By.xpath(".//*[@id='co_docContentBody']//*[contains(text(), '" + section + ")]"));
 	}
 
 	public List<WebElement> linksInSection(String section) {
-		return retryingFindElements(By.xpath(String.format(".//*[contains(text(), '%s')]/../following-sibling::a",
+		return waitForExpectedElements(By.xpath(String.format(".//*[contains(text(), '%s')]/../following-sibling::a",
 				section)));
 	}
 

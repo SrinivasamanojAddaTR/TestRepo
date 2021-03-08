@@ -110,7 +110,7 @@ public class KnowHowDocumentPage extends CommonDocumentPage {
     }
     
     public boolean isSearchTermHighlighted(String highlightedTerm) {
-        return isElementPresent(By.xpath("//div[(@id='co_document')]//span[text()='" + highlightedTerm + "' and @class='co_searchTerm']"));
+        return isExists(By.xpath("//div[(@id='co_document')]//span[text()='" + highlightedTerm + "' and @class='co_searchTerm']"));
     }
     
     public boolean isHighlightedWordsPresent() {

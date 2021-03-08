@@ -11,7 +11,7 @@ public class InternationalWidgetsPanel extends AbstractPage {
     }
 
     public boolean isWidgetWithTitlePresent(String title) {
-        return isElementPresent(By.xpath("//div[@id='coid_website_browseRightColumn']//h3[contains(text(),'" + title + "')]"));
+        return isExists(By.xpath("//div[@id='coid_website_browseRightColumn']//h3[contains(text(),'" + title + "')]"));
     }
 
     public WebElement buttonOnWidgetWithTitle(String widgetTitle, String buttonText) {

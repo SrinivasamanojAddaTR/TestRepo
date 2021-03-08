@@ -1,5 +1,6 @@
 package com.thomsonreuters.pageobjects.rest.service.impl;
 
+import com.thomsonreuters.pageobjects.pages.search.KnowHowDocumentPage;
 import com.thomsonreuters.pageobjects.rest.model.request.favourites.DeleteFavouritesRequest;
 import com.thomsonreuters.pageobjects.rest.model.request.linkbuilder.GenerateLinkRequest;
 import com.thomsonreuters.pageobjects.rest.model.response.linkbuilder.GenerateLinkResponse;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpMethod;
  * Created by Pavel_Ardenka on 12/12/2016.
  */
 public class RestServiceLinkBuilderImpl extends RestServiceImpl implements RestService {
+
+    private KnowHowDocumentPage knowHowDocumentPage = new KnowHowDocumentPage();
 
     public GenerateLinkResponse getGenerateLinkResponse() {
         LOG.info("------------------- BEGIN getGenerateLinkResponse --------------------");
@@ -40,7 +43,7 @@ public class RestServiceLinkBuilderImpl extends RestServiceImpl implements RestS
      */
     private String getSearchResultsId() {
         String jsScript = "return Cobalt.Search.PageContext.SearchResult.getGuid();";
-        return (String) webDriverDiscovery.getRemoteWebDriver().executeScript(jsScript);
+        return (String) knowHowDocumentPage.executeScript(jsScript);
     }
     /**
      * Get content type of current search result id via Java Script
@@ -50,7 +53,7 @@ public class RestServiceLinkBuilderImpl extends RestServiceImpl implements RestS
      */
     private String getSearchContentType() {
         String jsScript = "return Cobalt.Search.PageContext.SearchResult.getContentType();";
-        return (String) webDriverDiscovery.getRemoteWebDriver().executeScript(jsScript);
+        return (String) knowHowDocumentPage.executeScript(jsScript);
     }
 
     @Override
@@ -62,7 +65,7 @@ public class RestServiceLinkBuilderImpl extends RestServiceImpl implements RestS
         httpHeaders.set("Cookie", webDriverDiscovery.getBrowserCookiesAsString());
         httpHeaders.set("Connection", "keep-alive");
         httpHeaders.set("Host", webDriverDiscovery.getCurrentRootAddress(false));
-        httpHeaders.set("Referer", webDriverDiscovery.getCurrentUrl());
+        httpHeaders.set("Referer", webDriverDiscovery.getWebDriver().getCurrentUrl());
         httpHeaders.set("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0");
         httpHeaders.set("X-Requested-With", "XMLHttpRequest");
         httpHeaders.set("x-cobalt-exectype", "async");

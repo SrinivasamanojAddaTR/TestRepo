@@ -48,7 +48,7 @@ public class JournalsSearchResultsPage extends AbstractPage {
 
         List<String> list = new ArrayList<String>();
         try {
-            for (WebElement facet : retryingFindElements(By.cssSelector(".co_facet_tree>li>label"))) {
+            for (WebElement facet : waitForExpectedElements(By.cssSelector(".co_facet_tree>li>label"))) {
 
                 list.add(facet.getText());
             }
@@ -65,7 +65,7 @@ public class JournalsSearchResultsPage extends AbstractPage {
      * @param resultIndex
      */
     public void clickOnResultItem(int resultIndex) {
-        retryingFindElement(By.xpath("//a[@id='cobalt_result_internationalJournal_title" + resultIndex + "']")).click();
+        waitForExpectedElement(By.xpath("//a[@id='cobalt_result_internationalJournal_title" + resultIndex + "']")).click();
 
 
     }
@@ -227,7 +227,7 @@ public class JournalsSearchResultsPage extends AbstractPage {
     public List<String> getSearchSuggestions() {
         List<String> list = new ArrayList<String>();
         try {
-            for (WebElement element : retryingFindElements(By.cssSelector("#searchBoxIndexSpan li"))) {
+            for (WebElement element : waitForExpectedElements(By.cssSelector("#searchBoxIndexSpan li"))) {
                 list.add(element.getText());
             }
             return list;

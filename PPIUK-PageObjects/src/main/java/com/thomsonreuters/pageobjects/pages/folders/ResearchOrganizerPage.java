@@ -142,11 +142,11 @@ public class ResearchOrganizerPage extends AbstractPage {
             title = "\"" + title + "\"";
             text = title;
         }
-        return isElementPresent(By.xpath("//*[@id='co_recentHistoryContainer']//*[contains(@href, '" + documentGuid + "') and text()=" + text + "]"));
+        return isExists(By.xpath("//*[@id='co_recentHistoryContainer']//*[contains(@href, '" + documentGuid + "') and text()=" + text + "]"));
     }
 
     public boolean isLinkToFolderInRecentDropdownPresent(String folderName) {
-        return isElementPresent(By.xpath("//*[@id='co_recentFoldersContainer']//*[text()='" + folderName + "']"));
+        return isExists(By.xpath("//*[@id='co_recentFoldersContainer']//*[text()='" + folderName + "']"));
     }
 
     public WebElement linkToFolderInRecentDropdown(String folderName) {
@@ -166,7 +166,7 @@ public class ResearchOrganizerPage extends AbstractPage {
     }
 
     public boolean isLinkToSearchInRecentDropdownPresent(String search) {
-        return isElementPresent(By.xpath("//*[@id='co_recentHistoryContainer']//*[contains(@href, '" + search + "')]"));
+        return isExists(By.xpath("//*[@id='co_recentHistoryContainer']//*[contains(@href, '" + search + "')]"));
     }
 
     public int getDocumentCountInFolders() {
@@ -234,7 +234,7 @@ public class ResearchOrganizerPage extends AbstractPage {
     }
 
     public boolean isLinkToDocumenttPresent() {
-    	return isElementPresent(By.xpath("//*[contains(@href, '/Document/') and @name]"));
+    	return isExists(By.xpath("//*[contains(@href, '/Document/') and @name]"));
     }
 
     public boolean checkIfLinksVisible(List<String> ffhLinks) {
@@ -550,7 +550,7 @@ public class ResearchOrganizerPage extends AbstractPage {
             default:
                 throw new UnsupportedOperationException("There is no locator pattern for column " + column.getName());
         }
-        List<WebElement> cells = waitAndFindElements(By.xpath(tableCellsXpath));
+        List<WebElement> cells = waitForExpectedElements(By.xpath(tableCellsXpath));
         for (WebElement cell : cells) {
             result.add(cell.getText());
         }
@@ -612,7 +612,7 @@ public class ResearchOrganizerPage extends AbstractPage {
      * @return True = if doc is not exists, otherwise - false.
      */
     public boolean isDocumentAbsent(String documentName) {
-    	return waitForElementAbsent(By.xpath("//tr[contains(@id, 'datatable') and contains(., '" + documentName + "')]//input[@type='checkbox']"));
+    	return waitForElementToDissappear(By.xpath("//tr[contains(@id, 'datatable') and contains(., '" + documentName + "')]//input[@type='checkbox']"));
     }
     /**
      * element that provides date picker for Before, After, On and From Date Text-boxes

@@ -25,7 +25,7 @@ public class AdvisoryBoardsPage extends AboutCompanyPage {
 	}
 
 	public WebElement tableOfContentSection() {
-		return retryingFindElement(By.id("coid_categoryBoxTab1SubPanel1-0-main"));
+		return waitForExpectedElement(By.id("coid_categoryBoxTab1SubPanel1-0-main"));
 	}
 
 

@@ -6,7 +6,7 @@
 	<artifactId>ppiuk-pageobjects</artifactId>
 	<groupId>com.thomsonreuters.pageobjects</groupId>
 	<packaging>jar</packaging>
-	<version>21.3.1</version>
+	<version>21.3.2b</version>
 	<description>PPI UK Page Objects and Utility Methods</description>
 
 	<properties>
@@ -82,14 +82,6 @@
 			<groupId>com.thomsonreuters.driver</groupId>
 			<artifactId>Test-Automation-Framework</artifactId>
 			<version>${frameworkVersion}</version>
-		</dependency>
-
-		<!-- To include into TAF Dependencies -->
-		<!-- Lib to parse Rtf / Doc (97-2003). Minimal dependencies, used in AssetPageUtils -->
-		<dependency>
-			<groupId>joniles</groupId>
-			<artifactId>rtfparserkit</artifactId>
-			<version>1.8.0</version>
 		</dependency>
 	</dependencies>
 </project>

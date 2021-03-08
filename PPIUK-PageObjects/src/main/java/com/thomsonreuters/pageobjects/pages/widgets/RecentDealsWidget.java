@@ -9,7 +9,7 @@ public class RecentDealsWidget extends AbstractPage {
 	private static final String WIDGET_NAME = "Recent deals";
 
 	public boolean isHeaderPresent() {
-		return isElementPresent(By.xpath("//h3[text()='" + WIDGET_NAME + "']"));
+		return isExists(By.xpath("//h3[text()='" + WIDGET_NAME + "']"));
 	}
 
 	public int getDocumentLinksCount() {

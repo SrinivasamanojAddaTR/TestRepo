@@ -5,14 +5,15 @@ import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.login.WelcomePage;
-import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
 
 import java.util.List;
-import com.google.common.base.Function;
+import java.util.function.Function;
+
 import com.thomsonreuters.driver.framework.WebDriverDiscovery;
 
 import org.apache.commons.lang.math.RandomUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
@@ -70,14 +71,11 @@ public class SiteStructureUtils {
     }
 
     public void clickAndWaitConfirmation() {
-        Function<RemoteWebDriver, Boolean> waitCondition = new Function<RemoteWebDriver, Boolean>() {
-            @Override
-            public Boolean apply(RemoteWebDriver driver) {
-                welcomePage.continueButton().click();
-                return welcomePage.isContinueButtonLoading();
-            }
+        Function<WebDriver, Boolean> waitCondition = driver -> {
+            welcomePage.continueButton().click();
+            return welcomePage.isContinueButtonLoading();
         };
-        AbstractPage.waitFor(waitCondition, webDriverDiscovery.getRemoteWebDriver());
+        AbstractPage.waitFor(waitCondition, webDriverDiscovery.getWebDriver());
     }
 
     public String getNodeTextWithoutChild(WebElement element) {
@@ -89,13 +87,8 @@ public class SiteStructureUtils {
     }
 
     public void waitForClientIdPageOrHomePageDisplayed() {
-        Function<RemoteWebDriver, Boolean> waitCondition = new Function<RemoteWebDriver, Boolean>() {
-            @Override
-            public Boolean apply(RemoteWebDriver driver) {
-                return welcomePage.isContinueButtonPresent() || wlnHeader.isSignInLinkPresentWithoutWait() || wlnHeader.isHistoryLinkPresent();
-            }
-        };
-        AbstractPage.waitFor(waitCondition, webDriverDiscovery.getRemoteWebDriver());
+        Function<WebDriver, Boolean> waitCondition = driver -> welcomePage.isContinueButtonPresent() || wlnHeader.isSignInLinkPresentWithoutWait() || wlnHeader.isHistoryLinkPresent();
+        AbstractPage.waitFor(waitCondition, webDriverDiscovery.getWebDriver());
     }
     
     public String getDocumentGUIDFromURL(String baseUrl) {

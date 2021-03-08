@@ -14,7 +14,7 @@ public class AllPollsPage extends AbstractPage {
 	private static final String VIEW_RESULTS_BUTTON_TITLE = "View Results";
 
 	public boolean hasAllPollsPageTitle() {
-		return isElementPresent(By.xpath("//h1[text()='" + ALL_POLLS_PAGE_TITLE + "']"));
+		return isExists(By.xpath("//h1[text()='" + ALL_POLLS_PAGE_TITLE + "']"));
 	}
 	
 	public List<WebElement> getPolls() {

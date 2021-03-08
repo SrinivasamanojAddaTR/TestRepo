@@ -11,7 +11,7 @@ public class AskSearchResultsPage extends SearchResultsPage {
 
     @Override
     public String getResultItem(String resultItemNumber) {
-        return retryingFindElement(By.cssSelector("#cobalt_result_knowhow_ask_uk_title" + resultItemNumber)).getText();
+        return waitForExpectedElement(By.cssSelector("#cobalt_result_knowhow_ask_uk_title" + resultItemNumber)).getText();
     }
 
     public WebElement askQuestionCheckBox(int index) {

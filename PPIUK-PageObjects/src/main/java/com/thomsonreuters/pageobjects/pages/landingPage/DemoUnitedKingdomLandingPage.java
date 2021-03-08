@@ -24,11 +24,11 @@ public class DemoUnitedKingdomLandingPage extends AbstractPage {
     }
 
     public WebElement knowHowGlobalLink() {
-        return retryingFindElement(By.partialLinkText("Know How Global"));
+        return waitForExpectedElement(By.partialLinkText("Know How Global"));
     }
 
     public WebElement combinedKnowHowUKLink() {
-        return retryingFindElement(By.partialLinkText("Combined Know How UK"));
+        return waitForExpectedElement(By.partialLinkText("Combined Know How UK"));
     }
 
     public WebElement blockedContentMessage() {

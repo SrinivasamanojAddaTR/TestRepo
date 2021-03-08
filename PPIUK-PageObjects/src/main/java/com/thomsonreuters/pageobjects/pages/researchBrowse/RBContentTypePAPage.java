@@ -18,7 +18,7 @@ public class RBContentTypePAPage extends RBCommonPage {
 
 
     public WebElement topicLink(String link) {
-        return waitAndFindElement(By.linkText(link));
+        return waitForExpectedElement(By.linkText(link));
     }
 
 

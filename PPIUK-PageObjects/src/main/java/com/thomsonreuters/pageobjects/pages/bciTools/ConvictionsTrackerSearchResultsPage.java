@@ -11,7 +11,7 @@ public class ConvictionsTrackerSearchResultsPage extends WhatsMarketSearchResult
      * This is the title of the convictions tracker search result in position X
      */
     public WebElement convictionsTrackerSearchResultTitle(String result) {
-        return waitFluentForElement(By.id("cobalt_result_convictionsTracker_title" + result));
+        return waitForExpectedElement(By.id("cobalt_result_convictionsTracker_title" + result));
     }
     
     public boolean isResultsListDisplayed() {

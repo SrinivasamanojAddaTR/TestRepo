@@ -9,15 +9,15 @@ public class DocumentDeliveryOptionsPage extends AbstractPage
 {
 
     public WebElement email() {
-        return retryingFindElement(By.id("deliveryLinkRowEmail"));
+        return waitForExpectedElement(By.id("deliveryLinkRowEmail"));
     }
 
     public WebElement print() {
-        return retryingFindElement(By.id("deliveryLinkRowPrint"));
+        return waitForExpectedElement(By.id("deliveryLinkRowPrint"));
     }
 
     public WebElement download() {
-        return retryingFindElement(By.id("deliveryLinkRowDownload"));
+        return waitForExpectedElement(By.id("deliveryLinkRowDownload"));
     }
 
     public WebElement addToFolder() {
@@ -25,11 +25,11 @@ public class DocumentDeliveryOptionsPage extends AbstractPage
     }
     
     public WebElement quickDraft() {
-        return retryingFindElement(By.id("deliveryLinkRowDownloadQuickDraft"));
+        return waitForExpectedElement(By.id("deliveryLinkRowDownloadQuickDraft"));
     }
 
     public WebElement rss(){
-        return retryingFindElement(By.id("co_docToolbarDeliveryWidgetRss"));
+        return waitForExpectedElement(By.id("co_docToolbarDeliveryWidgetRss"));
     }
 
     /**

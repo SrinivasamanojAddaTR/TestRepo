@@ -25,7 +25,7 @@ public class CasesPage extends AbstractPage {
     }
 
     public WebElement displayCaseResults() {
-        return retryingFindElement(By.id("cobalt_search_ukCase_results"));
+        return waitForExpectedElement(By.id("cobalt_search_ukCase_results"));
     }
 
     public WebElement ukFacetExpand() {
@@ -35,7 +35,7 @@ public class CasesPage extends AbstractPage {
     public List<String> getMainJurisdictionFacets() {
         List<String> list = new ArrayList<String>();
         try {
-            for (WebElement facet : retryingFindElements(By.cssSelector(".co_facet_tree>li>label[for^='facet_hierarchy_jurisdictionSummary']"))) {
+            for (WebElement facet : waitForExpectedElements(By.cssSelector(".co_facet_tree>li>label[for^='facet_hierarchy_jurisdictionSummary']"))) {
                 list.add(facet.getText());
             }
         } catch (PageOperationException te) {
@@ -48,7 +48,7 @@ public class CasesPage extends AbstractPage {
     public List<String> getUKJurisdictionFacets() {
         List<String> list = new ArrayList<String>();
         try {
-            for (WebElement facet : retryingFindElements(By.xpath("//label[text()='UK']/..//ul[contains(@id,'jurisdiction')]//li//label"))) {
+            for (WebElement facet : waitForExpectedElements(By.xpath("//label[text()='UK']/..//ul[contains(@id,'jurisdiction')]//li//label"))) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {
@@ -74,14 +74,14 @@ public class CasesPage extends AbstractPage {
             temp = xpath.toString();
 
             for (int i = 0; i < facetNames.length - 1; i++) {
-                WebElement checkbox = retryingFindElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
+                WebElement checkbox = waitForExpectedElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
                 if (checkbox.getAttribute("class").equals("co_facet_expand")) {
                     checkbox.click();
                 }
                 xpath.append("/div/ul/li");
             }
             xpath.append("/label[text()='%s']/../span[@class='co_facetCount']");
-            int size = Integer.valueOf(retryingFindElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1]))).getText());
+            int size = Integer.valueOf(waitForExpectedElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1]))).getText());
 
             for (int i = facetNames.length - 2; i >= 0; i--) {
                 String extraURL = "";
@@ -91,9 +91,9 @@ public class CasesPage extends AbstractPage {
                     j--;
                 }
                 if (extraURL.length() > 0) {
-                    retryingFindElement(By.xpath(temp + extraURL + "/label[text()='" + facetNames[i] + "']/../a")).click();
+                    waitForExpectedElement(By.xpath(temp + extraURL + "/label[text()='" + facetNames[i] + "']/../a")).click();
                 } else {
-                    retryingFindElement(By.xpath(temp + "/label[text()='" + facetNames[i] + "']/../a")).click();
+                    waitForExpectedElement(By.xpath(temp + "/label[text()='" + facetNames[i] + "']/../a")).click();
                 }
             }
             return size;
@@ -104,7 +104,7 @@ public class CasesPage extends AbstractPage {
     }
 
     public WebElement checkBoxByLabelName(String label) {
-        WebElement findlabel = retryingFindElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[text()='" + label + "']"));
+        WebElement findlabel = waitForExpectedElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[text()='" + label + "']"));
         String labelFor = findlabel.getAttribute("for");
         return waitForExpectedElement(By.id(labelFor));
     }
@@ -155,14 +155,14 @@ public class CasesPage extends AbstractPage {
             }
 
             for (int i = 0; i < facetNames.length - 1; i++) {
-                WebElement checkbox = retryingFindElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
+                WebElement checkbox = waitForExpectedElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
                 if (checkbox.getAttribute("class").equals("co_facet_expand")) {
                     checkbox.click();
                 }
                 xpath.append("/div/ul/li");
             }
             xpath.append("/label[text()='%s']/../input");
-            return retryingFindElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1])));
+            return waitForExpectedElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1])));
         } catch (TimeoutException te) {
             LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the facet count for : ");
@@ -191,14 +191,14 @@ public class CasesPage extends AbstractPage {
             }
 
             for (int i = 0; i < facetNames.length - 1; i++) {
-                WebElement checkbox = retryingFindElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
+                WebElement checkbox = waitForExpectedElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
                 if (checkbox.getAttribute("class").equals("co_facet_expand")) {
                     checkbox.click();
                 }
                 xpath.append("/div/ul/li");
             }
             xpath.append("/label[text()='%s']/../input");
-            return retryingFindElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1]))).isDisplayed();
+            return waitForExpectedElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1]))).isDisplayed();
         } catch (TimeoutException te) {
             LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the facet");
@@ -209,7 +209,7 @@ public class CasesPage extends AbstractPage {
     }
 
     public int getCasesCount() {
-        int Size = Integer.valueOf(retryingFindElement(By.cssSelector(".co_search_titleCount")).getText().replace("(", "").replace(")", "").trim());
+        int Size = Integer.valueOf(waitForExpectedElement(By.cssSelector(".co_search_titleCount")).getText().replace("(", "").replace(")", "").trim());
         return Size;
     }
 

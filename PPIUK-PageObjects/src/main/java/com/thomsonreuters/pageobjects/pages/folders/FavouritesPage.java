@@ -29,7 +29,7 @@ public class FavouritesPage extends AbstractPage {
 		default:
 			locator = "//span[text()='" + groupName + "']/ancestor::li//a[contains(@title, " + text + ")]";
 		}
-    	return isElementPresent(By.xpath(locator));
+    	return isExists(By.xpath(locator));
     }
 
 

@@ -90,7 +90,8 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
      */
     public void goBackToResults() {
         try {
-            waitFluentForElement(BACK_TO_RESULTS_LOCATOR).click();
+            waitForPageToLoadAndJQueryProcessing();
+            scrollIntoViewAndClick(waitForExpectedElement(BACK_TO_RESULTS_LOCATOR));
         } catch (TimeoutException te) {
             LOG.info("context", te);
             throw new PageOperationException(te.getMessage());
@@ -104,7 +105,7 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
      */
     public boolean isNavigationLinksSectionPresentOnLeftHandSideOfTheDoc() {
         try {
-            return waitFluentForElement(By.cssSelector("")).getAttribute("class").contains("left");
+            return waitForExpectedElement(By.cssSelector("")).getAttribute("class").contains("left");
         } catch (TimeoutException te) {
             LOG.info("context", te);
         }
@@ -256,11 +257,11 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
 	}
 
     public WebElement documentMetaInfo(){
-        return waitForElementExists(By.xpath("//*[contains(@id,'co_document_metaInfo')]"));
+        return waitForElementPresent(By.xpath("//*[contains(@id,'co_document_metaInfo')]"));
     }
 
     public WebElement contentBody() {
-        return retryingFindElement(CONTENT_BODY);
+        return waitForElementPresent(CONTENT_BODY);
     }
 
     public WebElement endOfDocument() {
@@ -284,7 +285,7 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
     }
 
     public WebElement deliveryOptions() {
-        return retryingFindElement(DELIVERY_OPTIONS);
+        return waitForElementPresent(DELIVERY_OPTIONS);
     }
 
     public WebElement returnToSearchLink() {
@@ -300,7 +301,7 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
 	}
 
 	public WebElement buttonWithText(String text) {
-		return retryingFindElement(By.xpath("//button[contains(text(),'" + text + "')] | //a[contains(text(),'" + text + "')]"));
+		return waitForElementPresent(By.xpath("//button[contains(text(),'" + text + "')] | //a[contains(text(),'" + text + "')]"));
 	}
 	
 	public WebElement metaContent() {

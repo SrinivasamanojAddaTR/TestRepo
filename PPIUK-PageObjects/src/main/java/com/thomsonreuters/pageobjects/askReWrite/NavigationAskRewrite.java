@@ -27,11 +27,10 @@ public class NavigationAskRewrite extends AbstractPage {
 
     public void navigateToNewAsk() {
         navigate(getAskNewSystemUrl());
-//        navigate("test.act.int.westgroup.com/documents/index");
     }
 
-    public void navigateToQueryViewByPlcRef(String PLCRef) {
-        navigate(getAskNewSystemUrl() + "query-view/" + PLCRef);
+    public void navigateToQueryViewByPlcRef(String plcRef) {
+        navigate(getAskNewSystemUrl() + "query-view/" + plcRef);
     }
 
     public WebElement showSideMenuButton(){

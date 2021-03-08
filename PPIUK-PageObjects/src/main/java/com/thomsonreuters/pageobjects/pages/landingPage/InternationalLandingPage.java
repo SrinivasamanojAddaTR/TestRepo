@@ -17,24 +17,24 @@ public class InternationalLandingPage extends AbstractPage {
 
     public WebElement countryNameLink(String country) {
 
-        return retryingFindElement(By.xpath("//div[@id='coid_website_browseMainColumn']//li/a[contains(text(),'" + country + "')]"));
+        return waitForExpectedElement(By.xpath("//div[@id='coid_website_browseMainColumn']//li/a[contains(text(),'" + country + "')]"));
     }
 
     public WebElement globalGuidesLink() {
 
-        return retryingFindElement(By.partialLinkText("Global guides"));
+        return waitForExpectedElement(By.partialLinkText("Global guides"));
     }
 
 	public WebElement internationalSubscriptionForCountry(String country) {
-		return retryingFindElement(By.xpath("//span[text()='International subscriptions']/../..//li/a[contains(text(),'" + country + "')]"));
+		return waitForExpectedElement(By.xpath("//span[text()='International subscriptions']/../..//li/a[contains(text(),'" + country + "')]"));
 	}
 	
     public boolean internationalTabIsOpened() {
-    	return (isElementPresent(By.xpath("//li[contains(@class,'co_tabActive')]//a[text()='International']")));
+    	return (isExists(By.xpath("//li[contains(@class,'co_tabActive')]//a[text()='International']")));
     }
 
 	public boolean sessionIsNotPause() {
-		return (!isElementPresent(By.id("co_suspendBillingPauseMessage")));
+		return (!isExists(By.id("co_suspendBillingPauseMessage")));
 	}
 
     public WebElement internationalLink(String link) {

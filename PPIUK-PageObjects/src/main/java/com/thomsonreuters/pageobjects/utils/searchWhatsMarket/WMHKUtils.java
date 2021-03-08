@@ -31,7 +31,7 @@ public class WMHKUtils {
 		String dealType = getDealTypeName(guid);
 		String dealValue = getDealValue(guid);
 		String date = formatDateForFFH(getDealDate(guid, dealType));
-		AbstractPage.getDriver.navigate().back();
+		researchOrganizerPage.getDriver.navigate().back();
 		categoryPage.waitForPageToLoad();
 		categoryPage.waitForPageToLoadAndJQueryProcessing();
 		assertTrue(
@@ -43,7 +43,7 @@ public class WMHKUtils {
 	public void checkWMHKMetadataInRecentHistory(String guid) throws Throwable {
 		String dealType = getDealTypeName(guid);
 		String date = formatDateForFFH(getDealDate(guid, dealType));
-		AbstractPage.getDriver.navigate().back();
+		researchOrganizerPage.getDriver.navigate().back();
 		categoryPage.waitForPageToLoad();
 		categoryPage.waitForPageToLoadAndJQueryProcessing();
 		assertTrue("WM HK Metadata is incorrect in Recent History, expected date is '" + date + "', deal type '"

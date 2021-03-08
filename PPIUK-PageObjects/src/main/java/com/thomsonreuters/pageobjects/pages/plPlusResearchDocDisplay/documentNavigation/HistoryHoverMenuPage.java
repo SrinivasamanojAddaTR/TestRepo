@@ -19,7 +19,7 @@ public class HistoryHoverMenuPage extends AbstractPage {
      */
     public void waitUntilMenuLoadedFully() {
         try {
-            retryingFindElements(ALL_HISTORY_DOCUMENTS_LOCATOR);
+            waitForExpectedElements(ALL_HISTORY_DOCUMENTS_LOCATOR);
         } catch (PageOperationException te) {
             LOG.info("context", te);
             throw new PageOperationException("Exceeded time to load the History hover menu :" + te.getMessage());
@@ -34,7 +34,7 @@ public class HistoryHoverMenuPage extends AbstractPage {
      */
     public boolean isDocumentNamePresentAndClickableInHistory(String docName) {
         try {
-            for (WebElement ele : retryingFindElements(RECENTLY_ACCESSED_DOCUMENTS_LOCATOR)) {
+            for (WebElement ele : waitForExpectedElements(RECENTLY_ACCESSED_DOCUMENTS_LOCATOR)) {
                 if (ele.getText().contains(docName)) {
                     return true;
                 }

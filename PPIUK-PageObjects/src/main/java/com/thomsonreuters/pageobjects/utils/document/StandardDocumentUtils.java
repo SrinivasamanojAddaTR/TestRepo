@@ -33,7 +33,7 @@ public class StandardDocumentUtils {
     private ViewDocumentPopUpPage viewDocumentPopUpPage = new ViewDocumentPopUpPage();
     private CaseDocumentPage caseDocumentPage = new CaseDocumentPage();
     private NavigationCobalt navigationCobalt = new NavigationCobalt();
-    private Hosts hosts = new Hosts();
+    private Hosts hosts = Hosts.getInstance();
     private DocumentObject documentObject;
     private String baseUrl = System.getProperty("base.url");
 

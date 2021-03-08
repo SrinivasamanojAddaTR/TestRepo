@@ -16,11 +16,11 @@ public class LegalUpdatesTopicPage extends LegalUpdatesPracticeAreaPage {
     }
 
     public WebElement topicsLink(String topicLink) {
-        return retryingFindElement(By.xpath("//a[contains(text(),'" + topicLink + "')]"));
+        return waitForExpectedElement(By.xpath("//a[contains(text(),'" + topicLink + "')]"));
     }
     
     public WebElement specifiedTab(String tabName) {
-    	return retryingFindElement(By.xpath("//a[@class='co_tabLink' and text()='" + tabName + "']"));
+    	return waitForExpectedElement(By.xpath("//a[@class='co_tabLink' and text()='" + tabName + "']"));
     }
 
     public WebElement specificTopicLink(String specificTopic) {
@@ -28,7 +28,7 @@ public class LegalUpdatesTopicPage extends LegalUpdatesPracticeAreaPage {
     }
     
     public WebElement linkOnTab(String linkName) {
-       return retryingFindElement(By.linkText(linkName));
+       return waitForExpectedElement(By.linkText(linkName));
     }
 
 }

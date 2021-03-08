@@ -29,7 +29,7 @@ public class PracticalLawUKCategoryPage extends AbstractPage {
 
     public void freeTextFieldJavaScript(String value) {
         WebElement element = freeTextField();
-        getDriver.executeScript("arguments[0].value = '" + value + "'", element);
+        executeScript("arguments[0].value = '" + value + "'", element);
     }
 
     public WebElement searchButton() {
@@ -37,16 +37,16 @@ public class PracticalLawUKCategoryPage extends AbstractPage {
     }
     
     public boolean isSearchButtonDisplayed(){
-    	return isElementPresent(By.id("searchButton"));
+    	return isExists(By.id("searchButton"));
     }
 
     /**
      * looks like this one has disappeared as at 16/12/14
      */
     public void resultsPerPageDropdown(String resultPerPage) {
-        waitFluentForElement(RESULTS_PER_PAGE_SELECTOR_ID).click();
+        waitForExpectedElement(RESULTS_PER_PAGE_SELECTOR_ID).click();
         waitForElementsVisible(By.cssSelector("#displayItemCount .co_dropDownMenuList"));
-        waitFluentForElement(By.linkText(resultPerPage)).click();
+        waitForExpectedElement(By.linkText(resultPerPage)).click();
     }
 
     /**
@@ -85,7 +85,7 @@ public class PracticalLawUKCategoryPage extends AbstractPage {
      * method for selecting a suggested term listed below the free text search field
      */
     public void mouseOverOnSuggestedSearchResult(String text) {
-        commonMethods.mouseOver(waitFluentForElement(By.xpath("//*[@id='co_searchSuggestion']/li[text()='" + text + "']")));
+        commonMethods.mouseOver(waitForExpectedElement(By.xpath("//*[@id='co_searchSuggestion']/li[text()='" + text + "']")));
     }
 
     /**

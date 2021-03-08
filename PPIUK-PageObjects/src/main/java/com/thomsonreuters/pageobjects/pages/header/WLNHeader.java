@@ -39,7 +39,7 @@ public class WLNHeader extends AbstractPage {
     }
 
     public boolean isBrowseHeaderWithinPageHeader() {
-        return isElementPresent(By.xpath("//div[@id='co_pageHeader']/div[contains(@class,'co_browseHeader')]"));
+        return isExists(By.xpath("//div[@id='co_pageHeader']/div[contains(@class,'co_browseHeader')]"));
     }
 
     public WebElement header() {
@@ -246,7 +246,7 @@ public class WLNHeader extends AbstractPage {
     }
 
     public WebElement clientIdLinkInPopUp(String clientID) {
-        return retryingFindElement(By.linkText(clientID));
+        return waitForExpectedElement(By.linkText(clientID));
     }
 
     public List<WebElement> recentClientIdLinks() {
@@ -254,11 +254,11 @@ public class WLNHeader extends AbstractPage {
     }
 
     public WebElement recentClientIdList() {
-        return retryingFindElement(By.id("co_clientID_recents"));
+        return waitForExpectedElement(By.id("co_clientID_recents"));
     }
 
     public boolean isRecentClientIdListPresent(){
-        return isElementPresent(By.id("co_clientID_recents"));
+        return isExists(By.id("co_clientID_recents"));
     }
     
     public WebElement recentClientIDValueLink(String clientID){
@@ -377,7 +377,7 @@ public class WLNHeader extends AbstractPage {
     }
 
     public WebElement expandedUserPreferencesDropDownMenu() {
-        return retryingFindElement(By.xpath("//li[@id='user_preferences']//div[@class='co_dropDownMenu th_flat js_dropDownMenu expanded']"));
+        return waitForExpectedElement(By.xpath("//li[@id='user_preferences']//div[@class='co_dropDownMenu th_flat js_dropDownMenu expanded']"));
     }
 
     public boolean isExpandedUserPreferencesDropDownMenu() {
@@ -474,14 +474,14 @@ public class WLNHeader extends AbstractPage {
      * For the L.H.S characters list in the Connectors
      */
     public List<WebElement> connectorsCharactersList() {
-        return retryingFindElements(By.xpath("//dl[@id='co_search_advancedSearch_tncLegendList']//dt"));
+        return waitForExpectedElements(By.xpath("//dl[@id='co_search_advancedSearch_tncLegendList']//dt"));
     }
 
     /**
      * For the R.H.S explanation list in the Connectors
      */
     public List<WebElement> connectorsExplanationList() {
-        return retryingFindElements(By.xpath("//dl[@id='co_search_advancedSearch_tncLegendList']//dd"));
+        return waitForExpectedElements(By.xpath("//dl[@id='co_search_advancedSearch_tncLegendList']//dd"));
     }
 
     /**
@@ -526,7 +526,7 @@ public class WLNHeader extends AbstractPage {
      * @return List with elements
      */
     public List<WebElement> getActiveSectionLinks() {
-        return waitAndFindElements(By.xpath("//div[contains(@class, 'children') and not(contains(@class, 'hide'))]//a"));
+        return waitForExpectedElements(By.xpath("//div[contains(@class, 'children') and not(contains(@class, 'hide'))]//a"));
     }
 
     /**

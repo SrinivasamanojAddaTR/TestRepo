@@ -19,31 +19,31 @@ public class EmailDeliverWidget extends AbstractPage {
 	}
 	
 	public WebElement toInput() {
-		return retryingFindElement(By.id("co_delivery_emailAddress"));
+		return waitForExpectedElement(By.id("co_delivery_emailAddress"));
 	}
 	
 	public WebElement subjectInput() {
-		return retryingFindElement(By.xpath("//input[@id='co_delivery_subject']"));
+		return waitForExpectedElement(By.xpath("//input[@id='co_delivery_subject']"));
 	}
 	
 	public WebElement listOfItemsRadioButton() {
-		return retryingFindElement(By.xpath("//input[@id='co_deliveryWhatToDeliverList']"));
+		return waitForExpectedElement(By.xpath("//input[@id='co_deliveryWhatToDeliverList']"));
 	}
 	
 	public WebElement documentsRadioButton() {
-		return retryingFindElement(By.xpath("//input[@id='co_deliveryWhatToDeliverDocumentOnly']"));
+		return waitForExpectedElement(By.xpath("//input[@id='co_deliveryWhatToDeliverDocumentOnly']"));
 	}
 	
 	public WebElement formatSelect() {
-		return retryingFindElement(By.xpath("//select[@id='co_delivery_format_fulltext']"));
+		return waitForExpectedElement(By.xpath("//select[@id='co_delivery_format_fulltext']"));
 	}
 	
 	public WebElement emailNoteInput() {
-		return retryingFindElement(By.xpath("//textarea[@id='co_delivery_note']"));
+		return waitForExpectedElement(By.xpath("//textarea[@id='co_delivery_note']"));
 	}
 	
 	public WebElement emailButton() {
-		return retryingFindElement(By.xpath("//input[@id='co_deliveryEmailButton' and @type='button']"));
+		return waitForExpectedElement(By.xpath("//input[@id='co_deliveryEmailButton' and @type='button']"));
 	}
 	
 	

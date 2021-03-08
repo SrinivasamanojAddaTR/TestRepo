@@ -9,7 +9,7 @@ public class FootnotePopupPage extends AbstractPage {
 	private static final By POPUP_LOCATOR = By.id("co_footnote_popup");
 
 	public WebElement footnotePopup() {
-		return retryingFindElement(POPUP_LOCATOR);
+		return waitForExpectedElement(POPUP_LOCATOR);
 	}
 
 	public boolean isFootnotePopupVisible() {
@@ -17,7 +17,7 @@ public class FootnotePopupPage extends AbstractPage {
 	}
 
 	public WebElement closeButton() {
-		return retryingFindElement(By.id("co_footnote_popup_closeButton"));
+		return waitForExpectedElement(By.id("co_footnote_popup_closeButton"));
 	}
 
 	public WebElement footnoteText() {

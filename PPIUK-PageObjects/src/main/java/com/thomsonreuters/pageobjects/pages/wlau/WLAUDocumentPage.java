@@ -11,7 +11,7 @@ public class WLAUDocumentPage extends AbstractPage {
     private static final By CLOSE_POPUP_BUTTON = By.xpath("//div[@id='modal-splash']//button[@class='close']");
 
     public WebElement documentBody() {
-        return waitFluentForElement(DOCUMENT_BODY);
+        return waitForExpectedElement(DOCUMENT_BODY);
     }
 
     public WebElement signoutLink() {

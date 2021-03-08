@@ -33,10 +33,6 @@ public class FastDraftUtils {
 	
 	private static final String DELIVERY_FILE_NAME = "draft";
 
-	public FastDraftUtils() {
-		comMethods.enableLocalFileDetector();
-	}
-
 	public void saveNewProjectFromQuestionPage(String projectName, String documentName) {
 		questionPage.saveProject().click();
 		questionPage.waitForPageToLoad();
@@ -250,7 +246,8 @@ public class FastDraftUtils {
 	 * @return Downloaded file
 	 */
 	public File downloadFdAndGetFile(FdDeliveryDocument fdDeliveryDocument) {
-		String baseDownloadUrl = Urls.toProtocolHostAndPort(addressBookPage.getCurrentUrl());
+		URL u = UrlUtils.toUrlSafe(addressBookPage.getCurrentUrl());
+		String baseDownloadUrl = u.getProtocol() + "://" + u.getAuthority();
 			return deliveryService.getFileViaHttp( baseDownloadUrl+ "/da/draft/download?view=" + fdDeliveryDocument.getName(),
 					DELIVERY_FILE_NAME + fdDeliveryDocument.getExtension());
 	}

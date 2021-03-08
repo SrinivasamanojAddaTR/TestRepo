@@ -45,19 +45,19 @@ public class EmailOptionsPage extends CommonDeliveryOptionsPage {
      * This is the email button for submission of the request
      */
     public WebElement emailButton() {
-        return waitAndFindElement(By.id("co_deliveryEmailButton"));
+        return waitForExpectedElement(By.id("co_deliveryEmailButton"));
     }
 
     public WebElement cancelButton() {
-        return waitAndFindElement(By.id("co_deliveryCancelButton"));
+        return waitForExpectedElement(By.id("co_deliveryCancelButton"));
     }
 
     public WebElement deliveryMessage() {
-        return waitAndFindElement(By.id("co_deliveryWaitMessageTitle"));
+        return waitForExpectedElement(By.id("co_deliveryWaitMessageTitle"));
     }
 
     public WebElement waitForSuccessDeliveryMessage(String text) {
-        return commonMethods.waitFluentForElement(By.xpath("//div[@id='co_deliveryWaitMessageTitle'][text()=\"" + text + "\"]"),
+        return commonMethods.waitForExpectedElement(By.xpath("//div[@id='co_deliveryWaitMessageTitle'][text()=\"" + text + "\"]"),
                 TIMEOUT_IN_SECONDS, POLLING_TIME_IN_MILLISECONDS);
     }
 

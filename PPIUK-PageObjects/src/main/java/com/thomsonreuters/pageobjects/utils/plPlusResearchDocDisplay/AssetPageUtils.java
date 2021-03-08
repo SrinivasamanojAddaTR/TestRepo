@@ -15,8 +15,8 @@ import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.Pr
 import com.thomsonreuters.pageobjects.utils.pdf.PDFBoxUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.slf4j.LoggerFactory;
 
@@ -57,7 +57,8 @@ public class AssetPageUtils {
     private static String winHandleFirst;
     private WebElement linkInLinkToThisCaseSection;
     private int numberOfLinksInContentSection;
-    private final RemoteWebDriver driver = webDriverDiscovery.getRemoteWebDriver();
+    //TODO : Need to remove this driver object and replace references with any page object
+    private final WebDriver driver = webDriverDiscovery.getWebDriver();
 
     private AssetDocumentPage assetDocumentPage = new AssetDocumentPage();
     private PrimarySourceDocumentPage primarySourceDocumentPage = new PrimarySourceDocumentPage();
@@ -65,15 +66,15 @@ public class AssetPageUtils {
     private FileActions fileActions = new FileActions();
 
     public WebElement outPutLink() {
-        return assetDocumentPage.waitFluentForElement(SIGNOF_LINK);
+        return assetDocumentPage.waitForExpectedElement(SIGNOF_LINK);
     }
-    
+
     public boolean isSignOutLinkDisplayed () {
         return assetDocumentPage.isElementDisplayed(SIGNOF_LINK);
     }
 
     private WebElement documentBody() {
-        return assetDocumentPage.waitFluentForElement(DOCUMENT_BODY);
+        return assetDocumentPage.waitForExpectedElement(DOCUMENT_BODY);
     }
 
     public WebElement euDocumentTitle() {
@@ -302,7 +303,7 @@ public class AssetPageUtils {
     }
 
     public void scrollToTheBottomOfTheDocument() {
-        driver.executeScript("window.scrollTo(0,document.body.scrollHeight);");
+        assetDocumentPage.executeScript("window.scrollTo(0,document.body.scrollHeight);");
     }
 
     public boolean isTheContentBodyContainEndOfDocument() {
@@ -525,40 +526,40 @@ public class AssetPageUtils {
 
     public boolean isTheBulletsHaveStyle(String styleName) {
         assetDocumentPage.waitForPageToLoad();
-        String bulletsStyle = (String) driver.executeScript("return getComputedStyle($('.co_assetList')[0]).listStyleType");
+        String bulletsStyle = (String) assetDocumentPage.executeScript("return getComputedStyle($('.co_assetList')[0]).listStyleType");
         LOG.info("BulletsStyle: ", bulletsStyle);
         return bulletsStyle.equals(styleName);
     }
 
     public boolean isTheDoubleLinesHaveStyle(String styleName) {
         assetDocumentPage.waitForPageToLoad();
-        String lineStyle = (String) driver.executeScript("return getComputedStyle($('.co_assetList')[0]).borderBottomStyle");
+        String lineStyle = (String) assetDocumentPage.executeScript("return getComputedStyle($('.co_assetList')[0]).borderBottomStyle");
         LOG.info("LineStyle: ", lineStyle);
         return lineStyle.equals(styleName);
     }
 
     public boolean isTheSpacingBetweenDoubleLinesAndLinksHaveSize(String size) {
         assetDocumentPage.waitForPageToLoad();
-        String marginBottom = (String) driver.executeScript("return getComputedStyle($('.co_assetList')[0]).marginBottom");
-        String paddingBottom = (String) driver.executeScript("return getComputedStyle($('.co_assetList')[0]).paddingBottom");
+        String marginBottom = (String) assetDocumentPage.executeScript("return getComputedStyle($('.co_assetList')[0]).marginBottom");
+        String paddingBottom = (String) assetDocumentPage.executeScript("return getComputedStyle($('.co_assetList')[0]).paddingBottom");
         return marginBottom.equals(size) && paddingBottom.equals(size);
     }
 
     public String getFontSizeOfLink(String linkText) {
         assetDocumentPage.waitForPageToLoad();
-        return (String) driver.executeScript("return getComputedStyle($(\".co_assetList a:contains(" + "'"
+        return (String) assetDocumentPage.executeScript("return getComputedStyle($(\".co_assetList a:contains(" + "'"
                 + linkText + "'" + ")\")[0]).fontSize");
     }
 
     public String getFontSizeOfHeader(String headerHame) {
         assetDocumentPage.waitForPageToLoad();
-        return (String) driver.executeScript("return getComputedStyle($(\"h2:contains(" + "'" + headerHame + "'"
+        return (String) assetDocumentPage.executeScript("return getComputedStyle($(\"h2:contains(" + "'" + headerHame + "'"
                 + ")\")[0]).fontSize");
     }
 
     public boolean isTheLinkLocatedOnTheSide(String sideName) {
         assetDocumentPage.waitForPageToLoad();
-        String side = (String) driver.executeScript("return getComputedStyle($('#co_RelatedContentPaginationControls')[0]).float");
+        String side = (String) assetDocumentPage.executeScript("return getComputedStyle($('#co_RelatedContentPaginationControls')[0]).float");
         return side.equals(sideName);
     }
 
@@ -582,7 +583,7 @@ public class AssetPageUtils {
 
     public String getFontSizeOfBullet(String linkText) {
         assetDocumentPage.waitForPageToLoadAndJQueryProcessing();
-        return (String) driver.executeScript("return getComputedStyle($(\"a:contains(" + "'" + linkText + "'"
+        return (String) assetDocumentPage.executeScript("return getComputedStyle($(\"a:contains(" + "'" + linkText + "'"
                 + ")\").parent()[0]).fontSize");
     }
 

@@ -36,7 +36,7 @@ public class TopicPage extends AbstractPage {
         List<String> list = new ArrayList<String>();
         int titleNumber = 0;
         String idTitle = "";
-        List<WebElement> resourceList = retryingFindElements(By.xpath("//div[@id='cobalt_search_knowHowTopicPlc_" + resourceType + "']//ol/li"));
+        List<WebElement> resourceList = waitForExpectedElements(By.xpath("//div[@id='cobalt_search_knowHowTopicPlc_" + resourceType + "']//ol/li"));
         //List<WebElement> resourceList = findElements(By.cssSelector("#cobalt_search_knowhowtopicuk_results>div[id = 'cobalt_search_knowhowtopicuk_Practice_note:_overview'] li[id*='cobalt_search_results_knowhowtopicuk'] label"));
         for (WebElement result : resourceList) {
             idTitle = result.getAttribute("id");
@@ -66,12 +66,12 @@ public class TopicPage extends AbstractPage {
     }
 
     public String currentPageSelected() {
-        WebElement currentSelectedPage = retryingFindElement(By.id("co_search_footer_pagination_current"));
+        WebElement currentSelectedPage = waitForExpectedElement(By.id("co_search_footer_pagination_current"));
         return currentSelectedPage.getText();
     }
 
     public void selectEditorsPickResourceByTitle(String title) {
-        WebElement element = waitAndFindElement(By.linkText(title));
+        WebElement element = waitForExpectedElement(By.linkText(title));
         String idValue = element.getAttribute("id");
         String index = idValue.substring(idValue.lastIndexOf("_"));
         findElement(By.id("cobalt_artifact_delivery_checkbox_NaN" + index)).click();
@@ -107,7 +107,7 @@ public class TopicPage extends AbstractPage {
     }
 
     public WebElement getLinkFromResult(String linkNumber){
-        return waitAndFindElement(By.cssSelector("li#cobalt_search_results_knowHowTopicPlc" + linkNumber + " h3 a"));
+        return waitForExpectedElement(By.cssSelector("li#cobalt_search_results_knowHowTopicPlc" + linkNumber + " h3 a"));
     }
 
     public boolean NoEditorsPickWidget() {
@@ -120,11 +120,11 @@ public class TopicPage extends AbstractPage {
     }
 
     public boolean noMetadataDisplayed(){
-        return isElementPresent(By.id("co_searchResults_citation_1"));
+        return isExists(By.id("co_searchResults_citation_1"));
     }
 
     public boolean noSummaryDisplayed(){
-        return isElementPresent(By.id("co_searchResults_summary_1"));
+        return isExists(By.id("co_searchResults_summary_1"));
     }
 
     public WebElement facetNameLink(String facet) {

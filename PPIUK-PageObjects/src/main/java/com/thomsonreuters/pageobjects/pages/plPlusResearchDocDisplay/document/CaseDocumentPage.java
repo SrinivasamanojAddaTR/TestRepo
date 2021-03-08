@@ -39,75 +39,75 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
     private By pdfDownloadLinkLocator = By.cssSelector("");
 
     public WebElement pdfImage() {
-        return retryingFindElement(PDF_IMAGE);
+        return waitForExpectedElement(PDF_IMAGE);
     }
 
     public WebElement columnForTheLeftHandNavigation() {
-        return retryingFindElement(LEFT_NAVIGATION_COLUMN);
+        return waitForExpectedElement(LEFT_NAVIGATION_COLUMN);
     }
 
     public WebElement documentInPdf() {
-        return retryingFindElement(DOCUMENT_IN_PDF);
+        return waitForExpectedElement(DOCUMENT_IN_PDF);
     }
 
     public WebElement footnotesSection(String section) {
-		return retryingFindElement(By.xpath("//div[@id='co_footnoteSection']/*[contains(text(), '" + section + "')]"));
+		return waitForExpectedElement(By.xpath("//div[@id='co_footnoteSection']/*[contains(text(), '" + section + "')]"));
 	}
 	
 	public WebElement footnotesNumber(String section) {
-		return retryingFindElement(By.xpath("//*[contains(text(), '" + section + "')]/following-sibling::*/*[@class='co_footnoteNumber']"));
+		return waitForExpectedElement(By.xpath("//*[contains(text(), '" + section + "')]/following-sibling::*/*[@class='co_footnoteNumber']"));
 	}
 
 	public WebElement footnotesBody(String section) {
-		return retryingFindElement(By.xpath("//*[contains(text(), '" + section + "')]/following-sibling::*/*[@class='co_footnoteBody']"));
+		return waitForExpectedElement(By.xpath("//*[contains(text(), '" + section + "')]/following-sibling::*/*[@class='co_footnoteBody']"));
 	}
 
     public WebElement annotationsLink(String annotationsLinkText) {
-        return retryingFindElement(By.linkText(annotationsLinkText));
+        return waitForExpectedElement(By.linkText(annotationsLinkText));
     }
 
     public WebElement annotationsText(String annotationsText) {
-        return retryingFindElement(By.xpath(".//h2[contains(text(),'" + annotationsText + "')]"));
+        return waitForExpectedElement(By.xpath(".//h2[contains(text(),'" + annotationsText + "')]"));
     }
 
     public WebElement showAndHideLink() {
-        return retryingFindElement(SHOW_AND_HIDE_LINK);
+        return waitForExpectedElement(SHOW_AND_HIDE_LINK);
     }
 
     public WebElement annotationsSection() {
-        return retryingFindElement(ANNOTATIONS_SECTION);
+        return waitForExpectedElement(ANNOTATIONS_SECTION);
     }
 
     public WebElement contentColumn() {
-        return retryingFindElement(CONTENT_COLUMN);
+        return waitForExpectedElement(CONTENT_COLUMN);
     }
 
     public WebElement statusIcon() {
-        return retryingFindElement(STATUS_ICON);
+        return waitForExpectedElement(STATUS_ICON);
     }
 
     public WebElement statusDescription() {
-        return retryingFindElement(STATUS_DESCRIPTION);
+        return waitForExpectedElement(STATUS_DESCRIPTION);
     }
 
     public WebElement partyNamesInCaseLaw() {
-        return retryingFindElement(PARTY_NAMES_IN_CASELAW);
+        return waitForExpectedElement(PARTY_NAMES_IN_CASELAW);
     }
 
     public WebElement aliasPartyNames() {
-        return retryingFindElement(ALIAS_PARTY_NAMES);
+        return waitForExpectedElement(ALIAS_PARTY_NAMES);
     }
 
     public WebElement menuItem(String text) {
-        return retryingFindElement(By.xpath(".//*[@class='kh_toc-content']//*[contains(text(),'" + text + "')]"));
+        return waitForExpectedElement(By.xpath(".//*[@class='kh_toc-content']//*[contains(text(),'" + text + "')]"));
     }
 
     public WebElement dateText() {
-		return retryingFindElement(By.xpath(".//*[@id='co_docContentMetaInfo']"));
+		return waitForExpectedElement(By.xpath(".//*[@id='co_docContentMetaInfo']"));
 	}
 
 	public WebElement starPageInTitle() {
-		return retryingFindElement(By.xpath("//div[@id='co_docHeaderContainer']//span[@class='co_starPage']"));
+		return waitForExpectedElement(By.xpath("//div[@id='co_docHeaderContainer']//span[@class='co_starPage']"));
 	}
 
     public CaseDocumentPage() {
@@ -189,7 +189,7 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
      */
     public boolean isJudgmentPartyNamesDisplayed(String partyNames) {
         try {
-            return waitFluentForElement(By.cssSelector("")).isDisplayed(); // Need
+            return waitForExpectedElement(By.cssSelector("")).isDisplayed(); // Need
             // to
             // amend
             // the
@@ -209,7 +209,7 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
      */
     public boolean isDisplayedOnLeftHandSide(String pageAttribute) {
         try {
-            return waitFluentForElement(By.cssSelector("")).isDisplayed(); // Need
+            return waitForExpectedElement(By.cssSelector("")).isDisplayed(); // Need
             // to
             // amend
             // the

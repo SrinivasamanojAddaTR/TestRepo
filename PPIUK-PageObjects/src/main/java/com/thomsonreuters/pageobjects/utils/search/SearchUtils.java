@@ -402,7 +402,6 @@ public class SearchUtils {
         searchTerm1 = searchTerm1.toLowerCase();
         searchTerm2 = searchTerm2.toLowerCase();
         knowHowSearchResultsPage.knowHowSearchResultTitle(String.valueOf(rowNumber)).click();
-        knowHowSearchResultsPage.waitForElementVisible(commonResourcePage.title(), 1000);
         String docText = getFullText().toLowerCase();
         if (!docText.contains(searchTerm1) && !docText.contains(searchTerm2)) {
             throw new PageOperationException("The search result doesn't contain the search terms and it isn't in the full text");

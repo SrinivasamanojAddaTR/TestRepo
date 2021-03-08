@@ -16,22 +16,22 @@ public class RecentHistoryWidget extends AbstractPage {
 	Document document;
 	
 	public List<WebElement> documents() {
-		return retryingFindElements(By
+		return waitForExpectedElements(By
 				.xpath("//li[@ng-repeat='recentDocument in recentlyViewedDocs']"));
 	}
 	
 	public List<WebElement> documentsTitles() {
-		return retryingFindElements(By
+		return waitForExpectedElements(By
 				.xpath("//li[@ng-repeat='recentDocument in recentlyViewedDocs']//a"));
 	}
 
 	public List<WebElement> documentsStatuses() {
-		return retryingFindElements(By
+		return waitForExpectedElements(By
 				.xpath("//li[@ng-repeat='recentDocument in recentlyViewedDocs']//span[contains(@class,'metadata_status')]"));
 	}
 	
 	public List<WebElement> documentsResourceTypes() {
-		return retryingFindElements(By
+		return waitForExpectedElements(By
 				.xpath("//li[@ng-repeat='recentDocument in recentlyViewedDocs']//span[contains(@class,'metadata_resource')]"));
 	}
 	
@@ -51,21 +51,21 @@ public class RecentHistoryWidget extends AbstractPage {
 	}
 	
 	public WebElement veiwAllButton(){
-		return retryingFindElement(By.linkText("View all"));
+		return waitForExpectedElement(By.linkText("View all"));
 	}
 	
 	public WebElement documentLink(String documentLinkText){
-		return retryingFindElement(By.xpath(String.format("//li[@ng-repeat='recentDocument in recentlyViewedDocs']//a[text()='%s']", documentLinkText)));
+		return waitForExpectedElement(By.xpath(String.format("//li[@ng-repeat='recentDocument in recentlyViewedDocs']//a[text()='%s']", documentLinkText)));
 		
 	}
 	
     public boolean isDocPresentInRecentHistoryByPosition(String position, String guid, String name) {
-		return isElementPresent(By.xpath("(//*[@id='co_recentDocuments'])//li[" + position + "]//a[contains(@href,'"
+		return isExists(By.xpath("(//*[@id='co_recentDocuments'])//li[" + position + "]//a[contains(@href,'"
 				+ guid + "') and contains(text(),'" + name + "')]"));
 	}
 
 	public boolean isWMMetadataPresent(String guid, String dealType, String dealDate) {
-		return isElementPresent(By.xpath("//a[contains(@href,'" + guid
+		return isExists(By.xpath("//a[contains(@href,'" + guid
 				+ "')]/following-sibling::span[contains(@class,'metadata_status') and text()='" + dealDate
 				+ "']/following-sibling::span[contains(@class,'metadata_resource') and text()='" + dealType + "']"));
 	}

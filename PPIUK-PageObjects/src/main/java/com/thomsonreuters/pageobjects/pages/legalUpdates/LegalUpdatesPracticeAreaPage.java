@@ -14,15 +14,15 @@ public class LegalUpdatesPracticeAreaPage extends LegalUpdatesBasePage {
     }
 
     public List<WebElement> practiceAreasLinks() {
-        return retryingFindElements(By.xpath("//div[@class='co_browseContent']//a"));
+        return waitForExpectedElements(By.xpath("//div[@class='co_browseContent']//a"));
     }
 
     public WebElement legalUpdatesWidget() {
-        return retryingFindElement(By.id("coid_website_browseRightColumn"));
+        return waitForExpectedElement(By.id("coid_website_browseRightColumn"));
     }
 
     public WebElement specificPracticeAreaLink(String specificPracticeArea) {
-        return retryingFindElement(By.linkText(specificPracticeArea));
+        return waitForExpectedElement(By.linkText(specificPracticeArea));
     }
     
     public WebElement legalUpdatesAllWidgetsLink() {

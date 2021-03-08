@@ -53,7 +53,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
      * method to show if the specified option is listed in the report profile dropdown to the left of the page
      */
     public boolean isReportProfileDropdownOptionDisplayed(String option) {
-    	return isElementPresent(By.xpath("//select[@id='profileList']/option[text()='" + option + "']"));
+    	return isExists(By.xpath("//select[@id='profileList']/option[text()='" + option + "']"));
     }
 
     /**
@@ -215,7 +215,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
     */
 
     public boolean isSaveReportProfilePopUpPresent() {
-        return isElementPresent(By.id("co_deliveryLightbox"));
+        return isExists(By.id("co_deliveryLightbox"));
     }
 
     /**
@@ -266,7 +266,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
     public List<String> getDealComparisonReportDeal() {
         List<String> list = new ArrayList<String>();
         try {
-            for (WebElement facet : retryingFindElements(By.xpath("//div[@id='reportBodyContainer']//tbody/tr/td[2]/a"))) {
+            for (WebElement facet : waitForExpectedElements(By.xpath("//div[@id='reportBodyContainer']//tbody/tr/td[2]/a"))) {
                 list.add(facet.getText().toLowerCase());
             }
         } catch (TimeoutException te) {
@@ -330,7 +330,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
     public List<String> getColumnsOrganizeColumns() {
         List<String> list = new ArrayList<String>();
         try {
-            for (WebElement facet : retryingFindElements(By.xpath("//ul[@id='columnList']//a"))) {
+            for (WebElement facet : waitForExpectedElements(By.xpath("//ul[@id='columnList']//a"))) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {

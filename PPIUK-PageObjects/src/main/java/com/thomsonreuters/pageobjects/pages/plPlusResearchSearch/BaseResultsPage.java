@@ -146,7 +146,7 @@ public class BaseResultsPage extends AbstractPage {
      * @param name
      */
     public void clickOnResultItem(String name) {
-        retryingFindElement(By.xpath(String.format(RESULT_ITEM_CSS, name))).click();
+        waitForExpectedElement(By.xpath(String.format(RESULT_ITEM_CSS, name))).click();
     }
 
     /**
@@ -159,9 +159,9 @@ public class BaseResultsPage extends AbstractPage {
         try {
             String docType = getDocumentType();
             if (docType.contains("UK-CASES")) {
-                return retryingFindElement(By.cssSelector("h3 #cobalt_result_internationalCase_title" + rowNum + " span"));
+                return waitForExpectedElement(By.cssSelector("h3 #cobalt_result_internationalCase_title" + rowNum + " span"));
             } else if (docType.contains("UK-LEGISLATION")) {
-                return retryingFindElement(By.cssSelector("#cobalt_search_results_ukLegislation" + rowNum + " h3 a"));
+                return waitForExpectedElement(By.cssSelector("#cobalt_search_results_ukLegislation" + rowNum + " h3 a"));
             }
         } catch (TimeoutException te) {
             LOG.info("context", te);
@@ -172,7 +172,7 @@ public class BaseResultsPage extends AbstractPage {
 
     public String getDocumentType() {
         try {
-            return waitFluentForElement(By.cssSelector(".co_search_result_heading_content>h1")).getText();
+            return waitForExpectedElement(By.cssSelector(".co_search_result_heading_content>h1")).getText();
         } catch (TimeoutException te){
             LOG.info("context", te);
         }
@@ -224,7 +224,7 @@ public class BaseResultsPage extends AbstractPage {
     public List<String> getResultItems() {
         List<String> results = new ArrayList<String>();
         try {
-            for (WebElement item : retryingFindElements(By.cssSelector(".co_searchResult_list li h3 a"))) {
+            for (WebElement item : waitForExpectedElements(By.cssSelector(".co_searchResult_list li h3 a"))) {
                 results.add(item.getText());
             }
         } catch (PageOperationException pe) {
@@ -260,6 +260,6 @@ public class BaseResultsPage extends AbstractPage {
      * @return List of results
      */
     public List<WebElement> getResultListWithFullText() {
-        return  waitAndFindElements(By.xpath("//li[contains(@id, 'cobalt_search_results')]"));
+        return  waitForExpectedElements(By.xpath("//li[contains(@id, 'cobalt_search_results')]"));
     }
 }

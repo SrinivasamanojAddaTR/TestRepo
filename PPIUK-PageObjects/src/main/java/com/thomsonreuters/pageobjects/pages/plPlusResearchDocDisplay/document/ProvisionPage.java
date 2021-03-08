@@ -463,7 +463,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 			throw new IllegalArgumentException(" Section Name is required.");
 		}
 		try {
-			waitFluentForElement(
+			waitForExpectedElement(
 					By.xpath(".//h2[contains(@class,'co_printHeading') and contains(text(),'"
 							+ sectionName + "')]")).click();
 		} catch (TimeoutException pe) {
@@ -479,7 +479,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 			throw new IllegalArgumentException(" PrimaryMenu name is required.");
 		}
 		try {
-			return waitFluentForElement(By.xpath("")).isDisplayed(); // Todo
+			return waitForExpectedElement(By.xpath("")).isDisplayed(); // Todo
 																		// find
 																		// an
 																		// pageobjects
@@ -530,19 +530,19 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement jurisdictionText() {
-		return retryingFindElement(JURISDICTION_TEXT);
+		return waitForExpectedElement(JURISDICTION_TEXT);
 	}
 
 	public WebElement docContent() {
-		return retryingFindElement(DOC_CONTENT);
+		return waitForExpectedElement(DOC_CONTENT);
 	}
 
 	public WebElement annotatedStatuesText(String annotatedStatusText) {
-		return retryingFindElement(By.xpath("//h2[contains(text()," + "'" + annotatedStatusText + "'" + ")]"));
+		return waitForExpectedElement(By.xpath("//h2[contains(text()," + "'" + annotatedStatusText + "'" + ")]"));
 	}
 	
 	public WebElement documentMetaInfo() {
-		return retryingFindElement(DOCUMENT_META_INFO);
+		return waitForExpectedElement(DOCUMENT_META_INFO);
 	}
 
 

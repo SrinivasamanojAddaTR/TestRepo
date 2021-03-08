@@ -22,7 +22,7 @@ public class WLNFooter extends AbstractPage {
     }
     
     public WebElement signInLink() {
-        return waitAndFindElement(By.linkText("Sign in"));
+        return waitForExpectedElement(By.linkText("Sign in"));
       }
 
     public WebElement footerWidget() {

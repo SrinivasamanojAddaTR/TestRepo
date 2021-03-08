@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.delivery;
 
 import com.google.common.base.Function;
+import com.thomsonreuters.driver.configuration.Hosts;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.SeleniumKeyboard;
 import com.thomsonreuters.pageobjects.pages.ask.AskResourcePage;
@@ -213,7 +214,7 @@ public class DeliveryUtils {
 
     public void getReceivedEmailWithDocument(String email, String subject) throws Throwable {
         Message message = waitAndGetReceivedEmail(email, subject);
-        String text = calculatorPage.getPlcukProductBase() + System.getProperty("base.url") + calculatorPage.getPlcukDomain() + CALCULATORS_PAGE_URL;
+        String text = Hosts.getInstance().getPlcukProductBase() + System.getProperty("base.url") + Hosts.getInstance().getPlcukDomain() + CALCULATORS_PAGE_URL;
         assertTrue("link is not present. Link:" + text + " MessageBody:" + emailMessageUtils.getMessageBody(message), emailMessageUtils.isEmailContainsText(message, text));
     }
 

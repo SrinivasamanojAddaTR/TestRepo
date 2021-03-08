@@ -134,7 +134,7 @@ public class CalculatorsTab extends AbstractPage {
 	}
 	
 	public void tipsIsAbsent() {
-		waitForElementAbsent(TIPS_LOCATOR);
+		waitForElementToDissappear(TIPS_LOCATOR);
 	}
 		
 }

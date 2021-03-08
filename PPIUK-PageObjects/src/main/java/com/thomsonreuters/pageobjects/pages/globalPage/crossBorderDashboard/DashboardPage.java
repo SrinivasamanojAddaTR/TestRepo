@@ -33,7 +33,7 @@ public class DashboardPage extends CategoryPage {
 	}
 
 	public void clickEditSelectionsButton() {
-		retryingFindElement(By.id("dashboardEdit")).click();
+		waitForExpectedElement(By.id("dashboardEdit")).click();
 		waitForPageToLoad();
 	}
 
@@ -60,12 +60,12 @@ public class DashboardPage extends CategoryPage {
 	}
 
 	public WebElement itgCountryTabActive(String countryName) {
-		return retryingFindElement(
+		return waitForExpectedElement(
 				By.xpath("//a[text()='" + countryName + "']/ancestor::li[contains(@class,'tabActive')]"));
 	}
 
 	public List<WebElement> itgResourceWidgetDocumentLinks() {
-		return retryingFindElements(By.xpath("//div[contains(@id,'itg-content') and contains(@style,'block')]//a[@href]"));
+		return waitForExpectedElements(By.xpath("//div[contains(@id,'itg-content') and contains(@style,'block')]//a[@href]"));
 	}
 
 	public void clickItgCountryTab(String country) {
@@ -110,7 +110,7 @@ public class DashboardPage extends CategoryPage {
 	}
 
 	public List<WebElement> marketSurveysPictures() {
-		return retryingFindElements(
+		return waitForExpectedElements(
 				By.xpath("//div[contains(@class,'market-surveys-images')]//img[contains(@src,'jpg')]"));
 	}
 

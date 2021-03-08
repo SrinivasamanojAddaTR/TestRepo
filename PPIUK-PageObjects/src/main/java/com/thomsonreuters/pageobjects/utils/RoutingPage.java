@@ -66,8 +66,7 @@ public class RoutingPage extends AbstractPage {
 	}
 
 	public WebElement ignoreAuthorizationBlocksDropdown() {
-		return waitForElementVisible(findElement(By.id("co_website_resourceInfoTypes_IgnoreAuthorizationBlocks")),
-				120);
+		return waitForElementVisible(By.id("co_website_resourceInfoTypes_IgnoreAuthorizationBlocks"));
 	}
 
 	public WebElement userInternalDropdown() {

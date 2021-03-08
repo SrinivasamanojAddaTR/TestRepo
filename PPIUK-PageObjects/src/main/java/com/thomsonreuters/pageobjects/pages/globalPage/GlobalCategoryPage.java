@@ -26,7 +26,7 @@ public class GlobalCategoryPage extends AbstractPage {
     }
 
     public WebElement countryInCoutriesTab(String country) {
-        return retryingFindElement(By.xpath(".//div[@id='coid_categoryBoxTabPanel2']//a[contains(text(), '" + country
+        return waitForExpectedElement(By.xpath(".//div[@id='coid_categoryBoxTabPanel2']//a[contains(text(), '" + country
                 + "')]"));
     }
 
@@ -47,17 +47,17 @@ public class GlobalCategoryPage extends AbstractPage {
     }
 
     public WebElement checkBox(String facetGroup, String facetName) {
-        return retryingFindElement(By.xpath(".//h4[contains(text(), '" + facetGroup
+        return waitForExpectedElement(By.xpath(".//h4[contains(text(), '" + facetGroup
                 + "')]/following-sibling::ul//label[contains(text(), '" + facetName + "')]"));
     }
 
     public WebElement linkInSection(String linkText, String section) {
-        return retryingFindElement(By.xpath("//h3[contains(., '" + section
+        return waitForExpectedElement(By.xpath("//h3[contains(., '" + section
                 + "')]/following-sibling::div//a[contains(.,'" + linkText + "')]"));
     }
 
     public WebElement linkInInterSubscriptionsSectionInBrowseMenu(String linkText, String sectionName) {
-        return retryingFindElement(By.xpath(".//div[contains(@class, 'column') and .//*[contains(., '" + sectionName
+        return waitForExpectedElement(By.xpath(".//div[contains(@class, 'column') and .//*[contains(., '" + sectionName
                 + "')]]//a[contains(., '" + linkText + "')]"));
     }
 
@@ -70,15 +70,15 @@ public class GlobalCategoryPage extends AbstractPage {
     }
 
     public WebElement moreJurisdiction() {
-        return retryingFindElement(By.linkText("More Jurisdictions"));
+        return waitForExpectedElement(By.linkText("More Jurisdictions"));
     }
 
     public WebElement continueButton() {
-        return retryingFindElement(By.xpath(".//*[contains(@id, 'JurisdictionSummary_continueButton')]"));
+        return waitForExpectedElement(By.xpath(".//*[contains(@id, 'JurisdictionSummary_continueButton')]"));
     }
 
     public WebElement linksHeader(String header) {
-        return retryingFindElement(By.xpath(".//*[contains(text(), '" + header + "')]"));
+        return waitForExpectedElement(By.xpath(".//*[contains(text(), '" + header + "')]"));
     }
 
     public boolean isRelatedPracticeAreasHeaderPresent(){
@@ -94,7 +94,7 @@ public class GlobalCategoryPage extends AbstractPage {
     }
 
     public WebElement linkOnLegalUpdateWidget(int linkNumber, String widget) {
-        return retryingFindElement(By.xpath(".//h3[contains(text(), '" + widget
+        return waitForExpectedElement(By.xpath(".//h3[contains(text(), '" + widget
                 + "')]/following-sibling::div[@class='co_genericBoxContent']//li[" + linkNumber + "]//a"));
     }
     public WebElement linkToJointVenturesInternationalTransactionGuide(String link){
@@ -119,7 +119,7 @@ public class GlobalCategoryPage extends AbstractPage {
 	}
 
 	public void clickDashboard() {
-		retryingFindElement(By.xpath("//a[text()='View my dashboard']")).click();
+		waitForExpectedElement(By.xpath("//a[text()='View my dashboard']")).click();
 		waitForPageToLoad();
 		waitForPageToLoadAndJQueryProcessing();
 	}

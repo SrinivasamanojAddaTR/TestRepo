@@ -11,11 +11,11 @@ public class TestimonialWidget extends AbstractPage {
 	private static final String WIDGET_NAME = "Testimonial";
 
 	public boolean isHeaderPresent() {
-		return isElementPresent(By.xpath("//h3[text()='" + WIDGET_NAME + "']"));
+		return isExists(By.xpath("//h3[text()='" + WIDGET_NAME + "']"));
 	}
 
 	public boolean isTestimanialTextPresent() {
-		return isElementPresent(By.xpath(
+		return isExists(By.xpath(
 				"//h3[text()='" + WIDGET_NAME + "']/following::div[@class='co_genericBoxContent']//ol[contains(.,\""
 						+ CITATION + "\") and contains(.,'" + NAME + "') and contains(.,'" + ROLE + "')]"));
 	}

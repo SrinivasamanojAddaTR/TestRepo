@@ -36,19 +36,19 @@ public class BreadCrumbPage extends AbstractPage {
     }
 
     public boolean isBreadCrumbDropdownListPresent(){
-        return isElementPresent(By.className("co_dropDownMenuContent"));
+        return isExists(By.className("co_dropDownMenuContent"));
     }
 
     public boolean isBreadCrumbDropdownArrowPresent(){
-        return isElementPresent(By.xpath("//button[@title='View recent documents']"));
+        return isExists(By.xpath("//button[@title='View recent documents']"));
     }
 
     public boolean isBreadCrumbPresent(){
-        return isElementPresent(By.className("co_breadcrumbs"));
+        return isExists(By.className("co_breadcrumbs"));
     }
     
     public boolean isViewAllLinkPresent(){
-    	return isElementPresent(By.xpath("//div[@class='co_genericBoxFooter']/a"));
+    	return isExists(By.xpath("//div[@class='co_genericBoxFooter']/a"));
     }
 
     

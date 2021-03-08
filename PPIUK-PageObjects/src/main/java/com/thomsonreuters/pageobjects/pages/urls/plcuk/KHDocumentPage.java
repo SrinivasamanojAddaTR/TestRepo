@@ -144,6 +144,6 @@ public class KHDocumentPage extends AbstractPage implements DocumentPage {
         waitForPageToLoad();
 
         // Wait until loading picture disappears
-        waitForElementAbsent(By.className(".co_loading"));
+        waitForElementToDissappear(By.className(".co_loading"));
     }
 }

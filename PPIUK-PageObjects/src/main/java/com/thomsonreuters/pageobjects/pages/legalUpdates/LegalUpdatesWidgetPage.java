@@ -25,11 +25,11 @@ public class LegalUpdatesWidgetPage extends AbstractPage {
 	}
 
 	public WebElement veiwAllUpdatesLink() {
-		return retryingFindElement(By.linkText("View all"));
+		return waitForExpectedElement(By.linkText("View all"));
 	}
 	
 	public WebElement veiwAllUpdatesLink(String widgetName) {
-    	return retryingFindElement(By.xpath(String.format("//div[@id='coid_website_browseRightColumn']//h3[contains(text(),'%s')]/following-sibling::div[@class='co_genericBoxFooter']//a", widgetName)));
+    	return waitForExpectedElement(By.xpath(String.format("//div[@id='coid_website_browseRightColumn']//h3[contains(text(),'%s')]/following-sibling::div[@class='co_genericBoxFooter']//a", widgetName)));
     }
 
 	public WebElement emailPreferencesLink() {
@@ -37,15 +37,15 @@ public class LegalUpdatesWidgetPage extends AbstractPage {
 	}
 	
 	public WebElement rssButton() {
-		return retryingFindElement(By.xpath("//a[text()='RSS']"));
+		return waitForExpectedElement(By.xpath("//a[text()='RSS']"));
 	}
 	
 	public List<WebElement> getAll5UpdatesLinks(String widgetName) {
-		return retryingFindElements(By.xpath(String.format("//div[@id='coid_website_browseRightColumn']//h3[text()='%s']/following-sibling::div[@class='co_genericBoxContent']//div[@class='co_artifactContent']//a", widgetName)));
+		return waitForExpectedElements(By.xpath(String.format("//div[@id='coid_website_browseRightColumn']//h3[text()='%s']/following-sibling::div[@class='co_genericBoxContent']//div[@class='co_artifactContent']//a", widgetName)));
 	}
 	
 	public List<WebElement> getAllDates(String widgetName) {
-		return retryingFindElements(By.xpath(String.format("//div[@id='coid_website_browseRightColumn']//h3[text()='%s']/following-sibling::div[@class='co_genericBoxContent']//div[@class='co_artifactContent']//h4//span[@class='co_date']", widgetName)));
+		return waitForExpectedElements(By.xpath(String.format("//div[@id='coid_website_browseRightColumn']//h3[text()='%s']/following-sibling::div[@class='co_genericBoxContent']//div[@class='co_artifactContent']//h4//span[@class='co_date']", widgetName)));
 	}
 	
 	public List<String> getAll5UpdatesTitles(String widgetName) {
@@ -71,10 +71,10 @@ public class LegalUpdatesWidgetPage extends AbstractPage {
 	}
 
 	public boolean isLUWidgetPresent() {
-		return isElementPresent(By.xpath("//div[@id='coid_website_browseRightColumn']//h3[contains(text(),'Legal updates')]"));
+		return isExists(By.xpath("//div[@id='coid_website_browseRightColumn']//h3[contains(text(),'Legal updates')]"));
 	}
 
     public boolean isOutOfPlanPresent() {
-        return isElementPresent(By.xpath("//div[@id='coid_website_browseRightColumn']//div[@class='co_outOfPlanLabel']"));
+        return isExists(By.xpath("//div[@id='coid_website_browseRightColumn']//div[@class='co_outOfPlanLabel']"));
     }
 }

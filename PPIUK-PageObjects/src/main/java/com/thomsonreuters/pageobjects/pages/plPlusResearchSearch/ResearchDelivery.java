@@ -26,7 +26,7 @@ public class ResearchDelivery extends AbstractPage {
     }
 
     public WebElement clickNewFolder() {
-        return retryingFindElement(By.cssSelector(".co_saveToNewFolder"));
+        return waitForExpectedElement(By.cssSelector(".co_saveToNewFolder"));
     }
 
     public WebElement clickOkButton() {

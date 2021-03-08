@@ -217,7 +217,7 @@ public class NavigationCobalt  {
      */
     public void navigateToHistoryMenu() {
         try {
-            WebElement ele = homePage.retryingFindElement(By.cssSelector("a[title='Open Recent History']"));
+            WebElement ele = homePage.waitForExpectedElement(By.cssSelector("a[title='Open Recent History']"));
             ele.click();
         } catch (TimeoutException ne) {
             logger.info("context", ne);
@@ -230,7 +230,7 @@ public class NavigationCobalt  {
      */
     public void navigateToFoldersPage() {
         try {
-        	homePage.retryingFindElement(By.cssSelector("#co_recentFoldersContainer a.co_dropdownBoxanchorLabel")).click();
+        	homePage.waitForExpectedElement(By.cssSelector("#co_recentFoldersContainer a.co_dropdownBoxanchorLabel")).click();
         } catch (TimeoutException ne) {
             logger.info("context", ne);
             throw new PageOperationException(ne.getMessage());

@@ -67,7 +67,7 @@ public class ProjectPage extends AbstractPage {
     }
 
     public boolean isDocumentAbsent(String documentName) {
-        return waitForElementAbsent(By.xpath(String.format(DOCUMENT, documentName)));
+        return waitForElementToDissappear(By.xpath(String.format(DOCUMENT, documentName)));
     }
 
 }

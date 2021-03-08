@@ -79,7 +79,7 @@ public class FoldersUtils {
 
     public void shareFolderViaEmailByEmail(String owner, String folderName, String emailToShare) {
         shareFolder(folderName);
-        JavascriptExecutor js = (JavascriptExecutor) AbstractPage.getDriver;
+        JavascriptExecutor js = (JavascriptExecutor) researchOrganizerPage.getDriver;
         js.executeScript("$('#coid_contacts_addedContactsInput').click();");
         js.executeScript(
                 String.format("$('#coid_contacts_addedContactsInput input').val(\"%s\").trigger($.Event(\"keyup\", { keyCode: %s }));",

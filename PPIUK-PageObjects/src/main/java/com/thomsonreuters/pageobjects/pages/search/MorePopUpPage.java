@@ -18,28 +18,28 @@ public class MorePopUpPage extends AbstractPage {
 
     public void selectSearchItem(List<String> searchTerms) {
         for (String term : searchTerms) {
-            WebElement searchBox = retryingFindElement(searchBoxSelector);
+            WebElement searchBox = waitForExpectedElement(searchBoxSelector);
             searchBox.clear();
             searchBox.sendKeys(term);
-            retryingFindElement(By.xpath(String.format(searchItem, term))).click();
+            waitForExpectedElement(By.xpath(String.format(searchItem, term))).click();
         }
     }
 
     public void selectContinue() {
-        retryingFindElement(continueButton).click();
+        waitForExpectedElement(continueButton).click();
         waitForElementInvisible(morePopupFrame);
     }
 
     public List<String> getSelectedFacetNames() {
         List<String> list = new ArrayList<String>();
-        for (WebElement element : retryingFindElements(selectedFacetsList)) {
+        for (WebElement element : waitForExpectedElements(selectedFacetsList)) {
             list.add(element.getText());
         }
         return list;
     }
 
     public void selectCancelButton() {
-        retryingFindElement(cancelButton).click();
+        waitForExpectedElement(cancelButton).click();
         waitForElementInvisible(morePopupFrame);
     }
 }

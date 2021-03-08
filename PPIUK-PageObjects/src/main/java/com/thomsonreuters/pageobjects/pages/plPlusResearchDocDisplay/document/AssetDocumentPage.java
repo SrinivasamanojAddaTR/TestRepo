@@ -32,15 +32,15 @@ public class AssetDocumentPage extends DocumentDisplayAbstractPage {
 	private static final By CHECKBOX_TABLE_OF_CONTENT = By.xpath(".//label[@for='coid_chkDdcLayoutTableOfContents']");
 	
 	public WebElement linkInAssetPage(String linkText) {
-		return retryingFindElement(By.linkText(linkText));
+		return waitForExpectedElement(By.linkText(linkText));
 	}
 
 	public WebElement partyNames() {
-		return retryingFindElement(PARTY_NAMES);
+		return waitForExpectedElement(PARTY_NAMES);
 	}
 
 	public WebElement bailiiLink(String bailiiLink) {
-		return retryingFindElement(By.linkText(bailiiLink));
+		return waitForExpectedElement(By.linkText(bailiiLink));
 	}
 
 	public WebElement linkToLegalUpdates() {
@@ -48,75 +48,75 @@ public class AssetDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement hardcodedLink(String linkText) {
-		return retryingFindElement(By.partialLinkText(linkText));
+		return waitForExpectedElement(By.partialLinkText(linkText));
 	}
 
 	public WebElement celexLink(String celexLinkText) {
-		return retryingFindElement(By.linkText(celexLinkText));
+		return waitForExpectedElement(By.linkText(celexLinkText));
 	}
 
 	public WebElement westlawUkLink(String westlawUkLinkText) {
-		return waitFluentForElement(By.linkText(westlawUkLinkText));
+		return waitForExpectedElement(By.linkText(westlawUkLinkText));
 	}
 
 	public WebElement jumpLink(String jumpLinkText) {
-		return retryingFindElement(By.partialLinkText(jumpLinkText));
+		return waitForExpectedElement(By.partialLinkText(jumpLinkText));
 	}
 
 	public WebElement casePageText() {
-		return retryingFindElement(CASE_PAGE_TEXT);
+		return waitForExpectedElement(CASE_PAGE_TEXT);
 	}
 
 	public WebElement caseMetadata() {
-		return retryingFindElement(CASE_META_DATA);
+		return waitForExpectedElement(CASE_META_DATA);
 	}
 
 	public WebElement metaDataField(String text) {
-		return retryingFindElement(By.xpath(".//*[@id='co_docContentMetaInfo']//*[contains(text(), '" + text + "')]"));
+		return waitForExpectedElement(By.xpath(".//*[@id='co_docContentMetaInfo']//*[contains(text(), '" + text + "')]"));
 	}
 
 	public WebElement junpLinkSection(String jumpLinkText) {
-		return retryingFindElement(By.xpath(".//h4[contains(text(),'" + jumpLinkText + "')]"));
+		return waitForExpectedElement(By.xpath(".//h4[contains(text(),'" + jumpLinkText + "')]"));
 	}
 
 	public WebElement downloadIcon() {
-		return retryingFindElement(DOWNLOAD_ICON);
+		return waitForExpectedElement(DOWNLOAD_ICON);
 	}
 
 	public WebElement downloadWindow() {
-		return retryingFindElement(DOWNLOAD_WINDOW);
+		return waitForExpectedElement(DOWNLOAD_WINDOW);
 	}
 
 	public boolean isDeliveryWindowAbsent() {
-		return waitForElementAbsent(DOWNLOAD_WINDOW);
+		return waitForElementToDissappear(DOWNLOAD_WINDOW);
 	}
 
 	public WebElement downloadButton() {
-		return retryingFindElement(DOWNLOAD_BUTTON);
+		return waitForExpectedElement(DOWNLOAD_BUTTON);
 	}
 
 	public WebElement readyForDownloadWindow(String readyForDownloadText) {
-		return retryingFindElement(By.xpath(".//div[contains(text()," + "'" + readyForDownloadText + "'" + ")]"));
+		return waitForExpectedElement(By.xpath(".//div[contains(text()," + "'" + readyForDownloadText + "'" + ")]"));
 	}
 
 	public WebElement nameOfFileForDownload() {
-		return retryingFindElement(MANE_OF_FILE_FOR_DOWNLOAD);
+		return waitForExpectedElement(MANE_OF_FILE_FOR_DOWNLOAD);
 	}
 
 	public WebElement downloadButtonInReadyForDownloadWindow() {
-		return retryingFindElement(DOWNLOAD_BUTTON_IN_READY_FOR_DOWNLOAD_WINDOW);
+		return waitForExpectedElement(DOWNLOAD_BUTTON_IN_READY_FOR_DOWNLOAD_WINDOW);
 	}
 
 	public WebElement whereReportedList() {
-		return retryingFindElement(WHERE_REPORDED_LIST);
+		return waitForExpectedElement(WHERE_REPORDED_LIST);
 	}
 
 	public WebElement contentBody() {
-		return retryingFindElement(CONTENT_BODY);
+		return waitForExpectedElement(CONTENT_BODY);
 	}
 
 	public String allContentBodyElementsText() {
-		List<WebElement> elements = retryingFindElements(CONTENT_BODY);
+		List<WebElement> elements = waitForExpectedElements(CONTENT_BODY);
 		String text = "";
 		for (WebElement element : elements) {
 			text = text + element.getText();
@@ -125,27 +125,27 @@ public class AssetDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement topButton() {
-		return retryingFindElement(TOP_BUTTON);
+		return waitForExpectedElement(TOP_BUTTON);
 	}
 
 	public WebElement tableOfContentButton(String tableOfContentText) {
-		return retryingFindElement(By.xpath(".//span[contains(text()," + "'" + tableOfContentText + "'" + ")]"));
+		return waitForExpectedElement(By.xpath(".//span[contains(text()," + "'" + tableOfContentText + "'" + ")]"));
 	}
 
 	public WebElement tableOfContentSection() {
-		return retryingFindElement(TABLE_OF_CONTENTS_SECTION);
+		return waitForExpectedElement(TABLE_OF_CONTENTS_SECTION);
 	}
 
 	public WebElement caseAssetDocClass() {
-		return retryingFindElement(CASE_ASSET_DOC_CLASS);
+		return waitForExpectedElement(CASE_ASSET_DOC_CLASS);
 	}
 
 	public WebElement valueOfSpecialistCourt() {
-		return retryingFindElement(VALUE_OF_SPECIALIST_COURT);
+		return waitForExpectedElement(VALUE_OF_SPECIALIST_COURT);
 	}
 
 	public WebElement practiceNotesSection() {
-		return retryingFindElement(PRACTICE_NOTES_SECTION);
+		return waitForExpectedElement(PRACTICE_NOTES_SECTION);
 	}
 
 	public WebElement practiceNotes(String practiceNotesText) {
@@ -167,7 +167,7 @@ public class AssetDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement relatedAssetPageCheckBox(String relatedAssetPageText) {
-		return retryingFindElement(By.xpath("//strong[contains(text()," + "'" + relatedAssetPageText + "'" + ")]"));
+		return waitForExpectedElement(By.xpath("//strong[contains(text()," + "'" + relatedAssetPageText + "'" + ")]"));
 	}
 
 	public WebElement linkInLegalUpdatesSection(String linkText, String sectionName) {
@@ -176,20 +176,20 @@ public class AssetDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement tabInDownloadWindow(String tabName) {
-		return retryingFindElement(By.xpath(".//ul[@class='co_tabs']//a[contains(text(), '" + tabName + "')]"));
+		return waitForExpectedElement(By.xpath(".//ul[@class='co_tabs']//a[contains(text(), '" + tabName + "')]"));
 	}
 
 	public WebElement dropdownBoxWithTheFormatToDownloadTheDocument() {
-		return retryingFindElement(DROPDOWN_BOX_WITH_THE_FORMAT_TO_DOWNLOAD_THE_DOCUMENT);
+		return waitForExpectedElement(DROPDOWN_BOX_WITH_THE_FORMAT_TO_DOWNLOAD_THE_DOCUMENT);
 	}
 
 	public WebElement formatInDropdownBox(String formatName) {
-		return retryingFindElement(By.xpath(".//*[@id='co_delivery_format_fulltext']/option[contains(text(), '"
+		return waitForExpectedElement(By.xpath(".//*[@id='co_delivery_format_fulltext']/option[contains(text(), '"
 				+ formatName + "')]"));
 	}
 
 	public WebElement checkboxTableOfContent() {
-		return retryingFindElement(CHECKBOX_TABLE_OF_CONTENT);
+		return waitForExpectedElement(CHECKBOX_TABLE_OF_CONTENT);
 	}
 
 	public WebElement inputCheckboxTableOfContent() {
@@ -197,7 +197,7 @@ public class AssetDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement sectionHeader(String headerName) {
-		return retryingFindElement(By.xpath(".//h2[contains(text(), '" + headerName + "')]"));
+		return waitForExpectedElement(By.xpath(".//h2[contains(text(), '" + headerName + "')]"));
 	}
 	
 	public List<WebElement> listOfLinksInLegalUpdatesSection() {
@@ -209,7 +209,7 @@ public class AssetDocumentPage extends DocumentDisplayAbstractPage {
 	}
 	
 	public WebElement linkInLegalApdatesSection(String linkText, String sectionName) {
-		return retryingFindElement(By.xpath(".//h2[contains(text(),'" + sectionName
+		return waitForExpectedElement(By.xpath(".//h2[contains(text(),'" + sectionName
 				+ "')]/following-sibling::ul//a[contains(text(), '" + linkText + "')]"));
 	}
 }

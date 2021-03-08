@@ -100,10 +100,7 @@ public class HomePage extends AbstractPage {
     }
 
     private List<WebElement> getTopicWebElementLinks() {
-//        return waitAndFindElements(By.cssSelector("div[class='co_scrollWrapper co_categoryBoxTabContents'] #coid_categoryBoxTabPanel1 a"));
-        return waitAndFindElements(By.cssSelector("div[class='co_scrollWrapper co_categoryBoxTabContents'] div[class*='co_tabHide co_tabShow'] a"));
-
-//        return mergeTwoWebElementList(By.cssSelector("div#coid_categoryBoxTab1SubPanel1-0-main div div ul li a"), By.cssSelector("div#coid_categoryBoxTab1SubPanel2-0-main div div ul li a"));
+        return waitForExpectedElements(By.cssSelector("div[class='co_scrollWrapper co_categoryBoxTabContents'] div[class*='co_tabHide co_tabShow'] a"));
     }
 
     public List<String> getPracticeAreasLinks() {
@@ -145,7 +142,7 @@ public class HomePage extends AbstractPage {
     }
 
     public WebElement getMeetTheTeamLink(){
-        return waitAndFindElement(By.cssSelector("#categoryPageScopeLinks"));
+        return waitForExpectedElement(By.cssSelector("#categoryPageScopeLinks"));
     }
 
     private List<String> getOnlyLinkNamesFromWebElementList(List<WebElement> elementList) {
@@ -202,7 +199,7 @@ public class HomePage extends AbstractPage {
      * Selects the International tab present on Home page.
      */
     public void selectInternationalTab() {
-        waitFluentForElement(By.linkText("International")).click();
+        waitForExpectedElement(By.linkText("International")).click();
     }
 
     /**
@@ -211,7 +208,7 @@ public class HomePage extends AbstractPage {
      * @param linkName
      */
     public void selectLinkPresentOnTab(String linkName) {
-        waitFluentForElement(By.linkText(linkName)).click();
+        waitForExpectedElement(By.linkText(linkName)).click();
     }
 
     public WebElement selectAccessNowButtonForOpenWebBrowsing() {
@@ -276,7 +273,7 @@ public class HomePage extends AbstractPage {
     }
 
     public List<WebElement> getSelectedSectionLinks() {
-        return waitAndFindElements(By.cssSelector(".co_featureBoxInner a"));
+        return waitForExpectedElements(By.cssSelector(".co_featureBoxInner a"));
     }
 
     /**
@@ -285,7 +282,7 @@ public class HomePage extends AbstractPage {
      * @return List with tab links
      */
     public List<WebElement> getActiveTabLinks() {
-        return waitAndFindElements(By.cssSelector(".co_categoryBoxTabContents > .co_tabShow a"));
+        return waitForExpectedElements(By.cssSelector(".co_categoryBoxTabContents > .co_tabShow a"));
     }
 
     /**
@@ -294,7 +291,7 @@ public class HomePage extends AbstractPage {
      * @return WebElement with tab links
      */
     public WebElement countryBrowseMenuLink(String country) {
-        return waitAndFindElement(By.xpath("//a[@class='menu-item-link' and contains(text(),'" + country + "')]"));
+        return waitForExpectedElement(By.xpath("//a[@class='menu-item-link' and contains(text(),'" + country + "')]"));
     }
 
     /**
@@ -303,7 +300,7 @@ public class HomePage extends AbstractPage {
      * @return WebElement with tab links
      */
     public WebElement countryLink(String country) {
-        return waitAndFindElement(By.xpath("//a[contains(@id,'coid_" + country + "')]"));
+        return waitForExpectedElement(By.xpath("//a[contains(@id,'coid_" + country + "')]"));
     }
 
     /**
@@ -312,7 +309,7 @@ public class HomePage extends AbstractPage {
      * @return WebElement with tab links
      */
     public WebElement globalPLCountrySiteLabel(String country) {
-        return waitAndFindElement(By.xpath("//div[@id='top-level']//span[text()='" + country + "']"));
+        return waitForExpectedElement(By.xpath("//div[@id='top-level']//span[text()='" + country + "']"));
     }
 
 
@@ -322,7 +319,7 @@ public class HomePage extends AbstractPage {
      * @return WebElement with tab links
      */
     public WebElement internationalSubCountryLink(String country) {
-        return waitAndFindElement(By.xpath("//div[@id='International1']//a[contains(text(),'" + country + "')]"));
+        return waitForExpectedElement(By.xpath("//div[@id='International1']//a[contains(text(),'" + country + "')]"));
     }
 
     /**
@@ -332,7 +329,7 @@ public class HomePage extends AbstractPage {
      */
 
     public WebElement legacyPLCountryTitle(String country) {
-        return waitAndFindElement(By.xpath("//div[@class='page-heading']//h1[normalize-space(text())='" + country + "']"));
+        return waitForExpectedElement(By.xpath("//div[@class='page-heading']//h1[normalize-space(text())='" + country + "']"));
     }
 
     /**
@@ -370,12 +367,12 @@ public class HomePage extends AbstractPage {
         return waitForExpectedElement(By.className("co_title"));
     }
 
-    public WebElement retryingFindElement(By by){
-    	return super.retryingFindElement(by);
+    public WebElement waitForExpectedElement(By by){
+    	return super.waitForExpectedElement(by);
     }
     
     public boolean isSystemErrorPresent() {
-		return isElementPresent(By.xpath("//*[@id='co_blockedBox']//p[contains(.,'You do not have access to')]"));
+		return isExists(By.xpath("//*[@id='co_blockedBox']//p[contains(.,'You do not have access to')]"));
 	}
 
 }

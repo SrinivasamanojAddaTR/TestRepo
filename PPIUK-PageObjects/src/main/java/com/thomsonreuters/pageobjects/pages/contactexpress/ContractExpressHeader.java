@@ -9,7 +9,7 @@ public class ContractExpressHeader extends AbstractPage {
 	private CommonMethods comMethods = new CommonMethods();
 	
 	  public boolean iscontractExpressTitlePresent() {
-	    	//return retryingFindElement(By.xpath(".//*[@id='main']/div[1]/div[1]/div"));
+	    	//return waitForExpectedElement(By.xpath(".//*[@id='main']/div[1]/div[1]/div"));
 	    	return isElementDisplayed(By.xpath(".//*[@id='cecTopActionsTitle']/span[2]"));
 	    }
 	  

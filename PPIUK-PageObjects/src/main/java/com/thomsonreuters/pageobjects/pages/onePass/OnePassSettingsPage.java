@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 public class OnePassSettingsPage extends AbstractPage {
 
     public WebElement storedAccessTab() {
-        return retryingFindElement(By.xpath("//a/span[contains(text(),'Stored Access')]"));
+        return waitForExpectedElement(By.xpath("//a/span[contains(text(),'Stored Access')]"));
     }
 
     public boolean isStoredAccessTabPresent() {
@@ -21,11 +21,11 @@ public class OnePassSettingsPage extends AbstractPage {
     }
 
     public WebElement removeLink() {
-        return retryingFindElement(By.xpath("//a[contains(text(),'Remove')]"));
+        return waitForExpectedElement(By.xpath("//a[contains(text(),'Remove')]"));
     }
 
     public WebElement returnToPLCUKLink() {
-        return retryingFindElement(By.xpath("//a/span[contains(text(),'Return To PLC UK')]"));
+        return waitForExpectedElement(By.xpath("//a/span[contains(text(),'Return To PLC UK')]"));
     }
 
 }

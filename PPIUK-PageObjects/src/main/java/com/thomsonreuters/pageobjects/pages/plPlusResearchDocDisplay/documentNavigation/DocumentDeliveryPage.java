@@ -106,7 +106,7 @@ public class DocumentDeliveryPage extends DocumentNavigationPage {
     }
 
     public String getTootlTipText() {
-        return waitAndFindElement(By.className("tooltip-content")).getText();
+        return waitForExpectedElement(By.className("tooltip-content")).getText();
     }
 
     public void clickOnLink(Links link) {
@@ -200,7 +200,7 @@ public class DocumentDeliveryPage extends DocumentNavigationPage {
      */
     public String getWebsiteRequestId() {
         try {
-            return waitForElementExists(By.id("websiteRequestId")).getAttribute("value");
+            return waitForElementPresent(By.id("websiteRequestId")).getAttribute("value");
         } catch (NoSuchElementException | TimeoutException e) {
             LOG.warn("Unable to get website request id", e);
             return "";

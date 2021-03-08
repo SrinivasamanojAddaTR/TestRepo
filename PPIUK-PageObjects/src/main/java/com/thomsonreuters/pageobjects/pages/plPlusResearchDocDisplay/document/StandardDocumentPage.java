@@ -104,7 +104,7 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
     }
 
     public void checkDraftMessageForPAPresents() {
-        if(!isElementPresent(By.xpath("//div[contains(.,'" + DRAFT_MESSAGE_FOR_PA
+        if(!isExists(By.xpath("//div[contains(.,'" + DRAFT_MESSAGE_FOR_PA
                 + "') and contains(.,'Draft document')]"))){
         	throw new RuntimeException("Draft message absents");
         }

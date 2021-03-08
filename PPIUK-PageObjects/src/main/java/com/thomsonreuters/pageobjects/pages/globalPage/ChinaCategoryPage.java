@@ -9,7 +9,7 @@ import java.util.List;
 public class ChinaCategoryPage extends AbstractPage {
 
 	public List<WebElement> linksUnderTheHeadersInTheResourcesTab(String header) {
-		return retryingFindElements(By.xpath("//h3[contains(., '" + header + "')]/following-sibling::*//a"));
+		return waitForExpectedElements(By.xpath("//h3[contains(., '" + header + "')]/following-sibling::*//a"));
 	}
 
     public List<WebElement> resourceTypesInTopicPage() {
@@ -21,20 +21,20 @@ public class ChinaCategoryPage extends AbstractPage {
     }
 
     public List<WebElement> getAllDatesFromResultListOfLegalUpdates() {
-        return retryingFindElements(By.xpath(".//span[@class='co_greenStatus']"));
+        return waitForExpectedElements(By.xpath(".//span[@class='co_greenStatus']"));
     }
 
     public List<WebElement> resourceHeadings() {
-        return retryingFindElements(By.xpath("//div[@id='cobalt_search_knowHowTopicPlc_results']//h2"));
+        return waitForExpectedElements(By.xpath("//div[@id='cobalt_search_knowHowTopicPlc_results']//h2"));
     }
 
     public List<WebElement> chinaTopicsInThePracticeArea(String section, String country) {
-        return retryingFindElements(By.xpath(".//*[contains(text(), '" + section
+        return waitForExpectedElements(By.xpath(".//*[contains(text(), '" + section
                 + "')]/following-sibling::div[contains(., '" + country + "')]/following-sibling::*//label"));
     }
 
     public List<WebElement> linksInSection(String section) {
-        return retryingFindElements(By.xpath(".//*[contains(text(), '" + section + "')]/following-sibling::ul//a"));
+        return waitForExpectedElements(By.xpath(".//*[contains(text(), '" + section + "')]/following-sibling::ul//a"));
     }
 
 }

@@ -233,11 +233,11 @@ public class CommonMethods {
         return webElement;
     }
 
-    public WebElement waitFluentForElement(final By by) {
-        return waitFluentForElement(by, FLUENT_TIMEOUT_IN_SECONDS, FLUENT_POLLINGTIME_IN_MILLISECONDS);
+    public WebElement waitForExpectedElement(final By by) {
+        return waitForExpectedElement(by, FLUENT_TIMEOUT_IN_SECONDS, FLUENT_POLLINGTIME_IN_MILLISECONDS);
     }
 
-    public WebElement waitFluentForElement(final By by, int timeOut, int pollingTime) {
+    public WebElement waitForExpectedElement(final By by, int timeOut, int pollingTime) {
         WebElement element = null;
         Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(timeOut, TimeUnit.SECONDS)
                 .pollingEvery(pollingTime, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
@@ -267,7 +267,7 @@ public class CommonMethods {
     }
 
     /**
-     * use @deprecated isExists(), isElementPresent()
+     * use @deprecated isExists(), isExists()
      */
     @Deprecated
     public boolean waitForElement(WebElement element, int waitTime) {

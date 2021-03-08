@@ -187,7 +187,7 @@ public class LegislationSearchResultsPage extends AbstractPage {
      * @param resultIndex
      */
     public void clickOnResultItem(int resultIndex) {
-        retryingFindElement(By.xpath("//a[@id='cobalt_result_internationalLegislation_title" + resultIndex +"']/span")).click();
+        waitForExpectedElement(By.xpath("//a[@id='cobalt_result_internationalLegislation_title" + resultIndex +"']/span")).click();
 
     }
 

@@ -2,6 +2,7 @@ package com.thomsonreuters.pageobjects.pages.search;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.springframework.util.StringUtils;
@@ -15,6 +16,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
     private static final String CONTINUE_BTN_ON_TIMEOUT_WARNING_POP_UP_XPATH = "//div[@id='co_websiteTimeoutWarning']//input[contains(@value,'Continue')]";
     private static final String EXPAND_FACET_XPATH = "//div[@id='co_narrowResultsBy']//label[contains(text(),'%s')]/../a[@class='co_facet_expand']";
     public static final String KNOW_HOW_FACET_CHECKBOX_PATH = "//div[@id='co_narrowResultsBy']//label[text()='%s']/parent::li//input[@type='checkbox']";
+    private CommonMethods commonMethods = new CommonMethods();
 
     public KnowHowSearchResultsPage() {
     }
@@ -791,7 +793,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return boolean
      */
     public boolean isFacetGroupHeaderResourceTypeDisplayed() {
-        return isElementDisplayed(waitForElementPresent(resourceTypeFacetGroupByTitle()));
+        return commonMethods.isElementDisplayed(waitForElementPresent(resourceTypeFacetGroupByTitle()));
     }
 
     /**

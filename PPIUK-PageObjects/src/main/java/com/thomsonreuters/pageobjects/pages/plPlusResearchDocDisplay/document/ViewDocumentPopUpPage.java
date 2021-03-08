@@ -52,7 +52,7 @@ public class ViewDocumentPopUpPage extends AbstractPage {
     }
 
     private WebElement getCancelButtonElement() {
-        return waitFluentForElement(CANCEL_BUTTON);
+        return waitForExpectedElement(CANCEL_BUTTON);
     }
 
     /**

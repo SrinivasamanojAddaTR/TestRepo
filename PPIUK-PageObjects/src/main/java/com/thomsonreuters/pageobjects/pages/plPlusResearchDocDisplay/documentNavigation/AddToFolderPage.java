@@ -48,9 +48,9 @@ public class AddToFolderPage extends AbstractPage {
      */
     public void clickSaveButton() {
         try {
-            waitFluentForElement(ADD_TO_FOLDER_SAVE_BUTTON).click();
+            waitForExpectedElement(ADD_TO_FOLDER_SAVE_BUTTON).click();
             waitForElementInvisible(ADD_TO_FOLDER_SAVE_BUTTON);
-            waitAndFindElement(By.cssSelector("#co_docToolbarSaveToWidget .co_dropdownTitle.is-active"));
+            waitForExpectedElement(By.cssSelector("#co_docToolbarSaveToWidget .co_dropdownTitle.is-active"));
         } catch (TimeoutException te) {
             LOG.info("Time out on trying to click the Add To Folder button", te);
             throw new PageOperationException("Exceeded time to find the Save to AddToFolder button : " + te.getMessage());
@@ -62,7 +62,7 @@ public class AddToFolderPage extends AbstractPage {
      */
     private void clickOnCreateNewFolder() {
         try {
-            waitFluentForElement(NEW_FOLDER_LINK_LOCATOR).click();
+            waitForExpectedElement(NEW_FOLDER_LINK_LOCATOR).click();
         } catch (TimeoutException te) {
             LOG.info("Time out on trying to click the Create New Folder button", te);
             throw new PageOperationException("Exceeded time to find the CreateNewFolder button : " + te.getMessage());
@@ -88,7 +88,7 @@ public class AddToFolderPage extends AbstractPage {
      */
     private void saveNewFolder() {
         try {
-            waitFluentForElement(NEW_FOLDER_SAVE_BUTTON_LOCATOR).click();
+            waitForExpectedElement(NEW_FOLDER_SAVE_BUTTON_LOCATOR).click();
             waitForElementInvisible(NEW_FOLDER_SAVE_BUTTON_LOCATOR);
         } catch (TimeoutException te) {
             LOG.info("Time out on trying to click the Save To Folder button", te);
@@ -101,7 +101,7 @@ public class AddToFolderPage extends AbstractPage {
      */
     private void selectRootFolderName() {
         try {
-            waitFluentForElement(ROOT_FOLDER_LOCATOR).click();
+            waitForExpectedElement(ROOT_FOLDER_LOCATOR).click();
         } catch (TimeoutException te) {
             LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the Root folder in New folder creation" + te.getMessage());
@@ -118,7 +118,7 @@ public class AddToFolderPage extends AbstractPage {
             throw new PageOperationException("Folder name is required");
         }
         try {
-            waitFluentForElement(NEW_FOLDER_TEXT_BOX_LOCATOR).sendKeys(folderName);
+            waitForExpectedElement(NEW_FOLDER_TEXT_BOX_LOCATOR).sendKeys(folderName);
         } catch (TimeoutException te) {
             LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the New folder text box " + te.getMessage());
@@ -136,7 +136,7 @@ public class AddToFolderPage extends AbstractPage {
         }
         try {
             if (folderPath.size() > 1) {
-                waitAndFindElement(ADD_TO_FOLDER_EXPAND_BUTTON_LOCATOR).click();
+                waitForExpectedElement(ADD_TO_FOLDER_EXPAND_BUTTON_LOCATOR).click();
                 for (WebElement folder : getExistingSubFolders()) {
                     if (folder.getText().equalsIgnoreCase(folderPath.get(1))) {
                         folder.click();
@@ -163,7 +163,7 @@ public class AddToFolderPage extends AbstractPage {
      */
     private List<WebElement> getExistingSubFolders() {
         try {
-            return waitAndFindElements(FOLDERS_LIST_LOCATOR);
+            return waitForExpectedElements(FOLDERS_LIST_LOCATOR);
         } catch (TimeoutException te) {
             LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the folders list " + te.getMessage());

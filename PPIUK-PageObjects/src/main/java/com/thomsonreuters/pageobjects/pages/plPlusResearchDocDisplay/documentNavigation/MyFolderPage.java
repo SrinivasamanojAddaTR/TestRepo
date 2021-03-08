@@ -26,7 +26,7 @@ public class MyFolderPage extends AbstractPage {
      */
     public void waitUntilFoldersLoadedFully() {
         try {
-            retryingFindElements(FOLDER_TREE_NAVIGATION_LOCATOR);
+            waitForExpectedElements(FOLDER_TREE_NAVIGATION_LOCATOR);
         } catch (TimeoutException te) {
             LOG.info("context", te);
             throw new PageOperationException("Exceeded time to load the History hover menu :" + te.getMessage());
@@ -65,7 +65,7 @@ public class MyFolderPage extends AbstractPage {
         selectRootFolderName();
         try {
             if (folderPath.size() > 1) {
-                for (WebElement ele : retryingFindElements(FOLDER_TREE_NAVIGATION_LOCATOR)) {
+                for (WebElement ele : waitForExpectedElements(FOLDER_TREE_NAVIGATION_LOCATOR)) {
                     if (ele.getText().equalsIgnoreCase(folderPath.get(1))) {
                         ele.click();
                     }
@@ -86,7 +86,7 @@ public class MyFolderPage extends AbstractPage {
      */
     private void selectRootFolderName() {
         try {
-            waitFluentForElement(ROOT_FOLDER_LOCATOR).click();
+            waitForExpectedElement(ROOT_FOLDER_LOCATOR).click();
             waitForElementInvisible(CO_FOLDERING_PROGRESS_INDICATOR);
         } catch (TimeoutException te) {
             LOG.info("context", te);
@@ -104,7 +104,7 @@ public class MyFolderPage extends AbstractPage {
      */
     public void clickOnDocumentName(String docName) {
         try {
-            retryingFindElement(By.partialLinkText(docName)).click();
+            waitForExpectedElement(By.partialLinkText(docName)).click();
         } catch (PageOperationException te) {
             LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the DocumentName" + te.getMessage());

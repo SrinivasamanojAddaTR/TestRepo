@@ -31,7 +31,7 @@ public class AddressBookPage extends AbstractPage {
     }
     
     public boolean isContactAbsent(String contactName) {
-        return waitForElementAbsent(By.xpath("//a[text()=' " + contactName + "']"));
+        return waitForElementToDissappear(By.xpath("//a[text()=' " + contactName + "']"));
     }
 
 }

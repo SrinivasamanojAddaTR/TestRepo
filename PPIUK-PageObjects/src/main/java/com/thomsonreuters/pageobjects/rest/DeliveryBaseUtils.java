@@ -1,6 +1,6 @@
 package com.thomsonreuters.pageobjects.rest;
 
-import com.google.common.base.Function;
+
 import com.google.common.base.Preconditions;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.driver.framework.WebDriverDiscovery;
@@ -15,7 +15,6 @@ import com.thomsonreuters.pageobjects.utils.pdf.PDFBoxUtil;
 import com.thomsonreuters.pageobjects.utils.plPlusResearchDocDisplay.AssetPageUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import javax.swing.text.BadLocationException;
 import java.io.File;
 import java.io.IOException;
+import java.util.function.Function;
 
 public class DeliveryBaseUtils {
 
@@ -87,14 +87,11 @@ public class DeliveryBaseUtils {
      * @return Transaction id which can be given to Status Response to check deliver status
      */
     public String getTransactionId() {
-        Function<RemoteWebDriver, String> waitCondition = new Function<RemoteWebDriver, String>() {
-            @Override
-            public String apply(RemoteWebDriver driver) {
-                String transactionId = (String) driver.executeScript("return Cobalt.Delivery.DeliveryOptionsDialog.Instance()._currentTransactionId;");
+        Function<AbstractPage, String> waitCondition = page -> {
+                String transactionId = (String) page.executeScript("return Cobalt.Delivery.DeliveryOptionsDialog.Instance()._currentTransactionId;");
                 return (transactionId != null && !transactionId.isEmpty()) ? transactionId : null;
-            }
-        };
-        return AbstractPage.waitFor(waitCondition, webDriverDiscovery.getRemoteWebDriver());
+            };
+        return AbstractPage.waitFor(waitCondition, khDocumentPage);
     }
 
     /**
@@ -119,9 +116,9 @@ public class DeliveryBaseUtils {
      */
     public File downloadViaOpenInWordAndGetDocument() {
         String fileNameScript = "($('.co_title') !== null ? $('.co_title').text() : 'Quick Draft').replace(/\\W/g, '')";
-        String fileUrl = (String) webDriverDiscovery.getRemoteWebDriver().executeScript(
+        String fileUrl = (String) khDocumentPage.executeScript(
                 "return $('.kh_standardDocumentAttachment a').attr('href') + '&imageFileName=' + " + fileNameScript + ";");
-        String fileName = (String) webDriverDiscovery.getRemoteWebDriver().executeScript(
+        String fileName = (String) khDocumentPage.executeScript(
                 "return " + fileNameScript + ";");
         return deliveryService.getFileViaHttp(fileUrl, fileName);
     }
@@ -146,13 +143,13 @@ public class DeliveryBaseUtils {
                 return (jsExecutor.executeScript("return typeof documentTabView != 'undefined' && typeof Cobalt.Url.Absolute != 'undefined';")).equals("true");
             }
         };
-        AbstractPage.waitFor(condition, webDriverDiscovery.getRemoteWebDriver());
+        AbstractPage.waitFor(condition, webDriverDiscovery.getWebDriver());
         String plcRefScript = "return documentTabView.documentData.LegacyId;";
-        String fileUrl = (String) webDriverDiscovery.getRemoteWebDriver().executeScript("return " +
+        String fileUrl = (String) khDocumentPage.executeScript("return " +
                 "Cobalt.Url.Absolute(Cobalt.Url.Page.GetDocumentInFirmStyle({" +
                 "legacyId: documentTabView.documentData.metaInformation.legacyId, " +
                 "documentGuid: documentTabView.documentData.metaInformation.docGuid})) + \"&cookie=true\";");
-        String fileName = webDriverDiscovery.getRemoteWebDriver().executeScript(plcRefScript) + ".fs.doc";
+        String fileName =khDocumentPage.executeScript(plcRefScript) + ".fs.doc";
         return deliveryService.getFileViaHttp(fileUrl, fileName);
     }
 
@@ -165,8 +162,7 @@ public class DeliveryBaseUtils {
      */
     public File downloadLawtelTranscript() {
         String href = khDocumentPage.getDocumentAttachment().getAttribute(HREF_ATTR);
-        String fileName = ((String) webDriverDiscovery.getRemoteWebDriver()
-                .executeScript("return documentTabView.ViewData.DocumentTitle;"))
+        String fileName = ((String) khDocumentPage.executeScript("return documentTabView.ViewData.DocumentTitle;"))
                 .replaceAll("\\W", ""); // Replace all non-word chars
         // Lawtel transcript - is a PDF file
         File result = deliveryService.getFileViaHttp(href, fileName + ".pdf");

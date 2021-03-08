@@ -47,7 +47,7 @@ public class DashboardWizardPage extends AbstractPage {
 	public List<String> transactionGuideNameList() {
 		waitForPageToLoadAndJQueryProcessing();
 		List<String> transactionGuideList = new ArrayList<String>();
-		for (WebElement transactionGuide : retryingFindElements(By.xpath(TRANSACTION_GUIDE_STEP + "//select/option"))) {
+		for (WebElement transactionGuide : waitForExpectedElements(By.xpath(TRANSACTION_GUIDE_STEP + "//select/option"))) {
 			transactionGuideList.add(transactionGuide.getText());
 		}
 		transactionGuideList.remove(PLEASE_SELECT_TRANSACTION_GUIDE_TEXT);
@@ -66,17 +66,17 @@ public class DashboardWizardPage extends AbstractPage {
 	}
 
 	public int getTransactionGuideDropDownCount() {
-		return retryingFindElements(By.xpath(TRANSACTION_GUIDE_STEP + "//select")).size();
+		return waitForExpectedElements(By.xpath(TRANSACTION_GUIDE_STEP + "//select")).size();
 	}
 
 	public int getCountriesDropDownCount() {
-		return retryingFindElements(By.xpath(COUNTRIES_STEP + "//select")).size();
+		return waitForExpectedElements(By.xpath(COUNTRIES_STEP + "//select")).size();
 	}
 
 	public WebElement removeSelectedParameterButton(String paramName) {
 		String jQuerySelector = "$('select').filter(function() { return $(this).val() === $(this).find(\"option:contains('"
 				+ paramName + "')\").val(); }).siblings('a')";
-		return (WebElement) getDriver.executeScript("return $(" + jQuerySelector + ").get(0);");
+		return (WebElement) executeScript("return $(" + jQuerySelector + ").get(0);");
 	}
 
 	public void removeSelectedParameter(String paramName) {
@@ -114,7 +114,7 @@ public class DashboardWizardPage extends AbstractPage {
 
 	public List<String> countriesNameList() {
 		List<String> countriesList = new ArrayList<String>();
-		for (WebElement country : retryingFindElements(By.xpath(COUNTRIES_STEP + "//select/option[text()='"
+		for (WebElement country : waitForExpectedElements(By.xpath(COUNTRIES_STEP + "//select/option[text()='"
 				+ PLEASE_SELECT_COUNTRT_TEXT + "']/parent::select/option"))) {
 			countriesList.add(country.getText());
 		}
@@ -140,7 +140,7 @@ public class DashboardWizardPage extends AbstractPage {
 
 	public List<String> areasOfEnquiryNameList() {
 		List<String> areasOfEnquiryList = new ArrayList<String>();
-		for (WebElement areaOfEnquiry : retryingFindElements(By.xpath(AREA_OF_ENQUIRY_STEP + "//select/option[text()='"
+		for (WebElement areaOfEnquiry : waitForExpectedElements(By.xpath(AREA_OF_ENQUIRY_STEP + "//select/option[text()='"
 				+ PLEASE_SELECT_AOE_TEXT + "']/parent::select/option"))) {
 			areasOfEnquiryList.add(areaOfEnquiry.getText());
 		}
@@ -173,7 +173,7 @@ public class DashboardWizardPage extends AbstractPage {
 	}
 
 	public void clickCancelButton() {
-		retryingFindElement(By.xpath("//button[contains(text(),'Cancel')]")).click();
+		waitForExpectedElement(By.xpath("//button[contains(text(),'Cancel')]")).click();
 		waitForPageToLoad();
 	}
 

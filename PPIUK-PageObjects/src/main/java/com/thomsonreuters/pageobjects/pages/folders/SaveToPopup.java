@@ -1,5 +1,6 @@
 package com.thomsonreuters.pageobjects.pages.folders;
 
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
@@ -12,6 +13,7 @@ import org.openqa.selenium.WebElement;
 public class SaveToPopup extends AbstractPage {
 
 	private PageActions pageActions;
+	private CommonMethods commonMethods = new CommonMethods();
 
     public SaveToPopup(){
         pageActions = new PageActions();
@@ -56,7 +58,7 @@ public class SaveToPopup extends AbstractPage {
 	}
 
 	public boolean isPopUpDispayed() {
-		return isElementDisplayed(getPopUp());
+		return commonMethods.isElementDisplayed(getPopUp());
 	}
 
 	public void waitFolderSelected(String folderName) {

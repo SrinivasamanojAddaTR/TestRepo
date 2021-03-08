@@ -72,7 +72,7 @@ public class SearchResultsPage extends AbstractPage {
     }
 
     public WebElement getUnderHeaderForEmailArchiveElement(){
-        return waitAndFindElement(By.cssSelector("span#categoryPageScope"));
+        return waitForExpectedElement(By.cssSelector("span#categoryPageScope"));
     }
 
     /**
@@ -98,28 +98,28 @@ public class SearchResultsPage extends AbstractPage {
      * This is the option to sort by relevance or date and this object only represents the displayed value
      */
     public WebElement sortByDropdownList() {
-        return retryingFindElement(By.cssSelector("#co_search_sortDropDownControl option[selected='selected']"));
+        return waitForExpectedElement(By.cssSelector("#co_search_sortDropDownControl option[selected='selected']"));
     }
 
     /**
      * This element is the selected option from sort by relevance or date dropdown
      */
     public WebElement sortByDropdownSelectedOption() {
-        return retryingFindElement(By.xpath("//div[@id='co_search_sortDropDownControl']//a[@id='co_search_sortOptions']//span/.."));
+        return waitForExpectedElement(By.xpath("//div[@id='co_search_sortDropDownControl']//a[@id='co_search_sortOptions']//span/.."));
     }
 
     /**
      * This element is the sort by link
      */
     public WebElement sortByDropdownLink() {
-        return retryingFindElement(By.xpath("//a[@id='co_search_sortOptions']"));
+        return waitForExpectedElement(By.xpath("//a[@id='co_search_sortOptions']"));
     }
 
     /**
      * This element is returns you the link in the dropdown options (either 'Relevancy' or 'Date')
      */
     public WebElement sortByDropDownOption(String option) {
-        return retryingFindElement(By.xpath("//div[@id='co_search_sortDropDownControl']//a[text()='" + option + "']"));
+        return waitForExpectedElement(By.xpath("//div[@id='co_search_sortDropDownControl']//a[text()='" + option + "']"));
     }
 
     /**
@@ -129,7 +129,7 @@ public class SearchResultsPage extends AbstractPage {
      */
     public String getSelectedDropDownList() {
         try {
-            return listFunctions.getSelectedValueList(retryingFindElement(By.cssSelector("div#co_search_sortDropDownControl a#co_search_sortOptions")));
+            return listFunctions.getSelectedValueList(waitForExpectedElement(By.cssSelector("div#co_search_sortDropDownControl a#co_search_sortOptions")));
         } catch (StaleElementReferenceException se) {
             LOG.info("Finding the select option dropdown item again as there is a Stale Element Exception occured.", se);
             getSelectedDropDownList();
@@ -141,7 +141,7 @@ public class SearchResultsPage extends AbstractPage {
      * This is the option to sort by relevance or date and this object gets the whole element so is the one you need when you are making a selection
      */
     public WebElement getSortDropDownList() {
-        return waitFluentForElement(By.id("co_search_sortOptions"));
+        return waitForExpectedElement(By.id("co_search_sortOptions"));
     }
 
     /**
@@ -260,7 +260,7 @@ public class SearchResultsPage extends AbstractPage {
      * indication of how many results are displayed per page
      */
     public WebElement resultsPerPageText() {
-        return retryingFindElement(By.xpath("//ol[@id='co_navigationPages']/li[1]/span"));
+        return waitForExpectedElement(By.xpath("//ol[@id='co_navigationPages']/li[1]/span"));
     }
 
     /**
@@ -281,7 +281,7 @@ public class SearchResultsPage extends AbstractPage {
      * this is the page numbering displayed at the base of the page
      */
     public WebElement pagination(String number) {
-        return retryingFindElement(By.xpath("//a[@id='co_search_footer_pagination_page" + number + "']"));
+        return waitForExpectedElement(By.xpath("//a[@id='co_search_footer_pagination_page" + number + "']"));
     }
 
     /**
@@ -326,7 +326,7 @@ public class SearchResultsPage extends AbstractPage {
      * This method gets the title of the know how search result item based on the given resultItem index on the results list.
      */
     public String getResultItem(String resultItemNumber) {
-        return retryingFindElement(By.cssSelector("#cobalt_result_knowhow_title" + resultItemNumber)).getText();
+        return waitForExpectedElement(By.cssSelector("#cobalt_result_knowhow_title" + resultItemNumber)).getText();
     }
 
     /**
@@ -967,7 +967,7 @@ public class SearchResultsPage extends AbstractPage {
      * object representing the download radio button on download delivery pop up
      */
     public WebElement downloadButton() {
-        return waitForElementToBeClickableAndReturnElement(By.xpath("//input[@id='co_deliveryDownloadButton'][@type='button']"));
+        return waitForExpectedAndClickableElement(By.xpath("//input[@id='co_deliveryDownloadButton'][@type='button']"));
     }
 
     /**
@@ -988,7 +988,7 @@ public class SearchResultsPage extends AbstractPage {
      * object representing the term highlighting checkbox on download and email delivery pop up
      */
     public WebElement termHighlightingCheckbox() {
-        return retryingFindElement(By.id("coid_chkDdcLayoutTermHighlighting"));
+        return waitForExpectedElement(By.id("coid_chkDdcLayoutTermHighlighting"));
     }
 
     /**
@@ -1095,12 +1095,12 @@ public class SearchResultsPage extends AbstractPage {
     }
 
     public WebElement readyOverlayContentMessage() {
-        return commonMethods.waitFluentForElement(By.xpath("//div[contains(@class,'co_overlayBox')]//*[contains(text(),'ready') or contains(text(), 'will')]"),
+        return commonMethods.waitForExpectedElement(By.xpath("//div[contains(@class,'co_overlayBox')]//*[contains(text(),'ready') or contains(text(), 'will')]"),
                 TIMEOUT_IN_SECONDS, POLLING_TIME_IN_MILLISECONDS);
     }
 
     public WebElement prepareOverlayContentMessage() {
-        return commonMethods.waitFluentForElement(By.xpath("//div[@id='co_deliveryWaitMessageTitle' and contains(.,'prepared')]"),
+        return commonMethods.waitForExpectedElement(By.xpath("//div[@id='co_deliveryWaitMessageTitle' and contains(.,'prepared')]"),
                 TIMEOUT_IN_SECONDS, POLLING_TIME_IN_MILLISECONDS);
     }
 
@@ -1323,7 +1323,7 @@ public class SearchResultsPage extends AbstractPage {
     }
 
     public WebElement getFirstItemIntoResultList(){
-        return waitAndFindElement(By.cssSelector("li#cobalt_search_results_knowHowPlc1 h3 a"));
+        return waitForExpectedElement(By.cssSelector("li#cobalt_search_results_knowHowPlc1 h3 a"));
     }
 
     public WebElement errorMessage() {
@@ -1343,15 +1343,15 @@ public class SearchResultsPage extends AbstractPage {
     }
 
     public void clickOnDocumentInGroupByIndex(int positionNumber, String groupName) {
-        waitForElementToBeClickableAndReturnElement(By.xpath("//*[@class='co_search_header' and text()='" + groupName + "']/following-sibling::ol/li[" + positionNumber + "]/div[@class='co_searchContent']/h3/a")).click();
+        waitForExpectedAndClickableElement(By.xpath("//*[@class='co_search_header' and text()='" + groupName + "']/following-sibling::ol/li[" + positionNumber + "]/div[@class='co_searchContent']/h3/a")).click();
     }
 
     public WebElement getDocumentLinkByName(String name){
-        return waitForElementToBeClickableAndReturnElement(By.xpath("//div[@class='co_searchContent']//a[contains(.,'" + name + "')]"));
+        return waitForExpectedAndClickableElement(By.xpath("//div[@class='co_searchContent']//a[contains(.,'" + name + "')]"));
     }
 
     public List<WebElement> getDocumentsList(){
-        return waitAndFindElements(By.xpath("//div[@class='co_searchContent']//a"));
+        return waitForExpectedElements(By.xpath("//div[@class='co_searchContent']//a"));
     }
 
     public List<WebElement> getCurrentCategoryLinks(String groupName) {
@@ -1458,10 +1458,10 @@ public class SearchResultsPage extends AbstractPage {
      * 4. Loading picture for the facets again (due to point 2 and 3 above may be go in the different order)
      */
     public void waitLoadingElementsAbsent() {
-        waitForElementAbsent(By.xpath("//div[contains(@id, 'coid_lightboxOverlay')]"));
-        waitForElementAbsent(By.xpath("//*[contains(@class, 'co_progressIndicator')]"));
-        waitForElementAbsent(By.xpath("//*[contains(@class, 'co_search_ajaxLoading')]"));
-        waitForElementAbsent(By.xpath("//*[contains(@class, 'co_progressIndicator')]"));
+        waitForElementToDissappear(By.xpath("//div[contains(@id, 'coid_lightboxOverlay')]"));
+        waitForElementToDissappear(By.xpath("//*[contains(@class, 'co_progressIndicator')]"));
+        waitForElementToDissappear(By.xpath("//*[contains(@class, 'co_search_ajaxLoading')]"));
+        waitForElementToDissappear(By.xpath("//*[contains(@class, 'co_progressIndicator')]"));
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.pages.legalUpdates;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class CalendarWidget extends AbstractPage {
 	
 	private List<String> dateOptions;
+	private CommonMethods commonMethods = new CommonMethods();
 	
 	public CalendarWidget() {
 		
@@ -94,12 +96,12 @@ public class CalendarWidget extends AbstractPage {
 	}
 	
 	public boolean isCorrectBeginOfMonthOnMiniCalendar(int dayOfWeek) {
-		return isElementDisplayed(waitForElementPresent(By.xpath("//div[@data-calendar-grid]/div/div[2]/div[" + dayOfWeek + "]/input[@value='1']")));
+		return commonMethods.isElementDisplayed(waitForElementPresent(By.xpath("//div[@data-calendar-grid]/div/div[2]/div[" + dayOfWeek + "]/input[@value='1']")));
 	}
 	
 	public boolean isCorrectEndOfMonthOnMiniCalendar(int dayOfWeek, int lastDay) {
 		List<WebElement> allRaws = getAllRowsOnMiniCalendar();
-		return isElementDisplayed(waitForElementPresent(By.xpath("//div[@data-calendar-grid]/div/div[" + allRaws.size() + "]/div[" + dayOfWeek + "]/input[@value='" + lastDay + "']")));
+		return commonMethods.isElementDisplayed(waitForElementPresent(By.xpath("//div[@data-calendar-grid]/div/div[" + allRaws.size() + "]/div[" + dayOfWeek + "]/input[@value='" + lastDay + "']")));
 	}
 	
 	public WebElement upArrowInMonthSelectMiniCalendar() {
