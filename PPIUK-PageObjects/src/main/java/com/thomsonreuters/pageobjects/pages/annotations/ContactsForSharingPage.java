@@ -33,7 +33,7 @@ public class ContactsForSharingPage extends AbstractPage {
     }
 
     public WebElement findGroup(String group) {
-        return waitForElementToBeClickableAndReturnElement(By.xpath(String.format(CHECKBOX_PATH, group)));
+        return waitForElementToBeClickable(By.xpath(String.format(CHECKBOX_PATH, group)));
     }
 
     public WebElement saveGroupButton() {

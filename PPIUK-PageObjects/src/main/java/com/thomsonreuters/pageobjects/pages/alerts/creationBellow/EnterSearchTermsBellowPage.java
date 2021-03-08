@@ -62,7 +62,7 @@ public class EnterSearchTermsBellowPage extends AbstractPage {
     }
 
     public WebElement searchTermsValidationButton() {
-        return waitFluentForElement(SEARCH_TERMS_VALIDATION_BUTTON);
+        return waitForExpectedElement(SEARCH_TERMS_VALIDATION_BUTTON);
     }
 
 

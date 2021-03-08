@@ -11,11 +11,11 @@ import com.thomsonreuters.driver.framework.AbstractPage;
 
 public class CustomizeDeliveryBellowPage extends AbstractPage {
     public WebElement emailDeliverySettingsButton() {
-        return waitAndFindElement(By.id("coid_subBellow_collapselink"));
+        return waitForExpectedElement(By.id("coid_subBellow_collapselink"));
     }
 
     public WebElement contactsMessageListItem() {
-        return waitAndFindElement(By.id("co_contacts_message"));
+        return waitForExpectedElement(By.id("co_contacts_message"));
     }
 
     public WebElement inputedEmailListItem() {
@@ -23,7 +23,7 @@ public class CustomizeDeliveryBellowPage extends AbstractPage {
     }
 
     public WebElement emailSubscribersInput() {
-        return waitAndFindElement(By.cssSelector("li.co_contacts_collector_addNew > input"));
+        return waitForExpectedElement(By.cssSelector("li.co_contacts_collector_addNew > input"));
     }
 
     public Select formatToDeliverSelect() {
@@ -35,7 +35,7 @@ public class CustomizeDeliveryBellowPage extends AbstractPage {
     }
 
     public WebElement continueDeliveryButton() {
-        return waitAndFindElement(By.id("co_button_continue_Delivery"));
+        return waitForExpectedElement(By.id("co_button_continue_Delivery"));
     }
 
     public List<WebElement> selectDeliveryCheckboxes() {
@@ -43,6 +43,6 @@ public class CustomizeDeliveryBellowPage extends AbstractPage {
     }
 
     public WebElement selectDeliveryCheckbox(String nameOfDelivery) {
-        return waitAndFindElement(By.xpath("//ul[@id='DeliveryEnableCheckboxes']/li//label[contains(text(),'" + nameOfDelivery + "')]/input"));
+        return waitForExpectedElement(By.xpath("//ul[@id='DeliveryEnableCheckboxes']/li//label[contains(text(),'" + nameOfDelivery + "')]/input"));
     }
 }

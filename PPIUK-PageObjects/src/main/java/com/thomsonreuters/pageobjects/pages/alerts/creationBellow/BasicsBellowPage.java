@@ -46,7 +46,7 @@ public class BasicsBellowPage extends AbstractPage {
     }
 
     public WebElement alertNameValidationButton() {
-        return waitFluentForElement(ALERT_NAME_VALIDATION_BUTTON);
+        return waitForExpectedElement(ALERT_NAME_VALIDATION_BUTTON);
     }
 
     public boolean isAlertNameValidationButtonDisplayed() {

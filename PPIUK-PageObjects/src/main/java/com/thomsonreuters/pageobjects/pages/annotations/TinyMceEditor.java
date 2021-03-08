@@ -45,7 +45,7 @@ public class TinyMceEditor extends AbstractPage {
     }
 
     public WebElement getTinyMceTextBox(){
-       return waitAndFindElement(By.cssSelector(TINYMCE_CONTENT));
+       return waitForExpectedElement(By.cssSelector(TINYMCE_CONTENT));
     }
 
 
@@ -129,7 +129,8 @@ public class TinyMceEditor extends AbstractPage {
      */
     public void openFormatsMenu() {
         try {
-            retryingFindElement(By.xpath("//span[text()='Formats']")).click();
+            //TODO [Phase1] verify if retryingFindElement works similar to waitForExpectedElement
+            waitForExpectedElement(By.xpath("//span[text()='Formats']")).click();
         } catch (PageOperationException te) {
             throw new PageOperationException("Unable to select the formatsMenu.");
         }
