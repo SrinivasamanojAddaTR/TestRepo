@@ -128,7 +128,7 @@ public class HomePageSteps extends BaseStepDef {
     
     @Then("^the user verifies that link '(.*)' is  not displayed on '(.*)'$")
     public void the_user_verifies_that_link_is_not_displayed_on_the_page(String link, String page) throws Throwable {
-        Assert.assertFalse("The link " + link + " is displayed on " + page, homePage.isElementPresent(By.linkText(link)));
+        Assert.assertFalse("The link " + link + " is displayed on " + page, homePage.isExists(By.linkText(link)));
     }
 
     @When("^the user clicks category link '(.*)'and topic link '(.*)' on '(.*)' page$")
@@ -220,7 +220,8 @@ public class HomePageSteps extends BaseStepDef {
     @When("^user sees the comparison page and clicks on the \"(.*?)\" button on L\\.H\\.S$")
     public void userSeesTheComparisonPageAndClicksOnTheButtonOnLHS(String edit) throws Throwable {
         homePage.waitForPageToLoadAndJQueryProcessing();
-        homePage.waitForElementVisible(homePage.comparePageCountryEditButton(), 10).click();
+        homePage.comparePageCountryEditButton().click();
+        homePage.waitForPageToLoad();
      }
 
     @Then("^user should see \"(.*?)\" popup with the list of countries$")

@@ -33,13 +33,13 @@ public class AbilityToStayOnSamePageAsOpenWebUserAfterTimeout1 extends BaseStepD
 
     @When("^the user goes to third-party site and stays there for \"(\\d+)\" seconds$")
     public void theUserGoesToThirdPartySiteAndStays(int sec) throws InterruptedException {
-        wlnHeader.goTo(thirdPartySiteUrl);
+        wlnHeader.navigate(thirdPartySiteUrl);
         TimeoutUtils.sleepInSeconds(sec);
     }
 
     @When("^the user selects a bookmark$")
     public void theUserSelectsBookmark() {
-        wlnHeader.goTo(bookmarkUrl);
+        wlnHeader.navigate(bookmarkUrl);
         wlnHeader.waitForPageToLoadAndJQueryProcessing();
     }
 

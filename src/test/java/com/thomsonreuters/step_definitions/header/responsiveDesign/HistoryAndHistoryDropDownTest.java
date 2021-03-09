@@ -36,7 +36,7 @@ public class HistoryAndHistoryDropDownTest extends BaseStepDef {
     @Then("^user clicks on recent docs view all links and should see history searches$")
     public void userClicksOnRecentSearchesViewAllLinksAndShouldSeeHistorySearches() throws Throwable {
         header.historyDocViewAllLink().click();
-        header.waitForElementVisible(header.historyHeadingTitle(), 3000);
+        header.waitForPageToLoad();
         Assert.assertTrue("History Documents page not displayed..!", header.historyHeadingTitle().getText().contains("Documents"));
     }
 

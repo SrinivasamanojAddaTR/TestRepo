@@ -109,7 +109,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
 
     @When("^the user clicks on the clientID \"(.*?)\" checkbox$")
     public void theUserClicksOnTheClientID(String facet) throws Throwable {
-        wlnHeader.waitForElementVisible(knowHowSearchResultsPage.clientIDByFacetCheckbox(facet), 2000);
+        knowHowSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
         knowHowSearchResultsPage.clientIDFacetCheckbox(facet).click();
     }
 

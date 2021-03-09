@@ -24,15 +24,15 @@ public class OnepassLogin extends AbstractPage {
     }
     
     public WebElement usernameTextField() {
-        return waitForExpectedElement(By.id("Username"));
+        return waitForExpectedElement(By.name("Username"));
     }
 
     public WebElement passwordTextField() {
-        return waitForExpectedElement(By.id("Password"));
+        return waitForExpectedElement(By.name("Password"));
     }
 
     public WebElement signOnButton() {
-        return waitForExpectedElement(By.id("SignIn"));
+        return waitForExpectedElement(By.xpath("//*[text()='Sign in' or text()='Sign In' or @id='SignIn']"));
     }
 
     public WebElement signOffLink() {

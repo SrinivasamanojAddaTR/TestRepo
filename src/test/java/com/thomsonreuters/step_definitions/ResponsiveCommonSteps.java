@@ -301,7 +301,6 @@ public class ResponsiveCommonSteps extends BaseStepDef {
         for (WebElement tab : footer.pageTabLinks()) {
             if (tab.getText().trim().contains("Topics")) {
                 tab.click();
-                header.waitForElementVisible(tab, 2000);
                 break;
             }
         }
