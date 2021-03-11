@@ -1,3 +1,4 @@
+@gold
 Feature: Annotation functionallity on the delivery widget
 
   Scenario: Verify Annotations links on Document delivery tool bar and title on mouse over
