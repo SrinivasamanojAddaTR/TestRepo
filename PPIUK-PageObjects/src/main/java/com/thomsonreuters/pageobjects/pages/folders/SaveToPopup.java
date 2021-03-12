@@ -20,7 +20,7 @@ public class SaveToPopup extends AbstractPage {
     }
 
 	public WebElement save() {
-		return waitForExpectedElement(By.xpath("//*[contains(@class, 'dropdownBox_ok') and @value='OK']"), 30);
+		return waitForExpectedElement(By.xpath("//*[contains(@class, 'dropdownBox_ok') and (@value='OK' or @value='Save')]"), 30);
 	}
 
 	public WebElement rootFolder() {
@@ -64,7 +64,7 @@ public class SaveToPopup extends AbstractPage {
 	public void waitFolderSelected(String folderName) {
 		try {
 			waitForElementVisible(By
-					.xpath("//div[@class='co_myFolders']//div[contains(@class,'co_treeFocus')]//a[.='" + folderName + "']"));
+					.xpath("//div[@class='co_myFolders']//div[contains(@class,'co_treeFocus')]//*[.='" + folderName + "']"));
 		} catch (TimeoutException e) {
 			throw new RuntimeException("New folder is not selected on Save to Folder popup");
 		}
