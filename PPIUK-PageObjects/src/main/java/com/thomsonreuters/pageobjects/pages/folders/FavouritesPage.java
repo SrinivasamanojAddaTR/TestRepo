@@ -70,7 +70,7 @@ public class FavouritesPage extends AbstractPage {
     }
     
 	public WebElement deleteFavouriteGroupButton(String name) {
-		return waitForExpectedElement(By.xpath("//span[text()='" + name + "']/ancestor::li//a[@class='co_favoriteDel']"));
+		return waitForExpectedElement(By.xpath(String.format("//a[contains(@class, 'favoriteDel') and contains(., \"%s\")]",name)));
 	}
     
 	public WebElement pageInFavourite(String pageName) {
@@ -90,7 +90,7 @@ public class FavouritesPage extends AbstractPage {
     }
     
     public WebElement deletePageFromFavourite(String pageName) {
-        return waitForExpectedElement(By.xpath("((//*[contains(@title,'" + pageName + "')])[1]/ancestor::li)[last()]//*[@class='co_favoriteDel']"));
+        return waitForExpectedElement(By.xpath(String.format("//a[contains(@class, 'favoriteDel') and contains(., \"%s\")]",pageName)));
     }
 
     public List<WebElement> favouriteGroupNames() {
