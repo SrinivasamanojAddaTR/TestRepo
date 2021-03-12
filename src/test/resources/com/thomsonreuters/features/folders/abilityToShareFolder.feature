@@ -25,7 +25,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
 
     Examples:
       | folder | parentFolder | owner        | emailToShare              |
-      | share1 | root         | ANZtestuser2 | tr-anz-tester2@yandex.com |
+      | share1 | root         | ANZtestuser2 | tr-anz-tester2@epam-email-pluk.thomsonreuters.com |
 
 
   Scenario Outline: Share with groups and endsharing

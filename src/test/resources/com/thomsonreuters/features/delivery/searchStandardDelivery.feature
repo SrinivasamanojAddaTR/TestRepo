@@ -185,7 +185,7 @@ Scenario Outline: [818824] Download document without table of contents in PDF fo
 	Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<subject>" 
 	Examples: 
 		| query	 	| subject		                                 | mailbox                            |
-		|BOOT		| Better off overall test (BOOT) |  tr-anz-tester1@yandex.com         |
+		|BOOT		| Better off overall test (BOOT) |  tr-anz-tester1@epam-email-pluk.thomsonreuters.com         |
 	 
 
 Scenario Outline: [818824][847182]Email resource link only
@@ -203,6 +203,6 @@ Scenario Outline: [818824][847182]Email resource link only
 	Then user should be presented with proper document "<title>"
 	Examples: 
 		| query	| guid  							| title									| mailbox |
-		| Share purchases 	| Ifb5c26cb995811e598dc8b09b4f043e0 | Share purchases 	|  tr-anz-tester1@yandex.com         |
+		| Share purchases 	| Ifb5c26cb995811e598dc8b09b4f043e0 | Share purchases 	|  tr-anz-tester1@epam-email-pluk.thomsonreuters.com         |
 
 

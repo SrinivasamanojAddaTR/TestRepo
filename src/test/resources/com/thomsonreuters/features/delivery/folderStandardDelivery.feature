@@ -153,7 +153,7 @@ Scenario Outline: [821556] Download document without table of contents in PDF fo
 	Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<subject>" 
 	Examples: 
 		| folder	| subject			|  mailbox |
- 		|testFolder | Financial assistance | tr-anz-tester1@yandex.com |
+ 		|testFolder | Financial assistance | tr-anz-tester1@epam-email-pluk.thomsonreuters.com |
 
 Scenario Outline: [821556][847182]  Email resource link only
 	Given the user opens <folder> folder with the set of documents
@@ -172,7 +172,7 @@ Scenario Outline: [821556][847182]  Email resource link only
 	Then user should be presented with proper document "<title>"
 	Examples: 
 		|folder		| guid  								| title		|  mailbox |
-		|testFolder | Ifb5c2817995811e598dc8b09b4f043e0 	| Financial assistance | tr-anz-tester1@yandex.com |
+		|testFolder | Ifb5c2817995811e598dc8b09b4f043e0 	| Financial assistance | tr-anz-tester1@epam-email-pluk.thomsonreuters.com |
 
 
 ###############################################################################################################
@@ -200,7 +200,7 @@ Scenario Outline: [821556][847182]  Email resource link only
     When user clicks on Email delivery option for Folder
     And the user edits the basic email options as follows
       | Table of Contents | Selected                  |
-      | To                | tr-anz-tester1@yandex.com |
+      | To                | tr-anz-tester1@epam-email-pluk.thomsonreuters.com |
     And Email button is clicked
     And user relogs in
     And the user opens testFolder folder with the set of documents

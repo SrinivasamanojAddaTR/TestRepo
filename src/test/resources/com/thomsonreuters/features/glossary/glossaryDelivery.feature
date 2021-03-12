@@ -25,7 +25,7 @@ Feature: [820474] Glossary Delivery
     Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<term> - test Word"
     Examples:
       | term       | mailbox                   |
-      | Disability | tr-anz-tester2@yandex.com |
+      | Disability | tr-anz-tester2@epam-email-pluk.thomsonreuters.com |
 
   Scenario Outline: Email glossary term - RTF format
     Given the user clicks on glossary term "<term>"
@@ -40,7 +40,7 @@ Feature: [820474] Glossary Delivery
     And user receives an email at "<mailbox>" with document in Word Processor (RTF) format and with subject " <term> - test RTF"
     Examples:
       | term       | mailbox                   |
-      | Disability | tr-anz-tester2@yandex.com |
+      | Disability | tr-anz-tester2@epam-email-pluk.thomsonreuters.com |
 
 
   Scenario Outline: Email glossary term - PDF format
@@ -57,7 +57,7 @@ Feature: [820474] Glossary Delivery
     And the document includes document body that contains text "<docText>"
     Examples:
       | term       | docText                          | mailbox                   |
-      | Disability | A disability may currently exist | tr-anz-tester2@yandex.com |
+      | Disability | A disability may currently exist | tr-anz-tester2@epam-email-pluk.thomsonreuters.com |
 
   Scenario Outline: [847182] Email glossary term - Resource Link Only format
     Given the user clicks on glossary term "<term>"
@@ -74,7 +74,7 @@ Feature: [820474] Glossary Delivery
     Then user should be presented with proper document "<term>"
     Examples:
       | term       | guid                              | mailbox                   |
-      | Disability | Ice50947ba27811e598dc8b09b4f043e0 | tr-anz-tester2@yandex.com |
+      | Disability | Ice50947ba27811e598dc8b09b4f043e0 | tr-anz-tester2@epam-email-pluk.thomsonreuters.com |
 		
 		
 		
