@@ -9,6 +9,7 @@ import com.thomsonreuters.pageobjects.rest.service.RestService;
 import com.thomsonreuters.pageobjects.utils.OnepassLoginUtils;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
+import javax.swing.text.html.HTML;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -186,7 +188,7 @@ public abstract class RestServiceImpl implements RestService {
      * @return Value of x-cobalt-pcid header
      */
     protected String getXCobaltPcId() {
-        String jsScript = "return Cobalt.Website && Cobalt.Website.Events && Cobalt.Website.Events.PageEventIdentifier;";
+        String jsScript = "return typeof Cobalt != 'undefined' ? Cobalt.Website.Events.PageEventIdentifier : window['Server/Events'].PageEventIdentifier;";
         return (String) khDocumentPage.executeScript(jsScript);
     }
 
@@ -197,7 +199,7 @@ public abstract class RestServiceImpl implements RestService {
      * @return Value of x-cobalt-rtid header
      */
     protected String getXCobaltRtId() {
-        String jsScript = "return Cobalt.Website && Cobalt.Website.Events && Cobalt.Website.Events.ResourceToken;";
+        String jsScript = "return typeof Cobalt != 'undefined' ? Cobalt.Website.Events.ResourceToken : window['Server/Events'].ResourceToken;";
         return (String) khDocumentPage.executeScript(jsScript);
     }
 
@@ -233,8 +235,7 @@ public abstract class RestServiceImpl implements RestService {
      * @return Value of x-cobalt-documentContentCacheKey
      */
     protected String getXCobaltDocumentContentCacheKey() {
-        String jsScript = "return Cobalt.Document.Provider.DocumentContentCacheKey;";
-        return (String) khDocumentPage.executeScript(jsScript);
+        return khDocumentPage.waitForElementPresent(By.id("co_documentContentCacheKey")).getAttribute(HTML.Attribute.VALUE.toString());
     }
 
     /**

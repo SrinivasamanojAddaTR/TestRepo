@@ -132,14 +132,14 @@ public class BaseScreenShotHook extends BaseStepDef {
 			if (currentUser.getProduct() != null) {
 				navigateToHomePage();
 				navigationCobalt.waitForPageToLoad();
-
 				switch (currentUser.getProduct()) {
 				case WLN:
 					element = homePage.findElement(By.linkText("Sign Off"));
+					element.click();
 					break;
 				case PLC:
-					homePage.findElement(By.xpath("//*[@id='preferences-dropdown']")).click();
-					element = homePage.findElement(By.linkText("Sign out"));
+					header.signOff();
+					LOG.info("The user is signed off from PLUK");
 					break;
 				case ANZ:
 					header.signOff();
@@ -147,11 +147,11 @@ public class BaseScreenShotHook extends BaseStepDef {
 					break;
 				case PLC_lEGACY:
 					element = homePage.findElement(By.linkText("Log out"));
+					element.click();
 					break;
 				default:
 					break;
 				}
-				element.click();
 			} else {
 				LOG.error("Current user's product is null");
 			}

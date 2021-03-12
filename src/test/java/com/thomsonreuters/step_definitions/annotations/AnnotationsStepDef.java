@@ -1320,7 +1320,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     @When("^user removes the excess input from the annotations (text|richText)$")
     public void userRemovesTheExcessInputFromTheAnnotationsText(String contentType) {
         if (contentType.equals("text")) {
-            sharedAnnotationsPage.insertContent(input.substring(0, input.length() - 2));
+            sharedAnnotationsPage.insertContent(input.substring(0, input.length() - 10));
             LOG.info("The user has removed the excess input from the annotations 'text'");
         } else if (contentType.equals("richText")) {
             sharedAnnotationsPage.insertContent(exactLengthRichText);
@@ -1436,9 +1436,12 @@ public class AnnotationsStepDef extends BaseStepDef {
         LOG.info("The user clicked on '(.+)' tab on the History page");
     }
 
-    @After("@deletionAnnotations")
+    @After(order = 100000, value="@deletionAnnotations")
     public void after() throws Throwable {
         navigationCobalt.navigateToPLCANZSpecificURL("/Document/" + guidDoc + "/View/FullText.html");
+        deliveryPage.waitForPageToLoad();
+        deliveryPage.waitForPageToLoadAndJQueryProcessing();
+        LOG.info("The user has navigated directly to the document with guid " + guidDoc);
         restServiceAnnotations.deleteAnnotations(guidDoc);
     }
 

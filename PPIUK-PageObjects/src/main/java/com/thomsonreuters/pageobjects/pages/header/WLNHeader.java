@@ -13,7 +13,7 @@ public class WLNHeader extends AbstractPage {
 
     private PageActions pageActions;
 
-    private final String USER_ICON = "//*[@id='preferences-dropdown']";
+    private final String USER_ICON = "//*[contains(@id,'website_signOffRegion')]";
     private final String FFH_DROPDOWN= "//*[contains(@id,'%sContainer')]//*[@class='co_hasTooltip co_dropdownArrowCollapsed']";
     private static final String LOGO_BY_PRODUCT_XPATH = "//a[@id='logo']//img[@alt='%s']";
     private final String RECENT_CLIENTID_LINK_PATTTERN= "//ul[@id='co_clientID_recents']//*[contains(text(),'%s')]";
@@ -381,7 +381,7 @@ public class WLNHeader extends AbstractPage {
     }
 
     public boolean isExpandedUserPreferencesDropDownMenu() {
-    	return isElementDisplayed(By.xpath("//li[@id='user_preferences']//div[@class='co_dropDownMenu th_flat js_dropDownMenu expanded']"));
+    	return isElementDisplayed(By.xpath("//li[@id='co_signOffContainer']/div[contains(@class,'globalNavDropdownBox')]"));
     }
 
     public void signInWithDifferentAccount() {

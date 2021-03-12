@@ -76,7 +76,7 @@ public class RestServiceAnnotationsImpl extends RestServiceImpl implements RestS
         LOG.info("HEADERS: " + httpHeaders);
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
         LOG.info("REQ: " + requestEntity.toString());
-        HttpEntity<AnnotationsResponse> response = getRestTemplate().exchange(requestTo, HttpMethod.GET, requestEntity, AnnotationsResponse.class);
+        HttpEntity<AnnotationsResponse> response = getRestTemplate().exchange(requestTo, HttpMethod.GET, requestEntity, AnnotationsResponse.class, new Object[0]);
         LOG.info("RESP: " + response.toString());
         LOG.info("-------------------END getAnnotations--------------------");
         return response.getBody();

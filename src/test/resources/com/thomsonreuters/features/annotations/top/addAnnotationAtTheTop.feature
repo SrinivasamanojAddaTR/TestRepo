@@ -28,6 +28,7 @@ Feature:[825682] Add annotation at the top of the document
       | userName | auAnnotationUser1 |
     When user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
+    And user added new annotation
     And adds current document to "root" folder
     And the user clicks on 'History' link on the header
     And the user clicks on 'Documents' tab on the History page

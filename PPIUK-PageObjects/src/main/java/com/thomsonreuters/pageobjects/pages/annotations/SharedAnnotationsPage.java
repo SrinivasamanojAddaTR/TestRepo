@@ -2,7 +2,6 @@ package com.thomsonreuters.pageobjects.pages.annotations;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
-import com.thomsonreuters.driver.framework.WebDriverDiscovery;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
@@ -43,7 +42,6 @@ public class SharedAnnotationsPage extends AbstractPage {
 
     private TinyMceEditor tinyMceEditor;
     private CommonMethods commonMethods;
-    private WebDriverDiscovery webDriverDiscovery;
 
     private static final Logger LOG = LoggerFactory.getLogger(SharedAnnotationsPage.class);
 
@@ -617,7 +615,7 @@ public class SharedAnnotationsPage extends AbstractPage {
 
         try {
             if (metaData != null) {
-                if (!StringUtils.isEmpty(metaData.getDate()) && !StringUtils.isEmpty(metaData.getTime()) && !StringUtils.isEmpty(metaData.getCreatedBy()) && metaData.getFontWeightValueForCreatedBy().equalsIgnoreCase("700")) {
+                if (!StringUtils.isEmpty(metaData.getDate()) && !StringUtils.isEmpty(metaData.getTime()) && !StringUtils.isEmpty(metaData.getCreatedBy()) && metaData.getFontWeightValueForCreatedBy().equalsIgnoreCase("600")) {
                     return true;
                 } else {
                     LOG.warn("Meta data is missing for annotations.");
