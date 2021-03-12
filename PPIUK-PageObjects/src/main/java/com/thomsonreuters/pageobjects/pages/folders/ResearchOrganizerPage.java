@@ -95,7 +95,7 @@ public class ResearchOrganizerPage extends AbstractPage {
     }
 
     public WebElement rootFolderLinkLeftFrame() {
-        return waitForExpectedElement(By.xpath("//a[contains(.,'s Research') and @class='co_tree_selectable co_tree_name co_tree_position--0--']"),15);
+        return waitForExpectedElement(By.xpath("//*[@id='cobalt_ro_myFolders_folderTree']//a[contains(@class,'tree_selectable') and contains(.,'s Research')]"),15);
     }
 
     public WebElement folderLinkLeftFrame(String folderName) {

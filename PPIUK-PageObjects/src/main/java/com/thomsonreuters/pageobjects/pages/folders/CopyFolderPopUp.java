@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 public class CopyFolderPopUp extends AbstractPage {
 
 	public WebElement selectFolder(String parentFolder) {
-		return waitForExpectedElement(By.xpath("//*[contains(@class,'co_copy_folderAction')]//a[.='"
+		return waitForExpectedElement(By.xpath("//*[contains(@class,'co_copy_folderAction')]//a[@title='"
 				+ parentFolder + "']"));
 	}
 

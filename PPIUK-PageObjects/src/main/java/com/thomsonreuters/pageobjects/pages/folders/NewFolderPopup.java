@@ -16,7 +16,7 @@ public class NewFolderPopup extends AbstractPage {
 
     public WebElement selectRootFolder() {
         return waitForExpectedElement(By
-                .xpath("//div[contains(@class, 'co_new_folderAction')]//div[contains(@class, 'co_listItem co_tree_position--0--') and not(contains(@class,'co_shared'))]//a[contains(@class, 'co_tree_name')]"), 15);
+                .xpath("//div[contains(@class, 'new_folderAction')]//div[contains(@class, 'listItem') and not(contains(@class,'shared'))]//a[contains(@class, 'tree_name')]"), 15);
     }
 
     public WebElement clickCancel() {

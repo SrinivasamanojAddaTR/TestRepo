@@ -20,7 +20,7 @@ public class SaveToPopup extends AbstractPage {
     }
 
 	public WebElement save() {
-		return waitForExpectedElement(By.xpath("//*[contains(@class, 'saveToDoSave')]"), 30);
+		return waitForExpectedElement(By.xpath("//*[contains(@class, 'dropdownBox_ok') and @value='OK']"), 30);
 	}
 
 	public WebElement rootFolder() {

@@ -48,7 +48,9 @@ public class FoldersUtils {
     public void openFolder(String folder) {
         researchOrganizerPage.rootFolderLinkLeftFrame().click();
         if (!folder.equals("root")) {
-            researchOrganizerPage.folderLinkLeftFrame(folder).click();
+            researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
+            researchOrganizerPage.waitForPageSourceChangedAfterClick(researchOrganizerPage.folderLinkLeftFrame(folder));
+            researchOrganizerPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(120);
         }
         waitAjaxIfNecessary();
     }
