@@ -1,15 +1,12 @@
 package com.thomsonreuters.pageobjects.utils.email;
 
-import com.google.common.base.Function;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.mail.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
+import java.util.function.Function;
 
 public class ImapsMailbox extends AbstractMailbox {
 
@@ -88,30 +85,29 @@ public class ImapsMailbox extends AbstractMailbox {
     @Override
     public Message waitForMessageWithTitle(final String title, int timeoutSeconds, int intervalSeconds) throws Throwable {
         // Wait while expected message won't be null.
-        Function<ImapsMailbox, Message> waitCondition = new Function<ImapsMailbox, Message>() {
-            @Override
-            public Message apply(ImapsMailbox mailbox) {
-                try {
-                    LOG.info("Attempt to wait a message with title: " + title);
-                    mailbox.loadNewMessages();
-                    for (Message message : mailbox.messages) {
-                        if (message.getSubject().contains(title)) {
-                            return message;
-                        }
+        //TODO [Phase3] need to verify below changes for all mail tests
+        Function<ImapsMailbox, Optional<Message>> waitCondition = mailbox -> {
+            try {
+                LOG.info("Attempt to wait a message with title: {}", title);
+                mailbox.loadNewMessages();
+                for (Message message : mailbox.messages) {
+                    if (message.getSubject().contains(title)) {
+                        return Optional.of(message);
                     }
-                    return null;
-                } catch (MessagingException e) {
-                    LOG.info("Could not load message with title: " + title, e);
-                    return null;
                 }
+                return Optional.ofNullable(null);
+            } catch (MessagingException e) {
+                LOG.info("Could not load message with title: {}", title, e);
+                return Optional.ofNullable(null);
             }
         };
-        Message expectedMessage = AbstractPage.waitFor(waitCondition, this, timeoutSeconds);
-        if (expectedMessage != null) {
-            return expectedMessage;
+        Optional<Message> expectedMessage = AbstractPage.waitFor(waitCondition, this, timeoutSeconds);
+        if (expectedMessage.isPresent()) {
+            return expectedMessage.get();
         }
-        throw new RuntimeException("The message with title '" + title + "' wasn't received in " + timeoutSeconds + " seconds");
+        throw new MessagingException("The message with title '" + title + "' wasn't received in " + timeoutSeconds + " seconds");
     }
+
 
     @Override
     public Message waitForMessageWithTitleAndSender(String title, String sender, int timeoutSeconds, int intervalSeconds) throws Throwable {

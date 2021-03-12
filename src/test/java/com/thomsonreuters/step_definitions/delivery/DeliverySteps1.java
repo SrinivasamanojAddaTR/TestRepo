@@ -19,13 +19,10 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.interactive.action.type.PDAction;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 
 import javax.mail.Message;
-import javax.swing.text.BadLocationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -59,22 +56,37 @@ public class DeliverySteps1 extends BaseStepDef {
 
     @Then("^user receives an email at \"(.*?)\" with document in (Microsoft Word|PDF|Word Processor \\(RTF\\)) format and with subject \"(.*?)\"(| and downloads the document)$")
     public void userReceivesAnEmailWithDocument(String email, String format, String subject, String download) throws Throwable {
-        Mailbox mailbox = MailboxFactory.getMailboxByEmail(email);
-        Message message = mailbox.waitForMessageWithTitle(subject, 120, 10);
-        String extension = emailMessageUtils.getAttachmentExtension(message);
-        if (format.equals("Microsoft Word")) {
-            Assert.assertTrue("File extension is not Microsoft Word: " + extension,
-                    extension.equalsIgnoreCase("doc") || extension.equalsIgnoreCase("doc"));
-        } else if (format.equals("PDF")) {
-            Assert.assertTrue("File extension is not PDF: " + extension, extension.equalsIgnoreCase("pdf"));
-        } else if (format.equals("Word Processor (RTF)")) {
-            Assert.assertTrue("File extension is not RTF: " + extension, extension.equalsIgnoreCase("rtf"));
+      //TODO [Phase3] need to verify below changes for all mail tests
+        Message message = waitAndGetReceivedEmail(email, subject);
+        File downloadedAttachment = emailMessageUtils.downloadAttachment(message);
+        String expected = null;
+        switch (format) {
+            case "Microsoft Word":
+                expected = "doc";
+                break;
+            case "PDF":
+                expected = "pdf";
+                break;
+            case "Word Processor (RTF)":
+                expected = "rtf";
+                break;
+            case "Microsoft Excel (CSV)":
+                expected = "csv";
+                break;
+            case "Microsoft Excel (XLS)":
+                expected = "xls";
+                break;
+            default:
+                break;
         }
+        Assert.assertTrue("File extension is not " + expected + ". Filename is: " + downloadedAttachment.getName(),
+                downloadedAttachment.getName().toLowerCase().endsWith(expected));
 
-        if (!download.trim().isEmpty()) {
-            downloadedFile = emailMessageUtils.downloadAttachment(message);
-        }
+    }
 
+    private Message waitAndGetReceivedEmail(String email, String subject) throws Throwable {
+        Mailbox mailbox = MailboxFactory.getParametrizedMailboxByEmail(email);
+        return mailbox.waitForMessageWithTitle(subject, 300, 10);
     }
 
     @Then("^user receives an email at \"(.*?)\" without attachments and with link to the (AU|UK) document \"(.*?)\" and with subject \"(.*?)\"$")
