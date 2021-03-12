@@ -19,7 +19,7 @@ public class NavigationCobalt  {
     
     protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(NavigationCobalt.class);
 
-    public static final By HOME_PAGE_CSS_SELECTOR = By.xpath("//*[@id='header_lower_logo']//a");
+    public static final By HOME_PAGE_CSS_SELECTOR = By.xpath("//*[@id='headerLogo']//a");
     public static final By WLN_HOME_PAGE_CSS_SELECTOR = By.id("coid_website_logo");
     private static final String PLUK_FULL_BASE_URL = System.getProperty("plukFullBaseUrl", "");
 

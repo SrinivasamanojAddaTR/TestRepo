@@ -51,7 +51,7 @@ public class WLNHeader extends AbstractPage {
     }
 
     public WebElement companyLogo() {
-        return waitForExpectedElement(By.id("logo"));
+        return waitForExpectedElement(By.id("coid_website_logo"));
     }
 
     /*
