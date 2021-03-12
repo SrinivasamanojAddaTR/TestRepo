@@ -1,28 +1,26 @@
 package com.thomsonreuters.pageobjects.common;
 
+import static java.math.BigInteger.ZERO;
 import static org.junit.Assert.assertTrue;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.thomsonreuters.driver.configuration.Hosts;
+import com.thomsonreuters.driver.framework.ScreenShots;
+import com.thomsonreuters.utils.CalendarAndDate;
+import com.thomsonreuters.utils.TimeoutUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Assert;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.Coordinates;
 import org.openqa.selenium.interactions.Locatable;
@@ -32,7 +30,7 @@ import org.openqa.selenium.remote.UselessFileDetector;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.LoggerFactory;
-
+import static java.math.BigInteger.ZERO;
 import com.google.common.base.Function;
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.WebDriverDiscovery;
@@ -995,5 +993,40 @@ public class CommonMethods {
     {
     	driver.navigate().back();
     }
-    
+    /**
+     * This method provides a possibility to perform actions in a new browser window,
+     * then closing the last opened window and returning back to a main browser window.
+     *
+     * @param mainWindowHandle a unique handle reference of the main window to return into on action completion.
+     * @param action           lambda expression or method reference to execute, returning a <T>T value
+     * @return <T>T value, returned by supplier's expression
+     */
+    public <T> T performActionsInNewWindow(String mainWindowHandle, Supplier<T> action) {
+        return performActionsInNewWindow(mainWindowHandle, action, ZERO);
+    }
+
+    /**
+     * This method provides a possibility to perform actions in a new browser window,
+     * then closing the last opened window and returning back to a main browser window.
+     *
+     * @param mainWindowHandle             a unique handle reference of the main window to return into on action completion.
+     * @param action                       lambda expression or method reference to execute, returning a <T>T value
+     * @param timeoutInSecondsBeforeAction timeout in seconds after switching to new window and before performing action
+     * @return <T>T value, returned by supplier's expression
+     */
+    private <T> T performActionsInNewWindow(String mainWindowHandle, Supplier<T> action, Number timeoutInSecondsBeforeAction) {
+        homePage.switchToLastOpenedWindow();
+        try {
+            TimeoutUtils.sleepInSeconds(timeoutInSecondsBeforeAction.intValue());
+            return action.get();
+        } catch (NoSuchWindowException ex) {
+            ScreenShots.add("Action failed in new browser window_" + CalendarAndDate.getCurrentDateAndTime(),
+                    homePage.getScreenshot());
+            throw new NoSuchWindowException("Error performing action in a new browser window \n", ex);
+        } finally {
+            homePage.close();
+            homePage.switchToWindow(mainWindowHandle);
+        }
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.thomsonreuters.step_definitions.footer;
 
+import com.thomsonreuters.pageobjects.common.CommonMethods;
+import com.thomsonreuters.pageobjects.pages.ask.AskCategoryPage;
 import com.thomsonreuters.pageobjects.pages.company.AboutCompanyPage;
 import com.thomsonreuters.pageobjects.pages.company.AboutCompanyPageTabs;
 import com.thomsonreuters.pageobjects.pages.footer.WLNFooter;
@@ -13,6 +15,7 @@ import org.assertj.core.api.SoftAssertions;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class FooterLinks1 extends BaseStepDef {
@@ -20,7 +23,8 @@ public class FooterLinks1 extends BaseStepDef {
 	private WLNFooter footer = new WLNFooter();
     private FooterUtils footerUtils = new FooterUtils();
 	private AboutCompanyPage aboutCompanyPage = new AboutCompanyPage();
-	
+	private CommonMethods commonMethods = new CommonMethods();
+	private AskCategoryPage askCategoryPage = new AskCategoryPage();
 	@Then("^user should see the \"(.*?)\" page is opened$")
     public void userShouldseethePage(String pageTitle) throws Throwable {
         assertTrue("Title " + aboutCompanyPage.getPageTitle() + " is Not contains " + pageTitle, aboutCompanyPage.getPageTitle().contains(pageTitle));
@@ -97,9 +101,11 @@ public class FooterLinks1 extends BaseStepDef {
 	}
 	
 	@Then("^user was taken to url \"(.*?)\"$")
-    public void userWasTakenTo(String expectedUrl) throws Throwable { 
-		String currentPageUrl = footer.getCurrentUrl();
-        assertTrue("User was redirected to another page", expectedUrl.equalsIgnoreCase(currentPageUrl));
+    public void userWasTakenTo(String expectedUrl) throws Throwable {
+		String currentUrl = commonMethods.performActionsInNewWindow(askCategoryPage.getWindowHandle(), () -> askCategoryPage.getCurrentUrl());
+		assertThat(currentUrl)
+				.as("The user is taken to the %s web site", currentUrl)
+				.contains(expectedUrl);
 	}
 	
 	@When("^the user clicks link '(.*?)' on footer$")
