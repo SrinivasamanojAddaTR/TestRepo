@@ -23,11 +23,11 @@ import cucumber.api.Transpose;
 import cucumber.api.java.en.Given;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,7 +54,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     private static final boolean DEFAULT_IS_VERIFY_USER_LOGGED_FOR_SKIP_LOGIN_CASE_STATE = false;
 
     private static final String ADDITIONAL_IAC_FAC_PROP_FILE_NAME = "additionalIacAndFac.properties";
-
+    private static final String USERNAME = "username";
     private static final String GRANT_ACCESS_OPTION_TEXT = "Grant";
 
     private RoutingPage routingPage;
@@ -200,16 +200,35 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 
     public void plUserIsLoggedIn(boolean isRequiredToVerifyHistoryLink) throws Throwable {
         CobaltUser plPlusUser = new CobaltUser();
-        plPlusUser.setUserName(!"None".equalsIgnoreCase(System.getProperty("username")) ? System.getProperty("username")
-                : currentUser.getUserName());
+        plPlusUser.setUserName(this.getCurrentUserName());
 
-        if ("false".equalsIgnoreCase(System.getProperty(ROUTING))) {
+        if (!BooleanUtils.toBoolean(System.getProperty(ROUTING))) {
             plPlusUser.setRouting(Routing.NONE);
         } else {
             plPlusUser.setRouting(Routing.DEFAULT);
         }
         plUserIsLoggedInWithFollowingDetails(Collections.singletonList(plPlusUser));
         LOG.info("The PL+ user is logged in");
+        if (isRequiredToVerifyHistoryLink) {
+            Assert.assertTrue(wlnHeader.isHistoryLinkPresent());
+        }
+    }
+
+    public void anzUserIsLoggedIn() throws Throwable {
+        anzUserIsLoggedIn(DEFAULT_HISTORY_LINK_VERIFICATION_STATE);
+    }
+
+    public void anzUserIsLoggedIn(boolean isRequiredToVerifyHistoryLink) throws Throwable {
+        CobaltUser plPlusUser = new CobaltUser();
+        plPlusUser.setUserName(this.getCurrentUserName());
+
+        if (!BooleanUtils.toBoolean(System.getProperty(ROUTING))) {
+            plPlusUser.setRouting(Routing.NONE);
+        } else {
+            plPlusUser.setRouting(Routing.DEFAULT);
+        }
+        anzUserIsLoggedInWithFollowingDetails(Collections.singletonList(plPlusUser));
+        LOG.info("The PL ANZ user is logged in");
         if (isRequiredToVerifyHistoryLink) {
             Assert.assertTrue(wlnHeader.isHistoryLinkPresent());
         }
@@ -226,7 +245,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         if (plPlusUser.getLoginRequired().equals("YES")) {
             login(plPlusUser);
         }
-        currentUser = plPlusUser;
+        currentUser.setCurrentUser(plPlusUser);
         LOG.info("The PL+ user has logged in with the following details after IP login");
     }
 
@@ -275,8 +294,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     public void plUserIsLoggedInWithRoutingDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
         CobaltUser plPlusUser = CobaltUser.updateMissingFields(plPlusUserList.get(0));
         if (StringUtils.isEmpty(plPlusUser.getUserName())) {
-            plPlusUser.setUserName(!"None".equalsIgnoreCase(System.getProperty("username"))
-                    ? System.getProperty("username") : ExcelFileReader.getDefaultUser());
+            plPlusUser.setUserName(this.getCurrentUserName());
         }
         applyRootingCliValueIfPresent(plPlusUser);
         loginUser(CobaltUser.updateMissingFields(plPlusUserList.get(0)));
@@ -295,8 +313,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     public void plUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
         CobaltUser plPlusUser = CobaltUser.updateMissingFields(plPlusUserList.get(0));
         if (StringUtils.isEmpty(plPlusUser.getUserName())) {
-            plPlusUser.setUserName(!"None".equalsIgnoreCase(System.getProperty("username"))
-                    ? System.getProperty("username") : ExcelFileReader.getDefaultUser());
+            plPlusUser.setUserName(this.getCurrentUserName());
         }
         doRouting(CobaltUser.updateMissingFields(plPlusUserList.get(0)));
         plcHomePage.waitForPageToLoadAndJQueryProcessing();
@@ -307,6 +324,10 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     public void plUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList, String baseUrl) throws Throwable {
         System.setProperty("plcukProductBase", baseUrl);
         plUserIsApplyingRoutingWithoutLogin(plPlusUserList);
+    }
+
+    private String getCurrentUserName() {
+        return !"None".equalsIgnoreCase(System.getProperty(USERNAME)) ? System.getProperty(USERNAME) : StringUtils.defaultIfEmpty(User.getInstance().getUserName(), ExcelFileReader.getDefaultUser());
     }
 
     protected void loginUser(CobaltUser plPlusUser) throws InterruptedException, IOException {
@@ -320,7 +341,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
             if (isVerifyUserLoggedForSkipLoginCase) {
                 wlnHeader.waitForPageToLoad();
                 LOG.info("---------------------------------BEGIN-------------------------------");
-                if (wlnHeader.isSignInLinkPresentWithoutWait() & !wlnHeader.isHistoryLinkPresent()) {
+                if (wlnHeader.isSignInLinkPresentWithoutWait() && !wlnHeader.isHistoryLinkPresent()) {
                     LOG.info("User not logged in");
                     resetCurrentUser();
                     LOG.info("Reset user and log in again");
@@ -357,8 +378,9 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                 closeWelcomeDialog();
             }
         }
-        currentUser = plPlusUser;
+        currentUser.setCurrentUser(plPlusUser);
         LOG.info("The user has logged in");
+        logSessionID();
     }
 
     private void loginLegacySite(CobaltUser plPlusUser) {
@@ -406,10 +428,11 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The welcome dialog has closed");
     }
 
-    protected String getPasswordForPlPlusUser(String userName) throws IOException, InterruptedException {
-        String overriddenUserName = System.getProperty("username");
-        if (overriddenUserName != null && userName.equals(overriddenUserName)) {
-            return org.apache.commons.lang.StringUtils.defaultIfEmpty(System.getProperty("password"), ExcelFileReader.getCobaltPassword(userName));
+    protected String getPasswordForPlPlusUser(String userName) {
+        String overriddenUserName = System.getProperty(USERNAME);
+        if (userName.equals(overriddenUserName) || StringUtils.equals(userName, User.getInstance().getUserName())) {
+            return StringUtils.defaultIfEmpty(StringUtils.defaultIfEmpty(System.getProperty("password"),
+                    User.getInstance().getPassword()), ExcelFileReader.getCobaltPassword(userName));
         }
         return ExcelFileReader.getCobaltPassword(userName);
     }
@@ -1233,7 +1256,6 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     protected void newSession(CobaltUser user) throws IOException, InterruptedException {
         signOff(user);
         onepassLogin.deleteAllCookies();
-        ExcelFileReader.unlockUser(currentUser.getUserName());
         LOG.info("New Session Created");
     }
 
@@ -1241,16 +1263,14 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("Current user relogs in");
         signOff(currentUser);
         onepassLogin.deleteAllCookies();
-        ExcelFileReader.unlockUser(currentUser.getUserName());
-        CobaltUser plPlusUser = currentUser;
+        CobaltUser plPlusUser = cloneCurrentUserObject();
         resetCurrentUser();
         loginUser(plPlusUser);
         LOG.info("Current user has reloged in");
     }
 
     public void userLogsInWithUsername() throws Throwable {
-        String userName = (!"None".equalsIgnoreCase(System.getProperty("username")) ? System.getProperty("username")
-                : ExcelFileReader.getDefaultUser());
+        String userName = this.getCurrentUserName();
         onepassLogin.usernameTextField().sendKeys(userName);
         String password = getPasswordForPlPlusUser(userName);
         onepassLogin.passwordTextField().clear();
@@ -1373,7 +1393,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
             throws InterruptedException, IOException {
         CobaltUser plPlusUser = updateFieldsForPlPlusUser(plPlusUserList.get(0));
         login(plPlusUser);
-        currentUser = plPlusUser;
+        currentUser.setCurrentUser(plPlusUser);
     }
 
     public void userEntersUsernameAndPasswordOnLoginPage(@Transpose List<CobaltUser> plPlusUserList)
@@ -1381,14 +1401,13 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         CobaltUser plPlusUser = updateFieldsForPlPlusUser(plPlusUserList.get(0));
         onepassLoginUtils.enterUserNameAndPassword(plPlusUser.getUserName(),
                 getPasswordForPlPlusUser(plPlusUser.getUserName()));
-        currentUser = plPlusUser;
+        currentUser.setCurrentUser(plPlusUser);
     }
 
     protected CobaltUser updateFieldsForPlPlusUser(CobaltUser plPlusUser) {
         CobaltUser.updateMissingFields(plPlusUser);
         if (StringUtils.isEmpty(plPlusUser.getUserName())) {
-            plPlusUser.setUserName(!"None".equalsIgnoreCase(System.getProperty("username"))
-                    ? System.getProperty("username") : ExcelFileReader.getDefaultUser());
+            plPlusUser.setUserName(this.getCurrentUserName());
             CobaltUser.updateMissingFields(plPlusUser);
         }
         return plPlusUser;
@@ -1410,5 +1429,10 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                 && (StringUtils.isEmpty(mandatoryRouting) || mandatoryRouting.equals("NO"))) {
             plPlusUser.setRouting(Routing.NONE);
         }
+    }
+
+    private void logSessionID() {
+        String sessionId = StringUtils.defaultIfBlank(getSessionIDFromUI(), "user is not on PLC page");
+        LOG.info("Session ID : {}", sessionId);
     }
 }

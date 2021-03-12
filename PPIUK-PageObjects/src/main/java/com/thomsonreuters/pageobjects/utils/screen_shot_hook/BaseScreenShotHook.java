@@ -1,9 +1,10 @@
 package com.thomsonreuters.pageobjects.utils.screen_shot_hook;
 
 import com.thomsonreuters.driver.framework.ScreenShots;
-import com.thomsonreuters.pageobjects.common.ExcelFileReader;
 import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.pages.fastDraft.Header;
+import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceFFHImpl;
 import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
@@ -35,6 +36,7 @@ public class BaseScreenShotHook extends BaseStepDef {
 	private PageActions pageActions = new PageActions();
 	private NavigationCobalt navigationCobalt = new NavigationCobalt();
 	private HomePage homePage = new HomePage();
+	private WLNHeader header = new WLNHeader();
 
 	public void deleteCookies() {
 		LOG.info("Deleting cookies");
@@ -140,8 +142,8 @@ public class BaseScreenShotHook extends BaseStepDef {
 					element = homePage.findElement(By.linkText("Sign out"));
 					break;
 				case ANZ:
-					pageActions.mouseOver(homePage.findElement(By.xpath("//*[@id='preferences-dropdown']")));
-					element = homePage.findElement(By.linkText("Sign out"));
+					header.signOff();
+					LOG.info("The user is signed off from ANZ");
 					break;
 				case PLC_lEGACY:
 					element = homePage.findElement(By.linkText("Log out"));
@@ -157,7 +159,6 @@ public class BaseScreenShotHook extends BaseStepDef {
 			LOG.error("Sign-Off link not found");
 		} finally {
 			deleteCookies();
-			ExcelFileReader.unlockUser(currentUser.getUserName());
 		}
 	}
 

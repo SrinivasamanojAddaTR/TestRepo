@@ -1,6 +1,7 @@
 package com.thomsonreuters.runners;
 
 import com.thomsonreuters.pageobjects.common.BaseCucumberTestRunner;
+import com.thomsonreuters.pageobjects.utils.User;
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;
 import cucumber.api.junit.Cucumber;
@@ -22,9 +23,9 @@ public class RunAnnotationsCommonTest extends BaseCucumberTestRunner {
 
     @BeforeClass
     public static void reporting() {
-        if (System.getProperty("username").equals("None")) {
-            System.setProperty("username", "auAnnotationUser3");
-            System.setProperty("password", "Password1");
+        if (System.getProperty("username", "None").equals("None")) {
+            User.getInstance().setUserName("auAnnotationUser3");
+            User.getInstance().setPassword("Password1");
             LOG.info("The credentials have been set");
         } else {
             LOG.info("Username is pre-defined in the Run Command as: " + System.getProperty("username"));

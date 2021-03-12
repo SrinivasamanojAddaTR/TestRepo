@@ -2,6 +2,7 @@ package com.thomsonreuters.pageobjects.utils;
 
 import com.thomsonreuters.pageobjects.common.ExcelFileReader;
 import org.slf4j.Logger;
+import org.springframework.util.ReflectionUtils;
 
 public class CobaltUser {
 
@@ -18,6 +19,8 @@ public class CobaltUser {
     private String email;
     private String sessionId;
 
+    private static ThreadLocal<CobaltUser> firstUser = new ThreadLocal<>();
+
     public CobaltUser() {
         this.product = Product.PLC;
         this.role = "DEFAULT_USER";
@@ -26,15 +29,32 @@ public class CobaltUser {
         this.clientId = "TEST01";
     }
 
+    public static void removeFirstUser() {
+        firstUser.remove();
+    }
+
     public static CobaltUser firstUser() {
-        CobaltUser cobaltUser = new CobaltUser();
-        cobaltUser.setRole(null);
-        cobaltUser.setProduct(null);
-        cobaltUser.setUserName(null);
-        cobaltUser.setRouting(null);
-        cobaltUser.setClientId(null);
-        cobaltUser.setEmail(null);
-        return cobaltUser;
+        if (firstUser.get() == null) {
+            CobaltUser cobaltUser = new CobaltUser();
+            cobaltUser.reset();
+            firstUser.set(cobaltUser);
+        }
+        return firstUser.get();
+    }
+
+    public void reset() {
+        this.setRole(null);
+        this.setProduct(null);
+        this.setUserName(null);
+        this.setRouting(null);
+        this.setClientId(null);
+        this.setEmail(null);
+        this.setSessionId(null);
+    }
+
+    public void setCurrentUser(CobaltUser user) {
+        CobaltUser userDest = firstUser.get();
+        ReflectionUtils.shallowCopyFieldState(user, userDest);
     }
 
     public static CobaltUser updateMissingFields(CobaltUser scenarioUser) {
@@ -42,8 +62,7 @@ public class CobaltUser {
             scenarioUser.setProduct(Product.PLC);
         }
 		if (null == scenarioUser.getEmail()) {
-			scenarioUser.setEmail("" != ExcelFileReader.getCobaltEmail(scenarioUser.getUserName()) ? ExcelFileReader
-					.getCobaltEmail(scenarioUser.getUserName()) : "test_user@mailinator");
+			scenarioUser.setEmail(!"".equals(ExcelFileReader.getCobaltEmail(scenarioUser.getUserName())) ? ExcelFileReader.getCobaltEmail(scenarioUser.getUserName()) : "test_user@mailinator");
 		}
         if(null == scenarioUser.role){
             scenarioUser.setRole("DEFAULT_USER");

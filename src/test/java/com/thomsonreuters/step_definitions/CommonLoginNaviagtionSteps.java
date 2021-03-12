@@ -11,7 +11,6 @@ import cucumber.api.java.en.When;
 import org.springframework.util.StringUtils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -89,9 +88,7 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 
 	@Given("^ANZ user is logged in$")
 	public void anzUserIsLoggedIn() throws Throwable {
-        List<CobaltUser> plPlusUserList = new ArrayList<>();
-        plPlusUserList.add(new CobaltUser());
-        super.anzUserIsLoggedInWithFollowingDetails(plPlusUserList);
+        super.anzUserIsLoggedIn();
 	}
 
 	@Given("^ANZ user is not logged in$")
@@ -183,13 +180,4 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 		resetCurrentUser();
 	}
 
-	@Override
-	protected CobaltUser updateFieldsForPlPlusUser(CobaltUser plPlusUser) {
-		if (StringUtils.isEmpty(plPlusUser.getUserName())) {
-			plPlusUser.setUserName(!"None".equalsIgnoreCase(System.getProperty("username"))
-					? System.getProperty("username") : ExcelFileReader.getDefaultUser());
-			CobaltUser.updateMissingFields(plPlusUser);
-		}
-		return plPlusUser;
-	}
 }

@@ -4,31 +4,36 @@ package com.thomsonreuters.pageobjects.utils;
  * Created by UC186961 on 02/09/2015.
  */
 public class User {
-    private String firstName;
-    private String lastName;
+    private String userName;
+    private String password;
+    private static ThreadLocal<User> users = new ThreadLocal<>();
 
-    public User(String annUserFirstName, String annUserLastName) {
-        this.firstName = annUserFirstName;
-        this.lastName = annUserLastName;
+    public static User getInstance() {
+        if (users.get() == null) {
+            users.set(new User());
+        }
+
+        return users.get();
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void remove() {
+        users.remove();
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public String getPassword() {
+        return password;
     }
 
-    public String getFullName() {
-        return firstName+" "+lastName;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
 }

@@ -11,7 +11,7 @@
     <description>PPI ANZ Tests</description>
 
     <properties>
-        <surefire.fork.count>15</surefire.fork.count>
+        <surefire.thread.count>15</surefire.thread.count>
         <driverType>firefox</driverType>
         <chromeDriverPath>${basedir}\src\main\resources\drivers\chromedriver.exe</chromeDriverPath>
         <ieDriverPath>${basedir}\src\main\resources\drivers\IEDriverServer.exe</ieDriverPath>
@@ -140,7 +140,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
-                    <forkCount>${surefire.fork.count}</forkCount>
+                    <shutdown>exit</shutdown>
+                    <parallel>classes</parallel>
+                    <threadCount>${surefire.thread.count}</threadCount>
+                    <forkMode>never</forkMode>
+                    <forkCount>0</forkCount>
                     <reuseForks>false</reuseForks>
                     <argLine>-Duser.language=en</argLine>
                     <argLine>-Xmx1024m</argLine>
@@ -181,7 +185,7 @@
         <dependency>
             <groupId>com.thomsonreuters.pageobjects</groupId>
             <artifactId>ppiuk-pageobjects</artifactId>
-            <version>21.3.3b</version>
+            <version>21.3.4b</version>
         </dependency>
     </dependencies>
 

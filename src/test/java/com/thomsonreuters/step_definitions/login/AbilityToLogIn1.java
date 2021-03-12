@@ -44,7 +44,7 @@ public class AbilityToLogIn1 extends BaseStepDef {
 
     @Then("^the user is able to sign in with OnePass$")
     public void theUserIsAbleToSignInWithOnePass(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
-        currentUser = CobaltUser.updateMissingFields(plPlusUserList.get(0));
+        currentUser.setCurrentUser(CobaltUser.updateMissingFields(plPlusUserList.get(0)));
         onepassLoginUtils.loginToCobalt(currentUser.getUserName(), ExcelFileReader.getCobaltPassword(currentUser.getUserName()));
         practicalLawHomepage.waitForPageToLoadAndJQueryProcessing();
     }

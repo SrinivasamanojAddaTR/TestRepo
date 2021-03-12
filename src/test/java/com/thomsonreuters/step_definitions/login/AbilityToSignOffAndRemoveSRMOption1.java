@@ -41,7 +41,7 @@ public class AbilityToSignOffAndRemoveSRMOption1 extends BaseStepDef {
     public void userSelectsTheOptionToForgetTheRememberMeCookie() throws Throwable {
     	onePassLogoutPage.signInWithDifferentAccountLink().click();
         practicalLawHomepage.waitForPageToLoad();
-        currentUser = new CobaltUser();
+        currentUser.setCurrentUser(new CobaltUser());
     }
 
     @Then("^the next time that he tries to connect to PL\\+$")

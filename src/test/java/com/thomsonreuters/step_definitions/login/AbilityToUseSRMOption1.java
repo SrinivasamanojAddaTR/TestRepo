@@ -67,7 +67,7 @@ public class AbilityToUseSRMOption1 extends BaseStepDef {
     @Then("^when the user logs out$")
     public void whenTheUserLogsOut() throws Throwable {
         wlnHeader.signOff();
-        currentUser = new CobaltUser();
+        currentUser.setCurrentUser(new CobaltUser());
         onepassLogin.waitForPageToLoadAndJQueryProcessing();
     }
 

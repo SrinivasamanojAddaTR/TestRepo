@@ -49,21 +49,21 @@ public class CommonLoginSteps extends BaseStepDef {
     public void removeSRMOptionANZ() throws IOException, InterruptedException {
         navigationCobalt.navigateToPLANZPlus();
         practicalLawHomepage.waitForPageToLoad();
-        currentUser = onePassLoginUtils.removeSRMOption();
+        currentUser.setCurrentUser(onePassLoginUtils.removeSRMOption());
     }
     
     @After(order = 40000, value = "@RemoveSRMOptionUK")
     public void removeSRMOptionUK() throws IOException, InterruptedException {
         navigationCobalt.navigateToPLUKPlus();
         practicalLawHomepage.waitForPageToLoad();
-        currentUser = onePassLoginUtils.removeSRMOption();
+        currentUser.setCurrentUser(onePassLoginUtils.removeSRMOption());
     }
 
     @When("^a PPI user enter its username and password$")
     public void aPPIUserEnterItsUsernameAndPassword(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
         CobaltUser plPlusUser = CobaltUser.updateMissingFields(plPlusUserList.get(0));
         onePassLoginUtils.enterUserNameAndPassword(plPlusUser.getUserName(), ExcelFileReader.getCobaltPassword(plPlusUser.getUserName()));
-        currentUser = plPlusUser;
+        currentUser.setCurrentUser(plPlusUser);
     }
 
     @When("^clicks on Sign in$")
