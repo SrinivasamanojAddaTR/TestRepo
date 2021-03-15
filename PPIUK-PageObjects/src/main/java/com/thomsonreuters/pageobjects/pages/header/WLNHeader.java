@@ -240,6 +240,14 @@ public class WLNHeader extends AbstractPage {
         return waitForExpectedElement(By.linkText(defaultClientID));
     }
 
+    public void closePrivacyNoticePopup() {
+        By privacyPolicySelector = By.cssSelector(".icon25.icon_close_x");
+        if (isElementDisplayed(privacyPolicySelector)) {
+            waitForExpectedElement(privacyPolicySelector).click();
+            waitForElementToDissappear(privacyPolicySelector);
+        }
+    }
+
     public WebElement clientIdLink() {
         expandUserAvatarDropDown();
         return waitForExpectedElement(By.id("co_clientID_recent_0"));

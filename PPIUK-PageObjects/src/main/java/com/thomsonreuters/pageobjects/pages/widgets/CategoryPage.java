@@ -20,7 +20,7 @@ public class CategoryPage extends AbstractPage {
 	private WebElement activeElement;
 	private LayoutGroup activeLayoutGroup;
 	private int layoutGroupCount;
-
+	private static final String LINK_TEXT_OF_CLAUSE_PATTERN = "//*[@id='co_body']//a[contains(.,%s)]";
 	public enum Column {
 		Left(By.id("coid_website_browseMainColumn")), Main(By.id("coid_website_browseMainColumn")), Right(By
 				.id("coid_website_browseRightColumn"));
@@ -215,10 +215,10 @@ public class CategoryPage extends AbstractPage {
 
 	public void openPageByText(String pageName) {
 		waitForPageToLoadAndJQueryProcessing();
-		LOG.info("Open page '" + pageName + "'");
+		LOG.info("Open page '{}'", pageName);
 		waitForPageToLoadAndJQueryProcessing();
 		String text = Quotes.escape(pageName);
-	    scrollIntoViewAndClick(waitForExpectedElement(By.xpath("//*[@id='co_body']//a[text()=" + text + "]")));
+		scrollIntoViewAndClick(waitForExpectedElement(By.xpath(String.format(LINK_TEXT_OF_CLAUSE_PATTERN, text))));
 		waitForPageToLoadAndJQueryProcessing();
 	}
 	
