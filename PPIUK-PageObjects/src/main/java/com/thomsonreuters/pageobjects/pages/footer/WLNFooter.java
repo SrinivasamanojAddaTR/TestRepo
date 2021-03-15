@@ -14,6 +14,8 @@ import java.util.List;
 
 public class WLNFooter extends AbstractPage {
 
+    private static final String SIGN_IN_LINK = "Sign In";
+
     public WLNFooter() {
     }
 
@@ -22,7 +24,7 @@ public class WLNFooter extends AbstractPage {
     }
     
     public WebElement signInLink() {
-        return waitForExpectedElement(By.linkText("Sign in"));
+        return waitForExpectedElement(By.linkText(SIGN_IN_LINK));
       }
 
     public WebElement footerWidget() {
@@ -106,7 +108,7 @@ public class WLNFooter extends AbstractPage {
     }
     
     public boolean isSignInLinkPresent() {
-    	return isElementDisplayed(By.linkText("Sign in"));
+    	return isElementDisplayed(By.linkText(SIGN_IN_LINK));
     }
     
     public List<WebElement> footerByColumnLinks(String columnHeading) {

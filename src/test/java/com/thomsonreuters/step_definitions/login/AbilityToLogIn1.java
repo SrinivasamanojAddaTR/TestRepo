@@ -49,9 +49,9 @@ public class AbilityToLogIn1 extends BaseStepDef {
         practicalLawHomepage.waitForPageToLoadAndJQueryProcessing();
     }
 
-    @Then("^Sign On link is not shown to user$")
-    public void signOnLinkIsNotShownToUser() throws Throwable {
-        assertFalse("Sign On link is visible", wlnHeader.isSignInLinkPresent());
+    @Then("^profile icon is shown to user$")
+    public void isProfileIconPresent() {
+        assertTrue("Profile icon is not visible.", wlnHeader.isUserAvatarIconPresent());
     }
 
     @Then("^the user clicks on Sign In link on the footer$")

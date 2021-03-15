@@ -6,7 +6,7 @@ Feature: [850067] Not logged in user can log in as username and password
     And the user clicks on Sign On link on the header
     Then the user is able to sign in with OnePass
      | userName | AUtestuser14 |
-    And Sign On link is not shown to user
+    And profile icon is shown to user
     And Sign In link is not shown to user
 
   Scenario: [850067] As a not logged in user I want to use Sign In link on the footer to login.
@@ -16,4 +16,4 @@ Feature: [850067] Not logged in user can log in as username and password
     Then the user is able to sign in with OnePass
       | userName | AUtestuser14 |
     And Sign In link is not shown to user
-    And Sign On link is not shown to user
+    And profile icon is shown to user
