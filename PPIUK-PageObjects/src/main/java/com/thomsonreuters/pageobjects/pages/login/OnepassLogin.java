@@ -16,7 +16,7 @@ public class OnepassLogin extends AbstractPage {
 	}
     
     public boolean isOnePassValidationErrorDisplayed(String usernameValidationError) {
-		return isTextPresent(By.xpath("//div[@id='errorMessageContainer']/span"), usernameValidationError);
+        return isTextPresent(By.xpath("//span[contains(@class, 'Icon-wrapper')]//following-sibling::span"), usernameValidationError);
 	}
     
     public WebElement manageOnePassLoginFormTitle() {

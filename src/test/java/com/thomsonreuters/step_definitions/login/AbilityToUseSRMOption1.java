@@ -2,6 +2,7 @@ package com.thomsonreuters.step_definitions.login;
 
 import com.thomsonreuters.pageobjects.common.ExcelFileReader;
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.pages.footer.WLNFooter;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
@@ -24,6 +25,7 @@ public class AbilityToUseSRMOption1 extends BaseStepDef {
 
     private OnepassLogin onepassLogin = new OnepassLogin();
     private WLNHeader wlnHeader = new WLNHeader();
+    private WLNFooter wlnFooter = new WLNFooter();
 	private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
     private OnepassLoginUtils onepassLoginUtils = new OnepassLoginUtils();
     private PracticalLawHomepage practicalLawHomepage = new PracticalLawHomepage();
@@ -90,7 +92,7 @@ public class AbilityToUseSRMOption1 extends BaseStepDef {
 
     @Then("^he will be automatically authenticated$")
     public void heWillBeAutomaticallyAuthenticated() throws Throwable {
-        assertFalse("User is not logged in", wlnHeader.isSignInLinkPresent());
+        assertFalse("User is not logged in", wlnFooter.isSignInLinkPresent());
     }
 
     @Then("^he will not see the Log in page$")

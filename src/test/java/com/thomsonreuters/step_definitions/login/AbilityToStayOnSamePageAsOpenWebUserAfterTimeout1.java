@@ -1,5 +1,6 @@
 package com.thomsonreuters.step_definitions.login;
 
+import com.thomsonreuters.pageobjects.pages.footer.WLNFooter;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class AbilityToStayOnSamePageAsOpenWebUserAfterTimeout1 extends BaseStepDef {
 
     private WLNHeader wlnHeader = new WLNHeader();
+    private WLNFooter wlnFooter = new WLNFooter();
     private PracticalLawHomepage practicalLawHomepage = new PracticalLawHomepage();
     private StandardDocumentUtils standartDocumentUtils = new StandardDocumentUtils();
     private String expectedPageTitle;
@@ -130,7 +132,7 @@ public class AbilityToStayOnSamePageAsOpenWebUserAfterTimeout1 extends BaseStepD
         String currentPageTitle = practicalLawHomepage.getPageTitle();
         assertTrue("User was redirected to another page after new session from page was started",
                 expectedPageTitle.equals(currentPageTitle));
-        assertTrue("User is not logged in", !wlnHeader.isSignInLinkPresent());
+        assertTrue("User is not logged in", !wlnFooter.isSignInLinkPresent());
     }
 
     @Then("^user gets redirected to the (?:document|search|category) page on (first|second) tab that he was visiting and is logged in$")
