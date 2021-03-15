@@ -37,7 +37,7 @@ public class DocumentDeliveryPage extends DocumentNavigationPage {
 
     public enum Links {
         NEW_ANNOTATION(By.xpath("//*[@id='co_AddNewAnnotationWidget']"),"New Annotation"),
-        SHOW_HIDE_ANNOTATIONS(By.cssSelector("//*[@id='co_ToggleAnnotationWidget']"),"Show Annotation/Hide Annotation");
+        SHOW_HIDE_ANNOTATIONS(By.xpath("//*[@id='co_ToggleAnnotationWidget']"),"Show Annotation/Hide Annotation");
         private By locator;
         private String toolTipText;
 

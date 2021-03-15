@@ -818,7 +818,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^the user moves the mouse over on add annotations link$")
     public void theUserMovesTheMouseOverOnAddAnnotationsLink() throws Throwable {
-        deliveryPage.mouseOverOnLink(DocumentDeliveryPage.Links.NEW_ANNOTATION);
+        commonMethods.mouseOver(deliveryPage.newAnnotationButton());
         LOG.info("The user has moved the mouse over add annotations link");
     }
 

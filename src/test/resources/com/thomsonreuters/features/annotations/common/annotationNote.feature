@@ -22,7 +22,7 @@ Feature:[825696][825697] Annotation note: Highlight text, copy with or without r
     And user looks through the body of the document and select text with Copy without reference option
     And the user has accessed annotations text box
     And user copies text from clipboard to annotation text box
-    Then user checks that text was copied without reference and equals "victimisation"
+    Then user checks that text was copied without reference and equals "This note examines age discrimination in employment under the Age Discrimination Act 2004 (Cth). It covers direct and indirect age discrimination, vicarious liability of an employer in an age discrimination claim, victimisation of an employee in an age discrimination claim, and the exemptions under the Age Discrimination Act 2004 (Cth) when discrimination will not be unlawful."
 
 
   Scenario: Checking that user can copy with reference
@@ -33,4 +33,4 @@ Feature:[825696][825697] Annotation note: Highlight text, copy with or without r
     And user looks through the body of the document and select text with Copy with reference option
     And the user has accessed annotations text box
     And user copies text from clipboard to annotation text box
-    Then user checks that text was copied with reference and equals "victimisation  Age discrimination: overview of the Age Discrimination Act 2004 (Cth), Practical Law ANZ Practice Note w-001-4954"
+    Then user checks that text was copied with reference and equals "This note examines age discrimination in employment under the Age Discrimination Act 2004 (Cth). It covers direct and indirect age discrimination, vicarious liability of an employer in an age discrimination claim, victimisation of an employee in an age discrimination claim, and the exemptions under the Age Discrimination Act 2004 (Cth) when discrimination will not be unlawful.  Overview of federal age discrimination, Practical Law ANZ Practice Note w-001-4954"

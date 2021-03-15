@@ -39,6 +39,9 @@ public class SharedAnnotationsPage extends AbstractPage {
     private By IFRAME_LOCATOR = By.cssSelector("div.co_dropdownBoxExpanded .co_richEditor.co_noteArea.mce-content-body");
     private int urlFindingCount = 0;
     private By SAVE_INLINE_BUTTON = By.xpath("//div[@id='co_dropdownBody_1000']//input[@value='Save']");
+    private static final By INLINE_NOTES = By.cssSelector("span.co_noteHolderActive>div.co_hideState+a[title='Minimize']");
+    private static final String HIGHLIGHTED_TEXT_XPATH = "//span[contains(@class, '%s') and contains(@class, 'co_selection')]";
+
 
     private TinyMceEditor tinyMceEditor;
     private CommonMethods commonMethods;
@@ -285,7 +288,7 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     public boolean isHighlightedTextPresent(String colour) {
-        return isExists(By.xpath("//span[@class='co_hl " + colour + " co_selection_0']"));
+        return isExists(By.xpath(String.format(HIGHLIGHTED_TEXT_XPATH, colour)));
     }
 
     public void clickOnHighlightedText(String colour) {
@@ -301,7 +304,7 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     public WebElement getHightlightedText(String colour) {
-        return waitForExpectedElement(By.xpath("//span[@class='co_hl " + colour + " co_selection_0']"));
+        return waitForExpectedElement(By.xpath(String.format(HIGHLIGHTED_TEXT_XPATH, colour)));
     }
 
     public String getClipBoard() {
@@ -451,12 +454,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      * @return int
      */
     private int getInlineNotesCount() {
-        try {
-            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
-            return waitForExpectedElements(By.cssSelector("span.co_noteHolderActive>div.co_hideState+a[title='Minimize']")).size();
-        } catch (PageOperationException poe) {
-        }
-        return 0;
+        return isElementDisplayed(INLINE_NOTES) ? waitForExpectedElements(INLINE_NOTES).size() : 0;
     }
 
     /**
@@ -1041,26 +1039,27 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
     
     public void selectTextFromDocument() {
-//      Actions select = new Actions(getDriver);
-//      select.doubleClick(getTextFromDocument()).build().perform();
-      WebElement el = getTextFromDocument();
-      el.click();
-      el.sendKeys(Keys.SHIFT,Keys.UP);
-      el.click();
-//      getDriver.getMouse().doubleClick(((Locatable) getTextFromDocument()).getCoordinates());
-  }
+        highlightRequiredDocumentText(getTextFromDocument());
+    }
+
+    private void highlightRequiredDocumentText(WebElement element) {
+        Actions select = new Actions(getDriver);
+        select.doubleClick(element).build().perform();
+        commonMethods.selectParagraphFromDocumentWithJS(element);
+        waitForPageToLoadAndJQueryProcessing();
+    }
 
     public void selectTextFromDocument(String text) {
-        Actions select = new Actions(getDriver);
-        select.doubleClick(getTextFromDocument(text)).build().perform();
+        highlightRequiredDocumentText(getTextFromDocument(text));
     }
 
     public WebElement getTextFromDocument() {
-        return waitForExpectedElement(By.cssSelector("div.co_paragraphText"));
+        return waitForExpectedElement(By.xpath("//*[@id = 'co_docContentBody']//*[@class='co_paragraph']"));
     }
 
     public WebElement getTextFromDocument(String text) {
-        return waitForExpectedElement(By.xpath("//div[contains(text(),'" + text + "')]"));
+        return waitForExpectedElement(
+                By.xpath(String.format("//*[contains(text(),'%s')]", text)));
     }
 
     public boolean isColourForNotePresent() {
