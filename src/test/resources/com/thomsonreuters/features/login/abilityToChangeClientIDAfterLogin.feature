@@ -1,3 +1,4 @@
+@archived
 Feature: [809784] As a PLAU User I want add my client ID So that I can track how much time I spent on a specific client
 
   Scenario: [809784] As a PLAU User I want add my client ID So that I can track how much time I spent on a specific client
