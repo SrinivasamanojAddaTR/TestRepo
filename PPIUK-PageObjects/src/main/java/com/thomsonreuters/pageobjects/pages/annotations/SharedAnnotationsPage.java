@@ -284,7 +284,7 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     public WebElement getInlineAnnotationIcon() {
-        return waitForExpectedElement(By.cssSelector("span#co_noteHolder_0"));
+        return waitForExpectedElement(By.xpath("//a[contains(@class,'noteMaximize')]"));
     }
 
     public boolean isHighlightedTextPresent(String colour) {

@@ -47,7 +47,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario Outline: Verifying that text can be displayed in bold/italic/underline/strikethrough for inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     When clearing existing styles and annotation text
@@ -64,7 +64,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario Outline: Adding Annotaiton with character Styles: bold/italic/ALIGN_LEFT/ALIGN_CENTER/ALIGN_RIGHT/strikethrough/underlined/number/bullet applying to selected text for the inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And clearing existing styles and annotation text
@@ -89,7 +89,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario Outline: Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE selected after entering text
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And selecting Inline format "<style>" and writing text
@@ -105,7 +105,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario Outline: Adding Annotaiton with Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE applying to selected text
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And highlighted text with the cursor
@@ -125,7 +125,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario Outline: Bullet and number styles for inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And selecting "<style>" from the toolbar and writing text in multiple lines
@@ -141,7 +141,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario Outline: Inline Styles: Adding Annotaiton with Alignment Styles: LEFT/CENTER/RIGHT applying to selected text
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And highlighted text with the cursor
@@ -159,7 +159,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario Outline: Header Styles: HEADING/SUB_HEADING Styles and adding Annotaiton with Header Styles: HEADING/SUB_HEADING Applying to selected text
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And highlighted text with the cursor
@@ -180,7 +180,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario: Blocks Styles: PARAGRAPH style by default
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And enter the sample text
@@ -190,7 +190,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario Outline: Cut/Copy/Paste
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And use the "<input>" to select options
@@ -211,7 +211,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario: Convert Pasted URL strings into Links
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And the user has inserted the url string "http://google.co.uk" into textbox
@@ -226,7 +226,7 @@ Feature:[825694] Add inline annotation for the document
   Scenario: Verifying cancel button
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added text for annotation
@@ -237,7 +237,7 @@ Feature:[825694] Add inline annotation for the document
 
   Scenario: Verifying that not logged in user can't see annotation link
     Given ANZ user is not logged in
-    And user navigates directly to document with guid "I6f022df962e311e698dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text
     Then choosing colour panel is not displayed

@@ -5,12 +5,13 @@ import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.utils.CobaltUser;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.ReflectionUtils;
 
 
 public class BaseStepDef {
 
-	protected static final Logger LOG = org.slf4j.LoggerFactory.getLogger(BaseStepDef.class);
+	protected static final Logger LOG = LoggerFactory.getLogger(BaseStepDef.class);
 	protected final CobaltUser currentUser = CobaltUser.firstUser();
 	private HomePage homePage = new HomePage();
 
