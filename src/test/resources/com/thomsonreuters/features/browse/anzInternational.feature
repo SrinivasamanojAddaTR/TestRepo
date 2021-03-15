@@ -1,3 +1,4 @@
+@archived
 Feature: [808912]As a PLAU User, I want to browse down to a Country page So that I can view the Practical Law coverage for that country law
 
   Scenario:  User verifies the International pages and its relative tabs

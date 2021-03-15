@@ -126,6 +126,12 @@ public class AnzBrowseTest extends BaseStepDef {
         }
     }
 
+    @Then("^user expands the \"(.*?)\" facets group$")
+    public void expandFacetGroup(String type){
+    if (!topicPage.facetGroupCollapsedOrExpanded(type))
+        topicPage.expandFacetGroup(type);
+
+    }
     @Then("^user verifies the \"(.*?)\" facets are displayed on the topic page$")
     public void userVerifiesTheFollowingFacetsAreDisplayedOnTheTopicPage(String resources) throws Throwable {
         String facetList[] = resources.split(",");

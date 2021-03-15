@@ -161,6 +161,14 @@ public class TopicPage extends AbstractPage {
     }
 
     public List<WebElement> facetNameLinksList() {
-        return waitForExpectedElements(By.xpath("//ul[@id='ukplc_topic_facet_links']//li//a"));
+        return waitForExpectedElements(By.xpath("//div[@class='SearchFacet-listItemGroup']/label/span[contains(@class,'labelText')]"));
+    }
+
+    public boolean facetGroupCollapsedOrExpanded(String type) {
+        return Boolean.valueOf(waitForExpectedElement(By.xpath(String.format("//button[@class='SearchFacet-buttonToggle']/span[.='%s']/..",type))).getAttribute("aria-expanded"));
+    }
+
+    public void expandFacetGroup(String type) {
+        waitForExpectedElement(By.xpath(String.format("//button[@class='SearchFacet-buttonToggle']/span[.='%s']/..",type))).click();
     }
 }

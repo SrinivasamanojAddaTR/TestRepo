@@ -43,14 +43,15 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
     When user opens "Practice Areas" link
     And the user navigates to practice area "<PA>" filtered by "<Topic Page>" topic page
     Then user verifies the "<Topic Page>" page
+    And user expands the "<Type>" facets group
     And user verifies the "<Resources>" facets are displayed on the topic page
     And user verifies the "<Resources>" sections are displayed on topic page in alphabetical order
     Examples:
-      | PA                     | Topic Page                  | Resources                          |
-      | Employment             | Leave                       | Practice notes,Checklists,Glossary |
-      | Employment             | Ill and injured employees   | Practice notes,Checklists,Glossary |
-      | Company Law            | Share capital               | Practice notes,Checklists,Glossary |
-      | Corporate Transactions | Due diligence: acquisitions | Practice notes,Checklists,Glossary |
+      | PA                     | Topic Page                  | Resources                          | Type          |
+      | Employment             | Leave                       | Practice notes,Checklists,Glossary | Resource Type |
+      | Employment             | Ill and injured employees   | Practice notes,Checklists,Glossary | Resource Type |
+      | Company Law            | Share capital               | Practice notes,Checklists,Glossary | Resource Type |
+      | Corporate Transactions | Due diligence: acquisitions | Practice notes,Checklists,Glossary | Resource Type |
 
 
   Scenario: User verifies the Practice area pages and its relative tabs in Open Web
