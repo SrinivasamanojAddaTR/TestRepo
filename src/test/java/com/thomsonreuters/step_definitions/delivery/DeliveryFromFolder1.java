@@ -1,5 +1,6 @@
 package com.thomsonreuters.step_definitions.delivery;
 
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import com.thomsonreuters.step_definitions.annotations.AnnotationsStepDef;
@@ -21,7 +22,9 @@ public class DeliveryFromFolder1 {
             researchOrganizerPage.waitForPageToLoad();
             annotationsStepDef.theUserClicksOnLinkOnTheHeader("Folders");
         }
+
         if (action.equals("opens")) {
+
             foldersUtils.openFolder(folder);
         }
         researchOrganizerPage.waitForPageToLoad();

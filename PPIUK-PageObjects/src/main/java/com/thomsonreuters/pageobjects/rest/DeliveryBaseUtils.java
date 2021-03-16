@@ -88,7 +88,7 @@ public class DeliveryBaseUtils {
      */
     public String getTransactionId() {
         Function<AbstractPage, String> waitCondition = page -> {
-                String transactionId = (String) page.executeScript("return Cobalt.Delivery.DeliveryOptionsDialog.Instance()._currentTransactionId;");
+            String transactionId = (String) page.executeScript("return typeof Cobalt_Testing_Automation != 'undefined' ? Cobalt_Testing_Automation.CurrentDeliveryTransactionId :  Cobalt.Delivery.DeliveryOptionsDialog.Instance()._currentTransactionId;");
                 return (transactionId != null && !transactionId.isEmpty()) ? transactionId : null;
             };
         return AbstractPage.waitFor(waitCondition, khDocumentPage);

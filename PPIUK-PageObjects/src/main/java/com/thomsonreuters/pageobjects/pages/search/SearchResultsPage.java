@@ -819,7 +819,7 @@ public class SearchResultsPage extends AbstractPage {
      * object representing the download delivery icon on the search results page
      */
     public WebElement downloadDeliveryIcon() {
-        return waitForExpectedElement(By.xpath("//a[@id='deliveryLinkRow1Download']/span"), 5);
+        return waitForExpectedElement(By.xpath("//a[@id='deliveryLinkRow1Download']"), 5);
     }
 
     /**

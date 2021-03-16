@@ -1410,7 +1410,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         researchOrganizerPage.waitForPageToLoad();
         switch (linkName) {
             case "Folders":
-                wlnHeader.foldersLink().click();
+                commonMethods.clickElementUsingJS(wlnHeader.foldersLink());
                 LOG.info("The user clicked on 'Folders' link");
                 break;
             case "History":

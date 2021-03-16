@@ -250,16 +250,16 @@ public class FoldersUtils {
     public String saveToFolder(String folder) {
         String folderName = null;
         saveToPopup.waitForPageToLoad();
-        waitAjaxIfNecessary();
         if (folder.equals("root")) {
             saveToPopup.rootFolder().click();
             folderName = saveToPopup.rootFolder().getText();
         } else {
-            waitAjaxIfNecessary();
+            saveToPopup.waitForPageToLoad();
             try {
                 if(saveToPopup.isRootFolderExpanded()){
                     saveToPopup.expandRootFolderWait().click();
                 }
+                saveToPopup.waitForPageToLoad();
                 saveToPopup.selectFolderWait(folder).click();
             } catch (NoSuchElementException e) {
                 throw new RuntimeException("Folder '" + folder + "'doesn't present");

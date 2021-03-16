@@ -102,7 +102,7 @@ public class WLNHeader extends AbstractPage {
     }
 
     public WebElement foldersLink() {
-        return waitForExpectedElement(By.linkText("Folders"),10);
+        return waitForExpectedElement(By.xpath("//a[contains(text(),'Folders')]"),10);
     }
 
     public WebElement foldersArrowLink() {

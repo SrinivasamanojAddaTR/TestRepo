@@ -25,7 +25,7 @@ public class SaveToPopup extends AbstractPage {
 
 	public WebElement rootFolder() {
 		return waitForExpectedElement(By
-				.xpath("//div[contains(@class, 'co_saveTo_folderAction')]//div[contains(@class, 'co_listItem co_tree_position--0--') and not(contains(@class,'co_shared'))]//a[contains(@class, 'co_tree_name')]"));
+				.xpath("//div[contains(@class, 'saveTo_folderAction')]//div[contains(@class, 'listItem') and not(contains(@class,'shared'))]//a[contains(@class, 'tree_name')]"));
 	}
 
 	public WebElement expandRootFolder() {
@@ -33,11 +33,11 @@ public class SaveToPopup extends AbstractPage {
 	}
 	
 	public WebElement expandRootFolderWait() {
-		return waitForExpectedElement(By.xpath("//*[@class='co_tree_toggle co_tree_expand co_tree_position--0--']"));
+		return waitForExpectedElement(By.xpath("//*[@class='co_tree_toggle co_tree_expand']"));
 	}
 
 	public boolean isRootFolderExpanded(){
-		return isElementDisplayed(By.xpath("//*[@class='co_tree_toggle co_tree_expand co_tree_position--0--']"));
+		return isElementDisplayed(By.xpath("//*[@class='co_tree_toggle co_tree_expand']"));
 	}
 
 	public WebElement newFolder() {
@@ -49,7 +49,7 @@ public class SaveToPopup extends AbstractPage {
 	}
 	
 	public WebElement selectFolderWait(String folder) {
-		return waitForExpectedElement(By.xpath("(//a[.='" + folder + "'])[last()]"));
+		return waitForExpectedElement(By.xpath(String.format("//div[@class='co_tree_element co_tree_closedFolder']//span[contains(text(),'%s')]",folder)));
 	}
 
 	public WebElement getPopUp() {
