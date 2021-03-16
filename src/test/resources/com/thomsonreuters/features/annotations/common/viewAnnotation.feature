@@ -1,6 +1,6 @@
 Feature: [825681] View annotation
 
-  @deletionAnnotations
+  @gold @deletionAnnotations
   Scenario: Verify that logged in user can see annotation at the top of document during the subsequent sessions
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
@@ -13,7 +13,7 @@ Feature: [825681] View annotation
     And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
     Then check that annotations at the top are expanded
 
-  @deletionAnnotations
+   @gold @deletionAnnotationsScenario: Verify that logged in user can see  inline annotation during the subsequent sessions
   Scenario: Verify that logged in user can collapse or expand annotation at the top of document
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
@@ -26,7 +26,7 @@ Feature: [825681] View annotation
     And user expands annotations at the top
     Then check that annotations at the top are expanded
 
-  @deletionAnnotations
+  @gold  @deletionAnnotations
   Scenario Outline: Verify that user can see annotations at the top in different type of documents
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
@@ -43,7 +43,7 @@ Feature: [825681] View annotation
       | Standard Documents                    | I488504ddbfe211e698dc8b09b4f043e0 |
       #| Articles                              |                                   |
 
-  @deletionAnnotations
+   @gold @deletionAnnotations
   Scenario: Verify that logged in user can see  inline annotation during the subsequent sessions
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
@@ -56,7 +56,7 @@ Feature: [825681] View annotation
     And user navigates directly to document with guid "Ifbf497fd995811e598dc8b09b4f043e0" on PL AU website
     Then check that inline annotations is collapsed
 
-  @deletionAnnotations
+   @gold @deletionAnnotations
   Scenario Outline: Verify that user can see inline annotation in different type of documents
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
@@ -76,7 +76,7 @@ Feature: [825681] View annotation
       | Standard Documents                    | I488504ddbfe211e698dc8b09b4f043e0 |
      # | Articles                              |                                   |
 
-  @deletionAnnotations
+   @gold @deletionAnnotations
   Scenario: Verify that logged in user can collapse or expand inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
@@ -92,6 +92,7 @@ Feature: [825681] View annotation
     When the user clicks on minimize option inline annotation icon
     Then check that inline annotations is collapsed
 
+  @gold
   Scenario: User should be able to see notes added icon in search results list if user added annotation at the top
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
@@ -103,6 +104,7 @@ Feature: [825681] View annotation
     And the user runs a free text search for the query "Children"
     Then the search result "1" document will be displayed along with nodes added link
 
+  @gold
   Scenario: User should be able to see notes added icon in search results list if user added  inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |

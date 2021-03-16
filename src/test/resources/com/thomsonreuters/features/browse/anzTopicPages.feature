@@ -1,6 +1,7 @@
 Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view the documents available for that Topic
 
 
+  @gold
   Scenario Outline: [831936] User verifies the topic page.
     Given ANZ user is logged in
     And user opens "Practice Areas" link
@@ -17,6 +18,7 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
       | Corporate Transactions | Due diligence: acquisitions | Practice notes, Checklists, Glossary         |
 
 
+  @gold
   Scenario Outline: User verifies topic page faceting
     Given ANZ user is logged in
     And user opens "Practice Areas" link

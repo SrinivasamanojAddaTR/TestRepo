@@ -1,6 +1,7 @@
 Feature: [814203] As a PLAU User, I want to view the home page So that I can view the practice areas, resources and international materials that are available in the PLAU web site 
 
-Scenario: [814203] User verifies the home page and its relative tabs
+@gold
+  Scenario: [814203] User verifies the home page and its relative tabs
 	Given ANZ user is logged in
 	Then user verifies the "Home" page
 	And user verifies the following tabs are displayed

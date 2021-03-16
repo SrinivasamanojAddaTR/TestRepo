@@ -31,7 +31,7 @@ Examples:
 	| Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence: acquisitions	    |  Legal due diligence review template: corporate records | 	Maintained  |
 
 #bug/story  868506, 871345 - for trial link
-@bug
+@gold @bug
 Scenario Outline: [850119] As a PL AU open web user I want to view open web version of document
 	Given ANZ user navigates directly to document with guid "<guid>"
 	Then document title is displayed as "<title>" 

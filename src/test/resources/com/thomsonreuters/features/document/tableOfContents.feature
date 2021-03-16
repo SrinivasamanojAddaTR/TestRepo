@@ -17,6 +17,7 @@ Feature: [817996] As a PLAU user I want to view a table of contents So that I ca
       | If13ba3b4d4d811e598dc8b09b4f043e0 |
       | I53cfffa798de11e598dc8b09b4f043e0 |
 
+  @gold
   Scenario: [817996] The case documents contain Table of content
     When ANZ user navigates directly to document with guid "I53cfffa798de11e598dc8b09b4f043e0"
     Then the document opens correctly

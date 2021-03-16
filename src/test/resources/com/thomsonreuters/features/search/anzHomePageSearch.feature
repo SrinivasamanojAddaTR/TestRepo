@@ -25,7 +25,9 @@ Background:
 		| Tax And Account    |
 		| TAX Or DEED        |
 		
-Scenario Outline: Verify invalid search results for single and multiple terms 
+
+  @gold
+  Scenario Outline: Verify invalid search results for single and multiple terms
 	When the user runs a free text search for the query "<Search Term>" 
 	Then user should see the label "0 Results for "<Search Term>"" in the search result heading 
 	Then user should have suggestion i.e. "Did you mean: <Correct Term>" 
@@ -36,7 +38,8 @@ Scenario Outline: Verify invalid search results for single and multiple terms
 		| TAX DEEDD   |    TAX DEED  |
 		
 
-Scenario Outline: User can open the document from search results 
+@gold
+Scenario Outline: User can open the document from search results
 	When the user runs a free text search for the query "<term>" 
 	And the user clicks on the first link in results
 	Then the user can verify that the full text of the document contains the search term "<term>"

@@ -6,6 +6,7 @@ Feature: [809732] Request User Guides
   Background:
     Given ANZ user is logged in
 
+  @gold
   Scenario: The User Guides link takes user to User Guides web page
     When the user clicks link 'User Guides' on footer
     Then user was taken to url "https://support.thomsonreuters.com.au/product/practical-law-australia-incl-nz-resource-centre"

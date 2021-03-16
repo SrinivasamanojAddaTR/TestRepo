@@ -1,6 +1,7 @@
 Feature:[825682] Add annotation at the top of the document
 
-  @AnnotationsSmokeTests @e2e  @deletionAnnotations
+
+  @gold @AnnotationsSmokeTests @e2e  @deletionAnnotations
   Scenario: Check document icon on the top of annotations box
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
@@ -208,6 +209,7 @@ Feature:[825682] Add annotation at the top of the document
     Then text should be added with the "Paragraph" style by default
 
 
+ @gold
   Scenario Outline: Cut/Copy/Paste
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
@@ -244,6 +246,8 @@ Feature:[825682] Add annotation at the top of the document
     ###################################################
 
 
+
+  @gold
   Scenario: Verifying cancel button
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
@@ -261,7 +265,7 @@ Feature:[825682] Add annotation at the top of the document
     And user closes disclaimer in the bottom
     Then add annotation link is not displayed
 
-  @deletionAnnotations
+  @gold @deletionAnnotations
   Scenario: Check annotation count on the top of annotations box
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |

@@ -15,7 +15,8 @@ Feature:[845624] Edit an inline annotation
     And saving the annotation
     Then modified annotations text will be displayed with metadata
 
-  @deletionAnnotations
+
+  @gold @deletionAnnotations
   Scenario: Verify that inline annotation will not be updated if user clicks on cancel button
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |

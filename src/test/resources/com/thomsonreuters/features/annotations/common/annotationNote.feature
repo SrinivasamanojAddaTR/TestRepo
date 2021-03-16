@@ -1,6 +1,8 @@
+@gold
 Feature:[825696][825697] Annotation note: Highlight text, copy with or without reference
 
-  @deletionAnnotations
+
+@deletionAnnotations
   Scenario: Checking that user can highlight text
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |

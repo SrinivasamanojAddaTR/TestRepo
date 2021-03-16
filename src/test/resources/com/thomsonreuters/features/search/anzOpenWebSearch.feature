@@ -3,6 +3,7 @@ Feature: [850092] As an open web user I want to perform a search So that I can v
   Background:
       Given PL+ ANZ user navigates to home page
 
+  @gold
   Scenario Outline: Verify valid search results for single and multiple terms in Open Web
 	When the user runs specific operator search for the query "<Search Term>" 
 	And the user can select the option to show less detail 

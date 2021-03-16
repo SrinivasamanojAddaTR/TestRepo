@@ -5,6 +5,7 @@ Feature: [813347] As a PLAU user, I want to increase or decrease the number of s
       Given ANZ user is logged in
      When the user runs a free text search for the query "contract"
 
+  @gold
   Scenario: Option to select number of results per Page Control option
     When the user selects the "100" from per page dropdown
     Then the user should be seeing "100" per page

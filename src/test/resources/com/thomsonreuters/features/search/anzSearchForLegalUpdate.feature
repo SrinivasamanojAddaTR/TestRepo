@@ -1,3 +1,4 @@
+@gold
 Feature: [850457] As a PLAU User I want to see legal updates documents and facets in search results
   So that I can explore updates during searches.
 

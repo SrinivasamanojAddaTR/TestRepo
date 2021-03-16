@@ -1,4 +1,5 @@
-Feature: [855815][865579][869995] Request a Trial 
+@gold
+Feature: [855815][865579][869995] Request a Trial
 	As a User 
 	I want to request a trial
 	So that I can access trial the AU practical law materials in full

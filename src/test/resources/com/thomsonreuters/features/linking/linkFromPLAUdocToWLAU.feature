@@ -1,6 +1,7 @@
 Feature: [826375] Dependency on content: Linking from one PLAU document to WLAU content
 
 #User ANZtestuser2 doesn't have permission to access to WLAU content
+@gold
 Scenario Outline: [826375] Linking from PLAU document to a WestLaw Australia document - user not logged into WLAU
 	Given ANZ user is logged in
    	And ANZ user navigates directly to document with guid "<guid>"
@@ -12,6 +13,7 @@ Scenario Outline: [826375] Linking from PLAU document to a WestLaw Australia doc
       |Ifbf42042995811e598dc8b09b4f043e0	|545|  
    
 #User ANZtestuser1 has permission to access to WLAU content
+@gold
 Scenario Outline: [826375] Linking from PLAU document to a WestLaw Australia document - user logged into WLAU
 	Given PL+ ANZ user navigates to home page
 	And ANZ user is logged in with following details

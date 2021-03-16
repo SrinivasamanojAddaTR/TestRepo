@@ -86,7 +86,7 @@ Feature: [821261][821248] As a PLAU User I want to Organise my favourite groups 
     Then the user should see the page 'Company Law' comes first than page 'Employment'
 
   #771484 Removal of the My Start Page item is ineffective when done via Favorites-> My Start Page
-  @bug
+  @gold @bug
   Scenario: [821248]user verifies start page fucntionality
     When user makes practice area page 'Employment' as start page
     And user clicks on "Favourites" link
@@ -97,6 +97,7 @@ Feature: [821261][821248] As a PLAU User I want to Organise my favourite groups 
     And user relogs in
     Then the user verifies that the current PageTitle contains 'Home'
 
+  @gold
   Scenario: [831325]As a PLAU User I want to be able to set a page as my start page So that when I login to PLAU that page appears as my start page
     When user makes practice area page 'Employment' as start page
     And user relogs in

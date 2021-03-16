@@ -16,7 +16,7 @@ Feature:[825683] Edit an annotation at the top of the document
     And saving the annotation
     Then modified annotations text will be displayed with metadata
 
-  @deletionAnnotations
+   @gold @deletionAnnotations
   Scenario: Verify that annotation at the top will not be updated if user clicks on cancel button
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |

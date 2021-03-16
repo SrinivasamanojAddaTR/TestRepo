@@ -20,6 +20,7 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
 
   # do not remove this tag. this tag is to clean all users subcriptions.
   @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
+  @gold
   Scenario Outline: [848639] As user i want to cancel specified subscription
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |
@@ -36,6 +37,7 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
       | region | corporate  | frequency | unsubscribe_frequency |
       | AU     | Employment | W         | W                     |
 
+  @gold
   Scenario Outline: [848639] As user i want to see services and relevant checkboxes the page.
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |
@@ -56,6 +58,7 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
     And the options should include HTML and Text Only
     And the user should be presented with a checkbox for 'Receive an email even if there are no new items'
 
+  @gold
   Scenario: [848639] As a user i want to see Save and Cancel buttons on preference page
     Given ANZ user is logged in
     Given a user is viewing the email preference page
@@ -64,7 +67,7 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
     And one button should be labelled 'cancel changes'
 
   # do not remove this tag. this tag is to clean all users subcriptions.
-  @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
+  @gold @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
   Scenario Outline: [848639] As user i want to see saved subscription
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |
@@ -83,6 +86,7 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
 
   # do not remove this tag. this tag is to clean all users subcriptions.
   @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
+  @gold
   Scenario: [848639] As a user i want to have ability to unsubcribe from update for out of plan subscription.
     Given a user "AUtestuser1@mailinator.com" has subscription for "PLAUEMPWKLY" out of plan email service
     Given ANZ user is logged in with following details

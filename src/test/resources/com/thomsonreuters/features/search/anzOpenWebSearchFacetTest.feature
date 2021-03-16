@@ -4,6 +4,7 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
   Background:
     Given PL+ ANZ user navigates to home page
 
+  @gold
   Scenario: [814280] User validates the facet groups, i.e resource type/practice area and jurisdiction, are present on results page
     When the user runs a free text search for the query "law"
     Then the user verifies the presence of following know how facet groups for PLAU
@@ -13,6 +14,7 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
     And all the facet counts are less or equal to the total number of search results
 
 
+  @gold
   Scenario Outline: User verifies the selection of single facet and its count
      When the user runs a free text search for the query "law"
      And the user selects the know how following parent facets with single selection
@@ -24,6 +26,7 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
     | Practice Notes |
     | Company Law |
 
+  @gold
   Scenario: Verify the selection of same group facets and apply filter button
     When the user runs a free text search for the query "law"
     And the user selects the know how following parent facets
@@ -42,6 +45,7 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
       | Glossary       |
 
 
+  @gold
   Scenario: Verify the selection of different groups with multiple filter button
     When the user runs a free text search for the query "law"
     And the user selects the know how following parent facets
@@ -54,6 +58,7 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
       | Employment     |
       | Federal        |
 
+   @gold
    Scenario: Verify All Australian Jurisdiction and results are displayed without error after facet selection
      When the user runs a free text search for the query "law"
      When the user selects the know how following parent facets
@@ -64,7 +69,8 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
     And there is no error message on search results page
 
 
-  Scenario: Verify the Search and Selection on Topic Pages
+ @gold
+ Scenario: Verify the Search and Selection on Topic Pages
     When the user selects "Practice Areas" tab
     And the user navigates to practice area "Employment" filtered by "Federal unfair dismissal" topic page
     And the user runs a free text search for the query "law"

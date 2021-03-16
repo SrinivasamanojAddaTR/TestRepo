@@ -8,7 +8,7 @@ When the user selects the user profile symbol
 And the user selects My Automated Document option
 And the user clicks on "Projects" link
 
-@run
+@gold @run
 Scenario: To verify New Folder, New Project and Search bar are displayed
 
 Given user is taken to "My Projects" Page

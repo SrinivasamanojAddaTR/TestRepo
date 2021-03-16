@@ -23,6 +23,7 @@ Background:
 	| Ic177c5b0bef311e598dc8b09b4f043e0   | Maintained					        | Australia,Federal   | Not displayed			| Not displayed 	| Toolkit		            | displayed	    |
 
 
+@gold
 Scenario: [818000] As a PL AU login/password user I want to view related content section after clicking on link
 	Given ANZ user navigates directly to document with guid "I1b74907e995911e598dc8b09b4f043e0"	
 	When the user clicks on "Related Content" link

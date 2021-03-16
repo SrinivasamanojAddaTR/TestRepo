@@ -1,3 +1,4 @@
+@gold
 Feature: [857832] Feedback form changes
 
   Scenario:  [857832] Feedback link leads to nicereply.com - PA user

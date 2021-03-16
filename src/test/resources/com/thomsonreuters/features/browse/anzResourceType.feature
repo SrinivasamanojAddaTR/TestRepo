@@ -1,7 +1,7 @@
 Feature: [825619]As a PLAU User, I want to view a Resource Type by Practice Areas page So that I can view and link to a list of documents for a specific resource type and practice area
 
   #TODO global guides is under consideration will appear in future
-  @wip
+  @gold @wip
   Scenario: User verifies the Pratice area pages and its relative tabs
    Given ANZ user is logged in
     When user selects the following tab and see the relative links or content
@@ -15,7 +15,7 @@ Feature: [825619]As a PLAU User, I want to view a Resource Type by Practice Area
       | Checklists                            | Company Law , Corporate Transactions, Employment|
       | Glossary                              |                 -                               |
   #TODO global guides is under consideration will appear in future
-  @wip
+  @gold @wip
   Scenario Outline:[815726] I want to view a Resource Type by [Practice Area X] page So that I can link to a document I am interested in working
    Given ANZ user is logged in
     When user selects the following tab and see the relative links or content

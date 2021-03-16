@@ -1,3 +1,4 @@
+@gold
 Feature: [821528] As a PLAU User I want to view the folder option on my document view So that I can quickly tell if I can folder a document or not
   [823569]As a PLAU User I want to view the folder option on my search resulrs view  So that I can folder the one or many documents in my search results
 

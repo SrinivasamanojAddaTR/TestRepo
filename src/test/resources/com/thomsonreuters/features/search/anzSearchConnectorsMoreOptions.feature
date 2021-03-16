@@ -5,6 +5,8 @@ So that I can narrow my search results and ensure only relevant results are retu
 Background:
     Given ANZ user is logged in
 
+
+  @gold
   Scenario Outline: verify that a user can submit a phrase search
   	When the user runs a free text search for the query "\"federal circuit\""
     And the user opens the result in position "<result>"

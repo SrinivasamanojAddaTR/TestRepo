@@ -1,5 +1,6 @@
 Feature: [848107] Ability to use register button on document view
 
+  @gold
   Scenario: [848107] As a user i want to use register button on document view
     Given ANZ user is not logged in
     When ANZ user navigates directly to document with guid "Ic8badd78e0b511e598dc8b09b4f043e0"

@@ -1,3 +1,4 @@
+@gold
 Feature: [814276] As a PLAU user, I want to narrow my search results
   So that I can display resource types, practice areas, topics and jurisdictions that are relevant to my work needs
 

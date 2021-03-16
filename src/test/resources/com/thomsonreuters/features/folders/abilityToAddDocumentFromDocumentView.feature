@@ -7,10 +7,12 @@ Feature: [821529][821558] Add, remove documents to folder
   Background: 
      Given ANZ user is logged in
 
+  @gold
   Scenario:
     When API cleans all folders and history
     And user relogs in
 
+   @gold
    Scenario Outline: Add document to folder from document view
 	And the user runs a free text search for the query "<query>"
     And the user opens '1' link in the search result and store its title and guid

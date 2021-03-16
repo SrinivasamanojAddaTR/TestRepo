@@ -5,6 +5,7 @@ Background:
 	Given ANZ user is logged in
 
 
+  @gold
   Scenario: Verify valid search results for single and multiple terms
     Given the user can verify that the scoped search dropdown states "All Content"
     When the user can display the scoped search dropdown menu options

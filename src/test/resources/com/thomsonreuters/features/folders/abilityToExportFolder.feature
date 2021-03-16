@@ -142,6 +142,7 @@ Scenario Outline: [821552] Download list of items in PDF format from 2+ folders
 ###############################################################################################################
 ## Cancel button and Back button
 ###############################################################################################################
+@gold
 Scenario: [821552] There will be a cancel button to cancel the transaction
 	When the user clicks on 'Folders' link on the header
     When the user selects option Export

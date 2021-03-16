@@ -1,5 +1,6 @@
 Feature: [809918]Edit Preferences (User Preferences)
 
+  @gold
   Scenario: [809918] As a PLAU user I want to edit my profile (i.e. one pass profile) So that I change my password and security questions
     Given ANZ user is logged in
     When the user selects the user profile symbol

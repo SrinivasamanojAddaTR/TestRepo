@@ -1,6 +1,7 @@
 Feature: Sharing annotations
 
-  @AnnotationsSmokeTests @e2e @deletionAnnotations
+
+  @gold @AnnotationsSmokeTests @e2e @deletionAnnotations
   Scenario:User should be able to share the annotations and stop sharing
     Given ANZ user is logged in with following details
       | userName | shareAnnotationUser1 |
@@ -30,7 +31,7 @@ Feature: Sharing annotations
     And ANZ user is logged in with following details
       | userName | shareAnnotationUser1 |
 
-  @AnnotationsSmokeTests @e2e @deletionAnnotations
+  @gold @AnnotationsSmokeTests @e2e @deletionAnnotations
   Scenario:User should be able to share the annotation with group
     Given ANZ user is logged in with following details
       | userName | shareAnnotationUser1 |
@@ -47,7 +48,7 @@ Feature: Sharing annotations
     And ANZ user is logged in with following details
       | userName | shareAnnotationUser1 |
 
-  @deletionAnnotations
+  @gold @deletionAnnotations
   Scenario: User is able to share group with users from his organisation
     Given ANZ user is logged in with following details
       | userName | shareAnnotationUser1 |
@@ -66,7 +67,7 @@ Feature: Sharing annotations
     And ANZ user is logged in with following details
       | userName | shareAnnotationUser1 |
 
-  @deletionAnnotations
+  @gold @deletionAnnotations
   Scenario: User is able to share annotations with previously shared users
     Given ANZ user is logged in with following details
       | userName | shareAnnotationUser1 |
@@ -82,7 +83,7 @@ Feature: Sharing annotations
     And user clicks on previously shared
     Then user should see "0057 PL_TEST_GEN" user
 
-  @AnnotationsSmokeTests @e2e
+  @gold @AnnotationsSmokeTests @e2e
   Scenario:User can create, edit and delete a group
     Given ANZ user is logged in with following details
       | userName | shareAnnotationUser1 |

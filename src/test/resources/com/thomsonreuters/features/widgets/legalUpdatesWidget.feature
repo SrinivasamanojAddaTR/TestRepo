@@ -27,6 +27,7 @@ Scenario: Legal updates wiget on Legal updates page
     Then the user should be presented with a list of LU documents
 
 #LU widget contains only 2 updates. Needs to update tests when there will be 5 or more LU. 
+  @gold
   Scenario: Legal updates wiget on PA page with LU widget
     Given ANZ user is logged in
     Given a user is on a "Employment" PA page

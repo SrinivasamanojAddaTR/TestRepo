@@ -10,7 +10,8 @@ Background:
 ###############################################################################################################		
 		
 
-Scenario Outline: [818824] Print single search result 
+@gold
+  Scenario Outline: [818824] Print single search result
 	Given the user runs a free text search for the query "<query>"
 	And the user selects the checkbox associated with result "1"
     When user clicks on Print delivery option for Search
@@ -27,6 +28,7 @@ Scenario Outline: [818824] Print single search result
 ###############################################################################################################
 ## Download	
 ###############################################################################################################
+@gold
 Scenario Outline: [818824] Download documents in PDF format
 	Given the user runs a free text search for the query "<query>"
     And the user saves document body from following results
@@ -47,6 +49,7 @@ Scenario Outline: [818824] Download documents in PDF format
 		| 	query 	| 
 		|	test |
 
+@gold
 Scenario Outline: [818824] Download documents in zip file
 	Given the user runs a free text search for the query "<query>"
     And the user selects the checkbox associated with result "1"
@@ -114,6 +117,7 @@ Scenario Outline: [818824] Download document in RTF format
 		|	test |1|
 		 
 
+@gold
 Scenario Outline: [818824] Download document in Microsoft Word format
 	Given the user runs a free text search for the query "<query>"
     And the user saves file name from following results
@@ -172,7 +176,8 @@ Scenario Outline: [818824] Download document without table of contents in PDF fo
 ###############################################################################################################
 
 # The associated result has been changed from no:2 to no:3	
-	Scenario Outline: [818824] Email document in Microsoft Word format
+@gold
+Scenario Outline: [818824] Email document in Microsoft Word format
 	Given the user runs a free text search for the query "<query>"
     And the user selects the checkbox associated with result "3"
     When user clicks on Email delivery option for Search
@@ -188,6 +193,7 @@ Scenario Outline: [818824] Download document without table of contents in PDF fo
 		|BOOT		| Better off overall test (BOOT) |  tr-anz-tester1@epam-email-pluk.thomsonreuters.com         |
 	 
 
+@gold
 Scenario Outline: [818824][847182]Email resource link only
 	Given the user runs a free text search for the query "<query>"
     And the user selects the checkbox associated with result "2"

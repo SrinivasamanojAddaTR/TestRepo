@@ -15,6 +15,7 @@ Scenario: [817979] As a PL AU login/password user I want to view document
 	And the copyright will be displayed
 
 
+@gold
 Scenario Outline: [817979] As a PL AU login/password user I want to view related content section
 	Given ANZ user navigates directly to document with guid "<guid>"	 
 	When the user scrolled to the bottom of the document
@@ -29,7 +30,7 @@ Scenario Outline: [817979] As a PL AU login/password user I want to view related
 
 
 #Test not valid: no document found with resource history in AU; provided guid is from uk
-  @wip
+@gold  @wip
 Scenario: [817979] As a PL AU login/password user I want to view resource history section
 	Given ANZ user navigates directly to document with guid "Ib555468ee83211e398db8b09b4f043e0"
 	When the user scrolled to the bottom of the document

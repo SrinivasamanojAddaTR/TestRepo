@@ -1,7 +1,7 @@
 Feature:[825694] Add inline annotation for the document
 
-   @deletionAnnotations
-  Scenario: Checking that user can save  inline annotation
+  @gold @deletionAnnotations
+   Scenario: Checking that user can save  inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "I23c506d9c07111e598dc8b09b4f043e0" on PL AU website
@@ -13,7 +13,7 @@ Feature:[825694] Add inline annotation for the document
 
 
 
-  @deletionAnnotations
+   @gold @deletionAnnotations
   Scenario: User should be able to see the disabled save button when inline annotation text exceeds 3000 chars length and to save annotation text equals 3000 chars length
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
@@ -187,6 +187,7 @@ Feature:[825694] Add inline annotation for the document
     Then text should be added with the "Paragraph" style by default
 
 
+ @gold
   Scenario Outline: Cut/Copy/Paste
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
@@ -223,6 +224,7 @@ Feature:[825694] Add inline annotation for the document
     ###################################################
 
 
+  @gold
   Scenario: Verifying cancel button
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |

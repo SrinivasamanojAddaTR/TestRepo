@@ -3,7 +3,8 @@ Feature: [826373][826378] Linking from PLAU document to another PLAU document an
 Background:
 Given ANZ user is logged in
 
-Scenario Outline: [826373] Linking from one PLAU document to another PLAU document   
+@gold
+Scenario Outline: [826373] Linking from one PLAU document to another PLAU document
 	As a PLAU User
 	I want to Link from one PLAU document to another PLAU document
 	So that I can retrieve a PLAU document that I am interested in working with
@@ -15,6 +16,7 @@ Scenario Outline: [826373] Linking from one PLAU document to another PLAU docume
 		|guid  								| linktext|
 		|I09ee048de0c911e598dc8b09b4f043e0	| Practice note, Federal discrimination: making or defending a complaint in the AHRC|
 
+@gold
 Scenario Outline: [826378]Linking from one PLAU document to an external website
     When ANZ user navigates directly to document with guid "<guid>"
     And user clicks on "<linktext>" link 
