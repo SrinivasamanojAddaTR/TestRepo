@@ -24,8 +24,8 @@ public class AdvisoryBoardsPage extends AboutCompanyPage {
 		return waitForExpectedElements(By.xpath("//div[@class='co_featureBoxInner']/p[1]"));
 	}
 
-	public WebElement tableOfContentSection() {
-		return waitForExpectedElement(By.id("coid_categoryBoxTab1SubPanel1-0-main"));
+	public By tableOfContentSection() {
+		return By.id("coid_categoryBoxTab1SubPanel1-0-main");
 	}
 
 

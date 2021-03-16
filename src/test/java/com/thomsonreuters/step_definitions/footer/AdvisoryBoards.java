@@ -5,6 +5,7 @@ import com.thomsonreuters.pageobjects.pages.footer.AdvisoryBoardsPage;
 import com.thomsonreuters.pageobjects.utils.homepage.HomePageUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
+
 import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -43,7 +44,7 @@ public class AdvisoryBoards extends BaseStepDef {
     public void theTableOfContentsIsHide() throws Throwable {
         consultationBoardsPage.waitForPageToLoad();
         try {
-            assertFalse("The user see table of content", consultationBoardsPage.tableOfContentSection().isDisplayed());
+            assertFalse("The user see table of content", consultationBoardsPage.isElementDisplayed(consultationBoardsPage.tableOfContentSection()));
         } catch (PageOperationException poe) {
             LOG.info("Element table of content section was not found", poe);
         }
