@@ -833,7 +833,7 @@ public class SearchResultsPage extends AbstractPage {
      * object representing the print delivery icon on the search results page
      */
     public WebElement printDeliveryIcon() {
-        return waitForExpectedElement(By.xpath("//a[@id='deliveryLinkRow1Print']/span"));
+        return waitForExpectedElement(By.xpath("//a[@id='deliveryLinkRow1Print']"));
     }
 
     /**
