@@ -15,11 +15,11 @@ Feature: [822645] International Page URLs
       | url                                                                                            | header                                                                      |
       ######################################################################################################
       ###########Countries - 4 items selected + 1 with bug
-      | /Browse/Home/International/IndonesiaRecentlyPublished                                          | Indonesia Recently published                                               |
-      | /Browse/Home/International/Argentina                                                           | Argentina                                                                   |
-      | /Browse/Home/International/ArgentinaRecentlypublished                                          | Argentina: Recently published                                               |
-      | /Browse/Home/International/Australia                                                           | Australia                                                                   |
-      | /Browse/Home/International/AustraliaRecentlypublished                                          | Australia: Recently published                                               |
+     # | /Browse/Home/International/IndonesiaRecentlyPublished                                          | Indonesia Recently published                                               |
+    #  | /Browse/Home/International/Argentina                                                           | Argentina                                                                   |
+    #  | /Browse/Home/International/ArgentinaRecentlypublished                                          | Argentina: Recently published                                               |
+    #  | /Browse/Home/International/Australia                                                           | Australia                                                                   |
+    #  | /Browse/Home/International/AustraliaRecentlypublished                                          | Australia: Recently published                                               |
 #      | /Browse/Home/International/Austria                                                             | Austria                                                                     |
 #      | /Browse/Home/International/AustriaRecentlypublished                                            | Austria: Recently published                                                 |
 #      | /Browse/Home/International/Bahrain                                                             | Bahrain                                                                     |
@@ -109,10 +109,10 @@ Feature: [822645] International Page URLs
 #      | /Browse/Home/International/Vietnam                                                             | Vietnam                                                                     |
       #################################################################
       ##### Global Guides - 4 items selected
-      | /Browse/Home/International/ShareholdersRightsinPrivateandPublicCompaniesGlobalGuide            | Shareholders' Rights in Private and Public Companies Global Guide           |
-      | /Browse/Home/International/AUOutsourcingGlobalGuide                                              | Outsourcing Global Guide                                                    |
-      | /Browse/Home/International/Globalguides                                                        | Global Guide                                                                |
-      | /Browse/Home/International/AgriculturalLawGlobalGuide                                          | Agricultural Law Global Guide                                               |
+    #  | /Browse/Home/International/ShareholdersRightsinPrivateandPublicCompaniesGlobalGuide            | Shareholders' Rights in Private and Public Companies Global Guide           |
+    #  | /Browse/Home/International/AUOutsourcingGlobalGuide                                              | Outsourcing Global Guide                                                    |
+    #  | /Browse/Home/International/Globalguides                                                        | Global Guide                                                                |
+    #  | /Browse/Home/International/AgriculturalLawGlobalGuide                                          | Agricultural Law Global Guide                                               |
 #      | /Browse/Home/International/ArbitrationGlobalGuide                                              | Arbitration Global Guide                                                    |
 #      | /Browse/Home/International/CapitalMarketsGlobalGuide                                           | Capital Markets Global Guide                                                |
 #      | /Browse/Home/International/ConstructionandProjectsGlobalGuide                                  | Construction and Projects Global Guide                                      |
@@ -149,7 +149,7 @@ Feature: [822645] International Page URLs
 #      | /Browse/Home/International/CompetitionGlobalGuideRestraintsofTradeandDominance                 | Competition Global Guide: Restraints of Trade and Dominance                  |
       #################################################################
       #Transaction Guides - 1 item selected
-      | /Browse/Home/International/PrivateCompanyAcquisitionsInternationalTransactionGuide             | Private Company Acquisitions International Transaction Guide                |
+    #  | /Browse/Home/International/PrivateCompanyAcquisitionsInternationalTransactionGuide             | Private Company Acquisitions International Transaction Guide                |
 #      | /Browse/Home/International/JointVenturesInternationalTransactionGuide                          | Joint Ventures International Transaction Guide                              |
 #      | /Browse/Home/International/SalesandMarketingInternationalTransactionGuide                      | Sales and Marketing International Transaction Guide                         |
 #      | /Browse/Home/International/PrivateCompanyAcquisitionsInternationalTransactionGuide             | Private Company Acquisitions International Transaction Guide                |

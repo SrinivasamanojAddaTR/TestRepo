@@ -40,7 +40,7 @@ Feature: [825681] View annotation
       | Standard documents and drafting notes | I1be9b44ae13311e598dc8b09b4f043e0 |
       | Standard clauses and drafting notes   | I2c856dbe3fae11e698dc8b09b4f043e0 |
       | Checklists                            | Ib2269c0eb8af11e598dc8b09b4f043e0 |
-      | International Documents (Country Q&A) | Ieb49d7971cb511e38578f7ccc38dcbee |
+      #| International Documents (Country Q&A) | Ieb49d7971cb511e38578f7ccc38dcbee |
       #| Articles                              |                                   |
 
   @deletionAnnotations
