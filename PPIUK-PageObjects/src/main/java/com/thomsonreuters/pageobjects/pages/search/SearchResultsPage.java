@@ -119,7 +119,7 @@ public class SearchResultsPage extends AbstractPage {
      * This element is returns you the link in the dropdown options (either 'Relevancy' or 'Date')
      */
     public WebElement sortByDropDownOption(String option) {
-        return waitForExpectedElement(By.xpath("//div[@id='co_search_sortDropDownControl']//a[text()='" + option + "']"));
+        return waitForExpectedElement(By.xpath("//div[@id='co_search_sortDropDownControl']//div[contains(@class,'dropDownMenuContent')]//a[text()[normalize-space() = '" + option + "']]"));
     }
 
     /**

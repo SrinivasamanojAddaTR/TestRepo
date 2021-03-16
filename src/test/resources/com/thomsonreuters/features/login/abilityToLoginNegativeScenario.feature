@@ -40,7 +40,7 @@ Feature: [812218]  Password Authentication: Login to Practical Law Australia
   Scenario: Ability to see error message for short login name
     And the user enters their username "test1" and password "Password1"
     When the user selects sign in
-    Then the user is presented with the following "validation" error message "The Username is not the required length."
+    Then the user is presented with the following "validation" error message "The username is too short or too long."
 
   Scenario: Ability to see error message for incorrect password
     And the user enters their username "Login_Negative" and password "password1"
