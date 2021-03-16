@@ -20,6 +20,8 @@ import static org.junit.Assert.assertTrue;
 
 public class FooterLinks1 extends BaseStepDef {
 
+	private static final String PRIVACY_STATEMENT_TITLE = "Thomson Reuters Privacy Statement";
+
 	private WLNFooter footer = new WLNFooter();
     private FooterUtils footerUtils = new FooterUtils();
 	private AboutCompanyPage aboutCompanyPage = new AboutCompanyPage();
@@ -29,6 +31,13 @@ public class FooterLinks1 extends BaseStepDef {
     public void userShouldseethePage(String pageTitle) throws Throwable {
         assertTrue("Title " + aboutCompanyPage.getPageTitle() + " is Not contains " + pageTitle, aboutCompanyPage.getPageTitle().contains(pageTitle));
     }
+	@Then("^user should see Private Policy and Cookies page in the new tab$")
+	public void userShouldSeePrivatePolicyAndCookiesPage() {
+		commonMethods.performActionsInNewWindowAfterTimeout(aboutCompanyPage.getWindowHandle(), () ->
+				assertThat(aboutCompanyPage.isPageHeaderDisplayed(PRIVACY_STATEMENT_TITLE))
+						.withFailMessage("The title of the page is not '%s' or xpath was changed", PRIVACY_STATEMENT_TITLE)
+						.isTrue());
+	}
 	
 	@Then("^user should see the following FooterLinks under heading \"(.*?)\" with links to pages$")
 	public void userShouldTheFollowingFooterLinksLink(String columnHeading,

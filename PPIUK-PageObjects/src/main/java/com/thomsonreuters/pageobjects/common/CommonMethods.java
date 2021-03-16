@@ -41,6 +41,8 @@ import com.thomsonreuters.pageobjects.utils.Product;
 
 public class CommonMethods {
 
+    private static final Number CHROME_TIMEOUT_IN_SEC_BEFORE_ACTION_IN_NEW_WINDOW = 5;
+
     private CommonStringMethods commonStringsMethods = new CommonStringMethods();
     private JournalDocumentPage journalDocumentPage = new JournalDocumentPage();
     private WebDriverDiscovery webDriverDiscovery = new WebDriverDiscovery();
@@ -103,6 +105,20 @@ public class CommonMethods {
             }
         }
         return result;
+    }
+
+    /**
+     * This method provides a possibility to perform actions in a new browser window,
+     * then closing the last opened window and returning back to a main browser window.
+     *
+     * @param mainWindowHandle a unique handle reference of the main window to return into on action completion.
+     * @param action           lambda expression or method reference to execute, returning a <T>T value
+     * @return <T>T value, returned by supplier's expression
+     */
+    public <T> T performActionsInNewWindowAfterTimeout(String mainWindowHandle, Supplier<T> action) {
+        // this method created as workaround for chromedriver issue https://bugs.chromium.org/p/chromedriver/issues/detail?id=2660
+        // need to verify execution after fixing it
+        return performActionsInNewWindow(mainWindowHandle, action, CHROME_TIMEOUT_IN_SEC_BEFORE_ACTION_IN_NEW_WINDOW);
     }
 
     public Boolean theDisplayedDocumentWillHaveAnyOfTheTermsMarkedUpAsHits(String searchTerms) throws Throwable {

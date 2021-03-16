@@ -1,20 +1,31 @@
 Feature: [809111]As a user, I want to see the "Legal Information" and "Privacy" link functional on the footer
 
-  Background: 
+  Background:
     Given ANZ user is logged in
 
-  Scenario Outline: User verifies the functionality of "Privacy" and "Legal Information"
+  Scenario Outline: User verifies the functionality of "Privacy" Information"
+    When user should see footer
+    When user should see the "How are we using your information?" link
+    And user should see the "<Link>" link
+    Then user clicks on "<Link>" link
+    Then user should see Private Policy and Cookies page in the new tab
+
+    Examples:
+      | Link    |
+      | Privacy |
+
+  Scenario Outline: User verifies the functionality of "Legal Information"
     When user should see footer
     When user should see the "How are we using your information?" link
     And user should see the "<Link>" link
     Then user clicks on "<Link>" link
     And user should see the "<PageTitle>" page is opened
 
-    Examples: 
-      | Link         | PageTitle                                                               |
-      | Privacy      | Privacy statement \| Thomson Reuters                       |
-      | Master Terms | AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
-      | How are we using your information?   | How we are using your information |
+    Examples:
+      | Link                               | PageTitle                                                               |
+      | Master Terms                       | AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
+      | How are we using your information? | How we are using your information                                       |
+
 
   Scenario: [809111]User verifies the "Footer Link Items" for the respetive Page's links
     When user should see footer
