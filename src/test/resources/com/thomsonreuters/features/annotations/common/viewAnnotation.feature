@@ -40,7 +40,7 @@ Feature: [825681] View annotation
       | Standard documents and drafting notes | I1be9b44ae13311e598dc8b09b4f043e0 |
       | Standard clauses and drafting notes   | I2c856dbe3fae11e698dc8b09b4f043e0 |
       | Checklists                            | Ib2269c0eb8af11e598dc8b09b4f043e0 |
-      #| International Documents (Country Q&A) | Ieb49d7971cb511e38578f7ccc38dcbee |
+      | Standard Documents                    | I488504ddbfe211e698dc8b09b4f043e0 |
       #| Articles                              |                                   |
 
   @deletionAnnotations
@@ -73,7 +73,7 @@ Feature: [825681] View annotation
       | Standard documents and drafting notes | I1be9b44ae13311e598dc8b09b4f043e0 |
       | Standard clauses and drafting notes   | I2c856dbe3fae11e698dc8b09b4f043e0 |
       | Checklists                            | Ib2269c0eb8af11e598dc8b09b4f043e0 |
-      | International Documents (Country Q&A) | Ieb49d7971cb511e38578f7ccc38dcbee |
+      | Standard Documents                    | I488504ddbfe211e698dc8b09b4f043e0 |
      # | Articles                              |                                   |
 
   @deletionAnnotations
@@ -92,24 +92,24 @@ Feature: [825681] View annotation
     When the user clicks on minimize option inline annotation icon
     Then check that inline annotations is collapsed
 
-  @deletionAnnotations
   Scenario: User should be able to see notes added icon in search results list if user added annotation at the top
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
     When the user runs a free text search for the query "Children"
     And the user opens '1' link in the search result and store its title and guid
     And user closes disclaimer in the bottom
+    And the user deletes all annotations and reloads the page
     And user added new annotation
     And the user runs a free text search for the query "Children"
     Then the search result "1" document will be displayed along with nodes added link
 
-  @deletionAnnotations
   Scenario: User should be able to see notes added icon in search results list if user added  inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
     When the user runs a free text search for the query "Rule"
     And the user opens '1' link in the search result and store its title and guid
     And user closes disclaimer in the bottom
+    And the user deletes all annotations and reloads the page
     And user gets guid from url
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation

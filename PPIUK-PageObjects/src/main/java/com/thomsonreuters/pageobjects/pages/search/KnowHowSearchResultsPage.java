@@ -17,6 +17,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
     private static final String EXPAND_FACET_XPATH = "//div[@id='co_narrowResultsBy']//label[contains(text(),'%s')]/../a[@class='co_facet_expand']";
     public static final String KNOW_HOW_FACET_CHECKBOX_PATH = "//label[(normalize-space(text())='%1$s')]/parent::li//input[@type='checkbox'] | //*[.//*[text()='%1$s']|text()='%1$s' and contains(@class,'SearchFacet')]/preceding-sibling::input";
     public static final String FACET_CHECKBOX_BUTTON_COLLAPSED_PATTERN = "//span[contains(.,\"%s\")]/parent::button[@aria-expanded='false']";
+    private static final String ADDED_NOTE_LINK_PATTERN = "#cobalt_search_results_knowHowPlc%s .co_document_icon_notes>img,#cobalt_search_results_knowHowPlc%s .co_document_icon_notes";
     private CommonMethods commonMethods = new CommonMethods();
 
     public KnowHowSearchResultsPage() {
@@ -654,7 +655,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return boolean
      */
     public boolean isNotesAddedLinkPresent(String position) {
-        return isElementDisplayed(By.cssSelector("#cobalt_search_results_knowHowPlc" + position + " .co_document_icon_notes>img"));
+        return isElementDisplayed(By.cssSelector(String.format(ADDED_NOTE_LINK_PATTERN, position, position)));
     }
 
     /**

@@ -1,10 +1,12 @@
 package com.thomsonreuters.pageobjects.utils.homepage;
 
 import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
-import org.openqa.selenium.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FooterUtils {
 
+    Logger LOG = LoggerFactory.getLogger(FooterUtils.class);
     private SharedAnnotationsPage sharedAnnotationsPage = new SharedAnnotationsPage();
 
     public void closeDisclaimerMessage(){
@@ -19,13 +21,12 @@ public class FooterUtils {
       try{
           if(sharedAnnotationsPage.isCookiesPolicyPresent())
           {
-              System.out.println("entered the loop");
-              sharedAnnotationsPage.closeCookiesPolicy().sendKeys(Keys.ENTER);
+              LOG.info("Cookies policy is Present, Closing the banner");
+              sharedAnnotationsPage.closeCookiesPolicy().click();
           }
       }
       catch (Exception e) {
-
-          System.out.println("Cookies Policy is not displayed");
+          LOG.error("Cookies Policy is not displayed");
       }
   }
 

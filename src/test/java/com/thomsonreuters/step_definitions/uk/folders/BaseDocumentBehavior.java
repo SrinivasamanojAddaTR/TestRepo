@@ -18,6 +18,7 @@ import com.thomsonreuters.pageobjects.rest.DeliveryBaseUtils;
 import com.thomsonreuters.pageobjects.rest.DocumentBaseUtils;
 import com.thomsonreuters.pageobjects.rest.LinkingBaseUtils;
 import com.thomsonreuters.pageobjects.rest.model.request.delivery.initiateDelivery.InitiateDelivery;
+import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceAnnotationsImpl;
 import com.thomsonreuters.pageobjects.utils.document.ContentType;
 import com.thomsonreuters.pageobjects.utils.document.Document;
 import com.thomsonreuters.pageobjects.utils.document.StandardDocumentUtils;
@@ -65,6 +66,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
     private DocumentDeliveryOptionsPage documentDeliveryOptionsPage = new DocumentDeliveryOptionsPage();
     private FooterUtils footerUtils = new FooterUtils();
     private XMLDocumentUtils xmlDocumentUtils = new XMLDocumentUtils();
+    private RestServiceAnnotationsImpl restServiceAnnotations = new RestServiceAnnotationsImpl();
 
     private List<Document> documents = new ArrayList<>();
     private Document singleDocument;
@@ -74,6 +76,14 @@ public class BaseDocumentBehavior extends BaseStepDef {
     @When("^the user opens '(.+)' link in the search result and store its title and guid$")
     public void openSearchResultLinkAtPositionAndStore(String linkPosition) throws Throwable {
         singleDocument = standardDocumentUtils.openSearchResultLinkAtPositionAndStoreItsTitleAndGuid(linkPosition);
+    }
+
+    @When("^the user deletes all annotations and reloads the page$")
+    public void deleteNotesAndReloadPage() {
+        searchResultsPage.waitForPageToLoadAndJQueryProcessing();
+        restServiceAnnotations.deleteAnnotations(singleDocument.getGuid());
+        searchResultsPage.refreshPage();
+        searchResultsPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     //TODO to rewrite
