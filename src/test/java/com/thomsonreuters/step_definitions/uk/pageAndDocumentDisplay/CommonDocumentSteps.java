@@ -319,7 +319,7 @@ public class CommonDocumentSteps {
     @When("^the user clicks on button with title \"(.*?)\"$")
     public void theUserClicksOnButtonWithTitle(String title) {
         WebElement button = standardDocumentPage.getLinkFromSection("", title);
-        button.click();
+        standardDocumentPage.scrollIntoViewAndClick(button);
     }
 
     @Then("document body does not contain text \"(.*?)\"")

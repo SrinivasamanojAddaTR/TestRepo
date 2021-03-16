@@ -674,7 +674,7 @@ public class SearchResultsPage extends AbstractPage {
     }
 
     public WebElement folderingPopupMessage() {
-        return waitForExpectedElement(By.xpath("//*[@class='co_foldering_popupMessageContainer']//*[@class='co_infoBox_message']"), 20);
+        return waitForExpectedElement(By.xpath("//*[@class='co_foldering_popupMessageContainer']//*[@class='co_infoBox_message']"), 40);
     }
 
     public void waitWhileFolderingPopupMessageBeVisible() {

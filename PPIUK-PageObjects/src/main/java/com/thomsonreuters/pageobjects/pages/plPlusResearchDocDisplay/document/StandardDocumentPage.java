@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+import static java.lang.String.format;
+
 public class StandardDocumentPage extends DocumentDisplayAbstractPage {
 
     private static final String DRAFT_MESSAGE_FOR_OPEN_WEB = "Answer a series of questions upfront and create a first draft in half the time with our free drafting tool.";
@@ -191,8 +193,8 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
     }
 
     public WebElement getLinkInRelatedContent(String title) {
-        return waitForExpectedElement(By.xpath(".//div[@id='co_relatedContent']//li[not(contains(@class,'ng-hide'))]/a[contains(text(), '"
-                + title + "')]"));
+        return waitForExpectedElement(By.xpath(format(
+                ".//div[@id='co_relatedContent']//li[not(contains(@class,'ng-hide'))]/a[contains(., '%s')]", title)));
     }
 
     public WebElement getStatusForLinkInRelatedContent(String title) {

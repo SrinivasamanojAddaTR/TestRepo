@@ -48,7 +48,7 @@ Feature: [821529] As a PLAU UserI want to be able to add a document to a folder 
       | root   |
 
   Scenario Outline: Topics page
-    When user opens "Practice areas" link
+    When user opens "Practice Areas" link
     And the user navigates to practice area "Company Law" filtered by "Company administration and meetings" topic page
     And the user selects '2' documents, stores its titles and guids and saves to "<folder>" folder
     When the user clicks on 'Folders' link on the header

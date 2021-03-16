@@ -22,7 +22,7 @@ public class AssetDocumentPage extends DocumentDisplayAbstractPage {
 	private static final By WHERE_REPORDED_LIST = By.className("whereReportedList");
 	private static final By CONTENT_BODY = By.xpath("//div[contains(@id,'co_docContentBody')]");
 	private static final By TOP_BUTTON = By.xpath("//span[contains(text(),'Top')]");
-	private static final By TABLE_OF_CONTENTS_SECTION = By.className("kh_toc-content");
+	private static final By TABLE_OF_CONTENTS_SECTION = By.className("kh_toc-list");
 	private static final By CASE_ASSET_DOC_CLASS = By.id("co_document_0");
 	private static final By VALUE_OF_SPECIALIST_COURT = By
 			.xpath(".//div[@class='co_docContentMetaInfoSpecialistCourt']/span");
