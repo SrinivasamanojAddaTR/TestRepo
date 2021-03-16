@@ -15,7 +15,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
 
     private static final String CONTINUE_BTN_ON_TIMEOUT_WARNING_POP_UP_XPATH = "//div[@id='co_websiteTimeoutWarning']//input[contains(@value,'Continue')]";
     private static final String EXPAND_FACET_XPATH = "//div[@id='co_narrowResultsBy']//label[contains(text(),'%s')]/../a[@class='co_facet_expand']";
-    public static final String KNOW_HOW_FACET_CHECKBOX_PATH = "//div[@id='co_narrowResultsBy']//label[text()='%s']/parent::li//input[@type='checkbox']";
+    public static final String KNOW_HOW_FACET_CHECKBOX_PATH = "//label[(normalize-space(text())='%1$s')]/parent::li//input[@type='checkbox'] | //*[.//*[text()='%1$s']|text()='%1$s' and contains(@class,'SearchFacet')]/preceding-sibling::input";
     private CommonMethods commonMethods = new CommonMethods();
 
     public KnowHowSearchResultsPage() {
