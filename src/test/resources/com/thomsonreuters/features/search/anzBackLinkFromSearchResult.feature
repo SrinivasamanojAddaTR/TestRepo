@@ -43,7 +43,7 @@ Feature: [829761] Link back to the page  from where performed a search
     |query		|title of document		|
     |document	|Execution of deeds and documents by companies incorporated under the Corporations Act 2001 (Cth)|
    
-
+@archived
   Scenario Outline: Verify Back to country link is displayed on country search results page
     Given has selected the link entitled International
     When has selected the link to the country page "<country>"

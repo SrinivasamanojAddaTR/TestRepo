@@ -9,6 +9,6 @@ Scenario: [809745] As a PL AU login/password user I want to use browse mega menu
     And  user clicks on following sub-menu and see the respective links according to the design
       | Practice areas |
       | Resources      |
-      | International  |
+     # | International  |
 		
 	

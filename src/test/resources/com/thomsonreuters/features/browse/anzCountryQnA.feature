@@ -6,7 +6,7 @@ Background:
   Scenario: [822646]As a PLAU User I want to browse/select/enter a URL and link to the Country Q&A Comparison Tool So that I can compare the law for two or more Countries
     When the user opens "/QACompare/Builder/Country" url on PL AU website
     Then user verifies the "Country Q&A" page
-
+@archived
   Scenario: [813151]User verifies the functionality of "Edit country" button on the L.H.S of the Country Q&A comparison document
     When user navigates to the "Country Q&A" tool by clicking "Start comapring" button using "International" tab on the homepage
     And user selects the topic "Arbitration"

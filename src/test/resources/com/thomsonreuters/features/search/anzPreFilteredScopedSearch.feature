@@ -40,7 +40,7 @@ Background:
      Then the user can verify that the title listed above the search results is "All Content"
      And the user runs a free text search for the query "taxx"
      Then user should see the label "0 Results for "taxx"" in the search result heading
-
+@archived
    Scenario: [813292]Verify valid Scoped Search for single and multiple term on International pages
      When user clicks on "Browse Menu" dropdown
      And user selects sub-menu "International" and clicks on the link "Austria"

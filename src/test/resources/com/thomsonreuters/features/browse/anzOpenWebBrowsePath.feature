@@ -65,7 +65,7 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
       | Standard documents and drafting notes | Company Law, Corporate Transactions, Employment  |
       | Checklists                            | Company Law , Corporate Transactions, Employment |
       | Glossary                              | -                                                |
-
+@archived
   Scenario:  User verifies the International pages and its relative tabs
     Given PL+ ANZ user navigates to home page
     When user selects the following tab and see the relative links or content

@@ -110,10 +110,10 @@ Feature: [821261][821248] As a PLAU User I want to Organise my favourite groups 
     And user clicks the Home Icon to remove it as Start Page
     And user relogs in
     Then the user verifies that the current PageTitle contains 'Home'
-    And the user selects country "Spain" on international tab
-    And user clicks the Home Icon to make it as Start Page
-    And user relogs in
-    Then the user verifies that the current PageTitle contains 'Spain'
-    And user clicks the Home Icon to remove it as Start Page
-    And user relogs in
-    Then the user verifies that the current PageTitle contains 'Home'
+    #And the user selects country "Spain" on international tab
+    #And user clicks the Home Icon to make it as Start Page
+    #And user relogs in
+    #Then the user verifies that the current PageTitle contains 'Spain'
+    #And user clicks the Home Icon to remove it as Start Page
+    #And user relogs in
+    #Then the user verifies that the current PageTitle contains 'Home'

@@ -34,7 +34,7 @@ Background:
     And the user goes back in browser
     Then the user verifies that the complete breadcrumb is "Home >Commercial"
   
- 
+  @archived
    Scenario: Verify user can view  breadcrumb in international topic page
     When the user opens 'International' link
     And the user opens 'Austria' link

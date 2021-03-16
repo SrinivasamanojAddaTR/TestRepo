@@ -100,8 +100,8 @@ Scenario: User verifies new breadcrumb trail after another free search run
     Then the user verifies that the complete breadcrumb is "Home > Corporate > Search Results"
     When the user clicks on the 'Corporate' link in the breadcrumb
     And the user is presented with a topic page with title "Corporate"
-	
-	
+
+@archived
 Scenario: Verify user can view Breadcrumb trial for Search on a international page
     When the user opens 'International' link
     And the user opens 'Austria' link

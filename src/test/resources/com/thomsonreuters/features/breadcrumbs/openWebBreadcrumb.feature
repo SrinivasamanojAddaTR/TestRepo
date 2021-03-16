@@ -27,7 +27,7 @@ Background:
     And the user opens 'Standard clauses and drafting notes' link
     Then the user verifies that the complete breadcrumb is "Home >Commercial >Commercial Standard clauses and drafting notes"
   
-
+@archived
     Scenario: Verify user can view  breadcrumb in international topic page
     When the user opens 'International' link
     And the user opens 'Austria' link

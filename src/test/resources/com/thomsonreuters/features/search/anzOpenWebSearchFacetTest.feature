@@ -74,7 +74,7 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
       |Practice Area|
       |Jurisdiction |
 
-
+@archived
   Scenario: Verify valid Scoped Search for single and multiple term on International pages
     When user clicks on "Browse Menu" dropdown
     And user selects sub-menu "International" and clicks on the link "Austria"

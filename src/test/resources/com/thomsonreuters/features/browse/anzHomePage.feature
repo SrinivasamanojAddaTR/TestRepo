@@ -6,7 +6,7 @@ Scenario: [814203] User verifies the home page and its relative tabs
 	And user verifies the following tabs are displayed
 		|Practice Areas|
 		|Resources     |
-		|International |
+		#|International |
     When user opens "Practice Areas" link
 	And user verifies the following practice area links are displayed 
 		|Employment            |
@@ -15,4 +15,4 @@ Scenario: [814203] User verifies the home page and its relative tabs
 	When user selects the following tab and see the relative links or content 
 		|tab | content |
 		| Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary, Global guides|
-		|International | Countries, International subscriptions, Country Q&A comparison tool |
+		#|International | Countries, International subscriptions, Country Q&A comparison tool |
