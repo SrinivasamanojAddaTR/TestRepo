@@ -23,6 +23,7 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
     And the user navigates to practice area "<PA>" filtered by "<Topic Page>" topic page
     And user expands the "Resource Type" facets group
     And the user is able to verify the absence of the facet group heading Jurisdiction
+    And the user selects single facet selection mode
     When clicks on the facet group "<Resource Type>"
     Then the user verifies the topic facet "<Resource Type>" count is equivalent to no. of results displayed
     Examples:

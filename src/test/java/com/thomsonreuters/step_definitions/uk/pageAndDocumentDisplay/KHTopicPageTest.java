@@ -5,6 +5,7 @@ import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.ListOfItemsDeliveryOptionsPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;
+import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
@@ -27,7 +28,7 @@ public class KHTopicPageTest extends BaseStepDef {
     private HomePage homePage = new HomePage();
     private ListOfItemsDeliveryOptionsPage listOfItemsDeliveryOptionsPage = new ListOfItemsDeliveryOptionsPage();
     private CategoryPage categoryPage = new CategoryPage();
-
+    private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     public static final String TOPIC_TAB = "Topics";
 
 
@@ -190,7 +191,8 @@ public class KHTopicPageTest extends BaseStepDef {
 
     @When("^clicks on the facet group \"(.*?)\"$")
     public void clicksOnTheFacetGroup(String facetName) throws Throwable {
-        topicPage.facetNameLink(facetName).click();
+        knowHowSearchResultsPage.knowHowFacetCheckbox(facetName).click();
+        //topicPage.facetNameLink(facetName).click();
         topicPage.waitForPageToLoad();
     }
 

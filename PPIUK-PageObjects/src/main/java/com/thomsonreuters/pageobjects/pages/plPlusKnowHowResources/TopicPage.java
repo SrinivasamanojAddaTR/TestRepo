@@ -128,7 +128,7 @@ public class TopicPage extends AbstractPage {
     }
 
     public WebElement facetNameLink(String facet) {
-        return waitForExpectedElement(By.xpath(".//ul[@id='ukplc_topic_facet_links']//a[text()='" + facet + "']"));
+        return waitForExpectedElement(By.xpath(String.format(".//ul[contains(@id,'plc_topic_facet_links')]//a[normalize-space(text())='%s']", facet)));
     }
 
     public WebElement resultsByResourceType(String resourceType) {
@@ -142,7 +142,7 @@ public class TopicPage extends AbstractPage {
         return waitForExpectedElement(By.xpath("//div[@id='cobalt_search_knowHowTopicPlc_results']//h2[contains(text(),'" + resourceName + "')]"));
     }
     public WebElement specificFacetCount(String facetName) {
-        return waitForElementPresent(By.xpath("//ul[@id='ukplc_topic_facet_links']//li//a[text()='" + facetName + "']/..//span"));
+        return waitForElementPresent(By.xpath(String.format("//span[.='%s']/parent::label[@class='SearchFacet-label']//span[@class='SearchFacet-outputTextValue']",facetName)));
     }
 
     public List<WebElement> resourceDocsTitleList(String resourceName) {

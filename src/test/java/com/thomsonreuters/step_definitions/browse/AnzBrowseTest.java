@@ -19,7 +19,7 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
+import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +37,7 @@ public class AnzBrowseTest extends BaseStepDef {
     private CategoryPage categoryPage = new CategoryPage();
     private FooterUtils footerUtils = new FooterUtils();
     private CommonMethods commonMethods = new CommonMethods();
-
+    private SearchUtils searchUtils = new SearchUtils();
     @Then("^user navigates directly to url \"(.*)\"$")
     public void userNavigatesDirectlyToUrl(String url) throws Throwable {
         getDriver().navigate().to(url);
@@ -56,6 +56,12 @@ public class AnzBrowseTest extends BaseStepDef {
             }
         }
     }
+
+    @When("^the user selects (single|multiple) facet selection mode$")
+    public void theUserSelectsSingleOrMultipleFacetSelectionMode(SearchUtils.FacetSelectionMode mode) {
+        searchUtils.chooseSingleOrMultipleFacetSelectionMode(mode);
+    }
+
 
     @Then("^user verifies the \"(.*)\" page Title in Open Web$")
     public void userShouldseethePageTitleInOpenWeb(String pageTitle) throws Throwable {

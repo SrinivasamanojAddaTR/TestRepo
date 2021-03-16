@@ -51,7 +51,7 @@ public class SearchUtils {
     private static final String DATE_PICKER_INPUT_DATE_FORMAT = "dd-MM-yyyy"; // e.g. 02-04-2016
     private static final Charset UTF_8 = Charset.forName("UTF-8");
     private static final String SEARCH_QUERY_PARAM_NAME = "query";
-
+    private WLUKSearchResultsPage wlukSearchResultsPage = new WLUKSearchResultsPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private KHResourcePage resourcePage = new KHResourcePage();
     private KnowHowDocumentPage knowHowDocumentPage = new KnowHowDocumentPage();
@@ -109,7 +109,15 @@ public class SearchUtils {
         }
         return true;
     }
-
+    public void chooseSingleOrMultipleFacetSelectionMode(FacetSelectionMode mode) {
+        if (mode.equals(FacetSelectionMode.SINGLE) && wlukSearchResultsPage.isMultipleFiltersToggleSelected() ||
+                mode.equals(FacetSelectionMode.MULTIPLE) && !wlukSearchResultsPage.isMultipleFiltersToggleSelected()) {
+            wlukSearchResultsPage.clickMultipleFiltersToggle();
+            LOG.info("Changing WLUK facet selection mode to {}", mode);
+        } else {
+            LOG.info("WLUK facet selection mode is {} as required", mode);
+        }
+    }
     /**
      * Get collection of document GUIDs from the search results links
      *
@@ -1004,4 +1012,9 @@ public class SearchUtils {
             knowHowSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
         }
     }
+
+    public enum FacetSelectionMode {
+        SINGLE, MULTIPLE
+    }
+
 }

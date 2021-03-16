@@ -19,8 +19,8 @@ public class WLUKSearchResultsPage extends AbstractPage {
     private static final String FACET_COUNT = "//label[contains(@for,'facet')][contains(text(), '%s')]/preceding-sibling::span[@class='co_facetCount']";
     private static final By PRACTICE_AREA_HEADER = By.xpath("//*[@id='co_facetHeaderknowHowPracticeAreaSummary']");
     private static final By DATE_HEADER = By.xpath("co_facetHeaderresearchDateSummary");
-
-
+    private static final By MULTIPLE_FILTER_STATE_CHECKBOX = By.xpath("//input[contains(@id,'SlideToggle_')]");
+    private static final By MULTIPLE_FILTER_TOGGLE = By.xpath("//*[contains(@class,'SlideToggle-thumb-container')]");
     /**
      * Object representing Resource Type heading for facet group
      */
@@ -36,7 +36,12 @@ public class WLUKSearchResultsPage extends AbstractPage {
 
         return waitForExpectedElement(By.id("co_facetHeaderjurisdictionSummary"));
     }
-
+    public void clickMultipleFiltersToggle() {
+        click(MULTIPLE_FILTER_TOGGLE);
+    }
+    public boolean isMultipleFiltersToggleSelected() {
+        return waitForElementPresent(MULTIPLE_FILTER_STATE_CHECKBOX).isSelected();
+    }
 
     /**
      * Object representing Content Type Header in facet pane
