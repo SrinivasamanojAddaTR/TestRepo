@@ -90,4 +90,4 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
       | Testimonials |
       | Careers      |
     And user selects a tab "Careers" on about company page
-    Then user was taken to url "https://www.thomsonreuters.com/en/careers.html"
+    Then user was taken to url "https://www.thomsonreuters.com/en/careers.html" in same window

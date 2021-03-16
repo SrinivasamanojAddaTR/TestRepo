@@ -104,7 +104,15 @@ public class FooterLinks1 extends BaseStepDef {
     public void userWasTakenTo(String expectedUrl) throws Throwable {
 		String currentUrl = commonMethods.performActionsInNewWindow(askCategoryPage.getWindowHandle(), () -> askCategoryPage.getCurrentUrl());
 		assertThat(currentUrl)
-				.as("The user is taken to the %s web site", currentUrl)
+				.as("The user is not taken to the %s web site", currentUrl)
+				.contains(expectedUrl);
+	}
+
+	@Then("^user was taken to url \"(.*?)\" in same window$")
+	public void userWasTakenToUrlOnSameWindow(String expectedUrl) throws Throwable {
+		String currentUrl = askCategoryPage.getCurrentUrl();
+		assertThat(currentUrl)
+				.as("The user is not taken to the %s web site", currentUrl)
 				.contains(expectedUrl);
 	}
 	
