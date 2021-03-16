@@ -35,8 +35,8 @@ Feature: [813335] As a PLAU user, I want to view the page number for my search r
     And the user is able to verify the presence of below page numbers
       | 2 |
       | 3 |
-    Then user verifies the navigation to "Last Page" not present
+    And user verifies the "Last Page" present
     And user verifies the navigation to "First Page" not present
     When user clicks on "3" link
-    Then user verifies the navigation to "Last Page" not present
-    And user verifies the navigation to "First Page" not present
+    And user verifies the "Last Page" present
+    And user verifies the "First Page" present

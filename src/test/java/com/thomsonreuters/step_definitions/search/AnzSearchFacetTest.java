@@ -6,10 +6,12 @@ import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import cucumber.api.Delimiter;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.testng.asserts.SoftAssert;
 
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by UC181137 on 23/10/2015.
@@ -72,10 +74,13 @@ public class AnzSearchFacetTest extends BaseStepDef {
         assertTrue(knowHowSearchResultsPage.facetGroupHeaderPLAUJurisdiction().isDisplayed());
     }
     @When("^the user verifies the presence of following know how facet groups for PLAU$")
-    public void theUserVerifiesThePresenceOfTheKnowHowFacetGroups(List<String> facetHeadings) throws Throwable {
-        assertTrue(knowHowSearchResultsPage.facetGroupHeaderResourceType().isDisplayed());
-        assertTrue(knowHowSearchResultsPage.facetGroupHeaderPracticeArea().isDisplayed());
-        assertTrue(knowHowSearchResultsPage.facetGroupHeaderPLAUJurisdiction().isDisplayed());
+    public void theUserVerifiesThePresenceOfTheKnowHowFacetGroups(List<String> facetHeadings) {
+        SoftAssert softAssert = new SoftAssert();
+        facetHeadings.forEach(facetName ->
+                assertThat(knowHowSearchResultsPage.isElementDisplayed(knowHowSearchResultsPage.knowHowFacet(facetName)))
+                        .overridingErrorMessage("%s facet is not displayed", facetName).isTrue()
+        );
+        softAssert.assertAll();
     }
 
 }
