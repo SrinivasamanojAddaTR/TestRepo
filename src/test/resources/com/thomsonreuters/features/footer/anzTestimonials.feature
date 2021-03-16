@@ -82,6 +82,7 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
       | Advisory board     | Advisory board | Advisory Boards | Team members    | Our team                 |
 
   Scenario: [809456]As a PL Australia User (PLAU) I want to navigate from one our team tab to another our team tab So that I can find out information about the practical law web site
+    When user clicks on "About Practical Law" link
     When user clicks on "Testimonials" link
     Then the user verifies that the current PageTitle contains 'Testimonials'
     And tabs are displayed on about company page
