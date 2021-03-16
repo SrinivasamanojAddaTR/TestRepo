@@ -1,6 +1,7 @@
 Feature: [850065] As an open web user, I can launch the PL Australia web site and browse within the site, So that I can see the practice areas, topics, resources and international materials that are available
 
-
+  #TODO global guides is under consideration will appear in future
+  @wip
   Scenario: User verifies the home page and its relative tabs in open web
     Given PL+ ANZ user navigates to home page
     Then user verifies the "Home" page
