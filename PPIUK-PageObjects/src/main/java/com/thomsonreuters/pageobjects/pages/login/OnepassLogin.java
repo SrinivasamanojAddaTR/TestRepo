@@ -82,9 +82,13 @@ public class OnepassLogin extends AbstractPage {
     public WebElement learnMoreAboutOnePassLink() {
         return waitForExpectedElement(By.partialLinkText("Learn more about OnePass"));
     }
-    
+
     public WebElement manageOnepassTitle() {
-        return waitForElementVisible(By.xpath("//h2[text()='manage onepass']"));
+        return waitForElementVisible(By.xpath("//div[@class='PageHeader']//*[@title='Thomson Reuters OnePass']"));
+    }
+
+    public boolean isManageOnePassTitleDisplayed() {
+        return isElementDisplayed(By.xpath("//*[contains(@class,'PageHeader')]//*[contains(@title,'Thomson Reuters OnePass')]"));
     }
       
     public WebElement regKeyRadioButtonByRegKey(String regKey) {

@@ -196,11 +196,11 @@ public class WLNHeader extends AbstractPage {
     }
 
     public List<WebElement> practiceAreaFirstColumnLinks() {
-        return waitForExpectedElements(By.xpath("//div[@id='Practice areas0']//ul//li"));
+        return waitForExpectedElements(By.xpath("//div[contains(@id,'Practice areas0')]//ul//li"));
     }
 
     public List<WebElement> resourcesFirstColumnLinks() {
-        return waitForExpectedElements(By.xpath("//div[@id='Resources0']//ul//li"));
+        return waitForExpectedElements(By.xpath("//div[contains(@id,'Resources0')]//ul//li"));
     }
 
     public List<WebElement> internationalFirstColumnLinks() {
@@ -422,7 +422,7 @@ public class WLNHeader extends AbstractPage {
     }
 
     public WebElement editProfileLink() {
-        return findElement(By.linkText("Edit profile"));
+        return findElement(By.linkText("Update OnePass profile"));
     }
     public WebElement practicalLawLogo() {
         return waitForExpectedElement(By.xpath("//a[@id='logo']//img[@alt='Practical Law']"));
@@ -436,7 +436,7 @@ public class WLNHeader extends AbstractPage {
         return waitForExpectedElement(By.xpath("//a[@id='logo']//img[@alt='Books']"));
     }
     public boolean isEditProtfileLinkPresent() {
-    	return isElementDisplayed(By.linkText("Edit profile"));
+    	return isElementDisplayed(By.linkText("Update OnePass profile"));
     }
 
     public void myFastDraft() {
@@ -458,7 +458,7 @@ public class WLNHeader extends AbstractPage {
         if(isExpandedUserPreferencesDropDownMenu()) {
             return;
         }
-        userAvatarIcon().click();
+        mouseOver(userAvatarIcon());
     }
     
     public boolean isErrorMessagePresent(String errorMessage){
@@ -475,6 +475,14 @@ public class WLNHeader extends AbstractPage {
 
     public WebElement userPreferencesDropdown(String selectLink) {
         return waitForExpectedElement(By.xpath("//div[@class='co_dropDownMenuContent']//a[text()='" + selectLink + "']"));
+    }
+
+    public void openSetTimeZone() {
+        if (!isExpandedUserPreferencesDropDownMenu()) {
+            expandUserAvatarDropDown();
+        }
+        waitForPageToLoadAndJQueryProcessing();
+        waitForExpectedElement(By.linkText("Set time zone")).click();
     }
 
     /**

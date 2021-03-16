@@ -30,8 +30,8 @@ public class AnzTimeZoneTest1 extends BaseStepDef {
 
     @When("^the user opens time-zone popup using user dropdown$")
     public void theUserOpensTimeZonePopupUsingUserDropdown() throws Throwable {
-        header.expandUserAvatarDropDown();
-        header.waitForExpectedElement(By.linkText("Set time zone")).click();
+        header.openSetTimeZone();
+        header.waitForPageToLoadAndJQueryProcessing();
     }
 
     @When("^user changes the time-zone to \"(.*?)\"$")

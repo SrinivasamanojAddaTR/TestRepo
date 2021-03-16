@@ -755,8 +755,8 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @When("^user shared the annotations with group and \"(.*?)\" as member and this group available to others$")
     public void userSharedTheAnnotationsWithAnotherGroupAndGroupIsAvailableToOthers(String contact) throws Throwable {
-        foldersUtils.clickOnContactLinkAndCreateGroupIfDoesntExist(groupName,contact);
-        foldersUtils.selectGroup(groupName);
+        foldersUtils.clickOnContactLinkAndCreateGroupIfDoesntExist(groupNameAvailableToOthers,contact);
+        foldersUtils.selectGroup(groupNameAvailableToOthers);
         contactsForSharingPage.waitForPageToLoadAndJQueryProcessing();
         foldersUtils.selectInsertButton();
         sharedAnnotationsPage.saveAnnotation();

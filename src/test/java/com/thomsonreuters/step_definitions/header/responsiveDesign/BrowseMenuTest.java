@@ -45,12 +45,10 @@ public class BrowseMenuTest extends BaseStepDef {
     public void userClicksOnSubMenuAndSeeTheRespectiveLinksAccordingToTheDesign(List<String> subMenuList) throws Throwable {
         for (int linkCount = 0; linkCount < subMenuList.size(); linkCount++) {
             header.getElementByLinkText(subMenuList.get(linkCount)).click();
-            if (subMenuList.get(linkCount).trim().equalsIgnoreCase("Practice areas")) {
+            if (subMenuList.get(linkCount).trim().equalsIgnoreCase("Australia Practice areas")) {
                 assertTrue("Practice Area Links are not displayed..!", header.practiceAreaFirstColumnLinks().get(0).isDisplayed());
-            } else if (subMenuList.get(linkCount).trim().equalsIgnoreCase("Resources")) {
+            } else if (subMenuList.get(linkCount).trim().equalsIgnoreCase("Australia Resources")) {
                 assertTrue("Resources Links are not displayed..!", header.resourcesFirstColumnLinks().get(0).isDisplayed());
-            } else if (subMenuList.get(linkCount).trim().equalsIgnoreCase("International")) {
-                assertTrue("International Links are not displayed..!", header.internationalFirstColumnLinks().get(0).isDisplayed());
             }
         }
     }

@@ -8,6 +8,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class LinkingFromDocument1 {
 
@@ -18,15 +19,17 @@ public class LinkingFromDocument1 {
 	private AssetPageUtils assetPageUtils = new AssetPageUtils();
     private WLAUPageUtils wlauPageUtils = new WLAUPageUtils();
     private HomePage homePage = new HomePage();
-	
+    private String firstDocUrl;
+
 	
 	@Then("^the target PLAU document is displayed in the same tab$")
 	public void theTargetPLAUDocumentIsDisplayed() throws Throwable {
-		assertTrue("The target PLAU document is not displayed in the same tab", assetPageUtils.isTheUserTakenToTheLegalUpdates());
+		assertFalse("The target PLAU document is not displayed in the same tab", firstDocUrl.contains(homePage.getCurrentUrl()));
 	}
 
     @When("^the user clicks on hardcoded \"(.*?)\" link$")
     public void theUserClicksOnHardcodedLink(String linkText) throws Throwable {
+		firstDocUrl = homePage.getCurrentUrl();
         assetPageUtils.clickOnHardcodedLink(linkText);
     }
 	

@@ -30,14 +30,12 @@ public class HeaderTests1 extends BaseStepDef {
         }
     }
 
-	@Then("^user should see the Browse Menu popup with Practice Area and Resources and International sub-menu$")
+	@Then("^user should see the Browse Menu popup with Practice Area and Resources sub-menu$")
 	public void userShouldSeeThePopupWithPracticeAreaAndResourcesAndInternationalSubMenu() throws Throwable {
 		assertTrue("Practice Area is not displayed..!", header.browseMenuSubMenuList().get(0).isDisplayed()
 				&& header.browseMenuSubMenuList().get(0).getText().contains("Practice areas"));
 		assertTrue("Resources is not displayed..!", header.browseMenuSubMenuList().get(1).isDisplayed()
 				&& header.browseMenuSubMenuList().get(1).getText().contains("Resources"));
-		assertTrue("International is not displayed..!", header.browseMenuSubMenuList().get(2).isDisplayed()
-				&& header.browseMenuSubMenuList().get(2).getText().contains("International"));
 	}
 
 	@Then("^the practice areas option will be the default selected option$")

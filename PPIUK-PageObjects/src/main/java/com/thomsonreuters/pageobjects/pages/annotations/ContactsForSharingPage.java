@@ -3,10 +3,8 @@ package com.thomsonreuters.pageobjects.pages.annotations;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.*;
 
-import java.util.List;
-
 public class ContactsForSharingPage extends AbstractPage {
-    public static final String CHECKBOX_PATH = "//a[@role='checkbox'][text()='%s']";
+    public static final String CHECKBOX_PATH = "//*[@role='checkbox' and contains(text(),'%s')]";
 
     public WebElement contactsLink() {
         return waitForExpectedElement(By.xpath("//a[contains (@class, 'contacts' )]"));

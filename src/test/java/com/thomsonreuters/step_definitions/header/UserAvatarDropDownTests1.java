@@ -12,8 +12,7 @@ public class UserAvatarDropDownTests1 extends BaseStepDef {
 	
 	private WLNHeader wlnHeader = new WLNHeader();
 	private OnepassLogin onepassLogin = new OnepassLogin();
-	private final String ONEPASS_LOGIN_FORM_TITLE = "manage onepass";
-	
+
 	@When("^the user selects the user profile symbol$")
 	public void theUserSelectsTheUserProfileSymbol() throws Throwable {
 		wlnHeader.expandUserAvatarDropDown();
@@ -32,7 +31,7 @@ public class UserAvatarDropDownTests1 extends BaseStepDef {
 
 	@Then("^the user will be taken to the Manage One Pass page$")
 	public void theUserWillBeTakenToTheManageOnePassPage() throws Throwable {
-		assertTrue("Edit profile link is not displayed", ONEPASS_LOGIN_FORM_TITLE.equalsIgnoreCase(onepassLogin.manageOnePassLoginFormTitle().getText()));
+		assertTrue("Edit profile link is not displayed", onepassLogin.isManageOnePassTitleDisplayed());
 	}
 
 }
