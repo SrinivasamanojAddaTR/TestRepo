@@ -3,6 +3,7 @@ package com.thomsonreuters.step_definitions.search;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
+import cucumber.api.Delimiter;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -57,11 +58,13 @@ public class AnzSearchFacetTest extends BaseStepDef {
 		}
 
 	}
-	
-	@Then("^the know how facet \"(.*?)\" is displayed$")
-	public void knowHowFacetIsDisplayed(String facetName) {
-		assertTrue("Legal updates facet is not displayed..!",knowHowSearchResultsPage.isElementDisplayed(knowHowSearchResultsPage.knowHowFacetCheckbox(facetName)));
-	}
+
+    @Then("^the know how facet \"(.*?)\" is displayed under \"(.*?)\"$")
+    public void knowHowFacetIsDisplayed(String expectedFacetName, @Delimiter(" > ")List<String> facetNames) {
+        facetNames.forEach(facetName -> searchUtils.expandFacet(facetName));
+        assertTrue("Legal updates facet is not displayed..!",knowHowSearchResultsPage.isElementDisplayed(knowHowSearchResultsPage.knowHowFacetCheckbox(expectedFacetName)));
+    }
+
     @When("^the user verifies the presence of the know how facet groups for PLAU$")
     public void theUserVerifiesThePresenceOfTheKnowHowFacetGroups() throws Throwable {
         assertTrue(knowHowSearchResultsPage.facetGroupHeaderResourceType().isDisplayed());

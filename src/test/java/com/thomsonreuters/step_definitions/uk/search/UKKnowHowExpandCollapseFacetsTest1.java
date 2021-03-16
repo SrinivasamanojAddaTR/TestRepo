@@ -14,8 +14,8 @@ public class UKKnowHowExpandCollapseFacetsTest1 {
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
 
     @When("^the user expands the know how facet \"(.*?)\"$")
-    public void theUserExpandsTheKnowHowFacet(String arg1) throws Throwable {
-        knowHowSearchResultsPage.expandFacet(arg1).click();
+    public void theUserExpandsTheKnowHowFacet(String facetName) throws Throwable {
+        knowHowSearchResultsPage.expandCollapsedFacet(facetName).click();
     }
 
 

@@ -997,4 +997,11 @@ public class SearchUtils {
         }
         return updatedLinkList;
     }
+
+    public void expandFacet(String facetName) {
+        if (knowHowSearchResultsPage.isFacetCheckboxCollapsed(facetName)) {
+            knowHowSearchResultsPage.clickElementUsingJS(knowHowSearchResultsPage.expandCollapsedFacet(facetName));
+            knowHowSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
+        }
+    }
 }
