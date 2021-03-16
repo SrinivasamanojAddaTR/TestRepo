@@ -2,10 +2,10 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
   [809456]As a PL Australia User (PLAU) I want to navigate from one our team tab to another our team tab So that I can find out information about the practical law web site
   [809401]As a PL Australia User (PLAU) i want to navigate from one our team tab to another our team tab So that I can find out information about the practical law team and contributing firms
 
-  Background: 
+  Background:
     Given ANZ user is logged in
 
-  Scenario Outline: 
+  Scenario Outline:
     When user clicks on "<Page>" link
     Then the user verifies that the current PageTitle contains '<pageTitle>'
     And tabs are displayed on about company page
@@ -16,18 +16,34 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
     And user selects a tab "<tabToSelect>" on about company page and this tab becomes active
     Then the user verifies that the current PageTitle contains '<pageTitleAfterClickonTab>'
 
-    Examples: 
+    Examples:
       | Page                | pageTitle    | Tab          | tabToSelect  | pageTitleAfterClickonTab |
-      | Testimonials        | Testimonials | Testimonials | About us     | About us                 |
       | About Practical Law | About us     | About us     | Testimonials | Testimonials             |
 
-  Scenario Outline: 
+  Scenario Outline:
+    When user clicks on "<FirstPage>" link
+    When user clicks on "<Page>" link
+    Then the user verifies that the current PageTitle contains '<pageTitle>'
+    And tabs are displayed on about company page
+      | About us     |
+      | Testimonials |
+      | Careers      |
+    And tab "<Tab>" on about company page is active
+    And user selects a tab "<tabToSelect>" on about company page and this tab becomes active
+    Then the user verifies that the current PageTitle contains '<pageTitleAfterClickonTab>'
+
+    Examples:
+      | Page                | pageTitle    | Tab          | tabToSelect  | pageTitleAfterClickonTab | FirstPage           |
+      | Testimonials        | Testimonials | Testimonials | About us     | About us                 | About Practical Law |
+
+  Scenario Outline:
+    When user clicks on "About Practical Law" link
     When user clicks on "<Page>" link
     Then the user verifies that the current PageTitle contains '<pageTitle>'
     When the user selects a tab "<tabToSelect>" within the table of contents
     And tab "<tabToSelect>" in Table of Contents is active
 
-    Examples: 
+    Examples:
       | Page         | pageTitle    | tabToSelect |
       | Testimonials | Testimonials | Law firms   |
       | Testimonials | Testimonials | Companies   |
@@ -37,18 +53,18 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
     When user clicks on "<Page>" link
     Then the user verifies that the current PageTitle contains '<pageTitle>'
     And tabs are displayed on about company page
-      | Team members        |
-      | Contributors        |
-      | Advisory Boards     |
+      | Team members    |
+      | Contributors    |
+      | Advisory Boards |
     And tab "<Tab>" on about company page is active
     And user selects a tab "<tabToSelect>" on about company page and this tab becomes active
     Then the user verifies that the current PageTitle contains '<pageTitleAfterClickonTab>'
 
-    Examples: 
-      | Page                | pageTitle           | Tab                 | tabToSelect         | pageTitleAfterClickonTab |
-      | Meet the Team       | Our team            | Team members        | Contributors 		  | Contributors             |
-      | Contributing Firms  | Contributors        | Contributors        | Advisory Boards     | Advisory board           |
-      | Advisory Board      | Advisory board      | Advisory Boards     | Team members        | Our team                 |
+    Examples:
+      | Page               | pageTitle      | Tab             | tabToSelect     | pageTitleAfterClickonTab |
+      | Meet the Team      | Our team       | Team members    | Contributors    | Contributors             |
+      | Contributing Firms | Contributors   | Contributors    | Advisory Boards | Advisory board           |
+      | Advisory Board     | Advisory board | Advisory Boards | Team members    | Our team                 |
 
   Scenario: [809456]As a PL Australia User (PLAU) I want to navigate from one our team tab to another our team tab So that I can find out information about the practical law web site
     When user clicks on "Testimonials" link
