@@ -1,8 +1,9 @@
+@archived
 Feature: [821883][821884][821885][821886][821887] International Widgets
 
   Background: 
     Given ANZ user is logged in
-@archived
+
   Scenario Outline: Widgets on country page
     When the user opens "<link>" url on PL AU website
     Then the following widgets should be displayed
@@ -86,14 +87,14 @@ Feature: [821883][821884][821885][821886][821887] International Widgets
 #      | /Browse/Home/International/Ukraine                | UKRAINE                  |
 #      | /Browse/Home/International/Venezuela              | VENEZUELA                |
 
-@archived
+
   Scenario: Widgets on International Transaction Guides page
     When the user opens "/Browse/Home/International/Internationaltransactionguides" url on PL AU website
     Then the following widgets should be displayed
       | Testimonials                              |
       | Contribute to Practical Law International content |
 
-  @archived
+
   Scenario: Widgets on Global Guides page
     When the user opens "/Browse/Home/International/Globalguides" url on PL AU website
     Then the following widgets should be displayed
@@ -118,21 +119,21 @@ Feature: [821883][821884][821885][821886][821887] International Widgets
       | UK Legal updates |
       | EU Legal updates |
 
-  @archived
+
   Scenario: [821884] Country Q&A comparison tool widget
     When the user opens "/Browse/Home/International/Canada" url on PL AU website
     And the user clicks on button "Start comparing" on widget "Country Q&A comparison tool"
     Then the user is presented with comparison tool page with header "Country Q&A Comparison Tool"
 
   #last two steps not working for unknown reason, to be investigated
-  @pendingAutomation @archived
+  @pendingAutomation
   Scenario: [821885] Recently Published widget - view all button
     When the user opens "/Browse/Home/International/Argentina" url on PL AU website
    	Then the user can see the button "View all" on widget "Recently published"
   #  And the user clicks on button "View all" on widget "Recently published"
   #  Then the user is presented with a page with header "Argentina: Recently published"
 
-  @archived
+
   Scenario: [821886] Contribute to Global Guides widget
     When the user opens "/Browse/Home/International/RussianFederation" url on PL AU website
   	And the text on widget "Contribute to Practical Law International content" is "Showcase your expertise in Practical Law global guides and international transactions guides."
@@ -141,7 +142,7 @@ Feature: [821883][821884][821885][821886][821887] International Widgets
 
 
   #837690 [PLAU & PLUK] Browse -  "Doing business" widget for India, Indonesia, South Korea, South Africa countries' pages are showing "Argentina" page rather than their own pages
-	@bug @archived
+	@bug
   Scenario Outline: [821887] Doing business in country widget
     When the user opens "<link>" url on PL AU website
     And the user clicks on button "Find out more" on widget "Doing business in <country>?"
