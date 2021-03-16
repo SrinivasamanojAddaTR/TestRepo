@@ -3,6 +3,7 @@ Feature: [822646] As a PLAU user, I want to use Country Q&A tool and document di
 Background:
    Given ANZ user is logged in
 
+  @smoke @gold
   Scenario: [822646]As a PLAU User I want to browse/select/enter a URL and link to the Country Q&A Comparison Tool So that I can compare the law for two or more Countries
     When the user opens "/QACompare/Builder/Country" url on PL AU website
     Then user verifies the "Country Q&A" page

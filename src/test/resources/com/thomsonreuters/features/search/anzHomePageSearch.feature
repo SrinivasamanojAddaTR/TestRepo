@@ -4,7 +4,8 @@ Feature: [813246][808751] As a PLAU User, I want to perform a home page search a
 Background: 
 	Given ANZ user is logged in
 
-Scenario Outline: Verify valid search results for single and multiple terms 
+  @smoke @gold
+  Scenario Outline: Verify valid search results for single and multiple terms
 	When the user runs specific operator search for the query "<Search Term>" 
 	And the user can select the option to show less detail 
 	Then the user can verify that the less detail icon is displayed 

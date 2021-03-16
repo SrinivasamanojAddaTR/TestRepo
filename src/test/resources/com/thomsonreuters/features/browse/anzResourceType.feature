@@ -34,7 +34,9 @@ Feature: [825619]As a PLAU User, I want to view a Resource Type by Practice Area
       | Checklists                            | Corporate Transactions 	|
       | Checklists                            | Employment 				|
 
-   Scenario: [848134] Facets on resource type pages
+
+  @smoke @gold
+  Scenario: [848134] Facets on resource type pages
 	Given ANZ user is logged in
 	And user navigates to resource type "Practice notes" for practice area "Company Law"
     And user expands the "Practice Area" facets group

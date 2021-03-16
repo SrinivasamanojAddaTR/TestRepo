@@ -25,6 +25,7 @@ Feature: [812218]  Password Authentication: Login to Practical Law Australia
     And his password will be populated in the password box
     And his password will not be readable in the screen and only asterisks will be visible
 
+  @smoke @gold
   Scenario: [812218] As a User I want to be able to have a dedicated page to login
     Then the user will be redirected to a login page
     And in this login page he will be able to see username and password boxes

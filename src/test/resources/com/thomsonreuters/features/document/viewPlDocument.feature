@@ -3,7 +3,7 @@ Feature: [817979] View PL Document
 Background:
    Given ANZ user is logged in
 
-
+  @smoke @gold
 Scenario: [817979] As a PL AU login/password user I want to view document 
 	Given ANZ user navigates directly to document with guid "Ifb5c2817995811e598dc8b09b4f043e0"	 
 	Then document title is displayed as "Financial assistance" 

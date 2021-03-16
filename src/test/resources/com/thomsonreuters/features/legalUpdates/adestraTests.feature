@@ -1,7 +1,7 @@
 Feature: [848639] As a PLAU User I want to unsubscribe from all services
 
   # do not remove this tag. this tag is to clean all users subcriptions.
-  @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
+  @smoke @gold @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
   Scenario Outline: 
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |

@@ -1,6 +1,7 @@
 Feature: [820792][822937] As a PLAU user,  I want to view folders, favourites and history
   So that I can folder my favourite documents and pages and view the history of my session
 
+  @smoke @gold
   Scenario: User wants to see Favourite, Folders and History links
     Given ANZ user is logged in
     Then user should see "Folders" link

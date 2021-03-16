@@ -9,7 +9,8 @@ Background:
 	Given ANZ user is logged in
 	And user navigates to a glossary page 
 
-Scenario: Verify Tabbed Alphabets functionality
+@smoke
+  Scenario: Verify Tabbed Alphabets functionality
 	When the user is able to see the tabbed alphabetical list 
 	And the user clicks on the alphabet "B" in the tabbed alphabetical list 
 	Then letter "B" should be selected on the alphabet tab

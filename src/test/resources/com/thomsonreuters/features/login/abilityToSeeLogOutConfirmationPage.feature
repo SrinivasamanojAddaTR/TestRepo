@@ -2,6 +2,7 @@ Feature: [812292] As a PLAU User I want to signout of PLAU So that I can ensure 
 
 
 
+  @smoke @gold
   Scenario: [812292] As a PLAU User I want to signout of PLAU So that I can ensure my session is closed safely and securely
     Given ANZ user is logged in
     When user clicks on Sign out

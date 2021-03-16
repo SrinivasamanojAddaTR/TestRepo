@@ -1,5 +1,7 @@
 Feature: [808905]As a PLAU User, I want to view the home page So that I can view the practice areas, resources and international materials that are available in the PLAU web site
 
+
+  @smoke @gold
   Scenario Outline: User verifies the Pratice area pages and its relative tabs
     Given ANZ user is logged in
     And user opens "Practice Areas" link

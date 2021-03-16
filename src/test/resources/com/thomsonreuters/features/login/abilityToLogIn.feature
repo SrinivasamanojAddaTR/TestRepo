@@ -1,4 +1,7 @@
+@smoke @gold
 Feature: [850067] Not logged in user can log in as username and password
+
+
 
   Scenario: [850067] As a not logged in user I want to use Sign On link on the header to login.
     Given ANZ user is not logged in

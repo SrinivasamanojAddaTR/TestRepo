@@ -57,8 +57,8 @@ Examples:
 	| guid								| title 						    | author 						| 	summary							| body					|
 	| Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence: acquisitions   	|by Practical Law Corporate 	| This note considers the purpose 	| The potential buyer	|
 
-
-Scenario Outline: [850119] As a PL AU open web user I want to view full document if it is free to view
+  @smoke @gold
+  Scenario Outline: [850119] As a PL AU open web user I want to view full document if it is free to view
 	When ANZ user navigates directly to document with guid "<guid>"
 	Then document title is displayed as "<title>"
 	And the full text document will be displayed including "<body>"

@@ -6,6 +6,7 @@ Feature: [829761] Link back to the page  from where performed a search
     Given ANZ user is logged in
      And the user is on the home page
 
+  @smoke
   Scenario: Verify back to home link is displayed on search results page
     Given the user runs a free text search for the query "document"
     When the user clicks link 'Home' on 'search' page

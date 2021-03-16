@@ -11,7 +11,9 @@ Background:
 ###############################################################################################################
 ## Print 	
 ###############################################################################################################
-Scenario: [831297] Print a single document
+
+  @smoke
+  Scenario: [831297] Print a single document
 	When the user clicks on 'History' link on the header
 	And the user clicks on 'Documents' tab on the History page
     And the user selects the checkbox associated with document "1"

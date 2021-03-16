@@ -4,9 +4,10 @@ As a User I want to view State Jurisdiction within document view So that I know 
 
 Background:
    Given ANZ user is logged in
-   
 
-Scenario Outline: [818000] As a PL AU login/password user I want to view document metadata 
+
+  @smoke @gold
+  Scenario Outline: [818000] As a PL AU login/password user I want to view document metadata
 	Given ANZ user navigates directly to document with guid "<guid>"
 	Then resource status "<resource status>" is displayed on the document right hand panel 
 	And resource type is displayed as "<documentType>" on right hand panel 

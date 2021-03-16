@@ -7,6 +7,7 @@ So that I can work with my document off line
 Background:
 Given ANZ user is logged in
 
+  @smoke @gold
 Scenario Outline: [830655] Download standard document - MS Word format 
 	Given the user opens "<plc ref>" url on PL AU website
 	And the user deletes all files with name "<name>" and extension ".doc" from Downloads 

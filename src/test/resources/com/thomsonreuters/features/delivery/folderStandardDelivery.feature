@@ -9,7 +9,9 @@ Scenario: Clean folders
 ###############################################################################################################
 ## Download	
 ###############################################################################################################
-Scenario Outline: [821556] Download documents in PDF format
+
+  @smoke
+  Scenario Outline: [821556] Download documents in PDF format
 	Given the user opens <folder> folder with the set of documents
 		|Iabd12ee0995911e598dc8b09b4f043e0|
 		|Ifb5c2817995811e598dc8b09b4f043e0|	

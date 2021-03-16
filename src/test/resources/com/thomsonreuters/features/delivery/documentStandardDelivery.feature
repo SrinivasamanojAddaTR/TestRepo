@@ -16,7 +16,9 @@ Background:
 #password: tranztest
 
 
-Scenario Outline: [818051] Email document - MS Word format 
+
+  @smoke @gold
+  Scenario Outline: [818051] Email document - MS Word format
 	Given ANZ user navigates directly to document with guid "<guid>"
 	When clicks on email delivery option for the document 
 	Then the user should be able to see Email basic tab options as follows 
@@ -170,7 +172,8 @@ Scenario Outline: [818051] Email document - PDF format, drafting notes included
 ###########################################################################################################################################
 #download
 ###########################################################################################################################################
-Scenario Outline: [818051] Download document - MS Word format 
+	@smoke @gold
+	Scenario Outline: [818051] Download document - MS Word format
 	Given ANZ user navigates directly to document with guid "<guid>"
 	When clicks on Download delivery option for the document 
 	And the user edits the basic download options as follows 
@@ -275,7 +278,7 @@ Scenario Outline: [818051] Download document - PDF format, drafting notes only
 ###########################################################################################################################################
 #Print
 ###########################################################################################################################################
-
+	@smoke @gold
 Scenario Outline: [818051] Print document
 	Given ANZ user navigates directly to document with guid "<guid>"
 	When clicks on Print delivery option for the document 
