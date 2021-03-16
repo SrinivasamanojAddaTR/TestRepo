@@ -4,11 +4,11 @@ Feature: [857832] Feedback form changes
     Given ANZ user is logged in
     When user should see footer
     And user clicks on "Feedback" link
-    Then the user is taken to "https://www.nicereply.com/thomson-reuters-anz.plau/practical-law-australia" resource
+    Then the feedback form with title "Practical Law Feedback" is displayed
 
   Scenario:  [857832] Feedback link leads to nicereply.com - open web
     Given ANZ user is not logged in
     When the user navigates to the main PLANZ page
     And user should see footer
     And user clicks on "Feedback" link
-    Then the user is taken to "https://www.nicereply.com/thomson-reuters-anz.plau/practical-law-australia" resource
+    Then the feedback form with title "Practical Law Feedback" is displayed

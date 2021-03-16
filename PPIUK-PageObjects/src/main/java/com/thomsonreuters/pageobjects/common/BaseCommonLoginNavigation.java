@@ -274,6 +274,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         if (!isUserFirstUser(currentUser)) {
             newSession(currentUser);
             navigationCobalt.navigateToPLANZPlus();
+            wlnHeader.closePrivacyNoticePopup();
             footerUtils.closeDisclaimerMessage();
             Thread.sleep(300);
             footerUtils.ourCookiesPolicy();

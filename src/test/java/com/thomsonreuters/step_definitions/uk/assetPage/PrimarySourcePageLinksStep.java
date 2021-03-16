@@ -1,6 +1,8 @@
 package com.thomsonreuters.step_definitions.uk.assetPage;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
+import com.thomsonreuters.pageobjects.common.KeyphraseState;
+import com.thomsonreuters.pageobjects.pages.footer.FeedbackForm;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.AssetDocumentPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.PrimarySourceDocumentPage;
 import com.thomsonreuters.pageobjects.utils.plPlusResearchDocDisplay.AssetPageUtils;
@@ -8,6 +10,7 @@ import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -16,6 +19,7 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 	PrimarySourceDocumentPage primarySourceDocumentPage = new PrimarySourceDocumentPage();
 	AssetPageUtils assetPageUtils = new AssetPageUtils();
 	AssetDocumentPage assetDocumentPage = new AssetDocumentPage();
+	FeedbackForm feedbackForm = new FeedbackForm();
 
 	private String hrefAtribute;
 
@@ -59,7 +63,15 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 				assetPageUtils.isTheUserTakenToTheSelectedResource(linkText));
 	}
 
-	@Then("^the user sees the \"(.*?)\" link$")
+	@Then("^the feedback form with title \"([^\"]*)\" is (displayed|not displayed)$")
+	public void verifyFeedbackForm(String feedbackFormName, KeyphraseState state) {
+		assertThat(feedbackForm.isFeedBackFormPresent(feedbackFormName))
+				.as("Feedback form should be %s", state.getPhrase())
+				.isEqualTo(state.isTrue());
+	}
+
+
+		@Then("^the user sees the \"(.*?)\" link$")
 	public void theUserSeesTheLink(String linkText) throws Throwable {
 		assertTrue("The user doesn't see Link",
 				primarySourceDocumentPage.isElementDisplayed(primarySourceDocumentPage.linkInPrimarySource(linkText)));

@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 
 public class FeedbackForm extends AbstractPage {
 
+    private static final String FEEDBACK_FORM = "//*[@id='co_feedback']//*[contains(text(),'%s')]";
+
 	public WebElement label(String field) {
 		return waitForExpectedElement(By.xpath("//label[starts-with(text(),'" + field + "')]"));
 	}
@@ -39,5 +41,9 @@ public class FeedbackForm extends AbstractPage {
 
     public WebElement captcha() {
         return waitForExpectedElement(By.id("recaptcha"));
+    }
+
+    public boolean isFeedBackFormPresent(String feedbackFormName) {
+        return isExists(By.xpath(String.format(FEEDBACK_FORM, feedbackFormName)));
     }
 }

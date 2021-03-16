@@ -106,6 +106,8 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
     public void theUserNavigatesToTheMainPLANZPage() throws Throwable {
         navigationCobalt.navigateToPLANZPlus();
 		wlnHeader.waitForPageToLoad();
+		wlnHeader.closePrivacyNoticePopup();
+		wlnHeader.waitForPageToLoad();
     }
 
 	/**
