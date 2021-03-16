@@ -32,10 +32,10 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
       | Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary |
       | Resources | Practice notes, Standard documents and drafting notes, Checklists, Glossary                                      |
     Examples:
-      | PA                     | Topics                                                                                     |
-      | Company Law            | Company administration and meetings, Directors                                             |
-      | Corporate Transactions | Share acquisitions: private                                                                |
-      | Employment             | Federal discrimination and harassment, Ill and injured employees, Federal unfair dismissal |
+      | PA                     | Topics                                                           |
+      | Company Law            | Company administration and meetings, Directors                   |
+      | Corporate Transactions | Share acquisitions: private                                      |
+      | Employment             | Federal discrimination and harassment, Ill and injured employees |
 
 
   Scenario Outline: [831936] User verifies the topic page in Open Web.
@@ -65,7 +65,8 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
       | Standard documents and drafting notes | Company Law, Corporate Transactions, Employment  |
       | Checklists                            | Company Law , Corporate Transactions, Employment |
       | Glossary                              | -                                                |
-@archived
+
+  @archived
   Scenario:  User verifies the International pages and its relative tabs
     Given PL+ ANZ user navigates to home page
     When user selects the following tab and see the relative links or content
