@@ -54,7 +54,8 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
       | Company Law            | Share capital               | Practice notes,Checklists,Glossary | Resource Type |
       | Corporate Transactions | Due diligence: acquisitions | Practice notes,Checklists,Glossary | Resource Type |
 
-
+  #TODO global guides is under consideration will appear in future
+  @wip
   Scenario: User verifies the Practice area pages and its relative tabs in Open Web
     Given PL+ ANZ user navigates to home page
     When user selects the following tab and see the relative links or content
