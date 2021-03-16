@@ -43,7 +43,7 @@ public class WLNFooter extends AbstractPage {
     }
 
     public WebElement requestTrial() {
-        return waitForExpectedElement(By.xpath("//div[@id='footer-request-trial']/button[contains(text(),'Request a Trial')]"));
+        return waitForExpectedElement(By.xpath("//*[contains(text(),'Request Trial')]"));
     }
 
     //----------------------------------Footer first row-----------------------

@@ -8,5 +8,5 @@ Feature: [809732] Request User Guides
 
   Scenario: The User Guides link takes user to User Guides web page
     When the user clicks link 'User Guides' on footer
-    Then user was taken to url "http://training.thomsonreuters.com.au/products/practical-law-au/"
+    Then user was taken to url "https://support.thomsonreuters.com.au/product/practical-law-australia-incl-nz-resource-centre"
     
