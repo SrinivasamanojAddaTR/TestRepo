@@ -1,62 +1,52 @@
 Feature: [809948][850090] Link to another Practical Law web site
 
-#bug 869259 [PLAU] all links to Westlaw AU are failing
-
-  Scenario Outline: Logged in User verifies the "Country Toggle Drop-down" links and styling
+  Scenario Outline: Logged in User verifies the Footer links and styling
     Given ANZ user is logged in
-    When user clicks on the country toggle dropdown
     Then user should see the following countries with respective links
-      | Country    | Link                                                                                             |
-      | UK         | http://uk.practicallaw.tr.com/                                                                   |
-      | US         | http://us.practicallaw.tr.com/                                                                   |
-      | Australia  | https://au.practicallaw.demo.thomsonreuters.com/?transitionType=Default&contextData=(sc.Default) |
-      | Australia  | https://au.practicallaw.qed.thomsonreuters.com/?transitionType=Default&contextData=(sc.Default)  |
-      | Canada     | http://ca.practicallaw.com/                                                                      |
-      | China      | http://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China                               |
-      | Global     | http://uk.practicallaw.thomsonreuters.com/Browse/Home/Global                                     |
+      | Australia  | http://anzlaw.                    |
+      | UK         | /PLCTransfer.html?domainKey=PLCUK |
+      | US         | /PLCTransfer.html?domainKey=PLCUS |
+      | Canada     | /PLCTransfer.html?domainKey=PLCCA |
     And the user selects "<countryName>"
     And the Practical Law Country "<url>" web site "<websiteTitle>" will be launched in the same window and tab
-
-    Examples: 
-      | countryName | url                                                                    | websiteTitle                           |
-      | US          | https://content.next.westlaw.com/Browse/Home                           | Practical Law |
-      | UK          | https://uk.practicallaw.thomsonreuters.com/Browse/Home                | Home \| Practical Law                  |
-      | Canada      | https://ca.practicallaw.thomsonreuters.com/Search/Home                  | Practical Law Canada         |
-      | Global      | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global          | Global Homepage \| Practical Law       |
-      | China       | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China    | Global \| China \| Practical Law       |
-
+    Examples:
+      | countryName | url                      | websiteTitle                          |
+      | US          | https://a.next.          | US Home \| Practical Law              |
+      | UK          | https://uk.practicallaw. | UK Home \| Practical Law              |
+      | Canada      | https://ca.practicallaw. | Practical Law Canada \| Practical Law |
+    @archived
+    Examples:
+      | countryName | url                                                                 | websiteTitle                     |
+      | Global      | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global       | Global Homepage \| Practical Law |
+      | China       | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China | Global \| China \| Practical Law |
 
   Scenario: Logged in User verifies the Westlaw AU  links
     Given ANZ user is logged in
     When the user selects "Resources" tab
     And the user selects "Westlaw AU"
     Then the user is taken to the login page in WLAU
- 
-	
-	#open web
-  Scenario Outline: User verifies the "Country Toggle Drop-down" links and styling
+
+  #open web user tests
+  Scenario Outline: Open Web User verifies the Footer links and styling
     Given the user navigates to the main PLANZ page
     And ANZ user is not logged in
-    When user clicks on the country toggle dropdown
     Then user should see the following countries with respective links
-      | Country    | Link                                                                                             |
-      | UK         | http://uk.practicallaw.tr.com/                                                                   |
-      | US         | http://us.practicallaw.tr.com/                                                                   |
-      | Australia  | https://au.practicallaw.demo.thomsonreuters.com/?transitionType=Default&contextData=(sc.Default) |
-      | Australia  | https://au.practicallaw.qed.thomsonreuters.com/?transitionType=Default&contextData=(sc.Default)  |
-      | Canada     | http://ca.practicallaw.com/                                                                      |
-      | China      | http://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China                               |
-      | Global     | http://uk.practicallaw.thomsonreuters.com/Browse/Home/Global                                     |
+      | Australia  | http://anzlaw.                    |
+      | UK         | /PLCTransfer.html?domainKey=PLCUK |
+      | US         | /PLCTransfer.html?domainKey=PLCUS |
+      | Canada     | /PLCTransfer.html?domainKey=PLCCA |
     And the user selects "<countryName>"
     And the Practical Law Country "<url>" web site "<websiteTitle>" will be launched in the same window and tab
-
     Examples:
-      | countryName | url                                                                    | websiteTitle                           |
-      | US          | https://content.next.westlaw.com/Browse/Home                           | Practical Law |
-      | UK          | https://uk.practicallaw.thomsonreuters.com/Browse/Home                 | Home \| Practical Law                  |
-      | Canada      | https://ca.practicallaw.thomsonreuters.com/Search/Home                 | Practical Law Canada         |
-      | Global      | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global          | Global Homepage \| Practical Law       |
-      | China       | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China    | Global \| China \| Practical Law       |
+      | countryName | url                      | websiteTitle                          |
+      | US          | https://a.next.          | US Home \| Practical Law              |
+      | UK          | https://uk.practicallaw. | UK Home \| Practical Law              |
+      | Canada      | https://ca.practicallaw. | Practical Law Canada \| Practical Law |
+    @archived
+    Examples:
+      | countryName | url                                                                 | websiteTitle                     |
+      | Global      | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global       | Global Homepage \| Practical Law |
+      | China       | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China | Global \| China \| Practical Law |
 
   Scenario: Open Web User verifies the Westlaw AU  links
     Given the user navigates to the main PLANZ page

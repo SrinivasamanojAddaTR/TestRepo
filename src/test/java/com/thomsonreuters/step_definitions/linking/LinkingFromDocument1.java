@@ -12,7 +12,7 @@ import static org.junit.Assert.assertFalse;
 
 public class LinkingFromDocument1 {
 
-	private static final String WLAU_SIGN_ON= "545 Orders that can be made by particular courts | Westlaw AU";
+	private static final String WLAU_SIGN_ON= "Westlaw Australia Signon";
 	private static final String PLAU_SIGN_ON = "Home | Practical Law";
 	private static final int SINGLE = 1;
 
@@ -67,12 +67,7 @@ public class LinkingFromDocument1 {
                 product = PLAU_SIGN_ON;
                 break;
         }
-        homePage.switchToOpenedWindow();
         assertTrue("Product: " + product + "; Title: " + homePage.getPageTitle(), homePage.getPageTitle().contains(product));
-		if(homePage.getWindowHandles().size() > SINGLE) {
-			homePage.close();
-		}
-        homePage.switchToMainWindow();
 	}
 
 }
