@@ -19,9 +19,7 @@ public class CasesSearchResultsPage extends AbstractPage {
      * Object representing a facet checkbox as identified by facet name
      */
     public WebElement facetCheckbox(String facetName) {
-        WebElement findlabel = waitForExpectedElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[text()='" + facetName + "']"));
-        String labelFor = findlabel.getAttribute("for");
-        return waitForExpectedElement(By.id(labelFor));
+        return waitForExpectedElement(By.xpath(String.format("//span[.='%s']/parent::label[@class='SearchFacet-label']/input",facetName)));
     }
 
     /**

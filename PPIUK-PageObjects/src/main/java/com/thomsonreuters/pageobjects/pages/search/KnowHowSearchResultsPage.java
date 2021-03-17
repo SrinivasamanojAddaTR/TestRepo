@@ -127,14 +127,15 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * This is an object representing the Apply Filters button
      */
     public WebElement applyFiltersButton() {
-        return waitForExpectedElement(By.partialLinkText("Apply filters"), 8);
+        return waitForExpectedElement(By.xpath("//*[@id='co_multifacet_selector_1']//*[@class='co_multifacet_apply']"));
     }
 
     /**
      * This is an object representing the facet count associated with each facet (any facet on the know how page)
      */
-    public WebElement facetCount(String facetname) {
-        return waitForExpectedElement(By.xpath("//div[@id='co_narrowResultsBy']//label[contains(text(),'" + facetname + "')]/../span[@class='co_facetCount']"), 10);
+    public WebElement facetCount(String facetName) {
+        //return waitForExpectedElement(By.xpath("//div[@id='co_narrowResultsBy']//label[contains(text(),'" + facetname + "')]/../span[@class='co_facetCount']"), 10);
+        return waitForElementPresent(By.xpath(String.format("//span[.='%s']/parent::label[@class='SearchFacet-label']//span[@class='SearchFacet-outputTextValue']",facetName)));
     }
 
     /**

@@ -158,14 +158,14 @@ public class FacetJavaTest1 extends BaseStepDef {
 
     @When("^the user selects the know how following parent facets$")
     public void theUserSelectsTheKnowHowFollowingParentFacets(List<String> facets) throws Throwable {
-        WebElement multipleFilterButton = commonMethods.waitForElementToBeVisible(researchOrganizerPage.selectMultipleByFilters(), 1000);
-        if (multipleFilterButton != null) {
-            knowHowSearchResultsPage.scrollIntoViewAndClick(multipleFilterButton);
-        }
-        if (commonMethods.waitForElementToBeVisible(knowHowSearchResultsPage.moreJuridictionByLink(), 2000) != null) {
-            commonMethods.scrollUpOrDown(200);
-            knowHowSearchResultsPage.waitForElementVisible(knowHowSearchResultsPage.moreJuridictionByLink()).click();
-        }
+//        WebElement multipleFilterButton = commonMethods.waitForElementToBeVisible(researchOrganizerPage.selectMultipleByFilters(), 1000);
+//        if (multipleFilterButton != null) {
+//            knowHowSearchResultsPage.scrollIntoViewAndClick(multipleFilterButton);
+//        }
+//        if (commonMethods.waitForElementToBeVisible(knowHowSearchResultsPage.moreJuridictionByLink(), 2000) != null) {
+//            commonMethods.scrollUpOrDown(200);
+//            knowHowSearchResultsPage.waitForElementVisible(knowHowSearchResultsPage.moreJuridictionByLink()).click();
+//        }
 
         for (String facet : facets) {
             knowHowSearchResultsPage.knowHowFacetCheckbox(facet).click();

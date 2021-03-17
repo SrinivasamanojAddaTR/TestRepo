@@ -134,6 +134,8 @@ public class AnzBrowseTest extends BaseStepDef {
 
     @Then("^user expands the \"(.*?)\" facets group$")
     public void expandFacetGroup(String type){
+        topicPage.waitForPageToLoad();
+        topicPage.waitForPageToLoadAndJQueryProcessing();
     if (!topicPage.facetGroupCollapsedOrExpanded(type))
         topicPage.expandFacetGroup(type);
 
