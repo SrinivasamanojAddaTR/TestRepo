@@ -86,7 +86,7 @@ Feature: [829761] Link back to the page  from where performed a search
   Scenario Outline: Verify Back link is displayed on footer search results page
     Given user clicks on "About Practical Law" link
     When the user runs a free text search for the query "<query>"
-	And the user clicks link 'About us: About Practical Law' on 'search' page
+	And the user clicks link 'About us' on 'search' page
 	Then the user is presented with a page with header "About us: About Practical Law"
     Examples:
     |query		|
