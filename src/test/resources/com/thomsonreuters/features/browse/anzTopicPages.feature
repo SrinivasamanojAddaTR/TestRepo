@@ -14,8 +14,8 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
     Examples:
       | PA                     | Topic Page                  | Resources                                    |
       | Employment             | Ill and injured employees   | Practice notes,Standard documents,Checklists |
-      | Company Law            | Corporate governance        | Practice notes, Checklists, Glossary         |
-      | Corporate Transactions | Due diligence: acquisitions | Practice notes, Checklists, Glossary         |
+      | Company Law            | Corporate governance        | Practice notes,Standard documents,Checklists |
+      | Corporate Transactions | Due diligence: acquisitions | Practice notes,Standard documents,Checklists |
 
 
   @gold
