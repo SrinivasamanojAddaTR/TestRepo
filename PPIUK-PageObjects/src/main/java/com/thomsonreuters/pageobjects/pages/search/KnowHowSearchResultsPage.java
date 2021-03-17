@@ -18,7 +18,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
     public static final String KNOW_HOW_FACET_CHECKBOX_PATH = "//label[(normalize-space(text())='%1$s')]/parent::li//input[@type='checkbox'] | //*[.//*[text()='%1$s']|text()='%1$s' and contains(@class,'SearchFacet')]/preceding-sibling::input";
     public static final String FACET_CHECKBOX_BUTTON_COLLAPSED_PATTERN = "//span[contains(.,\"%s\")]/parent::button[@aria-expanded='false']";
     private static final String ADDED_NOTE_LINK_PATTERN = "#cobalt_search_results_knowHowPlc%s .co_document_icon_notes>img,#cobalt_search_results_knowHowPlc%s .co_document_icon_notes";
-    public static final String FACET_SELECTION = "//span[text()='%s']";
+    public static final String FACET_SELECTION = "//*[text()='%s']";
     private CommonMethods commonMethods = new CommonMethods();
 
     public KnowHowSearchResultsPage() {

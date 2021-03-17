@@ -121,7 +121,7 @@ public class SubscriptionPreferencePage extends AbstractPage {
     }
 
     public WebElement saveButtonANZ() {
-        return waitForExpectedElement(By.xpath("//button[contains(@class,'email-preferences-button')]/span"), 90);
+        return waitForExpectedElement(By.xpath("//*[contains(@class, 'co_primaryBtn')]//*[text()='Save']"), 90);
     }
 
     public WebElement cancelButton() {
@@ -129,7 +129,7 @@ public class SubscriptionPreferencePage extends AbstractPage {
     }
 
     public WebElement cancelButtonANZ() {
-        return waitForExpectedElement(By.xpath("//a[@class='cancelButton']"));
+        return waitForExpectedElement(By.xpath("//*[contains(@class, 'co_cancelBtn')]"));
     }
 
     public WebElement getSpecifiedCheckBox(String service, String frequency, String region) {

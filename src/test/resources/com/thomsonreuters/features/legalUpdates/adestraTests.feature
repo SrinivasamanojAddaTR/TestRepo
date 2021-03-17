@@ -63,8 +63,8 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
     Given ANZ user is logged in
     Given a user is viewing the email preference page
     Then the user should be presented with two buttons to save their preferences or cancel their changes
-    And one button should be labelled 'Save preferences'
-    And one button should be labelled 'cancel changes'
+    And one button should be labelled 'Save'
+    And one button should be labelled 'Cancel'
 
   # do not remove this tag. this tag is to clean all users subcriptions.
   @gold @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption

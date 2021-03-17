@@ -95,12 +95,12 @@ public class AbilityToSeeAlertsControlsOnASinglePage1 extends BaseStepDef {
         assertTrue("one of save/cancel buttons is absent", subscriptionPreferencePage.saveButtonANZ().isDisplayed() && subscriptionPreferencePage.cancelButtonANZ().isDisplayed());
     }
 
-    @Then("^one button should be labelled 'Save preferences'$")
+    @Then("^one button should be labelled 'Save'$")
     public void oneButtonShouldBeLabelledSavePreferences() throws Throwable {
         assertTrue("Save button label is incorrect", subscriptionPreferencePage.saveButtonANZ().getText().equals(SAVE_BUTTON_LABEL));
     }
 
-    @Then("^one button should be labelled 'cancel changes'$")
+    @Then("^one button should be labelled 'Cancel'$")
     public void oneButtonShouldBeLabelledCancelChanges() throws Throwable {
         assertTrue("Cancel button label is incorrect", subscriptionPreferencePage.cancelButtonANZ().getText().equals(CANCEL_BUTTON_LABEL));
     }
