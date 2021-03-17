@@ -1,4 +1,4 @@
-/*package com.thomsonreuters.step_definitions.breadcrumb;
+package com.thomsonreuters.step_definitions.breadcrumb;
 
 import static org.junit.Assert.assertTrue;
 
@@ -19,4 +19,3 @@ public class cEProjectPageTest extends BaseStepDef {
 	}
 	
 }
-*/

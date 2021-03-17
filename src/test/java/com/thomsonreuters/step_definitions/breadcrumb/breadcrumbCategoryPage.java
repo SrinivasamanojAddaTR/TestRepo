@@ -1,4 +1,4 @@
-/*package com.thomsonreuters.step_definitions.breadcrumb;
+package com.thomsonreuters.step_definitions.breadcrumb;
 
 
 import com.thomsonreuters.pageobjects.common.BaseCommonLoginNavigation;
@@ -270,4 +270,3 @@ public void theUserclicksonViewlAllbutton()
    
     
 
-*/

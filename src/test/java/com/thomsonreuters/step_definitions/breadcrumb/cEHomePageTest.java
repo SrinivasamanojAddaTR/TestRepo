@@ -1,4 +1,4 @@
-/*package com.thomsonreuters.step_definitions.breadcrumb;
+package com.thomsonreuters.step_definitions.breadcrumb;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -72,4 +72,4 @@ private HomePage homePage = new HomePage();
         	
         assertTrue("This is not traversed to requested page", header.cEHeaderTitle().getText().trim().contains(title));
 }
-}  */
+}
