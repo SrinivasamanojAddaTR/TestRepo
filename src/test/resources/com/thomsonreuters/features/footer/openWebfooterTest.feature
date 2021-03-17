@@ -30,8 +30,11 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
       | footer                             | header                            | url                                            |
       | About Practical Law                | About Us                          | /Browse/Home/About/AboutUs                     |
       | Meet the Team                      | Our team                          | /Browse/Home/About/OurTeam                     |
-      | Contributing Firms                 | Contributors                      | /Browse/Home/About/Contributors                |
       | How are we using your information? | How we are using your information | Browse/Home/About/HowWeAreUsingYourInformation |
+  @archived
+    Examples:
+      | footer                             | header                            | url                                            |
+      | Contributing Firms                 | Contributors                      | /Browse/Home/About/Contributors                |
 
   Scenario Outline: User verifies the functionality of footer links that lead to internal pages - indirect
     When user clicks on "<firstLink>" link

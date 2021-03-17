@@ -37,7 +37,7 @@ public class AdvisoryBoards extends BaseStepDef {
     @Then("^the table on (?:Consultation Boards|Advisory Boards) page includes following people")
     public void theUserVerifiesColumnsInTable(List<String> columnNames) throws Throwable {
         List<String> advisoryBoardPeople = homeUtils.getPeopleNamesFromAdvisoryBoard();
-        assertTrue("Expected: " + columnNames + ", actual: " + advisoryBoardPeople, advisoryBoardPeople.equals(columnNames));
+        assertTrue("Expected: " + columnNames + ", actual: " + advisoryBoardPeople, advisoryBoardPeople.containsAll(columnNames));
     }
 
     @Then("^the table of contents on (?:Consultation Boards|Advisory Boards) page is hidden$")

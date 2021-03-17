@@ -63,6 +63,9 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
     Examples:
       | Page               | pageTitle      | Tab             | tabToSelect     | pageTitleAfterClickonTab |
       | Meet the Team      | Our team       | Team members    | Contributors    | Contributors             |
+  @archived
+    Examples:
+      | Page               | pageTitle      | Tab             | tabToSelect     | pageTitleAfterClickonTab |
       | Contributing Firms | Contributors   | Contributors    | Advisory Boards | Advisory board           |
 
   Scenario Outline: [809401] As a PL Australia User (PLAU) I want to navigate from one our team tab to another our team tab So that I can find out information about the practical law team and contributing firms

@@ -22,10 +22,12 @@ Feature: [809111]As a user, I want to see the "Legal Information" and "Privacy" 
     And user should see the "<PageTitle>" page is opened
 
     Examples:
-      | Link                               | PageTitle                                                               |
-      | Master Terms                       | AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
-      | How are we using your information? | How we are using your information                                       |
+      | Link                               | PageTitle                         |
+      | How are we using your information? | How we are using your information |
 
+  Scenario: User verifies the functionality of "Legal Information"
+    When user clicks on "Permitted Use FAQs" link
+    Then user was taken to url "https://support.thomsonreuters.com.au/sites/default/files/2018-07/Permitted%20Use%20FAQs.pdf"
 
 
   @gold

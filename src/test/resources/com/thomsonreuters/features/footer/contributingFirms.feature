@@ -1,4 +1,4 @@
-@wip
+@wip @archived
 Feature: [809413] I want to view the Contributing Firms pages
 As a PL Australia User I want to view the Contributing Firms pages so that I can find out who the has contributed to the Practical Law website
 
