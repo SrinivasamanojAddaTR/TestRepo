@@ -9,10 +9,24 @@ import org.openqa.selenium.WebElement;
 public class FeedbackForm extends AbstractPage {
 
     private static final String FEEDBACK_FORM = "//*[@id='co_feedback']//*[contains(text(),'%s')]";
+    private static final String ASK_CHAR_COUNTER_MESSAGE = "//*[contains(text(), '%s')]";
+    private static final By FEEDBACK_TEXT = By.id("feedbackText");
+    private static final By ASK_CHAR_COUNTER = By.xpath("//*[contains(@id, 'charCounter_counter')]");
 
 	public WebElement label(String field) {
 		return waitForExpectedElement(By.xpath("//label[starts-with(text(),'" + field + "')]"));
 	}
+
+    public WebElement getFeedbackText() {
+        return waitForExpectedElement(FEEDBACK_TEXT);
+    }
+    public WebElement getCharCounter() {
+        return waitForExpectedElement(ASK_CHAR_COUNTER);
+    }
+
+    public WebElement getCharCounterMessage(String message) {
+        return waitForExpectedElement(By.xpath(String.format(ASK_CHAR_COUNTER_MESSAGE,message)));
+    }
 
 	
 	public WebElement submitButton() {

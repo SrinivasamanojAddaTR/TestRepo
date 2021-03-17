@@ -9,6 +9,7 @@ import com.thomsonreuters.pageobjects.utils.plPlusResearchDocDisplay.AssetPageUt
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
@@ -30,6 +31,12 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 		assertTrue("The primary source title doesn't displayed",
 				primarySourceDocumentPage.isElementDisplayed(primarySourceDocumentPage
 						.legislationLink(legislationLinkText)));
+	}
+
+	@Then("^the user verify character limit count is '(.*)'$")
+	public void userVerifyCharacterLimitCount(String count) {
+		assertThat(feedbackForm.getCharCounter().getText())
+				.as("Verify character limit count").isEqualTo(count);
 	}
 
 	@When("^the user click on \"(.*?)\" Legislation link$")
@@ -68,6 +75,17 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 		assertThat(feedbackForm.isFeedBackFormPresent(feedbackFormName))
 				.as("Feedback form should be %s", state.getPhrase())
 				.isEqualTo(state.isTrue());
+	}
+
+	@When("^user enters '(\\d+)' characters in feedback form$")
+	public void userEntersCharactersInFeedbackForm(int length) {
+		feedbackForm.getFeedbackText().sendKeys(RandomStringUtils.randomAlphanumeric(length));
+	}
+
+	@Then("^the user verify character limit message is '(.*)'$")
+	public void userVerifyCharacterLimitMessage(String message) {
+		assertThat(feedbackForm.getCharCounterMessage(message).getText())
+				.as("Verify character limit message").isEqualTo(message);
 	}
 
 
