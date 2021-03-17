@@ -36,7 +36,7 @@ Scenario Outline: [831297] Download documents in PDF format
 		| Documents     |  Selected         |
 		| Format		| PDF	|
 		| As			| A Single Merged File |
-	Then user downloads the document with name "Practical Law - 2 full text items" and extension ".pdf" 
+	Then user downloads the document with name "2 full text items" and extension ".pdf"
 	And the document includes document body that contains text "<docText1>" 
 	And the document includes document body that contains text "<docText2>" 
 	Examples: 
@@ -57,7 +57,7 @@ Scenario Outline: [831297] Download documents in zip file
 		| Documents     |  Selected         |
 		| Format		| PDF	|
 		| As			| Multiple Files (zip) |
-	Then user downloads the document with name "Practical Law - 2 full text items" and extension "zip"
+	Then user downloads the document with name "2 full text items" and extension "zip"
 	Examples: 
 		|guid1							  |guid2                            |
       	|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0|
@@ -75,7 +75,7 @@ Scenario Outline: [831297] Download list of items in PDF format
     And the user edits the basic download options as follows 
 		| List of Items     |  Selected         |
 		| Format Value		| PDF	|
-	Then user downloads the document with name "Practical Law - List of 2 items" and extension ".pdf" 
+	Then user downloads the document with name "List of 2 items" and extension ".pdf"
 	And the document includes title "<title1>"
 	And the document includes title "<title2>"
 	And the document does not include document body that contains text "<docText1>" 
@@ -97,7 +97,7 @@ Scenario Outline: [831297] Download list of items in CSV format
     And the user edits the basic download options as follows 
 		| List of Items     |  Selected         |
 		| Format Value		| Microsoft Excel (CSV)	|
-	Then user downloads the document with name "Practical Law - List of 2 items" and extension ".csv" 
+	Then user downloads the document with name "List of 2 items" and extension ".csv"
 	Examples: 
 		|guid1							  |guid2							|
 		|If13ba3b4d4d811e598dc8b09b4f043e0|Ifb5c26cc995811e598dc8b09b4f043e0|
