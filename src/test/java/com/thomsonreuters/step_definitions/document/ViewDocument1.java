@@ -22,7 +22,7 @@ public class ViewDocument1 extends BaseStepDef {
 	@Given("^ANZ user navigates directly to document with guid \"(.*?)\"$")
 	public void anzUserNavigatesDirectlyToDocumentWithGuid(String guid) throws Throwable {
 		navigationCobalt.navigateToANZSpecificResourcePage("/Document/" + guid + "/View/FullText.html");
-		resourcePage.waitForPageToLoadAndJQueryProcessing();
+		resourcePage.waitForPageToLoad();
 		footerUtils.closeDisclaimerMessage();
         footerUtils.ourCookiesPolicy();
 		resourcePage.waitForPageToLoad();
