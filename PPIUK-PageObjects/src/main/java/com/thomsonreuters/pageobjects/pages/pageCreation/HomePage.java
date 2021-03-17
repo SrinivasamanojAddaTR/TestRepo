@@ -26,6 +26,7 @@ public class HomePage extends AbstractPage {
         }
     }
 
+    private static final By MEET_THE_TEAM_LINK = By.xpath("//*[@id='categoryPageScopeLinks']/a | //*[@class='browseHeader-meetTeamButton']");
     public WebElement browseMenuPopUp() {
 
         return waitForExpectedElement(By.xpath("//div[@class='browseMenu_container']"),20);
@@ -374,5 +375,9 @@ public class HomePage extends AbstractPage {
     public boolean isSystemErrorPresent() {
 		return isExists(By.xpath("//*[@id='co_blockedBox']//p[contains(.,'You do not have access to')]"));
 	}
+
+    public WebElement getMeetTeamLink() {
+        return waitForExpectedElement(MEET_THE_TEAM_LINK);
+    }
 
 }

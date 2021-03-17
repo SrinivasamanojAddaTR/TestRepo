@@ -17,8 +17,8 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
     Then the user verifies that the current PageTitle contains '<pageTitleAfterClickonTab>'
 
     Examples:
-      | Page                | pageTitle    | Tab          | tabToSelect  | pageTitleAfterClickonTab |
-      | About Practical Law | About us     | About us     | Testimonials | Testimonials             |
+      | Page                | pageTitle | Tab      | tabToSelect  | pageTitleAfterClickonTab |
+      | About Practical Law | About us  | About us | Testimonials | Testimonials             |
 
   Scenario Outline:
     When user clicks on "<FirstPage>" link
@@ -33,8 +33,8 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
     Then the user verifies that the current PageTitle contains '<pageTitleAfterClickonTab>'
 
     Examples:
-      | Page                | pageTitle    | Tab          | tabToSelect  | pageTitleAfterClickonTab | FirstPage           |
-      | Testimonials        | Testimonials | Testimonials | About us     | About us                 | About Practical Law |
+      | Page         | pageTitle    | Tab          | tabToSelect | pageTitleAfterClickonTab | FirstPage           |
+      | Testimonials | Testimonials | Testimonials | About us    | About us                 | About Practical Law |
 
   Scenario Outline:
     When user clicks on "About Practical Law" link
@@ -50,7 +50,7 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
       | Testimonials | Testimonials | The Bar     |
 
   Scenario Outline: [809401] As a PL Australia User (PLAU) I want to navigate from one our team tab to another our team tab So that I can find out information about the practical law team and contributing firms
-    When user clicks on "<Page>" link
+    When user clicks on meet the team link
     Then the user verifies that the current PageTitle contains '<pageTitle>'
     And tabs are displayed on about company page
       | Team members    |
@@ -61,12 +61,12 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
     Then the user verifies that the current PageTitle contains '<pageTitleAfterClickonTab>'
 
     Examples:
-      | Page               | pageTitle      | Tab             | tabToSelect     | pageTitleAfterClickonTab |
-      | Meet the Team      | Our team       | Team members    | Contributors    | Contributors             |
+    pageTitle      | Tab             | tabToSelect     | pageTitleAfterClickonTab |
+    Our team       | Team members    | Contributors    | Contributors             |
   @archived
     Examples:
-      | Page               | pageTitle      | Tab             | tabToSelect     | pageTitleAfterClickonTab |
-      | Contributing Firms | Contributors   | Contributors    | Advisory Boards | Advisory board           |
+    pageTitle      | Tab             | tabToSelect     | pageTitleAfterClickonTab |
+    Contributors   | Contributors    | Advisory Boards | Advisory board           |
 
   Scenario Outline: [809401] As a PL Australia User (PLAU) I want to navigate from one our team tab to another our team tab So that I can find out information about the practical law team and contributing firms
     When user clicks on "Our Team" link
@@ -81,8 +81,8 @@ Feature: [809375]As a PL Australia User (PLAU) I want to view the "Testimonials"
     Then the user verifies that the current PageTitle contains '<pageTitleAfterClickonTab>'
 
     Examples:
-      | Page               | pageTitle      | Tab             | tabToSelect     | pageTitleAfterClickonTab |
-      | Advisory board     | Advisory board | Advisory Boards | Team members    | Our team                 |
+      | Page           | pageTitle      | Tab             | tabToSelect  | pageTitleAfterClickonTab |
+      | Advisory board | Advisory board | Advisory Boards | Team members | Our team                 |
 
   Scenario: [809456]As a PL Australia User (PLAU) I want to navigate from one our team tab to another our team tab So that I can find out information about the practical law web site
     When user clicks on "About Practical Law" link

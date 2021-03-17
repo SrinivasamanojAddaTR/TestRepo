@@ -254,4 +254,9 @@ public class HomePageSteps extends BaseStepDef {
         softAssertions.assertAll();
     }
 
+    @When("^user clicks on meet the team link$")
+    public void userClicksOnMeetTheTeamLink() {
+        homePage.getMeetTeamLink().click();
+        homePage.waitForPageToLoad();
+    }
 }
