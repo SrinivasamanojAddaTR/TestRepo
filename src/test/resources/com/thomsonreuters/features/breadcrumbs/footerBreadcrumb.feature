@@ -1,3 +1,4 @@
+@archived
 Feature: To View Footer Breadcrumbs
 
   Background: 
