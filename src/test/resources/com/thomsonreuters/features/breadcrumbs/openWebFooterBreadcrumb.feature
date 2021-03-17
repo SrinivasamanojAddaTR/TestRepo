@@ -1,3 +1,4 @@
+@archived
 Feature: To View Footer Breadcrumbs
 
   Background: 
@@ -33,7 +34,7 @@ Scenario Outline: Verify that logged in PLAU user can see an  "Our team" breadcr
       | Meet the Team | Our team  | Employment             |Our team: Employment             | Home > Our team |
       | Meet the Team | Our team  | Dispute Resolution     |Our team: Dispute Resolution     | Home > Our team |
       
-   
+
 Scenario Outline:As a PLAU user,I want to view "About us" breadcrumb in the breadcrumb trail when viewing any page from "About" section in the site Footer of the Practical Law Australia website, so that I can be aware that I am viewing a page from About pages.
     
     When user clicks on "<Page>" link    
