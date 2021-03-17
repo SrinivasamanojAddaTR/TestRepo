@@ -6,7 +6,6 @@ Feature: [818022] As a: website user  I want: to be able to show or hide individ
   Scenario Outline: Expand and Close Individual Drafting Notes for <documentType>
    Given ANZ user is logged in
     When ANZ user navigates directly to document with guid "<guid>"
-    Then user is able to expand the first drafting notes
     And see the expanded drafting notes heading is "<heading>"
     And user is able to close the first drafting notes
     Examples:
