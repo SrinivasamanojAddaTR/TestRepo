@@ -26,7 +26,7 @@ public class AnzTimeZoneTest1 extends BaseStepDef {
     private CommonMethods commonMethods = new CommonMethods();
     private String storedDate = null;
     public static final int US_TIME_ZONE = -6;
-    public static final int SYDNEY_TIME_ZONE = 9;
+    public static final int SYDNEY_TIME_ZONE = 11;
 
     @When("^the user opens time-zone popup using user dropdown$")
     public void theUserOpensTimeZonePopupUsingUserDropdown() throws Throwable {
@@ -60,6 +60,7 @@ public class AnzTimeZoneTest1 extends BaseStepDef {
     public void userVerifiesResultTimeChangesToTime(String rowNo, String country) throws Throwable {
         String storedTime[] = storedDate.split(" ");
         Calendar storedCalTime = commonMethods.convertInCalendar(storedTime[3]);
+        researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
         String currentDate = researchOrganizerPage.getDateAtRowPosition(rowNo).getText();
         String currentTime[] = currentDate.split(" ");
         Calendar currentCalTime = commonMethods.convertInCalendar(currentTime[3]);
@@ -78,6 +79,7 @@ public class AnzTimeZoneTest1 extends BaseStepDef {
         Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
         SimpleDateFormat amPMFormat = new SimpleDateFormat("hh:mm a");
         SimpleDateFormat date24Format = new SimpleDateFormat("HH:mm");
+        onePassLogoutPage.waitForPageToLoadAndJQueryProcessing();
         String signOffDateTime = onePassLogoutPage.sessionDateAndTime().getText();
         String signOffTime[] = signOffDateTime.split(" ");
         signOffDateTime = date24Format.format(amPMFormat.parse(signOffTime[7] + " " + signOffTime[8]));
@@ -85,7 +87,7 @@ public class AnzTimeZoneTest1 extends BaseStepDef {
         if (country.equalsIgnoreCase("US")) {
             cal.add(Calendar.HOUR, -6);
         } else if (country.equalsIgnoreCase("Sydney")) {
-            cal.add(Calendar.HOUR, 10);
+            cal.add(Calendar.HOUR, SYDNEY_TIME_ZONE);
         }
 
         assertTrue("Current Time is not equal to stored time..!", cal.get(Calendar.HOUR_OF_DAY) == signOffCalTime.get(Calendar.HOUR_OF_DAY));
