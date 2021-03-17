@@ -16,6 +16,7 @@ public abstract class AbstractMailbox implements Mailbox {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractMailbox.class);
     static final String INBOX_FOLDER_NAME = "INBOX";
+    static final String SENT_FOLDER_NAME = "Sent";
     static final String TIMEOUT_MILLIS = "90000"; // 1.5 minutes
 
     Store store = null;

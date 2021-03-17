@@ -2,14 +2,14 @@ package com.thomsonreuters.pageobjects.utils.email;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.Part;
+import javax.mail.*;
+
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,20 +49,30 @@ public class EmailMessageUtils {
 		throw new Exception("Message text was not found");
 	}
 
-	public String retrieveAttachmentName(Message message) throws Exception {
-		if (message.isMimeType("multipart/*")) {
-
-			Multipart multipart = (Multipart) message.getContent();
-
-			for (int i = 0; i < multipart.getCount(); i++) {
-				BodyPart bodyPart = multipart.getBodyPart(i);
-				if (!Part.ATTACHMENT.equalsIgnoreCase(bodyPart.getDisposition()) && bodyPart.getFileName() != null) {
-					continue;
-				}
-				return bodyPart.getFileName();
-			}
+	private boolean isMessageMimeType(Message message, String type) {
+		try {
+			return message.isMimeType(type);
+		} catch (MessagingException exp) {
+			throw new RuntimeException("Unable to verify the mime type", exp);
 		}
-		throw new Exception("Attachment file not found");
+	}
+
+	public String retrieveAttachmentName(Message message) {
+		try {
+			if (isMessageMimeType(message, "multipart/*")) {
+				Multipart multipart = (Multipart) message.getContent();
+				for (int i = 0; i < multipart.getCount(); i++) {
+					BodyPart bodyPart = multipart.getBodyPart(i);
+					String fileName = bodyPart.getFileName();
+					if (Part.ATTACHMENT.equalsIgnoreCase(bodyPart.getDisposition()) && fileName != null) {
+						return fileName;
+					}
+				}
+			}
+		} catch (MessagingException | IOException exp) {
+			throw new RuntimeException("Unable to retrieve attachment", exp);
+		}
+		return StringUtils.EMPTY;
 	}
 
 	public File downloadAttachment(Message message) throws Exception {
@@ -110,13 +120,7 @@ public class EmailMessageUtils {
 	}
 
 	public boolean hasAttachment(Message message) {
-		String attachmentName;
-		try {
-			attachmentName = retrieveAttachmentName(message);
-		} catch (Exception e) {
-			return false;
-		}
-		return attachmentName.isEmpty();
+		return !retrieveAttachmentName(message).isEmpty();
 	}
 
 }

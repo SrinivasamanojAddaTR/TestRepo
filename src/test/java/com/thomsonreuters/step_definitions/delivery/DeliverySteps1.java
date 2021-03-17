@@ -91,8 +91,7 @@ public class DeliverySteps1 extends BaseStepDef {
 
     @Then("^user receives an email at \"(.*?)\" without attachments and with link to the (AU|UK) document \"(.*?)\" and with subject \"(.*?)\"$")
     public void userReceivesAnEmailWithoutAttachmentsWithLink(String email, String country, String link, String subject) throws Throwable {
-        Mailbox mailbox = MailboxFactory.getMailboxByEmail(email);
-        Message message = mailbox.waitForMessageWithTitle(subject, 120, 10);
+        Message message = waitAndGetReceivedEmail(email, subject);
         String expectedUrl = country + ".practicallaw." + System.getProperty("base.url") + ".thomsonreuters.com";
         String expectedParams = "/View/FullText.html";
         messageBody = emailMessageUtils.getMessageBody(message);

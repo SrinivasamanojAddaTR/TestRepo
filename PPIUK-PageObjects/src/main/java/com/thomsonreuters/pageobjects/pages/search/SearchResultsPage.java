@@ -826,7 +826,7 @@ public class SearchResultsPage extends AbstractPage {
      * object representing the email delivery icon on the search results page
      */
     public WebElement emailDeliveryIcon() {
-        return waitForExpectedElement(By.xpath("//a[@id='deliveryLinkRow1Email']/span"));
+        return waitForExpectedElement(By.xpath("//a[@id='deliveryLinkRow1Email']"));
     }
 
     /**

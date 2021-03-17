@@ -1,8 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.email;
 
-import com.google.common.base.Function;
-import com.thomsonreuters.driver.framework.AbstractPage;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +12,9 @@ import javax.mail.MessagingException;
 import javax.mail.search.SearchTerm;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Duration;
 import java.util.Properties;
+import java.util.function.Function;
 
 public class ParametrizedMailbox extends AbstractMailbox {
 
@@ -37,7 +38,7 @@ public class ParametrizedMailbox extends AbstractMailbox {
         setProtocol(getEmailProperty(PROP_PROTOCOL));
         setIncomingServer(getEmailProperty(PROP_INCOMING_SERVER));
         setUserName(
-                Boolean.valueOf(getEmailProperty(PROP_IS_USER_NAME_WITH_DOMAIN)) ?
+                getEmailProperty(PROP_IS_USER_NAME_WITH_DOMAIN).equalsIgnoreCase("true") ?
                         userName + "@" + domain :
                         userName);
         if (StringUtils.isEmpty(getProtocol()) || StringUtils.isEmpty(getIncomingServer()) || StringUtils.isEmpty(getUserName())) {
@@ -47,19 +48,25 @@ public class ParametrizedMailbox extends AbstractMailbox {
     }
 
     public void deleteAllInboxMessages() throws MessagingException {
-        initConnectionAndOpenFolder(INBOX_FOLDER_NAME, Folder.READ_WRITE);
+        deleteMessagesFromFolder(INBOX_FOLDER_NAME);
+    }
+
+    public void deleteAllSentMessages() throws MessagingException {
+        deleteMessagesFromFolder(SENT_FOLDER_NAME);
+    }
+
+    private void deleteMessagesFromFolder(String folder) throws MessagingException {
+        initConnectionAndOpenFolder(folder, Folder.READ_WRITE);
         Flags deleteFlags = new Flags(Flags.Flag.DELETED);
         openedFolder.setFlags(openedFolder.getMessages(), deleteFlags, true);
         close();
     }
 
-    // TODO Unused intervalSeconds arg. To remove
     @Override
     public Message waitForMessageWithTitle(final String title, int timeoutSeconds, int intervalSeconds) throws Throwable {
         return waitForMessageWithTitleAndSender(title, null, timeoutSeconds, intervalSeconds);
     }
 
-    // TODO Unused intervalSeconds arg. To remove
     @Override
     public Message waitForMessageWithTitleAndSender(final String title, final String sender, int timeoutSeconds, int intervalSeconds) throws Throwable {
         final boolean withSender = !StringUtils.isEmpty(sender);
@@ -68,40 +75,37 @@ public class ParametrizedMailbox extends AbstractMailbox {
             @Override
             public boolean match(Message message) {
                 try {
-                    if ((withSender && message.getFrom()[0].toString().equals(sender) && message.getSubject().contains(title)) ||
+                    if ((withSender && message.getFrom()[0].toString().equalsIgnoreCase(sender) && message.getSubject().contains(title)) ||
                             (!withSender && message.getSubject().contains(title))) {
                         message.setFlag(Flags.Flag.DELETED, true);
                         return true;
                     }
                     return false;
                 } catch (MessagingException e) {
-                    LOG.info("Could not load message with title '" + title + "'" + withSenderMessage, e);
+                    LOG.info("Could not load message with title '{}' {}",title,withSenderMessage,e);
                     return false;
                 }
             }
         };
         // Wait while expected message won't be null.
-        Function<ParametrizedMailbox, Message> waitCondition = new Function<ParametrizedMailbox, Message>() {
-            @Override
-            public Message apply(ParametrizedMailbox mailbox) {
-                try {
-                    LOG.info("Attempt to wait a message with title '" + title + "'" + withSenderMessage);
-                    mailbox.initConnectionAndOpenFolder(INBOX_FOLDER_NAME, Folder.READ_WRITE);
-                    Message[] foundMessages = openedFolder.search(searchTerm);
-                    LOG.info("Folder '" + openedFolder.getName() + "' has new messages - " + openedFolder.hasNewMessages());
-                    // Expect only one message - the first
-                    return foundMessages.length > 0 ? foundMessages[0] : null;
-                } catch (MessagingException e) {
-                    LOG.info("Wait of message with title: '" + title + "'" + withSenderMessage + " was not successful");
-                    return null;
-                }
+        Function<ParametrizedMailbox, Message> waitCondition = mailbox -> {
+            try {
+                LOG.info("Attempt to wait a message with title '{}' {}", title, withSenderMessage);
+                mailbox.initConnectionAndOpenFolder(INBOX_FOLDER_NAME, Folder.READ_WRITE);
+                Message[] foundMessages = openedFolder.search(searchTerm);
+                LOG.info("Folder '{}' has new messages - {}", openedFolder.getName(), openedFolder.hasNewMessages());
+                // Expect only one message - the first
+                return foundMessages.length > 0 ? foundMessages[0] : null;
+            } catch (MessagingException e) {
+                LOG.info("Wait of message with title: '{}' {} was not successful",title,withSenderMessage);
+                return null;
             }
         };
-        Message expectedMessage = AbstractPage.waitFor(waitCondition, this, timeoutSeconds);
-        if (expectedMessage != null) {
-            return expectedMessage;
-        }
-        throw new RuntimeException("The message with title '" + title + "'" + withSenderMessage + " wasn't received in " + timeoutSeconds + " seconds");
+        return new FluentWait<>(this).
+                withTimeout(Duration.ofSeconds(timeoutSeconds)).
+                pollingEvery(Duration.ofSeconds(1)).
+                withMessage("The message with title '" + title + "'" + withSenderMessage + " wasn't received in " + timeoutSeconds + " seconds").
+                until(waitCondition);
     }
 
     /**
