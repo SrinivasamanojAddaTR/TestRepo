@@ -40,7 +40,7 @@ public class OnepassLogin extends AbstractPage {
     }
 
     public WebElement rememeberMeCheckBox() {
-    	return waitForExpectedElement(By.id("SuperRememberMeLabel"));
+        return waitForElementPresent(By.name("SuperRememberMe"));
     }
 
     public WebElement loginBox() {
@@ -52,15 +52,30 @@ public class OnepassLogin extends AbstractPage {
     }
 
     public WebElement saveMyUsernameCheckBox() {
-        return waitForExpectedElement(By.xpath(".//*[@id='form0']/div/ul[2]/li[3]/div[1]/label"));
+        return waitForElementPresent(By.name("SaveUsername"));
     }
 
     public WebElement saveMyUsernameAndPasswordCheckBox() {
-         return waitForExpectedElement(By.xpath(".//*[@id='form0']/div/ul[2]/li[3]/div[2]/label"));
+        return waitForElementPresent(By.name("SaveUsernamePassword"));
+    }
+
+    private void selectCheckBoxUsingActions(WebElement element) {
+        if (!element.isSelected()) {
+            moveToAndClickElement(element);
+        }
+    }
+
+
+    @Override
+    public boolean isCheckBoxSelectable(WebElement checkBox) {
+        boolean initialState = checkBox.isSelected();
+        selectCheckBoxUsingActions(checkBox);
+        boolean finalState = checkBox.isSelected();
+        return initialState != finalState;
     }
 
     public WebElement superRememberMeHintLink() {
-        return waitForExpectedElement(By.id("superRememberMeHint"));
+        return waitForExpectedElement(By.xpath("//*[contains(@class,'Button-rememberMe') or @id='superRememberMeHint']"));
     }
 
     public WebElement superRememberMeHintPopUp() {
@@ -72,15 +87,15 @@ public class OnepassLogin extends AbstractPage {
     }
     
     public WebElement createNewOnePassProfileLink() {
-        return waitForExpectedElement(By.partialLinkText("Create a new OnePass profile"));
+        return waitForExpectedElement(By.partialLinkText("Create OnePass profile"));
     }
 
     public WebElement updateExistingOnePassProfileLink() {
-        return waitForExpectedElement(By.partialLinkText("Update an existing OnePass profile"));
+        return waitForExpectedElement(By.xpath("//a[contains(.,'Update an existing OnePass profile') or contains(.,'Update OnePass profile')]"));
     }
 
     public WebElement learnMoreAboutOnePassLink() {
-        return waitForExpectedElement(By.partialLinkText("Learn more about OnePass"));
+        return waitForExpectedElement(By.partialLinkText("Learn about OnePass"));
     }
 
     public WebElement manageOnepassTitle() {
