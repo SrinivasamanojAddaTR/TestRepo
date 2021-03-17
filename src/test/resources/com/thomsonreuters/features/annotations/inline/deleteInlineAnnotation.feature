@@ -1,6 +1,6 @@
 Feature:[845628] Delete an inline annotation
 
-  @smoke @gold @@e2e  @deletionAnnotations
+  @smoke @gold @e2e @deletionAnnotations
   Scenario: Delete inline annotation, undo Deleted Annotations and close link on Delete Annotations
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |

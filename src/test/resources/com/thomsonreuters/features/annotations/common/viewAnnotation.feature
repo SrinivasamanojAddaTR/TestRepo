@@ -13,7 +13,7 @@ Feature: [825681] View annotation
     And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
     Then check that annotations at the top are expanded
 
-   @gold @deletionAnnotationsScenario: Verify that logged in user can see  inline annotation during the subsequent sessions
+   @gold @deletionAnnotations
   Scenario: Verify that logged in user can collapse or expand annotation at the top of document
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
