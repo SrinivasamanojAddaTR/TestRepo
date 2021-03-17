@@ -424,6 +424,11 @@ public class WLNHeader extends AbstractPage {
     public WebElement editProfileLink() {
         return findElement(By.linkText("Update OnePass profile"));
     }
+
+    public WebElement myAutomatedDocuments() {
+        return findElement(By.linkText("My Automated Documents"));
+    }
+
     public WebElement practicalLawLogo() {
         return waitForExpectedElement(By.xpath("//a[@id='logo']//img[@alt='Practical Law']"));
     }

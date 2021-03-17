@@ -34,4 +34,8 @@ public class UserAvatarDropDownTests1 extends BaseStepDef {
 		assertTrue("Edit profile link is not displayed", onepassLogin.isManageOnePassTitleDisplayed());
 	}
 
+	@When("^the user selects My Automated Document option$")
+	public void theUserSelectsMyAutomatedDocumentOption() throws Throwable {
+		wlnHeader.myAutomatedDocuments().click();
+	}
 }
