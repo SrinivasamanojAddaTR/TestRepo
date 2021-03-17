@@ -16,21 +16,21 @@ public class SearchScopeControl extends AbstractPage {
      * Object representing scoped search title
      */
     public WebElement scopedSearchDropdownTitle() {
-        return waitForExpectedElement(By.xpath("//span[@id='scopedSearchTitle']"), 15);
+        return waitForExpectedElement(By.id("co_currentSelectedCategoryText"), 15);
     }
 
     /**
      * Object representing the button/option to click and then display scoped search dropdown menu options
      */
     public WebElement scopedSearchDropdownMenuButton() {
-        return waitForExpectedElement(By.id("scopedSearchMenu"));
+        return waitForExpectedElement(By.id("co_currentSelectedCategoryToggle"));
     }
 
     /**
      * Object representing scoped search dropdown options
      */
     public WebElement scopedSearchDropdownOptions(String option) {
-        return waitForExpectedElement(By.xpath("//div[@id='scopedSearchMenuItems']//a[contains(text(),'" + option + "')]"));
+        return waitForExpectedElement(By.xpath("//div[@id='co_searchCategoryDropdown']//a[contains(text(),'" + option + "')]"));
     }
 
     public List<String> scopedSearchDropdownOptionsList() {
