@@ -269,7 +269,7 @@ public class OnepassLoginUtils {
         if (onepassLogin.saveMyUsernameCheckBox().isSelected()) {
             LOG.info("Save my Username is selected");
         } else {
-            onepassLogin.saveMyUsernameCheckBox().click();
+            comMethods.clickElementUsingJS(onepassLogin.saveMyUsernameCheckBox());
         }
     }
 
@@ -277,7 +277,7 @@ public class OnepassLoginUtils {
         if (onepassLogin.saveMyUsernameAndPasswordCheckBox().isSelected()) {
             LOG.info("Save my Username is selected");
         } else {
-            onepassLogin.saveMyUsernameAndPasswordCheckBox().click();
+            comMethods.clickElementUsingJS(onepassLogin.saveMyUsernameAndPasswordCheckBox());
         }
     }
 

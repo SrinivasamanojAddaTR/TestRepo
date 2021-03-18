@@ -1,5 +1,6 @@
 package com.thomsonreuters.step_definitions.login;
 
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.ExcelFileReader;
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.footer.WLNFooter;
@@ -30,6 +31,7 @@ public class AbilityToUseSRMOption1 extends BaseStepDef {
     private OnepassLoginUtils onepassLoginUtils = new OnepassLoginUtils();
     private PracticalLawHomepage practicalLawHomepage = new PracticalLawHomepage();
     private NavigationCobalt navigationCobalt = new NavigationCobalt();
+    private CommonMethods commonMethods =new CommonMethods();
 
     private final String ONEPASS_LOGIN_PAGE_TITLE = "PLC UK Signon";
 
@@ -57,7 +59,7 @@ public class AbilityToUseSRMOption1 extends BaseStepDef {
 
     @When("^he selects the option to be remembered on this computer$")
     public void heSelectsTheOptionToBeRememberedOnThisComputer() throws Throwable {
-        onepassLogin.rememeberMeCheckBox().click();
+        commonMethods.clickElementUsingJS(onepassLogin.rememeberMeCheckBox());
     }
 
     @Then("^he activates the super remember me cookie$")
