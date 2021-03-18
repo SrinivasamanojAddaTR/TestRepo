@@ -58,7 +58,7 @@ public class DeliverySteps1 extends BaseStepDef {
     public void userReceivesAnEmailWithDocument(String email, String format, String subject, String download) throws Throwable {
       //TODO [Phase3] need to verify below changes for all mail tests
         Message message = waitAndGetReceivedEmail(email, subject);
-        File downloadedAttachment = emailMessageUtils.downloadAttachment(message);
+        downloadedFile = emailMessageUtils.downloadAttachment(message);
         String expected = null;
         switch (format) {
             case "Microsoft Word":
@@ -79,8 +79,8 @@ public class DeliverySteps1 extends BaseStepDef {
             default:
                 break;
         }
-        Assert.assertTrue("File extension is not " + expected + ". Filename is: " + downloadedAttachment.getName(),
-                downloadedAttachment.getName().toLowerCase().endsWith(expected));
+        Assert.assertTrue("File extension is not " + expected + ". Filename is: " + downloadedFile.getName(),
+                downloadedFile.getName().toLowerCase().endsWith(expected));
 
     }
 
@@ -92,8 +92,8 @@ public class DeliverySteps1 extends BaseStepDef {
     @Then("^user receives an email at \"(.*?)\" without attachments and with link to the (AU|UK) document \"(.*?)\" and with subject \"(.*?)\"$")
     public void userReceivesAnEmailWithoutAttachmentsWithLink(String email, String country, String link, String subject) throws Throwable {
         Message message = waitAndGetReceivedEmail(email, subject);
-        String expectedUrl = country + ".practicallaw." + System.getProperty("base.url") + ".thomsonreuters.com";
-        String expectedParams = "/View/FullText.html";
+        String expectedUrl = System.getProperty("base.url") + ".thomsonreuters.com";
+        String expectedParams = "/w-";
         messageBody = emailMessageUtils.getMessageBody(message);
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(emailMessageUtils.hasAttachment(message)).overridingErrorMessage("Email contains attachment").isFalse();
@@ -108,7 +108,7 @@ public class DeliverySteps1 extends BaseStepDef {
 
     @Then("^user copies the link in valid format from email into the browser$")
     public void userCopiesLinkFromEmailIntoBrowser() throws Throwable {
-        Pattern p = Pattern.compile("(<a href=.+>)(https:\\/\\/a?\\.?au\\.practicallaw\\..+\\.thomsonreuters\\.com\\/.-\\d{3}-\\d{4})(<\\/a>)");
+        Pattern p = Pattern.compile("(<a href=.+>)(https:\\/\\/(a|au).anzlaw.+\\/w-\\d{3}-\\d{4})(<\\/a>)");
         Matcher m = p.matcher(messageBody);
         if (m.find()) {
             String url = m.group(2);
