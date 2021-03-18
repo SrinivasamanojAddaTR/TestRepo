@@ -62,7 +62,7 @@ public class OnepassLoginUtils {
         enterUserNameAndPassword(username, password);
         onepassLogin.usernameTextField().click();
         if (!onepassLogin.rememeberMeCheckBox().isSelected()) {
-            onepassLogin.rememeberMeCheckBox().click();
+            comMethods.clickElementUsingJS(onepassLogin.rememeberMeCheckBox());
         }
         onepassLogin.signOnButton().click();
     }
