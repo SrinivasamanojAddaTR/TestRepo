@@ -293,4 +293,9 @@ public class CategoryPage extends AbstractPage {
         String text = Quotes.escape(linkName);
         return waitForExpectedElement(By.xpath("//*[@id='co_docContentBody']//a[.=" + text + "]"));
     }
+
+    public WebElement getRelatedContentDocumentLinkInText(String linkName){
+		String text = Quotes.escape(linkName);
+		return waitForExpectedElement(By.xpath("//*[@id='co_docContentBody']//a[.=" + text + " and contains(@href,'Document')]"));
+	}
 }

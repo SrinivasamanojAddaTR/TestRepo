@@ -44,7 +44,7 @@ public class PracticalLawHomepage extends AbstractPage {
     }
 
     public WebElement plcHeadingLabel() {
-        return waitForExpectedElement(By.id("co_browsePageLabel"));
+        return waitForExpectedElement(By.xpath("//*[@id='co_browsePageLabel' or contains(@id,'co_researchOrganizerSubHeader')]"));
     }
 
     public WebElement browseWidget() {

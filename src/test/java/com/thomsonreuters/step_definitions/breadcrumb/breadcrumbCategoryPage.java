@@ -35,8 +35,6 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.hamcrest.core.Is;
-import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -109,6 +107,13 @@ public class breadcrumbCategoryPage extends BaseStepDef{
         breadCrumbPage.waitForBreadcrumbToBeDisplayed();
     }
 
+    @When("^the user clicks on the Related Content '(.+)' link in the doc$")
+    public void clickRelatedContentDocumentLink(String linkName) {
+        breadCrumbPage.waitForBreadcrumbToBeDisplayed();
+        categoryPage.waitForPageSourceChangedAfterClick(categoryPage.getRelatedContentDocumentLinkInText(linkName));
+        categoryPage.waitForPageToLoadAndJQueryProcessing();
+        breadCrumbPage.waitForBreadcrumbToBeDisplayed();
+    }
   
     @When("^the user clicks on the '(.+)' link in the breadcrumb$")
     public void clickLinkInTheBreadcrumb(String linkName) throws Throwable {

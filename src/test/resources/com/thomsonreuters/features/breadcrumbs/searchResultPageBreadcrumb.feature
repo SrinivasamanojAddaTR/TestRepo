@@ -29,7 +29,7 @@ Scenario: Verify user can view Breadcrumb trial for Page switching search
 	When the user opens 'Practice areas' link 
 	And the user opens 'Commercial' link 
 	And the user opens 'Franchising' link 
-	When the user searches for term "law"
+	When the user searches for freetext term "law"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
 	And user clicks on Page "2" of the Topic page results list 
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 

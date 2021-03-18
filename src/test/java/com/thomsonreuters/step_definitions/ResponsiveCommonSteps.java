@@ -59,6 +59,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
     @When("^the user clicks on \"(.*?)\" link$")
     public void theUserClicksOnLink(String linkText) {
         knowHowSearchResultsPage.getElementByLinkText(linkText).click();
+        knowHowSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     @Then("^the user is able to see the search results with following features according to the design document$")
@@ -435,5 +436,15 @@ public class ResponsiveCommonSteps extends BaseStepDef {
         } else {
             practicalLawUKCategoryPage.freeTextField().sendKeys(Keys.ENTER);
         }
+        practicalLawUKCategoryPage.waitForPageToLoadAndJQueryProcessing();
+    }
+
+    @When("^the user searches for freetext term \"(.*)\"$")
+    public void userRunsFreeTextSearch(String query) throws Throwable {
+        practicalLawUKCategoryPage.searchButton().isDisplayed();
+        practicalLawUKCategoryPage.freeTextField().clear();
+        practicalLawUKCategoryPage.freeTextField().sendKeys(query);
+        practicalLawUKCategoryPage.freeTextField().sendKeys(Keys.ENTER);
+        practicalLawUKCategoryPage.waitForPageToLoadAndJQueryProcessing();
     }
 }

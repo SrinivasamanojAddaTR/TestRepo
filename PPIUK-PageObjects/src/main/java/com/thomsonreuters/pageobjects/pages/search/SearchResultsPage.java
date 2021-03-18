@@ -1347,7 +1347,7 @@ public class SearchResultsPage extends AbstractPage {
     }
 
     public WebElement getDocumentLinkByName(String name){
-        return waitForExpectedAndClickableElement(By.xpath("//div[@class='co_searchContent']//a[contains(.,'" + name + "')]"));
+        return waitForExpectedAndClickableElement(By.xpath("//div[contains(@class,'co_searchContent')]//a[contains(.,'" + name + "')]"));
     }
 
     public List<WebElement> getDocumentsList(){

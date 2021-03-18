@@ -12,9 +12,10 @@ Background:
  
 
   Scenario: Verify user can view Breadcrumb trial for Filter search
-	When the user searches for term "law"
-	And the user selects facets
-      |Corporate |
+	When the user searches for freetext term "law"
+    And the user expands the know how facet "Practice Area"
+	And the user selects the know how following parent facets with single selection
+      |Corporate Transactions|
 	Then the user verifies that the complete breadcrumb is "Home > Search Results"
 	
 
@@ -26,7 +27,7 @@ Background:
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
 	
 Scenario: Verify user can view Breadcrumb trial for Page switching search
-	When the user opens 'Practice areas' link 
+	When the user opens 'Practice Areas' link
 	And the user opens 'Commercial' link 
 	And the user opens 'Franchising' link 
 	When the user searches for term "law"
@@ -39,7 +40,7 @@ Scenario:  Verify user can view Breadcrumb trial for Search in different areas
 	When the user opens 'Practice Areas' link 
 	And the user opens 'Commercial' link
 	And the user opens 'Franchising' link 
-	When the user searches for term "law"
+	When the user searches for freetext term "law"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
 	And the user can display the scoped search dropdown menu options
 	And user selects the dropdown option "Corporate"
@@ -62,11 +63,11 @@ Scenario:  Verify user can view Breadcrumb trial for Search in different areas
  Scenario: Verify user can view Breadcrumb trial for Breadcrumb click move
 	When the user opens 'Practice Areas' link 
 	And the user opens 'Commercial' link 
-	And the user searches for term "tax"
+	And the user searches for freetext term "tax"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Search Results" 
 	Then the user clicks on the 'Commercial' link in the breadcrumb
     And the user opens 'Franchising' link
-	When the user searches for term "tax"
+	When the user searches for freetext term "tax"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results"
 	
 	

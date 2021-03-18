@@ -18,10 +18,10 @@ Scenario: Verify that logged in PLAU user can see a dropdown list when navigatin
      And the user open 'Commercial' link
      And the user open 'Data protection and privacy' link
      Then the user selects the document 'Cybersecurity'
-     And the user clicks on the 'Data issues in the financial services sector' link in the doc
+     And the user clicks on the Related Content 'Data issues in the financial services sector' link in the doc
      And the user clicks on the dropdown arrow at the end of the breadcrumb
      Then the user views a list of the documents I viewed     
-     |Cybersecurity |
+     | Cybersecurity |
      
  
 Scenario: Verify that logged in PLAU user can see clickable links to the Documents in the dropdown list when navigating from one document to another and navigate to the documents through these links. 
