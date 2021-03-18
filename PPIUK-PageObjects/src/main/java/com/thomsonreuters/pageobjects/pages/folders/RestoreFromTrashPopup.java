@@ -19,7 +19,7 @@ public class RestoreFromTrashPopup extends AbstractPage {
      * @param targetFolderName Folder name which should be selected
      */
     public WebElement selectFolder(String targetFolderName) {
-        return waitForExpectedElement(By.xpath(dialogXpath + "//a[.='" + targetFolderName + "']"));
+        return waitForExpectedElement(By.xpath(dialogXpath + "//*[.='" + targetFolderName + "']"));
     }
 
     /**

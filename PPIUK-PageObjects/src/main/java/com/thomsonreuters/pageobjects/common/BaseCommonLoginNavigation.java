@@ -1267,6 +1267,8 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         CobaltUser plPlusUser = cloneCurrentUserObject();
         resetCurrentUser();
         loginUser(plPlusUser);
+        onepassLogin.waitForPageToLoadAndJQueryProcessing();
+        footerUtils.closeDisclaimerMessage();
         LOG.info("Current user has reloged in");
     }
 
