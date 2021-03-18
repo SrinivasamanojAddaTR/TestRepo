@@ -45,6 +45,7 @@ public class AssetPageUtils {
     private static final By DOCUMENT_BODY = By.id("docBody");
     private static final By SIGNOF_LINK = By.id("signoffLink");
     private static final By EU_DOCUMENT_TITLE = By.xpath("//h1[contains(text(),'European Union')]");
+    private static final By TABLE_OF_CONTENTS_SECTION = By.className("kh_toc-list");
     private static final int MAXIMUM_COLOR_INTENSITY = 255;
     private static final int MINIMUM_C0LOR_INTENSITY = 0;
     private static final int MIN_JURISDICTIONS_COUNT = 2;
@@ -332,7 +333,7 @@ public class AssetPageUtils {
     public boolean isTableOfContentDisplayed() {
         assetDocumentPage.waitForPageToLoad();
         try {
-            return assetDocumentPage.tableOfContentSection().isDisplayed();
+           return assetDocumentPage.isElementDisplayed(TABLE_OF_CONTENTS_SECTION);
         } catch (PageOperationException poe) {
             LOG.info("context", poe);
             return false;

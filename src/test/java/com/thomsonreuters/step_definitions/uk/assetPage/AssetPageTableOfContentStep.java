@@ -26,6 +26,12 @@ public class AssetPageTableOfContentStep extends BaseStepDef {
         assetDocumentPage.tableOfContentButton(tableOfContentText).click();
     }
 
+    @When("^the user click on Table of content Toggle$")
+    public void userClickOnTableOfContent()
+            throws Throwable {
+        assetDocumentPage.tableOfContentToggleIcon().click();
+    }
+
     @Then("^the Table of content will hide$")
     public void theTableOfContentWillHide() throws Throwable {
         assertFalse("The user see table of content",

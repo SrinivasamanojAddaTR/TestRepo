@@ -9,7 +9,7 @@ Feature: [817996] As a PLAU user I want to view a table of contents So that I ca
     Then the user see Table of content
     When the user click on "Table of Contents" Table of content
     Then the Table of content will hide
-    When the user click on "Table of Contents" Table of content
+    When the user click on Table of content Toggle
     Then the user see Table of content
 
     Examples: 

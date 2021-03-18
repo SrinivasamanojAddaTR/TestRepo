@@ -132,6 +132,10 @@ public class AssetDocumentPage extends DocumentDisplayAbstractPage {
 		return waitForExpectedElement(By.xpath(".//span[contains(text()," + "'" + tableOfContentText + "'" + ")]"));
 	}
 
+	public WebElement tableOfContentToggleIcon() {
+		return waitForExpectedElement(By.xpath("//a[@class='kh_icon icon-cross']"));
+	}
+
 	public WebElement tableOfContentSection() {
 		return waitForExpectedElement(TABLE_OF_CONTENTS_SECTION);
 	}
