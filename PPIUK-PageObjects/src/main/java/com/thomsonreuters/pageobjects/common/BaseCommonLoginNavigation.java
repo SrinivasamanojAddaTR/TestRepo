@@ -1230,7 +1230,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     LOG.info("The user is signed off from PLC");
                     break;
                 case ANZ:
-                    wlnHeader.expandUserAvatarDropDown();
+                    //wlnHeader.expandUserAvatarDropDown();
                     element = wlnHeader.signOutLink();
                     LOG.info("The user is signed off from ANZ");
                     break;
