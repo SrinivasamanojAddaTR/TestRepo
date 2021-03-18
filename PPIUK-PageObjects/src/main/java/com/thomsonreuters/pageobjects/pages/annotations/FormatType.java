@@ -48,8 +48,8 @@ public enum FormatType {
 
     //Alignment Menu Items
     ALIGNMENT_LEFT(By.xpath("//span[text()='Left']"), By.cssSelector(".co_richEditor.co_noteArea.mce-content-body p[data-mce-style='text-align: left;']"),"//p[@data-mce-style='text-align: left;'][text()='%s']"),
-    ALIGNMENT_RIGHT(By.xpath("//span[text()='Right']"), By.cssSelector(".co_richEditor.co_noteArea.mce-content-body p[data-mce-style='text-align: right;']"),"//p[@data-mce-style='text-align: right;'][text()='%s']"),
-    ALIGNMENT_CENTER(By.xpath("//span[text()='Center']"), By.cssSelector(".co_richEditor.co_noteArea.mce-content-body p[data-mce-style='text-align: center;']"),"//p[@data-mce-style='text-align: center;'][text()='%s']"),
+    ALIGNMENT_RIGHT(By.xpath("//span[text()='Right']"), By.cssSelector(".co_richEditor.co_noteArea.mce-content-body p[data-mce-style='text-align: right; list-style-position: inside;']"),"//p[@data-mce-style='text-align: right; list-style-position: inside;'][text()='%s']"),
+    ALIGNMENT_CENTER(By.xpath("//span[text()='Center']"), By.cssSelector(".co_richEditor.co_noteArea.mce-content-body p[data-mce-style='text-align: center; list-style-position: inside;']"),"//p[@data-mce-style='text-align: center; list-style-position: inside;'][text()='%s']"),
     ALIGNMENT_JUSTIFY(By.xpath("//span[text()='Justify']"), By.cssSelector(".co_richEditor.co_noteArea.mce-content-body p[data-mce-style='text-align: justify;']"),"//p[@data-mce-style='text-align: justify;'][text()='%s']");
 
     private By locator;
