@@ -23,14 +23,14 @@ Feature: [829761] Link back to the page  from where performed a search
     |Company Law |document	|
 
   Scenario Outline: Verify Back to topic link is displayed on topic search results page
-    Given the user selects "Practice areas" tab
+    Given the user selects "Practice Areas" tab
     When the user clicks category link '<paName>'and topic link '<TopicLink>' on 'Home' page
     And the user runs a free text search for the query "<query>"
-	And the user clicks link '<TopicTitle>' on 'search' page
+	And the user clicks breadcrumb link '<TopicTitle>' on 'search' page
 	Then the user is presented with a page with header "<TopicTitle>"
     Examples:
     |paName			|TopicLink 			       | TopicTitle		          |query		|
-    |Employment  	|Federal unfair dismissal  |Federal unfair dismissal  |	award		|
+    |Employment  	|Enterprise bargaining     |Enterprise bargaining     | award		|
  
 
   Scenario Outline: Verify Back to document link is displayed on search results page
