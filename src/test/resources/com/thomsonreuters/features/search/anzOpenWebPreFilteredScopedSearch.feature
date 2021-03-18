@@ -23,7 +23,7 @@ Feature: [850104] As an open web user, I want to perform a pre-filter search So 
 
     Scenario: [850105]Verify valid Scoped Search for single and multiple term on Practice Area in Open Web
      When user clicks on "Browse Menu" dropdown
-     And user selects sub-menu "Practice areas" and clicks on the link "Employment"
+     And user selects sub-menu "Australia Practice areas" and clicks on the link "Employment"
      And the user runs a free text search for the query "tax"
      Then the user can verify that the scoped search dropdown states "Employment"
      And the user runs a free text search for the query "Income Tax"
@@ -33,7 +33,7 @@ Feature: [850104] As an open web user, I want to perform a pre-filter search So 
 
     Scenario: [850105]Verify valid Scoped Search for single and multiple term on Resource pages in Open Web
      When user clicks on "Browse Menu" dropdown
-     And user selects sub-menu "Resources" and clicks on the link "Practice notes"
+     And user selects sub-menu "Australia Resources" and clicks on the link "Practice notes"
      And the user runs a free text search for the query "tax"
      Then the user can verify that the title listed above the search results is "All Content"
      And the user runs a free text search for the query "Income Tax"

@@ -11,6 +11,7 @@ import com.thomsonreuters.pageobjects.pages.search.KnowHowDocumentPage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
+import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
@@ -19,7 +20,7 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
+
 import java.util.List;
 import java.util.Map;
 
@@ -133,13 +134,13 @@ public class AnzBrowseTest extends BaseStepDef {
     }
 
     @Then("^user expands the \"(.*?)\" facets group$")
-    public void expandFacetGroup(String type){
+    public void expandFacetGroup(String type) {
         topicPage.waitForPageToLoad();
         topicPage.waitForPageToLoadAndJQueryProcessing();
-    if (!topicPage.facetGroupCollapsedOrExpanded(type))
-        topicPage.expandFacetGroup(type);
-
+        if (!topicPage.facetGroupCollapsedOrExpanded(type))
+            topicPage.expandFacetGroup(type);
     }
+
     @Then("^user verifies the \"(.*?)\" facets are displayed on the topic page$")
     public void userVerifiesTheFollowingFacetsAreDisplayedOnTheTopicPage(String resources) throws Throwable {
         String facetList[] = resources.split(",");

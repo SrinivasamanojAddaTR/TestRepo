@@ -30,18 +30,21 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
   @gold
   Scenario: Verify the selection of same group facets and apply filter button
     When the user runs a free text search for the query "law"
+    And the user selects multiple facet selection mode
+    And user expands the "Resource Type" facets group
     And the user selects the know how following parent facets
-      | Practice Notes |
+      | Practice notes |
       | Checklists     |
       | Glossary       |
     And the user selects the know how option to apply filters
     And the user verifies that the know how following facet is selected and their count is equal to total count
-      | Practice Notes |
+      | Practice notes |
       | Checklists     |
       | Glossary       |
     When the user clicks on clear all link
+    And user expands the "Resource Type" facets group
     Then the user verifies that the following parent facets are not selected
-      | Practice Notes |
+      | Practice notes |
       | Checklists     |
       | Glossary       |
 
@@ -49,25 +52,39 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
   @gold
   Scenario: Verify the selection of different groups with multiple filter button
     When the user runs a free text search for the query "law"
+    And the user selects multiple facet selection mode
+    And user expands the "Resource Type" facets group
     And the user selects the know how following parent facets
-      | Practice Notes |
+      | Practice notes |
+    And user expands the "Practice Area" facets group
+    And the user selects the know how following parent facets
       | Employment     |
+    And user expands the "Jurisdiction" facets group
+    And the user selects the know how following parent facets
       | Federal        |
-    When the user clicks on cancel link
+    And the user selects the know how option to apply filters
+    And the user clicks on clear all link
+    And user expands the "Resource Type" facets group
     Then the user verifies that the following parent facets are not selected
-      | Practice Notes |
+      | Practice notes |
+    And user expands the "Practice Area" facets group
+    And the user verifies that the following parent facets are not selected
       | Employment     |
+    And user expands the "Jurisdiction" facets group
+    And the user verifies that the following parent facets are not selected
       | Federal        |
 
    @gold
    Scenario: Verify All Australian Jurisdiction and results are displayed without error after facet selection
      When the user runs a free text search for the query "law"
-     When the user selects the know how following parent facets
-      | Federal                     |
-      | Victoria                    |
-    And the user selects the know how option to apply filters
-    Then the user is able to verify that a page of search results is displayed
-    And there is no error message on search results page
+     And the user selects multiple facet selection mode
+     And user expands the "Jurisdiction" facets group
+     And the user selects the know how following parent facets
+      | Federal  |
+      | Victoria |
+     And the user selects the know how option to apply filters
+     Then the user is able to verify that a page of search results is displayed
+     And there is no error message on search results page
 
 
  @gold
