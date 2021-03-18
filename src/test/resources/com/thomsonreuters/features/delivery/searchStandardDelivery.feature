@@ -148,8 +148,8 @@ Scenario Outline: [818824] Download document with table of contents in PDF forma
 	And the document includes document body that contains text "<docText>" 
 	And the document includes table of contents that contains title "<contentsText>" 
 	Examples: 
-		| 	query 	             | name 				 | docText                 | contentsText                               |
-		|	Financial Assistance |  Financial Assistance | The general prohibition | How to address financial assistance issues |
+		| 	query 	             | name 				 | docText                 | contentsText                                 |
+		|	Financial Assistance |  Financial Assistance | The general prohibition | How to address financial  assistance  issues |
 
 
 
