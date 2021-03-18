@@ -185,7 +185,7 @@
         <dependency>
             <groupId>com.thomsonreuters.pageobjects</groupId>
             <artifactId>ppiuk-pageobjects</artifactId>
-            <version>21.3.21b</version>
+            <version>21.3.22b</version>
         </dependency>
     </dependencies>
 

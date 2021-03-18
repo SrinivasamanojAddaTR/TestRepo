@@ -419,7 +419,7 @@ public class ResearchOrganizerPage extends AbstractPage {
      */
     public WebElement searchAreaWithinHistory() {
 
-        return waitForElementVisible(By.id("co_searchWithinWidget_textArea"));
+        return waitForElementVisible(By.name("SearchFacetSearchWithin-inputKeyword"));
     }
 
     /**
