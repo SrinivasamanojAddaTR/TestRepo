@@ -415,7 +415,7 @@ public class SearchUtils {
             throw new PageOperationException("The search result doesn't contain the search terms and it isn't in the full text");
         }
         knowHowSearchResultsPage.waitForPageToLoad();
-        knowHowSearchResultsPage.getElementByLinkText("Return to list").click();
+        knowHowSearchResultsPage.getElementByLinkText("Search Results").click();
         knowHowSearchResultsPage.waitForExpectedElement(knowHowSearchResultsPage.searchResultByCountLabel(), 3000);
 
     }
