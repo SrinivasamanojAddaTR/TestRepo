@@ -10,7 +10,7 @@ public class ShareFolderContactsPopup extends AbstractPage {
 	private PageActions pageActions = new PageActions();
 
 	public WebElement contact(String contactName) {
-		return waitForExpectedElement(By.xpath("//a[@class='co_contacts_selectable co_checkbox_unselected' and text()='" + contactName +"']"));
+		return waitForExpectedElement(By.xpath("//a[@class='co_contacts_selectable co_checkbox_unselected' and contains(text(),'" + contactName +"')]"));
 	}
 
 	public WebElement shareSubFoldersCheckBox() {

@@ -17,6 +17,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
 
 
   Scenario Outline: Share via email address
+    When API cleans all folders and history and user relogs in
     When the user clicks on 'Folders' link on the header
     And the user creates new folder "<folder>" in "<parentFolder>" folder
     Then the folder "<folder>" appears in the "<parentFolder>" folder
@@ -24,11 +25,12 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     Then invitation email is received at "<emailToShare>" with link to PLAU
 
     Examples:
-      | folder | parentFolder | owner        | emailToShare              |
+      | folder | parentFolder | owner        | emailToShare                                      |
       | share1 | root         | ANZtestuser2 | tr-anz-tester2@epam-email-pluk.thomsonreuters.com |
 
 
   Scenario Outline: Share with groups and endsharing
+    When API cleans all folders and history and user relogs in
     When the user clicks on 'Folders' link on the header
     And the user creates new folder "<folder>" in "<parentFolder>" folder
     Then the folder "<folder>" appears in the "<parentFolder>" folder
@@ -54,6 +56,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
       | share2 | root         | Reviewer | gr1   |
 
   Scenario Outline: Share with contacts and endsharing
+  When API cleans all folders and history and user relogs in
     When the user clicks on 'Folders' link on the header
     And the user creates new folder "<folder>" in "<parentFolder>" folder
     Then the folder "<folder>" appears in the "<parentFolder>" folder
@@ -87,6 +90,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
       | share3 | root         | Reviewer | Contributor |
 
   Scenario Outline: [821925] Edit the Users I have shared my folders with
+    When API cleans all folders and history and user relogs in
     When the user clicks on 'Folders' link on the header
     And the user creates new folder "<folder>" in "<parentFolder>" folder
     And the user creates new folder "<folder2>" in "<folder>" folder

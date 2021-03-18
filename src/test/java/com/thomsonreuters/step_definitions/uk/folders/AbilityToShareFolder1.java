@@ -45,7 +45,7 @@ public class AbilityToShareFolder1 extends BaseStepDef {
 
 	@Then("^invitation email is received at \"(.*?)\" with link to PL(AU|UK)$")
 	public void emailIsReceivedWithLink(String email, String country) throws Throwable {
-		Mailbox mailbox = MailboxFactory.getMailboxByEmail(email);
+		Mailbox mailbox = MailboxFactory.getParametrizedMailboxByEmail(email);
 		Message message = mailbox.waitForMessageWithTitle(EMAIL_SUBJECT, 120, 10);
 		String expectedUrl = country.toLowerCase() + ".practicallaw." + System.getProperty("base.url") + ".thomsonreuters.com";
 
@@ -73,7 +73,9 @@ public class AbilityToShareFolder1 extends BaseStepDef {
     public void shareFolderWithContact(String folderName, String contactNameToShare, String role, String contactNameToShare2, String role2) throws Throwable {
     	foldersUtils.shareFolder(folderName);
         foldersUtils.clickOnContactsLink();
+        shareFolderContactsPopup.waitForPageToLoadAndJQueryProcessing();
         shareFolderContactsPopup.contact(contactNameToShare).click();
+        shareFolderContactsPopup.waitForPageToLoadAndJQueryProcessing();
         shareFolderContactsPopup.contact(contactNameToShare2).click();
         foldersUtils.selectInsertButton();
         shareFolderPopup.continueButton().click();
