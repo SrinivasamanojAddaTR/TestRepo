@@ -37,7 +37,7 @@ Feature: [820474] Glossary Delivery
       | To      | <mailbox>            |
       | Subject | <term> - test RTF    |
     And Email button is clicked
-    And user receives an email at "<mailbox>" with document in Word Processor (RTF) format and with subject " <term> - test RTF"
+    And user receives an email at "<mailbox>" with document in Word Processor (RTF) format and with subject "<term> - test RTF"
     Examples:
       | term       | mailbox                   |
       | Disability | tr-anz-tester2@epam-email-pluk.thomsonreuters.com |
@@ -53,7 +53,7 @@ Feature: [820474] Glossary Delivery
       | To      | <mailbox>         |
       | Subject | <term> - test PDF |
     And Email button is clicked
-    Then user receives an email at "<mailbox>" with document in PDF format and with subject " <term> - test PDF" and downloads the document
+    Then user receives an email at "<mailbox>" with document in PDF format and with subject "<term> - test PDF" and downloads the document
     And the document includes document body that contains text "<docText>"
     Examples:
       | term       | docText                          | mailbox                   |
@@ -69,7 +69,7 @@ Feature: [820474] Glossary Delivery
       | To      | <mailbox>          |
       | Subject | <term> - test link |
     And Email button is clicked
-    Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject " <term> - test link"
+    Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "<term> - test link"
     When user copies the link in valid format from email into the browser
     Then user should be presented with proper document "<term>"
     Examples:

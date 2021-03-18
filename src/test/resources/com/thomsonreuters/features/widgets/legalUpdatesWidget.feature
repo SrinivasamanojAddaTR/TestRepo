@@ -26,13 +26,13 @@ Scenario: Legal updates wiget on Legal updates page
     Then the user should be taken to the "Federal unfair dismissal" Topic LU results list
     Then the user should be presented with a list of LU documents
 
-#LU widget contains only 2 updates. Needs to update tests when there will be 5 or more LU. 
+#LU widget contains only 3 updates. Needs to update tests when there will be more LU.
   @gold
   Scenario: Legal updates wiget on PA page with LU widget
     Given ANZ user is logged in
     Given a user is on a "Employment" PA page
     And the user is presented with the Legal Updates widget
-    And the user should see 5 updates on a "Legal updates" widget
+    And the user should see 3 updates on a "Legal updates" widget
     And "Legal updates" widget should display publication dates of documents
     And the user should be presented with an 'RSS' Link
     When the user clicks on the 'View all' link of the "Legal updates" widget
