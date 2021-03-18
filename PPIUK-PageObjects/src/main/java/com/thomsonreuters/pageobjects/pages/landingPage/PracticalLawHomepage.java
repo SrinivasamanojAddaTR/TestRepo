@@ -1,11 +1,8 @@
 package com.thomsonreuters.pageobjects.pages.landingPage;
 
-import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 public class PracticalLawHomepage extends AbstractPage {
@@ -34,7 +31,7 @@ public class PracticalLawHomepage extends AbstractPage {
     }
 
     public WebElement practiceAreaLink(String practiceArea) {
-        return waitForExpectedElement(By.xpath("//div[@id='coid_website_browseMainColumn']/div[2]//a[contains(text(),'" + practiceArea + "')]"));
+        return waitForExpectedElement(By.xpath("//div[@id='coid_website_browseMainColumn']/div[1]//a[contains(text(),'" + practiceArea + "')]"));
     }
 
     public WebElement collectionLink(String link) {

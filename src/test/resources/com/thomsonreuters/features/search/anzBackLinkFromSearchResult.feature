@@ -13,10 +13,10 @@ Feature: [829761] Link back to the page  from where performed a search
     Then the user is presented with a page with header "Home"
 
   Scenario Outline: Verify Back to practice area link is displayed on practice area search results page
-    Given the user selects "Practice areas" tab
+    Given the user selects "Practice Areas" tab
     When has selected the link to the practice area "<paName>"
     And the user runs a free text search for the query "<query>"
-	And the user clicks link '<paName>' on 'search' page
+	And the user clicks breadcrumb link '<paName>' on 'search' page
 	Then the user is presented with a page with header "<paName>"
     Examples:
     |paName		 |query		|

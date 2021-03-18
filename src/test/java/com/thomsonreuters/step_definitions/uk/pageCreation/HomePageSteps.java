@@ -4,6 +4,7 @@ import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.siteStructure.BreadCrumbPage;
 import com.thomsonreuters.pageobjects.utils.document.StandardDocumentUtils;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
@@ -25,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 public class HomePageSteps extends BaseStepDef {
 
     private HomePage homePage = new HomePage();
+    private BreadCrumbPage breadCrumbPage = new BreadCrumbPage();
     private NavigationCobalt navigationCobalt = new NavigationCobalt();
     private PracticalLawHomepage plcHomePage = new PracticalLawHomepage();
     private WLNHeader wlnHeader = new WLNHeader();
@@ -113,6 +115,23 @@ public class HomePageSteps extends BaseStepDef {
             } else {
                 try {
                     homePage.waitForExpectedElement(By.linkText(link), 2).click();
+                } catch (Exception e) {
+                    homePage.waitForExpectedElement(By.partialLinkText(link), 5).click();
+                }
+            }
+            homePage.waitForPageToLoad();
+        }
+    }
+
+    @When("^the user clicks breadcrumb link '(.*)' on '(.*)' page$")
+    public void theUserClicksLinkOnPageInBreadcrumb(String link, String page) throws Throwable {
+        footerUtils.closeDisclaimerMessage();
+        if (!link.equals("")) {
+            if (page.contains("Browse")) {
+                homePage.scrollIntoViewAndClick(homePage.findChildElement(homePage.getPracticeAreasBrowseMenuContainer(), By.linkText(link)));
+            } else {
+                try {
+                    breadCrumbPage.breadCrumbLink(link).click();
                 } catch (Exception e) {
                     homePage.waitForExpectedElement(By.partialLinkText(link), 5).click();
                 }

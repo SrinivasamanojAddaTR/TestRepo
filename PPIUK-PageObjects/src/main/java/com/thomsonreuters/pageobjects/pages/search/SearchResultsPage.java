@@ -5,8 +5,8 @@ import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.ListFunctions;
 import org.apache.commons.lang.StringUtils;
-import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.*;
 
 import java.util.*;
 
@@ -445,11 +445,11 @@ public class SearchResultsPage extends AbstractPage {
      * this is the dropdown displayed when the user selects the arrow to change terms in context
      * setting - this object is the first option for less detail
      */
-    
+
     public WebElement mostDetailOption() {
         return waitForExpectedElement(mostDetailOptionLocator);
     }
-    
+
     public boolean isMostDetailOptionPresent() {
         return isExists(mostDetailOptionLocator);
     }
@@ -1361,13 +1361,13 @@ public class SearchResultsPage extends AbstractPage {
     public WebElement searchPageLabel() {
         return waitForExpectedElement((By.xpath("//h1[@id='co_browsePageLabel']")));
     }
-    
+
     public void clickOnMinimizeButtonIfPresent() {
     	if(isExists(By.id(MINIMIZE_BTN_ID))){
-    		waitForExpectedElement(By.id(MINIMIZE_BTN_ID)).click();;	
+    		waitForExpectedElement(By.id(MINIMIZE_BTN_ID)).click();;
     	}
     }
-    
+
 
     public List<WebElement> getTopicPageFacetsAsList() {
         return waitForElementsClickable(By.cssSelector("#ukplc_topic_facet_links li a"));
