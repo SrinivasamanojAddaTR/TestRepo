@@ -124,7 +124,7 @@ public class HomePageSteps extends BaseStepDef {
     }
 
     @When("^the user clicks breadcrumb link '(.*)' on '(.*)' page$")
-    public void theUserClicksLinkOnPageInBreadcrumb(String link, String page) throws Throwable {
+    public void userClicksBreadcrumbLinkOnPage(String link, String page) throws Throwable {
         footerUtils.closeDisclaimerMessage();
         if (!link.equals("")) {
             if (page.contains("Browse")) {
