@@ -1,19 +1,19 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.hamcrest.core.Is;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -70,7 +70,9 @@ public class GlossarySearchTest extends BaseStepDef {
 
     @Then("^the user should be able to see a list of resulting glossary terms containing this search \"(.*?)\" highlighted$")
     public void theUserShouldBeAbleToSeeAListOfResultingGlossaryTermsContainingThisSearchHighlighted(String term) throws Throwable {
-        for (WebElement element : glossaryPage.glossaryTermsWithSearchTermList()) {
+        List<WebElement> glossaryPageItemsList = new ArrayList<>();
+        glossaryPageItemsList.addAll(glossaryPage.glossaryTermsWithSearchTermList());
+        for (WebElement element : glossaryPageItemsList) {
             assertTrue(term + " not found in " + element.getText().trim(), element.getText().trim().toLowerCase().contains(term));
         }
     }
@@ -109,7 +111,17 @@ public class GlossarySearchTest extends BaseStepDef {
 
     @When("^searches for the term \"(.*?)\" using the glossary search$")
     public void searchesForTheTermUsingTheGlossarySearch(String term) throws Throwable {
+        String initialPageSource = new CommonMethods().getDriver().getPageSource();
         glossaryPage.glossarySearchField().sendKeys(term);
+        glossaryPage.glossarySearchField().sendKeys(Keys.ENTER);
+        String afterSearchPageSource = new CommonMethods().getDriver().getPageSource();
+
+        if(initialPageSource.equals(afterSearchPageSource)) {
+            glossaryPage.waitForPageToLoadAndJQueryProcessing();
+            glossaryPage.waitForPageToLoad();
+            Thread.sleep(5000); //TODO : Taking time for page source to load
+        }
+        glossaryPage.waitForPageToLoad();
     }
 
     @Then("^the search icon should be changed to a \"(.*?)\" icon$")

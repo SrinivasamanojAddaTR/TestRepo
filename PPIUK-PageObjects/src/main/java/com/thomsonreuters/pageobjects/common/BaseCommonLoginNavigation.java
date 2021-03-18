@@ -141,6 +141,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         getDriver().manage().deleteAllCookies();
         navigationCobalt.navigateToPLANZPlus();
         resetCurrentUser();
+        wlnHeader.waitForPageToLoadAndJQueryProcessing();
         footerUtils.closeDisclaimerMessage();
         wlnHeader.closePrivacyNoticePopup();
         LOG.info("The PL+ ANZ user has navigated to the home page");
@@ -274,6 +275,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         if (!isUserFirstUser(currentUser)) {
             newSession(currentUser);
             navigationCobalt.navigateToPLANZPlus();
+            wlnHeader.waitForPageToLoadAndJQueryProcessing();
             wlnHeader.closePrivacyNoticePopup();
             footerUtils.closeDisclaimerMessage();
             Thread.sleep(300);
