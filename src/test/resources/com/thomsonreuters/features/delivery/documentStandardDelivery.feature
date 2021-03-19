@@ -100,7 +100,7 @@ Feature: [818051] Document - Standard delivery features
     And the document does not include table of contents that contains title "<contentsText>"
     Examples:
       | guid                              | subject                                                | docText                      | contentsText             | mailbox                                           |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | When acting for a transferee | Execution by the parties | tr-anz-tester1@epam-email-pluk.thomsonreuters.com |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | When acting for a transferee | Execution by the parties | tr-anz-tester3@epam-email-pluk.thomsonreuters.com |
 
 
   Scenario Outline: [818051] Email document - PDF format, drafting notes not included
@@ -162,7 +162,7 @@ Feature: [818051] Document - Standard delivery features
     And the document includes drafting notes
     Examples:
       | guid                              | subject                           | docText                  | mailbox                                           |
-      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes: transfer of shares | The chairperson reported | tr-anz-tester1@epam-email-pluk.thomsonreuters.com |
+      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes: transfer of shares | The chairperson reported | tr-anz-tester3@epam-email-pluk.thomsonreuters.com |
 		
 		
 		
