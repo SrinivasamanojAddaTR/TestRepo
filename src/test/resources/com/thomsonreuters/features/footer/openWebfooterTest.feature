@@ -29,7 +29,7 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
     Examples:
       | footer                             | header                            | url                                            |
       | About Practical Law                | About Us                          | /Browse/Home/About/AboutUs                     |
-      | Meet the Team                      | Our team                          | /Browse/Home/About/OurTeam                     |
+      | Meet the team                      | Our team                          | /Browse/Home/About/OurTeam                     |
       | How are we using your information? | How we are using your information | Browse/Home/About/HowWeAreUsingYourInformation |
   @archived
     Examples:

@@ -52,7 +52,7 @@ public class UsernameLinkTest extends BaseStepDef {
     public void userClicksOnLink(String linkText) throws Throwable {
         footerUtils.closeDisclaimerMessage();
         header.waitForPageToLoad();
-        header.scrollIntoViewAndClick(homePage.getHomePageLink(linkText));
+        header.scrollIntoViewAndClick(header.getElementByLinkText(linkText));
         header.waitForPageToLoad();
     }
 
