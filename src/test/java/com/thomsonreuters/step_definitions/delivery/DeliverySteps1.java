@@ -122,6 +122,8 @@ public class DeliverySteps1 extends BaseStepDef {
     @When("^Email button is clicked$")
     public void emailButtonIsClicked() throws Throwable {
         email.emailButton().click();
+        deliveryOptionsPage.waitForPageToLoad();
+        deliveryOptionsPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(3);
     }
 
     @When("^user (downloads|prints|exports) the document with name \"(.*?)\" and extension \"(.*?)\"$")
@@ -138,6 +140,7 @@ public class DeliverySteps1 extends BaseStepDef {
         } else { // print
             print.printButton().click();
             download.waitForPageToLoad();
+            download.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(2);
             // Minimize delivery window to prevent Download browser pop-up showing up
             // seleniumKeyboard.sendEscape();
         }

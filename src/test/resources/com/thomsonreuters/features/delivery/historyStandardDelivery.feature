@@ -185,7 +185,7 @@ Scenario Outline: [831297] Download document without table of contents in PDF fo
 	Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<subject>" 
 	Examples: 
 		|guid								| subject			| mailbox |
-		|If13ba3b4d4d811e598dc8b09b4f043e0 	| Transfer of shares | tr-anz-tester1@epam-email-pluk.thomsonreuters.com |
+		|If13ba3b4d4d811e598dc8b09b4f043e0 	| Transfer of shares | tr-anz-tester3@epam-email-pluk.thomsonreuters.com |
 
 Scenario Outline: [831297][847182] Email resource link only
 	Given ANZ user navigates directly to document with guid "<guid>"
