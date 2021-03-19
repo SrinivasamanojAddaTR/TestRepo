@@ -2,7 +2,7 @@ Feature: To view Breadcrumbs for Favorites Page
 
 Background: 
     Given ANZ user is logged in
-   
+
 Scenario: Verify that logged in PLAU user can see a breadcrumb trail with a clickable Favourites page link on PLAU site when navigating to a Practice area page from Favourites and navigate back to the Favourites page when clicking on this link. 
 
     When the user open 'Practice Areas' link

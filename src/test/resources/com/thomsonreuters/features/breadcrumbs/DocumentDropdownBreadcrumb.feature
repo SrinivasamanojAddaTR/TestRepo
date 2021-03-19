@@ -19,82 +19,80 @@ Scenario: Verify that logged in PLAU user can see clickable links to the Documen
     When the user open 'Practice Areas' link
     And the user open 'Company Law' link
     And the user open 'Company administration and meetings' link
-    Then the user selects the document 'Shareholder rights and remedies'
-    And the user clicks on the 'Company constitutions' link in the doc
+    Then the user selects the document 'Corporate governance'
+    And the user clicks on the 'Practice note, Company constitutions' link in the doc
     And the user clicks on the dropdown arrow at the end of the breadcrumb
-    When the user clicks on a "Shareholder rights and remedies" in the dropdown
+    When the user clicks on a "Corporate governance" in the dropdown
     Then the document opens correctly
-    And document title is displayed as "Shareholder rights and remedies"
+    And document title is displayed as "Corporate governance"
     When the user clicks on the dropdown arrow at the end of the breadcrumb
     Then the user views a list of the documents I viewed
-      |Company constitutions |
+      | Company constitutions |
     And the user should not view the current document in the dropdown
-      |Shareholder rights and remedies |
+      | Corporate governance |
 
 Scenario: Verify that logged in PLAU user can see max 10 Documents in the dropdown list when navigating from one document to another. 
 
     When the user open 'Practice Areas' link
-     And the user navigates to practice area "Corporate Transactions" filtered by "Asset acquisitions" topic page  
-    And the user selects the document 'Completion accounts: acquisitions'
-    And the user clicks on the 'Alternatives to termination of employment for redundancy' link in the doc
+    And the user navigates to practice area "Corporate Transactions" filtered by "Asset acquisitions" topic page
+    And the user selects the document 'Asset purchases'
+    And the user clicks on the 'Practice note, Share purchases' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'Dismissed' link in the doc
+    And the user clicks on the 'Checklist, Strategic and financial buyers comparison chart' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'Dividends' link in the doc
+    And the user clicks on the 'Practice note, Corporate insolvency and related directors' duties' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'The prohibition on discrimination in employment' link in the doc
+    And the user clicks on the 'Practice note, Structuring the purchase price: acquisitions' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'The statutory entitlement to redundancy pay' link in the doc
+    And the user clicks on the 'Practice note, Completion accounts: acquisitions' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'Completion accounts: asset adjustment: asset purchase agreement' link in the doc
+    And the user clicks on the 'Standard documents, Asset purchase agreement: simultaneous signing and completion' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'Retention (warranty claims): asset purchase agreement' link in the doc
+    And the user clicks on the 'Share purchase agreement simultaneous signing and completion' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'Duty on asset acquisitions' link in the doc
+    And the user clicks on the 'Assignment of commercial and retail leases in each state and territory' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'Duty on share and unit acquisitions' link in the doc
+    And the user clicks on the 'Assignment and subleasing: practical leasing fundamentals' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'General protections' link in the doc
-    And the user goes back in browser
-    And the user clicks on the 'Escrow instruction letter: share or asset purchases' link in the doc
+    And the user clicks on the 'Practice note, Transfer of shares' link in the doc
     And the user goes back in browser
     And the user clicks on the dropdown arrow at the end of the breadcrumb
     Then the user views a list of the documents I viewed
-    |Escrow instruction letter: share or asset purchases              |
-    |General protections                                              |
-    |Duty on share and unit acquisitions                              |
-    |Duty on asset acquisitions                                       |
-    |Retention (warranty claims): asset purchase agreement            |
-    |Completion accounts: asset adjustment: asset purchase agreement  |
-    |The statutory entitlement to redundancy pay                      |
-    |The prohibition on discrimination in employment                  |
-    |Dividends                                                        |
-    |Dismissed                                                        |
-    When the user clicks on the 'Checklist for making a jurisdictional objection in unfair dismissal proceedings' link in the doc
+      | Transfer of shares                                                     |
+      | Assignment and subleasing: practical leasing fundamentals              |
+      | Assignment of commercial and retail leases in each state and territory |
+      | Share purchase agreement: simultaneous signing and completion          |
+      | Asset purchase agreement: simultaneous signing and completion          |
+      | Completion accounts: acquisitions                                      |
+      | Structuring the purchase price: acquisitions                           |
+      | Corporate insolvency and related directors' duties                     |
+      | Strategic and financial buyers comparison chart                        |
+      | Share purchases                                                        |
+    When the user clicks on the 'Standard documents, Share transfer form' link in the doc
     And the user goes back in browser
     And the user clicks on the dropdown arrow at the end of the breadcrumb
     Then the user views a list of the documents I viewed
-      |Checklist for making a jurisdictional objection in unfair dismissal proceedings|
-      |Escrow instruction letter: share or asset purchases                            |
-      |General protections                                                            |
-      |Duty on share and unit acquisitions                                             |
-      |Duty on asset acquisitions                                                     |
-      |Retention (warranty claims): asset purchase agreement                          |
-      |Completion accounts: asset adjustment: asset purchase agreement                |
-      |The statutory entitlement to redundancy pay                                    |
-      |The prohibition on discrimination in employment                                |
-      |Dividends                                                                      |
-  
-   Scenario: Verify that logged in PLAU user can see most recent Document at the top of the dropdown list when navigating from one document to another.   
+      | Share transfer form                                                    |
+      | Transfer of shares                                                     |
+      | Assignment and subleasing: practical leasing fundamentals              |
+      | Assignment of commercial and retail leases in each state and territory |
+      | Share purchase agreement simultaneous signing and completion           |
+      | Asset purchases agreement: simultaneous signing and completion         |
+      | Completion accounts: acquisitions                                      |
+      | Structuring the purchase price: acquisitions                           |
+      | Corporate insolvency and related directors' duties                     |
+      | Strategic and financial buyers comparison chart                        |
+
+  Scenario: Verify that logged in PLAU user can see most recent Document at the top of the dropdown list when navigating from one document to another.
     When the user open 'Practice Areas' link
-    And the user navigates to practice area "Corporate Transactions" filtered by "Asset acquisitions" topic page  
-    And the user selects the document 'Completion accounts: acquisitions'
-    And the user clicks on the 'Alternatives to termination of employment for redundancy' link in the doc
+    And the user navigates to practice area "Corporate Transactions" filtered by "Joint ventures" topic page
+    And the user selects the document 'Joint ventures in Australia'
+    And the user clicks on the 'Standard document, Shareholders' deed' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'Dismissed' link in the doc
+    And the user clicks on the 'Standard document, Priority deed' link in the doc
     And the user goes back in browser
     And the user clicks on the dropdown arrow at the end of the breadcrumb
-    Then the user views The top list of the documents   
-   |Dismissed|
-   |Alternatives to termination of employment for redundancy|
+    Then the user views The top list of the documents
+      | Priority deed      |
+      | Shareholders' deed |
    

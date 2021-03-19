@@ -43,19 +43,19 @@ Scenario:  Verify user can view Breadcrumb trial for Search in different areas
 	When the user searches for freetext term "law"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
 	And the user can display the scoped search dropdown menu options
-	And user selects the dropdown option "Corporate"
-	When the user searches for term "tax"
-	Then the user verifies that the complete breadcrumb is "Home > Corporate > Search Results"
+	And user selects the dropdown option "Corporate Transactions"
+	When the user searches for freetext term "tax"
+	Then the user verifies that the complete breadcrumb is "Home > Corporate Transactions > Search Results"
 	
 	
  Scenario: Verify user can view Breadcrumb trial for All content search
     And the user can display scoped search dropdown menu options
-	And user selects the dropdown option "Corporate" 
-	When the user searches for term "tax"
-	Then the user verifies that the complete breadcrumb is "Home > Corporate > Search Results" 
+	And user selects the dropdown option "Corporate Transactions"
+	When the user searches for freetext term "tax"
+	Then the user verifies that the complete breadcrumb is "Home > Corporate Transactions > Search Results"
 	And the user can display scoped search dropdown menu options
 	And user selects the dropdown option "All Content" 
-	When the user searches for term "tax"
+	When the user searches for freetext term "tax"
 	Then the user verifies that the complete breadcrumb is "Home > Search Results" 
 	
 	
@@ -90,17 +90,18 @@ Scenario: Verify user can view Breadcrumb trial Search on a document page
 	
 	
 Scenario: User verifies new breadcrumb trail after another free search run
-    When the user opens 'Practice areas' link
+    When the user opens 'Practice Areas' link
     And the user opens 'Commercial' link
+	And the user opens 'Topic' link
     And the user opens 'Franchising' link
-    And the user searches for term "Tax"
+    And the user searches for freetext term "Tax"
     Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results"
     When the user can display the scoped search dropdown menu options
     And user selects the dropdown option "Company Law" 
-    And the user searches for term "Tax"
-    Then the user verifies that the complete breadcrumb is "Home > Corporate > Search Results"
-    When the user clicks on the 'Corporate' link in the breadcrumb
-    And the user is presented with a topic page with title "Corporate"
+    And the user searches for freetext term "Tax"
+    Then the user verifies that the complete breadcrumb is "Home > Company Law > Search Results"
+    When the user clicks on the 'Company Law' link in the breadcrumb
+    And the user is presented with a topic page with title "Company Law"
 
 @archived
 Scenario: Verify user can view Breadcrumb trial for Search on a international page

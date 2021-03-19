@@ -26,7 +26,7 @@ public class RunBreadCrumbTest extends BaseCucumberTestRunner {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username", "None").equals("None")) {
-            User.getInstance().setUserName("AUtestuser3");
+            User.getInstance().setUserName("AUtestuser13");
             User.getInstance().setPassword("Password1");
             LOG.info("The credentials have been set");
         } else {
