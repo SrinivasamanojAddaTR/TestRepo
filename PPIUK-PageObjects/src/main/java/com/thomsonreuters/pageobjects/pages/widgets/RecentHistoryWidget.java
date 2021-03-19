@@ -17,22 +17,22 @@ public class RecentHistoryWidget extends AbstractPage {
 	
 	public List<WebElement> documents() {
 		return waitForExpectedElements(By
-				.xpath("//li[@ng-repeat='recentDocument in recentlyViewedDocs']"));
+				.xpath("//li[contains(@ng-repeat,'recentDocument in recentlyViewedDocs')]"));
 	}
 	
 	public List<WebElement> documentsTitles() {
 		return waitForExpectedElements(By
-				.xpath("//li[@ng-repeat='recentDocument in recentlyViewedDocs']//a"));
+				.xpath("//li[contains(@ng-repeat,'recentDocument in recentlyViewedDocs')]//a"));
 	}
 
 	public List<WebElement> documentsStatuses() {
 		return waitForExpectedElements(By
-				.xpath("//li[@ng-repeat='recentDocument in recentlyViewedDocs']//span[contains(@class,'metadata_status')]"));
+				.xpath("//li[contains(@ng-repeat,'recentDocument in recentlyViewedDocs')]//span[contains(@class,'metadata_status')]"));
 	}
 	
 	public List<WebElement> documentsResourceTypes() {
 		return waitForExpectedElements(By
-				.xpath("//li[@ng-repeat='recentDocument in recentlyViewedDocs']//span[contains(@class,'metadata_resource')]"));
+				.xpath("//li[contains(@ng-repeat,'recentDocument in recentlyViewedDocs')]//span[contains(@class,'metadata_resource')]"));
 	}
 	
 	public List<Document> getAllDocumentsFromWidget() {
@@ -55,7 +55,7 @@ public class RecentHistoryWidget extends AbstractPage {
 	}
 	
 	public WebElement documentLink(String documentLinkText){
-		return waitForExpectedElement(By.xpath(String.format("//li[@ng-repeat='recentDocument in recentlyViewedDocs']//a[text()='%s']", documentLinkText)));
+		return waitForExpectedElement(By.xpath(String.format("//li[contains(@ng-repeat,'recentDocument in recentlyViewedDocs')]//a[text()='%s']", documentLinkText)));
 		
 	}
 	
