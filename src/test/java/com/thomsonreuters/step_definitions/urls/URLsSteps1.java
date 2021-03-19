@@ -36,7 +36,7 @@ public class URLsSteps1 extends BaseStepDef {
 	@Then("^the user is presented with several practice areas options$")
 	public void theUserIsPresentedWithSeveralPracticeAreasOptions() {
 		String title = page.getPageHeaderLabel().getText();
-		String regex = ".*The topic \".+\" appears in these Practice Areas.*";
+		String regex = "Share acquisitions: private";
 		Assert.assertTrue(String.format("Page title '%s' does not match expected regex '%s'", title, regex), title.matches(regex));
 	}
 
