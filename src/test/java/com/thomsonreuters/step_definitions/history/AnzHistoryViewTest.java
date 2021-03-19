@@ -291,6 +291,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
                     }
                 } else if (option.equalsIgnoreCase("All")) {
                     todayDate = today.getTime();
+                    today.add(Calendar.DAY_OF_MONTH, 11);
                     LOG.info("System Date - UTC Zone :" + todayDate);
                     LOG.info("Application Date - Australia Zone :" + rowOriginalDate);
                     if (todayDate.after(rowOriginalDate)) {
