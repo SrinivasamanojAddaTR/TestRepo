@@ -293,7 +293,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
                 } else if (option.equalsIgnoreCase("All")) {
                     todayDate = today.getTime();
                     LOG.info("System Date - UTC Zone : before adding :" + todayDate);
-                    today.add(Calendar.DAY_OF_MONTH, +11);
+                    today.add(Calendar.HOUR_OF_DAY, 11);
                     todayDateAfter = today.getTime();
                     LOG.info("System Date - UTC Zone :After adding :" + todayDateAfter);
                     LOG.info("Application Date - Australia Zone :" + rowOriginalDate);
