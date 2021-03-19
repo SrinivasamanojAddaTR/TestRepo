@@ -262,7 +262,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     public void theUserShouldSeeTheResultsDateOptionSelected(String option, String date) throws Throwable {
         try {
             boolean isCriteriaTrue = false;
-            SimpleDateFormat rowDateFormat = new SimpleDateFormat("dd MMM yyyy");
+            SimpleDateFormat rowDateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm");
             SimpleDateFormat originalDateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Calendar today = Calendar.getInstance();
             Date todayDate = null;
@@ -291,6 +291,8 @@ public class AnzHistoryViewTest extends BaseStepDef {
                     }
                 } else if (option.equalsIgnoreCase("All")) {
                     todayDate = today.getTime();
+                    LOG.info("System Date - UTC Zone :" + todayDate);
+                    LOG.info("Application Date - Australia Zone :" + rowOriginalDate);
                     if (todayDate.after(rowOriginalDate)) {
                         isCriteriaTrue = true;
                     }

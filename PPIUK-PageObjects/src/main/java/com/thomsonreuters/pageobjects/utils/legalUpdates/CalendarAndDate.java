@@ -81,7 +81,7 @@ public class CalendarAndDate {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.HOUR_OF_DAY, 11);
 		Date time = calendar.getTime();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm");
 		return sdf.format(time);
 	}
 
