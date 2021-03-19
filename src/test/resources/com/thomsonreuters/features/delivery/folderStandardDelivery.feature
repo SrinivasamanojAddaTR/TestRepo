@@ -140,6 +140,7 @@ Feature: [821556] View Folders Page - Deliver Documents within a folder
 ###############################################################################################################
 ## Email
 ###############################################################################################################
+
   Scenario Outline: [821556] Email document in Microsoft Word format
     Given the user opens <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
@@ -154,8 +155,8 @@ Feature: [821556] View Folders Page - Deliver Documents within a folder
     And Email button is clicked
     Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<subject>"
     Examples:
-      | folder     | subject              | mailbox                                           |
-      | testFolder | Financial assistance | tr-anz-tester1@epam-email-pluk.thomsonreuters.com |
+      | folder     | subject                                 | mailbox                                           |
+      | testFolder | 1 full text item from testFolder folder | tr-anz-tester4@epam-email-pluk.thomsonreuters.com |
 
   Scenario Outline: [821556][847182]  Email resource link only
     Given the user opens <folder> folder with the set of documents
@@ -164,17 +165,17 @@ Feature: [821556] View Folders Page - Deliver Documents within a folder
     And the user selects the checkbox associated with document "1"
     When user clicks on Email delivery option for Folder
     And the user should be able to see Email basic tab options as follows
-      | Subject | <title> |
+      | Subject | <subject> |
     When the user edits the basic email options as follows
       | To     | <mailbox>          |
       | Format | Resource Link Only |
     And Email button is clicked
-    Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "<title>"
+    Then user receives an email at "<mailbox>" without attachments and with link to the AU document "<guid>" and with subject "<subject>"
     When user copies the link in valid format from email into the browser
     Then user should be presented with proper document "<title>"
     Examples:
-      | folder     | guid                              | title                | mailbox                                           |
-      | testFolder | Ifb5c2817995811e598dc8b09b4f043e0 | Financial assistance | tr-anz-tester1@epam-email-pluk.thomsonreuters.com |
+      | folder     | guid                              | subject                                 | mailbox                                           | title                |
+      | testFolder | Ifb5c2817995811e598dc8b09b4f043e0 | 1 full text item from testFolder folder | tr-anz-tester4@epam-email-pluk.thomsonreuters.com | Financial assistance |
 
 
 ###############################################################################################################
