@@ -8,6 +8,8 @@ import org.openqa.selenium.support.ui.Quotes;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.format;
+
 public class HomePage extends AbstractPage {
 
     public enum PlukTab {
@@ -27,6 +29,7 @@ public class HomePage extends AbstractPage {
     }
 
     private static final By MEET_THE_TEAM_LINK = By.xpath("//*[@id='categoryPageScopeLinks']/a | //*[@class='browseHeader-meetTeamButton']");
+    private static final String HOMEPAGE_LINKS ="//a[text()='%s']";
     public WebElement browseMenuPopUp() {
 
         return waitForExpectedElement(By.xpath("//div[@class='browseMenu_container']"),20);
@@ -378,6 +381,10 @@ public class HomePage extends AbstractPage {
 
     public WebElement getMeetTeamLink() {
         return waitForExpectedElement(MEET_THE_TEAM_LINK);
+    }
+
+    public WebElement getHomePageLink(String homePageLink) {
+        return waitForExpectedElement(By.xpath(format(HOMEPAGE_LINKS, homePageLink)));
     }
 
 }

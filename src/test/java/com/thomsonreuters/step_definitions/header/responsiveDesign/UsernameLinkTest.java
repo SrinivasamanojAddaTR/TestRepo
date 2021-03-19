@@ -3,6 +3,7 @@ package com.thomsonreuters.step_definitions.header.responsiveDesign;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
 import com.thomsonreuters.pageobjects.pages.onePass.OnePassLogoutPage;
+import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
@@ -17,6 +18,7 @@ import static org.junit.Assert.assertTrue;
 public class UsernameLinkTest extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
+    private HomePage homePage = new HomePage();
     private OnepassLogin onePass = new OnepassLogin();
 	private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
     private FooterUtils footerUtils = new FooterUtils();
@@ -50,7 +52,7 @@ public class UsernameLinkTest extends BaseStepDef {
     public void userClicksOnLink(String linkText) throws Throwable {
         footerUtils.closeDisclaimerMessage();
         header.waitForPageToLoad();
-        header.scrollIntoViewAndClick(header.getElementByLinkText(linkText));
+        header.scrollIntoViewAndClick(homePage.getHomePageLink(linkText));
         header.waitForPageToLoad();
     }
 
