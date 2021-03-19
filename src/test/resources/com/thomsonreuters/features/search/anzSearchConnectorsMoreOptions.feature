@@ -47,10 +47,10 @@ Background:
   Examples:
     | result |
     | 1      |
- 
+
   Scenario Outline: Validate that use of the % connector prevents terms placed after it from being retrieved
     When the user runs a free text search for the query "tax % purchase"
-    And the user opens the result in position "<result>"
+    And the user opens the result in plan at position "<result>"
     Then the user verifies the search result contains the first search term "tax" in the full text for the first term and not the second "purchase"
   Examples:
     | result |

@@ -3,8 +3,8 @@ package com.thomsonreuters.pageobjects.pages.search;
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.*;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
@@ -528,6 +528,15 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      */
     public void clickOnResultItem(int resultIndex) {
         waitForExpectedElement(By.id("cobalt_result_knowhow_title" + resultIndex), 8).click();
+    }
+
+    /**
+     * This method is used to click on in-plan ResultItem link present on results page based on given resultIndex.
+     *
+     * @param resultIndex
+     */
+    public void clickOnResultItemInPlan(int resultIndex) {
+        waitForExpectedElements(By.xpath("//li[@class!='co_outOfPlan']//*[contains(@id,'cobalt_result_knowhow_title')]"), 10).get(resultIndex-1).click();
     }
 
     /**

@@ -471,6 +471,11 @@ public class FacetJavaTest1 extends BaseStepDef {
         knowHowSearchResultsPage.clickOnResultItem(Integer.parseInt(resultIndex));
     }
 
+    @When("^the user opens the result in plan at position \"(.*?)\"$")
+    public void userOpensResultInPlanAtPosition(String resultIndex) {
+        knowHowSearchResultsPage.clickOnResultItemInPlan(Integer.parseInt(resultIndex));
+    }
+
     @Then("^the user verifies the search result contains the search terms \"(.*?)\" and also \"(.*?)\" within the full text$")
     public void theUserCanVerifyTheSearchResultContainsTheSearchTermsAndAlsoWithinTheFullText(String firstTerm, String secondTerm) {
         String docText = searchUtils.getFullText().toLowerCase();
