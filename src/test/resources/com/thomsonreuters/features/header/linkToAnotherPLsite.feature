@@ -11,7 +11,7 @@ Feature: [809948][850090] Link to another Practical Law web site
     And the Practical Law Country "<url>" web site "<websiteTitle>" will be launched in the same window and tab
     Examples:
       | countryName | url                      | websiteTitle                          |
-      | US          | https://a.next.          | US Home \| Practical Law              |
+      | US          | https://1.next.          | US Home \| Practical Law              |
       | UK          | https://uk.practicallaw. | UK Home \| Practical Law              |
       | Canada      | https://ca.practicallaw. | Practical Law Canada \| Practical Law |
     @archived
@@ -39,7 +39,7 @@ Feature: [809948][850090] Link to another Practical Law web site
     And the Practical Law Country "<url>" web site "<websiteTitle>" will be launched in the same window and tab
     Examples:
       | countryName | url                      | websiteTitle                          |
-      | US          | https://a.next.          | US Home \| Practical Law              |
+      | US          | https://1.next.          | US Home \| Practical Law              |
       | UK          | https://uk.practicallaw. | UK Home \| Practical Law              |
       | Canada      | https://ca.practicallaw. | Practical Law Canada \| Practical Law |
     @archived
