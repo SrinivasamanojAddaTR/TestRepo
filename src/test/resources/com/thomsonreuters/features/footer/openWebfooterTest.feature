@@ -33,8 +33,8 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
       | How are we using your information? | How we are using your information | Browse/Home/About/HowWeAreUsingYourInformation |
   @archived
     Examples:
-      | footer                             | header                            | url                                            |
-      | Contributing Firms                 | Contributors                      | /Browse/Home/About/Contributors                |
+      | footer             | header       | url                             |
+      | Contributing Firms | Contributors | /Browse/Home/About/Contributors |
 
   Scenario Outline: User verifies the functionality of footer links that lead to internal pages - indirect
     When user clicks on "<firstLink>" link
@@ -51,14 +51,13 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
     Then user was taken to url "<url>"
     And user should see the "<PageTitle>" page is opened
     Examples:
-      | footer           | url                                                                                                                   | PageTitle                                                               |
-      | Careers          | https://www.thomsonreuters.com/en/careers.html                                                                        | Careers \| Thomson Reuters                                              |
-      | User Guides      | https://support.thomsonreuters.com.au/product/practical-law-australia                                                 | Practical Law Australia \| Thomson Reuters                              |
-      | Request Training | https://support.thomsonreuters.com.au                                                                                 | Homepage \| Thomson Reuters                                             |
-      | Privacy          | https://www.thomsonreuters.com/en/privacy-statement.html                                                              | Privacy statement \| Thomson Reuters                                    |
+      | footer           | url                                                                   | PageTitle                                  |
+      | Careers          | https://www.thomsonreuters.com/en/careers.html                        | Careers \| Thomson Reuters                 |
+      | User Guides      | https://support.thomsonreuters.com.au/product/practical-law-australia | Practical Law Australia \| Thomson Reuters |
+      | Request Training | https://support.thomsonreuters.com.au                                 | Request Training \| Thomson Reuters        |
+      | Privacy          | https://www.thomsonreuters.com/en/privacy-statement.html              | Privacy statement \| Thomson Reuters       |
   @archived
     Examples:
-      | footer           | url                                                                                                                   | PageTitle                                                               |
-      | Master Terms     | https://legal.thomsonreuters.com.au/terms/pdf/AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf | AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
-	
-	
+      | footer       | url                                                                                                                   | PageTitle                                                               |
+      | Master Terms | https://legal.thomsonreuters.com.au/terms/pdf/AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf | AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
+
