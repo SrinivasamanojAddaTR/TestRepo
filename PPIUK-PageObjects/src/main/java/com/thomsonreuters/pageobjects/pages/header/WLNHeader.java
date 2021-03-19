@@ -376,7 +376,7 @@ public class WLNHeader extends AbstractPage {
     	
     }
     public boolean isSignInLinkPresent() {
-        return isElementDisplayed(By.id("coid_website_signOffRegion"));
+        return isElementDisplayed(By.xpath("//a[contains(text(),'Sign In')]"));
     }
 
     public boolean isSignInLinkPresentWithoutWait() {
