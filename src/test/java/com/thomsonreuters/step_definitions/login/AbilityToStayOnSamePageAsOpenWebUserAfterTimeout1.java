@@ -9,8 +9,10 @@ import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.JavascriptExecutor;
+
 import java.util.Set;
+
 import static org.junit.Assert.assertTrue;
 
 public class AbilityToStayOnSamePageAsOpenWebUserAfterTimeout1 extends BaseStepDef {
@@ -61,7 +63,7 @@ public class AbilityToStayOnSamePageAsOpenWebUserAfterTimeout1 extends BaseStepD
     public void userOpensNewTab() throws Throwable {
         expectedPageTitleForFirstTab = practicalLawHomepage.getPageTitle();
         windowHandleFirstTab = getDriver().getWindowHandle();
-        wlnHeader.header().sendKeys(Keys.valueOf("CONTROL") + "n");
+        ((JavascriptExecutor) getDriver()).executeScript("window.open('about:blank','_blank');");
         wlnHeader.switchToOpenedWindow();
         windowHandleSecondTab = getDriver().getWindowHandle();
     }
