@@ -42,11 +42,11 @@ Background:
 
   Scenario Outline: Validate that use of the +n connector (where n is a number) retrieves numerical terms within n terms of each other
 	When the user runs a free text search for the query "tax +3 interest"
-    And the user opens the result in position "<result>"
+    And the user opens the result in plan at position "<result>"
     Then the user verifies the search result contains the both search terms "tax" "interest" "3" terms of each other in the full text with the first preceding the second
   Examples:
     | result |
-    | 1      |
+    | 2      |
 
   Scenario Outline: Validate that use of the % connector prevents terms placed after it from being retrieved
     When the user runs a free text search for the query "tax % purchase"
