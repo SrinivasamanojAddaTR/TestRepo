@@ -266,7 +266,6 @@ public class AnzHistoryViewTest extends BaseStepDef {
             SimpleDateFormat originalDateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Calendar today = Calendar.getInstance();
             Date todayDate = null;
-            Date todayDateAfter = null;
             Date customDate1, customDate2;
             researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
             for (int rowCount = 1; rowCount <= researchOrganizerPage.historyPageResultTitleLinks().size(); rowCount++) {
@@ -292,11 +291,6 @@ public class AnzHistoryViewTest extends BaseStepDef {
                     }
                 } else if (option.equalsIgnoreCase("All")) {
                     todayDate = today.getTime();
-                    LOG.info("System Date - UTC Zone : before adding :" + todayDate);
-                    today.add(Calendar.HOUR_OF_DAY, 11);
-                    todayDateAfter = today.getTime();
-                    LOG.info("System Date - UTC Zone :After adding :" + todayDateAfter);
-                    LOG.info("Application Date - Australia Zone :" + rowOriginalDate);
                     if (todayDate.after(rowOriginalDate)) {
                         isCriteriaTrue = true;
                     }
