@@ -241,7 +241,7 @@ Feature: [821556] View Folders Page - Deliver Documents within a folder
     And the user edits the basic download options as follows
       | Table of Contents | Selected |
       | Format            | PDF      |
-    Then user downloads the document with name "Full text items from testFolder folder_2" and extension ".pdf"
+    Then user downloads the document with name "Full text items from testFolder folder" and extension ".pdf"
     When user relogs in
     And the user opens testFolder folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
