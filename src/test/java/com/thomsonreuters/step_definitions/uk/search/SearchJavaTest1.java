@@ -278,9 +278,10 @@ public class SearchJavaTest1 extends BaseStepDef {
     }
 
     @When("^the user selects the checkbox associated with result \"([^\"]*)\"$")
-    public void theUserSelectsTheCheckboxAssociatedWithResult(String arg1) throws Throwable {
+    public void theUserSelectsTheCheckboxAssociatedWithResult(String index) throws Throwable {
         searchResultsPage.waitForPageToLoad();
-        searchResultsPage.resultCheckbox(arg1).click();
+        WebElement resultItemCheckBox = searchResultsPage.resultCheckbox(index);
+        searchResultsPage.scrollIntoViewAndClick(resultItemCheckBox);
     }
 
     @When("^the user selects the checkbox associated with whats market result \"([^\"]*)\"$")

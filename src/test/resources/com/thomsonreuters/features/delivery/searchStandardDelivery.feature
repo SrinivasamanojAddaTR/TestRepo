@@ -78,7 +78,7 @@ Scenario Outline: [818824] Download list of items in PDF format
     And the user edits the basic download options as follows 
 		| List of Items     |  Selected         |
 		| Format Value		| PDF	|
-	Then user downloads the document with name "Practical Law - List of 2 results for <query>" and extension ".pdf" 
+	Then user downloads the document with name "List of 2 results for <query>" and extension ".pdf"
 	And the document includes title from result "1" 
 	And the document includes title from result "2" 
 	And the document does not include document body that contains text from result "1" 
@@ -96,7 +96,7 @@ Scenario Outline: [818824] Download list of items in CSV format
     And the user edits the basic download options as follows 
 		| List of Items     |  Selected         |
 		| Format Value		| Microsoft Excel (CSV)	|
-	Then user downloads the document with name "Practical Law - List of 2 results for <query>" and extension ".csv" 
+	Then user downloads the document with name "List of 2 results for <query>" and extension ".csv"
 	Examples: 
 		| 	query 	|  
 		|	test |  

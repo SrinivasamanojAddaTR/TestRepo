@@ -36,7 +36,7 @@ public class NavigateToLUresultsPage1 extends BaseStepDef {
     public void theUserVerifiesThePresenceOfTheKnowHowFacetGroups() throws Throwable {
         assertTrue("The practice area facets are not displayed", knowHowSearchResultsPage.facetGroupHeaderPracticeArea().isDisplayed());
         assertTrue("The jurisdiction facets are not displayed", knowHowSearchResultsPage.facetGroupHeaderPLAUJurisdiction().isDisplayed());
-        Assert.assertFalse("The resource type facets are displayed ",knowHowSearchResultsPage.isFacetGroupHeaderResourceTypeDisplayed());
+		assertTrue("The resource type facets are displayed ",knowHowSearchResultsPage.isFacetGroupHeaderResourceTypeDisplayed());
     }
     
     @When("^the user verifies that facets not selected$")

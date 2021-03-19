@@ -29,14 +29,41 @@ So that I can find the latest updates in the industry
     Examples: 
       | practiceArea |
       | Employment   |
- 
+
    Scenario: [850132] As a open web User I want to view all existing legal updates on PL content
     When the user select Legal Updates link on Resource tab area
 	When the user clicks on the 'View all' link of the "Legal updates" widget
     Then the user should be presented with a list of LU documents
     And the user is presented with a page with header "Legal updates | All"
     And the user verifies the presence of the legul updates facet groups for PLAU
-    And the user verifies that facets not selected
+    And user expands the "Resource Type" facets group
+    Then the user verifies that the following parent facets are not selected
+       | Legal updates|
+    And user expands the "Practice Area" facets group
+    Then the user verifies that the following parent facets are not selected
+       | Banking and Finance                 |
+       | Commercial                          |
+       | Commercial Real Estate              |
+       | Company Law                         |
+       | Competition and Consumer Protection |
+       | Corporate Transactions              |
+       | Dispute Resolution                  |
+       | Employment                          |
+       | In-house Centre                     |
+       | Insolvency and Restructuring        |
+       | New Zealand Resource Centre         |
+    And user expands the "Jurisdiction" facets group
+    Then the user verifies that the following parent facets are not selected
+       | Federal                             |
+       | Australian Capital Territory        |
+       | New South Wales                     |
+       | Northern Territory                  |
+       | Queensland                          |
+       | South Australia                     |
+       | Tasmania                            |
+       | USA (National/Federal)              |
+       | Victoria                            |
+       | Western Australia                   |
     And he does not see in the search results page any link related to delivery options (email, download, print)
     And the user verifies that link 'Email Preferences' is  not displayed on 'Legal updates page'
 

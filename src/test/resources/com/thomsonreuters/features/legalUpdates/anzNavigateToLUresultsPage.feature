@@ -37,7 +37,34 @@ Feature: [848112][848110] view legal updates page
     Then the user should be presented with a list of LU documents
     And the user is presented with a page with header "Legal updates | All"
     And the user verifies the presence of the legul updates facet groups for PLAU
-    And the user verifies that facets not selected
+    And user expands the "Resource Type" facets group
+    Then the user verifies that the following parent facets are not selected
+      | Legal updates|
+    And user expands the "Practice Area" facets group
+    Then the user verifies that the following parent facets are not selected
+      | Banking and Finance                 |
+      | Commercial                          |
+      | Commercial Real Estate              |
+      | Company Law                         |
+      | Competition and Consumer Protection |
+      | Corporate Transactions              |
+      | Dispute Resolution                  |
+      | Employment                          |
+      | In-house Centre                     |
+      | Insolvency and Restructuring        |
+      | New Zealand Resource Centre         |
+    And user expands the "Jurisdiction" facets group
+    Then the user verifies that the following parent facets are not selected
+      | Federal                             |
+      | Australian Capital Territory        |
+      | New South Wales                     |
+      | Northern Territory                  |
+      | Queensland                          |
+      | South Australia                     |
+      | Tasmania                            |
+      | USA (National/Federal)              |
+      | Victoria                            |
+      | Western Australia                   |
     When the user clicks link 'Email Preferences' on 'Legal updates page' page
     Then the user is presented with a page with header "Email preferences"
     

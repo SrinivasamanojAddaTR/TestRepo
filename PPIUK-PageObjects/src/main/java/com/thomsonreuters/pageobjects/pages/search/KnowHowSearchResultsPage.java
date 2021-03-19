@@ -105,7 +105,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * By Object representing Resource Type heading for know how facet group
      */
     public By resourceTypeFacetGroupByTitle() {
-        return By.id("co_facetHeaderknowHowResourceTypeSummary");
+        return By.xpath("//header[@id='SearchFacetHierarchy-knowHowResourceTypeSummaryHeader']");
     }
 
     /**
@@ -113,7 +113,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      */
     public WebElement facetGroupHeaderPracticeArea() {
       //  return waitForExpectedElement(By.id("co_facetHeaderknowHowPracticeAreaSummary"));
-        return waitForExpectedElement(By.id("co_facetHeaderknowHowAuPracticeAreaSummary"));
+        return waitForExpectedElement(By.xpath("//header[@id='SearchFacetHierarchy-knowHowAuPracticeAreaSummaryHeader']"));
     }
 
     /**
@@ -796,7 +796,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return
      */
     public WebElement facetGroupHeaderPLAUJurisdiction() {
-        return waitForExpectedElement(By.xpath("//div[@id='facet_div_knowHowJurisdictionSummary' or @id='facet_div_knowHowAuJurisdictionSummary']//h4"));
+        return waitForExpectedElement(By.xpath("//header[@id='SearchFacetMultipleXBoxes-knowHowAuJurisdictionSummaryHeader']"));
     }
 
     /**
