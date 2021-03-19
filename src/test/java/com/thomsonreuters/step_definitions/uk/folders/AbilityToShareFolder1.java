@@ -47,7 +47,7 @@ public class AbilityToShareFolder1 extends BaseStepDef {
 	public void emailIsReceivedWithLink(String email, String country) throws Throwable {
 		Mailbox mailbox = MailboxFactory.getParametrizedMailboxByEmail(email);
 		Message message = mailbox.waitForMessageWithTitle(EMAIL_SUBJECT, 120, 10);
-		String expectedUrl = country.toLowerCase() + ".practicallaw." + System.getProperty("base.url") + ".thomsonreuters.com";
+		String expectedUrl = "anzlaw." + System.getProperty("base.url") + ".thomsonreuters.com";
 
 		SoftAssertions softly = new SoftAssertions();
 		softly.assertThat(emailMessageUtils.isEmailContainsText(message, expectedUrl))
