@@ -262,7 +262,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     public void theUserShouldSeeTheResultsDateOptionSelected(String option, String date) throws Throwable {
         try {
             boolean isCriteriaTrue = false;
-            SimpleDateFormat rowDateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm");
+            SimpleDateFormat rowDateFormat = new SimpleDateFormat("dd MMM yyyy");
             SimpleDateFormat originalDateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Calendar today = Calendar.getInstance();
             Date todayDate = null;
@@ -270,7 +270,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
             Date customDate1, customDate2;
             researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
             for (int rowCount = 1; rowCount <= researchOrganizerPage.historyPageResultTitleLinks().size(); rowCount++) {
-                String rowStrDate = researchOrganizerPage.getDateAtRowPosition(String.valueOf(rowCount)).getText();
+                String  rowStrDate = researchOrganizerPage.getDateAtRowPosition(String.valueOf(rowCount)).getText();
                 Date rowOriginalDate = rowDateFormat.parse(rowStrDate);
                 if (option.equalsIgnoreCase("Today")) {
                     String rowOriginalStrDate = rowDateFormat.format(rowOriginalDate);
