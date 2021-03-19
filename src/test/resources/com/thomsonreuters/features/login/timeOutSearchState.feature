@@ -12,6 +12,7 @@ Feature: [812852] Time Out: Search State
       | routing          | SPECIFIED_USER_TIMEOUT_7_MINUTES |
     When the user runs a free text cobalt search with query "<query>"
 #    And the user clicks 'select multiple filters' button
+    And user expands the "Practice Area" facets group
     And the user expands the know how facet "<facet1>"
     And the user selects the know how child facet "<facet11>"
     And the user selects the know how option to apply filters
@@ -23,6 +24,7 @@ Feature: [812852] Time Out: Search State
     Then he should stay on same search page as OpenWeb user
     When the user deselects the know how facet "<facet11>"
     And the user clicks 'select multiple filters' button
+    And user expands the "Resource Type" facets group
     And the user expands the know how facet "<facet2>"
     And the user selects the know how child facet "<facet22>"
     And the user selects the know how option to apply filters
@@ -35,7 +37,7 @@ Feature: [812852] Time Out: Search State
     And the user verifies that the know how facet is selected "<facet22>"
     Examples:
       | query | facet1      | facet11                             | facet2         | facet22                 |
-      | tax   | Company Law | Company administration and meetings | Practice Notes | Practice note: overview |
+      | tax   | Company Law | Company administration and meetings | Practice notes | Practice note: overview |
 
   @RemoveSRMOptionANZ
   Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
@@ -45,6 +47,7 @@ Feature: [812852] Time Out: Search State
       | mandatoryRouting | YES                              |
     When the user runs a free text cobalt search with query "<query>"
 #    And the user clicks 'select multiple filters' button
+    And user expands the "Practice Area" facets group
     And the user expands the know how facet "<facet1>"
     And the user selects the know how child facet "<facet2>"
     And the user selects the know how option to apply filters

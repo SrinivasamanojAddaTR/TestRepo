@@ -16,6 +16,10 @@ public class OnePassLogoutPage extends AbstractPage {
         return isExists(By.className("legal-compartments_signOut"));
     }
 
+    public By resumeAsCurrentUserLinkText() {
+        return By.partialLinkText("Resume as");
+    }
+
     public WebElement sessionSummaryBox() {
         return waitForExpectedElement(By.className("co_signOff_sessionSummary"));
     }

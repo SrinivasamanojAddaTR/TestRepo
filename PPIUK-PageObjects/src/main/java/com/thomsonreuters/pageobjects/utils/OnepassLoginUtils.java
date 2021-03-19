@@ -258,7 +258,7 @@ public class OnepassLoginUtils {
 
 	public boolean isResumeAsCurrentUserLinkPresent() {
 		try {
-			return onePassLogoutPage.resumeAsCurrentUserLink().isDisplayed();
+			return onePassLogoutPage.isElementDisplayed(onePassLogoutPage.resumeAsCurrentUserLinkText());
 		} catch (PageOperationException poe) {
 			LOG.info("context", poe);
 			return false;
