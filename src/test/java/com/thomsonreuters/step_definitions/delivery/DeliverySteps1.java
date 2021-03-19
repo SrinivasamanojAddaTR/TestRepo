@@ -160,7 +160,7 @@ public class DeliverySteps1 extends BaseStepDef {
 
     @When("^the user clicks on \"Open in Word\" delivery option for the document$")
     public void clicksOnQuickDraftDeliveryOptionForTheDocument() throws Throwable {
-        windowHandler.fileDownload(deliveryOptionsPage.quickDraft());
+       deliveryOptionsPage.quickDraft().click();
     }
 
     @When("^the document is downloaded with name \"(.*?)\" and extension \"(.*?)\"$")
