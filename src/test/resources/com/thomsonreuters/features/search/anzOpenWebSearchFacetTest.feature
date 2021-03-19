@@ -25,7 +25,7 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
   Examples:
     | Facet Name     |
     | Practice notes |
-    | Company Law |
+    | Checklists     |
 
   @gold
   Scenario: Verify the selection of same group facets and apply filter button

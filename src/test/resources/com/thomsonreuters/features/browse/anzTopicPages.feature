@@ -31,7 +31,7 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
     Examples:
       | PA                     | Topic Page                  | Resource Type  |
       | Employment             | Ill and injured employees   | Checklists     |
-      | Company Law            | Execution formalities       | Practice Notes |
+      | Company Law            | Execution formalities       | Practice notes |
       | Corporate Transactions | Share acquisitions: private | Checklists     |
 
  #Althogh this test works fine on PLCUK but there won't be enough documents on Australia's topic pages. Therefore putting @wip tag
