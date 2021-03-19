@@ -31,6 +31,15 @@ public class FooterLinks1 extends BaseStepDef {
     public void userShouldseethePage(String pageTitle) throws Throwable {
         assertTrue("Title " + aboutCompanyPage.getPageTitle() + " is Not contains " + pageTitle, aboutCompanyPage.getPageTitle().contains(pageTitle));
     }
+
+	@Then("^user should see the \"(.*?)\" page opened in new tab$")
+	public void userShouldseethePageInNewTab(String pageTitle) throws Throwable {
+		String currentTile = commonMethods.performActionsInNewWindow(askCategoryPage.getWindowHandle(), () -> aboutCompanyPage.getPageTitle());
+		assertThat(currentTile)
+				.as("The user is not taken to the website with title %s", currentTile)
+				.contains(pageTitle);
+	}
+
 	@Then("^user should see Private Policy and Cookies page in the new tab$")
 	public void userShouldSeePrivatePolicyAndCookiesPage() {
 		commonMethods.performActionsInNewWindowAfterTimeout(aboutCompanyPage.getWindowHandle(), () ->

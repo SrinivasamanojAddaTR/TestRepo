@@ -49,7 +49,8 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
   Scenario Outline: User verifies the functionality of footer links that lead to external pages
     When user clicks on "<footer>" link
     Then user was taken to url "<url>"
-    And user should see the "<PageTitle>" page is opened
+    When user clicks on "<footer>" link
+    And user should see the "<PageTitle>" page opened in new tab
     Examples:
       | footer           | url                                                                   | PageTitle                                  |
       | Careers          | https://www.thomsonreuters.com/en/careers.html                        | Careers \| Thomson Reuters                 |
