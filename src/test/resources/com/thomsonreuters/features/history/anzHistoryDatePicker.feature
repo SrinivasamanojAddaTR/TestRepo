@@ -4,7 +4,7 @@ Feature: [821959] As a PLAU User, I want to view my history based on a specific 
 #bug 851064  Bug [PLAU only] On History page date faceting works incorrectly
 # (will not fail the test during regression run, but it will fail if you execute it later during the day)
 
-   @smoke @vky
+   @smoke
     Scenario Outline: User verifies date picker is present with all the options
     Given ANZ user is logged in
     And ANZ user navigates directly to document with guid "I53cfffa798de11e598dc8b09b4f043e0"
@@ -27,14 +27,14 @@ Feature: [821959] As a PLAU User, I want to view my history based on a specific 
     Then the user should see the results <Option> with any selected <Date>
     Examples:
       |      Option         |  Date |
-      #|      Today          |     -      |
-     # |    Last 7 Days      |     -      |
-      #|    Last 30 Days     |     -      |
+      |      Today          |     -      |
+      |    Last 7 Days      |     -      |
+      |    Last 30 Days     |     -      |
       |    All              |     -      |
-      #|    All Dates Before | 08-09-2016 |
-      #|    All Dates After  | 08-09-2016 |
-     # |    Specific Date    | 08-09-2016 |
-      #|    Date Range       | 07-09-2016 to 09-09-2016    |
+      |    All Dates Before | 08-09-2016 |
+      |    All Dates After  | 08-09-2016 |
+      |    Specific Date    | 08-09-2016 |
+      |    Date Range       | 07-09-2016 to 09-09-2016    |
 
 
 
