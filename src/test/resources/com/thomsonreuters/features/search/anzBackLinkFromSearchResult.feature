@@ -32,7 +32,7 @@ Feature: [829761] Link back to the page  from where performed a search
     |paName			|TopicLink 			       | TopicTitle		          |query		|
     |Employment  	|Enterprise bargaining     |Enterprise bargaining     | award		|
  
-
+  @archived
   Scenario Outline: Verify Back to document link is displayed on search results page
     When the user runs a free text search for the query "<query>"
     And the user clicks link '<title of document>' on 'search' page
@@ -43,8 +43,8 @@ Feature: [829761] Link back to the page  from where performed a search
     Examples:
     |query		|title of document		|
     |document	|Execution of deeds and documents by companies incorporated under the Corporations Act 2001 (Cth)|
-   
-@archived
+
+  @archived
   Scenario Outline: Verify Back to country link is displayed on country search results page
     Given has selected the link entitled International
     When has selected the link to the country page "<country>"
