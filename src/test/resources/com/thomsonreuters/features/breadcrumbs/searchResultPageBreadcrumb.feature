@@ -27,7 +27,7 @@ Background:
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
 	
 Scenario: Verify user can view Breadcrumb trial for Page switching search
-	When the user opens 'Practice areas' link 
+	When the user opens 'Practice Areas' link
 	And the user opens 'Commercial' link
 	And the user opens 'Topics' link
 	And the user opens 'Franchising' link 

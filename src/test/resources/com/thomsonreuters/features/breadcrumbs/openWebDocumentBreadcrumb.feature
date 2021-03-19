@@ -16,6 +16,7 @@ Scenario: Verify that open web  user can see a Document level in breadcrumb trai
 Scenario: Verify that logged in PLAU user can see a dropdown list when navigating from one document to another.
      When the user open 'Practice Areas' link
      And the user open 'Commercial' link
+     And the user open 'Topics' link
      And the user open 'Data protection and privacy' link
      Then the user selects the document 'Cybersecurity'
      And the user clicks on the Related Content 'Data issues in the financial services sector' link in the doc

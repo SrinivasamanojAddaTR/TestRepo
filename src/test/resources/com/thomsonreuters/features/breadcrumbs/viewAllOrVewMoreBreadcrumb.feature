@@ -1,3 +1,4 @@
+@archived
 Feature: To view Breadcrumbs for View All
 
 Scenario:

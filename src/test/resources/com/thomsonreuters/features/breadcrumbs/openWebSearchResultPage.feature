@@ -21,14 +21,16 @@ Background:
 
  Scenario: Verify user can view Breadcrumb trial for Simple search
 	When the user opens 'Practice Areas' link 
-	And the user opens 'Commercial' link 
+	And the user opens 'Commercial' link
+ 	And the user opens 'Topics' link
 	And the user opens 'Franchising' link 
 	When the user searches for term "law"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
 	
 Scenario: Verify user can view Breadcrumb trial for Page switching search
 	When the user opens 'Practice Areas' link
-	And the user opens 'Commercial' link 
+	And the user opens 'Commercial' link
+	And the user opens 'Topics' link
 	And the user opens 'Franchising' link 
 	When the user searches for term "law"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
@@ -39,6 +41,7 @@ Scenario: Verify user can view Breadcrumb trial for Page switching search
 Scenario:  Verify user can view Breadcrumb trial for Search in different areas
 	When the user opens 'Practice Areas' link 
 	And the user opens 'Commercial' link
+	And the user opens 'Topics' link
 	And the user opens 'Franchising' link 
 	When the user searches for freetext term "law"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
@@ -66,6 +69,7 @@ Scenario:  Verify user can view Breadcrumb trial for Search in different areas
 	And the user searches for freetext term "tax"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Search Results" 
 	Then the user clicks on the 'Commercial' link in the breadcrumb
+ 	And the user opens 'Topics' link
     And the user opens 'Franchising' link
 	When the user searches for freetext term "tax"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results"
@@ -73,7 +77,8 @@ Scenario:  Verify user can view Breadcrumb trial for Search in different areas
 	
 Scenario: Verify user can view Breadcrumb trial for Search on a topic page
 	When the user opens 'Practice Areas' link 
-	And the user opens 'Employment' link 
+	And the user opens 'Employment' link
+	And the user opens 'Topics' link
 	And the user opens 'Building industry' link 
 	And the user can display the scoped search dropdown menu options
 	And user selects the dropdown option "Company Law" 

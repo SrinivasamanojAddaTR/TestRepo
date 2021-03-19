@@ -13,8 +13,6 @@ Feature: To view Contract Express Home Page
       | Address Book          |
     And the help icon should be displayed
     And the user dropdown should be displayed
-    And Show welcome screen when I log in checkbox should be displayed
-
 
   Scenario: Verify Contract Express Home page Footer
 
