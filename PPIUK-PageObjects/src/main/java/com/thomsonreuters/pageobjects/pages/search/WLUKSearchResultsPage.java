@@ -21,12 +21,17 @@ public class WLUKSearchResultsPage extends AbstractPage {
     private static final By DATE_HEADER = By.xpath("co_facetHeaderresearchDateSummary");
     private static final By MULTIPLE_FILTER_STATE_CHECKBOX = By.xpath("//input[contains(@id,'SlideToggle_')]");
     private static final By MULTIPLE_FILTER_TOGGLE = By.xpath("//*[contains(@class,'SlideToggle-thumb-container')]");
+    private static final String APPLY_FILTERS_BUTTON = "//*[contains(@class,'co_multifacet_apply')]";
     /**
      * Object representing Resource Type heading for facet group
      */
     public WebElement facetGroupHeaderResourceType() {
 
         return waitForExpectedElement(By.id("co_facetHeaderresearchContentTypeSummary"));
+    }
+
+    public WebElement applyFLUKFiltersButton() {
+        return waitForExpectedElement(By.xpath(APPLY_FILTERS_BUTTON));
     }
 
     /**

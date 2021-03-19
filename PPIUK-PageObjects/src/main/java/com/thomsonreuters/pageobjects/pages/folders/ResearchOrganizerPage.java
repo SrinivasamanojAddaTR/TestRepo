@@ -15,9 +15,15 @@ import java.util.List;
 
 public class ResearchOrganizerPage extends AbstractPage {
 
+    private static final String FACET_CONTENT_TYPE = "//span[contains(text(), 'Content Type')]/../..";
+    private static final String FACET_TYPE = "//*[@id='facet_div_Type']";
     private static final String EXPECTED_CLASS_ATTRIBUTE_VALUE_FOR_TABS = "co_tabLeft co_tabActive";
     private static final String LINK_TO_DOCUMENT_CONTENT_TYPE = "//*[contains(@href,'%s')]/ancestor::td/following-sibling::td[1]/span[text()=%s]";
     private static final By CANCCEL_FILTERS_1_XPATH = By.xpath("//*[@id='co_multifacet_selector_1']/*[contains(@class,'co_multifacet_cancel')]");
+    private static final String FACET_PATH_PATTERN = "//*[@id='facet_div_Type']//*[(normalize-space(text())='%s')]/../descendant-or-self::input[@type='checkbox']";
+    private static final String DOCUMENT_WITH_GUID_PATTERN = "//*[contains(@href,'%s')]";
+    private static final String CONTENT_TYPE_PATH_PATTERN = "//h4[contains(., 'Content')]/following-sibling::ul/li[contains(., \"%1$s\")]/input | //*[(normalize-space(text())=\"%1$s\")]/../descendant-or-self::input[@type='checkbox']";
+    private static final String FACET_CLIENT_ID = "//span[contains(text(), 'Client ID')]/../..";
 
     public WebElement foldersTab() {
         return waitForExpectedElement(By.id("co_researchOrganizer_myFolders"));
@@ -31,8 +37,19 @@ public class ResearchOrganizerPage extends AbstractPage {
         return waitForExpectedElement(By.xpath("//*[@class='co_createNewFolder']/a"));
     }
 
+    public WebElement getFacetClientId() {
+        return waitForExpectedElement(By.xpath(FACET_CLIENT_ID));
+    }
+
     public WebElement optionsButton() {
         return waitForExpectedElement(By.xpath("(//*[@id='co_ro_folder_options']//a)[1]"),15);
+    }
+
+    public WebElement getFacetType() {
+        return waitForExpectedElement(By.xpath(FACET_TYPE));
+    }
+    public WebElement getFacetContentType() {
+        return waitForExpectedElement(By.xpath(FACET_CONTENT_TYPE));
     }
     
     public WebElement optionsCopy() {
@@ -170,7 +187,7 @@ public class ResearchOrganizerPage extends AbstractPage {
     }
 
     public int getDocumentCountInFolders() {
-        return waitForExpectedElements(By.xpath("//table[@class='co_detailsTable']/tbody//tr")).size();
+        return waitForExpectedElements(By.xpath("//table[contains(@class,'co_detailsTable')]//tbody//tr")).size();
     }
 
     public String getContentType(String documentGuid) {
@@ -226,7 +243,7 @@ public class ResearchOrganizerPage extends AbstractPage {
     }
 
     public String getResourceType(String documentGuid) {
-        return waitForExpectedElement(By.xpath("//*[contains(@href,'" + documentGuid + "')]/ancestor::td//div[@class='cobalt_ro_documentDescription']/span[2]")).getText();
+        return waitForExpectedElement(By.xpath(String.format(DOCUMENT_WITH_GUID_PATTERN, documentGuid) + "/ancestor::td//div[@class='cobalt_ro_documentDescription']/span[1]")).getText();
     }
 
     public String getDate(String documentGuid) {
@@ -290,17 +307,16 @@ public class ResearchOrganizerPage extends AbstractPage {
 		return isElementDisplayed(CANCCEL_FILTERS_1_XPATH);
 	}
 
-	public WebElement facetedViewSelectType(String type) {
-		return waitForExpectedElement(By.xpath("//*[@id='facet_div_Type']//label[text()='" + type
-				+ "']/../descendant-or-self::input[@type='checkbox']"));
+	public WebElement facetedViewSelectType(String facetName) {
+        return waitForExpectedElement(By.xpath(String.format(FACET_PATH_PATTERN, facetName)));
 	}
 
 	public WebElement facetedViewSelectClientID(String clientID) {
-		return waitForExpectedElement(By.xpath("//*[@id='facet_div_Client_IDs']//label[text()='" + clientID + "']/../descendant-or-self::input[@type='checkbox']"));
+		return waitForExpectedElement(By.xpath("//*[@id='facet_div_Client_IDs']//*[text()='" + clientID + "']/../descendant-or-self::input[@type='checkbox']"));
 	}
 	
     public WebElement facetedViewSelectContentType(String contentType) {
-        return waitForExpectedElement(By.xpath("//h4[contains(., 'Content')]/following-sibling::ul/li[contains(., \"" + contentType + "\")]/input"));
+        return waitForExpectedElement(By.xpath(String.format(CONTENT_TYPE_PATH_PATTERN, contentType)));
     }
 
     public WebElement folderInLeftFrame(String folderName) {

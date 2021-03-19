@@ -39,7 +39,9 @@ import org.openqa.selenium.support.ui.Select;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
 public class BaseDocumentBehavior extends BaseStepDef {
@@ -246,7 +248,8 @@ public class BaseDocumentBehavior extends BaseStepDef {
         String currentResourceType = restSteps.getDocumentResourceType(singleDocument.getGuid());
         LOG.info("The current resource type is: " + currentResourceType);
         LOG.info("The actual resource type is: " + actualResourceType);
-        assertEquals("Resource type is incorrect, the current resource " + currentResourceType + " is not the same as the actual resource " + actualResourceType, currentResourceType, actualResourceType);
+        assertThat(actualResourceType).as("Resource type is incorrect").contains(currentResourceType);
+        //assertEquals("Resource type is incorrect, the current resource " + currentResourceType + " is not the same as the actual resource " + documentMetaData[0], currentResourceType, documentMetaData[0]);
     }
 
     @Then("^the document date is correct$")
@@ -302,24 +305,16 @@ public class BaseDocumentBehavior extends BaseStepDef {
     public void checkDocumentsWithContentTypesPresentOnly(List<String> expectedContentTypes) throws Throwable {
         StringBuffer error = new StringBuffer();
         int actualDocumentsCount = researchOrganizerPage.getDocumentCountInFolders();
-        List<Document> expectedDocuments = new ArrayList<Document>();
-        for (int i = 0; i < documents.size(); i++) {
-            Document doc = documents.get(i);
-            for (String expectedContentType : expectedContentTypes) {
-                if (expectedContentType.equals(doc.getContentType())) {
-                    expectedDocuments.add(doc);
-                }
-            }
-        }
-        int expectedDocumentsCount = expectedDocuments.size();
-        //Check actual and expect documents quantity are equal
+        List<Document> documentsWithExpectedContentTypes = getExpectedDisplayedDocument(expectedContentTypes);
+        int expectedDocumentsCount = documentsWithExpectedContentTypes.size();
+        /* Check actual and expect documents quantity are equal */
         if (actualDocumentsCount != expectedDocumentsCount) {
             error.append("Actual document count is wrong. Expected '" + expectedDocumentsCount + "'. Actual '"
                     + actualDocumentsCount + "'");
         }
-        //Check expected documents present
+        /* Check expected documents present */
         for (int i = 0; i < expectedDocumentsCount; i++) {
-            Document docToCheck = expectedDocuments.get(i);
+            Document docToCheck = documentsWithExpectedContentTypes.get(i);
             try {
                 researchOrganizerPage.linkToDocumentContentType(docToCheck.getGuid(), docToCheck.getContentType());
             } catch (NoSuchElementException e) {
@@ -463,6 +458,18 @@ public class BaseDocumentBehavior extends BaseStepDef {
     public void theUserClicksOnLinkSectionLinkInTableOfContents(String linkName) {
         jumpLinkSection = linkName;
         standardDocumentPage.getLinkInTableOfContents(linkName).click();
+    }
+
+    /**
+     * Get documents with expected Content types
+     *
+     * @param expectedContentTypes
+     * @return List of documents
+     */
+    private List<Document> getExpectedDisplayedDocument(List<String> expectedContentTypes) {
+        return documents.stream()
+                .filter(expectedDocument -> expectedContentTypes.contains(expectedDocument.getContentType()))
+                .collect(Collectors.toList());
     }
 
     @When("^the user clicks on '(.*)' link in '(.*)' section of the document$")

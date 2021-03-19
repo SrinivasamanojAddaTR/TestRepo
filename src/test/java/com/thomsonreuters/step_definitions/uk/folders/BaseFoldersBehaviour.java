@@ -4,8 +4,10 @@ import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.DocumentColumn;
 import com.thomsonreuters.pageobjects.common.SortOptions;
 import com.thomsonreuters.pageobjects.pages.folders.*;
+import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
+import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import com.thomsonreuters.step_definitions.annotations.AnnotationsStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -23,6 +25,8 @@ public class BaseFoldersBehaviour extends BaseStepDef {
     private CommonMethods comMethods = new CommonMethods();
     private FoldersUtils foldersUtils = new FoldersUtils();
     private AnnotationsStepDef annotationsStepDef = new AnnotationsStepDef();
+    private SearchUtils searchUtils = new SearchUtils();
+    private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
 
     private String folderName;
 
@@ -60,18 +64,21 @@ public class BaseFoldersBehaviour extends BaseStepDef {
 
     @When("^the user selects '(.+)' Type$")
     public void selectType(String type) throws Throwable {
+        researchOrganizerPage.getFacetType().click();
         researchOrganizerPage.facetedViewSelectType(type).click();
         researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     @When("^the user selects '(.+)' Client ID$")
     public void selectClientID(String clientID) throws Throwable {
+        researchOrganizerPage.getFacetClientId().click();
         researchOrganizerPage.facetedViewSelectClientID(clientID).click();
         researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     @When("^the user selects '(.+)' Content type$")
     public void selectContentTypes(String contentType) throws Throwable {
+        researchOrganizerPage.getFacetContentType().click();
         researchOrganizerPage.facetedViewSelectContentType(contentType).click();
         researchOrganizerPage.waitForPageToLoad();
         researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
@@ -97,10 +104,9 @@ public class BaseFoldersBehaviour extends BaseStepDef {
     }
 
     @When("^the user clicks Apply Filters$")
-    public void applyFilters() throws Throwable {
-        researchOrganizerPage.applyFilters1().click();
-        researchOrganizerPage.waitForPageToLoad();
-        researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
+    public void applyFilters() {
+        searchUtils.applySearchFilters();
+        knowHowSearchResultsPage.waitForProgressIndicatorToDisappear();
     }
 
     @Then("^there is no root folder duplication in recent folders drop down$")

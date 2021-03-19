@@ -14,6 +14,7 @@ Feature: [821529][821558] Add, remove documents to folder
 
    @gold
    Scenario Outline: Add document to folder from document view
+     When API cleans all folders and history and user relogs in
 	And the user runs a free text search for the query "<query>"
     And the user opens '1' link in the search result and store its title and guid
     And the user adds current document to new "<folder>" folder with parent folder "<parentFolder>"

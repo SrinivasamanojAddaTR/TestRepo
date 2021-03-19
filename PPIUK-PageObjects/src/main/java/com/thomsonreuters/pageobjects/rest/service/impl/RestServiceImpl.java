@@ -169,7 +169,7 @@ public abstract class RestServiceImpl implements RestService {
 
     public String getProductView() {
         String productBase = getCurrentBaseUrl();
-        if (productBase.contains("au")) {
+        if (productBase.contains("anz")) {
             return "PLCAU";
         }
         if (productBase.contains("uk")) {

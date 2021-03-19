@@ -17,6 +17,7 @@ import com.thomsonreuters.pageobjects.utils.document.LegislationDocument;
 import com.thomsonreuters.pageobjects.utils.document.ResourceType;
 import com.thomsonreuters.pageobjects.utils.document.metadata.Jurisdiction;
 import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
+import com.thomsonreuters.utils.TimeoutUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -91,6 +92,15 @@ public class SearchUtils {
      */
     public int getSearchResultsCountAsInt() {
         return commonMethods.getIntFromString(knowHowSearchResultsPage.waitKnowHowSearchResultCount().getText());
+    }
+
+    public void applySearchFilters() {
+        if (wlukSearchResultsPage.isMultipleFiltersToggleSelected()) {
+            wlukSearchResultsPage.applyFLUKFiltersButton().click();
+            wlukSearchResultsPage.waitForPageToLoadAndJQueryProcessing();
+        } else {
+            LOG.info("Multiple selection mode wasn't active - facets weren't applied");
+        }
     }
 
     /**
@@ -448,8 +458,9 @@ public class SearchUtils {
         // search results are counting too, so if search results appear instead of loading picture, we won't receive any exceptions
         searchResultsPage.waitForLoadingPictureOrResults();
 
-        // Wait till loading picture will disappears
-        searchResultsPage.waitLoadingElementsAbsent();
+        // When Thread.sleep() is used, a kitty dies somewhere in the world, but currently have no another way :(
+        TimeoutUtils.sleepInSeconds(1);
+
     }
 
     public void selectDetailsLevel(SearchResultsPage.SliderSelector sliderSelector) {

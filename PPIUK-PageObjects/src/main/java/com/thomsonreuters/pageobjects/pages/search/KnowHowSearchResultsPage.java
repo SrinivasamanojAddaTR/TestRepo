@@ -20,6 +20,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
     private static final String ADDED_NOTE_LINK_PATTERN = "#cobalt_search_results_knowHowPlc%s .co_document_icon_notes>img,#cobalt_search_results_knowHowPlc%s .co_document_icon_notes";
     public static final String FACET_SELECTION = "//*[text()='%s']";
     private CommonMethods commonMethods = new CommonMethods();
+    private static final By CO_FOLDERING_PROGRESS_INDICATOR = By.className("co_foldering_progress_indicator");
 
     public KnowHowSearchResultsPage() {
     }
@@ -29,6 +30,10 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      */
     public WebElement expandCollapsedFacet(String facetName) {
         return waitForExpectedElement(By.xpath(String.format(FACET_CHECKBOX_BUTTON_COLLAPSED_PATTERN, facetName)));
+    }
+
+    public void waitForProgressIndicatorToDisappear() {
+        waitForElementToDissappear(CO_FOLDERING_PROGRESS_INDICATOR);
     }
 
     public boolean isFacetCheckboxCollapsed(String facetName) {
