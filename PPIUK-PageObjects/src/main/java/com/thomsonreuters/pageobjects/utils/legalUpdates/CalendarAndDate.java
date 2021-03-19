@@ -79,8 +79,11 @@ public class CalendarAndDate {
 
 	public static String getCurrentDate() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.HOUR_OF_DAY, 11);
 		Date time = calendar.getTime();
+		LOG.info("System original Date - UTC Zone :" + time);
+		calendar.add(Calendar.HOUR_OF_DAY, 11);
+		time = calendar.getTime();
+		LOG.info("System edited Date - UTC Zone :" + time);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm");
 		return sdf.format(time);
 	}
