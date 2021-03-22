@@ -1,3 +1,4 @@
+@archived
 Feature: [821979]As a PLAU user, I want to filter my history  So that I can quickly find my previous searches and the documents that I have viewed
  
   Scenario Outline: [821979]As a PLAU user, I want to filter my history  So that I can quickly find my previous searches and the documents that I have viewed
