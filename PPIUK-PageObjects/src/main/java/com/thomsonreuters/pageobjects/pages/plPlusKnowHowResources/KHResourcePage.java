@@ -53,11 +53,11 @@ public class KHResourcePage extends CommonResourcePage {
     }
 
     public WebElement viewAllAndLatestResourceHistoryLink() {
-        return findElement(By.id("co_docContentResourceHistoryAllButton"));
+        return waitForExpectedElement(By.id("co_docContentResourceHistoryAllButton"));
     }
 
     public Boolean viewAllResourceHistoryLink() {
-        return findElements(By.id("co_docContentResourceHistoryAllButton")).size() > 0;
+        return waitForExpectedElements(By.id("co_docContentResourceHistoryAllButton")).size() > 0;
     }
 
     public WebElement showHideIndividualCasesLink(String linkName) {

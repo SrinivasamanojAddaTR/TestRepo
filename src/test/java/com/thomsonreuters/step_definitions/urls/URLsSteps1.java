@@ -4,15 +4,20 @@ import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
+import com.thomsonreuters.step_definitions.header.responsiveDesign.UsernameLinkTest;
+import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
+
+import java.util.Map;
 
 public class URLsSteps1 extends BaseStepDef {
 
 	private NavigationCobalt navigationCobalt = new NavigationCobalt();
 	private HomePage page = new HomePage();
 	private CategoryPage categoryPage = new CategoryPage();
+	private UsernameLinkTest usernameLinkTest = new UsernameLinkTest();
 
 	@When("^the user opens \"(.*?)\" url on PL AU website$")
 	public void theUserOpensUrlOnPLAUSite(String url) throws Throwable {
@@ -52,5 +57,21 @@ public class URLsSteps1 extends BaseStepDef {
 		Assert.assertTrue(
 				String.format("Page header '%s' does not contain expected text '%s'", page.getTitle().getText(), header),
 				page.getTitle().getText().toLowerCase().contains(header.toLowerCase()));
+	}
+
+	@Then("^user should see Tabs and corresponding urls$")
+	public void userShouldSeeTabsAndCorrespondingUrls(DataTable dataTable) throws Throwable {
+		Map<String, String> footerColumnLinks = dataTable.asMap(String.class, String.class);
+		//int size= footerColumnLinks.size();
+		for(Map.Entry<String, String> entry : footerColumnLinks.entrySet()){
+			usernameLinkTest.userClicksOnLink(entry.getKey());
+			thePageUrlContains(entry.getValue());
+			//footerColumnLinks.remove(entry.getKey());
+		}
+	}
+
+	@When("^the user clicks on the browser back button$")
+	public void clicksOnBrowserBackButton() {
+		page.browserGoBack();
 	}
 }

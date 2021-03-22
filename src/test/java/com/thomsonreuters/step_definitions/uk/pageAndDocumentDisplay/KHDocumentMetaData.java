@@ -305,9 +305,7 @@ public class KHDocumentMetaData extends BaseStepDef {
 
     @Then("^user clicks on '(View All|View Latest)' to view (all|latest) resource histories$")
     public void theUserClicksOnLink(String linkText, String allOrLatest) throws Throwable {
-        WebElement element = resourcePage.viewAllAndLatestResourceHistoryLink();
-        assertThat(element.getText().trim(), Is.is(linkText));
-        element.click();
+        resourcePage.moveToAndClickElement(resourcePage.viewAllAndLatestResourceHistoryLink());
     }
 
     @Then("^the user can now see more than (\\d+) resource history entries$")
