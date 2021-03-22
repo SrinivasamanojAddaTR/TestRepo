@@ -53,7 +53,6 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
     And user should see the "<PageTitle>" page opened in new tab
     Examples:
       | footer           | url                                                                   | PageTitle                                  |
-      | Careers          | https://www.thomsonreuters.com/en/careers.html                        | Careers \| Thomson Reuters                 |
       | User Guides      | https://support.thomsonreuters.com.au/product/practical-law-australia | Practical Law Australia \| Thomson Reuters |
       | Request Training | https://support.thomsonreuters.com.au                                 | Request Training \| Thomson Reuters        |
       | Privacy          | https://www.thomsonreuters.com/en/privacy-statement.html              | Privacy statement \| Thomson Reuters       |
@@ -61,4 +60,5 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
     Examples:
       | footer       | url                                                                                                                   | PageTitle                                                               |
       | Master Terms | https://legal.thomsonreuters.com.au/terms/pdf/AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf | AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
+      | Careers      | https://www.thomsonreuters.com/en/careers.html                                                                        | Careers \| Thomson Reuters                                              |
 
