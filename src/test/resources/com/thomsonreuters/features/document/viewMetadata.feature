@@ -36,5 +36,5 @@ Scenario: [850561] As a PL AU login/password user I want to view all State Juris
 		| Australia,Federal|	
 	When user clicks on 'View all' link to view all jurisdictions
 	Then following jurisdictions are displayed on the document right hand panel 
-		| Australia,Australian Capital Territory,Federal,New South Wales,Northern Territory,Queensland,South Australia,Tasmania,Victoria,Western Australia |
+		| Australia,Federal |
 

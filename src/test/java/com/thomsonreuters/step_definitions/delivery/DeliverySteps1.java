@@ -168,8 +168,12 @@ public class DeliverySteps1 extends BaseStepDef {
 
     @When("^the document is downloaded with name \"(.*?)\" and extension \"(.*?)\"$")
     public void hasTheDocument(String name, String extension) throws Throwable {
-        downloadedFile = fileActions.findFile(name, extension, DOWNLOADED_FILE_PATH);
-        assertTrue("File was not downloaded", downloadedFile != null && downloadedFile.exists());
+        SoftAssertions softAssertions = new SoftAssertions();
+        downloadedFile= deliveryBaseUtils.downloadViaOpenInWordAndGetDocument();
+        softAssertions.assertThat(downloadedFile).overridingErrorMessage("downloaded file does not exists").exists();
+        LOG.info("downloaded document name is {}",downloadedFile.getName());
+        softAssertions.assertThat(downloadedFile.getName()).overridingErrorMessage("downloaded file name is incorrect").contains(name);
+        softAssertions.assertAll();
     }
 
     @Then("^the document (includes|does not include) (document body that contains text|title) \"(.*?)\"$")

@@ -150,7 +150,9 @@ public class KHDocumentMetaData extends BaseStepDef {
 
     @When("^user clicks on 'View all' link to view all jurisdictions$")
     public void userClicksOnLinkToViewAllJurisdictions() throws Throwable {
+        if(rightPanelPage.isViewAllLinkDisplayed()){
         rightPanelPage.jurisdictionViewAllLink().click();
+        }
     }
 
     @Then("^the user can read the label listing the countries as \"(.*?)\"$")
