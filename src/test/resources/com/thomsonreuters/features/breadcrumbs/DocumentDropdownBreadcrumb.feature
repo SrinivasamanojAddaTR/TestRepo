@@ -1,20 +1,20 @@
 Feature: As a PLAU user,I want a dropdown list to appear at the end of by breadcrumb,so that I can be presented with a list of documents that I've visited in my path to the document I'm viewing
 
-Background:
- Given ANZ user is logged in
- 
-Scenario: Verify that logged in PLAU user can see a dropdown list when navigating from one document to another.
-     When the user open 'Practice Areas' link
-     And the user open 'Commercial' link
-     And the user open 'Data protection and privacy' link
-     Then the user selects the document 'Cybersecurity'
-     And the user clicks on the 'Data issues in the financial services sector' link in the doc
-     And the user clicks on the dropdown arrow at the end of the breadcrumb
-     Then the user views a list of the documents I viewed     
-     |Cybersecurity |
-     
+  Background:
+    Given ANZ user is logged in
 
-Scenario: Verify that logged in PLAU user can see clickable links to the Documents in the dropdown list when navigating from one document to another and navigate to the documents through these links. 
+  Scenario: Verify that logged in PLAU user can see a dropdown list when navigating from one document to another.
+    When the user open 'Practice Areas' link
+    And the user open 'Commercial' link
+    And the user open 'Data protection and privacy' link
+    Then the user selects the document 'Cybersecurity'
+    And the user clicks on the 'Data issues in the financial services sector' link in the doc
+    And the user clicks on the dropdown arrow at the end of the breadcrumb
+    Then the user views a list of the documents I viewed
+      | Cybersecurity |
+
+
+  Scenario: Verify that logged in PLAU user can see clickable links to the Documents in the dropdown list when navigating from one document to another and navigate to the documents through these links.
 
     When the user open 'Practice Areas' link
     And the user open 'Company Law' link
@@ -31,7 +31,7 @@ Scenario: Verify that logged in PLAU user can see clickable links to the Documen
     And the user should not view the current document in the dropdown
       | Corporate governance |
 
-Scenario: Verify that logged in PLAU user can see max 10 Documents in the dropdown list when navigating from one document to another. 
+  Scenario: Verify that logged in PLAU user can see max 10 Documents in the dropdown list when navigating from one document to another.
 
     When the user open 'Practice Areas' link
     And the user navigates to practice area "Corporate Transactions" filtered by "Asset acquisitions" topic page
@@ -76,8 +76,8 @@ Scenario: Verify that logged in PLAU user can see max 10 Documents in the dropdo
       | Transfer of shares                                                     |
       | Assignment and subleasing: practical leasing fundamentals              |
       | Assignment of commercial and retail leases in each state and territory |
-      | Share purchase agreement simultaneous signing and completion           |
-      | Asset purchases agreement: simultaneous signing and completion         |
+      | Share purchase agreement: simultaneous signing and completion          |
+      | Asset purchase agreement: simultaneous signing and completion          |
       | Completion accounts: acquisitions                                      |
       | Structuring the purchase price: acquisitions                           |
       | Corporate insolvency and related directors' duties                     |
