@@ -53,7 +53,7 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
     And user should see the "<PageTitle>" page opened in new tab
     Examples:
       | footer           | url                                                                   | PageTitle                                  |
-      | User Guides      | https://support.thomsonreuters.com.au/product/practical-law-australia | Practical Law Australia \| Thomson Reuters |
+      | Product Support  | https://support.thomsonreuters.com.au/product/practical-law-australia | Practical Law Australia \| Thomson Reuters |
       | Request Training | https://support.thomsonreuters.com.au                                 | Request Training \| Thomson Reuters        |
       | Privacy          | https://www.thomsonreuters.com/en/privacy-statement.html              | Privacy statement \| Thomson Reuters       |
   @archived

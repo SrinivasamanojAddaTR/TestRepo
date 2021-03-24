@@ -62,16 +62,14 @@ public class URLsSteps1 extends BaseStepDef {
 	@Then("^user should see Tabs and corresponding urls$")
 	public void userShouldSeeTabsAndCorrespondingUrls(DataTable dataTable) throws Throwable {
 		Map<String, String> footerColumnLinks = dataTable.asMap(String.class, String.class);
-		//int size= footerColumnLinks.size();
 		for(Map.Entry<String, String> entry : footerColumnLinks.entrySet()){
 			usernameLinkTest.userClicksOnLink(entry.getKey());
 			thePageUrlContains(entry.getValue());
-			//footerColumnLinks.remove(entry.getKey());
 		}
 	}
 
 	@When("^the user clicks on the browser back button$")
 	public void clicksOnBrowserBackButton() {
-		page.browserGoBack();
+			    page.browserGoBack();
 	}
 }
