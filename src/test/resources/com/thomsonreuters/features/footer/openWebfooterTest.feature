@@ -8,19 +8,24 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
 
   Scenario: [809111]User verifies the "Footer Link Items" for the respetive Page's links
     When user should see footer
-    Then user should see the following FooterLinks under heading "About" with links to pages
-      | FooterLink          | LinksToPage                                |
-      | About Practical Law | /Browse/Home/About/AboutUs                 |
-      | Testimonials        | /Browse/Home/About/Testimonials            |
-      | Careers             | https://thomsonreuters.com/en/careers.html |
-    Then user should see the following FooterLinks under heading "Our team" with links to pages
-      | Meet the Team      | /Browse/Home/About/OurTeam       |
-      | Advisory Board     | /Browse/Home/About/AdvisoryBoard |
-      | Contributing Firms | /Browse/Home/About/Contributors  |
-    Then user should see the following FooterLinks under heading "Product support" with links to pages
-      | User Guides      | training.thomsonreuters.com.au/products/practical-law-au/ |
-      | Request Training | training.thomsonreuters.com.au/request-training/          |
-      | Feedback         | javascript                                                |
+    And user clicks on "About Practical Law" link
+    Then user should see Tabs and corresponding urls
+      | About us     | /Browse/Home/About/AboutUs                     |
+      | Testimonials | /Browse/Home/About/Testimonials                |
+      | Careers      | https://www.thomsonreuters.com/en/careers.html |
+    And the user clicks on the browser back button
+    When user should see footer
+    And user clicks on "Our Team" link
+    Then user should see Tabs and corresponding urls
+      | Team members             | /Browse/Home/About/OurTeam                |
+      | Advisory board           | /Browse/Home/About/AdvisoryBoard          |
+      | Contributors             | /Browse/Home/About/Contributors           |
+      | Australian Contributors  | /Browse/Home/About/AustralianContributors |
+      | New Zealand Contributors | /Browse/Home/About/NewZealandContributors |
+    And user clicks on "Product Support" link
+    Then user was taken to url "https://support.thomsonreuters.com.au/product/practical-law-australia-incl-nz-resource-centre"
+    And user clicks on "Request Training" link
+    Then user was taken to url "https://support.thomsonreuters.com.au/request-training-0"
 
   Scenario Outline: User verifies the functionality of footer links that lead to internal pages
     When user clicks on "<footer>" link
