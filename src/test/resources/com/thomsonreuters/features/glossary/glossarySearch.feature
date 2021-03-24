@@ -1,4 +1,4 @@
-@bug
+
 Feature: [820475] Search within Glossary 
 	As a PLAU User
 	I want to search for glossary documents

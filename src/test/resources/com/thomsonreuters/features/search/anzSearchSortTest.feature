@@ -3,7 +3,7 @@ Feature: [815735] As a PLAU User, I want to sort my search results by relevancy,
 
 #bug 863874 Bug [PLAU & PLUK] Search is sorted by date when relevance is selected
 
-@bug
+
   Scenario: [815735] Verify sort results by date. Verify that the user is able to sort search results by relevancy
    Given ANZ user is logged in
     When the user runs a free text search for the query "contract"

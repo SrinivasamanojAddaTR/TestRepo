@@ -5,7 +5,7 @@ Feature: [822645] International Page URLs
 
 	#bug 834766 International - 'Indonesia Recently Published' page title does not contain colon
 
-  @archived @bug
+  @archived
   Scenario Outline: International page URL
     When the user opens "<url>" url on PL AU website
     Then the user is presented with a page with header "<header>"

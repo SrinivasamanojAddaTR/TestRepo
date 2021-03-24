@@ -20,7 +20,7 @@ Feature: [822634] Topics URL
       
 
 #the following scenario is not suitable for AU for now: no topics matching criteria
-	@wip
+
   Scenario Outline: Topics page URL with multiple practice areas
     When the user opens "<topicUrl>" url on PL AU website
     Then the user is presented with several practice areas options

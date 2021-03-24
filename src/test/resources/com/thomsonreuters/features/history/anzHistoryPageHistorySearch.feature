@@ -6,7 +6,7 @@ Background:
 #bug: 830076 Java Bug [PLAU & PLUK TBC] History Search & Facet Filter : Combination of "Search within results" and Facets (like ClientID and Content Type) does not work all the time and results go in loading mode for indefinite time.
 #bug 852192 Bug [PLAU Only] Search in History and Folders does not return any results
 
-@bug @wip @archived
+    @archived
   Scenario Outline: User verifies the search within history page
       When the user clicks on 'History' link on the header
       And the user runs the search "contract" if today's history is not present

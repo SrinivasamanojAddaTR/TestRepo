@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 @CucumberOptions(
         plugin = {"pretty", "html:target/cucumber-htmlreport/ANZURLReport", "junit:target/junit_cucumber.xml", "json:target/json-files/RunURLTest.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
         features = "src/test/resources/com/thomsonreuters/features/urls",
-        tags = {"~@wip", "~@manual"},
+        tags = {"~ ", "~@manual"},
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)

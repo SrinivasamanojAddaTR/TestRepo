@@ -3,7 +3,7 @@ Feature: [812304] Display Session Details on Logout Page
 #bugs #819042 #819102
 #Also incorrect timezone is displayed on Demo pc1 site; according to Nathan McDonald it should be ignored as environment issue
 
-	@bug
+
 	Scenario: [812304] Display Session Details on Logout Page
 		Given ANZ user is logged in
 		When ANZ user navigates directly to document with guid "Ifb5c2817995811e598dc8b09b4f043e0"

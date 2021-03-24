@@ -142,7 +142,7 @@ Feature: [821883][821884][821885][821886][821887] International Widgets
 
 
   #837690 [PLAU & PLUK] Browse -  "Doing business" widget for India, Indonesia, South Korea, South Africa countries' pages are showing "Argentina" page rather than their own pages
-	@bug
+
   Scenario Outline: [821887] Doing business in country widget
     When the user opens "<link>" url on PL AU website
     And the user clicks on button "Find out more" on widget "Doing business in <country>?"

@@ -1,4 +1,4 @@
-@robot @wip
+@robot
 Feature: [830655] Download document in Microsoft Word
   As a PLAU User I want to download a standard document or clause in Microsoft Word in the PL house style
   So that I can work with my document off line

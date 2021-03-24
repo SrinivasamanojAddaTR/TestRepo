@@ -65,7 +65,7 @@ Scenario Outline: [818824] Download documents in zip file
 		| query |
 		| test  |
 
-@bug
+
 Scenario Outline: [818824] Download list of items in PDF format
 	Given the user runs a free text search for the query "<query>"
 	And the user can select the option to show less detail

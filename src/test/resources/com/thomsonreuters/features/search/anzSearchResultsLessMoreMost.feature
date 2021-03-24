@@ -1,4 +1,4 @@
-@bug
+
 Feature: [813300] As a PLAU user, I want to display less, more or most detail for each of my search results
   So that I can see the level of information I need for my research and legal work
 

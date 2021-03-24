@@ -46,7 +46,7 @@ Feature: verify the rich text annotations and inline notes in the delivered docu
     And Date should be delivered according to uk date format
     And Annotations and inline notes have to be delivered with proper timestamp
 
-    @bug
+
   Scenario: Bug 809093: verify timestamp of delivered document with annotations and inline notes by email/download/print
     When adds annotation and inline notes to this document by selecting some rich text and adding a note
     And delivery this document with Table of contents and annotations checkbox ON

@@ -50,7 +50,7 @@ Feature: [818051] Document - Standard delivery features
 	
 	#intermittent failures on demo
 	#bug 834611 Bug [PLAU & PLUK] document is not available by plc ref on demo pc1
-  @bug
+
   Scenario Outline: [818051][847182] Email document - Resource Link Only format
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on email delivery option for the document

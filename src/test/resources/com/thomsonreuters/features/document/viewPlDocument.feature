@@ -30,7 +30,7 @@ Scenario Outline: [817979] As a PL AU login/password user I want to view related
 
 
 #Test not valid: no document found with resource history in AU; provided guid is from uk
-@gold  @wip
+@gold
 Scenario: [817979] As a PL AU login/password user I want to view resource history section
 	Given ANZ user navigates directly to document with guid "I53a7ad86694811eaadfea82903531a62"
 	When the user scrolled to the bottom of the document
