@@ -25,7 +25,10 @@ Feature:[825682] Add annotation at the top of the document
 
 
   Scenario: User should be able to see notes added icon in history and folders
-    Given ANZ user is logged in with following details
+  Given ANZ user is logged in with following details
+      | userName | auAnnotationUser1 |
+    And API cleans all folders and history
+    And ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
     When user navigates directly to document with guid "I747eef9fa1eb11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
