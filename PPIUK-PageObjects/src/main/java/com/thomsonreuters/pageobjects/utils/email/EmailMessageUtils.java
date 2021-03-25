@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.regex.Pattern;
 import javax.mail.*;
 
+import com.thomsonreuters.pageobjects.exceptions.EmailException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +21,11 @@ public class EmailMessageUtils {
 
 	private static final String BASE_PATH = "C:/temp/test-downloads";
 	private static final String DATE_PATTERN_FOR_FOLDER = "yyyy-MM-dd_hh-mm-ss";
+	private static final String MESSAGE_MIMETYPE_TEXT = "text/*";
+	private static final String MESSAGE_MIMETYPE_MULTIPART = "multipart/*";
 
 	public boolean isEmailContainsText(Message message, String text) throws Exception {
-		return getMessageBody(message).toLowerCase().contains(text.toLowerCase());
+		return StringUtils.containsIgnoreCase(getMessageBody(message), text.toLowerCase());
 	}
 
 	public boolean isEmailContainsRegex(Message message, String regex) throws Exception {
@@ -30,7 +33,8 @@ public class EmailMessageUtils {
 		return p.matcher(getMessageBody(message)).find();
 	}
 
-	public String getMessageBody(Message message) throws Exception {
+	//TODO need to verify and remove
+	/*public String getMessageBody(Message message) throws Exception {
 		if (message.isMimeType("text/*")) {
 			return message.getContent().toString();
 		} else if (message.isMimeType("multipart/*")) {
@@ -47,6 +51,43 @@ public class EmailMessageUtils {
 			return result;
 		}
 		throw new Exception("Message text was not found");
+	}*/
+
+	public String getMessageBody(Message message) {
+		String messageBody = StringUtils.EMPTY;
+		if (isMessageMimeType(message, MESSAGE_MIMETYPE_TEXT)) {
+			messageBody = getMessageContentWithTextMime(message);
+		} else if (isMessageMimeType(message, MESSAGE_MIMETYPE_MULTIPART)) {
+			messageBody = getMessageContentWithMultiPartMime(message);
+		}
+		return messageBody;
+	}
+
+	private String getMessageContentWithMultiPartMime(Message message) {
+		StringBuilder resultBuilder = new StringBuilder();
+		try {
+			Multipart multipart = (Multipart) message.getContent();
+			int count = multipart.getCount();
+			for (int i = 0; i < count; i++) {
+				BodyPart bodyPart = multipart.getBodyPart(i);
+				if (bodyPart.isMimeType(MESSAGE_MIMETYPE_TEXT)) {
+					resultBuilder.append(StringUtils.LF);
+					resultBuilder.append(bodyPart.getContent());
+					break;
+				}
+			}
+		} catch (MessagingException | IOException exp) {
+			throw new EmailException("Unable get content from MultiPartMime message ", exp);
+		}
+		return resultBuilder.toString();
+	}
+
+	private String getMessageContentWithTextMime(Message message) {
+		try {
+			return message.getContent().toString();
+		} catch (MessagingException | IOException exp) {
+			throw new EmailException("Unable to verify the mime type", exp);
+		}
 	}
 
 	private boolean isMessageMimeType(Message message, String type) {

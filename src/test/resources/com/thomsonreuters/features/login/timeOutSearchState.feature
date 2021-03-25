@@ -5,7 +5,7 @@ Feature: [812852] Time Out: Search State
 
 #bug 868963 Bug [PLAU & PLUK] Search Timeout: child facets state on search page is not retained after timeout
 
-
+@archived
   Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
     Given ANZ user is logged in with following details
       | mandatoryRouting | YES                              |
