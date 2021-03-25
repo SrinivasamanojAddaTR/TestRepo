@@ -65,6 +65,7 @@ Feature: [821261][821248] As a PLAU User I want to Organise my favourite groups 
     And the user checks that 'Company Law' link presents in favourites group 'pl33' on Favourites page
     And the favourites group 'pl33' presents on Favourites page
 
+@manual
   Scenario: [821261]user verifies the moving the group around
     When user clicks on "Favourites" link
     And user creates new favourites group 'NewTestGroup01'
