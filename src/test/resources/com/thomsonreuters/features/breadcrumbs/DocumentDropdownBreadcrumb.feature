@@ -1,9 +1,7 @@
 Feature: As a PLAU user,I want a dropdown list to appear at the end of by breadcrumb,so that I can be presented with a list of documents that I've visited in my path to the document I'm viewing
 
-  Background:
-    Given ANZ user is logged in
-
   Scenario: Verify that logged in PLAU user can see a dropdown list when navigating from one document to another.
+    Given ANZ user is logged in
     When the user open 'Practice Areas' link
     And the user open 'Commercial' link
     And the user open 'Data protection and privacy' link
@@ -15,7 +13,7 @@ Feature: As a PLAU user,I want a dropdown list to appear at the end of by breadc
 
 
   Scenario: Verify that logged in PLAU user can see clickable links to the Documents in the dropdown list when navigating from one document to another and navigate to the documents through these links.
-
+    Given ANZ user is logged in
     When the user open 'Practice Areas' link
     And the user open 'Company Law' link
     And the user open 'Company administration and meetings' link
@@ -32,7 +30,7 @@ Feature: As a PLAU user,I want a dropdown list to appear at the end of by breadc
       | Corporate governance |
 
   Scenario: Verify that logged in PLAU user can see max 10 Documents in the dropdown list when navigating from one document to another.
-
+    Given ANZ user is logged in
     When the user open 'Practice Areas' link
     And the user navigates to practice area "Corporate Transactions" filtered by "Asset acquisitions" topic page
     And the user selects the document 'Asset purchases'
@@ -84,6 +82,7 @@ Feature: As a PLAU user,I want a dropdown list to appear at the end of by breadc
       | Strategic and financial buyers comparison chart                        |
 
   Scenario: Verify that logged in PLAU user can see most recent Document at the top of the dropdown list when navigating from one document to another.
+    Given ANZ user is logged in
     When the user open 'Practice Areas' link
     And the user navigates to practice area "Corporate Transactions" filtered by "Joint ventures" topic page
     And the user selects the document 'Joint ventures in Australia'

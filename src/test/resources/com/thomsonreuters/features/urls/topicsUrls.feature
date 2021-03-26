@@ -19,12 +19,9 @@ Feature: [822634] Topics URL
       | /topic/w-000-6568 | Directors						| w-000-6549	|
       
 
-#the following scenario is not suitable for AU for now: no topics matching criteria
-
   Scenario Outline: Topics page URL with multiple practice areas
-    When the user opens "<topicUrl>" url on PL AU website
-    Then the user is presented with several practice areas options
     When user clicks on "<practiceArea>" link
+    And user clicks on "<topicName>" link
     Then the user is presented with a page with header "<topicName>"
     And the page URL contains "<topicUrl>?sv=<practiceAreaRef>"
 
