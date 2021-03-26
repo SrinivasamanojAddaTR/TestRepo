@@ -1,7 +1,7 @@
 Feature: [848639] As a PLAU User I want to unsubscribe from all services
 
   # do not remove this tag. this tag is to clean all users subcriptions.
-  @smoke @gold @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
+  @manual @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
   Scenario Outline: 
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |
@@ -20,7 +20,7 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
 
   # do not remove this tag. this tag is to clean all users subcriptions.
   @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
-  @gold
+  @manual
   Scenario Outline: [848639] As user i want to cancel specified subscription
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |
@@ -67,7 +67,7 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
     And one button should be labelled 'Cancel'
 
   # do not remove this tag. this tag is to clean all users subcriptions.
-  @gold @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
+  @manual @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
   Scenario Outline: [848639] As user i want to see saved subscription
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |
@@ -86,7 +86,7 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
 
   # do not remove this tag. this tag is to clean all users subcriptions.
   @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
-  @gold
+  @manual
   Scenario: [848639] As a user i want to have ability to unsubcribe from update for out of plan subscription.
     Given a user "AUtestuser1@mailinator.com" has subscription for "PLAUEMPWKLY" out of plan email service
     Given ANZ user is logged in with following details
