@@ -1313,7 +1313,7 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     public WebElement getPopUpWithMembers(){
-        return waitForExpectedElement(By.xpath("//div[@class='co_infoBox top co_contacts_moreInfo']//ul"));
+        return waitForExpectedElement(By.xpath("//div[@class='co_infoBox_message']//ul"));
     }
 
     public void clickOnGroupInfo(){
@@ -1341,7 +1341,7 @@ public class SharedAnnotationsPage extends AbstractPage {
 
     public WebElement getSearchResult(String contact) {
         //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
-        return waitForExpectedElement(By.xpath("//ul[@id='coid_contacts_peopleListItems_contacts_edit']//a[@role='checkbox'][text()='" + contact + "']"));
+        return waitForExpectedElement(By.xpath("//ul[@id='coid_contacts_peopleListItems_contacts_edit']//a[@role='checkbox'][contains(text(),'" + contact + "')]"));
     }
 
     public WebElement getCheckBoxGroupAvailableToOthers() {
