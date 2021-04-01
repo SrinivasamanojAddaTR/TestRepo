@@ -6,12 +6,12 @@
 
     <artifactId>PLPlusANZ</artifactId>
     <groupId>com.thomsonreuters.plplusanz</groupId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <version>1.0</version>
     <description>PPI ANZ Tests</description>
 
     <properties>
-        <surefire.thread.count>15</surefire.thread.count>
+        <surefire.fork.count>10</surefire.fork.count>
         <driverType>firefox</driverType>
         <chromeDriverPath>${basedir}\src\main\resources\drivers\chromedriver.exe</chromeDriverPath>
         <ieDriverPath>${basedir}\src\main\resources\drivers\IEDriverServer.exe</ieDriverPath>
@@ -22,161 +22,67 @@
         <jenkinsStyleReports>true</jenkinsStyleReports>
         <routing>false</routing>
         <mergingAllModulesReports>true</mergingAllModulesReports>
-        <cobalt.users.xls.path>src/test/resources/CobaltUsers.xlsx</cobalt.users.xls.path>
     </properties>
 
-    <profiles>
-        <profile>
-            <id>jenkins</id>
-            <properties>
-                <cobalt.users.xls.path>C:/temp/CobaltUsers.xlsx</cobalt.users.xls.path>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>localhost</id>
-            <properties>
-                <base.url>localhost</base.url>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-
-        <profile>
-            <id>CI</id>
-            <properties>
-                <base.url>ci</base.url>
-                <base.legacy.url>124</base.legacy.url>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>DEMO</id>
-            <properties>
-                <base.url>demo</base.url>
-                <base.legacy.url>100</base.legacy.url>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>QED</id>
-            <properties>
-                <base.url>qed</base.url>
-                <base.legacy.url>100</base.legacy.url>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>HOTPROD</id>
-            <properties>
-                <base.url>hotprod</base.url>
-                <base.legacy.url></base.legacy.url>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>PROD</id>
-            <properties>
-                <base.url>prod</base.url>
-                <base.legacy.url></base.legacy.url>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>PRODA</id>
-            <properties>
-                <base.url>prodA</base.url>
-                <base.legacy.url></base.legacy.url>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>PRODB</id>
-            <properties>
-                <base.url>prodB</base.url>
-                <base.legacy.url></base.legacy.url>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>reporting</id>
-            <properties>
-                <jenkinsStyleReports>true</jenkinsStyleReports>
-            </properties>
-        </profile>
-    </profiles>
+    <modules>
+        <module>PPIAU-PageObjects</module>
+        <module>PLPlusANZ-Tests</module>
+    </modules>
 
     <build>
+
+        <sourceDirectory>src</sourceDirectory>
+        <outputDirectory>target</outputDirectory>
+
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-           <!-- <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
                 <executions>
                     <execution>
-                        <phase>generate-test-resources</phase>
+                        <phase>clean</phase>
                         <goals>
-                            <goal>java</goal>
+                            <goal>clean</goal>
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <mainClass>com.thomsonreuters.driver.framework.BrowserCount</mainClass>
-                </configuration>
-            </plugin>-->
+            </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <shutdown>exit</shutdown>
-                    <parallel>classes</parallel>
-                    <threadCount>${surefire.thread.count}</threadCount>
-                    <forkMode>never</forkMode>
-                    <forkCount>0</forkCount>
-                    <reuseForks>false</reuseForks>
-                    <argLine>-Duser.language=en</argLine>
-                    <argLine>-Xmx1024m</argLine>
-                    <argLine>-XX:MaxPermSize=256m</argLine>
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
-                    <useFile>false</useFile>
-                    <includes>
-                        <include>**/*Test.class</include>
-                    </includes>
-                    <systemPropertyVariables>
-                        <base.url>${base.url}</base.url>
-                        <driverType>${driverType}</driverType>
-                        <webdriver.chrome.driver>${chromeDriverPath}</webdriver.chrome.driver>
-                        <webdriver.ie.driver>${ieDriverPath}</webdriver.ie.driver>
-                        <browserStackLocal>${browserStackLocal}</browserStackLocal>
-                        <newSession>${newSession}</newSession>
-                        <username>None</username>
-                        <project>PLPlusANZ</project>
-                        <projectName>PLPlusANZ</projectName>
-                        <jenkinsStyleReports>${jenkinsStyleReports}</jenkinsStyleReports>
-                        <rp.launch>PL ANZ Tests ${project.activeProfiles[0].id}</rp.launch>
-                        <cobalt.users.xls.path>${cobalt.users.xls.path}</cobalt.users.xls.path>
-                        <routing>${routing}</routing>
-                    </systemPropertyVariables>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-junit47</artifactId>
-                        <version>2.19.1</version>
-                    </dependency>
-                </dependencies>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
@@ -187,6 +93,13 @@
             <artifactId>ppiau-pageobjects</artifactId>
             <version>LATEST</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>3.0.3</version>
+        </dependency>
+
     </dependencies>
 
 </project>
