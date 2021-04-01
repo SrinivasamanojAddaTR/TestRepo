@@ -315,4 +315,8 @@ public class OnepassLoginUtils {
         onePassLogoutPage.signInWithDifferentAccountLink().click();
         return new CobaltUser();
     }
+
+    public void scrollToTheTopOfTheDocument() {
+        wlnHeader.executeScript("window.scrollTo(0,0);");
+    }
 }

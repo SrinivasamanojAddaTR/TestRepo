@@ -62,7 +62,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     public static List<String> numbersList;
     public static String editOption;
     public static String mainWindow;
-    public static String input;
+    public String input;
     public static String modifiedInput;
     private static int annotationsCount;
 
@@ -488,6 +488,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void theUserRemovesTheGroup() throws Throwable {
         pageActions.mouseOver(sharedAnnotationsPage.getGroupsListItem());
         sharedAnnotationsPage.removeGroup();
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         LOG.info("User removes the group");
 
     }
@@ -1014,6 +1015,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^user verifies that this group is displayed and user count is \"(.*?)\"$")
     public void userVerifiesRandomGroupAndCount(String count) throws Throwable {
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         foldersUtils.searchGroup(randomGroup);
         sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         assertTrue("Group: " + randomGroup + " is not displayed", sharedAnnotationsPage.isGroupFoundInSearch(randomGroup));
@@ -1034,6 +1036,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^user verifies that user count for group is \"(.*?)\"$")
     public void userVerifiesCountForGroup(String count) throws Throwable {
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         assertTrue("Count is different. Count into the group: " + sharedAnnotationsPage.getUserCountForGroup(), count.equals(sharedAnnotationsPage.getUserCountForGroup()));
         LOG.info("Count: " + sharedAnnotationsPage.getUserCountForGroup() + " is displayed");
     }
@@ -1115,7 +1118,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         input = "input" + System.currentTimeMillis();
         sharedAnnotationsPage.amendInput(input);
         sharedAnnotationsPage.saveAnnotation();
-        LOG.info("The user has added inline annotations");
+        LOG.info("The user has added inline annotations with name {}",input);
 
     }
 

@@ -26,6 +26,7 @@ public class AbilityToUseSaveUserNameOption1 extends BaseStepDef {
 
     @Then("^user logs out$")
     public void userLogsOut() throws Throwable {
+        onePassLoginUtils.scrollToTheTopOfTheDocument();
         wlnHeader.signOff();
         onePassLogin.waitForPageToLoad();
         LOG.info("The user has logged out");
