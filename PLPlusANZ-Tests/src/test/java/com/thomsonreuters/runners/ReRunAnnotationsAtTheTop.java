@@ -12,14 +12,13 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "html:target/cucumber-htmlreport/AnnotationsAtTheTopReport", "junit:target/junit_cucumber.xml", "json:target/json-files/RunAnnotationsAtTheTopTest.json", "com.epam.reportportal.cucumber.ScenarioReporter", "rerun:target/ReRunAnnotationsAtTheTop.txt"},
-        features = "classpath:com/thomsonreuters/features/annotations/top",
-        tags = {"~ ", "~@manual"},
+        plugin = {"pretty", "html:target/cucumber-htmlreport/AnnotationsAtTheTopReport", "junit:target/junit_cucumber.xml", "json:target/json-files/RunAnnotationsAtTheTopTest.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+        features = "@target/ReRunAnnotationsAtTheTop.txt",
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
-public class RunAnnotationsAtTheTopTest extends BaseCucumberTestRunner {
-    private static final Logger LOG = LoggerFactory.getLogger(RunAnnotationsAtTheTopTest.class);
+public class ReRunAnnotationsAtTheTop extends BaseCucumberTestRunner {
+    private static final Logger LOG = LoggerFactory.getLogger(ReRunAnnotationsAtTheTop.class);
 
     @BeforeClass
     public static void reporting() {
