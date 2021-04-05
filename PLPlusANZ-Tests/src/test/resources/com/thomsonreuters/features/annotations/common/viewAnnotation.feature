@@ -13,7 +13,7 @@ Feature: [825681] View annotation
     And user navigates directly to document with guid "I2c856ddc3fae11e698dc8b09b4f043e0" on PL AU website
     Then check that annotations at the top are expanded
 
-   @gold @deletionAnnotations
+  @gold @deletionAnnotations
   Scenario: Verify that logged in user can collapse or expand annotation at the top of document
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
@@ -27,7 +27,7 @@ Feature: [825681] View annotation
     Then check that annotations at the top are expanded
 
   @gold  @deletionAnnotations
-  Scenario Outline: Verify that user can see annotations at the top in different type of documents
+  Scenario Outline: Verify that user can see annotations at the top in different type of documents-<id>
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |
     When user navigates directly to document with guid "<guid>" on PL AU website
@@ -35,15 +35,15 @@ Feature: [825681] View annotation
     And user added new annotation
     Then check that annotations at the top are expanded
     Examples:
-      | document_type                         | guid                              |
-      | Practice Notes                        | I2436c8a5e0c011e598dc8b09b4f043e0 |
-      | Standard documents and drafting notes | I1be9b44ae13311e598dc8b09b4f043e0 |
-      | Standard clauses and drafting notes   | I2c856dbe3fae11e698dc8b09b4f043e0 |
-      | Checklists                            | Ib2269c0eb8af11e598dc8b09b4f043e0 |
-      | Standard Documents                    | I488504ddbfe211e698dc8b09b4f043e0 |
+      | document_type                         | guid                              | id |
+      | Practice Notes                        | I2436c8a5e0c011e598dc8b09b4f043e0 | 1  |
+      | Standard documents and drafting notes | I1be9b44ae13311e598dc8b09b4f043e0 | 2  |
+      | Standard clauses and drafting notes   | I2c856dbe3fae11e698dc8b09b4f043e0 | 3  |
+      | Checklists                            | Ib2269c0eb8af11e598dc8b09b4f043e0 | 4  |
+      | Standard Documents                    | I488504ddbfe211e698dc8b09b4f043e0 | 5  |
       #| Articles                              |                                   |
 
-   @gold @deletionAnnotations
+  @gold @deletionAnnotations
   Scenario: Verify that logged in user can see  inline annotation during the subsequent sessions
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
@@ -56,8 +56,8 @@ Feature: [825681] View annotation
     And user navigates directly to document with guid "Ifbf497fd995811e598dc8b09b4f043e0" on PL AU website
     Then check that inline annotations is collapsed
 
-   @gold @deletionAnnotations
-  Scenario Outline: Verify that user can see inline annotation in different type of documents
+  @gold @deletionAnnotations
+  Scenario Outline: Verify that user can see inline annotation in different type of documents-<id>
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
     When user navigates directly to document with guid "<guid>" on PL AU website
@@ -68,15 +68,15 @@ Feature: [825681] View annotation
     And user refreshes page
     Then check that inline annotations is collapsed
     Examples:
-      | document_type                         | guid                              |
-      | Practice Notes                        | I2436c8a5e0c011e598dc8b09b4f043e0 |
-      | Standard documents and drafting notes | I1be9b44ae13311e598dc8b09b4f043e0 |
-      | Standard clauses and drafting notes   | I2c856dbe3fae11e698dc8b09b4f043e0 |
-      | Checklists                            | Ib2269c0eb8af11e598dc8b09b4f043e0 |
-      | Standard Documents                    | I488504ddbfe211e698dc8b09b4f043e0 |
+      | document_type                         | guid                              | id |
+      | Practice Notes                        | I2436c8a5e0c011e598dc8b09b4f043e0 | 1  |
+      | Standard documents and drafting notes | I1be9b44ae13311e598dc8b09b4f043e0 | 2  |
+      | Standard clauses and drafting notes   | I2c856dbe3fae11e698dc8b09b4f043e0 | 3  |
+      | Checklists                            | Ib2269c0eb8af11e598dc8b09b4f043e0 | 4  |
+      | Standard Documents                    | I488504ddbfe211e698dc8b09b4f043e0 | 5  |
      # | Articles                              |                                   |
 
-   @gold @deletionAnnotations
+  @gold @deletionAnnotations
   Scenario: Verify that logged in user can collapse or expand inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |

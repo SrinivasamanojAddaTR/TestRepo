@@ -1,7 +1,7 @@
 Feature:[825694] Add inline annotation for the document
 
   @gold @deletionAnnotations
-   Scenario: Checking that user can save  inline annotation
+  Scenario: Checking that user can save  inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "I23c506d9c07111e598dc8b09b4f043e0" on PL AU website
@@ -11,9 +11,7 @@ Feature:[825694] Add inline annotation for the document
     Then verify saved annotations text will be displayed with metadata
 
 
-
-
-   @gold @deletionAnnotations
+  @gold @deletionAnnotations
   Scenario: User should be able to see the disabled save button when inline annotation text exceeds 3000 chars length and to save annotation text equals 3000 chars length
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
@@ -44,7 +42,7 @@ Feature:[825694] Add inline annotation for the document
 
   ##########################Font size
 
-  Scenario Outline: Verifying that text can be displayed in bold/italic/underline/strikethrough for inline annotation
+  Scenario Outline: Verifying that text can be displayed in bold/italic/underline/strikethrough for inline annotation-<id>
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
@@ -54,14 +52,14 @@ Feature:[825694] Add inline annotation for the document
     And selecting "<style>" and writing text
     Then text displays with "<style>" character style
     Examples:
-      | style         |
-      | bold          |
-      | italic        |
-      | underlined    |
-      | strikethrough |
+      | style         | id |
+      | bold          | 1  |
+      | italic        | 2  |
+      | underlined    | 3  |
+      | strikethrough | 4  |
 
   @deletionAnnotations
-  Scenario Outline: Adding Annotaiton with character Styles: bold/italic/ALIGN_LEFT/ALIGN_CENTER/ALIGN_RIGHT/strikethrough/underlined/number/bullet applying to selected text for the inline annotation
+  Scenario Outline: Adding Annotaiton with character Styles: bold/italic/ALIGN_LEFT/ALIGN_CENTER/ALIGN_RIGHT/strikethrough/underlined/number/bullet applying to selected text for the inline annotation-<id>
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
@@ -74,19 +72,19 @@ Feature:[825694] Add inline annotation for the document
     When saving the annotation
     Then the saved annotations text should be displayed in the selected Link "<style>" format
     Examples:
-      | style         |
-      | bold          |
-      | italic        |
-      | ALIGN_LEFT    |
-      | ALIGN_CENTER  |
-      | ALIGN_RIGHT   |
-      | strikethrough |
-      | underlined    |
-      | number        |
-      | bullet        |
+      | style         | id |
+      | bold          | 1  |
+      | italic        | 2  |
+      | ALIGN_LEFT    | 3  |
+      | ALIGN_CENTER  | 4  |
+      | ALIGN_RIGHT   | 5  |
+      | strikethrough | 6  |
+      | underlined    | 7  |
+      | number        | 8  |
+      | bullet        | 9  |
 
 
-  Scenario Outline: Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE selected after entering text
+  Scenario Outline: Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE selected after entering text-<id>
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
@@ -95,14 +93,14 @@ Feature:[825694] Add inline annotation for the document
     And selecting Inline format "<style>" and writing text
     Then text displays with "<style>" Inline style
     Examples:
-      | style         |
-      | Bold          |
-      | Italic        |
-      | Underline     |
-      | Strikethrough |
+      | style         | id |
+      | Bold          | 1  |
+      | Italic        | 2  |
+      | Underline     | 3  |
+      | Strikethrough | 4  |
 
   @deletionAnnotations
-  Scenario Outline: Adding Annotaiton with Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE applying to selected text
+  Scenario Outline: Adding Annotaiton with Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE applying to selected text-<id>
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
@@ -114,15 +112,15 @@ Feature:[825694] Add inline annotation for the document
     When saving the annotation
     Then the saved annotations text should be displayed in the Inline "<style>" format
     Examples:
-      | style         |
-      | Bold          |
-      | Italic        |
-      | Underline     |
-      | Strikethrough |
+      | style         | id |
+      | Bold          | 1  |
+      | Italic        | 2  |
+      | Underline     | 3  |
+      | Strikethrough | 4  |
 
 
   @deletionAnnotations
-  Scenario Outline: Bullet and number styles for inline annotation
+  Scenario Outline: Bullet and number styles for inline annotation-<id>
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
@@ -133,12 +131,12 @@ Feature:[825694] Add inline annotation for the document
     When saving the annotation
     Then the saved annotations multiple text should be displayed in the "<style>" format
     Examples:
-      | style  |
-      | number |
-      | bullet |
+      | style  | id |
+      | number | 1  |
+      | bullet | 2  |
 
   @deletionAnnotations
-  Scenario Outline: Inline Styles: Adding Annotaiton with Alignment Styles: LEFT/CENTER/RIGHT applying to selected text
+  Scenario Outline: Inline Styles: Adding Annotaiton with Alignment Styles: LEFT/CENTER/RIGHT applying to selected text-<id>
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
@@ -150,13 +148,13 @@ Feature:[825694] Add inline annotation for the document
     When saving the annotation
     Then the saved annotations text should be displayed in the Alignment "<style>" format
     Examples:
-      | style  |
-      | LEFT   |
-      | CENTER |
-      | RIGHT  |
+      | style  | id |
+      | LEFT   | 1  |
+      | CENTER | 2  |
+      | RIGHT  | 3  |
 
   @deletionAnnotations
-  Scenario Outline: Header Styles: HEADING/SUB_HEADING Styles and adding Annotaiton with Header Styles: HEADING/SUB_HEADING Applying to selected text
+  Scenario Outline: Header Styles: HEADING/SUB_HEADING Styles and adding Annotaiton with Header Styles: HEADING/SUB_HEADING Applying to selected text-<id>
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
@@ -168,13 +166,13 @@ Feature:[825694] Add inline annotation for the document
     When saving the annotation
     Then the saved annotations text should be displayed in the Headers "<style>" format
     Examples:
-      | style    |
-      | Header 1 |
-      | Header 2 |
-      | Header 3 |
-      | Header 4 |
-      | Header 5 |
-      | Header 6 |
+      | style    | id |
+      | Header 1 | 1  |
+      | Header 2 | 2  |
+      | Header 3 | 3  |
+      | Header 4 | 4  |
+      | Header 5 | 5  |
+      | Header 6 | 6  |
 
 
   Scenario: Blocks Styles: PARAGRAPH style by default
@@ -187,8 +185,8 @@ Feature:[825694] Add inline annotation for the document
     Then text should be added with the "Paragraph" style by default
 
 
- @gold
-  Scenario Outline: Cut/Copy/Paste
+  @gold
+  Scenario Outline: Cut/Copy/Paste-<id>
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
     And user navigates directly to document with guid "Iaf266bf1870011e9adfea82903531a62" on PL AU website
@@ -205,8 +203,8 @@ Feature:[825694] Add inline annotation for the document
     And  selecting "paste"
     Then textbox will be having copied text
     Examples:
-      | input    |
-      | keyboard |
+      | input    | id |
+      | keyboard | 1  |
 
   @deletionAnnotations
   Scenario: Convert Pasted URL strings into Links
