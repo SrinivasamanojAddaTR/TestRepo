@@ -19,7 +19,7 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
       | Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary, Global guides |
 #		|International | Countries, International subscriptions, International collections, Country Q&A comparison tool |
 
-  Scenario Outline: User verifies the Practice area pages and its relative tabs in Open Web
+  Scenario Outline: User verifies the Practice area pages and its relative tabs in Open Web-<id>
     Given PL+ ANZ user navigates to home page
     And user opens "Practice Areas" link
     And user navigates to PA page "<PA>"
@@ -33,13 +33,13 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
       | Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary |
       | Resources | Practice notes, Standard documents and drafting notes, Checklists, Glossary                                      |
     Examples:
-      | PA                     | Topics                                                           |
-      | Company Law            | Company administration and meetings, Directors                   |
-      | Corporate Transactions | Share acquisitions: private                                      |
-      | Employment             | Federal discrimination and harassment, Ill and injured employees |
+      | PA                     | Topics                                                           | id |
+      | Company Law            | Company administration and meetings, Directors                   | 1  |
+      | Corporate Transactions | Share acquisitions: private                                      | 2  |
+      | Employment             | Federal discrimination and harassment, Ill and injured employees | 3  |
 
 
-  Scenario Outline: [831936] User verifies the topic page in Open Web.
+  Scenario Outline: [831936] User verifies the topic page in Open Web.-<id>
     Given PL+ ANZ user navigates to home page
     When user opens "Practice Areas" link
     And the user navigates to practice area "<PA>" filtered by "<Topic Page>" topic page
@@ -48,11 +48,11 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
     And user verifies the "<Resources>" facets are displayed on the topic page
     And user verifies the "<Resources>" sections are displayed on topic page in alphabetical order
     Examples:
-      | PA                     | Topic Page                  | Resources                          | Type          |
-      | Employment             | Leave                       | Practice notes,Checklists,Glossary | Resource Type |
-      | Employment             | Ill and injured employees   | Practice notes,Checklists,Glossary | Resource Type |
-      | Company Law            | Share capital               | Practice notes,Checklists,Glossary | Resource Type |
-      | Corporate Transactions | Due diligence: acquisitions | Practice notes,Checklists,Glossary | Resource Type |
+      | PA                     | Topic Page                  | Resources                          | Type          | id |
+      | Employment             | Leave                       | Practice notes,Checklists,Glossary | Resource Type | 1  |
+      | Employment             | Ill and injured employees   | Practice notes,Checklists,Glossary | Resource Type | 2  |
+      | Company Law            | Share capital               | Practice notes,Checklists,Glossary | Resource Type | 3  |
+      | Corporate Transactions | Due diligence: acquisitions | Practice notes,Checklists,Glossary | Resource Type | 4  |
 
   #TODO global guides is under consideration will appear in future
 

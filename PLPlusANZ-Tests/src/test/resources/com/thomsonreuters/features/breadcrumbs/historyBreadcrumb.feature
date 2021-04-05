@@ -3,7 +3,7 @@ Feature: To view Breadcrumbs for History Page
 Background: 
     Given ANZ user is logged in
 
- Scenario Outline: Verify that logged in PLAU user can see single �Home > History� breadcrumb trail when switching between History Tabs (�History: Searches�, �History: Documents�, �History: All History�)
+ Scenario Outline: Verify that logged in PLAU user can see single �Home > History� breadcrumb trail when switching between History Tabs (�History: Searches�, �History: Documents�, �History: All History�)-<id>
  
     When the user open 'Company Law' link
     And the user open 'Corporate governance' link
@@ -27,7 +27,7 @@ Background:
       |Home > History| Home > History > Appointment of directors |Home >History >Search Results | 1  |
       
 
- Scenario Outline: Verify that logged in PLAU user can see clickable "History" breadcrumb in the Home > History breadcrumb trail when navigating to a document or Search Results page from History pages (History: Searches, History: Documents, History: All History);  and navigate back to History page by clicking on the History breadcrumb.
+ Scenario Outline: Verify that logged in PLAU user can see clickable "History" breadcrumb in the Home > History breadcrumb trail when navigating to a document or Search Results page from History pages (History: Searches, History: Documents, History: All History);  and navigate back to History page by clicking on the History breadcrumb.-<id>
     When the user open 'Commercial' link
     And the user open 'Supply of goods and services' link
     And the user selects the document 'Comparative table of sale of goods legislation'

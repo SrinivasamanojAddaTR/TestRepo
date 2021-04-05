@@ -4,7 +4,7 @@ Feature: To View Footer Breadcrumbs
   Background: 
     Given ANZ user is logged in
 
-  Scenario Outline: As a Practical Law user, I want to view the breadcrumb trail on the Practical website,so that I can view my navigation path when navigating to the PL footer pages
+  Scenario Outline: As a Practical Law user, I want to view the breadcrumb trail on the Practical website,so that I can view my navigation path when navigating to the PL footer pages-<id>
     Then user verifies the "Home" page
     When user should see footer
     Then user clicks on "<Footer link>" link

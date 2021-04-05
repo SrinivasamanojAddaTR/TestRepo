@@ -54,7 +54,7 @@ Feature: [808912]As a PLAU User, I want to browse down to a Country page So that
 # commented the verification of Url for US as the Url has lrTS=20170323105558268, which is not constant.
 # changed the script to verify if the country url contains the values
 
-Scenario Outline: [835281] User uses browse menu to navigate to Global Country page
+Scenario Outline: [835281] User uses browse menu to navigate to Global Country page-<id>
    Given ANZ user is logged in with following details
 	  | userName         | AUtestuser3 |
     When user clicks on "Browse Menu" dropdown
@@ -64,8 +64,8 @@ Scenario Outline: [835281] User uses browse menu to navigate to Global Country p
 	And the page URL contains "<url>"
 	#Then user was taken to url "<url>"
 	Examples:
-	|country	|url|
-   |China		|https://uk.practicallaw.thomsonreuters.com/ |
-   |Canada		|https://ca.practicallaw.thomsonreuters.com	|
-   |US			|https://content.next.westlaw.com/|
+      |country	    |url                                          | id |
+      |China		|https://uk.practicallaw.thomsonreuters.com/  | 1  |
+      |Canada		|https://ca.practicallaw.thomsonreuters.com	  | 2  |
+      |US			|https://content.next.westlaw.com/            | 3  |
 		

@@ -112,7 +112,7 @@ Scenario: Verify user can view Breadcrumb trial for Search on a international pa
 	Then the user verifies that the complete breadcrumb is "Home > Austria > Search Results"
 
 
-	Scenario Outline: User verifies new breadcrumb after clicking cross-reference link
+	Scenario Outline: User verifies new breadcrumb after clicking cross-reference link-<id>
 		When the user opens 'Practice Areas' link
 		And the user opens 'Commercial' link
 		And the user searches for freetext term "<Doc name>"

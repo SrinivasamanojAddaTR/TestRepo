@@ -4,7 +4,7 @@ Feature: To View Footer Breadcrumbs
   Background: 
    Given PL+ ANZ user navigates to home page
 
-  Scenario Outline: As a Practical Law user, I want to view the breadcrumb trail on the Practical website,so that I can view my navigation path when navigating to the PL footer pages
+  Scenario Outline: As a Practical Law user, I want to view the breadcrumb trail on the Practical website,so that I can view my navigation path when navigating to the PL footer pages-<id>
     Then user verifies the "Home" page
     When user should see footer
     Then user clicks on "<Footer link>" link
@@ -18,7 +18,7 @@ Feature: To View Footer Breadcrumbs
       | Advisory Board      | Home > Our team                      | 4  |
       | Contributing Firms  | Home > Our team                      | 5  |
      
-Scenario Outline: Verify that logged in PLAU user can see an  "Our team" breadcrumb in breadcrumb trail when navigating to any Practice area Our team page. 
+Scenario Outline: Verify that logged in PLAU user can see an  "Our team" breadcrumb in breadcrumb trail when navigating to any Practice area Our team page.-<id>
     When user clicks on "<Page>" link
     Then the user verifies that the current PageTitle contains '<pageTitle>'
     When the user selects a practice area "<PA>" within the table of contents
@@ -35,7 +35,7 @@ Scenario Outline: Verify that logged in PLAU user can see an  "Our team" breadcr
       | Meet the Team | Our team  | Dispute Resolution     |Our team: Dispute Resolution     | Home > Our team | 5  |
       
 
-Scenario Outline:As a PLAU user,I want to view "About us" breadcrumb in the breadcrumb trail when viewing any page from "About" section in the site Footer of the Practical Law Australia website, so that I can be aware that I am viewing a page from About pages.
+Scenario Outline:As a PLAU user,I want to view "About us" breadcrumb in the breadcrumb trail when viewing any page from "About" section in the site Footer of the Practical Law Australia website, so that I can be aware that I am viewing a page from About pages.-<id>
     
     When user clicks on "<Page>" link    
     Then the user verifies that the current PageTitle contains '<pageTitle>'
