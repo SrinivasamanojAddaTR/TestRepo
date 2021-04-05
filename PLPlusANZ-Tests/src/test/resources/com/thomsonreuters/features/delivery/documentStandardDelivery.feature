@@ -18,7 +18,7 @@ Feature: [818051] Document - Standard delivery features
 
 
   @smoke @gold
-  Scenario Outline: [818051] Email document - MS Word format
+  Scenario Outline: [818051] Email document - MS Word format-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on email delivery option for the document
     Then the user should be able to see Email basic tab options as follows
@@ -30,11 +30,11 @@ Feature: [818051] Document - Standard delivery features
     Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<subject>"
 
     Examples:
-      | guid                              | subject                                                | mailbox                                           |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | tr-anz-tester4@epam-email-pluk.thomsonreuters.com |
+      | guid                              | subject                                                | mailbox                                           | id |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | tr-anz-tester4@epam-email-pluk.thomsonreuters.com | 1  |
 
 
-  Scenario Outline: [818051] Email document - RTF format
+  Scenario Outline: [818051] Email document - RTF format-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on email delivery option for the document
     Then the user should be able to see Email basic tab options as follows
@@ -45,13 +45,13 @@ Feature: [818051] Document - Standard delivery features
     And Email button is clicked
     And user receives an email at "<mailbox>" with document in Word Processor (RTF) format and with subject "<subject>"
     Examples:
-      | guid                              | subject                                                | mailbox                                           |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | tr-anz-tester5@epam-email-pluk.thomsonreuters.com |
+      | guid                              | subject                                                | mailbox                                           | id |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | tr-anz-tester5@epam-email-pluk.thomsonreuters.com | 1  |
 	
 	#intermittent failures on demo
 	#bug 834611 Bug [PLAU & PLUK] document is not available by plc ref on demo pc1
 
-  Scenario Outline: [818051][847182] Email document - Resource Link Only format
+  Scenario Outline: [818051][847182] Email document - Resource Link Only format-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on email delivery option for the document
     Then the user should be able to see Email basic tab options as follows
@@ -64,10 +64,10 @@ Feature: [818051] Document - Standard delivery features
     When user copies the link in valid format from email into the browser
     Then user should be presented with proper document "<title>"
     Examples:
-      | guid                              | title                                                  | mailbox                                           | resourceid |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | tr-anz-tester6@epam-email-pluk.thomsonreuters.com | W-001-0164 |
+      | guid                              | title                                                  | mailbox                                           | resourceid | id |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | tr-anz-tester6@epam-email-pluk.thomsonreuters.com | W-001-0164 | 1  |
 
-  Scenario Outline: [818051] Email document - PDF format, table of contents included
+  Scenario Outline: [818051] Email document - PDF format, table of contents included-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on email delivery option for the document
     Then the user should be able to see Email basic tab options as follows
@@ -81,11 +81,11 @@ Feature: [818051] Document - Standard delivery features
     And the document includes document body that contains text "<docText>"
     And the document includes table of contents that contains title "<contentsText>"
     Examples:
-      | guid                              | subject                                                | docText                      | contentsText             | mailbox                                           |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | When acting for a transferee | Execution by the parties | tr-anz-tester7@epam-email-pluk.thomsonreuters.com |
+      | guid                              | subject                                                | docText                      | contentsText             | mailbox                                           | id |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | When acting for a transferee | Execution by the parties | tr-anz-tester7@epam-email-pluk.thomsonreuters.com | 1  |
 
 
-  Scenario Outline: [818051] Email document - PDF format, table of contents not included
+  Scenario Outline: [818051] Email document - PDF format, table of contents not included-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on email delivery option for the document
     Then the user should be able to see Email basic tab options as follows
@@ -99,11 +99,11 @@ Feature: [818051] Document - Standard delivery features
     And the document includes document body that contains text "<docText>"
     And the document does not include table of contents that contains title "<contentsText>"
     Examples:
-      | guid                              | subject                                                | docText                      | contentsText             | mailbox                                           |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | When acting for a transferee | Execution by the parties | tr-anz-tester8@epam-email-pluk.thomsonreuters.com |
+      | guid                              | subject                                                | docText                      | contentsText             | mailbox                                           | id |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | When acting for a transferee | Execution by the parties | tr-anz-tester8@epam-email-pluk.thomsonreuters.com | 1  |
 
 
-  Scenario Outline: [818051] Email document - PDF format, drafting notes not included
+  Scenario Outline: [818051] Email document - PDF format, drafting notes not included-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on email delivery option for the document
     Then the user should be able to see Email basic tab options as follows
@@ -119,11 +119,11 @@ Feature: [818051] Document - Standard delivery features
     And the document includes document body that contains text "<docText>"
     And the document does not include drafting notes
     Examples:
-      | guid                              | subject                           | docText                  | mailbox                                           |
-      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes: transfer of shares | The chairperson reported | tr-anz-tester4@epam-email-pluk.thomsonreuters.com |
+      | guid                              | subject                           | docText                  | mailbox                                           | id |
+      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes: transfer of shares | The chairperson reported | tr-anz-tester4@epam-email-pluk.thomsonreuters.com | 1  |
 
 
-  Scenario Outline: [818051] Email document - PDF format, drafting notes only
+  Scenario Outline: [818051] Email document - PDF format, drafting notes only-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on email delivery option for the document
     Then the user should be able to see Email basic tab options as follows
@@ -140,11 +140,11 @@ Feature: [818051] Document - Standard delivery features
     And the document does not include document body that contains text "<docText>"
     And the document includes drafting notes
     Examples:
-      | guid                              | subject                           | docText                  | mailbox                                           |
-      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes: transfer of shares | The chairperson reported | tr-anz-tester5@epam-email-pluk.thomsonreuters.com |
+      | guid                              | subject                           | docText                  | mailbox                                           | id |
+      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes: transfer of shares | The chairperson reported | tr-anz-tester5@epam-email-pluk.thomsonreuters.com | 1  |
 
 
-  Scenario Outline: [818051] Email document - PDF format, drafting notes included
+  Scenario Outline: [818051] Email document - PDF format, drafting notes included-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on email delivery option for the document
     Then the user should be able to see Email basic tab options as follows
@@ -161,8 +161,8 @@ Feature: [818051] Document - Standard delivery features
     And the document includes document body that contains text "<docText>"
     And the document includes drafting notes
     Examples:
-      | guid                              | subject                           | docText                  | mailbox                                           |
-      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes: transfer of shares | The chairperson reported | tr-anz-tester6@epam-email-pluk.thomsonreuters.com |
+      | guid                              | subject                           | docText                  | mailbox                                           | id |
+      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes: transfer of shares | The chairperson reported | tr-anz-tester6@epam-email-pluk.thomsonreuters.com | 1  |
 		
 		
 		
@@ -171,28 +171,28 @@ Feature: [818051] Document - Standard delivery features
 #download
 ###########################################################################################################################################
   @smoke @gold
-  Scenario Outline: [818051] Download document - MS Word format
+  Scenario Outline: [818051] Download document - MS Word format-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on Download delivery option for the document
     And the user edits the basic download options as follows
       | Format | Microsoft Word |
     Then user downloads the document with name "<name>" and extension ".doc"
     Examples:
-      | guid                              | name                                                  |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form private acquisitions |
+      | guid                              | name                                                  | id |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form private acquisitions | 1  |
 
 
-  Scenario Outline: [818051] Download document - RTF format
+  Scenario Outline: [818051] Download document - RTF format-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on Download delivery option for the document
     And the user edits the basic download options as follows
       | Format | Word Processor (RTF) |
     Then user downloads the document with name "<name>" and extension ".rtf"
     Examples:
-      | guid                              | name                                                  |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form private acquisitions |
+      | guid                              | name                                                  | id |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form private acquisitions | 1  |
 
-  Scenario Outline: [818051] Download document - PDF format, with table of contents
+  Scenario Outline: [818051] Download document - PDF format, with table of contents-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on Download delivery option for the document
     And the user edits the basic download options as follows
@@ -202,10 +202,10 @@ Feature: [818051] Document - Standard delivery features
     And the document includes document body that contains text "<docText>"
     And the document includes table of contents that contains title "<contentsText>"
     Examples:
-      | guid                              | name                                                  | docText                      | contentsText             |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form private acquisitions | When acting for a transferee | Execution by the parties |
+      | guid                              | name                                                  | docText                      | contentsText             | id |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form private acquisitions | When acting for a transferee | Execution by the parties | 1  |
 
-  Scenario Outline: [818051] Download document - PDF format, without table of contents
+  Scenario Outline: [818051] Download document - PDF format, without table of contents-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on Download delivery option for the document
     And the user edits the basic download options as follows
@@ -215,11 +215,11 @@ Feature: [818051] Document - Standard delivery features
     And the document includes document body that contains text "<docText>"
     And the document does not include table of contents that contains title "<contentsText>"
     Examples:
-      | guid                              | name                                                  | docText                      | contentsText             |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form private acquisitions | When acting for a transferee | Execution by the parties |
+      | guid                              | name                                                  | docText                      | contentsText             | id |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form private acquisitions | When acting for a transferee | Execution by the parties | 1  |
 
 
-  Scenario Outline: [818051] Download document - PDF format, drafting notes not included
+  Scenario Outline: [818051] Download document - PDF format, drafting notes not included-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on Download delivery option for the document
     Then the user should be able to see Download basic tab options as follows
@@ -233,11 +233,11 @@ Feature: [818051] Document - Standard delivery features
     And the document does not include drafting notes
 
     Examples:
-      | guid                              | name                             | docText                  |
-      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes transfer of shares | The chairperson reported |
+      | guid                              | name                             | docText                  | id |
+      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes transfer of shares | The chairperson reported | 1  |
 
 
-  Scenario Outline: [818051] Download document - PDF format, drafting notes included
+  Scenario Outline: [818051] Download document - PDF format, drafting notes included-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on Download delivery option for the document
     Then the user should be able to see Download basic tab options as follows
@@ -251,11 +251,11 @@ Feature: [818051] Document - Standard delivery features
     And the document includes document body that contains text "<docText>"
     And the document includes drafting notes
     Examples:
-      | guid                              | name                             | docText                  |
-      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes transfer of shares | The chairperson reported |
+      | guid                              | name                             | docText                  | id |
+      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes transfer of shares | The chairperson reported | 1  |
 
 
-  Scenario Outline: [818051] Download document - PDF format, drafting notes only
+  Scenario Outline: [818051] Download document - PDF format, drafting notes only-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on Download delivery option for the document
     Then the user should be able to see Download basic tab options as follows
@@ -270,19 +270,19 @@ Feature: [818051] Document - Standard delivery features
     And the document includes drafting notes
 
     Examples:
-      | guid                              | name                             | docText                  |
-      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes transfer of shares | The chairperson reported |
+      | guid                              | name                             | docText                  | id |
+      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes transfer of shares | The chairperson reported | 1  |
 	
 ###########################################################################################################################################
 #Print
 ###########################################################################################################################################
   @smoke @gold
-  Scenario Outline: [818051] Print document
+  Scenario Outline: [818051] Print document-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on Print delivery option for the document
     And user prints the document with name "Print" and extension ".pdf"
     Examples:
-      | guid                              |
-      | Ifb5c26ca995811e598dc8b09b4f043e0 |
+      | guid                              | id |
+      | Ifb5c26ca995811e598dc8b09b4f043e0 | 1  |
 		
 	
