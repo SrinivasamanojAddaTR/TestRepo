@@ -11,12 +11,12 @@ Feature: To View Footer Breadcrumbs
     Then the user verifies that the complete breadcrumb is "<Breadcrumb>"
 
     Examples: 
-      | Footer link         | Breadcrumb                           |
-      | About Practical Law | Home > About us: About Practical Law |
-      | Testimonials        | Home > Testimonials                  |
-      | Meet the Team       | Home > Our team                      |
-      | Advisory Board      | Home > Our team                      |
-      | Contributing Firms  | Home > Our team                      |
+      | Footer link         | Breadcrumb                           | id |
+      | About Practical Law | Home > About us: About Practical Law | 1  |
+      | Testimonials        | Home > Testimonials                  | 2  |
+      | Meet the Team       | Home > Our team                      | 3  |
+      | Advisory Board      | Home > Our team                      | 4  |
+      | Contributing Firms  | Home > Our team                      | 5  |
 
 Scenario Outline: Verify that logged in PLAU user can see an  "Our team" breadcrumb in breadcrumb trail when navigating to any Practice area Our team page. 
     When user clicks on "<Page>" link
@@ -27,12 +27,12 @@ Scenario Outline: Verify that logged in PLAU user can see an  "Our team" breadcr
     And the user verifies that the complete breadcrumb is "<Breadcrumb>"
    
     Examples: 
-      | Page          | pageTitle | PA                     |pageTitle1                        | Breadcrumb      |
-      | Meet the Team | Our team  | Commercial             |Our team: Commercial             | Home > Our team |
-      | Meet the Team | Our team  | Company Law            |Our team: Company Law            | Home > Our team |
-      | Meet the Team | Our team  | Corporate Transactions |Our team: Corporate Transactions | Home > Our team |
-      | Meet the Team | Our team  | Employment             |Our team: Employment             | Home > Our team |
-      | Meet the Team | Our team  | Dispute Resolution     |Our team: Dispute Resolution     | Home > Our team |
+      | Page          | pageTitle | PA                     |pageTitle1                        | Breadcrumb     | id |
+      | Meet the Team | Our team  | Commercial             |Our team: Commercial             | Home > Our team | 1  |
+      | Meet the Team | Our team  | Company Law            |Our team: Company Law            | Home > Our team | 2  |
+      | Meet the Team | Our team  | Corporate Transactions |Our team: Corporate Transactions | Home > Our team | 3  |
+      | Meet the Team | Our team  | Employment             |Our team: Employment             | Home > Our team | 4  |
+      | Meet the Team | Our team  | Dispute Resolution     |Our team: Dispute Resolution     | Home > Our team | 5  |
       
      
 Scenario Outline:As a PLAU user,I want to view "About us" breadcrumb in the breadcrumb trail when viewing any page from "About" section in the site Footer of the Practical Law Australia website, so that I can be aware that I am viewing a page from About pages.
@@ -45,7 +45,7 @@ Scenario Outline:As a PLAU user,I want to view "About us" breadcrumb in the brea
     And the user verifies that the complete breadcrumb is "<Breadcrumb>"
     
     Examples: 
-      | Page                | pageTitle                     | tabToSelect          |pageTitleForSelectedTab          | Breadcrumb      |  
-      |About Practical Law  | About us: About Practical Law |Why use Practical Law?|About us: Why use Practical Law? |Home >About us: Why use Practical Law? |          
-      | About Practical Law | About us: About Practical Law | Resources            | About us: Resources             |Home >About us: Resources    |
-      | About Practical Law | About us: About Practical Law | Our team             | About us: Our team              |Home > About us: Our team          |
+      | Page                | pageTitle                     | tabToSelect          |pageTitleForSelectedTab          | Breadcrumb                             | id |
+      |About Practical Law  | About us: About Practical Law |Why use Practical Law?|About us: Why use Practical Law? |Home >About us: Why use Practical Law?  | 1  |
+      | About Practical Law | About us: About Practical Law | Resources            | About us: Resources             |Home >About us: Resources               | 2  |
+      | About Practical Law | About us: About Practical Law | Our team             | About us: Our team              |Home > About us: Our team               | 3  |

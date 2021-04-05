@@ -23,8 +23,8 @@ Background:
     Then the user verifies that the complete breadcrumb is "<Breadcrumb2>"
        
    Examples: 
-      | Breadcrumb   |Breadcrumb1                                | Breadcrumb2                  |      
-      |Home > History| Home > History > Appointment of directors |Home >History >Search Results |
+      | Breadcrumb   |Breadcrumb1                                | Breadcrumb2                  | id |
+      |Home > History| Home > History > Appointment of directors |Home >History >Search Results | 1  |
       
 
  Scenario Outline: Verify that logged in PLAU user can see clickable "History" breadcrumb in the Home > History breadcrumb trail when navigating to a document or Search Results page from History pages (History: Searches, History: Documents, History: All History);  and navigate back to History page by clicking on the History breadcrumb.
@@ -57,6 +57,6 @@ Background:
     And the user is presented with a page with title "<PageTitle3>"
     
    Examples: 
-      | Breadcrumb   |Breadcrumb1                                                    |PageTitle         |  Breadcrumb2                 |PageTitle2       |PageTitle3          |
-      |Home > History| Home >History >Comparative table of sale of goods legislation |History: Documents|Home >History >Search Results |History: Searches|History: All History|
+      | Breadcrumb   |Breadcrumb1                                                    |PageTitle         |  Breadcrumb2                 |PageTitle2       |PageTitle3          | id |
+      |Home > History| Home >History >Comparative table of sale of goods legislation |History: Documents|Home >History >Search Results |History: Searches|History: All History| 1  |
       

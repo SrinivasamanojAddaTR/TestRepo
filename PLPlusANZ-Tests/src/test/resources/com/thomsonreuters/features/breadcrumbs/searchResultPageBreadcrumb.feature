@@ -121,8 +121,8 @@ Scenario: Verify user can view Breadcrumb trial for Search on a international pa
 		When the user clicks on the '<Internal link>' link in the doc
 		Then the user verifies that the complete breadcrumb is "<Breadcrumb2>"
 		Examples:
-			| Doc name                     | Breadcrumb1                                                       | Internal link                                      | Breadcrumb2                                                                             |
-			| Goods and Services Tax (GST) | Home > Commercial > Search Results > Goods and Services Tax (GST) | A New Tax System (Goods and Services Tax) Act 1999 | Home > Commercial > Search Results > A New Tax System (Goods and Services Tax) Act 1999 |
+			| Doc name                     | Breadcrumb1                                                       | Internal link                                      | Breadcrumb2                                                                             | id |
+			| Goods and Services Tax (GST) | Home > Commercial > Search Results > Goods and Services Tax (GST) | A New Tax System (Goods and Services Tax) Act 1999 | Home > Commercial > Search Results > A New Tax System (Goods and Services Tax) Act 1999 | 1  |
 
      
       
