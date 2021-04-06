@@ -7,7 +7,7 @@ Background:
 #bug 852192 Bug [PLAU Only] Search in History and Folders does not return any results
 
     @archived
-  Scenario Outline: User verifies the search within history page
+  Scenario Outline: User verifies the search within history page-<id>
       When the user clicks on 'History' link on the header
       And the user runs the search "contract" if today's history is not present
       Then the user should see search text area on history page
@@ -15,8 +15,8 @@ Background:
       And the user searches the term "<term>" in history
       Then the user should see the each search result according to the term "<term>" in history
 	Examples:
-		| term |
-		| contract |
-		| contract employment |
-		| contract AND employment |
-		| contract OR employment |
+		| term                    | id |
+		| contract                | 1  |
+		| contract employment     | 2  |
+		| contract AND employment | 3  |
+		| contract OR employment  | 4  |

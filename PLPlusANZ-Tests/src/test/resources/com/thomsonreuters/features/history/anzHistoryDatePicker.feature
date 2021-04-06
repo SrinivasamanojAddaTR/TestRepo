@@ -5,7 +5,7 @@ Feature: [821959] As a PLAU User, I want to view my history based on a specific 
 # (will not fail the test during regression run, but it will fail if you execute it later during the day)
 
   @smoke
-  Scenario Outline: User verifies date picker is present with all the options
+  Scenario Outline: User verifies date picker is present with all the options-<id>
     Given ANZ user is logged in
     And ANZ user navigates directly to document with guid "I53cfffa798de11e598dc8b09b4f043e0"
     When the user clicks on 'History' link on the header
@@ -26,15 +26,15 @@ Feature: [821959] As a PLAU User, I want to view my history based on a specific 
     When the user selects the date <Option> with <Date>
     Then the user should see the results <Option> with any selected <Date>
     Examples:
-      | Option           | Date                     |
-      | Today            | -                        |
-      | Last 7 Days      | -                        |
-      | Last 30 Days     | -                        |
-      | All              | -                        |
-      | All Dates Before | 06-04-2021               |
-      | All Dates After  | 08-09-2016               |
-      | Specific Date    | 22-03-2021               |
-      | Date Range       | 07-09-2016 to 22-03-2021 |
+      | Option           | Date                     | id |
+      | Today            | -                        | 1  |
+      | Last 7 Days      | -                        | 2  |
+      | Last 30 Days     | -                        | 3  |
+      | All              | -                        | 4  |
+      | All Dates Before | 06-04-2021               | 5  |
+      | All Dates After  | 08-09-2016               | 6  |
+      | Specific Date    | 22-03-2021               | 7  |
+      | Date Range       | 07-09-2016 to 22-03-2021 | 8  |
 
 
 

@@ -3,7 +3,7 @@ Feature: [821953] As a PLAU User, I want to view my history So that I can view m
 Background:
   Given ANZ user is logged in
 
-  Scenario Outline: user verifies the search tab
+  Scenario Outline: user verifies the search tab-<id>
     And the user runs a free text search for the query "<search term>"
     And the user waits search result to load
     When the user clicks on 'History' link on the header
@@ -12,11 +12,11 @@ Background:
     Then the '1' link contains text "<search term>" and url '/Search/Results.html?query=<search term>'
     Then the '1' link contains ClientId and date
   Examples:
-      |search term|
-      |tax         |
-      |contract    |
+      |search term  | id |
+      |tax          | 1  |
+      |contract     | 2  |
 
-  Scenario Outline: user verifies the Documents and All History tab
+  Scenario Outline: user verifies the Documents and All History tab-<id>
     And the user runs a free text search for the query "<search term>"
     And the user clicks on the first result and stores its title
     When user clicks on "History" link
@@ -28,12 +28,12 @@ Background:
     Then the '2' link contains text "<search term>" and url '/Search/Results.html?query=<search term>'
     Then the '1' link contains ClientId and date
   Examples:
-        |search term|
-        |tax         |
-        |contract    |
+        |search term | id |
+        |tax         | 1  |
+        |contract    | 2  |
 
 
-  Scenario Outline:[821972] user verifies the document link in the document history
+  Scenario Outline:[821972] user verifies the document link in the document history-<id>
     And the user runs a free text search for the query "<search term>"
     And the user clicks on the first result and stores its title
     When user clicks on "History" link
@@ -43,11 +43,11 @@ Background:
     When user clicks on the "1st" title link in the history tab
     Then user should be able to see the same document
     Examples:
-      |search term|
-      |tax         |
-      |contract    |
+      |search term | id |
+      |tax         | 1  |
+      |contract    | 2  |
 
-  Scenario Outline: [821971]As a PLAU User I want to be able to link to a specific search I previously performed So that I can run the search again
+  Scenario Outline: [821971]As a PLAU User I want to be able to link to a specific search I previously performed So that I can run the search again-<id>
     And the user runs a free text search for the query "<search term>"
     And the user stores the search title and count
     When the user clicks on 'History' link on the header
@@ -57,9 +57,9 @@ Background:
     When user clicks on the "1st" title link in the history tab
     Then user should be able to see the same search result with title and count
     Examples:
-      | search term |
-      |tax         |
-      |contract    |
+      | search term  | id |
+      |tax           | 1  |
+      |contract      | 2  |
 
 
   Scenario: [821985] As a PLAU User,I want to increase or decrease the number of documents and searches listed in my history page view

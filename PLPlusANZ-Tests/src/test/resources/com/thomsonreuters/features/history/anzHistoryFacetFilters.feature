@@ -1,7 +1,7 @@
 @archived
 Feature: [821979]As a PLAU user, I want to filter my history  So that I can quickly find my previous searches and the documents that I have viewed
  
-  Scenario Outline: [821979]As a PLAU user, I want to filter my history  So that I can quickly find my previous searches and the documents that I have viewed
+  Scenario Outline: [821979]As a PLAU user, I want to filter my history  So that I can quickly find my previous searches and the documents that I have viewed-<id>
     Given ANZ user is logged in
     When the user clicks on 'History' link on the header
     And the user clicks on History left side facet "<HistoryFacet>"
@@ -14,10 +14,10 @@ Feature: [821979]As a PLAU user, I want to filter my history  So that I can quic
     When the user clicks on the facet "<Filter>" checkbox
     Then the user should see the results from both "<ClientID1>" or "<ClientID2>" and "<Filter>"
   Examples:
-       |HistoryFacet | ClientID1 | ClientID2 |  Filter    |
-       |All History  | TEST01    | TEST02    |  Search    |
-       |Searches     | TEST01    | TEST02    |  -         |
-       |Documents    | TEST01    | TEST02    |  Know-how  |
+       |HistoryFacet | ClientID1 | ClientID2 |  Filter    | id |
+       |All History  | TEST01    | TEST02    |  Search    | 1  |
+       |Searches     | TEST01    | TEST02    |  -         | 2  |
+       |Documents    | TEST01    | TEST02    |  Know-how  | 3  |
 
 
 
