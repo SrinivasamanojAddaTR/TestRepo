@@ -39,11 +39,11 @@ Scenario: Legal updates wiget on Legal updates page
     Then the user should be presented with a list of LU documents
     
   # Scenario is modifies as legal updates widget has been added for Company Law and Corporate Transactions page.
-   Scenario Outline: There is legal updates widget on following PA page
+   Scenario Outline: There is legal updates widget on following PA page-<id>
   	Given ANZ user is logged in
     Given a user is on a "<practiceArea>" PA page
     And the user is presented with the Legal Updates widget
     Examples: 
-      | practiceArea               | 
-      | Company Law                | 
-      | Corporate Transactions     | 
+      | practiceArea               | id |
+      | Company Law                | 1  |
+      | Corporate Transactions     | 2  |

@@ -4,7 +4,7 @@ Feature: [821883][821884][821885][821886][821887] International Widgets
   Background: 
     Given ANZ user is logged in
 
-  Scenario Outline: Widgets on country page
+  Scenario Outline: Widgets on country page-<id>
     When the user opens "<link>" url on PL AU website
     Then the following widgets should be displayed
       | Contributing firms include                |
@@ -15,9 +15,9 @@ Feature: [821883][821884][821885][821886][821887] International Widgets
 	And the text on widget "Country Q&A comparison tool" is "Compare answers to key questions about doing a variety of transactions across multiple jurisdictions."
 
     Examples: 
-      | link                                              | country                  |
-      | /Browse/Home/International/Argentina              | ARGENTINA                |
-      | /Browse/Home/International/Australia              | AUSTRALIA                |
+      | link                                              | country                  | id |
+      | /Browse/Home/International/Argentina              | ARGENTINA                | 1  |
+      | /Browse/Home/International/Australia              | AUSTRALIA                | 2  |
 #      | /Browse/Home/International/Bahrain                | BAHRAIN                  |
 #      | /Browse/Home/International/Belgium                | BELGIUM                  |
 #      | /Browse/Home/International/Brazil                 | BRAZIL                   |
@@ -143,15 +143,15 @@ Feature: [821883][821884][821885][821886][821887] International Widgets
 
   #837690 [PLAU & PLUK] Browse -  "Doing business" widget for India, Indonesia, South Korea, South Africa countries' pages are showing "Argentina" page rather than their own pages
 
-  Scenario Outline: [821887] Doing business in country widget
+  Scenario Outline: [821887] Doing business in country widget-<id>
     When the user opens "<link>" url on PL AU website
     And the user clicks on button "Find out more" on widget "Doing business in <country>?"
     Then document title is displayed as "Doing business in <country2>"
       Examples: 
-      | link                                              | country                  | country2  |
+      | link                                              | country                  | country2  | id |
 #      | /Browse/Home/International/Argentina              | ARGENTINA                | Argentina  |
-      | /Browse/Home/International/Australia              | AUSTRALIA                | Australia  |
-      | /Browse/Home/International/Bahrain                | BAHRAIN                  | Bahrain   |
+      | /Browse/Home/International/Australia              | AUSTRALIA                | Australia | 1  |
+      | /Browse/Home/International/Bahrain                | BAHRAIN                  | Bahrain   | 2  |
 #      | /Browse/Home/International/Belgium                | BELGIUM                  | Belgium   |
 #      | /Browse/Home/International/Brazil                 | BRAZIL                   | Brazil   |
 #      | /Browse/Home/International/Bulgaria               | BULGARIA                 | Bulgaria |
