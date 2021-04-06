@@ -10,13 +10,13 @@ Scenario: [850126] Open Web user cannot add pages to favourites or set as start 
     And he does not see any Start Page icon/link
     
 
-Scenario Outline: [850126] Open web user cannot access FFH and email config pages
+Scenario Outline: [850126] Open web user cannot access FFH and email config pages-<id>
 	Given user deletes all cookies
 	When the user opens "<link>" url on PL AU website
 	Then the user will be redirected to a login page
 	Examples:
-	| link |
-	| /FavoritesOrganizer/Home.html |
-	| /ResearchOrganizer/Home.html|
-	| /Browse/home/emailpreferences|
+	| link 							| id |
+	| /FavoritesOrganizer/Home.html | 1  |
+	| /ResearchOrganizer/Home.html	| 2  |
+	| /Browse/home/emailpreferences	| 3  |
 	
