@@ -3,7 +3,7 @@ Feature: [817996] As a PLAU user I want to view a table of contents So that I ca
   Background: 
    Given ANZ user is logged in
 
-  Scenario Outline: [817996] The case documents contain Table of content
+  Scenario Outline: [817996] The case documents contain Table of content-<id>
     When ANZ user navigates directly to document with guid "<guid>"
     Then the document opens correctly
     Then the user see Table of content
@@ -13,9 +13,9 @@ Feature: [817996] As a PLAU user I want to view a table of contents So that I ca
     Then the user see Table of content
 
     Examples: 
-      | guid                              |
-      | If13ba3b4d4d811e598dc8b09b4f043e0 |
-      | I53cfffa798de11e598dc8b09b4f043e0 |
+      | guid                              | id |
+      | If13ba3b4d4d811e598dc8b09b4f043e0 | 1  |
+      | I53cfffa798de11e598dc8b09b4f043e0 | 2  |
 
   @gold
   Scenario: [817996] The case documents contain Table of content

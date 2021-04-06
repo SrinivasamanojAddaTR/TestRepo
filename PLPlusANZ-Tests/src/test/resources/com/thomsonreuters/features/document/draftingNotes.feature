@@ -3,15 +3,15 @@ Feature: [818022] As a: website user  I want: to be able to show or hide individ
 
 
   @gold
-  Scenario Outline: Expand and Close Individual Drafting Notes for <documentType>
+  Scenario Outline: Expand and Close Individual Drafting Notes for <documentType>-<id>
    Given ANZ user is logged in
     When ANZ user navigates directly to document with guid "<guid>"
     And see the expanded drafting notes heading is "<heading>"
     And user is able to close the first drafting notes
     Examples:
-      | documentType      | guid                              | heading             |
-      | Standard Document | Ifb5c26ca995811e598dc8b09b4f043e0 | About this document |
-      | Standard Clauses  | I1c042c1a98eb11e598dc8b09b4f043e0 | About this document |
+      | documentType      | guid                              | heading             | id |
+      | Standard Document | Ifb5c26ca995811e598dc8b09b4f043e0 | About this document | 1  |
+      | Standard Clauses  | I1c042c1a98eb11e598dc8b09b4f043e0 | About this document | 2  |
 
  @gold
  Scenario: Verify the 'Show All', 'Hide All' and Show Notes only functionality of a standard document

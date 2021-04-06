@@ -7,7 +7,7 @@ Background:
 
 
   @smoke @gold
-  Scenario Outline: [818000] As a PL AU login/password user I want to view document metadata
+  Scenario Outline: [818000] As a PL AU login/password user I want to view document metadata-<id>
 	Given ANZ user navigates directly to document with guid "<guid>"
 	Then resource status "<resource status>" is displayed on the document right hand panel 
 	And resource type is displayed as "<documentType>" on right hand panel 
@@ -17,10 +17,10 @@ Background:
 	And 'View Resource History' link is <resource history> on the right hand panel 
 	And 'Related Content' link is <related content> on the right hand panel 
 	Examples: 
-	| guid 					                      | resource status    			    | jurisdictions     	| resource history  | related content | documentType          | maintained    |
-	| Ifb5c26cb995811e598dc8b09b4f043e0   | Maintained		      		    | Australia,Federal		| Not displayed			| displayed			  | Practice notes		    | displayed		  |
-	| I7b0defd8cac011e598dc8b09b4f043e0   | Law stated as at 17-Dec-2015| Australia,Victoria  | Not displayed		  | Not displayed		| Legal update: archive | Not displayed |
-	| Ic177c5b0bef311e598dc8b09b4f043e0   | Maintained					        | Australia,Federal   | Not displayed			| Not displayed 	| Toolkit		            | displayed	    |
+	| guid 					                      | resource status    			    | jurisdictions     	| resource history  | related content | documentType          | maintained    | id |
+	| Ifb5c26cb995811e598dc8b09b4f043e0   | Maintained		      		    | Australia,Federal		| Not displayed			| displayed			  | Practice notes		    | displayed		  | 1 |
+	| I7b0defd8cac011e598dc8b09b4f043e0   | Law stated as at 17-Dec-2015| Australia,Victoria  | Not displayed		  | Not displayed		| Legal update: archive | Not displayed | 2 |
+	| Ic177c5b0bef311e598dc8b09b4f043e0   | Maintained					        | Australia,Federal   | Not displayed			| Not displayed 	| Toolkit		            | displayed	    | 3 |
 
 
 @gold

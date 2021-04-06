@@ -16,7 +16,7 @@ Scenario: [817979] As a PL AU login/password user I want to view document
 
 
 @gold
-Scenario Outline: [817979] As a PL AU login/password user I want to view related content section
+Scenario Outline: [817979] As a PL AU login/password user I want to view related content section-<id>
 	Given ANZ user navigates directly to document with guid "<guid>"	 
 	When the user scrolled to the bottom of the document
 	Then the user should see the related content section displayed
@@ -24,8 +24,8 @@ Scenario Outline: [817979] As a PL AU login/password user I want to view related
 	When the user clicks on link in related content with title "<title>"
 	Then document title is displayed as "<title>"
     Examples:
-	    | guid 								 | title 			 | status     |
-	    | Ibd42469eb7e111e598dc8b09b4f043e0	 | Entire agreement  | Maintained  |
+	    | guid 								 | title 			 | status     | id |
+	    | Ibd42469eb7e111e598dc8b09b4f043e0	 | Entire agreement  | Maintained  | 1 |
 
 
 

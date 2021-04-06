@@ -4,7 +4,7 @@ Background:
 	Given ANZ user is not logged in
 	
 
-Scenario Outline: [850119] As a PL AU open web user I want to view document metadata 
+Scenario Outline: [850119] As a PL AU open web user I want to view document metadata-<id>
 	Given ANZ user navigates directly to document with guid "<guid>"
 	Then resource status "<resource status>" is displayed on the document right hand panel 
 	And resource type is displayed as "<documentType>" on right hand panel 
@@ -13,12 +13,12 @@ Scenario Outline: [850119] As a PL AU open web user I want to view document meta
 	And maintained icon is <maintained> on the document right hand panel 
 	And 'Related Content' link is <related content> on the right hand panel 
 	Examples: 
-	| guid                            	 | resource status    				| jurisdictions     	| related content   | documentType      		| maintained    |
-	| I7b0defd8cac011e598dc8b09b4f043e0   | Law stated as at 17-Dec-2015	| Australia,Victoria	| Not displayed		| Legal update: archive		| Not displayed		|
-	| Ibd42469eb7e111e598dc8b09b4f043e0   | Maintained						| Australia,Federal		| displayed			| Standard documents		| displayed |
+	| guid                            	 | resource status    				| jurisdictions     	| related content   | documentType      		| maintained    | id |
+	| I7b0defd8cac011e598dc8b09b4f043e0   | Law stated as at 17-Dec-2015	| Australia,Victoria	| Not displayed		| Legal update: archive		| Not displayed	| 1  |
+	| Ibd42469eb7e111e598dc8b09b4f043e0   | Maintained						| Australia,Federal		| displayed			| Standard documents		| displayed     | 2  |
 
 
-Scenario Outline: [850119] As a PL AU open web user I want to browse to related content
+Scenario Outline: [850119] As a PL AU open web user I want to browse to related content-<id>
 	Given ANZ user navigates directly to document with guid "<guid>"
 	Then document title is displayed as "<title>" 
 	When the user clicks on "Related Content" link
@@ -27,12 +27,12 @@ Scenario Outline: [850119] As a PL AU open web user I want to browse to related 
 	When the user clicks on link in related content with title "<relatedtitle>"
 	Then document title is displayed as "<relatedtitle>"
 Examples:
-	| guid								| title 						    |	relatedtitle								          | relatedstatus	|
-	| Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence: acquisitions	    |  Legal due diligence review template: corporate records | 	Maintained  |
+	| guid								| title 						    |	relatedtitle								          | relatedstatus	| id |
+	| Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence: acquisitions	    |  Legal due diligence review template: corporate records | 	Maintained  | 1  |
 
 #bug/story  868506, 871345 - for trial link
 @gold
-Scenario Outline: [850119] As a PL AU open web user I want to view open web version of document
+Scenario Outline: [850119] As a PL AU open web user I want to view open web version of document-<id>
 	Given ANZ user navigates directly to document with guid "<guid>"
 	Then document title is displayed as "<title>" 
 	And author name "<author>" is displayed underneath the document title 
@@ -54,18 +54,18 @@ Scenario Outline: [850119] As a PL AU open web user I want to view open web vers
 	Then the source document with guid "<guid>" remains open and new tab opens
     And the user is taken to "https://legal.thomsonreuters.com.au/products/practical-law/contact-us.aspx?utm_source=practical-law-product-site&utm_medium=banner&utm_campaign=practical-law" resource
 Examples:
-	| guid								| title 						    | author 						| 	summary							| body					|
-	| Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence: acquisitions   	|by Practical Law Corporate 	| This note considers the purpose 	| The potential buyer	|
+	| guid								| title 						    | author 						| 	summary							| body					| id |
+	| Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence: acquisitions   	|by Practical Law Corporate 	| This note considers the purpose 	| The potential buyer	| 1  |
 
   @smoke @gold
-  Scenario Outline: [850119] As a PL AU open web user I want to view full document if it is free to view
+  Scenario Outline: [850119] As a PL AU open web user I want to view full document if it is free to view-<id>
 	When ANZ user navigates directly to document with guid "<guid>"
 	Then document title is displayed as "<title>"
 	And the full text document will be displayed including "<body>"
 Examples:
-	| guid								| title 													| 	body							| 	
-	| Ib9aa19f71c9a11e38578f7ccc38dcbee | Arbitration procedures and practice in Brazil: overview	| To compare answers across 	|   
-	| Idb567852df4611e598dc8b09b4f043e0 | Control													| In some cases control is given |
+	| guid								| title 													| 	body						| id |
+	| Ib9aa19f71c9a11e38578f7ccc38dcbee | Arbitration procedures and practice in Brazil: overview	| To compare answers across 	| 1  |
+	| Idb567852df4611e598dc8b09b4f043e0 | Control													| In some cases control is given| 2  |
 	
 
 
