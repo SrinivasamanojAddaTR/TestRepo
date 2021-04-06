@@ -27,40 +27,40 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
     And user clicks on "Request Training" link
     Then user was taken to url "https://support.thomsonreuters.com.au/request-training-0"
 
-  Scenario Outline: User verifies the functionality of footer links that lead to internal pages
+  Scenario Outline: User verifies the functionality of footer links that lead to internal pages-<id>
     When user clicks on "<footer>" link
     Then the user is presented with a page with header "<header>"
     And the page URL contains "<url>"
     Examples:
-      | footer                             | header                            | url                                            |
-      | About Practical Law                | About Us                          | /Browse/Home/About/AboutUs                     |
-      | Meet the team                      | Our team                          | /Browse/Home/About/OurTeam                     |
-      | How are we using your information? | How we are using your information | Browse/Home/About/HowWeAreUsingYourInformation |
+      | footer                             | header                            | url                                            | id |
+      | About Practical Law                | About Us                          | /Browse/Home/About/AboutUs                     | 1  |
+      | Meet the team                      | Our team                          | /Browse/Home/About/OurTeam                     | 2  |
+      | How are we using your information? | How we are using your information | Browse/Home/About/HowWeAreUsingYourInformation | 3  |
   @archived
     Examples:
       | footer             | header       | url                             |
       | Contributing Firms | Contributors | /Browse/Home/About/Contributors |
 
-  Scenario Outline: User verifies the functionality of footer links that lead to internal pages - indirect
+  Scenario Outline: User verifies the functionality of footer links that lead to internal pages - indirect-<id>
     When user clicks on "<firstLink>" link
     When user clicks on "<footer>" link
     Then the user is presented with a page with header "<header>"
     And the page URL contains "<url>"
     Examples:
-      | footer         | header         | url                              | firstLink           |
-      | Testimonials   | Testimonials   | /Browse/Home/About/Testimonials  | About Practical Law |
-      | Advisory board | Advisory board | /Browse/Home/About/AdvisoryBoard | Our Team            |
+      | footer         | header         | url                              | firstLink           | id |
+      | Testimonials   | Testimonials   | /Browse/Home/About/Testimonials  | About Practical Law | 1  |
+      | Advisory board | Advisory board | /Browse/Home/About/AdvisoryBoard | Our Team            | 2  |
 
-  Scenario Outline: User verifies the functionality of footer links that lead to external pages
+  Scenario Outline: User verifies the functionality of footer links that lead to external pages-<id>
     When user clicks on "<footer>" link
     Then user was taken to url "<url>"
     When user clicks on "<footer>" link
     And user should see the "<PageTitle>" page opened in new tab
     Examples:
-      | footer           | url                                                                   | PageTitle                                  |
-      | Product Support  | https://support.thomsonreuters.com.au/product/practical-law-australia | Practical Law Australia \| Thomson Reuters |
-      | Request Training | https://support.thomsonreuters.com.au                                 | Request Training \| Thomson Reuters        |
-      | Privacy          | https://www.thomsonreuters.com/en/privacy-statement.html              | Privacy statement \| Thomson Reuters       |
+      | footer           | url                                                                   | PageTitle                                  | id |
+      | Product Support  | https://support.thomsonreuters.com.au/product/practical-law-australia | Practical Law Australia \| Thomson Reuters | 1  |
+      | Request Training | https://support.thomsonreuters.com.au                                 | Request Training \| Thomson Reuters        | 2  |
+      | Privacy          | https://www.thomsonreuters.com/en/privacy-statement.html              | Privacy statement \| Thomson Reuters       | 3  |
   @archived
     Examples:
       | footer       | url                                                                                                                   | PageTitle                                                               |

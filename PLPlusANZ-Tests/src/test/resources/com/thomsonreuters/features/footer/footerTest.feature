@@ -3,7 +3,7 @@ Feature: [809111]As a user, I want to see the "Legal Information" and "Privacy" 
   Background:
     Given ANZ user is logged in
 
-  Scenario Outline: User verifies the functionality of "Privacy" Information"
+  Scenario Outline: User verifies the functionality of "Privacy" Information"-<id>
     When user should see footer
     When user should see the "How are we using your information?" link
     And user should see the "<Link>" link
@@ -11,10 +11,10 @@ Feature: [809111]As a user, I want to see the "Legal Information" and "Privacy" 
     Then user should see Private Policy and Cookies page in the new tab
 
     Examples:
-      | Link    |
-      | Privacy |
+      | Link    | id |
+      | Privacy | 1  |
 
-  Scenario Outline: User verifies the functionality of "Legal Information"
+  Scenario Outline: User verifies the functionality of "Legal Information"-<id>
     When user should see footer
     When user should see the "How are we using your information?" link
     And user should see the "<Link>" link
@@ -22,8 +22,8 @@ Feature: [809111]As a user, I want to see the "Legal Information" and "Privacy" 
     And user should see the "<PageTitle>" page is opened
 
     Examples:
-      | Link                               | PageTitle                         |
-      | How are we using your information? | How we are using your information |
+      | Link                               | PageTitle                         | id |
+      | How are we using your information? | How we are using your information | 1  |
 
   Scenario: User verifies the functionality of "Legal Information"
     When user clicks on "Permitted Use FAQs" link

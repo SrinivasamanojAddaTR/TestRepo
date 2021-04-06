@@ -1,6 +1,6 @@
 Feature: [809387] I want to view the "Meet the Team"
 
-  Scenario Outline: [809387] As a PL Australia User (PLAU) I want to view the "Meet the Team" page So that I can find out who works on the Practical Law website and what their background is
+  Scenario Outline: [809387] As a PL Australia User (PLAU) I want to view the "Meet the Team" page So that I can find out who works on the Practical Law website and what their background is-<id>
     Given ANZ user is logged in
     When user clicks on meet the team link
     Then the user verifies that the current PageTitle contains '<pageTitle>'
@@ -13,7 +13,7 @@ Feature: [809387] I want to view the "Meet the Team"
     And profiles are not empty
 
     Examples:
-      | pageTitle | PA                     | numberOfProfiles |
-      | Our team  | Company Law            | 7                |
-      | Our team  | Corporate Transactions | 7                |
-      | Our team  | Employment             | 2                |
+      | pageTitle | PA                     | numberOfProfiles | id |
+      | Our team  | Company Law            | 7                | 1  |
+      | Our team  | Corporate Transactions | 7                | 2  |
+      | Our team  | Employment             | 2                | 3  |
