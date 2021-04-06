@@ -10,7 +10,7 @@ Background:
 
 #intermittent issue:
 #848623 Bug [PLAU only] Glossary: Error when opening glossary article (Stream not readable)
-Scenario Outline: Verification of the search text box 
+Scenario Outline: Verification of the search text box-<id>
 	Then the user should be able to see the Search text box on the right hand side of the page 
 	And the user saves the list of terms containing "<term>"
 	And the user saves the list of terms containing "<term>a"
@@ -26,8 +26,8 @@ Scenario Outline: Verification of the search text box
 	Then the user should be able to see a list of resulting glossary terms containing this search "<term>a" highlighted 
 	And the total matches for the term "<term>a" should be displayed  
 	Examples:
-	|term	|
-	|dis	|
+	|term	| id |
+	|dis	| 1  |
 		
 	
 Scenario: Verify the closing of search box functionality

@@ -33,7 +33,7 @@ Scenario: Navigation from one glossary page to another
 	And letter "I" should be selected on the alphabet tab 
 	
 	
-Scenario Outline: Verification of the search text box 
+Scenario Outline: Verification of the search text box-<id>
 	Then the user should be able to see the Search text box on the right hand side of the page 
 	And the user saves the list of terms containing "<term>" 
 	And the user saves the list of terms containing "<term>a" 
@@ -49,8 +49,8 @@ Scenario Outline: Verification of the search text box
 	Then the user should be able to see a list of resulting glossary terms containing this search "<term>a" highlighted 
 	And the total matches for the term "<term>a" should be displayed 
 	Examples: 
-		|term	|
-		|dis	|
+		|term	| id |
+		|dis	| 1  |
 
 Scenario: Verification of the navigation from glossary definition page to actual know how resource
     When the user clicks on glossary term "Disability Discrimination Act 1992 (Cth) (DDA)"
