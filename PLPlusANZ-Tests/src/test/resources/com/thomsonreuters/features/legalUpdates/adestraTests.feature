@@ -2,7 +2,7 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
 
   # do not remove this tag. this tag is to clean all users subcriptions.
   @manual @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
-  Scenario Outline: 
+  Scenario Outline: Unsubscribe All subscriptions-<id>
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |
       | mandatoryRouting | YES          |
@@ -15,13 +15,13 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
     And all email service check boxes on the preference page should be unchecked
 
     Examples: 
-      | region | corporate  | frequency |
-      | AU     | Employment | W         |
+      | region | corporate  | frequency | id |
+      | AU     | Employment | W         | 1  |
 
   # do not remove this tag. this tag is to clean all users subcriptions.
   @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
   @manual
-  Scenario Outline: [848639] As user i want to cancel specified subscription
+  Scenario Outline: [848639] As user i want to cancel specified subscription-<id>
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |
       | mandatoryRouting | YES          |
@@ -34,11 +34,11 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
     And the user should be unsubscribed from the "<region>" email service "<corporate>" "<unsubscribe_frequency>"
 
     Examples: 
-      | region | corporate  | frequency | unsubscribe_frequency |
-      | AU     | Employment | W         | W                     |
+      | region | corporate  | frequency | unsubscribe_frequency | id |
+      | AU     | Employment | W         | W                     | 1  |
 
   @gold
-  Scenario Outline: [848639] As user i want to see services and relevant checkboxes the page.
+  Scenario Outline: [848639] As user i want to see services and relevant checkboxes the page.-<id>
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |
       | mandatoryRouting | YES          |
@@ -48,8 +48,8 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
     And each "<region>" service should have the relevant check box options
 
     Examples: 
-      | region |
-      | AU     |
+      | region | id |
+      | AU     | 1  |
 
   Scenario: [848639] As user i want to see HTML and Text Only radiobuttons and 'Receive an email even if there are no new items' checkbox
     Given ANZ user is logged in
@@ -68,7 +68,7 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
 
   # do not remove this tag. this tag is to clean all users subcriptions.
   @manual @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption
-  Scenario Outline: [848639] As user i want to see saved subscription
+  Scenario Outline: [848639] As user i want to see saved subscription-<id>
     Given ANZ user is logged in with following details
       | routing          | ANZ_IAC      |
       | mandatoryRouting | YES          |
@@ -81,8 +81,8 @@ Feature: [848639] As a PLAU User I want to unsubscribe from all services
     And the "<region>" "<corporate>" check boxes "<frequency>" should be selectable
 
     Examples: 
-      | region | corporate  | frequency |
-      | AU     | Employment | W         |
+      | region | corporate  | frequency | id |
+      | AU     | Employment | W         | 1  |
 
   # do not remove this tag. this tag is to clean all users subcriptions.
   @UsubscribeUserFromAllSubscriptionsAndRemoveUnsubscribeOption

@@ -6,7 +6,7 @@ Feature: [848112][848110] view legal updates page
     Given ANZ user is logged in
 
 
-  Scenario Outline: [848112] User verifies the Legal updates by Practice Area going through Legal Update Resource page
+  Scenario Outline: [848112] User verifies the Legal updates by Practice Area going through Legal Update Resource page-<id>
     When the user select Legal Updates link on Resource tab area
     Then list of practice areas will be displayed
       | Employment |
@@ -14,11 +14,11 @@ Feature: [848112][848110] view legal updates page
     Then the user should be presented with a list of LU documents
     And the results should be from the relevant PA "<practiceArea>"
     Examples:
-      | practiceArea |
-      | Employment   |
+      | practiceArea | id |
+      | Employment   | 1  |
 
 
-  Scenario Outline: [848112] User verifies the Legal updates by Practice Area going through PA page
+  Scenario Outline: [848112] User verifies the Legal updates by Practice Area going through PA page-<id>
     When the user clicks on the tab "Practice Areas"
     And the user opens "<practiceArea>" link
     Then the user is presented with a page with header "<practiceArea>"
@@ -26,8 +26,8 @@ Feature: [848112][848110] view legal updates page
     Then the user should be presented with a list of LU documents
     And the results should be from the relevant PA "<practiceArea>"
     Examples:
-      | practiceArea |
-      | Employment   |
+      | practiceArea | id |
+      | Employment   | 1  |
 
 
   Scenario: [848110] As a PLAU User I want to view all existing legal updates on PL content

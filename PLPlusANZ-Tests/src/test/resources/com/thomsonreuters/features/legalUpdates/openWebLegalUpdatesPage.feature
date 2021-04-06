@@ -7,7 +7,7 @@ So that I can find the latest updates in the industry
 	Background:
     Given PL+ ANZ user navigates to home page
 
-  Scenario Outline: [850132] Open web user verifies the Legal updates by Practice Area going through Legal Update Resource page
+  Scenario Outline: [850132] Open web user verifies the Legal updates by Practice Area going through Legal Update Resource page-<id>
     When the user select Legal Updates link on Resource tab area
     Then list of practice areas will be displayed
       | Employment |
@@ -16,10 +16,10 @@ So that I can find the latest updates in the industry
     And he does not see in the search results page any link related to delivery options (email, download, print)
     And the results should be from the relevant PA "<practiceArea>"
     Examples: 
-      | practiceArea |
-      | Employment   |
+      | practiceArea | id |
+      | Employment   | 1  |
 
-  Scenario Outline: [850132] Open web user verifies the Legal updates by Practice Area going through PA page
+  Scenario Outline: [850132] Open web user verifies the Legal updates by Practice Area going through PA page-<id>
     When the user clicks on the tab "Practice Areas"
     And the user opens "<practiceArea>" link
 	Then the user is presented with a page with header "<practiceArea>"
@@ -27,8 +27,8 @@ So that I can find the latest updates in the industry
     Then the user should be presented with a list of LU documents
     And the results should be from the relevant PA "<practiceArea>"
     Examples: 
-      | practiceArea |
-      | Employment   |
+      | practiceArea | id |
+      | Employment   | 1  |
 
    Scenario: [850132] As a open web User I want to view all existing legal updates on PL content
     When the user select Legal Updates link on Resource tab area
