@@ -1,6 +1,6 @@
 Feature: [821548] As a PLAU User I want to be able to delete a folder So that I can remove folders I am no longer using 
 
-  Scenario Outline: 
+  Scenario Outline: Delete folders no longer in use-<id>
     Given ANZ user is logged in
     When API cleans all folders and history
     And user relogs in
@@ -22,5 +22,5 @@ Feature: [821548] As a PLAU User I want to be able to delete a folder So that I 
     
 
     Examples: 
-      | folder1 | parentFolder1 | folder2 | folder3 |
-      | new123  | root          | new456  | new789  |
+      | folder1 | parentFolder1 | folder2 | folder3 | id |
+      | new123  | root          | new456  | new789  | 1  |

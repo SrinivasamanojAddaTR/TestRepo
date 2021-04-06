@@ -2,7 +2,7 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
 
 
   @gold
-  Scenario Outline: [831936] User verifies the topic page.
+  Scenario Outline: [831936] User verifies the topic page.-<id>
     Given ANZ user is logged in
     And user opens "Practice Areas" link
     And the user navigates to practice area "<PA>" filtered by "<Topic Page>" topic page

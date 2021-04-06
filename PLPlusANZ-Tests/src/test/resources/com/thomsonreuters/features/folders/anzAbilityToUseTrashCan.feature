@@ -1,6 +1,6 @@
 Feature: [821888] As a PLAU User I want to view the Trash can feature So that I can permanently delete my foldered documents
 
-  Scenario Outline: 
+  Scenario Outline: Moving to Trash folder and restoring-<id>
     Given ANZ user is logged in
     When API cleans all folders and history and user relogs in
     When the user opens 'Resources' link
@@ -17,5 +17,5 @@ Feature: [821888] As a PLAU User I want to view the Trash can feature So that I 
     When the user selects the document and moves back to original folder "<folder>"
     Then the document should be removed from Trash and be moved to folder "<folder>"
     Examples: 
-      | query | folder | parentFolder |
-      | Tax   | test22 | root         |
+      | query | folder | parentFolder | id |
+      | Tax   | test22 | root         | 1  |

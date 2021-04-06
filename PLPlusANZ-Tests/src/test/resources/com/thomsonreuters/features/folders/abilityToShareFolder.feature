@@ -16,7 +16,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     When API cleans all folders and history
 
 
-  Scenario Outline: Share via email address
+  Scenario Outline: Share via email address-<id>
     When API cleans all folders and history and user relogs in
     When the user clicks on 'Folders' link on the header
     And the user creates new folder "<folder>" in "<parentFolder>" folder
@@ -25,11 +25,11 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     Then invitation email is received at "<emailToShare>" with link to PLAU
 
     Examples:
-      | folder | parentFolder | owner        | emailToShare                                      |
-      | share1 | root         | ANZtestuser2 | tr-anz-tester2@epam-email-pluk.thomsonreuters.com |
+      | folder | parentFolder | owner        | emailToShare                                      | id |
+      | share1 | root         | ANZtestuser2 | tr-anz-tester2@epam-email-pluk.thomsonreuters.com | 1  |
 
 
-  Scenario Outline: Share with groups and endsharing
+  Scenario Outline: Share with groups and endsharing-<id>
     When API cleans all folders and history and user relogs in
     When the user clicks on 'Folders' link on the header
     And the user creates new folder "<folder>" in "<parentFolder>" folder
@@ -52,10 +52,10 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     Then the folder "<folder>" is absent in shared folders
 
     Examples:
-      | folder | parentFolder | role     | group |
-      | share2 | root         | Reviewer | gr1   |
+      | folder | parentFolder | role     | group | id |
+      | share2 | root         | Reviewer | gr1   | 1  |
 
-  Scenario Outline: Share with contacts and endsharing
+  Scenario Outline: Share with contacts and endsharing-<id>
   When API cleans all folders and history and user relogs in
     When the user clicks on 'Folders' link on the header
     And the user creates new folder "<folder>" in "<parentFolder>" folder
@@ -86,10 +86,10 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     Then the folder "<folder>" is absent in shared folders
 
     Examples:
-      | folder | parentFolder | role     | role2       |
-      | share3 | root         | Reviewer | Contributor |
+      | folder | parentFolder | role     | role2       | id |
+      | share3 | root         | Reviewer | Contributor | 1  |
 
-  Scenario Outline: [821925] Edit the Users I have shared my folders with
+  Scenario Outline: [821925] Edit the Users I have shared my folders with-<id>
     When API cleans all folders and history and user relogs in
     When the user clicks on 'Folders' link on the header
     And the user creates new folder "<folder>" in "<parentFolder>" folder
@@ -132,5 +132,5 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     Then user with role "<role2>" is able to create new folder "<folder3>" in shared folder "<folder>"
 
     Examples:
-      | folder | parentFolder | role     | role2       | folder2      | folder3       |
-      | share4 | root         | Reviewer | Contributor | nestedshare4 | nested2share4 |
+      | folder | parentFolder | role     | role2       | folder2      | folder3       | id |
+      | share4 | root         | Reviewer | Contributor | nestedshare4 | nested2share4 | 1  |

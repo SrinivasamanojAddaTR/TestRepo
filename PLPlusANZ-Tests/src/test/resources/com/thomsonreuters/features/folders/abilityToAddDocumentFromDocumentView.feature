@@ -13,7 +13,7 @@ Feature: [821529][821558] Add, remove documents to folder
     And user relogs in
 
    @gold
-   Scenario Outline: Add document to folder from document view
+   Scenario Outline: Add document to folder from document view-<id>
      When API cleans all folders and history and user relogs in
 	And the user runs a free text search for the query "<query>"
     And the user opens '1' link in the search result and store its title and guid
@@ -29,8 +29,8 @@ Feature: [821529][821558] Add, remove documents to folder
     And the document Content type in Trash is correct
     And the document date in Trash is correct
     Examples: 
-      | query    	| folder | parentFolder |
-      | test      	| test10 | root         |
-      | tax      	| test11 | root         |
-      | board      	| test12 | root         |
+      | query    	| folder | parentFolder | id |
+      | test      	| test10 | root         | 1  |
+      | tax      	| test11 | root         | 2  |
+      | board      	| test12 | root         | 3  |
 

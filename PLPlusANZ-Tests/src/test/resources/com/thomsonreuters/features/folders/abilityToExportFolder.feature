@@ -11,7 +11,7 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
   Scenario: Clean folders
     Given API cleans all folders and history
 
-  Scenario Outline: [821552] Export documents in PDF format as a single merged file
+  Scenario Outline: [821552] Export documents in PDF format as a single merged file-<id>
     Given the user has <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
       | Ifb5c2817995811e598dc8b09b4f043e0 |
@@ -25,11 +25,11 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
     And the document includes document body that contains text "<docText1>"
     And the document includes document body that contains text "<docText2>"
     Examples:
-      | folder     | docText1                                         | docText2                                |
-      | testFolder | This note summarises how the courts have decided | Why is financial assistance prohibited? |
+      | folder     | docText1                                         | docText2                                | id |
+      | testFolder | This note summarises how the courts have decided | Why is financial assistance prohibited? | 1  |
 
 
-  Scenario Outline: [821552] Export documents in RTF format as a single merged file
+  Scenario Outline: [821552] Export documents in RTF format as a single merged file-<id>
     Given the user has <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
       | Ifb5c2817995811e598dc8b09b4f043e0 |
@@ -41,10 +41,10 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
       | Table of Contents | Selected             |
     Then user exports the document with name "2 full text items exported from My Folders" and extension ".rtf"
     Examples:
-      | folder     |
-      | testFolder |
+      | folder     | id |
+      | testFolder | 1  |
 
-  Scenario Outline: [821552] Export documents in Microsoft Word format as a single merged file
+  Scenario Outline: [821552] Export documents in Microsoft Word format as a single merged file-<id>
     Given the user has <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
       | Ifb5c2817995811e598dc8b09b4f043e0 |
@@ -56,13 +56,13 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
       | Table of Contents | Selected             |
     Then user exports the document with name "2 full text items exported from My Folders" and extension ".doc"
     Examples:
-      | folder     |
-      | testFolder |
+      | folder     | id |
+      | testFolder | 1  |
 		
 ###############################################################################################################
 ## Export the list of items in either Microsoft Word, RTF, PDF or EXcel format
 ###############################################################################################################
-  Scenario Outline: [821552] Download list of items in PDF format
+  Scenario Outline: [821552] Download list of items in PDF format-<id>
     Given the user has <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
       | Ifb5c2817995811e598dc8b09b4f043e0 |
@@ -76,10 +76,10 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
     And the document does not include document body that contains text "<docText1>"
     And the document does not include document body that contains text "<docText2>"
     Examples:
-      | folder     | title1                                                                            | title2               | docText1                            | docText2                                |
-      | testFolder | Summary of significant adverse action case law involving ill or injured employees | Financial assistance | This note summarises how the courts | Why is financial assistance prohibited? |
+      | folder     | title1                                                                            | title2               | docText1                            | docText2                                | id |
+      | testFolder | Summary of significant adverse action case law involving ill or injured employees | Financial assistance | This note summarises how the courts | Why is financial assistance prohibited? | 1  |
 
-  Scenario Outline: [821552] Download list of items in CSV format
+  Scenario Outline: [821552] Download list of items in CSV format-<id>
     Given the user has <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
       | Ifb5c2817995811e598dc8b09b4f043e0 |
@@ -89,10 +89,10 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
       | Format Value  | Microsoft Excel (CSV) |
     Then user exports the document with name "List of 2 items exported from My Folders" and extension ".csv"
     Examples:
-      | folder     |
-      | testFolder |
+      | folder     | id |
+      | testFolder | 1  |
 
-  Scenario Outline: [821552] Download list of items in RTF format
+  Scenario Outline: [821552] Download list of items in RTF format-<id>
     Given the user has <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
       | Ifb5c2817995811e598dc8b09b4f043e0 |
@@ -102,10 +102,10 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
       | Format Value  | Word Processor (RTF) |
     Then user exports the document with name "List of 2 items exported from My Folders" and extension ".rtf"
     Examples:
-      | folder     |
-      | testFolder |
+      | folder     | id |
+      | testFolder | 1  |
 
-  Scenario Outline: [821552] Download list of items in Microsoft Word format
+  Scenario Outline: [821552] Download list of items in Microsoft Word format-<id>
     Given the user has <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
       | Ifb5c2817995811e598dc8b09b4f043e0 |
@@ -115,10 +115,10 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
       | Format Value  | Microsoft Word |
     Then user exports the document with name "List of 2 items exported from My Folders" and extension ".rtf"
     Examples:
-      | folder     |
-      | testFolder |
+      | folder     | id |
+      | testFolder | 1  |
 
-  Scenario Outline: [821552] Download list of items in PDF format from 2+ folders
+  Scenario Outline: [821552] Download list of items in PDF format from 2+ folders-<id>
     Given the user has <folder1> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
       | Ifb5c2817995811e598dc8b09b4f043e0 |
@@ -136,8 +136,8 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
     And the document includes title "<folder1>"
     And the document includes title "<folder2>"
     Examples:
-      | folder1    | folder2      | title1                                                                            | title2             |
-      | testFolder | secondFolder | Summary of significant adverse action case law involving ill or injured employees | Heads of agreement |
+      | folder1    | folder2      | title1                                                                            | title2             | id |
+      | testFolder | secondFolder | Summary of significant adverse action case law involving ill or injured employees | Heads of agreement | 1  |
 
 ###############################################################################################################
 ## Cancel button and Back button
@@ -150,7 +150,7 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
     And the user clicks the Cancel button on Export Wizard
     Then the user doesn't see an Export wizard
 
-  Scenario Outline: [821552] There will be a back button to go back and select a new folder
+  Scenario Outline: [821552] There will be a back button to go back and select a new folder-<id>
     Given the user has <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
       | Ifb5c2817995811e598dc8b09b4f043e0 |
@@ -158,13 +158,13 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
     And the user clicks the Back button on Export Wizard
     Then the user sees an Export wizard
     Examples:
-      | folder     |
-      | testFolder |
+      | folder     | id |
+      | testFolder | 1  |
 ###############################################################################################################
 ## Exporting Documents 
 ## Exporting multiple files will be exported in a Zip file format
 ###############################################################################################################
-  Scenario Outline: [821552] Export documents in zip file
+  Scenario Outline: [821552] Export documents in zip file-<id>
     Given the user has <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |
       | Ifb5c2817995811e598dc8b09b4f043e0 |
@@ -175,8 +175,8 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
       | As        | Multiple Files (zip) |
     Then user exports the document with name "2 full text items exported from My Folders" and extension ".zip"
     Examples:
-      | folder     |
-      | testFolder |
+      | folder     | id |
+      | testFolder | 1  |
 
   @manual
   Scenario: [821552] Export documents in zip file from 2+ folders

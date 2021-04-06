@@ -1,7 +1,7 @@
 Feature: [821544] As a PLAU User I want to rename a folder so that I can rename the folder based on my needs
 
 
-  Scenario Outline: 
+  Scenario Outline: Rename folders-<id>
      Given ANZ user is logged in
     When API cleans all folders and history
     And user relogs in
@@ -16,5 +16,5 @@ Feature: [821544] As a PLAU User I want to rename a folder so that I can rename 
     Then the folder "<folder3>" disappear from "<parentFolder1>" folder
 
     Examples: 
-      | folder1 | parentFolder1 | folder2 | folder3 |
-      | new123  | root          | pl1245  | pl1     |
+      | folder1 | parentFolder1 | folder2 | folder3 | id |
+      | new123  | root          | pl1245  | pl1     | 1  |

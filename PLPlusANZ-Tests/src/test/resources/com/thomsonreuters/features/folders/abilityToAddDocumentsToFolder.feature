@@ -10,7 +10,7 @@ Feature: [821529] As a PLAU UserI want to be able to add a document to a folder 
     And user relogs in
 
 @gold
-Scenario Outline: From Home Page
+Scenario Outline: From Home Page-<id>
     And the user runs a free text search for the query "<query>"
     And the user selects '2' documents, stores its titles and guids and saves to new "<folder>" folder with parent folder "<parentFolder>"
     When the user clicks on 'Folders' link on the header
@@ -18,12 +18,12 @@ Scenario Outline: From Home Page
     When the user deletes all documents from "<folder>" folder
     Then the folder "<folder>" is empty
     Examples: 
-      | query    | folder | parentFolder |
-      | document | test20  | root         |
+      | query    | folder | parentFolder | id |
+      | document | test20  | root        | 1  |
 
 
  @gold
- Scenario Outline: Know how
+ Scenario Outline: Know how-<id>
     When the user opens 'Resources' link
     And the user opens 'Standard documents and drafting notes' link
     And the user opens 'Company Law' link
@@ -33,12 +33,12 @@ Scenario Outline: From Home Page
     When the user deletes all documents from "<folder>" folder
     Then the folder "<folder>" is empty
     Examples: 
-       | folder | parentFolder |
-       | test21 | root         |
+       | folder | parentFolder | id |
+       | test21 | root         | 1  |
 
 #Legal updates link is temporary absent. Lisa will add link and notify Kostya.
  @gold
- Scenario Outline: Legal Updates
+ Scenario Outline: Legal Updates-<id>
     When the user opens 'Resources' link
     When the user opens 'Legal updates' link
     And the user opens 'Employment' link
@@ -48,11 +48,11 @@ Scenario Outline: From Home Page
     When the user deletes all documents from "<folder>" folder
     Then the folder "<folder>" is empty
     Examples: 
-      | folder |
-      | root   |
+      | folder | id |
+      | root   | 1  |
 
  @gold
- Scenario Outline: Topics page
+ Scenario Outline: Topics page-<id>
     When user opens "Practice Areas" link
     And the user navigates to practice area "Company Law" filtered by "Company administration and meetings" topic page
     And the user selects '2' documents, stores its titles and guids and saves to "<folder>" folder
@@ -61,8 +61,8 @@ Scenario Outline: From Home Page
     When the user deletes all documents from "<folder>" folder
     Then the folder "<folder>" is empty
     Examples:
-      | folder |
-      | root   |
+      | folder | id |
+      | root   | 1  |
 
     @manual
     Scenario: Add Description to document in folder

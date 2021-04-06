@@ -12,14 +12,14 @@ Background:
     And the user waits search result to load
     And the user selects '4' documents, stores its titles and guids and saves to "root" folder
 
-  Scenario Outline: 
+  Scenario Outline: Search within folders-<id>
     When the user clicks on 'Folders' link on the header
     And the user searches the term "<searchTerm>" in folders
     Then for search result the matching search term is highlighted "<highlightedTerm>" in folders search results
 
     Examples: 
-      | searchTerm   | highlightedTerm |
-      | tax          | tax             |
-      | tax deed     | tax, deed       |
-      | tax OR deed  | tax, deed       |
-      | tax AND deed | tax, deed       |
+      | searchTerm   | highlightedTerm | id |
+      | tax          | tax             | 1  |
+      | tax deed     | tax, deed       | 2  |
+      | tax OR deed  | tax, deed       | 3  |
+      | tax AND deed | tax, deed       | 4  |
