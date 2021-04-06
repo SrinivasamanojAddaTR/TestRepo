@@ -6,7 +6,7 @@ Feature: [812852] Time Out: Search State
 #bug 868963 Bug [PLAU & PLUK] Search Timeout: child facets state on search page is not retained after timeout
 
 @archived
-  Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
+  Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option-<id>
     Given ANZ user is logged in with following details
       | mandatoryRouting | YES                              |
       | routing          | SPECIFIED_USER_TIMEOUT_7_MINUTES |
@@ -36,11 +36,11 @@ Feature: [812852] Time Out: Search State
     Then user gets redirected to the search page that he was visiting and is logged in
     And the user verifies that the know how facet is selected "<facet22>"
     Examples:
-      | query | facet1      | facet11                             | facet2         | facet22                 |
-      | tax   | Company Law | Company administration and meetings | Practice notes | Practice note: overview |
+      | query | facet1      | facet11                             | facet2         | facet22                 | id |
+      | tax   | Company Law | Company administration and meetings | Practice notes | Practice note: overview | 1  |
 
   @RemoveSRMOptionANZ
-  Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
+  Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option-<id>
     Given ANZ user is logged in with following details
       | routing          | SPECIFIED_USER_TIMEOUT_7_MINUTES |
       | role             | SUPER_REMEMBER_ME_USER           |
@@ -56,5 +56,5 @@ Feature: [812852] Time Out: Search State
     And the user verifies that the know how facet is selected "<facet2>"
 
     Examples:
-      | query | facet1      | facet2                              |
-      | tax   | Company Law | Company administration and meetings |
+      | query | facet1      | facet2                              | id |
+      | tax   | Company Law | Company administration and meetings | 1  |

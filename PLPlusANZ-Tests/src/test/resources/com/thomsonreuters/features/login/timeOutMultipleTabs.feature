@@ -3,7 +3,7 @@ As a PLAU user
 I want to view an open web view of my tabbed search results and documents when my session times out
 So that I do not have to login and perform another search or find the document I was viewing
 
-  Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option
+  Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option-<id>
     Given ANZ user is logged in with following details
       | mandatoryRouting | YES  					|
       | routing  | SPECIFIED_USER_TIMEOUT_7_MINUTES |
@@ -20,11 +20,11 @@ So that I do not have to login and perform another search or find the document I
     And he should stay on same search page as OpenWeb user on first tab
     And user closes second page
     Examples: 
-      | query   | 
-   	  | tax 	| 
+      | query   | id |
+   	  | tax 	| 1  |
   
   @RemoveSRMOptionANZ
-  Scenario Outline: Users who have logged in and selected the Super Remember Me Option
+  Scenario Outline: Users who have logged in and selected the Super Remember Me Option-<id>
     Given ANZ user is logged in with following details
       | mandatoryRouting | YES  					|
       | routing  | SPECIFIED_USER_TIMEOUT_7_MINUTES                  |
@@ -42,5 +42,5 @@ So that I do not have to login and perform another search or find the document I
 	And user closes second page  
 
     Examples: 
-      | query   | 
-      | tax 	|
+      | query   | id |
+      | tax 	| 1  |
