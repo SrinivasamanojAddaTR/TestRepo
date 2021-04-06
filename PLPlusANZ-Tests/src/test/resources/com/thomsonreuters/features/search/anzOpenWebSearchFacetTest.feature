@@ -15,7 +15,7 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
 
 
   @gold
-  Scenario Outline: User verifies the selection of single facet and its count
+  Scenario Outline: User verifies the selection of single facet and its count-<id>
      When the user runs a free text search for the query "law"
     And user expands the "Resource Type" facets group
      And the user selects the know how following parent facets with single selection
@@ -23,9 +23,9 @@ Feature: [850111] As an open web user, I want to filter my search results So tha
       Then the user verifies that the know how following facet is selected and their count is equal to total count
        | <Facet Name> |
   Examples:
-    | Facet Name     |
-    | Practice notes |
-    | Checklists     |
+    | Facet Name     | id |
+    | Practice notes | 1  |
+    | Checklists     | 2  |
 
   @gold
   Scenario: Verify the selection of same group facets and apply filter button

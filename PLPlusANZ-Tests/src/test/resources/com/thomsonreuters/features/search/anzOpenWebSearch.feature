@@ -4,7 +4,7 @@ Feature: [850092] As an open web user I want to perform a search So that I can v
       Given PL+ ANZ user navigates to home page
 
   @gold
-  Scenario Outline: Verify valid search results for single and multiple terms in Open Web
+  Scenario Outline: Verify valid search results for single and multiple terms in Open Web-<id>
 	When the user runs specific operator search for the query "<Search Term>" 
 	And the user can select the option to show less detail 
 	Then the user can verify that the less detail icon is displayed 
@@ -17,10 +17,10 @@ Feature: [850092] As an open web user I want to perform a search So that I can v
 	And the user selects the "20" from per page dropdown 
 	And the user can select the option to show more detail 
 	Examples:
-		| Search Term  |
-		| Tax          |
+		| Search Term  | id |
+		| Tax          | 1  |
 
-  Scenario Outline: Verify invalid search results for single term in Open Web
+  Scenario Outline: Verify invalid search results for single term in Open Web-<id>
 	When the user runs a free text search for the query "<Search Term>" 
 	Then user should see the label "0 Results for "<Search Term>"" in the search result heading 
 	Then user should have suggestion i.e. "Did you mean: <Correct Term>" 
@@ -34,8 +34,8 @@ Feature: [850092] As an open web user I want to perform a search So that I can v
     And the user verifies that the option for sorting by relevance is displayed by default
     And the user clicks on the first link in results
 	Examples:
-		| term |
-		| law |
+		| term | id |
+		| law  | 1  |
 
   Scenario: [850123] Verify valid search results for multiple terms and also the document retrieved in Open web
      Given PL+ ANZ user navigates to home page

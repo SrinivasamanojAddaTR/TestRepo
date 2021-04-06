@@ -8,12 +8,12 @@ Feature: [813300] As a PLAU user, I want to display less, more or most detail fo
    Given ANZ user is logged in
  
  
-  Scenario Outline: Verify default setting for more detail in open web
+  Scenario Outline: Verify default setting for more detail in open web-<id>
     When the user runs a free text search for the query "<query>"
     And the user can verify that the more detail icon is displayed
     Examples:
-      | query    |
-      | tax |
+      | query | id |
+      | tax   | 1  |
 
   Scenario: Verify setting for less, more and most details
     Given the user runs a free text search for the query "tax position"
