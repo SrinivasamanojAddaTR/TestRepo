@@ -1,6 +1,6 @@
 Feature: [809948][850090] Link to another Practical Law web site
 
-  Scenario Outline: Logged in User verifies the Footer links and styling
+  Scenario Outline: Logged in User verifies the Footer links and styling-<id>
     Given ANZ user is logged in
     Then user should see the following countries with respective links
       | Australia  | http://anzlaw.                    |
@@ -10,10 +10,10 @@ Feature: [809948][850090] Link to another Practical Law web site
     And the user selects "<countryName>"
     And the Practical Law Country "<url>" web site "<websiteTitle>" will be launched in the same window and tab
     Examples:
-      | countryName | url                      | websiteTitle                          |
-      | US          | https://1.next.          | US Home \| Practical Law              |
-      | UK          | https://uk.practicallaw. | UK Home \| Practical Law              |
-      | Canada      | https://ca.practicallaw. | Practical Law Canada \| Practical Law |
+      | countryName | url                      | websiteTitle                          | id |
+      | US          | https://1.next.          | US Home \| Practical Law              | 1  |
+      | UK          | https://uk.practicallaw. | UK Home \| Practical Law              | 2  |
+      | Canada      | https://ca.practicallaw. | Practical Law Canada \| Practical Law | 3  |
     @archived
     Examples:
       | countryName | url                                                                 | websiteTitle                     |
@@ -27,7 +27,7 @@ Feature: [809948][850090] Link to another Practical Law web site
     Then the user is taken to the login page in WLAU
 
   #open web user tests
-  Scenario Outline: Open Web User verifies the Footer links and styling
+  Scenario Outline: Open Web User verifies the Footer links and styling-<id>
     Given the user navigates to the main PLANZ page
     And ANZ user is not logged in
     Then user should see the following countries with respective links
@@ -38,10 +38,10 @@ Feature: [809948][850090] Link to another Practical Law web site
     And the user selects "<countryName>"
     And the Practical Law Country "<url>" web site "<websiteTitle>" will be launched in the same window and tab
     Examples:
-      | countryName | url                      | websiteTitle                          |
-      | US          | https://1.next.          | US Home \| Practical Law              |
-      | UK          | https://uk.practicallaw. | UK Home \| Practical Law              |
-      | Canada      | https://ca.practicallaw. | Practical Law Canada \| Practical Law |
+      | countryName | url                      | websiteTitle                          | id |
+      | US          | https://1.next.          | US Home \| Practical Law              | 1  |
+      | UK          | https://uk.practicallaw. | UK Home \| Practical Law              | 2  |
+      | Canada      | https://ca.practicallaw. | Practical Law Canada \| Practical Law | 3  |
     @archived
     Examples:
       | countryName | url                                                                 | websiteTitle                     |
