@@ -4,23 +4,23 @@ Feature: [822642] ResourceTypePage URLs
     Given ANZ user is logged in
 
 	
-  Scenario Outline: Resource Type page URL
+  Scenario Outline: Resource Type page URL-<id>
     When the user opens "<url>" url on PL AU website
     Then the user is presented with a page with header "<header>"
     And the page URL contains "<url>"
 
     Examples: 
-      | url                                                                                  | header                                                 |
-      | /Browse/Home/resources/international-transaction-guides                              | International Transaction Guides                       |
-      | /Browse/Home/Resources/Practicenotes                                                 | Practice Notes                                         |
-      | /Browse/Home/Resources/Checklists                                                    | Checklists                                             |
-      | /Browse/Home/Resources/Standarddocumentsanddraftingnotes                             | Standard Documents                                     |
-      | /Browse/Home/Resources/Standardclausesanddraftingnotes                               | Standard Clauses                                       |
-      | /Browse/Home/Resources/LegalUpdates                                                  | Legal Updates                                          |
+      | url                                                                                  | header                                                 | id |
+      | /Browse/Home/resources/international-transaction-guides                              | International Transaction Guides                       | 1  |
+      | /Browse/Home/Resources/Practicenotes                                                 | Practice Notes                                         | 2  |
+      | /Browse/Home/Resources/Checklists                                                    | Checklists                                             | 3  |
+      | /Browse/Home/Resources/Standarddocumentsanddraftingnotes                             | Standard Documents                                     | 4  |
+      | /Browse/Home/Resources/Standardclausesanddraftingnotes                               | Standard Clauses                                       | 5  |
+      | /Browse/Home/Resources/LegalUpdates                                                  | Legal Updates                                          | 6  |
       ##################################################################################
       ####### Global guides - 2 items selected to test
-      | /Browse/Home/Resources/Globalguides                                                  | Global Guides                                          |
-      | /Browse/Home/Resources/Globalguides/ArbitrationGlobalGuide                           | Arbitration Global Guide                               |
+      | /Browse/Home/Resources/Globalguides                                                  | Global Guides                                          | 7  |
+      | /Browse/Home/Resources/Globalguides/ArbitrationGlobalGuide                           | Arbitration Global Guide                               | 8  |
 #      | /Browse/Home/Resources/Globalguides/CapitalMarketsGlobalGuide                        | Capital Markets Global Guide                           |
 #      | /Browse/Home/Resources/Globalguides/CompetitionGlobalGuideMergerControl              | Competition Global Guide: Merger Control                |
 #      | /Browse/Home/Resources/Globalguides/ConstructionandProjectsGlobalGuide               | Construction and Projects Global Guide                 |

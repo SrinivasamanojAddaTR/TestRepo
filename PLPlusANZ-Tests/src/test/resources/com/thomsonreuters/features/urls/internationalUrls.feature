@@ -12,7 +12,7 @@ Feature: [822645] International Page URLs
     And the page URL contains "<url>"
 
     Examples: 
-      | url                                                                                            | header                                                                      |
+      | url                                                                                            | header                                                                      | id |
       ######################################################################################################
       ###########Countries - 4 items selected + 1 with bug
      # | /Browse/Home/International/IndonesiaRecentlyPublished                                          | Indonesia Recently published                                               |
@@ -157,17 +157,17 @@ Feature: [822645] International Page URLs
 #      | /Browse/Home/International/SalesandMarketingInternationalTransactionGuide                      | Sales and Marketing International Transaction Guide                         |
       #################################################################
       #Practice Areas
-      | /Browse/Home/Practice/Arbitration                                                              | Arbitration                                                                 |
-      | /Browse/Home/Practice/EULaw                                                                    | EU Law                                                                      |
-      | /Browse/Home/Practice/Competition                                                              | Competition                                                                 |
+      | /Browse/Home/Practice/Arbitration                                                              | Arbitration                                                                 | 1  |
+      | /Browse/Home/Practice/EULaw                                                                    | EU Law                                                                      | 2  |
+      | /Browse/Home/Practice/Competition                                                              | Competition                                                                 | 3  |
         
      
-    Scenario Outline: Country Q&A Comparison page URL
+    Scenario Outline: Country Q&A Comparison page URL-<id>
     When the user opens "<url>" url on PL AU website
     Then the user is presented with comparison tool page with header "<header>"
     And the page URL contains "<url>"
 
     Examples: 
-      | url                                                     | header |
-      | /QACompare/Builder/Country                              | Country Q&A Comparison Tool  |
+      | url                                                     | header                       | id |
+      | /QACompare/Builder/Country                              | Country Q&A Comparison Tool  | 1  |
          

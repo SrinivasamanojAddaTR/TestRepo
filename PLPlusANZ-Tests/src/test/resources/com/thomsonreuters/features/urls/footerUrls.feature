@@ -3,43 +3,43 @@ Feature: [826012] Footer URLs
   Background: 
    Given ANZ user is logged in
 
-  Scenario Outline: Footer pages URLs
+  Scenario Outline: Footer pages URLs-<id>
     When the user opens "<url>" url on PL AU website
     Then the user is presented with a page with header "<header>"
     And the page URL contains "<url>"
 
     Examples: 
-      | url                                                                             | header                                           |
-      | /Browse/Home/About/AboutUs                                                      | About Us                                         |
-      | /Browse/Home/About/AboutUsWhyUsePracticalLaw                                    | Why use practical law?                           |
-      | /Browse/Home/About/AboutUsResources                                             | Resources                                        |
-      | /Browse/Home/About/AboutUsOurTeam                                               | Our Team                                         |
-      | /Browse/Home/About/Testimonials                                                 | Testimonials                                     |
-      | /Browse/Home/About/TestimonialsLawFirms                                         | Law Firms                                        |
-      | /Browse/Home/About/TestimonialsCompanies                                        | Companies                                        |
-      | /Browse/Home/About/TestimonialsPublicSector                                     | Public Sector                                    |
-      | /Browse/Home/About/TestimonialsTheBar                                           | The Bar                                          |
+      | url                                                                             | header                                           | id |
+      | /Browse/Home/About/AboutUs                                                      | About Us                                         | 1  |
+      | /Browse/Home/About/AboutUsWhyUsePracticalLaw                                    | Why use practical law?                           | 2  |
+      | /Browse/Home/About/AboutUsResources                                             | Resources                                        | 3  |
+      | /Browse/Home/About/AboutUsOurTeam                                               | Our Team                                         | 4  |
+      | /Browse/Home/About/Testimonials                                                 | Testimonials                                     | 5  |
+      | /Browse/Home/About/TestimonialsLawFirms                                         | Law Firms                                        | 6  |
+      | /Browse/Home/About/TestimonialsCompanies                                        | Companies                                        | 7  |
+      | /Browse/Home/About/TestimonialsPublicSector                                     | Public Sector                                    | 8  |
+      | /Browse/Home/About/TestimonialsTheBar                                           | The Bar                                          | 9  |
       #############################################################################
       ##########Footer - Team
-      | /Browse/Home/About/OurTeam                                                      | Our Team                                         |
-      | /Browse/Home/About/OurTeamEmployment                                            | Our team: Employment                                   |
-      | /Browse/Home/About/OurTeamCompanyLaw                                            | Our team: Company Law                                 |
-      | /Browse/Home/About/OurTeamCorporateTransactions                                 | Our team: Corporate Transactions                      |
-      | /Browse/Home/About/AdvisoryBoard                                                | Advisory board                                   |
+      | /Browse/Home/About/OurTeam                                                      | Our Team                                         | 10 |
+      | /Browse/Home/About/OurTeamEmployment                                            | Our team: Employment                             | 11 |
+      | /Browse/Home/About/OurTeamCompanyLaw                                            | Our team: Company Law                            | 12 |
+      | /Browse/Home/About/OurTeamCorporateTransactions                                 | Our team: Corporate Transactions                 | 13 |
+      | /Browse/Home/About/AdvisoryBoard                                                | Advisory board                                   | 14 |
       ##########################################################################################
       ######Footer - Product Support
-      | /Browse/Home/About/UserGuides                                                   | User Guides                                      |
-      | /Browse/Home/About/Feedback                                                     | Feedback                                         |
+      | /Browse/Home/About/UserGuides                                                   | User Guides                                      | 15 |
+      | /Browse/Home/About/Feedback                                                     | Feedback                                         | 16 |
       #############################################################################################
       ##########Other
-      | /Browse/Home/About/ContactUs                                                    | Contact Us                                       |
+      | /Browse/Home/About/ContactUs                                                    | Contact Us                                       | 17 |
       ###################################################################################
       ##########Footer - Contributors  - 3 items selected
-      | /Browse/Home/About/Contributors                                                 | Contributors                       |
+      | /Browse/Home/About/Contributors                                                 | Contributors                                     | 18 |
 #      | /Browse/Home/About/Contributor/AabEvensenCo                                     | Aab�-Evensen & Co                                    |
-      | /Browse/Home/About/Contributor/AequitasLawLLP                                   | Aequitas Law LLP                                   |
-      | /Browse/Home/About/Contributor/AfridiAngell                                     | Afridi & Angell                                    |
-      | /Browse/Home/About/Contributor/AlTamimiCompany                                  | Al Tamimi & Company                                  |
+      | /Browse/Home/About/Contributor/AequitasLawLLP                                   | Aequitas Law LLP                                 | 19 |
+      | /Browse/Home/About/Contributor/AfridiAngell                                     | Afridi & Angell                                  | 20 |
+      | /Browse/Home/About/Contributor/AlTamimiCompany                                  | Al Tamimi & Company                              | 21 |
 #      | /Browse/Home/About/Contributor/Allens                                           | Allens                                           |
 #      | /Browse/Home/About/Contributor/AliBudiardjoNugrohoReksodiputroABNR              | Ali Budiardjo, Nugroho, Reksodiputro (ABNR)            |
 #      | /Browse/Home/About/Contributor/AnandandAnand                                    | Anand and Anand                                    |
