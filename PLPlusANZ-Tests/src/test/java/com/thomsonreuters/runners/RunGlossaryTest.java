@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "html:target/cucumber-htmlreport/ANZGlossaryReport", "junit:target/junit_cucumber.xml", "json:target/json-files/RunGlossaryTest.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
-        features = "src/test/resources/com/thomsonreuters/features/glossary",
+        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunGlossaryTest.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+        features = "classpath:com/thomsonreuters/features/glossary",
         tags = {"~ ", "~@manual"},
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
