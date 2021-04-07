@@ -24,6 +24,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class AnzBrowseTest extends BaseStepDef {
@@ -39,6 +40,7 @@ public class AnzBrowseTest extends BaseStepDef {
     private FooterUtils footerUtils = new FooterUtils();
     private CommonMethods commonMethods = new CommonMethods();
     private SearchUtils searchUtils = new SearchUtils();
+
     @Then("^user navigates directly to url \"(.*)\"$")
     public void userNavigatesDirectlyToUrl(String url) throws Throwable {
         getDriver().navigate().to(url);
@@ -147,18 +149,18 @@ public class AnzBrowseTest extends BaseStepDef {
         boolean isPresent = false;
         topicPage.waitForPageToLoad();
         topicPage.waitForPageToLoadAndJQueryProcessing();
-            for (String facetName : facetList) {
-                for (WebElement facet : topicPage.facetNameLinksList()) {
-                    String actualFacetText = facet.getText().toLowerCase().trim();
-                    String expectFacetText = facetName.toLowerCase().trim();
-                    if (actualFacetText.contains(expectFacetText)) {
-                        isPresent = true;
-                        break;
-                    }
+        for (String facetName : facetList) {
+            for (WebElement facet : topicPage.facetNameLinksList()) {
+                String actualFacetText = facet.getText().toLowerCase().trim();
+                String expectFacetText = facetName.toLowerCase().trim();
+                if (actualFacetText.contains(expectFacetText)) {
+                    isPresent = true;
+                    break;
                 }
-                assertTrue(facetName + " is not displayed..!", isPresent);
-                isPresent = false;
             }
+            assertTrue(facetName + " is not displayed..!", isPresent);
+            isPresent = false;
+        }
     }
 
     @Given("^the user verifies the topic facet \"(.*?)\" count is equivalent to no\\. of results displayed$")
@@ -263,8 +265,10 @@ public class AnzBrowseTest extends BaseStepDef {
                     LOG.warn("Resource type: " + entry.getKey() + "; Practice area: " + linkText);
                     glossaryPage.waitForPageToLoad();
                     glossaryPage.waitForExpectedElement(By.linkText(linkText)).click();
-                    assertTrue(pa.trim() + "-" + entry.getKey() + " page is not displayed..!",
-                            wlnHeader.pageHeaderLabel().getText().equalsIgnoreCase(pa.trim() + " " + entry.getKey()));
+                    glossaryPage.waitForPageToLoadAndJQueryProcessing();
+                    assertThat(wlnHeader.pageHeaderLabel().getText())
+                            .as("%s-%s page is not displayed..!", pa.trim(), entry.getKey()).
+                            containsIgnoringCase(pa.trim() + " " + entry.getKey());
                     glossaryPage.waitForPageToLoad();
                     getDriver().navigate().back();
                     glossaryPage.waitForExpectedElement(By.linkText(linkText));
@@ -312,10 +316,10 @@ public class AnzBrowseTest extends BaseStepDef {
     }
 
 
-@Then("^user verifies title \"(.*)\" page$")
+    @Then("^user verifies title \"(.*)\" page$")
     public void userShouldseetitlePage(String pageTitle) throws Throwable {
-     
-            assertTrue(pageTitle + " page Title is Not matching..!", wlnHeader.pageHeaderLabel().getText().toLowerCase().contains(pageTitle.toLowerCase()));
-            
-            }
+
+        assertTrue(pageTitle + " page Title is Not matching..!", wlnHeader.pageHeaderLabel().getText().toLowerCase().contains(pageTitle.toLowerCase()));
+
+    }
 }
