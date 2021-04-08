@@ -13,7 +13,7 @@ public class ScreenShotHook extends BaseScreenShotHookWithUsingExistingSession {
 	 * @param scenario
 	 */
 	@After(order = 99999)
-	public void afterTest(Scenario scenario) throws InterruptedException {
+	public void afterTest(Scenario scenario) {
 		super.afterTest(scenario);
 	}
 
