@@ -7,6 +7,7 @@ import com.thomsonreuters.pageobjects.rest.auth.model.PostForUserGuidResponse;
 import com.thomsonreuters.pageobjects.rest.auth.proxy.OnePassProxy;
 import com.thomsonreuters.pageobjects.rest.auth.proxy.UDSProxy;
 
+import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
@@ -34,14 +35,7 @@ public class UDSService {
      * @return object with credentials info
      */
     public UDSCredentials getUdsCredentials(String userName, String userPassword, String productView, String siteCookie) {
-        //TODO to investigate and to remove
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            LOG.info("context", e);
-            // TODO Auto-generated catch block
-            //e.printStackTrace();
-        }
+        TimeoutUtils.sleepInSeconds(1500);
         PostForRegKeysResponse postForRegKeysResponse = onePassProxy.postForRegKeys(userName, userPassword, PRODUCT);
         String userId = postForRegKeysResponse.getProfile().getRegistrationKeys().get(0).getUserId();
         String pass = postForRegKeysResponse.getProfile().getRegistrationKeys().get(0).getPassword();
@@ -53,38 +47,35 @@ public class UDSService {
         String sessionId = getForSessionInfoResponse.getSessionId();
         GetForWorkProductTokenResponse getForCoSessionTokenResponse = udsProxy.getForWorkProductToken(sessionId);
         String workProductToken = getForCoSessionTokenResponse.getWorkProductToken();
-        LOG.info("USER / CO_SESSIONTOKEN / SID: " + userName + " / " + coSessionToken + " / " + sessionId);
+        LOG.info("USER / CO_SESSIONTOKEN / SID: {} / {} / {}" ,userName,coSessionToken, sessionId);
         return new UDSCredentials(coSessionToken, sessionId, userGuid, workProductToken);
     }
 
     public String getCurrentSession(String userName, String userPassword, String productView, String siteCookie) {
-        //TODO to investigate and to remove
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            LOG.info("context", e);
-        }
-
+        TimeoutUtils.sleepInSeconds(1500);
         PostForRegKeysResponse postForRegKeysResponse = onePassProxy.postForRegKeys(userName, userPassword, PRODUCT);
-        LOG.info("postForRegKeysResponse: " + postForRegKeysResponse.toString());
+        String regKeysResponse = postForRegKeysResponse.toString();
+        LOG.info("postForRegKeysResponse: {}" ,regKeysResponse);
         String userId = postForRegKeysResponse.getProfile().getRegistrationKeys().get(0).getUserId();
-        LOG.info("userID: " + userId);
+        LOG.info("userID: {}" , userId);
         String pass = postForRegKeysResponse.getProfile().getRegistrationKeys().get(0).getPassword();
-        LOG.info("pass: " + pass);
+        LOG.info("pass: {}" , pass);
         PostForUserGuidResponse postForUserGuidResponse = udsProxy.postForUserGuid(userId, pass);
-        LOG.info("postForUserGuidResponse: " + postForUserGuidResponse.toString());
+        String userGuidResponse= postForUserGuidResponse.toString();
+        LOG.info("postForUserGuidResponse: {}" , userGuidResponse);
         String userGuid = postForUserGuidResponse.getPrismGuid();
-        LOG.info("userGuid: " + userGuid);
+        LOG.info("userGuid: {}" , userGuid);
         String site = siteCookie.split("=")[1];
-        LOG.info("site: " + site);
+        LOG.info("site: {}" , site);
         String coSessionToken = getCoSessionToken(userGuid, productView, site);
-        LOG.info("coSessionToken: " + coSessionToken);
+        LOG.info("coSessionToken: {}" , coSessionToken);
         if (StringUtils.isEmpty(coSessionToken)){
         	LOG.error("coSessionToken is empty. Maybe current page is not PLPlusUK");
         	return "";
         }
         GetForSessionInfoResponse getForSessionInfoResponse = udsProxy.getForSessionInfo(coSessionToken, siteCookie);
-        LOG.info("getForSessionInfoResponse: "+getForSessionInfoResponse.toString());
+        String sessionResponse = getForSessionInfoResponse.toString();
+        LOG.info("getForSessionInfoResponse: {}",sessionResponse);
         return getForSessionInfoResponse.getSessionId();
     }
     
