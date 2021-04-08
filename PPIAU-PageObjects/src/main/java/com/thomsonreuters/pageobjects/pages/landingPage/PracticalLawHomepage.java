@@ -8,22 +8,23 @@ import org.openqa.selenium.WebElement;
 public class PracticalLawHomepage extends AbstractPage {
 
     private static final By CLOSE_CONSENT_MESSAGE_XPATH = By.xpath("//div[@id='CookieConsentMessage']//a[text()='Close']");
-	private CommonMethods comMethods;
 	private static final By FLASH_SCREEN = By.xpath("//div[@id='co_welcomeCenterLightbox']/div[2]/div/div/div/ul/li/a");
 	private static final By CLOSE_FLASH_SCREEN_ID = By.id("undefined");
+	private static final By SIGN_OFF_REGION = By.id("coid_website_signOffRegion");
+
+    private CommonMethods comMethods;
 
 
     public PracticalLawHomepage() {
-
         comMethods = new CommonMethods();
     }
 
     public WebElement signOnButton() {
-        return waitForExpectedElement(By.id("coid_website_signOffRegion"));
+        return waitForExpectedElement(SIGN_OFF_REGION);
     }
 
     public WebElement signOffButton() {
-        return waitForExpectedElement(By.id("coid_website_signOffRegion"));
+        return waitForExpectedElement(SIGN_OFF_REGION);
     }
 
     public WebElement unitedKingdomContentLink() {
@@ -72,22 +73,23 @@ public class PracticalLawHomepage extends AbstractPage {
     }
 
     public WebElement welcomeBox() {
-        return comMethods.waitForElementToBeVisible(By.id("coid_lightboxOverlay"), 1000);
+        return comMethods.waitForElementToBeVisible(By.id("coid_lightboxOverlay"));
     }
 
     public WebElement timeoutPopUp(int waitForPopUptimeOutInSeconds) {
         return waitForExpectedElement(By.xpath("//div[@id='coid_lightboxOverlay']/div[@id='co_websiteTimeoutWarning']"), waitForPopUptimeOutInSeconds);
     }
     public void waitSignInLink(int waitForSignInLink) {
-        waitForExpectedElement(By.id("coid_website_signOffRegion"), waitForSignInLink);
+        waitForExpectedElement((SIGN_OFF_REGION), waitForSignInLink);
     }
 
     public WebElement continueSessionButton() {
         return waitForExpectedElement(By.xpath("//input[@type='button' and @value='Continue']"));
     }
   
-    public boolean isTimeoutPopUpPresent(int waitForPopUptimeOutInSeconds) {
-    	return isElementDisplayed(By.xpath("//div[@id='coid_lightboxOverlay']/div[@id='co_websiteTimeoutWarning']"));
+    public boolean isTimeoutPopUpPresent(int timeOut) {
+    	return isElementDisplayed(waitForExpectedElement(
+    	        By.xpath("//div[@id='coid_lightboxOverlay']/div[@id='co_websiteTimeoutWarning']"), timeOut));
     }
 
     public WebElement resourcesLink() {
@@ -129,15 +131,11 @@ public class PracticalLawHomepage extends AbstractPage {
     }
 
     public void flashScreenPL(){
-        try{
-             if(isElementDisplayed(FLASH_SCREEN))
-             {
-                    waitForExpectedElement(CLOSE_FLASH_SCREEN_ID).click();
-             }
-             
-         }catch(Exception e){
-               
-                        }
+        if (isElementDisplayed(FLASH_SCREEN)) {
+            waitForExpectedElement(CLOSE_FLASH_SCREEN_ID).click();
+        } else {
+            LOG.warn("Flash screen is not displayed.");
+        }
     }
 
 

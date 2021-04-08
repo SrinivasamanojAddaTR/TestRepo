@@ -2,7 +2,6 @@ package com.thomsonreuters.pageobjects.pages.search;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.ListFunctions;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.NoSuchElementException;
@@ -16,22 +15,13 @@ import java.util.*;
  */
 public class SearchResultsPage extends AbstractPage {
 
-    CommonMethods commonMethods = new CommonMethods();
-
     private static final String MINIMIZE_BTN_ID = "coid_deliveryWaitMessage_minimizeButton";
 	private ListFunctions listFunctions = new ListFunctions();
-    private final String EMAIL_ARCHIVE_TEXT = "Browse the archive of weekly and monthly emails";
-    private final static By mostDetailOptionLocator = By.xpath("//ul[@class='co_dropDownMenuList']//a[contains(., 'Most') and contains(., 'etail')]");
+    private static final  By mostDetailOptionLocator = By.xpath("//ul[@class='co_dropDownMenuList']//a[contains(., 'Most') and contains(., 'etail')]");
     private static final String ALL_RESULT_LINKS_XPATH = "//span[@class='co_searchCount']/following-sibling::*[(local-name()='a' and contains(@id, 'cobalt_result')) or local-name()='strong']";
     private static final String ALL_DOC_GUID_LINKS_XPATH = "//a[@docguid and not(contains(@class, 'hide'))]";
     private static final String VISIBLE_FACET_NAMES_BY_GROUP_XPATH = "//div[starts-with(@id, 'facet') and ./h4[contains(., '%s')]]//label[not(ancestor::ul[contains(@class, 'hide')])]";
     private static final String FACET_NAME_BY_GROUP_XPATH = "//div[starts-with(@id, 'facet') and ./h4[contains(., '%1$s')]]//label[contains(., '%2$s')]";
-
-    private static final int TIMEOUT_IN_SECONDS = 60;
-    private static final int POLLING_TIME_IN_MILLISECONDS = 100;
-
-    public SearchResultsPage() {
-    }
 
     public enum SliderSelector {
         MORE,
@@ -381,7 +371,7 @@ public class SearchResultsPage extends AbstractPage {
      * @return boolean
      */
     public boolean isSliderSelectorDisplayed(SliderSelector sliderSelector) {
-        String text = null;
+        String text = StringUtils.EMPTY;
         if (sliderSelector.equals(SliderSelector.LESS)) {
             text = "Less Detail";
         } else if (sliderSelector.equals(SliderSelector.MORE)) {
@@ -392,7 +382,7 @@ public class SearchResultsPage extends AbstractPage {
         text = text.toUpperCase();
         try {
             String textReturned = waitForExpectedElement(By.id("detailSliderSelectorSelectedOption"), 20).getText();
-            System.out.println(" ...The text returned from the selector is: " + textReturned);
+            LOG.info("The text returned from the selector is: {} ", textReturned);
             return textReturned.toUpperCase().contains(text);
         } catch (PageOperationException poe) {
             LOG.info("context", poe);
@@ -666,7 +656,7 @@ public class SearchResultsPage extends AbstractPage {
 
     public WebElement searchResultPositionCheckbox(int position) {
         return waitForExpectedElement(
-                By.xpath("(//*[@id='co_search_results_inner']//input[@type='checkbox'])[" + String.valueOf(position) + "]"), 15);
+                By.xpath("(//*[@id='co_search_results_inner']//input[@type='checkbox'])[" + position + "]"), 15);
     }
 
     public WebElement saveToFolder() {
@@ -687,7 +677,7 @@ public class SearchResultsPage extends AbstractPage {
      * @return Map<String, Integer>
      */
     public Map<String, Integer> getAllFacetsWithCountValues() {
-        Map<String, Integer> map = new HashMap<String, Integer>();
+        Map<String, Integer> map = new HashMap<>();
         try {
             for (WebElement element : waitForExpectedElements(By.cssSelector("div.co_divider>ul>li[id^='co_facet']"), 10)) {
                 map.put(element.findElement(By.cssSelector("label")).getText(), Integer.valueOf(element.findElement(By.cssSelector("span")).getText().trim()));
@@ -714,7 +704,7 @@ public class SearchResultsPage extends AbstractPage {
      * @return List<String>
      */
     public List<String> getAllResultsTitle() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement searchResult : waitForExpectedElements(By.cssSelector("a[id^='cobalt_result_knowhow_title']"), 10)) {
                 list.add(searchResult.getText());
@@ -1095,13 +1085,11 @@ public class SearchResultsPage extends AbstractPage {
     }
 
     public WebElement readyOverlayContentMessage() {
-        return commonMethods.waitForExpectedElement(By.xpath("//div[contains(@class,'co_overlayBox')]//*[contains(text(),'ready') or contains(text(), 'will')]"),
-                TIMEOUT_IN_SECONDS, POLLING_TIME_IN_MILLISECONDS);
+        return waitForExpectedElement(By.xpath("//div[contains(@class,'co_overlayBox')]//*[contains(text(),'ready') or contains(text(), 'will')]"));
     }
 
     public WebElement prepareOverlayContentMessage() {
-        return commonMethods.waitForExpectedElement(By.xpath("//div[@id='co_deliveryWaitMessageTitle' and contains(.,'prepared')]"),
-                TIMEOUT_IN_SECONDS, POLLING_TIME_IN_MILLISECONDS);
+        return waitForExpectedElement(By.xpath("//div[@id='co_deliveryWaitMessageTitle' and contains(.,'prepared')]"));
     }
 
     /**
@@ -1364,7 +1352,7 @@ public class SearchResultsPage extends AbstractPage {
 
     public void clickOnMinimizeButtonIfPresent() {
     	if(isExists(By.id(MINIMIZE_BTN_ID))){
-    		waitForExpectedElement(By.id(MINIMIZE_BTN_ID)).click();;
+    		waitForExpectedElement(By.id(MINIMIZE_BTN_ID)).click();
     	}
     }
 

@@ -1,43 +1,32 @@
 package com.thomsonreuters.pageobjects.common;
 
-import static java.math.BigInteger.ZERO;
-import static org.junit.Assert.assertTrue;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.thomsonreuters.driver.configuration.Hosts;
 import com.thomsonreuters.driver.framework.ScreenShots;
+import com.thomsonreuters.driver.framework.WebDriverDiscovery;
+import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.JournalDocumentPage;
 import com.thomsonreuters.utils.CalendarAndDate;
 import com.thomsonreuters.utils.TimeoutUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Assert;
-import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.Coordinates;
 import org.openqa.selenium.interactions.Locatable;
-import org.openqa.selenium.remote.LocalFileDetector;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.UselessFileDetector;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.slf4j.LoggerFactory;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static java.math.BigInteger.ZERO;
-import com.google.common.base.Function;
-import com.thomsonreuters.driver.exception.PageOperationException;
-import com.thomsonreuters.driver.framework.WebDriverDiscovery;
-import com.thomsonreuters.pageobjects.pages.generic.PPIGenericDocDisplay;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.JournalDocumentPage;
-import com.thomsonreuters.pageobjects.utils.Product;
+import static org.junit.Assert.assertTrue;
 
 public class CommonMethods {
 
@@ -47,11 +36,8 @@ public class CommonMethods {
     private JournalDocumentPage journalDocumentPage = new JournalDocumentPage();
     private WebDriverDiscovery webDriverDiscovery = new WebDriverDiscovery();
     protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CommonMethods.class);
-    private static final int FLUENT_TIMEOUT_IN_SECONDS = 30;
-    private static final int FLUENT_POLLINGTIME_IN_MILLISECONDS = 2000;
 
     private WebDriver driver;
-    private boolean isGrid = System.getProperty("driverType", "").equalsIgnoreCase("seleniumGrid");
 	private static final String SPLIT_BY_LINE = "\\r?\\n";
 	private HomePage homePage = new HomePage();
 
@@ -67,46 +53,6 @@ public class CommonMethods {
         return driver;
     }
 
-    private PPIGenericDocDisplay ppiGenericDocDisplay = new PPIGenericDocDisplay();
-
-    public Boolean theDisplayedDocumentWillHaveTheTermsMarkedUpAsHits(String searchTerms) throws Throwable {
-        Boolean result = false;
-        if (!searchTerms.equals("") && !searchTerms.isEmpty()) {
-            /** Split each term using the space character */
-            String eachTerms[] = searchTerms.split(" ");
-            Boolean termFound;
-            String textFromElement;
-            for (int dataRow = 0; dataRow < eachTerms.length; dataRow++) {
-                String currentTerm = eachTerms[dataRow].toUpperCase();
-                /** remove any white spaces */
-                currentTerm = currentTerm.replaceAll("\\s+", "");
-                /** Ignore And and Or */
-                if ((!currentTerm.equals("AND")) && (!currentTerm.equals("&")) && (!currentTerm.equals("OR"))) {
-                    if (currentTerm.length() > 0) {
-                        termFound = false;
-                        /** If a single term is connected with a + plus sign split that into multiple terms, any of which will pass */
-                        String equivalentTerms[] = currentTerm.split("\\+");
-                        for (int dataRowTwo = 0; dataRowTwo < equivalentTerms.length; dataRowTwo++) {
-                            currentTerm = equivalentTerms[dataRowTwo];
-                            LOG.info(" ...Checking that the term '" + currentTerm + "' is marked up as a hit");
-                            List<WebElement> searchTermsFound = ppiGenericDocDisplay.ppiTermNavigationHitMarkupCheckTermsAsList();
-                            LOG.info("The number of marked up search terms found is: " + searchTermsFound.size());
-                            for (WebElement element : searchTermsFound) {
-                                textFromElement = element.getText().toUpperCase();
-                                if (Pattern.matches(wildcardToRegex("*" + currentTerm + "*"), textFromElement)) {
-                                    termFound = true;
-                                    break;
-                                }
-                            }
-                        }
-                        result = termFound;
-                    }
-                }
-            }
-        }
-        return result;
-    }
-
     /**
      * This method provides a possibility to perform actions in a new browser window,
      * then closing the last opened window and returning back to a main browser window.
@@ -119,43 +65,6 @@ public class CommonMethods {
         // this method created as workaround for chromedriver issue https://bugs.chromium.org/p/chromedriver/issues/detail?id=2660
         // need to verify execution after fixing it
         return performActionsInNewWindow(mainWindowHandle, action, CHROME_TIMEOUT_IN_SEC_BEFORE_ACTION_IN_NEW_WINDOW);
-    }
-
-    public Boolean theDisplayedDocumentWillHaveAnyOfTheTermsMarkedUpAsHits(String searchTerms) throws Throwable {
-        Boolean result = false;
-        if (!searchTerms.equals("") && !searchTerms.isEmpty()) {
-            /** Split each term using the space character */
-            String eachTerms[] = searchTerms.split(" ");
-            Boolean termFound = false;
-            String textFromElement;
-            for (int dataRow = 0; dataRow < eachTerms.length; dataRow++) {
-                String currentTerm = eachTerms[dataRow].toUpperCase();
-                /** remove any white spaces */
-                currentTerm = currentTerm.replaceAll("\\s+", "");
-                /** Ignore And and Or */
-                if ((!currentTerm.equals("AND")) && (!currentTerm.equals("&")) && (!currentTerm.equals("OR"))) {
-                    if (currentTerm.length() > 0) {
-                        /** If a single term is connected with a + plus sign split that into multiple terms, any of which will pass */
-                        String equivalentTerms[] = currentTerm.split("\\+");
-                        for (int dataRowTwo = 0; dataRowTwo < equivalentTerms.length; dataRowTwo++) {
-                            currentTerm = equivalentTerms[dataRowTwo];
-                            LOG.info(" ...Checking that the term '" + currentTerm + "' is marked up as a hit");
-                            List<WebElement> searchTermsFound = ppiGenericDocDisplay.ppiTermNavigationHitMarkupCheckTermsAsList();
-                            LOG.info("The number of marked up search terms found is: " + searchTermsFound.size());
-                            for (WebElement element : searchTermsFound) {
-                                textFromElement = element.getText().toUpperCase();
-                                if (Pattern.matches(wildcardToRegex("*" + currentTerm + "*"), textFromElement)) {
-                                    termFound = true;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            result = termFound;
-        }
-        return result;
     }
 
     /**
@@ -247,22 +156,6 @@ public class CommonMethods {
         return webElement;
     }
 
-    public WebElement waitForExpectedElement(final By by) {
-        return waitForExpectedElement(by, FLUENT_TIMEOUT_IN_SECONDS, FLUENT_POLLINGTIME_IN_MILLISECONDS);
-    }
-
-    public WebElement waitForExpectedElement(final By by, int timeOut, int pollingTime) {
-        WebElement element = null;
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(timeOut, TimeUnit.SECONDS)
-                .pollingEvery(pollingTime, TimeUnit.MILLISECONDS).ignoring(NoSuchElementException.class);
-        element = wait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                return driver.findElement(by);
-            }
-        });
-        return element;
-    }
-    
     public void selectParagraphFromDocumentWithJS(WebElement element) {
         homePage.executeScript("selection = window.getSelection();"
         		+ " range = document.createRange();"
@@ -280,74 +173,8 @@ public class CommonMethods {
         driver.switchTo().defaultContent();
     }
 
-    /**
-     * use @deprecated isExists(), isExists()
-     */
-    @Deprecated
-    public boolean waitForElement(WebElement element, int waitTime) {
-        try {
-            int i = 0;
-            do {
-                Thread.sleep(waitTime);
-                try {
-                    if (element.isDisplayed()) {
-                        return true;
-                    }
-                } catch (Exception e) {
-                    LOG.warn("Element not yet found", e);
-                }
-                i++;
-            } while (i < 5);
-        } catch (Exception e) {
-            LOG.warn("Element not yet found", e);
-        }
-        return false;
-    }
-
-    /**
-     * use @deprecated waitForExpectedElement(), waitForElementToBeVisible(), waitForElementPresent()
-     */
-    @Deprecated
-    public WebElement waitForElement(By by, int waitTime) {
-        try {
-            int i = 0;
-            do {
-                Thread.sleep(waitTime);
-                try {
-                    List<WebElement> elements = driver.findElements(by);
-                    if (!elements.isEmpty()) {
-                        return elements.get(0);
-                    }
-                } catch (Exception e) {
-                    LOG.warn("Element not yet found", e);
-                }
-                i++;
-            } while (i < 5);
-        } catch (Exception e) {
-            LOG.warn("Element not yet found", e);
-        }
-        return null;
-    }
-
-    public WebElement waitForElementToBeVisible(By by, int waitTime) {
-        try {
-            int i = 0;
-            do {
-                Thread.sleep(waitTime);
-                try {
-                    List<WebElement> elements = driver.findElements(by);
-                    if (elements.get(0).isDisplayed()) {
-                        return elements.get(0);
-                    }
-                } catch (Exception e) {
-                    LOG.warn("Element not yet visible..!", e.getMessage());
-                }
-                i++;
-            } while (i < 5);
-        } catch (Exception e) {
-            LOG.warn("Element not yet found", e);
-        }
-        return null;
+    public WebElement waitForElementToBeVisible(By by) {
+        return homePage.waitForElementVisible(by);
     }
 
     public WebElement getElement(By by) {
@@ -373,14 +200,6 @@ public class CommonMethods {
         ((JavascriptExecutor) driver).executeScript(code, element);
     }
 
-    public void clickLink(String linkText) {
-        try {
-            driver.findElement(By.linkText(linkText)).click();
-        } catch (Exception e) {
-            LOG.info("context", e);
-        }
-    }
-
 	public void scrollIntoAndClickLink(String linkText) {
 		homePage.waitForViewScrollingToElement(By.linkText(linkText));
 		homePage.scrollIntoViewAndClick(homePage.getElementByLinkText(linkText));
@@ -389,15 +208,6 @@ public class CommonMethods {
 	public void waitForExpectedLinkAndClick(String partialLinkText) {
 		homePage.scrollIntoViewAndClick(homePage.waitForExpectedElement(By.linkText(partialLinkText)));
 	}
-
-    public WebElement getElementByLinkText(String linkText) {
-        try {
-            return driver.findElement(By.linkText(linkText));
-        } catch (Exception e) {
-            LOG.info("context", e);
-            return null;
-        }
-    }
 
     public WebElement waitElementByLinkText(String linkText) {
         return homePage.waitForExpectedElement(By.linkText(linkText));
@@ -442,7 +252,6 @@ public class CommonMethods {
      */
     public <T extends Comparable> boolean isSorted(List<T> listOfT, SortOptions sortOptions) {
         T previous = null;
-        String condition;
         if (SortOptions.DESC.equals(sortOptions)) {
             for (T t : listOfT) {
                 if (previous != null && t.compareTo(previous) > 0)
@@ -464,7 +273,6 @@ public class CommonMethods {
         for (int loopCount=0; loopCount<dateElements.size(); loopCount++) {
             dateString = dateElements.get(loopCount).getText();
             dateString = dateString.replace("Published on ","");
-            //System.out.println("Result date is: " + dateString);
             Assert.assertTrue(isDateInValidFormat(dateString, dateFormat));
         }
     }
@@ -476,9 +284,8 @@ public class CommonMethods {
      * @return boolean
      */
     public Boolean isResultsSortedByDate(List<WebElement> dateElements, SortOptions sortOptions) {
-        List<Date> dates = new ArrayList<Date>();
+        List<Date> dates = new ArrayList<>();
         Date resultDate;
-        Boolean areDatesValid = true;
         for (WebElement element : dateElements) {
             String dateString = element.getText();
             DateFormat df = new SimpleDateFormat("dd MMMM yyyy");
@@ -486,17 +293,11 @@ public class CommonMethods {
                 resultDate = df.parse(dateString);
                 dates.add(resultDate);
             } catch (ParseException e) {
-                areDatesValid = false;
                 LOG.info("context", e);
-                throw new PageOperationException("Application is displaying the dates in different format." + e.getMessage());
+                return false;
             }
         }
-        if (areDatesValid) {
-            return isSorted(dates, sortOptions);
-        } else {
-            // Return false - failed as dates are not valid to begin with
-            return areDatesValid;
-        }
+        return isSorted(dates, sortOptions);
     }
 
     /**
@@ -523,10 +324,11 @@ public class CommonMethods {
         try {
             sdf.setLenient(false);
             Date date = sdf.parse(s);
-            //LOG.info("Given date is in Valid format." + date);
+            LOG.info("Given date is in Valid format. - {}", date);
             return true;
         } catch (ParseException e) {
-            LOG.info("Given date is not in Valid format." + s);
+            LOG.info("Given date is not in Valid format. - {}", s);
+            LOG.error("Invalid Date format", e);
             return false;
         }
     }
@@ -568,8 +370,6 @@ public class CommonMethods {
     public void findAndCloseWindow(String windowName) {
         String currentHandle = driver.getWindowHandle();
         Set<String> windowsHandles = driver.getWindowHandles();
-        boolean windowFound = false;
-        String currentWindowName = driver.getTitle();
         for (String window : windowsHandles) {
             driver.switchTo().window(window);
             if (driver.getTitle().contains(windowName)) {
@@ -604,58 +404,21 @@ public class CommonMethods {
     public String getCurrentURL() {
         return driver.getCurrentUrl();
     }
+
     public boolean isCurrentDocumentFromKnowHow() {
         return driver.getCurrentUrl().contains("KNOWHOW");
     }
-
-//	public boolean isTextPresent(By byElement, String expectedText, int waitTime) {
-//		try {
-//			int i = 0;
-//			do {
-//				Thread.sleep(waitTime);
-//				try {
-//
-//					if (driver.findElement(byElement).getText().trim().contains(expectedText)) {
-//						return true;
-//					}
-//				} catch (Exception e) {
-//					LOG.warn("Text not yet found", e);
-//				}
-//				i++;
-//			} while (i < 5);
-//		} catch (Exception e) {
-//			LOG.warn("Text not yet found", e);
-//		}
-//		return false;
-//	}
 
     public void scrollUpOrDown(int y) {
         ((JavascriptExecutor) driver).executeScript("scroll(0," + y + ");");
     }
 
     public void scrollRightOrLeft(int x) {
-        ((JavascriptExecutor) driver).executeScript("scroll(\"+x+\",0);");
+        ((JavascriptExecutor) driver).executeScript(String.format("scroll(%s,0);", x));
     }
 
     public boolean isLinkTextPresent(String expectedLinkText, int waitTime) {
-        try {
-            int i = 0;
-            do {
-                Thread.sleep(waitTime);
-                try {
-
-                    if (driver.findElement(By.linkText(expectedLinkText)) != null) {
-                        return true;
-                    }
-                } catch (Exception e) {
-                    LOG.warn("Text not yet found", e);
-                }
-                i++;
-            } while (i < 5);
-        } catch (Exception e) {
-            LOG.warn("Text not yet found", e);
-        }
-        return false;
+        return homePage.waitForExpectedElement(By.linkText(expectedLinkText), waitTime).isDisplayed();
     }
 
     /**
@@ -806,26 +569,6 @@ public class CommonMethods {
         return true;
     }
 
-    public String getPlUkRootAddressFromPropertiesWithoutProtocol() {
-        return getRootAddressFromProperties(Product.PLC, false);
-    }
-
-    /**
-     * Enable ability to push local file to the remote selenium grid node
-     */
-    //TODO remove comments once setFileDetector is implemented
-    /*public void enableLocalFileDetector() {
-        setFileDetector(true);
-    }*/
-
-    /**
-     * Disable ability to push local file to the remote selenium grid node
-     */
-    //TODO remove comments once setFileDetector is implemented
-   /* public void disableLocalFileDetector() {
-        setFileDetector(false);
-    }*/
-
     /**
      * Get Date object from the string
      *
@@ -838,42 +581,10 @@ public class CommonMethods {
         try {
             return simpleDateFormat.parse(dateToParse);
         } catch (ParseException e) {
-            LOG.info("Unable to parse date '" + dateToParse + "' with pattern '" + pattern + "'", e);
+            LOG.info("Unable to parse date {} with pattern {}", dateToParse, pattern);
+            LOG.error("Parse exception", e);
             return new Date(0L); // 1970-01-01
         }
-    }
-
-    /**
-     * Make RemoteWebDriver on selenium grid node able to work with local files
-     * TODO @toFramework - this ability should be part of the core framework
-     *
-     *
-     * param isLocalFileDetector True - if there is necessary to push local files to remote selenium grid node, otherwise - false.
-     */
-    //TODO [phase1] Need to know getFileDetector and setFileDetector purpose and add in TAF accordingly
-    /*private void setFileDetector(boolean isLocalFileDetector) {
-        if (isGrid) {
-            if (isLocalFileDetector && driver.getFileDetector() instanceof UselessFileDetector) {
-                driver.setFileDetector(new LocalFileDetector());
-            } else if (!isLocalFileDetector && !(driver.getFileDetector() instanceof UselessFileDetector)) {
-                driver.setFileDetector(new UselessFileDetector());
-            }
-        }
-    }*/
-
-    private String getRootAddressFromProperties(Product product, boolean withProtocol) {
-        String urlFromProperties;
-        switch (product) {
-            case PLC:
-                urlFromProperties = Hosts.getInstance().getPlcukProductBase()  + System.getProperty("base.url") + Hosts.getInstance().getPlcukProductBase() ;
-                break;
-            default:
-                throw new UnsupportedOperationException("Not implemented for product " + product);
-        }
-        if (!withProtocol) {
-            urlFromProperties = urlFromProperties.replaceAll("http://", "").replaceAll("https://", "");
-        }
-        return urlFromProperties;
     }
 
     /**
@@ -901,12 +612,12 @@ public class CommonMethods {
             if (StringUtils.isEmpty(value)){
                 LOG.info("Received Css value is empty");
             } else{
-                LOG.info(cssSettingName + ": "+ value);
+                LOG.info("CSS Setting {}, {}", cssSettingName, value);
             }
             return value;
         }
         LOG.info("Css value or element is not specified or empty");
-        return "";
+        return StringUtils.EMPTY;
     }
     public String getElementFontSize(WebElement element) {
         return getElementCSSValueByName(element, "font-size");
@@ -918,13 +629,11 @@ public class CommonMethods {
 	}
 
 	public String[] splitTextByLines(String text) {
-		String splitedText[] = text.split(SPLIT_BY_LINE);
-		return splitedText;
+        return text.split(SPLIT_BY_LINE);
 	}
 
-
 	public List<String> addTheTextToTheListExcludingTheBlankLines(String text) {
-		List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<>();
 		for (String line : splitTextByLines(text)) {
 			if (line.length() > 1) {
 				result.add(line);
@@ -989,8 +698,7 @@ public class CommonMethods {
 	}
 
 	public Object getDistanceBetweenTopOfThePageAndWebElementUsingJS(WebElement element) {
-		return (Object) homePage
-				.executeScript("function getDistance(elem){ return elem.getBoundingClientRect().top + elem.getBoundingClientRect().height;}"
+		return homePage.executeScript("function getDistance(elem){ return elem.getBoundingClientRect().top + elem.getBoundingClientRect().height;}"
 						+ "return getDistance(arguments[0])", element);
 	}
 

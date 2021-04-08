@@ -1,6 +1,5 @@
 package com.thomsonreuters.pageobjects.pages.delivery;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.utils.delivery.DeliveryFormField;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -12,10 +11,6 @@ import org.openqa.selenium.WebElement;
 
 public class EmailOptionsPage extends CommonDeliveryOptionsPage {
 
-    private static final int TIMEOUT_IN_SECONDS = 30;
-    private static final int POLLING_TIME_IN_MILLISECONDS = 100;
-
-    private CommonMethods commonMethods = new CommonMethods();
     /**
      * This is the email address field
      */
@@ -48,21 +43,12 @@ public class EmailOptionsPage extends CommonDeliveryOptionsPage {
         return waitForExpectedElement(By.id("co_deliveryEmailButton"));
     }
 
-    public WebElement cancelButton() {
-        return waitForExpectedElement(By.id("co_deliveryCancelButton"));
-    }
-
     public WebElement deliveryMessage() {
         return waitForExpectedElement(By.id("co_deliveryWaitMessageTitle"));
     }
 
     public WebElement waitForSuccessDeliveryMessage(String text) {
-        return commonMethods.waitForExpectedElement(By.xpath("//div[@id='co_deliveryWaitMessageTitle'][text()=\"" + text + "\"]"),
-                TIMEOUT_IN_SECONDS, POLLING_TIME_IN_MILLISECONDS);
-    }
-
-    public WebElement expandedMarginForNotes() {
-        return findElement(By.id("coid_chkDdcLayoutRightNoteMarging"));
+        return waitForExpectedElement(By.xpath("//div[@id='co_deliveryWaitMessageTitle'][text()=\"" + text + "\"]"));
     }
 
     /**

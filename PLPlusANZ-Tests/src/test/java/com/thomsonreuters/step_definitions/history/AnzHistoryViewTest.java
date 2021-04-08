@@ -151,7 +151,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     @Then("^the user clicks '(.*)' button$")
     public void thUserClicksonSelectMultipleFiltersButton(String buttonText) throws Throwable {
         if (buttonText.equalsIgnoreCase("select multiple filters")) {
-            WebElement multipleFilterButton = commonMethods.waitForElementToBeVisible(researchOrganizerPage.selectMultipleByFilters(), 1000);
+            WebElement multipleFilterButton = commonMethods.waitForElementToBeVisible(researchOrganizerPage.selectMultipleByFilters());
             if (multipleFilterButton != null) {
                 multipleFilterButton.click();
             }
@@ -363,7 +363,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
 
     @Given("^the user clicks on History left side facet \"(.*?)\"$")
     public void theUserClicksOnHistoryLeftSideFacet(String option) throws Throwable {
-        WebElement historyFacet = commonMethods.waitForElementToBeVisible(researchOrganizerPage.historyFacetByLink(option), 1000);
+        WebElement historyFacet = commonMethods.waitForElementToBeVisible(researchOrganizerPage.historyFacetByLink(option));
         if (historyFacet != null) {
             historyFacet.click();
         }

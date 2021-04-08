@@ -14,23 +14,23 @@ public class ChangesInUploadedPDF extends AbstractPage {
 	private static final String ERROR = "PDF Upload error : The form you selected does not belong to the project you tried to load it into. Please select the correct form and try again";
 	private static final String TYPE_ERROR = "PDF Upload error : The selected file is not the correct type (PDF). Please try again ensuring you select a PDF file";
 
-    private CommonMethods comMethods = new CommonMethods();;
+    private CommonMethods comMethods = new CommonMethods();
 
 	public void checkChangesInUploadedPDFDisplayed() {
 		WebElement changesInUploadedPDF = comMethods
-				.waitForElementToBeVisible(By.xpath("//*[text()='Changes in the uploaded PDF']"), 10000);
+				.waitForElementToBeVisible(By.xpath("//*[text()='Changes in the uploaded PDF']"));
 		Assert.assertNotNull(changesInUploadedPDF, "Changes in the uploaded PDF absents");
 	}
 
 	public void checkSectionHasOriginalAndRevicedValues(String sectionName, String originalValue, String revisedValue) {
 		WebElement sectionWithValues = comMethods.waitForElementToBeVisible(
 				By.xpath("//tr[contains(.,'" + sectionName + "') and contains(.,'" + originalValue
-						+ "') and contains(.,'" + revisedValue + "')]"), 10000);
+						+ "') and contains(.,'" + revisedValue + "')]"));
 		Assert.assertNotNull(sectionWithValues, "Section with values absents");
 	}
 
 	public WebElement section(String sectionName) {
-		return comMethods.waitForElementToBeVisible(By.xpath("//tr[contains(.,'" + sectionName + "')]//td/input[@id and @type='checkbox']"), 10000);
+		return comMethods.waitForElementToBeVisible(By.xpath("//tr[contains(.,'" + sectionName + "')]//td/input[@id and @type='checkbox']"));
 	}
 
 	public WebElement acceptChanges() {

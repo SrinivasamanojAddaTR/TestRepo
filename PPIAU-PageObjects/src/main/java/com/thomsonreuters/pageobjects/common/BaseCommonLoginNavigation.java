@@ -423,8 +423,8 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     }
 
     private void closeWelcomeDialog() {
-        if (comMethods.waitForElementToBeVisible(By.xpath("//*[@id='coid_lightboxOverlay']//input[@value='Close']"),
-                1000) != null) {
+        if (comMethods.waitForElementToBeVisible(By.xpath("//*[@id='coid_lightboxOverlay']//input[@value='Close']")
+        ) != null) {
             onepassLogin.findElement(By.id("welcomePrefCheckbox")).click();
             onepassLogin.findElement(By.xpath("//*[@id='coid_lightboxOverlay']//input[@value='Close']")).click();
         }
@@ -461,7 +461,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 
                 case RESEARCH_DOC_DISPLAY:
                     LOG.info("RESEARCH_DOC_DISPLAY routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"), 1000)
+                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
                             .sendKeys("w_plplus_catpagestst_cs");
                     /** VERY IMPORTANT: TODO to remove when PMD issue is fixed */
                     onepassLogin.findElement(By.id("ProductMetadataDataVersion")).sendKeys("2482");
@@ -669,13 +669,13 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 
                 case CAT_PAGES:
                     LOG.info("CAT_PAGES routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"), 1000)
+                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
                             .sendKeys("w_plcuk_catpagestst_cs");
                     break;
 
                 case CONCEPTS_LIBRARY_LINKS:
                     LOG.info("CONCEPTS_LIBRARY_LINKS routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"), 1000)
+                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
                             .sendKeys("w_plcuk_catpagesqa_cs");
                     break;
 
@@ -775,7 +775,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 
                 case OPEN_WEB_SEARCH:
                     LOG.info("OPEN_WEB_SEARCH routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"), 1000)
+                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
                             .sendKeys("w_plplus_catpagestst_cs");
                     new Select(onepassLogin.findElement(By.id("WebContentCollectionSet"))).selectByVisibleText("TEST");
                     new Select(onepassLogin.findElement(By.id("SkipAnonymousAuthenticationKey"))).selectByValue("False");
@@ -783,7 +783,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 
                 case DOCDISPLAY_UseCollectionSet:
                     LOG.info("DOCDISPLAY_UseCollectionSet routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"), 1000)
+                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
                             .sendKeys("w_plplus_catpagestst_cs");
                     new Select(onepassLogin.findElement(By.id("WebContentCollectionSet"))).selectByValue("w_cb_wcmstst_cs");
                     routingPage.showFeatureSelectionsLink().click();
@@ -796,37 +796,37 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                 case SPECIFIED_USER_TIMEOUT_3_MINUTES:
                     LOG.info("SPECIFIED_USER_TIMEOUT_3_MINUTES routing");
                     comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']"), 1000).clear();
+                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).clear();
                     comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']"), 1000).sendKeys("3");
+                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).sendKeys("3");
                     break;
 
                 case SPECIFIED_USER_TIMEOUT_4_MINUTES:
                     comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']"), 1000).clear();
+                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).clear();
                     comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']"), 1000).sendKeys("4");
+                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).sendKeys("4");
                     break;
 
                 case SPECIFIED_USER_TIMEOUT_5_MINUTES:
                     comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']"), 1000).clear();
+                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).clear();
                     comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']"), 1000).sendKeys("5");
+                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).sendKeys("5");
                     break;
 
                 case SPECIFIED_USER_TIMEOUT_7_MINUTES:
                     comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']"), 1000).clear();
+                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).clear();
                     comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']"), 1000).sendKeys("7");
+                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).sendKeys("7");
                     break;
 
                 case SPECIFIED_USER_TIMEOUT_13_MINUTES:
                     comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']"), 1000).clear();
+                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).clear();
                     comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']"), 1000).sendKeys("13");
+                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).sendKeys("13");
                     break;
                 case NON_SUBSCRIBER:
                     LOG.info("NON_SUBSCRIBER routing");
@@ -837,7 +837,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 
                 case RESEARCH_SEARCH:
                     LOG.info("RESEARCH_SEARCH routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"), 1000)
+                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
                             .sendKeys("w_plplus_catpagestst_cs");
                     onepassLogin.findElement(By.id("ProductMetadataDataVersion")).sendKeys("2513");
                     new Select(onepassLogin.findElement(By.id("WebContentCollectionSet"))).selectByValue("w_cb_wcmstst_cs");

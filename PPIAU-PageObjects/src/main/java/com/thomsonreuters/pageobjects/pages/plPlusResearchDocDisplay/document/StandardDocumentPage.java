@@ -1,11 +1,10 @@
 package com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document;
 
+import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 import java.awt.*;
@@ -20,6 +19,7 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
     private static final String DRAFT_MESSAGE_FOR_PA = "Answer a series of questions and create a first draft in half the time with our free drafting tool.";
     private static final String DRAFT_MESSAGE_FOR_IP = "Answer a series of questions upfront and create a first draft in half the time with our free drafting tool. You will need an individual username and password to access this tool.";
     private static final String LEARN_MORE_BUTTON_LOCATOR = "//button[@id='co_fastdraft_learnmore' and text()='Learn more']";
+    private static final By FASTDRAFT_REDIRECTING_LOCATOR = By.xpath("//div[@aria-label='Redirecting to FastDraft...']//a[@id='co_fastdraftCloseLink']");
 
     private CommonMethods comMethods = new CommonMethods();
 
@@ -48,9 +48,9 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
 
 	public void checkStartDraftingButtonPresents() {
 		WebElement button = comMethods.waitForElementToBeVisible(
-				By.xpath("//*[text()='Start drafting' or @id='fastdraft_message_go']"), 10000);
+				By.xpath("//*[text()='Start drafting' or @id='fastdraft_message_go']"));
 		if (button == null) {
-			throw new RuntimeException("Start Drafting button absents");
+			throw new PageOperationException("Start Drafting button absents");
 		}
 	}
 
@@ -95,9 +95,9 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
     
 	public void checkLoginAsSingleUserButtonPresents() {
 		WebElement button = comMethods.waitForElementToBeVisible(
-				By.xpath("//button[@id='co_fastdraft_login' and text()='Log in as single user']"), 10000);
+				By.xpath("//button[@id='co_fastdraft_login' and text()='Log in as single user']"));
 		if (button == null) {
-			throw new RuntimeException("Login as single user button absents");
+			throw new PageOperationException("Login as single user button absents");
 		}
 	}
 
@@ -108,7 +108,7 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
     public void checkDraftMessageForPAPresents() {
         if(!isExists(By.xpath("//div[contains(.,'" + DRAFT_MESSAGE_FOR_PA
                 + "') and contains(.,'Draft document')]"))){
-        	throw new RuntimeException("Draft message absents");
+        	throw new PageOperationException("Draft message absents");
         }
         String learnMoreLink = "/About/PracticalLawTools";
         waitForExpectedElement(By.xpath("//a[@id='co_fastdraft_learnmore' and contains(@href,'" + learnMoreLink + "')]"));
@@ -127,8 +127,7 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
         //Cancel request button will appear after 10 secs
         TimeoutUtils.sleepInSeconds(12);
         stopBrowserExecution();
-        waitForElementPresent(By
-                    .xpath("//div[@aria-label='Redirecting to FastDraft...']//a[@id='co_fastdraftCloseLink']"));
+        waitForElementPresent(FASTDRAFT_REDIRECTING_LOCATOR);
         LOG.info("Redirecting to FastDraft popup presents");
     }
 
@@ -149,11 +148,9 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
     }
 
     public void checkRedirectingToFastDraftPopupAbsents() {
-        waitForElementPresent(By
-                .xpath("//div[@aria-label='Redirecting to FastDraft...']//a[@id='co_fastdraftCloseLink']"));
+        waitForElementPresent(FASTDRAFT_REDIRECTING_LOCATOR);
     }
-    
-    
+
     public boolean isRegisterForFreeAccessPresent() {
     	return isElementDisplayed(By.xpath("//a[contains(text(),'Request a free trial')]"));
     }
@@ -168,8 +165,7 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
     }
     
     public WebElement closeRedirectingToFastDraftPopup() {
-        return waitForExpectedElement(
-                By.xpath("//div[@aria-label='Redirecting to FastDraft...']//a[@id='co_fastdraftCloseLink']"));
+        return waitForExpectedElement(FASTDRAFT_REDIRECTING_LOCATOR);
     }
 
     public WebElement downloadFSFile(String linkName) {
@@ -330,8 +326,7 @@ public class StandardDocumentPage extends DocumentDisplayAbstractPage {
     public boolean isErrorMessageOnDocument() {
         return isElementDisplayed(By.xpath("//div[@class='co_genericBoxContent']/*[contains(text(),'not be found') or contains(text(),'not available')]"));
     }
-	public boolean waitForDocumentTitle(String name) {
-		
+	public boolean waitForDocumentTitle() {
 		return isElementDisplayed(By.xpath("//div[@id='co_docHeaderContainer']/h1[@class='co_title noTOC']"));
 	}
 }

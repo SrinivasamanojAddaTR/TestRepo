@@ -11,8 +11,12 @@ import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import java.util.function.Predicate;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 
 public class AbilityNotToSeeFauvoritesFromOthersSystems1 extends BaseStepDef {
 
@@ -136,7 +140,11 @@ public class AbilityNotToSeeFauvoritesFromOthersSystems1 extends BaseStepDef {
 
     @Then("page '(.+)' opens$")
     public void checkPageOpens(String pageName) throws Throwable {
-        categoryPage.checkPageOpens(pageName);
+        Predicate<String> verifyTitle = page -> !categoryPage.getPageTitle().contains(page);
+        Predicate<String> verifyUrl = page -> !categoryPage.getCurrentUrl().contains(page);
+        assertThat(verifyTitle.and(verifyUrl).test(pageName))
+                .overridingErrorMessage("Wrong page opens")
+                .isFalse();
     }
 
     @Then("^the user checks the start page is Home page$")

@@ -10,7 +10,7 @@ public class DraftViewPage extends AbstractPage {
     private CommonMethods comMethods = new CommonMethods();
 
     public void checkFieldHasValue(String field, String value) {
-        comMethods.waitForElementToBeVisible(By.xpath("//a[contains(.,(" + field + ")) and text()='" + value + "']"), 10000);
+        comMethods.waitForElementToBeVisible(By.xpath("//a[contains(.,(" + field + ")) and text()='" + value + "']"));
     }
 
     public WebElement wordDocument() {

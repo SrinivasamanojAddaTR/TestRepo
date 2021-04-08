@@ -3,7 +3,6 @@ package com.thomsonreuters.pageobjects.pages.fastDraft;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -15,11 +14,11 @@ public class FormEPage extends AbstractPage {
     private CommonMethods comMethods = new CommonMethods();
 
     public WebElement startHereFormE() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//*[@id='co_form_e_submit' and @value='Start here']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//*[@id='co_form_e_submit' and @value='Start here']"));
     }
 
     public WebElement uploadFormE() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//*[@id='co_form_e_upload' and @value='Upload']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//*[@id='co_form_e_upload' and @value='Upload']"));
     }
 
     public WebElement formEUserGuide(String userGuide) {
@@ -30,7 +29,7 @@ public class FormEPage extends AbstractPage {
     public void checkStartHereButtonWithMessagePresents() {
 		WebElement button = comMethods.waitForElementToBeVisible(By
                 .xpath("//div[@class='pluk-form-e-submit-form' and contains(.,'Create a new Form E')]"
-                        + "//*[@id='co_form_e_submit' and @value='Start here']"), 10000);
+                        + "//*[@id='co_form_e_submit' and @value='Start here']"));
 		Assert.assertNotNull(button, "Start here button with message absents");
     }
 
@@ -38,7 +37,7 @@ public class FormEPage extends AbstractPage {
     	WebElement button = comMethods
                 .waitForElementToBeVisible(
                         By.xpath("//div[@class='pluk-form-e-upload-form' and contains(.,'Upload client changes to an existing Form E')]"
-                                + "//*[@id='co_form_e_upload' and @value='Upload']"), 10000);
+                                + "//*[@id='co_form_e_upload' and @value='Upload']"));
 		Assert.assertNotNull(button, "Upload button with message absents");
     }
 

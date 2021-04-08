@@ -12,19 +12,19 @@ public class Header extends AbstractPage {
     private CommonMethods comMethods = new CommonMethods();
 
     public WebElement myProjects() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//a[contains(@href,'projects.zevon')]"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//a[contains(@href,'projects.zevon')]"));
     }
 
     public WebElement viewDraft() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//a[contains(@href,'saveAndDraft()')]"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//a[contains(@href,'saveAndDraft()')]"));
     }
 
     public WebElement viewQuestions() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//a[@href='qs/firstquestionpage']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//a[@href='qs/firstquestionpage']"));
     }
 
     public WebElement addressBook() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//a[@href='deals/mastercontacts']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//a[@href='deals/mastercontacts']"));
     }
 
 }

@@ -10,11 +10,11 @@ public class NewContactPopup extends AbstractPage {
     private CommonMethods comMethods = new CommonMethods();
 
     public void selectPersonContactType() {
-        selectDropDownByVisibleText(comMethods.waitForElementToBeVisible(By.xpath("//select[@class='qsListBox']"), 10000), "a person");
+        selectDropDownByVisibleText(comMethods.waitForElementToBeVisible(By.xpath("//select[@class='qsListBox']")), "a person");
     }
 
     public WebElement salutationComboButton() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//span[contains(@id,'salutation_combobutton')]"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//span[contains(@id,'salutation_combobutton')]"));
     }
 
     public void selectSalutation(String title) {

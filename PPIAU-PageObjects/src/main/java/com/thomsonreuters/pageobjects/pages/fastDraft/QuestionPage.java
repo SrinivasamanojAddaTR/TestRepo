@@ -10,20 +10,20 @@ public class QuestionPage extends AbstractPage {
 
     private CommonMethods comMethods = new CommonMethods();
 
-    private final static String PAGE = "//*[@class='zevon-question-pages']//a[text()=\"%s\"]";
-    private final static String TEXT_FIELD = "//input[@id='%s']";
-    private final static String DROPDOWN_FIELD = "//select[@id='%s']";
+    private static final String PAGE = "//*[@class='zevon-question-pages']//a[text()=\"%s\"]";
+    private static final String TEXT_FIELD = "//input[@id='%s']";
+    private static final String DROPDOWN_FIELD = "//select[@id='%s']";
 
     public WebElement page(String page) {
-        return comMethods.waitForElementToBeVisible(By.xpath(String.format(PAGE, page)), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath(String.format(PAGE, page)));
     }
 
     public WebElement textField(String fieldId) {
-        return comMethods.waitForElementToBeVisible(By.xpath(String.format(TEXT_FIELD, fieldId)), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath(String.format(TEXT_FIELD, fieldId)));
     }
 
     public WebElement dropDownField(String fieldId) {
-        return comMethods.waitForElementToBeVisible(By.xpath(String.format(DROPDOWN_FIELD, fieldId)), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath(String.format(DROPDOWN_FIELD, fieldId)));
     }
 
     public WebElement dropDownFieldOption(String fieldId, String optionValue) {
@@ -31,11 +31,11 @@ public class QuestionPage extends AbstractPage {
     }
 
     public void checkQuestionPageForDocument(String documentName) {
-        comMethods.waitForElementToBeVisible(By.xpath("//*[contains(text(),'" + documentName + " Questions')]"), 10000);
+        comMethods.waitForElementToBeVisible(By.xpath("//*[contains(text(),'" + documentName + " Questions')]"));
     }
 
     public WebElement saveProject() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//a[@title='Save the document']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//a[@title='Save the document']"));
     }
 
     public WebElement save() {
@@ -43,25 +43,25 @@ public class QuestionPage extends AbstractPage {
     }
 
     public WebElement updateContactField(String contactToUpdate) {
-        return comMethods.waitForElementToBeVisible(By.xpath("//div[@id='" + contactToUpdate + "']//button"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//div[@id='" + contactToUpdate + "']//button"));
     }
 
     public WebElement chooseContact(String contactToSet) {
         return comMethods.waitForElementToBeVisible(
-                By.xpath("//a[text()='" + contactToSet + "']/parent::td//preceding-sibling::td/input"), 10000);
+                By.xpath("//a[text()='" + contactToSet + "']/parent::td//preceding-sibling::td/input"));
     }
 
     public void checkContactHasValue(String contactToUpdate, String contactToSet) {
     	WebElement contact = comMethods.waitForElementToBeVisible(
                 By.xpath("//div[@id='" + contactToUpdate + "']//a[@class='item-edit' and text()='" + contactToSet
-                        + "']"), 10000);
+                        + "']"));
 		Assert.assertNotNull(contact, "Contact '" + contactToUpdate + "' has no value '" + contactToSet + "'");
     }
 
     public void checkRemoveContactButtonPresents(String contactToUpdate, String contactToSet) {
     	WebElement contact = comMethods.waitForElementToBeVisible(
                 By.xpath("//div[@id='" + contactToUpdate + "']//button[@data-label='" + contactToSet
-                        + "' and text()='Remove']"), 10000 );
+                        + "' and text()='Remove']"));
 		Assert.assertNotNull(contact, "Contact '" + contactToUpdate + "' has no value '" + contactToSet + "'");
     }
 

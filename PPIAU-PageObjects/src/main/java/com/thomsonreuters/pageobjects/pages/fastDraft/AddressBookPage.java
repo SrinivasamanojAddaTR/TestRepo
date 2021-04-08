@@ -10,11 +10,11 @@ public class AddressBookPage extends AbstractPage {
     private CommonMethods comMethods = new CommonMethods();
 
     public WebElement createNewContact() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//*[text()=' Create new contact']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//*[text()=' Create new contact']"));
     }
 
     public WebElement closeAddressBook() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//a[text()=' Close']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//a[text()=' Close']"));
     }
 
     public WebElement removeContactConfirmation() {
@@ -23,7 +23,7 @@ public class AddressBookPage extends AbstractPage {
 
     public WebElement removeContact(String contact) {
         return comMethods.waitForElementToBeVisible(
-                By.xpath("(//a[text()=' " + contact + "']/following::button[text()='Delete'])[1]"), 10000);
+                By.xpath("(//a[text()=' " + contact + "']/following::button[text()='Delete'])[1]"));
     }
 
     public boolean isContactPresents(String contactName) {

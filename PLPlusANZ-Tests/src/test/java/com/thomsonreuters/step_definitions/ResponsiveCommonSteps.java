@@ -431,7 +431,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
         practicalLawUKCategoryPage.searchButton().isDisplayed();
         practicalLawUKCategoryPage.freeTextField().clear();
         practicalLawUKCategoryPage.freeTextField().sendKeys(query);
-        if (commonMethods.waitForElementToBeVisible(practicalLawUKCategoryPage.suggestedByTerm(query.toUpperCase()), 1000) != null) {
+        if (commonMethods.waitForElementToBeVisible(practicalLawUKCategoryPage.suggestedByTerm(query.toUpperCase())) != null) {
             practicalLawUKCategoryPage.suggestedTerm(query.toUpperCase()).click();
         } else {
             practicalLawUKCategoryPage.freeTextField().sendKeys(Keys.ENTER);

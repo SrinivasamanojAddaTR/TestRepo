@@ -3,37 +3,36 @@ package com.thomsonreuters.pageobjects.pages.fastDraft;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class DashboardPage extends AbstractPage {
 
-    private final static String PROJECT_DASHBOARD_LABEL = "//a[@class='brand' and text()='Project dashboard']";
-    private final static String CREATE_NEW_PROJECT_BUTTON = "//a[@href='newproject.zevon']";
-    private final static String PROJECT = "//tr[@data-title='%s']";
-    private final static String ACTIONS_BUTTON = PROJECT + "//a[text()=' Actions ']";
-    private final static String ACTIONS_BUTTON_NUMBER = "(//a[text()=' Actions '])[%s]";
-    private final static String DELETE_PROJECT_BUTTON = PROJECT + "//a[@class='project-delete']";
-    private final static String DELETE_BUTTON_NUMBER = "(//a[@class='project-delete'])[%s]";
-    private final static String RENAME_PROJECT_BUTTON = PROJECT + "//a[@class='project-rename']";
-    private final static String ARCHIVE_PROJECT_BUTTON = PROJECT + "//a[@class='project-archive']";
-    private final static String UNARCHIVE_PROJECT_BUTTON = PROJECT + "//a[@class='project-unarchive']";
-    private final static String CANCEL = "//*[@id='ConfirmActionModal']//*[text()='Cancel']";
+    private static final String PROJECT_DASHBOARD_LABEL = "//a[@class='brand' and text()='Project dashboard']";
+    private static final String CREATE_NEW_PROJECT_BUTTON = "//a[@href='newproject.zevon']";
+    private static final String PROJECT = "//tr[@data-title='%s']";
+    private static final String ACTIONS_BUTTON = PROJECT + "//a[text()=' Actions ']";
+    private static final String ACTIONS_BUTTON_NUMBER = "(//a[text()=' Actions '])[%s]";
+    private static final String DELETE_PROJECT_BUTTON = PROJECT + "//a[@class='project-delete']";
+    private static final String DELETE_BUTTON_NUMBER = "(//a[@class='project-delete'])[%s]";
+    private static final String RENAME_PROJECT_BUTTON = PROJECT + "//a[@class='project-rename']";
+    private static final String ARCHIVE_PROJECT_BUTTON = PROJECT + "//a[@class='project-archive']";
+    private static final String UNARCHIVE_PROJECT_BUTTON = PROJECT + "//a[@class='project-unarchive']";
+    private static final String CANCEL = "//*[@id='ConfirmActionModal']//*[text()='Cancel']";
 
     private CommonMethods comMethods = new CommonMethods();
 
     public void checkFastDraftDashboardPresents() {
-    	WebElement dashboard = comMethods.waitForElementToBeVisible(By.xpath(PROJECT_DASHBOARD_LABEL), 10000);
+    	WebElement dashboard = comMethods.waitForElementToBeVisible(By.xpath(PROJECT_DASHBOARD_LABEL));
 		Assert.assertNotNull(dashboard, "Fast Draft dashboard absents");
     }
 
     public WebElement createNewProject() {
-        return comMethods.waitForElementToBeVisible(By.xpath(CREATE_NEW_PROJECT_BUTTON), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath(CREATE_NEW_PROJECT_BUTTON));
     }
 
     public WebElement openProject(String project) {
-        return comMethods.waitForElementToBeVisible(By.xpath("//a[text()='" + project + "']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//a[text()='" + project + "']"));
     }
 
     public boolean isProjectPresent(String projectName) {
@@ -62,7 +61,7 @@ public class DashboardPage extends AbstractPage {
     }
 
     public WebElement viewingCurrentProjects() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//a[text()=' Viewing Current Projects ']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//a[text()=' Viewing Current Projects ']"));
     }
 
     public WebElement switchToArchive() {
@@ -74,7 +73,7 @@ public class DashboardPage extends AbstractPage {
     }
 
     public WebElement viewingArchive() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//a[text()=' Viewing Archive ']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//a[text()=' Viewing Archive ']"));
     }
 
     public WebElement archive(String projectName) {
@@ -94,26 +93,15 @@ public class DashboardPage extends AbstractPage {
     }
 
     public WebElement actions(String projectName) {
-        return comMethods.waitForElementToBeVisible(By.xpath(String.format(ACTIONS_BUTTON, projectName)), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath(String.format(ACTIONS_BUTTON, projectName)));
     }
 
     public WebElement actions(int projectPosition) {
         return waitForExpectedElement(By.xpath(String.format(ACTIONS_BUTTON_NUMBER, projectPosition)));
     }
 
-    public int getProjectsCount() {
-        int count = 0;
-        try {
-            comMethods.waitForElementToBeVisible(By.xpath("//tr[contains(@class,'gradeX project-listing')]"), 10000);
-            count = waitForExpectedElements(By.xpath("//tr[contains(@class,'gradeX project-listing')]")).size();
-        } catch (TimeoutException e) {
-            LOG.info("Project count is 0");
-        }
-        return count;
-    }
-
     public WebElement getProjectNameByPosition(int position) {
-        return comMethods.waitForElementToBeVisible(By.xpath("(//tr[contains(@class,'gradeX project-listing')])[" + position + "]//a[@onclick]"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("(//tr[contains(@class,'gradeX project-listing')])[" + position + "]//a[@onclick]"));
     }
 
     public boolean isProjectAbsent(String projectName) {

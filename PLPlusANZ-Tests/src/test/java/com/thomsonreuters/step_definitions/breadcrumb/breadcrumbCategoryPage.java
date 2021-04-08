@@ -96,7 +96,7 @@ public class breadcrumbCategoryPage extends BaseStepDef{
         //searchResultsPage.waitForPageSourceChangedAfterClick(searchResultsPage.getDocumentLinkByName(name));
         searchResultsPage.waitForPageToLoadAndJQueryProcessing();
         breadCrumbPage.waitForBreadcrumbToBeDisplayed();
-        standardDocumentPage.waitForDocumentTitle(name);
+        standardDocumentPage.waitForDocumentTitle();
     }
 
   @When("^the user clicks on the '(.+)' link in the doc$")

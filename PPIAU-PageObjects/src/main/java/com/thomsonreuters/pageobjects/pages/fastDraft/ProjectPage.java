@@ -7,20 +7,20 @@ import org.openqa.selenium.WebElement;
 
 public class ProjectPage extends AbstractPage {
 
-    private final static String DOCUMENT = "//tr[@data-title='%s']";
-    private final static String ACTIONS_BUTTON = DOCUMENT + "//a[text()=' Actions ']";
-    private final static String DELETE_DOCUMENT_BUTTON = DOCUMENT + "//a[@class='doc-delete']";
-    private final static String RENAME_DOCUMENT_BUTTON = DOCUMENT + "//a[@class='doc-rename']";
-    private final static String UPLOAD_FORM_E_BUTTON = DOCUMENT + "//button[text()=' Upload']";
+    private static final String DOCUMENT = "//tr[@data-title='%s']";
+    private static final String ACTIONS_BUTTON = DOCUMENT + "//a[text()=' Actions ']";
+    private static final String DELETE_DOCUMENT_BUTTON = DOCUMENT + "//a[@class='doc-delete']";
+    private static final String RENAME_DOCUMENT_BUTTON = DOCUMENT + "//a[@class='doc-rename']";
+    private static final String UPLOAD_FORM_E_BUTTON = DOCUMENT + "//button[text()=' Upload']";
 
     private CommonMethods comMethods = new CommonMethods();
 
     public WebElement openDocument(String document) {
-        return comMethods.waitForElementToBeVisible(By.xpath("//a[text()='" + document + "']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//a[text()='" + document + "']"));
     }
 
     public WebElement createNewDocument() {
-        return comMethods.waitForElementToBeVisible(By.xpath("//*[text()=' Create new document']"), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath("//*[text()=' Create new document']"));
     }
 
     public WebElement deleteDocumentButton(String documentName) {
@@ -38,7 +38,7 @@ public class ProjectPage extends AbstractPage {
     public boolean isDocumentPresent(String documentName) {
         WebElement project = null;
         try {
-            project = comMethods.waitForElementToBeVisible(By.xpath(String.format(DOCUMENT, documentName)), 10000);
+            project = comMethods.waitForElementToBeVisible(By.xpath(String.format(DOCUMENT, documentName)));
             project.isDisplayed();
         } catch (NullPointerException e) {
             return false;
@@ -47,7 +47,7 @@ public class ProjectPage extends AbstractPage {
     }
 
     public WebElement actionsButton(String elementName) {
-        return comMethods.waitForElementToBeVisible(By.xpath(String.format(ACTIONS_BUTTON, elementName)), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath(String.format(ACTIONS_BUTTON, elementName)));
     }
 
     public WebElement renameDocument(String documentName) {
@@ -55,15 +55,15 @@ public class ProjectPage extends AbstractPage {
     }
 
     public WebElement uploadFormE(String documentName) {
-        return comMethods.waitForElementToBeVisible(By.xpath(String.format(UPLOAD_FORM_E_BUTTON, documentName)), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath(String.format(UPLOAD_FORM_E_BUTTON, documentName)));
     }
 
     public WebElement selectUploadFormE() {
-        return comMethods.waitForElementToBeVisible(By.id("UFform"), 10000);
+        return comMethods.waitForElementToBeVisible(By.id("UFform"));
     }
 
     public WebElement upload() {
-        return comMethods.waitForElementToBeVisible(By.id("UFbutton"), 10000);
+        return comMethods.waitForElementToBeVisible(By.id("UFbutton"));
     }
 
     public boolean isDocumentAbsent(String documentName) {

@@ -7,12 +7,12 @@ import org.openqa.selenium.WebElement;
 
 public class RenamePopup extends AbstractPage {
 
-    private final static String ELEMENT_NAME_INPUT = "//input[@id='NIName']";
+    private static final String ELEMENT_NAME_INPUT = "//input[@id='NIName']";
 
     private CommonMethods comMethods = new CommonMethods();
 
     public WebElement projectOrDocument() {
-        return comMethods.waitForElementToBeVisible(By.xpath(ELEMENT_NAME_INPUT), 10000);
+        return comMethods.waitForElementToBeVisible(By.xpath(ELEMENT_NAME_INPUT));
     }
 
     public WebElement renameButton() {

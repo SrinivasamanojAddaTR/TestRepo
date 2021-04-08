@@ -1,6 +1,5 @@
 package com.thomsonreuters.pageobjects.pages.ask;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.CommonResourcePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -9,10 +8,6 @@ import org.openqa.selenium.WebElement;
 public class AskResourcePage extends CommonResourcePage {
 
     private static final String COMMENT_PATTERN = "#co_docContentBody div:nth-of-type(%d) %s";
-    private static final int TIMEOUT_IN_SECONDS = 60;
-    private static final int POLLING_TIME_IN_MILLISECONDS = 100;
-
-    private CommonMethods commonMethods = new CommonMethods();
 
     public WebElement askDisclaimerText() {
         return waitForExpectedElement(By.className("ask_disclaimer"));
@@ -43,9 +38,7 @@ public class AskResourcePage extends CommonResourcePage {
     }
 
     public WebElement displayNameForNthComment(int n) {
-        String text = String.format(COMMENT_PATTERN, n + 1, "> .askCommentDisplayName");
         return waitForExpectedElement(By.cssSelector(String.format(COMMENT_PATTERN, n + 1, "> .askCommentDisplayName")));
-        //return waitForExpectedElement(By.cssSelector("#co_docContentBody .askCommentResponse:nth-of-type(" + n + 1 + ")" + " .askCommentDisplayName"));
     }
     
     public WebElement inputName() {
@@ -54,7 +47,6 @@ public class AskResourcePage extends CommonResourcePage {
 
     public WebElement displayServiceForNthComment(int n) {
         return waitForExpectedElement(By.cssSelector(String.format(COMMENT_PATTERN, n + 1, "> .askCommentDisplayService")));
-        //return waitForExpectedElement(By.cssSelector("#co_docContentBody .askCommentResponse:nth-of-type(" + n + 1 + ")" + " .askCommentDisplayName"));
     }
     
     public WebElement inputService() {
@@ -63,12 +55,10 @@ public class AskResourcePage extends CommonResourcePage {
 
     public WebElement postedDateForNthComment(int n) {
         return waitForExpectedElement(By.cssSelector(String.format(COMMENT_PATTERN, n + 1, "> .askCommentPostedDate")));
-        //return waitForExpectedElement(By.cssSelector("#co_docContentBody .askCommentResponse:nth-of-type(" + n + 1 + ")" + " .askCommentDisplayName"));
     }
 
     public WebElement bodyForNthComment(int n) {
         return waitForExpectedElement(By.cssSelector(String.format(COMMENT_PATTERN, n + 1, "> .askCommentBody")));
-        //return waitForExpectedElement(By.cssSelector("#co_docContentBody .askCommentResponse:nth-of-type(" + n + 1 + ")" + " .askCommentDisplayName"));
     }
 
     public WebElement textForNthComment(int n){
@@ -77,12 +67,10 @@ public class AskResourcePage extends CommonResourcePage {
 
     public WebElement reportThisPostForNthComment(int n) {
         return waitForExpectedElement(By.cssSelector(String.format(COMMENT_PATTERN, n + 1, "> .askReportThisPost>a")));
-        //return waitForExpectedElement(By.cssSelector("#co_docContentBody .askCommentResponse:nth-of-type(" + n + 1 + ")" + " .askCommentDisplayName"));
     }
 
     public WebElement replyForNthComment(int n) {
         return waitForExpectedElement(By.cssSelector(String.format(COMMENT_PATTERN, n + 1, "> .askReplyToThisPost>a")));
-        //return waitForExpectedElement(By.cssSelector("#co_docContentBody .askCommentResponse:nth-of-type(" + n + 1 + ")" + " .askCommentDisplayName"));
     }
 
     public WebElement editForNthComment(int n) {
@@ -146,14 +134,11 @@ public class AskResourcePage extends CommonResourcePage {
     }
 
     public WebElement readyMessageOverlayHeader() {
-//        return waitForExpectedElement(By.cssSelector("#co_headerMessage"));
-        return commonMethods.waitForExpectedElement(By.xpath("//div[@id='co_headerMessage' and contains(text(),'Ready For')]"),
-                TIMEOUT_IN_SECONDS, POLLING_TIME_IN_MILLISECONDS);
+        return waitForExpectedElement(By.xpath("//div[@id='co_headerMessage' and contains(text(),'Ready For')]"));
     }
 
     public WebElement prepareMessageOverlayHeader() {
-        return commonMethods.waitForExpectedElement(By.xpath("//div[@id='co_headerMessage' and contains(text(),'Preparing For')]"),
-                TIMEOUT_IN_SECONDS, POLLING_TIME_IN_MILLISECONDS);
+        return waitForExpectedElement(By.xpath("//div[@id='co_headerMessage' and contains(text(),'Preparing For')]"));
     }
 
     public WebElement addReplyNextToHeaderLink() {
