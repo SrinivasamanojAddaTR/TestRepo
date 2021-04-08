@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.email;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
+import com.thomsonreuters.utils.TimeoutUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +13,7 @@ public class ImapsMailbox extends AbstractMailbox {
 
     private static final Logger LOG = LoggerFactory.getLogger(ImapsMailbox.class);
 
-    private List<Message> messages = new ArrayList<Message>();
+    private List<Message> messages = new ArrayList<>();
 
     ImapsMailbox(String userName, String domain, String password) {
         super(userName, domain, password);
@@ -21,8 +22,8 @@ public class ImapsMailbox extends AbstractMailbox {
     }
 
     public void loadNewMessages() throws MessagingException {
-        Message[] messages = fetchMessages(INBOX_FOLDER_NAME, Folder.READ_WRITE);
-        for (Message message : messages) {
+        Message[] inboxMessages = fetchMessages(INBOX_FOLDER_NAME, Folder.READ_WRITE);
+        for (Message message : inboxMessages) {
             Flags flags = message.getFlags();
             LOG.info("Message with title: '{}', system flags: {}, user flags: {}",
                     message.getSubject(), getSystemFlagsAsStrings(flags.getSystemFlags()), Arrays.asList(flags.getUserFlags()));
@@ -35,8 +36,8 @@ public class ImapsMailbox extends AbstractMailbox {
 
     @Override
     public void deleteAllInboxMessages() throws MessagingException {
-        Message[] messages = fetchMessages(INBOX_FOLDER_NAME, Folder.READ_WRITE);
-        for (Message message : messages) {
+        Message[] inboxMessages = fetchMessages(INBOX_FOLDER_NAME, Folder.READ_WRITE);
+        for (Message message : inboxMessages) {
             if (!message.getFlags().contains(Flags.Flag.DELETED)) {
                 message.setFlag(Flags.Flag.DELETED, true);
             }
@@ -46,11 +47,11 @@ public class ImapsMailbox extends AbstractMailbox {
 
     private Message[] fetchMessages(String folderName, int accessMode) throws MessagingException {
         initConnectionAndOpenFolder(folderName, accessMode);
-        Message[] messages = openedFolder.getMessages();
+        Message[] openedFolderMessages = openedFolder.getMessages();
         FetchProfile fetchProfile = new FetchProfile();
         fetchProfile.add(FetchProfile.Item.ENVELOPE);
-        openedFolder.fetch(messages, fetchProfile);
-        return messages;
+        openedFolder.fetch(openedFolderMessages, fetchProfile);
+        return openedFolderMessages;
     }
 
     private List<String> getSystemFlagsAsStrings(Flags.Flag[] flags) {
@@ -81,11 +82,9 @@ public class ImapsMailbox extends AbstractMailbox {
         super.close();
     }
 
-    // TODO Unused intervalSeconds arg. To remove
     @Override
     public Message waitForMessageWithTitle(final String title, int timeoutSeconds, int intervalSeconds) throws Throwable {
         // Wait while expected message won't be null.
-        //TODO [Phase3] need to verify below changes for all mail tests
         Function<ImapsMailbox, Optional<Message>> waitCondition = mailbox -> {
             try {
                 LOG.info("Attempt to wait a message with title: {}", title);
@@ -128,11 +127,11 @@ public class ImapsMailbox extends AbstractMailbox {
                 LOG.info("Could not load messages");
             }
             if (result == null) {
-                Thread.sleep(intervalSeconds * 1000);
+                TimeoutUtils.sleepInSeconds(intervalSeconds * 1000);
             }
         }
         if (result == null) {
-            throw new Exception("Could not get message with title '" + title + "' and sender '" + sender + "'");
+            throw new MessagingException("Could not get message with title '" + title + "' and sender '" + sender + "'");
         }
         return result;
     }
