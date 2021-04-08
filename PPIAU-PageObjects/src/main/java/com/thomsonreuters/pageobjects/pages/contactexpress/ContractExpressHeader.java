@@ -16,7 +16,7 @@ public class ContractExpressHeader extends AbstractPage {
     }
 
     public boolean ishelpiconPresent() {
-        return isElementDisplayed(By.xpath("//a[@title='Help']/span[@class='icon-help']"));
+        return isElementDisplayed(By.xpath("//a[@title='Help']/span[contains(@class,'icon-help')]"));
     }
 
     public boolean isuserDropdownPresent() {
