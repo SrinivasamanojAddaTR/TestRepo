@@ -1,9 +1,14 @@
 package com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document;
 
+import java.util.Arrays;
 import java.util.List;
+
+import com.thomsonreuters.driver.exception.PageOperationException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import static java.lang.String.format;
 
 /**
  * Created by u4400015 on 20/06/2016.
@@ -27,11 +32,12 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
 	private static final String ELEMENT_XPATH = "//div[@id='%s']/div[%s]/div%s";
 	private static final String CLASS = "class";
 	private static final String WIDGET_HEADER = ".//*[contains(@id, 'co_ukReference')]/h2[contains(text(), '%s')]";
+	private static final String WIDGET_HEADER_PATTERN = WIDGET_HEADER + "/following-sibling::div[%s]";
 	private static final String SUBSECTION_HEADER_XPATH = "//*[@id='co_docContentBody']//h3[contains(text(),'%s')]";
 	private static final String SHOW_CASE_SUMMARIES_XPATH = "//div[@id='%s']/h2/span/input";
 	private static final String SORTING_SELECT_XPATH = "//div[@id='%s']/h2/span/select";
 
-	public static enum RelatedContentSections {
+	public enum RelatedContentSections {
 		RELATED_CASES("related case", "co_ukReferences_relatedCases"),
 		KEY_CASES_CITED("key cases cited entry", "co_ukReferences_keyCasesCited"),
 		ALL_CASES_CITED("all cases cited entry", "co_ukReferences_allCasesCited"),
@@ -49,12 +55,8 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
 		}
 
 		public static RelatedContentSections getByDescription(String description) {
-			for (RelatedContentSections section : RelatedContentSections.values()) {
-				if (section.description.equals(description)) {
-					return section;
-				}
-			}
-			return null;
+			return Arrays.stream(RelatedContentSections.values()).filter(section -> section.description.equals(description)).findFirst()
+					.orElseThrow(() -> new PageOperationException(format("Related content sections by description %s not available", description)));
 		}
 	}
 
@@ -93,12 +95,12 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
 
 	public WebElement subsectionHeader(String subsection) {
 
-		return waitForExpectedElement(By.xpath(String.format(SUBSECTION_HEADER_XPATH, subsection)));
+		return waitForExpectedElement(By.xpath(format(SUBSECTION_HEADER_XPATH, subsection)));
     }
 
 	public boolean isSubsectionHeaderDisplayed(String subsection) {
 
-		return isElementDisplayed(By.xpath(String.format(SUBSECTION_HEADER_XPATH, subsection)));
+		return isElementDisplayed(By.xpath(format(SUBSECTION_HEADER_XPATH, subsection)));
 	}
 
     /**
@@ -208,16 +210,9 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
         return waitForExpectedElements(By.xpath("//div[starts-with(@class,'co_ukAppellateHistoryRow')]" + followingXpath));
     }
 
-    /**
-     * object representing status icon within appellate history
-     */
-    public WebElement statusIcon(String type) {
-
-        return waitForExpectedElement(By.xpath(""));
-    }
 
     public By documentWidget(String widget){
-    	String xpath = String.format(WIDGET_HEADER,  widget);
+    	String xpath = format(WIDGET_HEADER,  widget);
 		return By.xpath(xpath);   	
     }
     
@@ -267,12 +262,12 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement relatedCaseCaption(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceCaption']");
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceCaption']");
 		return waitForExpectedElement(By.xpath(xpath));
 	}
 
 	public WebElement legislationCitedCaption(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div");
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div");
 		return waitForExpectedElement(By.xpath(xpath));
 	}
 
@@ -285,7 +280,7 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
 	}
 
 	public boolean isLegislationCitedCaptionLinkExists(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry,
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry,
 				"/div/a");
 		return isElementDisplayed(By.xpath(xpath));
 	}
@@ -295,7 +290,7 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement relatedCaseStatusIcon(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry,
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry,
 				"/div[contains(@class, 'co_ukReferenceStatusIcon')]");
 		return waitForExpectedElement(By.xpath(xpath));
 	}
@@ -305,7 +300,7 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement relatedCaseStatus(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry,
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry,
 				"/div[@class='co_ukReferenceInfo']/span[contains(@class, 'co_ukReferenceStatusText')]");
 		return waitForExpectedElement(By.xpath(xpath));
 	}
@@ -315,44 +310,44 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement caseReferenceMark(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceEffect']");
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceEffect']");
 		return waitForElementVisible(By.xpath(xpath));
 	}
 
 	public WebElement caseReferenceTopMark(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceTopEffect']");
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceTopEffect']");
 		return waitForElementVisible(By.xpath(xpath));
 	}
 
 	public boolean isCaseReferenceTopMarkDisplayed(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceTopEffect']");
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceTopEffect']");
 		return isElementDisplayed(By.xpath(xpath));
 	}
 
 	public WebElement relatedCaseMetadata(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry,
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry,
 				"/div[@class='co_ukReferenceInfo']/span[2]");
 		return waitForExpectedElement(By.xpath(xpath));
 	}
 
 	public WebElement relatedCaseSubjects(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry,
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry,
 				"/div[@class='co_ukReferenceInfo']/span[3]");
 		return waitForExpectedElement(By.xpath(xpath));
 	}
 
 	public WebElement referenceSummary(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceSummary']");
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceSummary']");
 		return waitForElementVisible(By.xpath(xpath));
 	}
 
 	public boolean isReferenceSummaryDisplayed(String section, int entry) {
-		String xpath = String.format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceSummary']");
+		String xpath = format(ELEMENT_XPATH, RelatedContentSections.getByDescription(section).id, entry, "/div[@class='co_ukReferenceSummary']");
 		return isElementDisplayed(By.xpath(xpath));
 	}
 
 	public WebElement showCaseSummariesButton(String section) {
-		return waitForElementVisible(By.xpath(String.format(SHOW_CASE_SUMMARIES_XPATH, RelatedContentSections.getByDescription(section).id)));
+		return waitForElementVisible(By.xpath(format(SHOW_CASE_SUMMARIES_XPATH, RelatedContentSections.getByDescription(section).id)));
 	}
 
 	public Select sectionSortingDropdown(String section) {
@@ -360,16 +355,16 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
 	}
 
 	public boolean isRelatedCasesSortingDropdownDisplayed(String section) {
-		return isElementDisplayed(By.xpath(String.format(SORTING_SELECT_XPATH, RelatedContentSections.getByDescription(section).id)));
+		return isElementDisplayed(By.xpath(format(SORTING_SELECT_XPATH, RelatedContentSections.getByDescription(section).id)));
 	}
 
 	public WebElement sectionSortingDropdownElement(String section) {
-		return waitForElementVisible(By.xpath(String.format(SORTING_SELECT_XPATH,
+		return waitForElementVisible(By.xpath(format(SORTING_SELECT_XPATH,
 				RelatedContentSections.getByDescription(section).id)));
 	}
 
 	public List<WebElement> commentaryReferencesTitles(String widget) {
-		String xpath = String.format(WIDGET_HEADER, widget)
+		String xpath = format(WIDGET_HEADER, widget)
 				+ "/following-sibling::div//*[contains(@class, 'co_ukReferenceCaption')]";
 		return findElements(By.xpath(xpath));
 	}
@@ -380,31 +375,27 @@ public class CaseAnalysisPage extends DocumentDisplayAbstractPage {
 	}
 	
 	public List<WebElement> commentaryReferencesRows(String widget){
-		String xpath = String.format(WIDGET_HEADER, widget) + "/following-sibling::div";
+		String xpath = format(WIDGET_HEADER, widget) + "/following-sibling::div";
 		return findElements(By.xpath(xpath));
 	}
 
 	public WebElement commentaryReferencesTitle(int entry, String widget) {
-		String xpath = String.format(WIDGET_HEADER, widget) + "/following-sibling::div[" + entry
-				+ "]//div[contains(@class, 'co_ukReferenceCaption')]";
+		String xpath = format(WIDGET_HEADER_PATTERN, widget,entry) + "//div[contains(@class, 'co_ukReferenceCaption')]";
 		return findElement(By.xpath(xpath));
 	}
 
 	public WebElement commentaryReferencesCitationOrChapter(int entry, String widget) {
-		String xpath = String.format(WIDGET_HEADER, widget) + "/following-sibling::div[" + entry
-				+ "]//*[contains(@class, 'co_ukCommentaryReferenceInfo')]/span[1]";
+		String xpath = format(WIDGET_HEADER_PATTERN, widget,entry) + "//*[contains(@class, 'co_ukCommentaryReferenceInfo')]/span[1]";
 		return findElement(By.xpath(xpath));
 	}
 
 	public WebElement commentaryReferencesJournalSubject(int entry, String widget) {
-		String xpath = String.format(WIDGET_HEADER, widget) + "/following-sibling::div[" + entry
-				+ "]//*[contains(@class, 'co_ukCommentaryReferenceInfo')]/span[2]";
+		String xpath = format(WIDGET_HEADER_PATTERN, widget,entry) + "//*[contains(@class, 'co_ukCommentaryReferenceInfo')]/span[2]";
 		return findElement(By.xpath(xpath));
 	}
 
 	public WebElement commentaryReferencesBookSection(int entry, String widget) {
-		String xpath = String.format(WIDGET_HEADER, widget) + "/following-sibling::div[" + entry
-				+ "]//*[contains(@class, 'co_ukCommentaryReferenceInfo')]//a";
+		String xpath = format(WIDGET_HEADER_PATTERN, widget,entry) + "//*[contains(@class, 'co_ukCommentaryReferenceInfo')]//a";
 		return findElement(By.xpath(xpath));
 	}
 

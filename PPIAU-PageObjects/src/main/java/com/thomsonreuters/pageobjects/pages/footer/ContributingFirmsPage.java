@@ -9,6 +9,7 @@ import java.util.Random;
 
 public class ContributingFirmsPage extends AbstractPage {
 
+	private Random rand = new Random();
 
 	public WebElement jumpLink(String letter) {
 		return waitForExpectedElement(By.xpath("//a[@class='contributor-anchors-letter' and text()='"+letter+"']"));
@@ -21,7 +22,6 @@ public class ContributingFirmsPage extends AbstractPage {
 
 	public WebElement randomFirm() {
 		List<WebElement> collumnFirms = waitForExpectedElements(By.xpath("//div[@id='one-column-page']/div[@class='co_2Column col-content']"));
-		Random rand = new Random();
 		int randomInt = rand.nextInt(collumnFirms.size());
 		List<WebElement> firms = waitForExpectedElements(By.xpath("//div[@id='one-column-page']/div[@class='co_2Column col-content']["+randomInt+"]//a"));
 		randomInt = rand.nextInt(firms.size());
