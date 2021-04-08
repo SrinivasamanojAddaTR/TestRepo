@@ -1,15 +1,12 @@
 package com.thomsonreuters.pageobjects.utils.screen_shot_hook;
 
 import com.thomsonreuters.driver.framework.ScreenShots;
-import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
-import com.thomsonreuters.pageobjects.pages.fastDraft.Header;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceFFHImpl;
 import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
 import cucumber.api.Scenario;
-import java.io.IOException;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
@@ -33,7 +30,6 @@ public class BaseScreenShotHook extends BaseStepDef {
 	private static final int WAIT_FOR_PAGE_LOADING_TIMEOUT_SEC = 60;
 
 	private RestServiceFFHImpl restServiceFFHImpl = new RestServiceFFHImpl();
-	private PageActions pageActions = new PageActions();
 	private NavigationCobalt navigationCobalt = new NavigationCobalt();
 	private HomePage homePage = new HomePage();
 	private WLNHeader header = new WLNHeader();
@@ -48,9 +44,8 @@ public class BaseScreenShotHook extends BaseStepDef {
 	 * Performs necessary after steps if test failed
 	 * 
 	 * @param scenario
-	 * @throws InterruptedException
 	 */
-	public void afterTest(Scenario scenario) throws InterruptedException {
+	public void afterTest(Scenario scenario) {
 		takeScreenshotAndLogSessionIfTestFailed(scenario);
 		signOffIfTestFailed(scenario);
 	}
@@ -60,7 +55,7 @@ public class BaseScreenShotHook extends BaseStepDef {
 	 *
 	 * @param scenario
 	 */
-	public void takeScreenshotAndLogSessionIfTestFailed(Scenario scenario) throws InterruptedException {
+	public void takeScreenshotAndLogSessionIfTestFailed(Scenario scenario) {
 		LOG.info("Taking screenshot if test failed");
 		if (!System.getProperty("driverType").equalsIgnoreCase("browserStack")) {
 			try {
@@ -76,8 +71,8 @@ public class BaseScreenShotHook extends BaseStepDef {
 					scenario.write(homePage.getCurrentUrl());
 					//if blank page is present  - log error and wait
 					if (!homePage.isExists(By.xpath(BASE_ELEMENT_XPATH))) {
-						LOG.error(String.format("Page has no base element (%s), probably loading operation is in progress."
-								+ " Attempt to wait until all elements will be loaded", BASE_ELEMENT_XPATH));
+						LOG.error("Page has no base element {}, probably loading operation is in progress."
+								+ " Attempt to wait until all elements will be loaded", BASE_ELEMENT_XPATH);
 						TimeoutUtils.sleepInSeconds(WAIT_FOR_PAGE_LOADING_TIMEOUT_SEC);
 					}
 					byte[] screenShot = ((TakesScreenshot) homePage.getDriver).getScreenshotAs(OutputType.BYTES);
@@ -93,11 +88,7 @@ public class BaseScreenShotHook extends BaseStepDef {
 
 	public void signOffIfTestFailed(Scenario scenario) {
 		if (scenario.isFailed()) {
-			try {
-				signOffCobalt();
-			} catch (IOException | InterruptedException e) {
-				LOG.error(e.getMessage());
-			}
+			signOffCobalt();
 			resetCurrentUser();
 		}
 	}
@@ -125,13 +116,13 @@ public class BaseScreenShotHook extends BaseStepDef {
 		}
 	}
 
-	private void signOffCobalt() throws IOException, InterruptedException {
+	private void signOffCobalt() {
 		LOG.info("Sign-off cobalt user");
 		WebElement element = null;
 		try {
 			if (currentUser.getProduct() != null) {
 				navigateToHomePage();
-				navigationCobalt.waitForPageToLoad();
+				homePage.waitForPageToLoad();
 				switch (currentUser.getProduct()) {
 				case WLN:
 					element = homePage.findElement(By.linkText("Sign Off"));
