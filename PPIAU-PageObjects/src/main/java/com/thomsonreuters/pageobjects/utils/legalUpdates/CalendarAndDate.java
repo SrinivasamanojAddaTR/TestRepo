@@ -13,7 +13,8 @@ import java.util.*;
 public class CalendarAndDate {
 
 	private static final Logger LOG = LoggerFactory.getLogger(CalendarAndDate.class);
-    private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MMMMM yyyy");
+
+	private static final String DATE_FORMAT_PATTERN = "dd MMM yyyy";
 
 	public static String convertMonthFromIntToStringRepresentation(int month) throws ParseException {
 		String currentMonth = Integer.toString(month + 1);
@@ -81,14 +82,14 @@ public class CalendarAndDate {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.HOUR_OF_DAY, 11);
 		Date time = calendar.getTime();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_PATTERN);
 		return sdf.format(time);
 	}
 
 	public static String getCurrentDateEnglish() {
         Calendar calendar = Calendar.getInstance();
         Date time = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy",Locale.ENGLISH);
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_PATTERN,Locale.ENGLISH);
         return sdf.format(time);
 	}
 	
@@ -122,13 +123,12 @@ public class CalendarAndDate {
 	}
 	
 	public static Date convertPublishedDateStringInstanceToDateInstanceFromLUPage(String publishedDate) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy", Locale.US);
-		Date date = sdf.parse(publishedDate);
-		return date;
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_PATTERN, Locale.US);
+		return sdf.parse(publishedDate);
 	}
 
     public static List<Date> convertListOfStringToListOfDate(List<String> stringDates, String dateFormat) throws ParseException {
-        List<Date> dates = new ArrayList<Date>();
+        List<Date> dates = new ArrayList<>();
         DateFormat sdrf = new SimpleDateFormat(dateFormat);
         for (int i = 0; i < stringDates.size(); i++) {
             Date date = sdrf.parse(stringDates.get(i));
@@ -138,7 +138,7 @@ public class CalendarAndDate {
     }
 
     public static List<String> convertListOfDateToListOfString(List<Date> dates, String dateFormat) {
-        List<String> stringDates = new ArrayList<String>();
+        List<String> stringDates = new ArrayList<>();
         DateFormat sdrf = new SimpleDateFormat(dateFormat);
         for (int i = 0; i < dates.size(); i++) {
             stringDates.add(sdrf.format(dates.get(i)));
@@ -172,12 +172,13 @@ public class CalendarAndDate {
         return cal.get(Calendar.MONTH);
     }
 
-	public static int getDifferenceInMonth(String date) throws ParseException {
+	public int getDifferenceInMonth(String date) throws ParseException {
 		String currentDate = getCurrentDate();
 		return getDifferenceInMonth(currentDate, date);
 	}
 
-    public static int getDifferenceInMonth(String startDate, String endDate) throws ParseException {
-        return Months.monthsBetween(new DateTime(FORMAT.parse(startDate)), new DateTime(FORMAT.parse(endDate))).getMonths();
+    public int getDifferenceInMonth(String startDate, String endDate) throws ParseException {
+		SimpleDateFormat format = new SimpleDateFormat("MMMMM yyyy");
+        return Months.monthsBetween(new DateTime(format.parse(startDate)), new DateTime(format.parse(endDate))).getMonths();
     }
 }
