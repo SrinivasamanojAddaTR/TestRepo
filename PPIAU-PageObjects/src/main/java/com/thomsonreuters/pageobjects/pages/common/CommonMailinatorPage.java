@@ -1,45 +1,41 @@
 package com.thomsonreuters.pageobjects.pages.common;
 
+import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
+import com.thomsonreuters.utils.TimeoutUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 
 import java.util.List;
 
-/**
- * Created by uc087619 Ian Hudson on 20/04/2015.
- */
-
-
 public class CommonMailinatorPage extends AbstractPage {
+
+    private static final By EMAIL_LIST = By.cssSelector(".someviewport div[id*='row_public']");
 
     private CommonMethods comMethods = new CommonMethods();
 
-    public WebElement emailListSubjectOnclick(
-            String Onclick) {
-        return waitForExpectedElement(By.xpath("//div[@id=\"" + Onclick + "\"]//div[contains(@style,'blue')]/div[contains(@class,'innermail')]"));
+    public WebElement emailListSubjectOnclick(String onClick) {
+        return waitForExpectedElement(By.xpath("//div[@id=\"" + onClick + "\"]//div[contains(@style,'blue')]/div[contains(@class,'innermail')]"));
     }
 
-    public List displayedEmailList() {
-        List<WebElement> eList = waitForExpectedElements(By.cssSelector(".someviewport div[id*='row_public']"), 15);
-        return eList;
+    public List<WebElement> displayedEmailList() {
+        return waitForExpectedElements(EMAIL_LIST, 15);
     }
 
     public Integer displayedEmailCount() {
-        List<WebElement> eList = waitForExpectedElements(By.cssSelector(".someviewport div[id*='row_public']"), 15);
+        List<WebElement> eList = waitForExpectedElements(EMAIL_LIST, 15);
         return eList.size();
     }
 
     public void selectFirstEmail(){
-        WebElement element = (WebElement) displayedEmailList().get(0);
+        WebElement element = displayedEmailList().get(0);
         comMethods.clickElementUsingJS(element.findElement(By.cssSelector("div[onclick*='showTheMessage']")));
     }
 
     public String firstEmailOnclickId(){
-        WebElement firstEmailLink = (WebElement) displayedEmailList().get(0);
+        WebElement firstEmailLink = displayedEmailList().get(0);
         return firstEmailLink.getAttribute("id");
     }
 
@@ -73,15 +69,14 @@ public class CommonMailinatorPage extends AbstractPage {
     }
 
     public boolean isEmailListPresent() {
-        return isExists(By.cssSelector(".someviewport div[id*='row_public']"));
+        return isExists(EMAIL_LIST);
     }
 
-    public void waitForLastEmailWithSubject(String title, int timeoutSeconds, int intervalSeconds) throws Throwable {
+    public void waitForLastEmailWithSubject(String title, int timeoutSeconds, int intervalSeconds) {
         List<WebElement> messages;
         String sub;
         long stopTime = System.currentTimeMillis() + timeoutSeconds * 1000;
-
-        for (; System.currentTimeMillis() < stopTime; ) {
+        while(System.currentTimeMillis() < stopTime) {
             if (isEmailListPresent()) {
                 messages = this.displayedEmailList();
                 sub = messages.get(0).getText();
@@ -91,8 +86,7 @@ public class CommonMailinatorPage extends AbstractPage {
             }
             TimeoutUtils.sleepInSeconds(intervalSeconds);
             refreshPage();
-            continue;
         }
-        throw new Exception("Could not get email with subject '" + title + "'");
+        throw new PageOperationException("Could not get email with subject '" + title + "'");
     }
 }

@@ -2,7 +2,7 @@ package com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
+import com.thomsonreuters.utils.TimeoutUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;

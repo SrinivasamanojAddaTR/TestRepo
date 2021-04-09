@@ -6,6 +6,7 @@ import com.rtfparserkit.parser.IRtfSource;
 import com.rtfparserkit.parser.RtfStreamSource;
 import com.rtfparserkit.parser.standard.StandardRtfParser;
 import com.thomsonreuters.driver.exception.PageOperationException;
+import com.thomsonreuters.driver.exception.ReadPropertiesException;
 import com.thomsonreuters.driver.framework.WebDriverDiscovery;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.FileActions;
@@ -13,34 +14,37 @@ import com.thomsonreuters.pageobjects.common.Link;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.AssetDocumentPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.PrimarySourceDocumentPage;
 import com.thomsonreuters.pageobjects.utils.pdf.PDFBoxUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.rtf.RTFEditorKit;
 import java.awt.*;
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.*;
 
 
 public class AssetPageUtils {
 
     private WebDriverDiscovery webDriverDiscovery = new CommonMethods().getWebDriverDiscovery();
 
-    private static final String SEPARATOR = " ";
-    protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CommonMethods.class);
+    private static final String SEPARATOR = StringUtils.SPACE;
+    protected static final Logger LOG = LoggerFactory.getLogger(AssetPageUtils.class);
     private static final By SIGN_ON_BUTTON = By.id("signonInputs");
     private static final By USERNAME_FIELD = By.id("uid");
     private static final By PASSWORD_FIELD = By.id("pwd");
     private static final String USERNAME = "mkemp";
     private static final String PASSWORD = "rainbow";
-
+    private static final String CLASS_ATTRIBUTE = "class";
     private static final By SUBMIT_BUTTON = By.id("submitButton");
     private static final By DOCUMENT_BODY = By.id("docBody");
     private static final By SIGNOF_LINK = By.id("signoffLink");
@@ -49,17 +53,17 @@ public class AssetPageUtils {
     private static final int MAXIMUM_COLOR_INTENSITY = 255;
     private static final int MINIMUM_C0LOR_INTENSITY = 0;
     private static final int MIN_JURISDICTIONS_COUNT = 2;
+    private static final int START_OF_DOCUMENT = 0;
     private static final Character BULLET_UNICODE_CODE = '\u2022';
+    private static final String OPERATION_ERROR_MESSAGE = "Cannot perform the operation";
 
     private File downloadedFile = null;
 
     private String firstUrl;
     private String valueHrefAtribute;
-    private static String winHandleFirst;
+    private ThreadLocal<String> winHandleFirst = new ThreadLocal<>();
     private WebElement linkInLinkToThisCaseSection;
     private int numberOfLinksInContentSection;
-    //TODO : Need to remove this driver object and replace references with any page object
-    private final WebDriver driver = webDriverDiscovery.getWebDriver();
 
     private AssetDocumentPage assetDocumentPage = new AssetDocumentPage();
     private PrimarySourceDocumentPage primarySourceDocumentPage = new PrimarySourceDocumentPage();
@@ -87,15 +91,15 @@ public class AssetPageUtils {
             assetDocumentPage.bailiiLink(bailiiLink);
             return true;
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info("Couldn't retrieve link", poe);
             return false;
         }
     }
 
     public void readBasePageParameters() {
         firstUrl = assetDocumentPage.getCurrentUrl();
-        winHandleFirst = assetDocumentPage.getCurrentWindowHandle();
-        LOG.info("winHandleFirst: " + winHandleFirst);
+        winHandleFirst.set(assetDocumentPage.getCurrentWindowHandle());
+        LOG.info("winHandleFirst: {}", winHandleFirst);
     }
 
     public void clickOnBailiiLink(String bailiiLink) {
@@ -128,25 +132,25 @@ public class AssetPageUtils {
 
     public boolean isTheUserTakenToTheSelectedResource(String linkText) {
         String secondWinHandle = "";
-		if (driver.getWindowHandles().size() == 1) {
+		if (assetDocumentPage.getWindowHandles().size() == 1) {
 			LOG.info("New window is not opened");
 			return false;
 		}
 
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
+        for (String winHandle : assetDocumentPage.getWindowHandles()) {
+            assetDocumentPage.getDriver.switchTo().window(winHandle);
             secondWinHandle = winHandle;
         }
         assetDocumentPage.waitForPageToLoad();
         String secondUrl = assetDocumentPage.getCurrentUrl();
 		boolean result = false;
-		LOG.info("Expected URL: " + linkText);
-		LOG.info("Actual   URL: " + secondUrl);
+		LOG.info("Expected URL: {}", linkText);
+		LOG.info("Actual   URL: {}", secondUrl);
 		if (secondUrl.toLowerCase().contains(linkText.toLowerCase())) {
 			result = true;
 		}
-		driver.switchTo().window(secondWinHandle).close();
-		driver.switchTo().window(winHandleFirst);
+		assetDocumentPage.getDriver.switchTo().window(secondWinHandle).close();
+        assetDocumentPage.getDriver.switchTo().window(winHandleFirst.get());
 		return result;
     }
 
@@ -163,7 +167,7 @@ public class AssetPageUtils {
     public void clickOnCelexLink(String celexLinkText) {
         readBasePageParameters();
         valueHrefAtribute = assetDocumentPage.celexLink(celexLinkText).getAttribute("href");
-        LOG.info("Href attribute = "+ valueHrefAtribute);
+        LOG.info("Href attribute = {}", valueHrefAtribute);
         assetDocumentPage.celexLink(celexLinkText).click();
     }
 
@@ -178,11 +182,11 @@ public class AssetPageUtils {
     }
 
     public void goBackToThePreviousWindow() {
-        assetDocumentPage.switchToWindow(winHandleFirst);
+        assetDocumentPage.switchToWindow(winHandleFirst.get());
     }
 
     public boolean isTheUserTakenToTheLoginPageInWestlawUkDocument() {
-        for (String winHandle : driver.getWindowHandles()) {
+        for (String winHandle : assetDocumentPage.getWindowHandles()) {
             assetDocumentPage.switchToWindow(winHandle);
         }
         assetDocumentPage.waitForPageToLoad();
@@ -190,7 +194,7 @@ public class AssetPageUtils {
     }
 
     public boolean isTheUserTakenToTheWestlawUkDocument() {
-        for (String winHandle : driver.getWindowHandles()) {
+        for (String winHandle : assetDocumentPage.getWindowHandles()) {
             assetDocumentPage.switchToWindow(winHandle);
         }
         String secondUrl = assetDocumentPage.getCurrentUrl();
@@ -212,12 +216,12 @@ public class AssetPageUtils {
 
     public boolean openDocumentInWestlawUK() {
 
-		if (driver.getWindowHandles().size() < 2) {
+		if (assetDocumentPage.getWindowHandles().size() < 2) {
 			LOG.info("New window not opened");
 			return false;
 		}
         String secondHandle = "";
-        for (String winHandle : driver.getWindowHandles()) {
+        for (String winHandle : assetDocumentPage.getWindowHandles()) {
             assetDocumentPage.switchToWindow(winHandle);
             secondHandle = winHandle;
         }
@@ -226,8 +230,8 @@ public class AssetPageUtils {
             outPutLink().click();
             assetDocumentPage.waitForPageToLoadAndJQueryProcessing();
             assetDocumentPage.switchToWindow(secondHandle);
-            driver.close();
-            assetDocumentPage.switchToWindow(winHandleFirst);
+            assetDocumentPage.close();
+            assetDocumentPage.switchToWindow(winHandleFirst.get());
             return true;
         } else {
             return false;
@@ -252,13 +256,13 @@ public class AssetPageUtils {
 
     public boolean isTheUserSeeJumpLinksInTheLeftHandSideNavigationPanel(String jumpLinkText) {
         assetDocumentPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(30);
-        LOG.info("context", assetDocumentPage.jumpLink(jumpLinkText).getLocation());
+        LOG.info("Jump link location : {}", assetDocumentPage.jumpLink(jumpLinkText).getLocation());
         return assetDocumentPage.jumpLink(jumpLinkText).isDisplayed();
     }
 
     public String clickOnJumpLink(String jumpLinkText) {
         assetDocumentPage.waitForPageToLoad();
-        LOG.info("context", assetDocumentPage.jumpLink(jumpLinkText).getLocation());
+        LOG.info("Jump link location; {}", assetDocumentPage.jumpLink(jumpLinkText).getLocation());
         assetDocumentPage.waitForPageSourceChangedAfterClick(assetDocumentPage.jumpLink(jumpLinkText));
         return assetDocumentPage.jumpLink(jumpLinkText).getText();
     }
@@ -269,7 +273,7 @@ public class AssetPageUtils {
             assetDocumentPage.metaDataField(text).isDisplayed();
             return true;
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info(OPERATION_ERROR_MESSAGE, poe);
             return false;
         }
     }
@@ -278,7 +282,7 @@ public class AssetPageUtils {
         try {
             return assetDocumentPage.nameOfFileForDownload().isDisplayed();
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info(OPERATION_ERROR_MESSAGE, poe);
             return false;
         }
     }
@@ -286,11 +290,11 @@ public class AssetPageUtils {
     public boolean isTheDownloadedPDFDocumentContainHyperlinkToExternalWebSite(String linkHref, String linkText, File docFile) {
         try {
             String bailiiUrlFtomPDF = pdfBoxUtil.extractURLs(docFile.getAbsolutePath()).get(linkText);
-            LOG.info("bailiiUrlFtomPDF: " + bailiiUrlFtomPDF);
-            LOG.info("linkHref: " + linkHref);
+            LOG.info("bailiiUrlFtomPDF: {}", bailiiUrlFtomPDF);
+            LOG.info("linkHref: {}", linkHref);
             return linkHref.contains(bailiiUrlFtomPDF);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e){
+            LOG.error("Cannot retrieve text from pdf file", e);
             return false;
         }
     }
@@ -335,7 +339,7 @@ public class AssetPageUtils {
         try {
            return assetDocumentPage.isElementDisplayed(TABLE_OF_CONTENTS_SECTION);
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info(OPERATION_ERROR_MESSAGE, poe);
             return false;
         }
     }
@@ -344,7 +348,7 @@ public class AssetPageUtils {
         assetDocumentPage.waitForPageToLoad();
         boolean result = false;
         try {
-            String[] words = assetDocumentPage.caseAssetDocClass().getAttribute("class").split(SEPARATOR);
+            String[] words = assetDocumentPage.caseAssetDocClass().getAttribute(CLASS_ATTRIBUTE).split(SEPARATOR);
             for (String word : words) {
                 if (word.equals("case-asset-doc")) {
                     result = true;
@@ -354,7 +358,7 @@ public class AssetPageUtils {
             return result;
 
         } catch (NoSuchElementException ex) {
-            LOG.info("context", ex);
+            LOG.info(OPERATION_ERROR_MESSAGE, ex);
             return false;
         }
     }
@@ -365,8 +369,8 @@ public class AssetPageUtils {
 
     public boolean isTheUserTakenToTheInternalDocument(String hrefAtribute) {
     	String secondUrl = assetDocumentPage.getCurrentUrl();
-		LOG.info("secondUrl" + secondUrl);
-		LOG.info("hrefAtribute" + hrefAtribute);
+		LOG.info("secondUrl {}", secondUrl);
+		LOG.info("hrefAtribute {}", hrefAtribute);
 		return !firstUrl.equals(secondUrl) && secondUrl.contains(webDriverDiscovery.getCurrentRootAddress(true));
     }
 
@@ -377,7 +381,7 @@ public class AssetPageUtils {
 
             return true;
         } catch (NoSuchElementException ex) {
-            LOG.info("context", ex);
+            LOG.info(OPERATION_ERROR_MESSAGE, ex);
             return false;
         }
     }
@@ -385,10 +389,10 @@ public class AssetPageUtils {
     public boolean isTheLinkDisplayedAccodingWithClassNameAndHrefAtribute(String linkText) {
         try {
             WebElement parentLink = primarySourceDocumentPage.parentOflinkInLinksToThisCaseSection(linkText);
-            String className = parentLink.getAttribute("class");
+            String className = parentLink.getAttribute(CLASS_ATTRIBUTE);
             String hrefOfTheLink = linkInLinkToThisCaseSection.getAttribute("href");
-            LOG.info("className: " + className);
-            LOG.info("hrefOfTheLink: " + hrefOfTheLink);
+            LOG.info("className: {}", className);
+            LOG.info("hrefOfTheLink: {}", hrefOfTheLink);
             if (linkInLinkToThisCaseSection.isDisplayed()) {
                 return (className == null ||
                         className.trim().isEmpty()) &&
@@ -397,7 +401,7 @@ public class AssetPageUtils {
                 return className != null && className.equals("co_hideState") && hrefOfTheLink.contains("uk.practicallaw");
             }
         } catch (NoSuchElementException | TimeoutException ex) {
-            LOG.info("context", ex);
+            LOG.info(OPERATION_ERROR_MESSAGE, ex);
             return false;
         }
     }
@@ -407,15 +411,15 @@ public class AssetPageUtils {
             String textFromPdf = pdfBoxUtil.extractText(docFile.getAbsolutePath());
             return textFromPdf.contains(contentReferringText);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Could not read the the file", e);
             return false;
         }
     }
 
     public boolean isTheLinksOfTypeOfDocumentAreSortedAlphabetically(String documentTypeText) {
         List<WebElement> links = primarySourceDocumentPage.listOfLinksByDocumentType(documentTypeText);
-        List<String> actualLinkList = new ArrayList<String>();
-        List<String> expectedLinkList = new ArrayList<String>();
+        List<String> actualLinkList = new ArrayList<>();
+        List<String> expectedLinkList = new ArrayList<>();
         for (WebElement link : links) {
             String linkText = link.getText().trim();
             if (!linkText.isEmpty()) {
@@ -437,7 +441,7 @@ public class AssetPageUtils {
     public boolean isTheNumberOfLinksEqualsToTheNumberOfResultsFound() {
         boolean result = true;
         List<WebElement> links = primarySourceDocumentPage.listOfLinksInContentRefferingSection();
-        List<String> ar = new ArrayList<String>();
+        List<String> ar = new ArrayList<>();
         for (WebElement link : links) {
             if (!link.getText().trim().isEmpty()) {
                 ar.add(link.getText());
@@ -462,14 +466,14 @@ public class AssetPageUtils {
             assetDocumentPage.switchToWindow(winHandle);
             i++;
         }
-        LOG.info("number of opened tubs: " + i);
+        LOG.info("number of opened tabs: {}", i);
         return i == numberOfOpenedTabs;
     }
 
     public boolean isTheHyperlinkOfDownloadedDocumentContainSpecificParameters(String linkText, String text, File docFile) {
         try {
             String hyperlinkFtomPDF = pdfBoxUtil.extractURLs(docFile.getAbsolutePath()).get(linkText);
-            LOG.info("hyperlinkFtomPDF: " + hyperlinkFtomPDF);
+            LOG.info("hyperlinkFtomPDF: {}", hyperlinkFtomPDF);
             return hyperlinkFtomPDF.contains(text);
         } catch (Exception e) {
             return false;
@@ -509,15 +513,15 @@ public class AssetPageUtils {
     }
 
     public boolean isTheOtherProvisionSectionHasStyle(String sectionNameText, String styleText) {
-        return !primarySourceDocumentPage.otherProvisionStyle(sectionNameText).getAttribute("class").equals(styleText);
+        return !primarySourceDocumentPage.otherProvisionStyle(sectionNameText).getAttribute(CLASS_ATTRIBUTE).equals(styleText);
     }
 
     public void chooseDropdownBox(String text, WebElement element) {
         Select dropDown = new Select(element);
         String selected = dropDown.getFirstSelectedOption().getText();
         if (!selected.equals(text)) {
-            List<WebElement> Options = dropDown.getOptions();
-            for (WebElement option : Options) {
+            List<WebElement> options = dropDown.getOptions();
+            for (WebElement option : options) {
                 if (option.getText().equals(text)) {
                     option.click();
                 }
@@ -528,14 +532,14 @@ public class AssetPageUtils {
     public boolean isTheBulletsHaveStyle(String styleName) {
         assetDocumentPage.waitForPageToLoad();
         String bulletsStyle = (String) assetDocumentPage.executeScript("return getComputedStyle($('.co_assetList')[0]).listStyleType");
-        LOG.info("BulletsStyle: ", bulletsStyle);
+        LOG.info("BulletsStyle: {}", bulletsStyle);
         return bulletsStyle.equals(styleName);
     }
 
     public boolean isTheDoubleLinesHaveStyle(String styleName) {
         assetDocumentPage.waitForPageToLoad();
         String lineStyle = (String) assetDocumentPage.executeScript("return getComputedStyle($('.co_assetList')[0]).borderBottomStyle");
-        LOG.info("LineStyle: ", lineStyle);
+        LOG.info("LineStyle: {}", lineStyle);
         return lineStyle.equals(styleName);
     }
 
@@ -574,10 +578,10 @@ public class AssetPageUtils {
         try {
             String textFromPdf = pdfBoxUtil.extractText(docFile.getAbsolutePath());
             textFromPdf = textFromPdf.replaceAll("\\n", "").replaceAll("\r", "");
-            LOG.info("textFromPdf: ", textFromPdf);
+            LOG.info("textFromPdf: {}", textFromPdf);
             return textFromPdf.contains(assetDocumentPage.partyNames().getText() + " " + linkText);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException exception) {
+            LOG.error("Could not read data from file", exception);
             return false;
         }
     }
@@ -588,8 +592,7 @@ public class AssetPageUtils {
                 + ")\").parent()[0]).fontSize");
     }
 
-    public boolean isTheDownloadedDocumentContainRightNumberOfBullets(File docFile)
-            throws IOException, BadLocationException {
+    public boolean isTheDownloadedDocumentContainRightNumberOfBullets(File docFile) {
         assetDocumentPage.waitForPageToLoad();
         List<WebElement> linksInLegalUpdatesSection = assetDocumentPage.listOfLinksInLegalUpdatesSection();
         List<WebElement> linksInLinksToThisPageSection = assetDocumentPage.listOfLinksInLinksToThisPageSection();
@@ -607,18 +610,14 @@ public class AssetPageUtils {
     }
 
     // This method does not return the text of the links!
-    public String getTextFromFileWithRTForDOCextension(String path) throws IOException, BadLocationException {
+    public String getTextFromFileWithRTForDOCextension(String path) {
         DefaultStyledDocument styledDoc = new DefaultStyledDocument();
-        FileInputStream inStream;
-        try {
-            inStream = new FileInputStream(path);
-            new RTFEditorKit().read(inStream, styledDoc, 0);
-            inStream.close();
-        } catch (FileNotFoundException e) {
-            LOG.info("FileNotFoundException: ");
-            e.printStackTrace();
+        try (FileInputStream inStream = new FileInputStream(path)) {
+            new RTFEditorKit().read(inStream, styledDoc, START_OF_DOCUMENT);
+            return styledDoc.getText(START_OF_DOCUMENT, styledDoc.getLength());
+        } catch (Exception e) {
+            throw new ReadPropertiesException(e);
         }
-        return styledDoc.getText(0, styledDoc.getLength());
     }
 
     /**
@@ -635,33 +634,25 @@ public class AssetPageUtils {
             IRtfParser parser = new StandardRtfParser();
             StringTextConverter listener = new StringTextConverter();
             parser.parse(source, listener);
-            is.close();
             return listener.getText();
         } catch (IOException e) {
-            LOG.info("Error of parsing tha file: " + rtfFile.getAbsolutePath(), e);
-            return "";
+            LOG.info("Error of parsing tha file: {}", rtfFile.getAbsolutePath(), e);
+            return StringUtils.EMPTY;
         }
     }
 
     public boolean isTheSourceDocumentRemainsOpen(String guid) {
-        String winHandleFirst = driver.getWindowHandle();
-        Boolean isOpen = false;
-        for (String handle : driver.getWindowHandles()) {
+        String firstWindowHandle = assetDocumentPage.getWindowHandle();
+        boolean isOpen = false;
+        for(String handle : assetDocumentPage.getWindowHandles()) {
             assetDocumentPage.switchToWindow(handle);
-            String currentUrl = driver.getPageSource();
-            if (currentUrl.contains(guid)) {
-                try {
-                    if (assetDocumentPage.contentBody().isEnabled()) {
-                        isOpen = true;
-                        break;
-                    }
-                } catch (PageOperationException e) {
-                    LOG.info("There is no document body on the page");
-                    break;
-                }
+            String currentUrl = assetDocumentPage.getPageSource();
+            if (currentUrl.contains(guid) && assetDocumentPage.contentBody().isEnabled()) {
+                isOpen = true;
+                break;
             }
         }
-        assetDocumentPage.switchToWindow(winHandleFirst);
+        assetDocumentPage.switchToWindow(firstWindowHandle);
         return isOpen;
     }
 
@@ -678,7 +669,7 @@ public class AssetPageUtils {
                 && color.getBlue() == MINIMUM_C0LOR_INTENSITY)
             return "black";
         else {
-            LOG.info("fontColorFromPdf: ", color.toString());
+            LOG.info("fontColorFromPdf: {}", color);
             return color.toString();
         }
     }
@@ -687,18 +678,23 @@ public class AssetPageUtils {
         try {
             return primarySourceDocumentPage.legislationLink(legislationLinkText).isDisplayed();
         } catch (TimeoutException poe) {
-            LOG.info("context", poe);
+            LOG.info(OPERATION_ERROR_MESSAGE, poe);
             return false;
         }
     }
 
     public boolean isTheNumberOfOpenedTubsEqueals(int numberOfOpenedTubs) {
         int i = 0;
-        for (String winHandle : driver.getWindowHandles()) {
-            driver.switchTo().window(winHandle);
+        for (String winHandle : assetDocumentPage.getWindowHandles()) {
+            assetDocumentPage.getDriver.switchTo().window(winHandle);
             i++;
         }
         return i == numberOfOpenedTubs;
+    }
+
+    public void remove(){
+        LOG.warn("Removing all the saved window handles");
+        winHandleFirst.remove();
     }
    
 }

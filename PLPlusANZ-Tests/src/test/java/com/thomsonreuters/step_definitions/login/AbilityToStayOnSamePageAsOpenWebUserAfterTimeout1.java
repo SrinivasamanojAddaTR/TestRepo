@@ -3,7 +3,7 @@ package com.thomsonreuters.step_definitions.login;
 import com.thomsonreuters.pageobjects.pages.footer.WLNFooter;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
-import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
+import com.thomsonreuters.utils.TimeoutUtils;
 import com.thomsonreuters.pageobjects.utils.document.StandardDocumentUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Given;

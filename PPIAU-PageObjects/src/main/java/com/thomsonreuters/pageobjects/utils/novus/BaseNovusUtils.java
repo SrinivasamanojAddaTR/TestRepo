@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.novus;
 
 import com.westgroup.novus.productapi.*;
+import edu.emory.mathcs.backport.java.util.Collections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,17 +29,18 @@ public abstract class BaseNovusUtils {
     private List<String> documentCollectionSets;
     private Search paginatedSearch;
     private SearchResult paginatedSearchResult;
+    private SearchResult novusSearch;
 
     /**
      * Create {@link Novus} object to communicate with Novus
      */
     public BaseNovusUtils() {
-        Novus novus = new Novus();
-        novus.setRouteTag(NOVUS_ROUTE_TAG);
-        novus.setQueueCriteria(NOVUS_QUEUE_MANAGER, NOVUS_ENV);
-        novus.setResponseTimeout(NOVUS_TIMEOUT_MILLIS);
-        novus.useLatestPit();
-        this.novus = novus;
+        Novus tempNovus = new Novus();
+        tempNovus.setRouteTag(NOVUS_ROUTE_TAG);
+        tempNovus.setQueueCriteria(NOVUS_QUEUE_MANAGER, NOVUS_ENV);
+        tempNovus.setResponseTimeout(NOVUS_TIMEOUT_MILLIS);
+        tempNovus.useLatestPit();
+        this.novus = tempNovus;
     }
 
     /**
@@ -125,11 +127,12 @@ public abstract class BaseNovusUtils {
             while (!progress.isComplete()) {
                 progress = search.getProgress(progress.getDetachedHandle(), NOVUS_PROGRESS_WAIT_MILLIS);
             }
+            novusSearch = search.getSearchResult();
             return search.getSearchResult();
         } catch (NovusException e) {
             LOG.info("Search was not finished. ", e);
-            return null;
         }
+        return novusSearch;
     }
 
     /**
@@ -140,11 +143,12 @@ public abstract class BaseNovusUtils {
      *         NULL if there are any errors occurred during the obtaining content from the search result
      */
     private Document[] getSearchResultDocuments(SearchResult searchResult) {
+        Document[] document={};
         try {
             return searchResult.getAllDocuments();
         } catch (NovusException e) {
             LOG.info("Unable to get documents from the search results. ", e);
-            return null;
+            return document;
         }
     }
 

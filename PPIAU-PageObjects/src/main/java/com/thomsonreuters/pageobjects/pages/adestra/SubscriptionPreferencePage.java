@@ -9,40 +9,37 @@ import java.util.Map;
 
 public class SubscriptionPreferencePage extends AbstractPage {
     
-    private final String SPECIFIED_CHECKBOX = "//div[@id='%s']//td[text()=\"%s\"]/following-sibling::td[%s]/input";
-    
-    private final String SPECIFIED_SERVICE = "//div[@id='%s']//td[text()=\"%s\"]";
-    
-    private final String SPECIFIED_REQUEST_TRIAL_LINK = "//div[@id='%s']//td[text()=\"%s\"]/following-sibling::td[@class='product-trial-link']/a";
+    private static final String SPECIFIED_CHECKBOX = "//div[@id='%s']//td[text()=\"%s\"]/following-sibling::td[%s]/input";
+    private static final String SPECIFIED_SERVICE = "//div[@id='%s']//td[text()=\"%s\"]";
+    private static final String SPECIFIED_REQUEST_TRIAL_LINK = "//div[@id='%s']//td[text()=\"%s\"]/following-sibling::td[@class='product-trial-link']/a";
+    private static final String GLOBAL = "Global";
+    private static final String CANADA = "Canada";
+
+    private Map<String, By> serviceTabMap = new HashMap<>();
+    private Map<String, String> regionTableID = new HashMap<>();
+    private Map<String, String> frequencyCheckBoxIndex = new HashMap<>();
 
     public SubscriptionPreferencePage() {
+        serviceTabMap.put("US", By.linkText("US services"));
+        serviceTabMap.put("UK", By.linkText("UK services"));
+        serviceTabMap.put("EU", By.linkText("EU services"));
+        serviceTabMap.put(GLOBAL, By.linkText("Global services"));
+        serviceTabMap.put(CANADA, By.linkText("Canada services"));
+        serviceTabMap.put("AU", By.linkText("Australia services"));
+
+        regionTableID.put("US", "coid_categoryBoxTabPanel4");
+        regionTableID.put("UK", "coid_categoryBoxTabPanel1");
+        regionTableID.put("EU", "coid_categoryBoxTabPanel2");
+        regionTableID.put(GLOBAL, "coid_categoryBoxTabPanel3");
+        regionTableID.put(CANADA, "coid_categoryBoxTabPanel5");
+        regionTableID.put("AU", "coid_categoryBoxTabPanel1");
+
+        frequencyCheckBoxIndex.put("D", "1");
+        frequencyCheckBoxIndex.put("W", "2");
+        frequencyCheckBoxIndex.put("M", "3");
+        frequencyCheckBoxIndex.put("A", "4");
+
     }
-
-   private final Map<String, By> serviceTabMap = new HashMap<String, By>(){{
-        put("US", By.linkText("US services"));
-        put("UK", By.linkText("UK services"));
-        put("EU", By.linkText("EU services"));
-        put("Global", By.linkText("Global services"));
-        put("Canada", By.linkText("Canada services"));
-        put("AU", By.linkText("Australia services"));
-    }};
-
-    private final Map<String, String> regionTableID = new HashMap<String, String>(){{
-        put("US", "coid_categoryBoxTabPanel4");
-        put("UK", "coid_categoryBoxTabPanel1");
-        put("EU", "coid_categoryBoxTabPanel2");
-        put("Global", "coid_categoryBoxTabPanel3");
-        put("Canada", "coid_categoryBoxTabPanel5");
-        put("AU", "coid_categoryBoxTabPanel1");
-    }};
-    
-    private final Map<String, String> frequencyCheckBoxIndex = new HashMap<String, String>(){{
-    	put("D", "1");
-    	put("W", "2");
-    	put("M", "3");
-    	put("A", "4");
-    }};
-    
 
     public WebElement specifiedServiceTabLink(String region) {
         return waitForExpectedElement(serviceTabMap.get(region), 90);
@@ -139,11 +136,11 @@ public class SubscriptionPreferencePage extends AbstractPage {
     
     public void getSpecifiedCheckBoxAndClickOnIt(String service, String frequency, String region) {
     	if(!getSpecifiedCheckBox(service, frequency, region).isSelected()) {
-    		LOG.info(String.format("Checkbox for region: %s service: %s with frequency: %s is not selected, trying to select...", region , service, frequency));
-    	} else LOG.info(String.format("Checkbox for region: %s service: %s with frequency: %s is selected, trying to deselect...", region , service, frequency));
+    		LOG.info("Checkbox for region: {} service: {} with frequency: {} is not selected, trying to select...", region , service, frequency);
+    	} else LOG.info("Checkbox for region: {} service: {} with frequency: {} is selected, trying to deselect...", region , service, frequency);
     	scrollIntoViewAndClick(waitForElementToBeClickable(getSpecifiedCheckBox(service, frequency, region)));
     	waitForPageToLoadAndJQueryProcessing();
-    	LOG.info(String.format("Checkbox state after click for region: %s service: %s with frequency: %s  is selected = %s", region , service, frequency, getSpecifiedCheckBox(service, frequency, region).isSelected()));
+    	LOG.info("Checkbox state after click for region: {} service: {} with frequency: {} is selected = {}", region , service, frequency, getSpecifiedCheckBox(service, frequency, region).isSelected());
     }
 
     
@@ -175,15 +172,15 @@ public class SubscriptionPreferencePage extends AbstractPage {
             regionIndex = "0";
         if (region.equals("EU"))
             regionIndex = "1";
-        if (region.equals("Global"))
+        if (region.equals(GLOBAL))
             regionIndex = "2";
-        if (region.equals("Canada"))
+        if (region.equals(CANADA))
             regionIndex = "4";
         JavascriptExecutor jse = (JavascriptExecutor) getDriver;
         return (String) jse.executeScript("return $(\"table:eq(" + regionIndex + ") td\").filter(function() { return $.text([this]) == '" + serviceName + "';}).parent().css(\"backgroundColor\")");
     }
 
-    public void createSubscriptions(String region, String service, List<String> frequencies) throws InterruptedException {
+    public void createSubscriptions(String region, String service, List<String> frequencies) {
         for (String frequency : frequencies) {
         	getSpecifiedCheckBoxAndClickOnIt(service, frequency, region);
         }
@@ -191,7 +188,7 @@ public class SubscriptionPreferencePage extends AbstractPage {
         waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(90);
     }
 
-    public void createSubscriptionsANZ(String region, String service, List<String> frequencies) throws InterruptedException {
+    public void createSubscriptionsANZ(String region, String service, List<String> frequencies) {
         for (String frequency : frequencies) {
             getSpecifiedCheckBoxAndClickOnIt(service, frequency, region);
         }
@@ -199,13 +196,13 @@ public class SubscriptionPreferencePage extends AbstractPage {
         waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(90);
     }
 
-    public void createSubscription(String region, String service, String frequency) throws InterruptedException {
+    public void createSubscription(String region, String service, String frequency) {
     	getSpecifiedCheckBoxAndClickOnIt(service, frequency, region);
         saveButton().click();
         waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(90);
     }
 
-    public void unsubscribeAll() throws InterruptedException {
+    public void unsubscribeAll() {
         if (!doNotSendMeLUCheckbox().isSelected()) {
             doNotSendMeLUCheckbox().click();
         }
@@ -213,7 +210,7 @@ public class SubscriptionPreferencePage extends AbstractPage {
         waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(90);
     }
 
-    public void unsubscribeAllANZ() throws InterruptedException {
+    public void unsubscribeAllANZ() {
         if (!doNotSendMeLUCheckboxANZ().isSelected()) {
             doNotSendMeLUCheckboxANZ().click();
         }
@@ -239,7 +236,7 @@ public class SubscriptionPreferencePage extends AbstractPage {
 
     public void openSpecifiedServiceTab(String region) {
         if (waitForElementPresent(By.xpath("//div[@id='" + regionTableID.get(region) + "']")).getAttribute("class").contains("co_tabShow")) {
-            LOG.info(region + " tab is selected");
+            LOG.info("{} tab is selected", region);
         } else {
             specifiedServiceTabLink(region).click();
             

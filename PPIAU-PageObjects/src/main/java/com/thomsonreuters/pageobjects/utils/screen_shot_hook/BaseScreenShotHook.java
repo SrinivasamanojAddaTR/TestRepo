@@ -5,7 +5,7 @@ import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceFFHImpl;
-import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
+import com.thomsonreuters.utils.TimeoutUtils;
 import cucumber.api.Scenario;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;

@@ -14,6 +14,11 @@ import java.util.List;
 
 public class WhatsMarketSearchResultsPage extends AbstractPage {
 
+    private static final String NARROW_RESULTS_CO_DIVIDER = "#co_narrowResultsBy .co_divider";
+    private static final String RESULTS_DATE_PATTERN = "//li[@id='cobalt_search_results_whatsmarketUK%s']//span[@class='co_search_detailLevel_2']";
+    private static final String WM_FACET_WITH_NAME_PATTERN = "//div[@id='co_narrowResultsBy']//label[contains(text(),'%s')]";
+    private static final String CONTEXT = "context";
+
     /**
      * this is the facet name - pass in the facet name as a string e.g. Standard clauses
      */
@@ -41,21 +46,21 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
      * expand a facet
      */
     public WebElement expandWhatsMarketFacet(String facetname) {
-        return waitForExpectedElement(By.xpath("//div[@id='co_narrowResultsBy']//label[contains(text(),'" + facetname + "')]/../a[@class='co_facet_expand']"));
+        return waitForExpectedElement(By.xpath(String.format(WM_FACET_WITH_NAME_PATTERN, facetname) + "/../a[@class='co_facet_expand']"));
     }
 
     /**
      * collapse a facet
      */
     public WebElement collapseWhatsMarketFacet(String facetname) {
-        return waitForExpectedElement(By.xpath("//div[@id='co_narrowResultsBy']//label[contains(text(),'" + facetname + "')]/../a[@class='co_facet_collapse']"));
+        return waitForExpectedElement(By.xpath(String.format(WM_FACET_WITH_NAME_PATTERN, facetname) + "/../a[@class='co_facet_collapse']"));
     }
 
     /**
      * This is an object representing the facet count associated with each facet (any facet on the know how page)
      */
     public WebElement whatsMarketFacetCount(String facetname) {
-        return waitForExpectedElement(By.xpath("//div[@id='co_narrowResultsBy']//label[contains(text(),'" + facetname + "')]/../span[@class='co_facetCount']"));
+        return waitForExpectedElement(By.xpath(String.format(WM_FACET_WITH_NAME_PATTERN, facetname) + "/../span[@class='co_facetCount']"));
     }
 
     /**
@@ -75,7 +80,7 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
         try {
             return waitForExpectedElement(By.cssSelector("#co_searchResults_citation_" + index + " span:nth-child(2)"), 15).getText();
         } catch (PageOperationException pe) {
-            LOG.info("context", pe);
+            LOG.info(CONTEXT, pe);
             return StringUtils.EMPTY;
         }
     }
@@ -86,14 +91,14 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
      * @return List<String>
      */
     public List<String> getFacetGroupNames() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement element : waitForExpectedElements(By.cssSelector("#co_narrowResultsBy .co_divider h4"),8)) {
                 list.add(element.getText());
             }
         } catch (StaleElementReferenceException se) {
-            LOG.info("context", se);
-            list = new ArrayList<String>();
+            LOG.info(CONTEXT, se);
+            list = new ArrayList<>();
             getFacetGroupNames();
         }
         return list;
@@ -107,47 +112,25 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
      */
     public int getChildFacetsSize(String facetGroupName) {
         int size = 0;
+        String h4Text = "//h4[text()=";
         try {
-            for (WebElement element : waitForExpectedElements(By.cssSelector("#co_narrowResultsBy .co_divider"),8)) {
-                size = element.findElements(By.xpath("//h4[text()=" + Quotes.escape(facetGroupName) + "]/../ul/li")).size();
-                WebElement extraFacets = element.findElement(By.xpath("//h4[text()=" + Quotes.escape(facetGroupName) + "]/../div"));
-                if (extraFacets.getAttribute("class") == null || (extraFacets.getAttribute("class") != null && !extraFacets.getAttribute("class").equals("co_hideState"))) {
-                    size += element.findElements(By.xpath("//h4[text()=" + Quotes.escape(facetGroupName) + "]/../div/ul/li")).size();
+            for (WebElement element : waitForExpectedElements(By.cssSelector(NARROW_RESULTS_CO_DIVIDER), 8)) {
+                size = element.findElements(By.xpath(h4Text + Quotes.escape(facetGroupName) + "]/../ul/li")).size();
+                WebElement extraFacets = element.findElement(By.xpath(h4Text + Quotes.escape(facetGroupName) + "]/../div"));
+
+                String extraFacetsClassAttribute = extraFacets.getAttribute("class");
+                if (extraFacetsClassAttribute == null || (!extraFacetsClassAttribute.equals("co_hideState"))) {
+                    size += element.findElements(By.xpath(h4Text + Quotes.escape(facetGroupName) + "]/../div/ul/li")).size();
+                    return size;
                 }
-                return size;
             }
         } catch (StaleElementReferenceException se) {
-            LOG.info("context", se);
+            LOG.info(CONTEXT, se);
             getChildFacetsSize(facetGroupName);
         } catch (NoSuchElementException nse) {
-            LOG.info("context", nse);
+            LOG.info(CONTEXT, nse);
         }
         return size;
-    }
-
-    /**
-     * This method verifies the more option is avialable or not and returns the boolean accordingly.
-     *
-     * @param facetGroupName
-     * @return boolean
-     */
-    public Boolean isMoreOptionAvailable(String facetGroupName) {
-        try {
-            for (WebElement element : waitForExpectedElements(By.cssSelector("#co_narrowResultsBy .co_divider"),8)) {
-                if (element.findElement(By.cssSelector("h4")).getText().equals(facetGroupName)) {
-                    try {
-                        return element.findElement(By.linkText("More")).isDisplayed();
-                    } catch (NoSuchElementException nse) {
-                        LOG.info("context", nse);
-                        return false;
-                    }
-                }
-            }
-        } catch (StaleElementReferenceException se) {
-            LOG.info("context", se);
-            isMoreOptionAvailable(facetGroupName);
-        }
-        return false;
     }
 
     /**
@@ -157,13 +140,13 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
      */
     public void clickMoreOption(String facetGroupName) {
         try {
-            for (WebElement element : waitForExpectedElements(By.cssSelector("#co_narrowResultsBy .co_divider"),8)) {
+            for (WebElement element : waitForExpectedElements(By.cssSelector(NARROW_RESULTS_CO_DIVIDER),8)) {
                 if (element.findElement(By.cssSelector("h4")).getText().equals(facetGroupName)) {
                     scrollIntoViewAndClick(element.findElement(By.linkText("More")));
                 }
             }
         } catch (StaleElementReferenceException se) {
-            LOG.info("context", se);
+            LOG.info(CONTEXT, se);
             clickMoreOption(facetGroupName);
         }
     }
@@ -224,7 +207,8 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
      */
 
     public WebElement resultDate(String number) {
-        return waitForExpectedElement(By.xpath("//li[@id='cobalt_search_results_whatsmarketUK" + number + "']//span[@class='co_search_detailLevel_2']//self::span[contains(text(),'20')]"));
+        return waitForExpectedElement(By.xpath(String.format(RESULTS_DATE_PATTERN, number) + "//self::span[contains(text(),'20')]"));
+
     }
 
     /**
@@ -232,7 +216,7 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
      */
 
     public boolean isResultDatePresent(String number) {
-        return isElementDisplayed(By.xpath("//li[@id='cobalt_search_results_whatsmarketUK" + number + "']//span[@class='co_search_detailLevel_2']//self::span[contains(text(),'20')]"));
+        return isElementDisplayed(By.xpath(String.format(RESULTS_DATE_PATTERN, number) + "//self::span[contains(text(),'20')]"));
     }
 
     /**
@@ -240,7 +224,7 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
      */
 
     public WebElement resultValue(String number) {
-        return waitForExpectedElement(By.xpath("//li[@id='cobalt_search_results_whatsmarketUK" + number + "']//span[@class='co_search_detailLevel_2']//self::span[contains(text(),'illion')]"));
+        return waitForExpectedElement(By.xpath(String.format(RESULTS_DATE_PATTERN, number) + "//self::span[contains(text(),'illion')]"));
     }
 
     /**
@@ -248,7 +232,7 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
      */
 
     public boolean isResultValuePresent(String number) {
-        return isElementDisplayed(By.xpath("//li[@id='cobalt_search_results_whatsmarketUK" + number + "']//span[@class='co_search_detailLevel_2']//self::span[contains(text(),'illion')]"));
+        return isElementDisplayed(By.xpath(String.format(RESULTS_DATE_PATTERN, number) + "//self::span[contains(text(),'illion')]"));
     }
 
     /**
@@ -272,7 +256,7 @@ public class WhatsMarketSearchResultsPage extends AbstractPage {
      */
 
     public WebElement resultDealType(String number, String dealtype) {
-        return waitForExpectedElement(By.xpath("//li[@id='cobalt_search_results_whatsmarketUK" + number + "']//span[@class='co_search_detailLevel_2'][contains(text(),'" + dealtype + "')]"));
+        return waitForExpectedElement(By.xpath(String.format(RESULTS_DATE_PATTERN, number) + "[contains(text(),'" + dealtype + "')]"));
     }
 
     /**

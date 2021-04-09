@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.regex.Pattern;
 import javax.mail.*;
 
+import com.thomsonreuters.pageobjects.common.PropertyLoaderUtility;
 import com.thomsonreuters.pageobjects.exceptions.EmailException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -17,41 +18,21 @@ import org.slf4j.LoggerFactory;
 
 public class EmailMessageUtils {
 
-	protected static final Logger LOG = LoggerFactory.getLogger(Mailbox.class);
+	protected static final Logger LOG = LoggerFactory.getLogger(EmailMessageUtils.class);
 
-	private static final String BASE_PATH = "C:/temp/test-downloads";
 	private static final String DATE_PATTERN_FOR_FOLDER = "yyyy-MM-dd_hh-mm-ss";
 	private static final String MESSAGE_MIMETYPE_TEXT = "text/*";
 	private static final String MESSAGE_MIMETYPE_MULTIPART = "multipart/*";
+	private static final String PROPERTIES_FILE = "pageobjects.properties";
 
-	public boolean isEmailContainsText(Message message, String text) throws Exception {
+	public boolean isEmailContainsText(Message message, String text) {
 		return StringUtils.containsIgnoreCase(getMessageBody(message), text.toLowerCase());
 	}
 
-	public boolean isEmailContainsRegex(Message message, String regex) throws Exception {
+	public boolean isEmailContainsRegex(Message message, String regex) {
 		Pattern p = Pattern.compile(regex);
 		return p.matcher(getMessageBody(message)).find();
 	}
-
-	//TODO need to verify and remove
-	/*public String getMessageBody(Message message) throws Exception {
-		if (message.isMimeType("text/*")) {
-			return message.getContent().toString();
-		} else if (message.isMimeType("multipart/*")) {
-			String result = "";
-			Multipart multipart = (Multipart) message.getContent();
-			int count = multipart.getCount();
-			for (int i = 0; i < count; i++) {
-				BodyPart bodyPart = multipart.getBodyPart(i);
-				if (bodyPart.isMimeType("text/*")) {
-					result = result + "\n" + bodyPart.getContent();
-					break;
-				}
-			}
-			return result;
-		}
-		throw new Exception("Message text was not found");
-	}*/
 
 	public String getMessageBody(Message message) {
 		String messageBody = StringUtils.EMPTY;
@@ -94,13 +75,13 @@ public class EmailMessageUtils {
 		try {
 			return message.isMimeType(type);
 		} catch (MessagingException exp) {
-			throw new RuntimeException("Unable to verify the mime type", exp);
+			throw new EmailException("Unable to verify the mime type", exp);
 		}
 	}
 
 	public String retrieveAttachmentName(Message message) {
 		try {
-			if (isMessageMimeType(message, "multipart/*")) {
+			if (isMessageMimeType(message, MESSAGE_MIMETYPE_MULTIPART)) {
 				Multipart multipart = (Multipart) message.getContent();
 				for (int i = 0; i < multipart.getCount(); i++) {
 					BodyPart bodyPart = multipart.getBodyPart(i);
@@ -111,53 +92,102 @@ public class EmailMessageUtils {
 				}
 			}
 		} catch (MessagingException | IOException exp) {
-			throw new RuntimeException("Unable to retrieve attachment", exp);
+			throw new EmailException("Unable to retrieve attachment", exp);
 		}
 		return StringUtils.EMPTY;
 	}
 
-	public File downloadAttachment(Message message) throws Exception {
-		return downloadAttachment(message, BASE_PATH);
+	public File downloadAttachment(Message message) {
+		return downloadAttachment(message, PropertyLoaderUtility.loadProperties(PROPERTIES_FILE).getProperty("email.basepath"));
 	}
 
-	public File downloadAttachment(Message message, String baseFolder) throws Exception {
+	public File downloadAttachment(Message message, String baseFolder) {
+		File attachmentFile = null;
 
-		File file = null;
-		Multipart multipart = (Multipart) message.getContent();
-
-		for (int i = 0; i < multipart.getCount(); i++) {
-			BodyPart bodyPart = multipart.getBodyPart(i);
-			if (!Part.ATTACHMENT.equalsIgnoreCase(bodyPart.getDisposition()) && bodyPart.getFileName() != null) {
-				continue;
+		try {
+			Multipart multipart = (Multipart) message.getContent();
+			for (int index = 0; index < multipart.getCount(); index++) {
+				BodyPart bodyPart = multipart.getBodyPart(index);
+				if (isValidAttachmentInBodyPart(bodyPart)) {
+					attachmentFile = writeBodyPartToAttachmentFile(baseFolder, bodyPart);
+					break;
+				}
 			}
-			InputStream is = bodyPart.getInputStream();
+		} catch (MessagingException | IOException exp) {
+			throw new EmailException("Unable to download attachment", exp);
+		}
+		return attachmentFile;
+	}
 
-			file = new File(baseFolder + "/" + new SimpleDateFormat(DATE_PATTERN_FOR_FOLDER).format(new Date()) + "/" + bodyPart.getFileName());
-			file.getParentFile().mkdirs();
-			file.createNewFile();
-			FileOutputStream fos = new FileOutputStream(file);
-			byte[] buf = new byte[4096];
-			int bytesRead;
-			while ((bytesRead = is.read(buf)) != -1) {
-				fos.write(buf, 0, bytesRead);
+	public String getAttachmentExtension(Message message) {
+		// Get attachment file name and replcae everything except extension
+		// For "Some document.doc" only "doc" will be returned
+		return retrieveAttachmentName(message).replaceAll(".*(?=\\.)\\.", StringUtils.EMPTY);
+	}
+
+	private boolean isValidAttachmentInBodyPart(BodyPart bodyPart) {
+		return !isNotValidAttachmentInBodyPart(bodyPart);
+	}
+
+	private boolean isNotValidAttachmentInBodyPart(BodyPart bodyPart) {
+		try {
+			return (!Part.ATTACHMENT.equalsIgnoreCase(bodyPart.getDisposition())
+					&&
+					bodyPart.getFileName() == null);
+		} catch (MessagingException exp) {
+			throw new EmailException("Error getting file name from body part", exp);
+		}
+	}
+
+	private File writeBodyPartToAttachmentFile(String baseFolder, BodyPart bodyPart) throws IOException, MessagingException {
+		File attachmentFile;
+		InputStream inputStream = bodyPart.getInputStream();
+		attachmentFile = createDirectoriesAndFile(baseFolder, bodyPart);
+		writeToFile(attachmentFile, inputStream);
+		return attachmentFile;
+	}
+
+	private File createDirectoriesAndFile(String baseFolder, BodyPart bodyPart) {
+		File file;
+		file = new File(buildDownloadFilePath(baseFolder, bodyPart));
+
+		if (!file.getParentFile().mkdirs()) {
+			LOG.info("unable to create directory structure!");
+		}
+
+		try {
+			if (!file.createNewFile()) {
+				LOG.info("file already exists! ");
 			}
-			fos.close();
+		} catch (IOException exp) {
+			throw new EmailException("Error while creating a new file! " + exp.getMessage(), exp);
 		}
 
 		return file;
 	}
 
-	public String getAttachmentExtension(Message message) throws Exception {
-		String attachmentName = retrieveAttachmentName(message);
-		if (attachmentName == null || attachmentName.isEmpty()) {
-			throw new Exception("Attachment file not found");
+	private String buildDownloadFilePath(String baseFolder, BodyPart bodyPart) {
+		try {
+			return baseFolder
+					+ "/"
+					+ new SimpleDateFormat(DATE_PATTERN_FOR_FOLDER).format(new Date())
+					+ "/"
+					+ bodyPart.getFileName();
+		} catch (MessagingException exp) {
+			throw new EmailException("Error extracting Filename from bodyPart ", exp);
 		}
-		String[] parts = attachmentName.split("\\.");
-		if (parts.length < 2) {
-			LOG.info("File name does not contain extension: " + attachmentName);
-			return "";
+	}
+
+	private void writeToFile(File file, InputStream inputStream) {
+		try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+			byte[] buffer = new byte[4096];
+			int bytesRead;
+			while ((bytesRead = inputStream.read(buffer)) != -1) {
+				fileOutputStream.write(buffer, 0, bytesRead);
+			}
+		} catch (IOException exp) {
+			throw new EmailException("Error while writing to the file " + exp.getMessage(), exp);
 		}
-		return parts[parts.length - 1];
 	}
 
 	public boolean hasAttachment(Message message) {

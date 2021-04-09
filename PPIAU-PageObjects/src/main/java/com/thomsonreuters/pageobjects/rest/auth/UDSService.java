@@ -7,7 +7,7 @@ import com.thomsonreuters.pageobjects.rest.auth.model.PostForUserGuidResponse;
 import com.thomsonreuters.pageobjects.rest.auth.proxy.OnePassProxy;
 import com.thomsonreuters.pageobjects.rest.auth.proxy.UDSProxy;
 
-import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
+import com.thomsonreuters.utils.TimeoutUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;

@@ -5,7 +5,7 @@ import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.pageobjects.common.SortOptions;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawUKCategoryPage;
 import com.thomsonreuters.pageobjects.pages.search.*;
-import com.thomsonreuters.pageobjects.utils.TimeoutUtils;
+import com.thomsonreuters.utils.TimeoutUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -13,14 +13,12 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.awt.*;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
+public class UKKnowHowSearchResultsPerPageTestSteps extends BaseStepDef {
 
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private PracticalLawUKCategoryPage practicalLawUKCategoryPage = new PracticalLawUKCategoryPage();
@@ -34,17 +32,17 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
     private List<String> actualSuggestions;
 
     @When("^the user selects the relevant dropdown$")
-    public void theUserSelectsTheRelevantDropdown() throws Throwable {
+    public void theUserSelectsTheRelevantDropdown() {
     }
 
     @When("^the user selects the option to display \"([^\"]*)\" of results per page$")
-    public void theUserSelectsTheOptionToDisplayOfResultsPerPage(String number) throws Throwable {
+    public void theUserSelectsTheOptionToDisplayOfResultsPerPage(String number) {
         practicalLawUKCategoryPage.resultsPerPageDropdown(number);
         knowHowSearchResultsPage.waitForSearchResults();
     }
 
     @When("^the user runs a free text cobalt search$")
-    public void theUserRunsAFreeTextCobaltSearch() throws Throwable {
+    public void theUserRunsAFreeTextCobaltSearch() {
         practicalLawUKCategoryPage.freeTextField().clear();
         practicalLawUKCategoryPage.freeTextField().sendKeys();
         /**
@@ -58,7 +56,7 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
     }
 
     @When("^the user runs a free text cobalt search with query \"(.*?)\"$")
-    public void theUserRunsAFreeTextCobaltSearch(String query) throws Throwable {
+    public void theUserRunsAFreeTextCobaltSearch(String query) {
         practicalLawUKCategoryPage.freeTextField().clear();
         practicalLawUKCategoryPage.freeTextField().sendKeys(query);
         practicalLawUKCategoryPage.searchButton().click();
@@ -69,18 +67,18 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
     }
 
     @Then("^the user is able to verify the presence of text confirming that results \"([^\"]*)\" are displayed on the page$")
-    public void theUserIsAbleToVerifyThePresenceOfTextConfirmingThatResultsAreDisplayedOnThePage(String results) throws Throwable {
+    public void theUserIsAbleToVerifyThePresenceOfTextConfirmingThatResultsAreDisplayedOnThePage(String results) {
         WebElement heading = searchResultsPage.resultsPerPageText();
         assertTrue(heading.getText().contains(results));
     }
 
     @Then("^the user is able to verify the presence of whats market search result \"(.*?)\"$")
-    public void theUserIsAbleToVerifyThePresenceOfWhatsMarketSearchResult(String rank) throws Throwable {
+    public void theUserIsAbleToVerifyThePresenceOfWhatsMarketSearchResult(String rank) {
         searchResultsPage.resultNumberWM(rank).isDisplayed();
     }
 
     @Then("^the user is able to verify the presence of know how search result \"(.*?)\"$")
-    public void theUserIsAbleToVerifyThePresenceOfKnowHowSearchResult(String rank) throws Throwable {
+    public void theUserIsAbleToVerifyThePresenceOfKnowHowSearchResult(String rank) {
         searchResultsPage.resultNumberKH(rank).isDisplayed();
     }
 
@@ -141,7 +139,7 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
     }
 
     @When("^the user verifies that the following facet is not selected$")
-    public void theUserVerifiesThatTheKnowHowFollowingFacetIsSelected(List<String> facets) throws Throwable {
+    public void theUserVerifiesThatTheKnowHowFollowingFacetIsSelected(List<String> facets) {
         for (String facet : facets) {
             boolean result = false;
             try {
@@ -212,7 +210,7 @@ public class UKKnowHowSearchResultsPerPageS2_28Test extends BaseStepDef {
     }
 
     @And("^the user selects page number \"(.*?)\"$")
-    public void theUserSelectsPageNumber(String pageToClick) throws Throwable {
+    public void theUserSelectsPageNumber(String pageToClick) {
         TimeoutUtils.sleepInSeconds(5);
         searchResultsPage.nonSelectedPage(pageToClick).click();
     }
