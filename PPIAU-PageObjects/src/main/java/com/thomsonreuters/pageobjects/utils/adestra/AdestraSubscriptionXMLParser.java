@@ -1,5 +1,6 @@
 package com.thomsonreuters.pageobjects.utils.adestra;
 
+import com.thomsonreuters.pageobjects.exceptions.ParseException;
 import com.thomsonreuters.pageobjects.utils.Product;
 import org.slf4j.Logger;
 import org.xml.sax.Attributes;
@@ -12,6 +13,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class AdestraSubscriptionXMLParser extends DefaultHandler {
@@ -33,7 +35,7 @@ public class AdestraSubscriptionXMLParser extends DefaultHandler {
     private static final File subscriptionXMLAUFile = new File(baseUserDir + "/src/test/resources/email-subscription-au.xml");
 
     public void parse(Product product) {
-		subscriptionParametersList = new LinkedList<SubscriptionParameters>();
+		subscriptionParametersList = new LinkedList<>();
 		SAXParserFactory spfac = SAXParserFactory.newInstance();
 		SAXParser sp;
 		try {
@@ -44,7 +46,7 @@ public class AdestraSubscriptionXMLParser extends DefaultHandler {
                 sp.parse(subscriptionXMLAUFile, this);
             }
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			throw new RuntimeException(e);
+			throw new ParseException(e.getMessage());
 		}
 	}
 	
@@ -74,6 +76,7 @@ public class AdestraSubscriptionXMLParser extends DefaultHandler {
 
 	}
 
+	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if (qName.equals("product")) {
 			subscriptionParameters.setCategoryName(category);
@@ -104,10 +107,11 @@ public class AdestraSubscriptionXMLParser extends DefaultHandler {
 
 	}
 
-	public LinkedList<SubscriptionParameters> getResult() {
+	public List<SubscriptionParameters> getResult() {
 		return subscriptionParametersList;
 	}
 
+	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		thisElement.append(ch, start, length);
 	}

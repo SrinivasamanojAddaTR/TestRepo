@@ -2,17 +2,23 @@ package com.thomsonreuters.pageobjects.utils.document.xml.transformer;
 
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.utils.document.metadata.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,18 +32,19 @@ import java.util.List;
  */
 public abstract class BaseDocumentTransformer {
 
-    protected CommonMethods commonMethods = new CommonMethods();
-
+    private static final String XLINK = "http://www.w3.org/1999/xlink";
+    private static final String ARBORTEXT_NAMESPACE_ATICT = "http://www.arbortext.com/namespace/atict";
+    private static final Logger LOG = LoggerFactory.getLogger(BaseDocumentTransformer.class);
     protected static final String XML_NOVUS_ELEMENT_DATE_FORMAT = "yyyyMMdd";
 
-    // TODO Do we need this?
+    protected CommonMethods commonMethods = new CommonMethods();
+
     public String getXLINKURI() {
-        return "http://www.w3.org/1999/xlink";
+        return XLINK;
     }
 
-    // TODO Do we need this?
     public String getATICTURI() {
-        return "http://www.arbortext.com/namespace/atict";
+        return ARBORTEXT_NAMESPACE_ATICT;
     }
 
     /**
@@ -46,39 +53,41 @@ public abstract class BaseDocumentTransformer {
      * @param pageSource XML String
      * @param strXpath XPath to search
      * @return NodeList with found node
-     * @throws Exception if there are parse or IO error occured
      */
-    public NodeList returnXpathNodes(String pageSource, String strXpath) throws Exception {
-        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-        docFactory.setNamespaceAware(true);
-        DocumentBuilder builder = docFactory.newDocumentBuilder();
-        Document doc = builder.parse(new InputSource(new StringReader(pageSource)));
-        XPath xpath = XPathFactory.newInstance().newXPath();
-        xpath.setNamespaceContext(new NamespaceContext() {
+    public NodeList returnXpathNodes(String pageSource, String strXpath) {
+        try {
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            docFactory.setNamespaceAware(true);
+            DocumentBuilder builder = docFactory.newDocumentBuilder();
+            Document doc = builder.parse(new InputSource(new StringReader(pageSource)));
+            XPath xpath = XPathFactory.newInstance().newXPath();
+            xpath.setNamespaceContext(new NamespaceContext() {
 
-            @Override
-            public String getNamespaceURI(String prefix) {
-                if ("xlink".equals(prefix)) {
-                    return getXLINKURI();
-                } else if ("atict".equals(prefix)) {
-                    return getATICTURI();
+                @Override
+                public String getNamespaceURI(String prefix) {
+                    if ("xlink".equals(prefix)) {
+                        return getXLINKURI();
+                    } else if ("atict".equals(prefix)) {
+                        return getATICTURI();
+                    }
+                    return "";
                 }
-                return "";
-            }
 
-            @Override
-            public String getPrefix(String namespaceURI) {
-                return "";
-            }
+                @Override
+                public String getPrefix(String namespaceURI) {
+                    return "";
+                }
 
-            @Override
-            public Iterator getPrefixes(String namespaceURI) {
-                return Collections.emptyIterator();
-            }
-        });
-
-        NodeList nodes = (NodeList) xpath.evaluate(strXpath, doc, XPathConstants.NODESET);
-        return nodes;
+                @Override
+                public Iterator getPrefixes(String namespaceURI) {
+                    return Collections.emptyIterator();
+                }
+            });
+            return (NodeList) xpath.evaluate(strXpath, doc, XPathConstants.NODESET);
+        } catch (IOException | ParserConfigurationException | XPathExpressionException | SAXException e) {
+            LOG.info("Element with xpath: {} wasn't found in xml!", strXpath, e);
+            return null;
+        }
     }
 
     /**

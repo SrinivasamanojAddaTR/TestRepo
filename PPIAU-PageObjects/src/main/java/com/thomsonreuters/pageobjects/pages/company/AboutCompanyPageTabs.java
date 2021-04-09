@@ -15,7 +15,7 @@ public enum AboutCompanyPageTabs {
 	CONSULTATION_BOARDS("Consultation Boards","Consultation", By.xpath("//li[@id='coid_categoryTab3_main_0']//a")),
 	CONTRIBUTORS("Contributors", "Contributors", By.xpath("//li[@id='coid_categoryTab4_main_0']//a"));
 	
-	private final static Map<String, AboutCompanyPageTabs> map = new HashMap<String, AboutCompanyPageTabs>();
+	private static final  Map<String, AboutCompanyPageTabs> map = new HashMap<>();
 
     static {
         for (AboutCompanyPageTabs aboutCompanyPageTab : AboutCompanyPageTabs.values()) {
@@ -27,40 +27,26 @@ public enum AboutCompanyPageTabs {
 	private String tabShortName;
 	private By xpath;
 	
-	private AboutCompanyPageTabs(String tabName, String tabShortName, By xpath) {
-		this.setTabName(tabName);
-		this.setTabShortName(tabShortName);
-		this.setXpath(xpath);
-		
+	AboutCompanyPageTabs(String tabName, String tabShortName, By xpath) {
+		this.tabName = tabName;
+		this.tabShortName = tabShortName;
+		this.xpath = xpath;
 	}
 
 	public String getTabName() {
 		return tabName;
 	}
 
-	public void setTabName(String tabName) {
-		this.tabName = tabName;
-	}
-
 	public String getTabShortName() {
 		return tabShortName;
-	}
-
-	public void setTabShortName(String tabShortName) {
-		this.tabShortName = tabShortName;
 	}
 
 	public By getXpath() {
 		return xpath;
 	}
 
-	public void setXpath(By xpath) {
-		this.xpath = xpath;
-	}
-	
 	public static AboutCompanyPageTabs get(String tabName) {
         return map.get(tabName);
     }
-
 
 }

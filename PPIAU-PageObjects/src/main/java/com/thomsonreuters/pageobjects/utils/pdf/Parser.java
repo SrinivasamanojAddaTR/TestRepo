@@ -4,6 +4,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.pdfbox.util.ResourceLoader;
 import org.apache.pdfbox.util.TextPosition;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.awt.*;
@@ -13,8 +15,9 @@ import java.util.List;
 
 
 public class Parser extends PDFTextStripper {
-	
-	final private static String PATH_TO_PAGE_DRAWER_PROPERTIES = "org/apache/pdfbox/resources/PageDrawer.properties";
+
+	private static final Logger LOG = LoggerFactory.getLogger(Parser.class);
+	private static final String PATH_TO_PAGE_DRAWER_PROPERTIES = "org/apache/pdfbox/resources/PageDrawer.properties";
 	private int step;
 	private List<TargetPositionKey> targets;
 	private String textToFind;
@@ -24,9 +27,9 @@ public class Parser extends PDFTextStripper {
 	public Parser() throws IOException {
 		super(ResourceLoader.loadProperties(PATH_TO_PAGE_DRAWER_PROPERTIES, true));
 		super.setSortByPosition(true);
-		targets = new ArrayList<TargetPositionKey>();
-		fontSizes = new ArrayList<Float>();
-		fontColors = new ArrayList<Color>();		
+		targets = new ArrayList<>();
+		fontSizes = new ArrayList<>();
+		fontColors = new ArrayList<>();
 	}
 
 	public void parse(String path, String text) throws IOException {
@@ -50,7 +53,7 @@ public class Parser extends PDFTextStripper {
 					fontColors.set(index, getGraphicsState().getNonStrokingColor().getJavaColor());
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOG.error("Could not process text", e);
 			}
 		}
 		super.processTextPosition(text);
@@ -81,8 +84,9 @@ public class Parser extends PDFTextStripper {
 	public Color getFontColor(int index) {
 		if (index >= 0 && index < fontColors.size()) {
 			return fontColors.get(index);
-		} else
+		} else {
 			return fontColors.get(0);
+		}
 	}
 
 }

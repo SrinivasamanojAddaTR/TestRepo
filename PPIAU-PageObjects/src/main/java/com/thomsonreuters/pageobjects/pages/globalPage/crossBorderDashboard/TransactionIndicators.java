@@ -1,7 +1,6 @@
 package com.thomsonreuters.pageobjects.pages.globalPage.crossBorderDashboard;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public enum TransactionIndicators {
@@ -23,16 +22,8 @@ public enum TransactionIndicators {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getTextMessage() {
 		return textMessage;
-	}
-
-	public void setTextMessage(String textMessage) {
-		this.textMessage = textMessage;
 	}
 
 	public static String getTextMessageByName(String name) {

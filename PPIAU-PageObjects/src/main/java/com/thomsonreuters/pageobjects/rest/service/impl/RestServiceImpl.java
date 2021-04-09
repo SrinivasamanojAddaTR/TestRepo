@@ -1,5 +1,6 @@
 package com.thomsonreuters.pageobjects.rest.service.impl;
 
+import com.thomsonreuters.driver.exception.SiteCookieException;
 import com.thomsonreuters.driver.framework.WebDriverDiscovery;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowDocumentPage;
@@ -22,9 +23,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSession;
 import javax.swing.text.html.HTML;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -49,15 +48,14 @@ public abstract class RestServiceImpl implements RestService {
      */
     private class CustomResponseErrorHandler extends DefaultResponseErrorHandler {
 
-        private final org.slf4j.Logger LOG = LoggerFactory.getLogger(CustomResponseErrorHandler.class);
+        private final org.slf4j.Logger log = LoggerFactory.getLogger(CustomResponseErrorHandler.class);
 
         @Override
         public void handleError(ClientHttpResponse response) throws IOException {
             try {
                 super.handleError(response);
             } catch (HttpServerErrorException | HttpClientErrorException httpException) {
-                LOG.info("RESPONSE HANDLER (Client / Server error). \nHeaders: "
-                        + httpException.getResponseHeaders().toString()+ "\nResponse: " + httpException.getResponseBodyAsString());
+                log.info("RESPONSE HANDLER (Client/Server) Error Exception");
                 throw httpException;
             }
         }
@@ -66,29 +64,21 @@ public abstract class RestServiceImpl implements RestService {
     /**
      * Custom request header to disable certificate validation for PL+ host names
      */
-    private class CustomRequestFactory extends SimpleClientHttpRequestFactory {
+    public class CustomRequestFactory extends SimpleClientHttpRequestFactory {
 
         @Override
         protected void prepareConnection(HttpURLConnection connection, String httpMethod) throws IOException {
             if (connection instanceof HttpsURLConnection) {
-                ((HttpsURLConnection) connection).setHostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String s, SSLSession sslSession) {
-                        return true;
-                    }
-                });
+                ((HttpsURLConnection) connection).setHostnameVerifier((s, sslSession) ->
+                        s.equalsIgnoreCase(sslSession.getPeerHost()));
             }
             super.prepareConnection(connection, httpMethod);
         }
     }
 
     public RestTemplate getRestTemplate() {
-        CloseableHttpClient httpClient = HttpClientBuilder.create().setSSLHostnameVerifier(new HostnameVerifier() {
-            @Override
-            public boolean verify(String s, SSLSession sslSession) {
-                return true;
-            }
-        }).build();
+        CloseableHttpClient httpClient = HttpClientBuilder.create().setSSLHostnameVerifier((s, sslSession) ->
+                s.equalsIgnoreCase(sslSession.getPeerHost())).build();
         restTemplate.setErrorHandler(new CustomResponseErrorHandler());
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory(httpClient));
         return restTemplate;
@@ -98,11 +88,11 @@ public abstract class RestServiceImpl implements RestService {
         String[] rawCookieParams = getCookies().split(";");
         String[] rawCookieNameAndValue = rawCookieParams[0].split("=");
         if (rawCookieNameAndValue.length != 2) {
-            throw new RuntimeException("Invalid cookie: missing name and value.");
+            throw new SiteCookieException("Invalid cookie: missing name and value.");
         }
         String cookie = null;
         for (int i = 0; i < rawCookieParams.length; i++) {
-            String rawCookieParamNameAndValue[] = rawCookieParams[i].trim().split("=");
+            String[] rawCookieParamNameAndValue = rawCookieParams[i].trim().split("=");
             String paramName = rawCookieParamNameAndValue[0].trim();
             if (paramName.equalsIgnoreCase("site")) {
                 cookie = rawCookieParamNameAndValue[1].trim();
@@ -160,9 +150,11 @@ public abstract class RestServiceImpl implements RestService {
     }
 
     public String getProtocol() {
-		if (System.getProperty("base.url").equalsIgnoreCase("qed") || System.getProperty("base.url").equalsIgnoreCase("demo")) {
-			return SECURE_PROTOCOL;
-		} else {
+        String baseUrl = System.getProperty("base.url");
+        if (baseUrl.equalsIgnoreCase("qed") || baseUrl.equalsIgnoreCase("demo")
+                || baseUrl.equalsIgnoreCase("prod") || baseUrl.equalsIgnoreCase("hotprod")) {
+            return SECURE_PROTOCOL;
+        } else {
             return PROTOCOL;
         }
     }
