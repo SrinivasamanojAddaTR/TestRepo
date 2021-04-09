@@ -8,12 +8,10 @@ import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.enums.Expan
 import com.thomsonreuters.driver.exception.PageOperationException;
 import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,9 +35,6 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
     public static final By CURRENT_TERM_INDEX = By.id("plplus_currentTermIndex");
     public static final By BACK_TO_RESULTS_LINK_LOCATOR = By.cssSelector(".kh_icon.icon-reply-arrow");
     public static final By RESULTS_NAVIGATION_LINKS_LOCATOR = By.cssSelector("#coid_searchTermNavigation .co_dropDownAnchor span");
-    private static final By PRIMARY_LINKS_LOCATOR = By.cssSelector(""); //TODO: Need to add the css Selector
-    private static final By CHILD_LINKS_LOCATOR = By.cssSelector("#docRelatedInfo .subSelected"); //TODO: Need to add the locator
-    private static final By SECONDARY_ELEMENTS_UNDERNEATH_PRIMARY_LOCATOR = By.cssSelector(""); //TODO: Need to add the locator
 
 
     CommonMethods commonMethods;
@@ -62,7 +57,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         try {
             return waitForExpectedElement(RIGHT_CAROSAL_LOCATOR);
         } catch (TimeoutException pe) {
-            LOG.info("context", pe);
+            LOG.info("element not found", pe);
             throw new PageOperationException("Exceeded Time to find the Right carosal link.");
         }
     }
@@ -76,7 +71,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         try {
             return waitForExpectedElement(LEFT_CAROSAL_LOCATOR);
         } catch (TimeoutException pe) {
-            LOG.info("context", pe);
+            LOG.info("element ot available", pe);
             throw new PageOperationException("Exceeded Time to find the Left carosal link.");
         }
     }
@@ -174,7 +169,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         try {
             return waitForExpectedElement(PREVIOUS_RESULT_NAVIGATION_LINK_LOCATOR);
         } catch (TimeoutException pe) {
-            LOG.info("context", pe);
+            LOG.info("previous link not available", pe);
             throw new PageOperationException("Exceeded Time to find the Previous link.");
         }
     }
@@ -197,7 +192,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         try {
             return waitForExpectedElement(NEXT_RESULT_NAVIGATION_LINK_LOCATOR);
         } catch (TimeoutException pe) {
-            LOG.info("context", pe);
+            LOG.info("next link not available", pe);
             throw new PageOperationException("Exceeded Time to find the Next link.");
         }
     }
@@ -220,7 +215,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         try {
             return (!(getPreviousResultLink().getAttribute("class").contains("disabled")));
         } catch (PageOperationException pe) {
-            LOG.warn("context", pe);
+            LOG.warn("previous link enabled/disabled", pe);
         }
         return false;
     }
@@ -234,7 +229,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         try {
             return (!(getNextResultLink().getAttribute("class").contains("disabled")));
         } catch (PageOperationException pe) {
-            LOG.info("context", pe);
+            LOG.info("next link not displayed", pe);
         }
         return false;
     }
@@ -253,16 +248,6 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         getNextResultLink().click();
     }
 
-    /**
-     * This method does waiting for results navigation links present on document.
-     */
-    public void waitForResultsNavigationLinksRendering() {
-        try {
-            waitForExpectedElements(RESULTS_NAVIGATION_LINKS_LOCATOR);
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-        }
-    }
 
     /**
      * This method is to verify the previous link present and enabled on document header.
@@ -282,92 +267,6 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         return (isNextResultLinkPresentOnResultsNavigationWidget() && isNextResultLinkEnabledOnResultsNavigationWidget());
     }
 
-    /**
-     * This is to verify the next / previous links on results navigation present on document header, are clickable or not.
-     *
-     * @return
-     */
-    public boolean isNavigationChildLinksAreClickable() {
-        try {
-            return (!(getNextResultLink().getAttribute("class").contains("disabled")));
-        } catch (Exception pe) {
-            LOG.warn("context", pe);
-        }
-        return false;
-    }
-
-    /**
-     * This method returns the list of primary link names as string values.
-     *
-     * @return List<String>
-     */
-    public List<String> getPrimaryLinkNames() {
-        List<String> list = new ArrayList<String>();
-        for (WebElement element : getPrimaryLinkElements()) {
-            list.add(element.getText());
-        }
-        return list;
-    }
-
-    /**
-     * This method is to find out the primary link webelements present on left hand navigation of the document.
-     *
-     * @return List<WebElement>
-     */
-    List<WebElement> getPrimaryLinkElements() {
-        List<WebElement> list = new ArrayList<WebElement>();
-        try {
-            list = waitForExpectedElements(PRIMARY_LINKS_LOCATOR);
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-        }
-        logger.info("PrimaryLinks : " + list.toString());
-        return list;
-    }
-
-    /**
-     * This method is to find out the secondary link webelements present on left hand navigation of the document.
-     *
-     * @return List<WebElement>
-     */
-    protected List<WebElement> getSecondaryLinkElements(String primaryLink) {
-        WebElement primaryElement = null;
-        for (WebElement element : getPrimaryLinkElements()) {
-            if (element.getText().equalsIgnoreCase(primaryLink)) {
-                primaryElement = element;
-            }
-        }
-        List<WebElement> list = new ArrayList<WebElement>();
-        try {
-            list = primaryElement.findElements(SECONDARY_ELEMENTS_UNDERNEATH_PRIMARY_LOCATOR);
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-        }
-        logger.info("SecondaryLinks : " + list.toString());
-        return list;
-    }
-
-    /**
-     * This method returns the list of primary link names as string values.
-     *
-     * @param primaryLink
-     * @return List<String>
-     */
-    public List<String> getChilidMenuLinkNames(String primaryLink) {
-        if (StringUtils.isEmpty(primaryLink)) {
-            throw new IllegalArgumentException(" Primary link name is required.");
-        }
-        List<String> list = new ArrayList<String>();
-        try {
-            for (WebElement element : getSecondaryLinkElements(primaryLink)) {
-                list.add(element.getText());
-            }
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-        }
-        logger.info("ChildLinks : " + list.toString());
-        return list;
-    }
 
     /**
      * This method does clicking on the given child link present on left hand side navigation of the document.
@@ -381,7 +280,6 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         try {
             waitForExpectedElement(DocumentSecondaryLink.getLink(name)).click();
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException(te.getMessage());
         }
     }
@@ -399,7 +297,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
         try {
             return waitForExpectedElement(PRIMARY_MENU_SELECTION_LOCATOR).getText().contains(name);
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info("primary menu not displayed", te);
         }
         return false;
     }
@@ -412,7 +310,7 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
      */
     public boolean isPrimaryMenuExpanded(DocumentPrimaryLink primaryLink) {
         if (primaryLink == null) {
-            throw new IllegalArgumentException(" Primary link is required.");
+            throw new IllegalArgumentException("Primary link is required.");
         }
         try {
             return waitForExpectedElement(PRIMARY_MENU_EXPANDED_LOCATOR).getText().contains(primaryLink.getLinkName());
@@ -441,31 +339,6 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
     }
 
     /**
-     * This method is used to find the other primary menus are collapsed except selected menu.
-     *
-     * @param primaryLink
-     * @return boolean
-     */
-    public boolean isOtherPrimaryMenuAreCollapsed(DocumentPrimaryLink primaryLink) {
-        if (primaryLink == null) {
-            throw new IllegalArgumentException(" Primary link is required.");
-        }
-        boolean bool = false;
-        boolean actualLinkBoolean = false;
-        for (String primaryMenuName : getPrimaryLinkNames()) {
-            if (!primaryMenuName.equals(primaryLink)) {
-                bool = isPrimaryMenuExpanded(DocumentPrimaryLink.getLink(primaryMenuName));
-                if (bool) {
-                    return false;
-                }
-            } else {
-                actualLinkBoolean = isPrimaryMenuExpanded(DocumentPrimaryLink.getLink(primaryMenuName));
-            }
-        }
-        return actualLinkBoolean;
-    }
-
-    /**
      * This method is to select the given primary link name under the left hand navigation of the document.
      *
      * @param primaryMenuName
@@ -475,72 +348,6 @@ public class DocumentNavigationPage extends DocumentDisplayAbstractPage {
             throw new IllegalArgumentException(" Primary link is required.");
         }
         waitForExpectedElement(DocumentPrimaryLink.getLink(primaryMenuName).getCssLocator()).click();
-    }
-
-    /**
-     * This method is to verify the document navigation links section is present on the left hand side of the document.
-     *
-     * @return boolean
-     */
-    public boolean isLinksAreDisplayedInLeftHandSideNavigation() {
-        try {
-            /**
-             * TODO Need to be changed once it is available for testing
-             */
-            return waitForExpectedElement(By.cssSelector("")).getAttribute("style").contains("left");
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-        }
-        return false;
-    }
-
-    /**
-     * This method is to verify the given primary menu child links are jump links are not.
-     *
-     * @param primaryMenu
-     * @return boolean
-     */
-    public boolean isSecondaryMenusAreJumpLinks(String primaryMenu) {
-        if (org.springframework.util.StringUtils.isEmpty(primaryMenu)) {
-            throw new IllegalArgumentException(" Primary menu name is required.");
-        }
-        try {
-            for (WebElement childElement : getSecondaryLinkElements(primaryMenu)) {
-                waitForElementToBeClickable(childElement);
-            }
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-            return false;
-        }
-        return true;
-    }
-
-    
-    
-    /**
-     * This method is to verify the given child link is present underneath the primary link.
-     *
-     * @param childLink
-     * @param primaryLink
-     * @return boolean
-     */
-    public boolean isChildLinkPresentUnderGivenPrimaryMenu(String childLink, String primaryLink) {
-        if (org.springframework.util.StringUtils.isEmpty(primaryLink) || org.springframework.util.StringUtils.isEmpty(childLink)) {
-            throw new IllegalArgumentException(" Primary/Secondary link name is required.");
-        }
-        WebElement primaryWebElement = null;
-        try {
-            for (WebElement primaryElement : getPrimaryLinkElements()) {
-                if (primaryElement.getText().equals(primaryLink)) {
-                    primaryWebElement = primaryElement;
-                }
-            }
-            //TODO: need to add correct child xpath
-            return (primaryWebElement.findElement(By.xpath("child element finding by xpath ")).isDisplayed() && waitForElementVisible(DocumentSecondaryLink.getLink(childLink)).isDisplayed());
-        } catch (TimeoutException te) {
-            logger.warn("Exceeded time to find the child element:" + childLink + " under Primary element:" + primaryLink, te);
-        }
-        return false;
     }
 
     /**

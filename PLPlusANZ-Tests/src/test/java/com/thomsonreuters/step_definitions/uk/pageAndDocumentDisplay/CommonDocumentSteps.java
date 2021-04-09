@@ -75,70 +75,11 @@ public class CommonDocumentSteps {
         assertTrue("Document column layout is wrong", caseDocumentPage.isDocumentDisplayedInThreeColumnLayout());
     }
 
-    @Then("^User is able to see all primary menu links \"(.*?)\"$")
-    public void userIsAbleToSeeAllPrimaryMenuLinks(String docName) throws Throwable {
-        documentObject = docsMap.get(docName);
-        Set<String> expectedPrimaryLinks = documentObject.getPrimaryLinks();
-        List<String> actualPrimaryLinkNames = legislationDocumentNavigationPage.getPrimaryLinkNames();
-        assertEquals(expectedPrimaryLinks.size(), actualPrimaryLinkNames.size());
-        for (String primaryLink : expectedPrimaryLinks) {
-            assertTrue(primaryLink + "Primary link is missing", actualPrimaryLinkNames.contains(primaryLink));
-        }
-    }
-
-    /**
-     * Note: This step def is not valid for the primary menus which does not
-     * have child links, that needs to be excluded in the below steps.
-     */
-    @Then("^\"(.*?)\" secondary menus will be displayed$")
-    public void secondaryMenusWillBeDisplayed(String primaryMenuName) throws Throwable {
-        List<String> expectedChildLinks = documentObject.getSecondaryLinks().get(primaryMenuName.trim());
-        List<String> actualChildLinkNames = legislationDocumentNavigationPage.getChilidMenuLinkNames(primaryMenuName);
-        assertEquals(expectedChildLinks.size(), actualChildLinkNames.size());
-        for (String primaryLink : expectedChildLinks) {
-            assertTrue(primaryLink + "Child link is missing for " + primaryMenuName, actualChildLinkNames.contains(primaryLink));
-        }
-    }
 
     @Then("^\"(.*?)\" menu will be expanded$")
     public void menuWillBeExpanded(String primaryMenuLink) throws Throwable {
         assertTrue(primaryMenuLink + "Primary link is not expanded",
                 legislationDocumentNavigationPage.isPrimaryMenuExpanded(DocumentPrimaryLink.getLink(primaryMenuLink)));
-    }
-
-    @Then("^All child data within the \"(.*?)\" secondary menus will be displayed$")
-    public void allChildDataWithinTheSecondaryMenusWillBeDisplayed(String primaryMenuName) throws Throwable {
-        List<String> actualChildLinkNames = legislationDocumentNavigationPage.getChilidMenuLinkNames(primaryMenuName);
-        for (String childLink : actualChildLinkNames) {
-            legislationDocumentNavigationPage.selectChildMenuLink(childLink);
-            assertTrue(childLink + "Section is missing", provisionPage.isSelectedChildLinkSectionDisplayed(childLink));
-            assertTrue(childLink + "Header is missing", provisionPage.isSelectedChildLinkHeaderDisplayed(childLink));
-        }
-    }
-
-    @And("^Verify expand and collapse icon present on primary links$")
-    public void expandCollapsePresent() throws Throwable {
-        List<String> primaryLinkNames = legislationDocumentNavigationPage.getPrimaryLinkNames();
-        assertTrue(primaryLinkNames.size() > 0);
-        for (String primaryMenu : primaryLinkNames) {
-            assertTrue(primaryMenu + "Expand and Collapse link is missing",
-                    provisionPage.isExpandAndCollapsePresentOnNavigationPrimaryLink(primaryMenu));
-        }
-    }
-
-    @And("^Verify expand button is expanding When clicking on the primary menu link and others are collapsing$")
-    public void expandIsWorking() throws Throwable {
-        List<String> primaryLinkNames = legislationDocumentNavigationPage.getPrimaryLinkNames();
-        assertTrue(primaryLinkNames.size() > 0);
-        for (String primaryMenu : primaryLinkNames) {
-            legislationDocumentNavigationPage.selectExpandAndCollapseOnPrimaryNavigationLink(primaryMenu, ExpandAndCollapse.EXPAND);
-            assertTrue(primaryMenu + "section is not collapsed",
-                    legislationDocumentNavigationPage.isOtherPrimaryMenuAreCollapsed(DocumentPrimaryLink.getLink(primaryMenu)));
-
-            legislationDocumentNavigationPage.selectExpandAndCollapseOnPrimaryNavigationLink(primaryMenu, ExpandAndCollapse.COLLAPSE);
-            assertFalse(primaryMenu + "section is not expanded",
-                    legislationDocumentNavigationPage.isPrimaryMenuExpanded(DocumentPrimaryLink.getLink(primaryMenu)));
-        }
     }
 
     @When("^user enters search specific document \"(.*?)\"$")
@@ -182,32 +123,9 @@ public class CommonDocumentSteps {
         }
     }
 
-    @Then("^The Primary and Secondary menus should appear on the left hand side of the screen$")
-    public void thePrimaryAndSecondaryMenusShouldAppearOnTheLeftHandSideOfTheScreen() throws Throwable {
-        assertTrue("Document Navigation links are not displaying in left hand side of the document",
-                documentNavigationPage.isLinksAreDisplayedInLeftHandSideNavigation());
-    }
-
-    @Then("^\"(.*?)\" Secondary menus are jump links$")
-    public void secondaryMenusAreJumpLinks(String primaryMenu) throws Throwable {
-        assertTrue(primaryMenu + " child links are not jump links", documentNavigationPage.isSecondaryMenusAreJumpLinks(primaryMenu));
-    }
-
-    @Then("^Verify the \"(.*?)\" child menu is present under \"(.*?)\" menu$")
-    public void verifyTheChildMenuIsPresentUnderMenu(String childLink, String primaryLink) throws Throwable {
-        assertTrue(childLink + "is not present under primary menu " + primaryLink,
-                documentNavigationPage.isChildLinkPresentUnderGivenPrimaryMenu(childLink, primaryLink));
-    }
-
     @When("^User selects \"(.*?)\" as child menu$")
     public void userSelectsAsChildMenu(String childLink) throws Throwable {
         documentNavigationPage.selectChildMenuLink(childLink);
-    }
-
-    @And("^Verify the \"(.*?)\" child menu is not present under \"(.*?)\" menu$")
-    public void verifyTheChildMenuIsNotPresentUnderMenu(String childLink, String primaryLink) throws Throwable {
-        assertFalse(childLink + " jump link should not exists under primary menu " + primaryLink,
-                documentNavigationPage.isChildLinkPresentUnderGivenPrimaryMenu(childLink, primaryLink));
     }
 
     @When("^User selects \"(.*?)\" as primary menu$")
@@ -215,25 +133,11 @@ public class CommonDocumentSteps {
         documentNavigationPage.selectPrimaryMenuLink(primaryMenuName);
     }
 
-    @Then("^Other primary menus will be collapsed except the selected \"(.*?)\" menu$")
-    public void allOtherPrimaryMenusWillBeCollapsed(String primaryMenuName) throws Throwable {
-        assertTrue(primaryMenuName + "Primary menu is not expanded",
-                documentNavigationPage.isPrimaryMenuExpanded(DocumentPrimaryLink.getLink(primaryMenuName)));
-        assertTrue("Other Primary menus are should be collapsed",
-                documentNavigationPage.isOtherPrimaryMenuAreCollapsed(DocumentPrimaryLink.getLink(primaryMenuName)));
-    }
-
     @Then("^Verify the \"(.*?)\" is present$")
     public void verifyThePrimaryMenuLinkIsPresent(String link) throws Throwable {
         assertTrue(legislationDocumentNavigationPage.isPrimaryMenuPresent(link));
     }
 
-    @Then("^\"(.*?)\" secondary menus will be displayed underneath it$")
-    public void verifyThatMenuChildItemsDisplayedUnderneathIt(String primaryLink) throws Throwable {
-        for (String childName : documentNavigationPage.getChilidMenuLinkNames(primaryLink)) {
-            assertTrue(documentNavigationPage.isChildLinkPresentUnderGivenPrimaryMenu(childName, primaryLink));
-        }
-    }
 
     @When("^User selects child menu \"(.*?)\"$")
     public void userSelectsTheChildMenuLinksUnderPrimaryMenu(String childLinkName) throws Throwable {
@@ -243,11 +147,6 @@ public class CommonDocumentSteps {
     @Then("^Verify the \"(.*?)\" menu link is not present$")
     public void verifyThePrimaryMenuLinkIsNotPresent(String link) throws Throwable {
         assertFalse(documentNavigationPage.isPrimaryMenuPresent(link));
-    }
-
-    @Then("^Verify the \"(.*?)\" child menus are not present$")
-    public void verifyTheChildLinksAreNotPresent(String link) throws Throwable {
-        assertTrue(documentNavigationPage.getChilidMenuLinkNames(link).size() == 0);
     }
 
     @Then("^User is able to see StarPagings$")
