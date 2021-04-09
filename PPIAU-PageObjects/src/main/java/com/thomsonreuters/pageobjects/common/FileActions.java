@@ -14,7 +14,7 @@ public class FileActions {
 
     protected static final Logger LOG = org.slf4j.LoggerFactory.getLogger(FileActions.class);
 
-    public File findFile(String fileName, String folderPath) throws IOException {
+    public File findFile(String fileName, String folderPath) {
         File dir = new File(folderPath);
         List<File> files = (List<File>) FileUtils.listFiles(dir, TrueFileFilter.INSTANCE, null);
         for (File file : files) {
@@ -25,7 +25,7 @@ public class FileActions {
         return null;
     }
 
-    public File findFile(String fileName, String extension, String folderPath) throws IOException {
+    public File findFile(String fileName, String extension, String folderPath) {
         File dir = new File(folderPath);
         List<File> files = (List<File>) FileUtils.listFiles(dir, TrueFileFilter.INSTANCE, null);
         for (File file : files) {
@@ -43,13 +43,17 @@ public class FileActions {
             writer.println("The second line");
             writer.close();
         } catch (IOException e) {
-            LOG.info("Exception creating file", e.getMessage());
+            LOG.info("Exception creating file {}", e.getMessage());
         }
     }
 
     public void deleteFile(File fileToDelete) {
         if (fileToDelete != null && fileToDelete.exists()) {
-            fileToDelete.delete();
+            try {
+                Files.delete(fileToDelete.toPath());
+            } catch (IOException e) {
+                LOG.info("Failed to delete file due to {}", e.getMessage());
+            }
         } else {
             LOG.info("Specified file does not exist");
         }
