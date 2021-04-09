@@ -2,12 +2,14 @@ package com.thomsonreuters.pageobjects.pages.search;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.ListFunctions;
 import org.apache.commons.lang.StringUtils;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
 
 import java.util.*;
+
+import static java.lang.String.format;
 
 /**
  * This is the generic search results page for the search 1 project.
@@ -15,6 +17,7 @@ import java.util.*;
  */
 public class SearchResultsPage extends AbstractPage {
 
+    CommonMethods commonMethods = new CommonMethods();
     private static final String MINIMIZE_BTN_ID = "coid_deliveryWaitMessage_minimizeButton";
 	private ListFunctions listFunctions = new ListFunctions();
     private static final  By mostDetailOptionLocator = By.xpath("//ul[@class='co_dropDownMenuList']//a[contains(., 'Most') and contains(., 'etail')]");
@@ -22,6 +25,11 @@ public class SearchResultsPage extends AbstractPage {
     private static final String ALL_DOC_GUID_LINKS_XPATH = "//a[@docguid and not(contains(@class, 'hide'))]";
     private static final String VISIBLE_FACET_NAMES_BY_GROUP_XPATH = "//div[starts-with(@id, 'facet') and ./h4[contains(., '%s')]]//label[not(ancestor::ul[contains(@class, 'hide')])]";
     private static final String FACET_NAME_BY_GROUP_XPATH = "//div[starts-with(@id, 'facet') and ./h4[contains(., '%1$s')]]//label[contains(., '%2$s')]";
+    private static final String SLIDER_SELECTION="detailSliderSelectorSelectedOption";
+    private static final String FOOTER_NEXT_PAGE="//a[@id='co_search_footer_pagination_next'][contains(text(),'Next Page')]";
+    private static final String FOOTER_PAGE_NAVIGATION_XPATH="//a[@id='co_search_footer_pagination_page%s']";
+    private static final String SEARCH_RESULTS_XPATH="//ol[@class='co_searchResult_list']/li[%s]";
+
 
     public enum SliderSelector {
         MORE,
@@ -271,7 +279,7 @@ public class SearchResultsPage extends AbstractPage {
      * this is the page numbering displayed at the base of the page
      */
     public WebElement pagination(String number) {
-        return waitForExpectedElement(By.xpath("//a[@id='co_search_footer_pagination_page" + number + "']"));
+        return waitForExpectedElement(By.xpath(format(FOOTER_PAGE_NAVIGATION_XPATH,number)));
     }
 
     /**
@@ -309,7 +317,6 @@ public class SearchResultsPage extends AbstractPage {
      */
     public List<WebElement> searchResultsList() {
         return waitForExpectedElements(By.xpath("//ol[@class='co_searchResult_list']/li[contains(@id,'cobalt_search_results')]"), 10);
-        //By.cssSelector(".co_searchResult_list li[id^=\"cobalt_search_results\"]")
     }
 
     /**
@@ -381,11 +388,11 @@ public class SearchResultsPage extends AbstractPage {
         }
         text = text.toUpperCase();
         try {
-            String textReturned = waitForExpectedElement(By.id("detailSliderSelectorSelectedOption"), 20).getText();
+            String textReturned = waitForExpectedElement(By.id(SLIDER_SELECTION), 20).getText();
             LOG.info("The text returned from the selector is: {} ", textReturned);
             return textReturned.toUpperCase().contains(text);
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info("failed to identify slider", poe);
             return false;
         }
     }
@@ -408,11 +415,11 @@ public class SearchResultsPage extends AbstractPage {
      * This is a method for the drop down anchor for displaying more or less details on the search results page.
      */
     public WebElement moreOrLessDetailAnchor() {
-        return waitForExpectedElement(By.id("detailSliderSelectorSelectedOption"));
+        return waitForExpectedElement(By.id(SLIDER_SELECTION));
     }
 
     public boolean ismoreOrLessDetailAnchorDisplayed() {
-    	return isElementDisplayed(By.id("detailSliderSelectorSelectedOption"));
+    	return isElementDisplayed(By.id(SLIDER_SELECTION));
     }
 
     /**
@@ -671,23 +678,6 @@ public class SearchResultsPage extends AbstractPage {
         waitForElementVisible(By.xpath("//*[@class='co_foldering_popupMessageContainer']//*[@class='co_infoBox_message']"));
     }
 
-    /**
-     * This method is to find the all facets displayed with count values and returned as map with facetname as key and count as value.
-     *
-     * @return Map<String, Integer>
-     */
-    public Map<String, Integer> getAllFacetsWithCountValues() {
-        Map<String, Integer> map = new HashMap<>();
-        try {
-            for (WebElement element : waitForExpectedElements(By.cssSelector("div.co_divider>ul>li[id^='co_facet']"), 10)) {
-                map.put(element.findElement(By.cssSelector("label")).getText(), Integer.valueOf(element.findElement(By.cssSelector("span")).getText().trim()));
-            }
-            return map;
-        } catch (NumberFormatException | TimeoutException | NoSuchElementException e) {
-            LOG.info("context", e);
-            return Collections.emptyMap();
-        }
-    }
 
     /**
      * This method verifies the facet type headers are displayed or not and returns the boolean value accordingly.
@@ -1018,7 +1008,7 @@ public class SearchResultsPage extends AbstractPage {
     }
 
     public WebElement resultCheckboxForAnyResultType(String number) {
-        return waitForExpectedElement(By.xpath("//ol[@class='co_searchResult_list']/li[" + number + "]//input[@type='checkbox']"));
+        return waitForExpectedElement(By.xpath(format(SEARCH_RESULTS_XPATH,number)+"//input[@type='checkbox']"));
     }
 
     /**
@@ -1180,10 +1170,10 @@ public class SearchResultsPage extends AbstractPage {
      * object representing the next page navigation arrow at the base of the search results page
      */
     public WebElement nextPageNavigationArrow() {
-        return waitForExpectedElement(By.xpath("//a[@id='co_search_footer_pagination_next'][contains(text(),'Next Page')]"), 15);
+        return waitForExpectedElement(By.xpath(FOOTER_NEXT_PAGE), 15);
     }
     public boolean isNextPageNavigationArrowPresent() {
-        return isExists(By.xpath("//a[@id='co_search_footer_pagination_next'][contains(text(),'Next Page')]"));
+        return isExists(By.xpath(FOOTER_NEXT_PAGE));
     }
     /**
      * object representing a check on whether the next page navigation arrow is displayed
@@ -1191,7 +1181,7 @@ public class SearchResultsPage extends AbstractPage {
 
     public boolean checkNextPageNavigationArrowNotDisplayed() {
 
-        return isExists(By.xpath("//a[@id='co_search_footer_pagination_next'][contains(text(),'Next Page')]"));
+        return isExists(By.xpath(FOOTER_NEXT_PAGE));
     }
 
 
@@ -1246,10 +1236,10 @@ public class SearchResultsPage extends AbstractPage {
      * object representing a non selected page on the search results page
      */
     public WebElement nonSelectedPage(String number) {
-        return waitForExpectedElement(By.xpath("//a[@id='co_search_footer_pagination_page" + number + "']"), 20);
+        return waitForExpectedElement(By.xpath(format(FOOTER_PAGE_NAVIGATION_XPATH,number)), 20);
     }
     public boolean isNonSelectedPagePresent(String number) {
-        return isExists(By.xpath("//a[@id='co_search_footer_pagination_page" + number + "']"));
+        return isExists(By.xpath(format(FOOTER_PAGE_NAVIGATION_XPATH,number)));
     }
     /**
      * Object representing the Back to What's Market/Home/Practice Area/Deal type link etc
@@ -1508,7 +1498,7 @@ public class SearchResultsPage extends AbstractPage {
      */
     public boolean isDataForResultExists(String resultNum, String dataName) {
         return isExists(
-                By.xpath("//ol[@class='co_searchResult_list']/li[" + resultNum + "]" +
+                By.xpath(format(SEARCH_RESULTS_XPATH,resultNum) +
                         "//div[contains(@class, 'detailLevel') and contains(., '" + dataName + "') and not(contains(@class, 'hide'))]"));
     }
 
@@ -1539,7 +1529,7 @@ public class SearchResultsPage extends AbstractPage {
      * @return The list with names for facets
      */
     public List<WebElement> getVisibleFacetNamesForGroup(String facetGroupName) {
-        return waitForElementsVisible(By.xpath(String.format(VISIBLE_FACET_NAMES_BY_GROUP_XPATH, facetGroupName)));
+        return waitForElementsVisible(By.xpath(format(VISIBLE_FACET_NAMES_BY_GROUP_XPATH, facetGroupName)));
     }
 
     /**
@@ -1551,6 +1541,6 @@ public class SearchResultsPage extends AbstractPage {
      * @return True - if the facet within given facet group and given name is displayed, false - otherwise
      */
     public boolean isFacetForGroupDisplayed(String facetGroupName, String facetName) {
-        return isElementDisplayed(By.xpath(String.format(FACET_NAME_BY_GROUP_XPATH, facetGroupName, facetName)));
+        return isElementDisplayed(By.xpath(format(FACET_NAME_BY_GROUP_XPATH, facetGroupName, facetName)));
     }
 }
