@@ -2,14 +2,13 @@ package com.thomsonreuters.pageobjects.otherPages;
 
 import com.thomsonreuters.driver.configuration.Hosts;
 import com.thomsonreuters.driver.exception.PageOperationException;
-import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 
+import com.thomsonreuters.utils.CommonStringMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
@@ -93,15 +92,6 @@ public class NavigationCobalt  {
         homePage.navigate(hosts.getPlcukProductBase() + baseUrl + hosts.getPlcukDomain() + "/Glossary/UKPracticallaw");
     }
 
-    /**
-     * @deprecated use {@link #navigateToPLUKPlus(String)}
-     * @param page
-     */
-    @Deprecated
-    public void navigateToWLNSpecificResourcePage(String page) {
-        navigateToPLUKPlus(page);
-    }
-    
     public void navigateToANZSpecificResourcePage(String page) {
         homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain() + page);
     }
@@ -150,8 +140,7 @@ public class NavigationCobalt  {
     }
 
     public void navigateToFirmCentral() {
-        //TODO: replace hardcoded string after Sergey's changes in AbstractPage and HOSTS
-        homePage.navigate(hosts.getFirmCentralProductBase() + baseUrl + "." + hosts.getPlcukProdDomain());
+        homePage.navigate(hosts.getFirmCentralProductBase() + baseUrl + CommonStringMethods.DOT + hosts.getPlcukProdDomain());
     }
 
     public void navigateToPLCLegacy() {
@@ -160,16 +149,7 @@ public class NavigationCobalt  {
 
     public void navigateToTempHomePage() {
         homePage.navigate(hosts.getPlcukProductBase() + baseUrl + hosts.getPlcukDomain() + "/Browse/Home/Practice/Home?transitionType=Default&contextData=(sc.Default)&CobaltRefresh=52840&firstPage=true&bhcp=1");
-        waitForPageToLoad();
-    }
-
-    /**
-     * @deprecated use {@link #navigateToPLUKPlus(String)}
-     * @param page
-     */
-    @Deprecated
-    public void navigateToPLCUKPlusSpecificURL(String page) {
-        navigateToPLUKPlus(page);
+        homePage.waitForPageToLoad();
     }
 
 	public void navigateToPLCANZSpecificURL(String sitePage) {
@@ -182,21 +162,22 @@ public class NavigationCobalt  {
 
     public void navigateToRelativeURL(String relativeUrl) {
         String currUrl = driver.getCurrentUrl();
-        String baseURL = "";
-        URL url = null;
+        String baseURL;
+        URL url;
 
         try {
             url = new URL(currUrl);
+            baseURL = url.getProtocol() + "://" + url.getHost();
+
+            if (relativeUrl.startsWith("/")) {
+                homePage.navigate(baseURL + relativeUrl);
+            } else {
+                homePage.navigate(baseURL + "/" + relativeUrl);
+            }
         } catch (MalformedURLException e) {
             logger.info("context", e);
         }
-        baseURL = url.getProtocol() + "://" + url.getHost();
 
-        if (relativeUrl.startsWith("/")) {
-            homePage.navigate(baseURL + relativeUrl);
-        } else {
-            homePage.navigate(baseURL + "/" + relativeUrl);
-        }
     }
 
     /**
@@ -220,7 +201,6 @@ public class NavigationCobalt  {
             WebElement ele = homePage.waitForExpectedElement(By.cssSelector("a[title='Open Recent History']"));
             ele.click();
         } catch (TimeoutException ne) {
-            logger.info("context", ne);
             throw new PageOperationException(ne.getMessage());
         }
     }
@@ -232,45 +212,8 @@ public class NavigationCobalt  {
         try {
         	homePage.waitForExpectedElement(By.cssSelector("#co_recentFoldersContainer a.co_dropdownBoxanchorLabel")).click();
         } catch (TimeoutException ne) {
-            logger.info("context", ne);
             throw new PageOperationException(ne.getMessage());
         }
     }
-    
-    @Deprecated
-    public void waitForPageToLoad() {
-    	homePage.waitForPageToLoad();
-    }
-    
-    @Deprecated
-    public void waitForPageToLoadAndJQueryProcessing() {
-    	homePage.waitForPageToLoadAndJQueryProcessing();
-    }
-    
-    @Deprecated
-    public WebElement waitForElementPresent(By by) {
-    	return homePage.waitForElementPresent(by);
-    }
-    
-    @Deprecated
-    public String getWindowHandle() {
-    	return homePage.getWindowHandle();
-    }
-    
-    @Deprecated
-    public void navigate(String url) {
-    	homePage.navigate(url);
-    }
-    
-    @Deprecated
-    public void waitForPageTitle(String url) {
-    	homePage.waitForPageTitle(url);
-    }
-    
-    @Deprecated
-    public String getPageTitle() {
-    	return homePage.getPageTitle();
-    }
-    
 
 }
