@@ -35,7 +35,7 @@ public class UDSService {
      * @return object with credentials info
      */
     public UDSCredentials getUdsCredentials(String userName, String userPassword, String productView, String siteCookie) {
-        TimeoutUtils.sleepInSeconds(1500);
+        TimeoutUtils.sleepInSeconds(15);
         PostForRegKeysResponse postForRegKeysResponse = onePassProxy.postForRegKeys(userName, userPassword, PRODUCT);
         String userId = postForRegKeysResponse.getProfile().getRegistrationKeys().get(0).getUserId();
         String pass = postForRegKeysResponse.getProfile().getRegistrationKeys().get(0).getPassword();
@@ -52,7 +52,7 @@ public class UDSService {
     }
 
     public String getCurrentSession(String userName, String userPassword, String productView, String siteCookie) {
-        TimeoutUtils.sleepInSeconds(1500);
+        TimeoutUtils.sleepInSeconds(15);
         PostForRegKeysResponse postForRegKeysResponse = onePassProxy.postForRegKeys(userName, userPassword, PRODUCT);
         String regKeysResponse = postForRegKeysResponse.toString();
         LOG.info("postForRegKeysResponse: {}" ,regKeysResponse);
