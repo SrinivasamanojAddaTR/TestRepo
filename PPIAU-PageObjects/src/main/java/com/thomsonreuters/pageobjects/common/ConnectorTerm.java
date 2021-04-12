@@ -5,7 +5,6 @@ import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.Ta
 import com.thomsonreuters.pageobjects.pages.search.CommonDocumentPage;
 import com.thomsonreuters.pageobjects.pages.urls.plcuk.KHDocumentPage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

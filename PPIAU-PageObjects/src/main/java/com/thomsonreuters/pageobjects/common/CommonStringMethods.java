@@ -2,6 +2,8 @@ package com.thomsonreuters.pageobjects.common;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.openqa.selenium.WebElement;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ public class CommonStringMethods {
     private static final String WORD_DOUBLE_QUOTE_OPENED = "\u201C";
     private static final String WORD_DOUBLE_QUOTE_CLOSED = "\u201D";
     private static final String NON_WORD_CHARACTER = "^\\w";
+    private static final Logger LOG = LoggerFactory.getLogger(CommonStringMethods.class);
 
     /**
      * Get text between two strings. Passed limiting strings are not
@@ -30,12 +33,7 @@ public class CommonStringMethods {
      * @param textTo         Text to stop cutting at (exclusive).
      * @param caseSensitive  Should the case be checked.*
      */
-    public String getBetweenStrings(
-            String text,
-            String textFrom,
-            String textTo,
-            Boolean caseSensitive) {
-
+    public String getBetweenStrings(String text, String textFrom, String textTo, boolean caseSensitive) {
         String result = "";
         if (!caseSensitive) {
             text = text.toLowerCase();
@@ -45,20 +43,12 @@ public class CommonStringMethods {
 
         // Cut the beginning of the text to not occasionally meet a
         // 'textTo' value in it:
-        result =
-                text.substring(
-                        text.indexOf(textFrom) + textFrom.length(),
-                        text.length());
-
+        result = text.substring(text.indexOf(textFrom) + textFrom.length(), text.length());
 
         // Cut the excessive ending of the text (provided textTo exists within the remaining text):
-        if (result.indexOf(textTo) > 0) {
-            result =
-                    result.substring(
-                            0,
-                            result.indexOf(textTo));
+        if (result.indexOf(textTo) >= 0) {
+            result = result.substring(0,result.indexOf(textTo));
         }
-
         return result;
     }
 
@@ -67,15 +57,15 @@ public class CommonStringMethods {
             String textFrom,
             String textTo) {
         String currentText;
-        List<String> OutputList = new ArrayList<>();
+        List<String> outputList = new ArrayList<>();
 
         for (int i = 0; i < inputList.size(); i++) {
             currentText = getBetweenStrings(inputList.get(i),textFrom, textTo, false);
-            System.out.println(currentText);
-            OutputList.add(currentText);
+            LOG.info("Current text is {}", currentText);
+            outputList.add(currentText);
         }
 
-        return OutputList;
+        return outputList;
     }
 
     public List<String> getBetweenStringsForAWebelementList(
@@ -83,21 +73,21 @@ public class CommonStringMethods {
             String textFrom,
             String textTo) {
         String currentText;
-        List<String> OutputList = new ArrayList<>();
+        List<String> outputList = new ArrayList<>();
 
         for (int i = 0; i < inputList.size(); i++) {
             currentText = getBetweenStrings(inputList.get(i).getText(),textFrom, textTo, false);
-            System.out.println(currentText);
-            OutputList.add(currentText);
+            LOG.info("Current text is {}", currentText);
+            outputList.add(currentText);
         }
 
-        return OutputList;
+        return outputList;
     }
 
     public List<Integer> convertStringListToIntegerList(
             List<String> inputList) {
         Integer currentTextAsInt;
-        List<Integer> OutputList = new ArrayList<>();
+        List<Integer> outputList = new ArrayList<>();
         String currentText;
 
         for (int i = 0; i < inputList.size(); i++) {
@@ -106,14 +96,14 @@ public class CommonStringMethods {
             currentText = currentText.replaceAll("[^0-9]","");
             // Next convert the string to an integer
             currentTextAsInt = Integer.parseInt(currentText);
-            OutputList.add(currentTextAsInt);
+            outputList.add(currentTextAsInt);
         }
 
-        return OutputList;
+        return outputList;
     }
 
 	public List<String> unescape(List<String> text) {
-		List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<>();
 		for (String str : text) {
 			result.add(StringEscapeUtils.unescapeJava(str));
 		}
@@ -139,9 +129,9 @@ public class CommonStringMethods {
      */
     public String replaceAsciiQuotesForMsWord(String textWithAsciiQuotes) {
         return textWithAsciiQuotes
-                .replaceAll(ASCII_QUOTE, WORD_QUOTE)
-                .replaceAll(REGEX_ASCII_DOUBLE_QUOTE_AS_OPENED, WORD_DOUBLE_QUOTE_OPENED)
-                .replaceAll(REGEX_ASCII_DOUBLE_QUOTE_AS_CLOSED, WORD_DOUBLE_QUOTE_CLOSED);
+                .replace(ASCII_QUOTE, WORD_QUOTE)
+                .replace(REGEX_ASCII_DOUBLE_QUOTE_AS_OPENED, WORD_DOUBLE_QUOTE_OPENED)
+                .replace(REGEX_ASCII_DOUBLE_QUOTE_AS_CLOSED, WORD_DOUBLE_QUOTE_CLOSED);
     }
 
     public int getAllNumbersFromString(String source) {
@@ -154,7 +144,8 @@ public class CommonStringMethods {
 
     public boolean compareContentIgnoreSpacesPunctuationAndCase(String s1, String s2) {
         return s1.replaceAll(NON_WORD_CHARACTER, "").substring(0, calculateDiffBetweenStrings(s1, s2))
-                .equalsIgnoreCase(s2.replaceAll(NON_WORD_CHARACTER, "").substring(0, calculateDiffBetweenStrings(s1, s2)));
+                .equalsIgnoreCase(s2.replaceAll(NON_WORD_CHARACTER, "")
+                        .substring(0, calculateDiffBetweenStrings(s1, s2)));
     }
 }
 

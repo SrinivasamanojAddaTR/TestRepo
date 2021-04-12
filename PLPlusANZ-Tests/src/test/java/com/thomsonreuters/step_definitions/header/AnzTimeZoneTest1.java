@@ -8,14 +8,12 @@ import com.thomsonreuters.pageobjects.pages.onePass.OnePassLogoutPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class AnzTimeZoneTest1 extends BaseStepDef {
 
@@ -37,11 +35,11 @@ public class AnzTimeZoneTest1 extends BaseStepDef {
     @When("^user changes the time-zone to \"(.*?)\"$")
     public void userChangesTheTimeZoneTo(String country) throws Throwable {
         if (country.equalsIgnoreCase("US")) {
-            listFunctions.SelectValueInList(header.timeZoneSelectDropdown(), "Central Standard Time");
+            listFunctions.selectValueInList(header.timeZoneSelectDropdown(), "Central Standard Time");
         } else if (country.equalsIgnoreCase("London")) {
-            listFunctions.SelectValueInList(header.timeZoneSelectDropdown(), "GMT Standard Time");
+            listFunctions.selectValueInList(header.timeZoneSelectDropdown(), "GMT Standard Time");
         } else if (country.equalsIgnoreCase("Sydney")) {
-            listFunctions.SelectValueInList(header.timeZoneSelectDropdown(), "AUS Eastern Standard Time");
+            listFunctions.selectValueInList(header.timeZoneSelectDropdown(), "AUS Eastern Standard Time");
         }
         header.timeZoneSaveButton().click();
     }
@@ -69,10 +67,10 @@ public class AnzTimeZoneTest1 extends BaseStepDef {
         } else if (country.equalsIgnoreCase("Sydney")) {
             storedCalTime.add(Calendar.HOUR, SYDNEY_TIME_ZONE);
         }
-        assertTrue(
-                "Current Time is not equal to stored time: current hour is " + currentCalTime.get(Calendar.HOUR_OF_DAY) + " while stored hour is " + storedCalTime.get(Calendar.HOUR_OF_DAY),
-                currentCalTime.get(Calendar.HOUR_OF_DAY) == storedCalTime.get(Calendar.HOUR_OF_DAY));
-    }
+
+        assertThat(currentCalTime.get(Calendar.HOUR_OF_DAY)).as("Current Time is not equal to stored time: current hour is %s but stored hour is %s",
+                currentCalTime.get(Calendar.HOUR_OF_DAY), storedCalTime.get(Calendar.HOUR_OF_DAY)).isEqualTo(storedCalTime.get(Calendar.HOUR_OF_DAY));
+            }
 
     @Then("^user verifies the sign out time is according to \"(.*?)\" time-zone$")
     public void userVerifiesTheSignOutTimeIsAccordingToTimeZone(String country) throws Throwable {
@@ -90,6 +88,9 @@ public class AnzTimeZoneTest1 extends BaseStepDef {
             cal.add(Calendar.HOUR, SYDNEY_TIME_ZONE);
         }
 
-        assertTrue("Current Time is not equal to stored time..!", cal.get(Calendar.HOUR_OF_DAY) == signOffCalTime.get(Calendar.HOUR_OF_DAY));
+        assertThat(cal.get(Calendar.HOUR_OF_DAY))
+                .as("Current Time is not equal to stored time: Current time is %s but actual time is %s", cal.get(Calendar.HOUR_OF_DAY), signOffCalTime.get(Calendar.HOUR_OF_DAY))
+                .isEqualTo(signOffCalTime.get(Calendar.HOUR_OF_DAY));
+
     }
 }

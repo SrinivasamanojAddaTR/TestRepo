@@ -19,7 +19,7 @@ public class ListFunctions {
         return value;
     }
 
-    public void SelectValueInList(WebElement list, String value) {
+    public void selectValueInList(WebElement list, String value) {
         Select selectedOption = new Select(list);
         selectedOption.selectByValue(value);
     }
