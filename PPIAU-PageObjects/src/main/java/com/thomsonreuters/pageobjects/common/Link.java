@@ -41,9 +41,7 @@ public class Link {
 
         Link link = (Link) o;
 
-        if (!href.equals(link.href)) return false;
-
-        return true;
+        return href.equals(link.href);
     }
 
     @Override

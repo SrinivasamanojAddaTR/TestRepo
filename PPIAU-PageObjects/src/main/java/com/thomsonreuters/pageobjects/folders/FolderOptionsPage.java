@@ -6,9 +6,6 @@ import org.openqa.selenium.WebElement;
 
 public class FolderOptionsPage extends AbstractPage {
 
-    public FolderOptionsPage() {
-    }
-
     /**
      * This is the link entitled New Folder
      */

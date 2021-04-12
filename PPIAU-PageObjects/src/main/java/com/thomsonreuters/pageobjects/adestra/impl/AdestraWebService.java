@@ -1,6 +1,6 @@
 package com.thomsonreuters.pageobjects.adestra.impl;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -51,13 +51,12 @@ public class AdestraWebService {
     private XmlRpcClient getClientConnection() {
         XmlRpcClient client = new XmlRpcClient();
         client.setConfig(config);
-        //TODO [phase1] Need to verify and change
-        /*String proxyHost = System.getProperty("proxyServerHost");
+        String proxyHost = System.getProperty("proxyServerHost");
         if (StringUtils.isNotBlank(proxyHost)) {
             XmlRpcSun15HttpTransportFactory transportFactory = new XmlRpcSun15HttpTransportFactory(client);
             transportFactory.setProxy(proxyHost, Integer.parseInt(System.getProperty("proxyServerPort")));
             client.setTransportFactory(transportFactory);
-        }*/
+        }
         return client;
     }
 

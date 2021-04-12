@@ -74,8 +74,8 @@ public class WindowHandler {
         boolean switched = false;
         for (String handle : driver.getWebDriver().getWindowHandles()) {
             driver.getWebDriver().switchTo().window(handle);
-            String ActualWindowTitle = driver.getWebDriver().getTitle();
-            if (ActualWindowTitle.toLowerCase().contains(windowTitle.toLowerCase())) {
+            String actualWindowTitle = driver.getWebDriver().getTitle();
+            if (actualWindowTitle.toLowerCase().contains(windowTitle.toLowerCase())) {
                 switched = true;
                 break;
             }
@@ -87,8 +87,8 @@ public class WindowHandler {
         boolean switched = false;
         for (String handle : driver.getWebDriver().getWindowHandles()) {
             driver.getWebDriver().switchTo().window(handle);
-            String ActualWindowTitle = driver.getWebDriver().getTitle();
-            if (ActualWindowTitle.toLowerCase().contains(windowTitle.toLowerCase())) {
+            String actualWindowTitle = driver.getWebDriver().getTitle();
+            if (actualWindowTitle.toLowerCase().contains(windowTitle.toLowerCase())) {
                 driver.getWebDriver().close();
                 switched = true;
             }
