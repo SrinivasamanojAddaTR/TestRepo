@@ -215,7 +215,7 @@ Feature:[825682] Add annotation at the top of the document
   @gold
   Scenario Outline: Cut/Copy/Paste-<id>
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | ANZtestuser1 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And the user has accessed annotations text box
@@ -253,7 +253,7 @@ Feature:[825682] Add annotation at the top of the document
   @gold
   Scenario: Verifying cancel button
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | ANZtestuser1 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And user added text for annotation
@@ -271,7 +271,7 @@ Feature:[825682] Add annotation at the top of the document
   @gold @deletionAnnotations
   Scenario: Check annotation count on the top of annotations box
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | ANZtestuser1 |
     When user navigates directly to document with guid "I0342dc0900b211e698dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And user added new annotation

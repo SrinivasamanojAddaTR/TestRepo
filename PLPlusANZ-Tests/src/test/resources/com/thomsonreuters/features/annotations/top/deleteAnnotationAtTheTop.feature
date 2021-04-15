@@ -3,7 +3,7 @@ Feature:[825685] Delete an annotation at the top of the document
   @smoke @gold @e2e  @deletionAnnotations
   Scenario: Delete annotation at the top, undo Deleted Annotations and close link on Delete Annotations
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | ANZtestuser1 |
     When user navigates directly to document with guid "Ibd8bef73067a11e698dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And user added new annotation

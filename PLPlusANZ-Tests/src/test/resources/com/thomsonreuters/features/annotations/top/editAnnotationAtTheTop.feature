@@ -3,7 +3,7 @@ Feature:[825683] Edit an annotation at the top of the document
   @smoke @gold @AnnotationsSmokeTests @e2e  @deletionAnnotations
   Scenario: Verify that user can modify annotations at the top
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | ANZtestuser1 |
     When user navigates directly to document with guid "I5114280ee4c611e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And user click on new Annotations link
@@ -19,7 +19,7 @@ Feature:[825683] Edit an annotation at the top of the document
    @gold @deletionAnnotations
   Scenario: Verify that annotation at the top will not be updated if user clicks on cancel button
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | ANZtestuser1 |
     When user navigates directly to document with guid "I5114280ee4c611e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And user click on new Annotations link

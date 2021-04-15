@@ -29,7 +29,7 @@ Feature: [825681] View annotation
   @gold  @deletionAnnotations
   Scenario Outline: Verify that user can see annotations at the top in different type of documents-<id>
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | ANZtestuser1 |
     When user navigates directly to document with guid "<guid>" on PL AU website
     And user closes disclaimer in the bottom
     And user added new annotation
