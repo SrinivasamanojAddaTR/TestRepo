@@ -123,7 +123,7 @@ public class DeliverySteps1 extends BaseStepDef {
     public void emailButtonIsClicked() throws Throwable {
         email.emailButton().click();
         deliveryOptionsPage.waitForPageToLoad();
-        deliveryOptionsPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(3);
+        deliveryOptionsPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     @When("^user (downloads|prints|exports) the document with name \"(.*?)\" and extension \"(.*?)\"$")
