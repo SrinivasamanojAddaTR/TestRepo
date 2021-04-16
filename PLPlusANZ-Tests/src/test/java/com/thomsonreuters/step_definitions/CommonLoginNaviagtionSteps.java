@@ -1,14 +1,12 @@
 package com.thomsonreuters.step_definitions;
 
 import com.thomsonreuters.pageobjects.common.BaseCommonLoginNavigation;
-import com.thomsonreuters.pageobjects.common.ExcelFileReader;
 import com.thomsonreuters.pageobjects.utils.CobaltUser;
 import com.thomsonreuters.pageobjects.utils.Product;
 import cucumber.api.Transpose;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,65 +17,63 @@ import java.util.List;
 public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 
 	@Given("^user is logged in to WLN$")
-	public void WLNLogin() throws Throwable {
-		super.WLNLogin();
+	public void wlnLogin() throws IOException{
+		super.wlnLogin();
 	}
 
 	@Given("^WLN user is logged in with following details$")
-	public void WLNLoginWithDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
-		super.WLNLoginWithDetails(plPlusUserList);
+	public void wlnLoginWithDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
+		super.wlnLoginWithDetails(plPlusUserList);
 	}
 
 	@Given("^PLC user is logged in with following details$")
-	public void PLCLegacyLoginWithDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
-		super.PLCLegacyLoginWithDetails(plPlusUserList);
+	public void plcLegacyLoginWithDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
+		super.plcLegacyLoginWithDetails(plPlusUserList);
 	}
 
 	@Given("^PL\\+ user navigates to home page$")
-	public void plUserNaviagatesToHomePage() throws Throwable {
+	public void plUserNaviagatesToHomePage() {
 		super.plUserNaviagatesToHomePage();
 	}
 
 
 	@Given("^PL\\+ ANZ user navigates to home page$")
-	public void plAnzUserNaviagatesToHomePage() throws Throwable {
+	public void plAnzUserNaviagatesToHomePage() {
 		super.plAnzUserNaviagatesToHomePage();
 	}
 
 	@Given("^PL\\+ user navigates to login page$")
-	public void plUserNavigatesToLoginPage() throws Throwable {
+	public void plUserNavigatesToLoginPage() {
 		super.plUserNavigatesToLoginPage("hotprod");
 	}
 
 	@Given("^PL\\+ user is not logged in$")
-	public void plUserIsNotLoggedIn() throws Throwable {
+	public void plUserIsNotLoggedIn() {
 		super.plUserIsNotLoggedIn();
 	}
 
 	@Given("^PL\\+ user is logged in$")
-	public void plUserIsLoggedIn() throws Throwable {
+	public void plUserIsLoggedIn() throws IOException{
 		super.plUserIsLoggedIn();
 	}
 
 	@Given("^PL\\+ user is logged in with following details after IP login$")
-	public void ipUserIsLoggedIn(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+	public void ipUserIsLoggedIn(@Transpose List<CobaltUser> plPlusUserList) {
 		super.ipUserIsLoggedIn(plPlusUserList);
 	}
 
 	@Given("^PL\\+ user is logged in with following details$")
-	public void plUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+	public void plUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
 		super.plUserIsLoggedInWithFollowingDetails(plPlusUserList);
 	}
 
 	@Given("^the user logs in from the login page$")
-	public void userLogsInFromLoginPage(@Transpose List<CobaltUser> plPlusUserList)
-			throws InterruptedException, IOException {
+	public void userLogsInFromLoginPage(@Transpose List<CobaltUser> plPlusUserList) {
 		super.userLogsInFromLoginPage(plPlusUserList);
 	}
 
 	@Given("^the user enters his username and password on the login page$")
-	public void userEntersUsernameAndPasswordOnLoginPage(@Transpose List<CobaltUser> plPlusUserList)
-			throws InterruptedException, IOException {
+	public void userEntersUsernameAndPasswordOnLoginPage(@Transpose List<CobaltUser> plPlusUserList) {
 		super.userEntersUsernameAndPasswordOnLoginPage(plPlusUserList);
 	}
 
@@ -87,23 +83,23 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 	}
 
 	@Given("^ANZ user is logged in$")
-	public void anzUserIsLoggedIn() throws Throwable {
+	public void anzUserIsLoggedIn() throws IOException {
         super.anzUserIsLoggedIn();
 	}
 
 	@Given("^ANZ user is not logged in$")
-	public void anzUserIsNotLoggedIn() throws Throwable {
+	public void anzUserIsNotLoggedIn() {
 		super.anzUserIsNotLoggedIn();
 		resetCurrentUser();
 	}
 
 	@Given("^ANZ user is logged in with following details$")
-	public void anzUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+	public void anzUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
 		super.anzUserIsLoggedInWithFollowingDetails(plPlusUserList);
 	}
 
     @When("^the user navigates to the main PLANZ page$")
-    public void theUserNavigatesToTheMainPLANZPage() throws Throwable {
+    public void theUserNavigatesToTheMainPLANZPage() {
         navigationCobalt.navigateToPLANZPlus();
 		wlnHeader.waitForPageToLoad();
 		wlnHeader.closePrivacyNoticePopup();
@@ -118,17 +114,17 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 	 * @throws Throwable
 	 */
 	@Given("^PL\\+ user is logged in with routing details$")
-	public void plUserIsLoggedInWithRoutingDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+	public void plUserIsLoggedInWithRoutingDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
 		super.plUserIsLoggedInWithRoutingDetails(plPlusUserList);
 	}
 
 	@Given("^ANZ user is logged in with routing details$")
-	public void anzUserIsLoggedInWithRoutingDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+	public void anzUserIsLoggedInWithRoutingDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
 		super.anzUserIsLoggedInWithRoutingDetails(plPlusUserList);
 	}
 
 	@Given("^ANZ user is applying routing without login$")
-	public void anzUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+	public void anzUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
 		for(CobaltUser user : plPlusUserList) {
 			user.setProduct(Product.ANZ);
 		}
@@ -136,43 +132,43 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 	}
 
 	@Given("^PL\\+ user is applying routing without login$")
-	public void plUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+	public void plUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
 		super.plUserIsApplyingRoutingWithoutLogin(plPlusUserList);
 	}
 
 
 	@When("^user relogs in$")
-	public void userRelogsIn() throws Throwable {
+	public void userRelogsIn() throws IOException {
 		super.userRelogsIn();
 	}
 
 	@When("^user logs in$")
-	public void userLogsInWithUsername() throws Throwable {
+	public void userLogsInWithUsername() {
 		super.userLogsInWithUsername();
 	}
 
 	@Then("^user logs in back again from signOff page$")
-	public void userLogsInBackAgainFromSignOffPage() throws Throwable {
+	public void userLogsInBackAgainFromSignOffPage() {
 		super.userLogsInBackAgainFromSignOffPage();
 	}
 
 	@Given("^PL\\+ user '(.*)' opens '(.*)' folder$")
-	public void plUserLoginAndOpenFolder(String userName, String folderName) throws Throwable {
+	public void plUserLoginAndOpenFolder(String userName, String folderName) throws IOException {
 		super.plUserLoginAndOpenFolder(userName, folderName);
 	}
 
 	@Given("^PL\\+ user '(.*)' navigates directly to document with guid '(.*)'$")
-	public void plUserLoginAndNavigateToDoc(String userName, String docGuid) throws Throwable {
+	public void plUserLoginAndNavigateToDoc(String userName, String docGuid) throws IOException {
 		super.plUserLoginAndNavigateToDoc(userName, docGuid);
 	}
 
 	@Given("^PL\\+ user '(.*)' searches for '(.*)'$")
-	public void plUserLoginAndSearch(String userName, String term) throws Throwable {
+	public void plUserLoginAndSearch(String userName, String term) throws IOException {
 		super.plUserLoginAndSearch(userName, term);
 	}
 
 	@Given("^user deletes all cookies$")
-	public void userDeletesAllCookies() throws Throwable {
+	public void userDeletesAllCookies() {
 		try {
             wlnHeader.signOff();
 		} catch (Exception e) {

@@ -23,6 +23,7 @@ public class CommonStringMethods {
     private static final String WORD_DOUBLE_QUOTE_CLOSED = "\u201D";
     private static final String NON_WORD_CHARACTER = "^\\w";
     private static final Logger LOG = LoggerFactory.getLogger(CommonStringMethods.class);
+    public static final String SLASH_DELIMITER = "/";
 
     /**
      * Get text between two strings. Passed limiting strings are not
@@ -49,6 +50,7 @@ public class CommonStringMethods {
         if (result.indexOf(textTo) >= 0) {
             result = result.substring(0,result.indexOf(textTo));
         }
+
         return result;
     }
 

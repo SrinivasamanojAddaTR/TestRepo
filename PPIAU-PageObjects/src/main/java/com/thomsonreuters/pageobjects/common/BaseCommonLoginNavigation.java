@@ -1,7 +1,6 @@
 package com.thomsonreuters.pageobjects.common;
 
 import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
-import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
@@ -14,17 +13,16 @@ import com.thomsonreuters.pageobjects.pages.search.SearchHomePage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
 import com.thomsonreuters.pageobjects.utils.*;
 import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
-import com.thomsonreuters.pageobjects.utils.globalPage.GlobalPageUtils;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import com.thomsonreuters.pageobjects.utils.sitestructure.SiteStructureUtils;
+import com.thomsonreuters.utils.TimeoutUtils;
 import cucumber.api.Transpose;
 import cucumber.api.java.en.Given;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
@@ -37,14 +35,14 @@ import java.util.List;
 import java.util.Properties;
 
 import static com.thomsonreuters.pageobjects.utils.CobaltUser.isUserFirstUser;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Login and Navigation Steps.
  */
 public class BaseCommonLoginNavigation extends BaseStepDef {
 
-    public static final String ROUTING = "routing";
+    private static final String ROUTING = "routing";
+    private static final String ROUTING_URL = CommonStringMethods.SLASH_DELIMITER + ROUTING;
 
     private static final String DEFAULT_PROD_KEYWORD = "prod";
 
@@ -56,6 +54,18 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     private static final String ADDITIONAL_IAC_FAC_PROP_FILE_NAME = "additionalIacAndFac.properties";
     private static final String USERNAME = "username";
     private static final String GRANT_ACCESS_OPTION_TEXT = "Grant";
+    private static final String DENY_ACCESS_OPTION_TEXT = "Deny";
+    private static final String FALSE_TEXT = "False";
+    private static final String NOVUS_STAGE_REVIEW_TEXT = "Review";
+    private static final String PL_PLUS_COLLECTION_SET = "w_plplus_catpagestst_cs";
+    private static final String CROSS_BORDER_POLLS_IAC = "IAC-CROSSBORDER-POLLS";
+    private static final String WEB_CONTENT_COLLECTION_VALUE = "w_cb_wcmstst_cs";
+    private static final int TIMEOUT_BEFORE_LOGIN = 3;
+
+    private static final By SESSION_TIMEOUT_FIELD = By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']");
+    private static final By CAT_PAGE_COLLECTION_SET_ELEMENT = By.id("CategoryPageCollectionSet");
+    private static final By WEB_CONTENT_COLLECTION_ELEMENT = By.id("WebContentCollectionSet");
+    private static final String BASE_URL = System.getProperty("base.url");
 
     private RoutingPage routingPage;
     protected NavigationCobalt navigationCobalt;
@@ -68,12 +78,10 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     private PLCLegacyHeader plcLegacyHeader;
     private PLCLegacyLoginScreen plcLegacyLoginScreen;
     private OnePassLogoutPage onePassLogoutPage;
-    private ResearchOrganizerPage researchOrganizerPage;
     private FoldersUtils foldersUtils;
     private SearchHomePage searchHomePage;
     private KHResourcePage resourcePage;
     private CategoryPage categoryPage;
-    private GlobalPageUtils globalPageUtils;
     private SiteStructureUtils siteStructureUtils;
     private FooterUtils footerUtils;
     private SearchUtils searchUtils;
@@ -90,39 +98,37 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         plcLegacyHeader = new PLCLegacyHeader();
         plcLegacyLoginScreen = new PLCLegacyLoginScreen();
         onePassLogoutPage = new OnePassLogoutPage();
-        researchOrganizerPage = new ResearchOrganizerPage();
         foldersUtils = new FoldersUtils();
         searchHomePage = new SearchHomePage();
         resourcePage = new KHResourcePage();
         categoryPage = new CategoryPage();
-        globalPageUtils = new GlobalPageUtils();
         siteStructureUtils = new SiteStructureUtils();
         footerUtils = new FooterUtils();
         searchUtils = new SearchUtils();
     }
 
-    public void WLNLogin() throws Throwable {
+    public void wlnLogin() throws IOException {
         CobaltUser user = new CobaltUser();
         user.setProduct(Product.WLN);
         loginUser(user);
         LOG.info("The user has logged in to WLN");
     }
 
-    public void WLNLoginWithDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+    public void wlnLoginWithDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
         CobaltUser user = CobaltUser.updateMissingFields(plPlusUserList.get(0));
         user.setProduct(Product.WLN);
         loginUser(user);
         LOG.info("The WLN user is logged in with the following details");
     }
 
-    public void PLCLegacyLoginWithDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+    public void plcLegacyLoginWithDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
         CobaltUser user = CobaltUser.updateMissingFields(plPlusUserList.get(0));
         user.setProduct(Product.PLC_lEGACY);
         loginUser(user);
         LOG.info("The PLC user is logged in with the following details");
     }
 
-    public void plUserNaviagatesToHomePage() throws Throwable {
+    public void plUserNaviagatesToHomePage() {
         onepassLogin.deleteAllCookies();
         navigationCobalt.navigateToPLUKPlus();
         plcHomePage.waitForPageToLoadAndJQueryProcessing();
@@ -131,13 +137,13 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The PL+ user has navigated to the home page");
     }
 
-    public void theUserClicksOnSignOnLinkOnTheHeader() throws Throwable {
+    public void theUserClicksOnSignOnLinkOnTheHeader() {
         wlnHeader.signInLink().click();
         onepassLogin.waitForPageToLoad();
         LOG.info("The user has clicked on the SignOn link on the header");
     }
 
-    public void plAnzUserNaviagatesToHomePage() throws Throwable {
+    public void plAnzUserNaviagatesToHomePage() {
         getDriver().manage().deleteAllCookies();
         navigationCobalt.navigateToPLANZPlus();
         resetCurrentUser();
@@ -147,16 +153,16 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The PL+ ANZ user has navigated to the home page");
     }
 
-    public void plUserNavigatesToLoginPage() throws Throwable {
+    public void plUserNavigatesToLoginPage() {
         plUserNavigatesToLoginPage(DEFAULT_PROD_KEYWORD);
     }
 
-    public void plUserNavigatesToLoginPage(String prodKeyword) throws Throwable {
+    public void plUserNavigatesToLoginPage(String prodKeyword) {
         onepassLogin.deleteAllCookies();
         navigationCobalt.navigateToPLUKPlus();
         plcHomePage.closeCookieConsentMessage();
         resetCurrentUser();
-        if (!baseUrl.contains(prodKeyword)) {
+        if (!BASE_URL.contains(prodKeyword)) {
             theUserClicksOnSignOnLinkOnTheHeader();
             LOG.info("The PL+ user has navigated to the login page");
         } else {
@@ -164,22 +170,22 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         }
     }
 
-    public void plUserIsNotLoggedIn() throws Throwable {
+    public void plUserIsNotLoggedIn() {
         plUserIsNotLoggedIn(DEFAULT_IS_CREATE_NEW_SESSION_STATE);
     }
 
-    public void plUserIsNotLoggedIn(boolean isCreateNewSessionImmediately) throws Throwable {
+    public void plUserIsNotLoggedIn(boolean isCreateNewSessionImmediately) {
         if (isCreateNewSessionImmediately || !isUserFirstUser(currentUser)) {
             newSession(currentUser);
             navigationCobalt.navigateToPLUKPlus();
             plcHomePage.waitForPageToLoadAndJQueryProcessing();
             plcHomePage.closeCookieConsentMessage();
         } else {
-            LOG.info("No need to create new session. Current user: " + currentUser + " is the first user");
+            LOG.info("No need to create new session. Current user: {} is the first user", currentUser);
         }
     }
 
-    public void loginWithAthens(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+    public void loginWithAthens(@Transpose List<CobaltUser> plPlusUserList) {
     	if(onepassLogin.isUsernameAthensPresent()){
         CobaltUser user = CobaltUser.updateMissingFields(plPlusUserList.get(0));
         onepassLoginUtils.loginWithAthens(user.getUserName(), getPasswordForPlPlusUser(user.getUserName()));
@@ -187,7 +193,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The PL+ user has logged in with the Athens");
     }
 
-    public void loginWithInstitution(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+    public void loginWithInstitution(@Transpose List<CobaltUser> plPlusUserList) {
     	if(onepassLogin.isUsernameShibolethPresent()){
         CobaltUser user = CobaltUser.updateMissingFields(plPlusUserList.get(0));
         onepassLoginUtils.loginWithInstitution(user.getUserName(), getPasswordForPlPlusUser(user.getUserName()));
@@ -195,11 +201,11 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The PL+ user has logged in with the Shiboleth");
     }
 
-    public void plUserIsLoggedIn() throws Throwable {
+    public void plUserIsLoggedIn() throws IOException {
         plUserIsLoggedIn(DEFAULT_HISTORY_LINK_VERIFICATION_STATE);
     }
 
-    public void plUserIsLoggedIn(boolean isRequiredToVerifyHistoryLink) throws Throwable {
+    public void plUserIsLoggedIn(boolean isRequiredToVerifyHistoryLink) throws IOException {
         CobaltUser plPlusUser = new CobaltUser();
         plPlusUser.setUserName(this.getCurrentUserName());
 
@@ -215,11 +221,11 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         }
     }
 
-    public void anzUserIsLoggedIn() throws Throwable {
+    public void anzUserIsLoggedIn() throws IOException {
         anzUserIsLoggedIn(DEFAULT_HISTORY_LINK_VERIFICATION_STATE);
     }
 
-    public void anzUserIsLoggedIn(boolean isRequiredToVerifyHistoryLink) throws Throwable {
+    public void anzUserIsLoggedIn(boolean isRequiredToVerifyHistoryLink) throws IOException {
         CobaltUser plPlusUser = new CobaltUser();
         plPlusUser.setUserName(this.getCurrentUserName());
 
@@ -235,7 +241,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         }
     }
 
-    public void ipUserIsLoggedIn(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+    public void ipUserIsLoggedIn(@Transpose List<CobaltUser> plPlusUserList) {
         CobaltUser plPlusUser = updateFieldsForPlPlusUser(plPlusUserList.get(0));
         String mandatoryRouting = plPlusUser.getMandatoryRouting();
 
@@ -250,7 +256,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The PL+ user has logged in with the following details after IP login");
     }
 
-    public void plUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+    public void plUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException{
         CobaltUser plPlusUser = updateFieldsForPlPlusUser(plPlusUserList.get(0));
         applyRootingCliValueIfPresent(plPlusUser);
         loginUser(CobaltUser.updateMissingFields(plPlusUserList.get(0)));
@@ -261,7 +267,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 
     }
 
-    public void plUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList, String baseUrl) throws Throwable {
+    public void plUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList, String baseUrl) throws IOException {
         System.setProperty("plcukProductBase", baseUrl);
         plUserIsLoggedInWithFollowingDetails(plPlusUserList);
     }
@@ -271,22 +277,22 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The user has navigated to the routing page");
     }
 
-    public void anzUserIsNotLoggedIn() throws Throwable {
+    public void anzUserIsNotLoggedIn() {
         if (!isUserFirstUser(currentUser)) {
             newSession(currentUser);
             navigationCobalt.navigateToPLANZPlus();
             wlnHeader.waitForPageToLoadAndJQueryProcessing();
             wlnHeader.closePrivacyNoticePopup();
             footerUtils.closeDisclaimerMessage();
-            Thread.sleep(300);
+            TimeoutUtils.sleepInSeconds(TIMEOUT_BEFORE_LOGIN);
             footerUtils.ourCookiesPolicy();
         } else {
-            LOG.info("No need to create new session. Current user: " + currentUser + " is the first user");
+            LOG.info("No need to create new session. Current user: {} is the first user", currentUser);
         }
         LOG.info("ANZ user has logged in");
     }
 
-    public void anzUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+    public void anzUserIsLoggedInWithFollowingDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
         for (CobaltUser user : plPlusUserList) {
             user.setProduct(Product.ANZ);
         }
@@ -294,7 +300,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("ANZ user has logged in with the following details");
     }
 
-    public void plUserIsLoggedInWithRoutingDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+    public void plUserIsLoggedInWithRoutingDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
         CobaltUser plPlusUser = CobaltUser.updateMissingFields(plPlusUserList.get(0));
         if (StringUtils.isEmpty(plPlusUser.getUserName())) {
             plPlusUser.setUserName(this.getCurrentUserName());
@@ -305,7 +311,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The PL+ user has logged in with routing details");
     }
 
-    public void anzUserIsLoggedInWithRoutingDetails(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+    public void anzUserIsLoggedInWithRoutingDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
         for (CobaltUser user : plPlusUserList) {
             user.setProduct(Product.ANZ);
         }
@@ -313,7 +319,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("ANZ user has logged in with routing details");
     }
 
-    public void plUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList) throws Throwable {
+    public void plUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
         CobaltUser plPlusUser = CobaltUser.updateMissingFields(plPlusUserList.get(0));
         if (StringUtils.isEmpty(plPlusUser.getUserName())) {
             plPlusUser.setUserName(this.getCurrentUserName());
@@ -324,7 +330,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The PL+ user has applied routing without login");
     }
 
-    public void plUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList, String baseUrl) throws Throwable {
+    public void plUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList, String baseUrl) throws IOException {
         System.setProperty("plcukProductBase", baseUrl);
         plUserIsApplyingRoutingWithoutLogin(plPlusUserList);
     }
@@ -333,24 +339,14 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         return !"None".equalsIgnoreCase(System.getProperty(USERNAME)) ? System.getProperty(USERNAME) : StringUtils.defaultIfEmpty(User.getInstance().getUserName(), ExcelFileReader.getDefaultUser());
     }
 
-    protected void loginUser(CobaltUser plPlusUser) throws InterruptedException, IOException {
+    protected void loginUser(CobaltUser plPlusUser) throws IOException {
         loginUser(plPlusUser, DEFAULT_IS_VERIFY_USER_LOGGED_FOR_SKIP_LOGIN_CASE_STATE);
     }
 
-    protected void loginUser(CobaltUser plPlusUser, boolean isVerifyUserLoggedForSkipLoginCase)
-            throws InterruptedException, IOException {
-        if (currentUser != null && plPlusUser.equalTo(currentUser)) {
-            navigateToHomePage(plPlusUser.getProduct());
-            if (isVerifyUserLoggedForSkipLoginCase) {
-                wlnHeader.waitForPageToLoad();
-                LOG.info("---------------------------------BEGIN-------------------------------");
-                if (wlnHeader.isSignInLinkPresentWithoutWait() && !wlnHeader.isHistoryLinkPresent()) {
-                    LOG.info("User not logged in");
-                    resetCurrentUser();
-                    LOG.info("Reset user and log in again");
-                    loginUser(plPlusUser);
-                }
-            }
+    protected void loginUser(CobaltUser plPlusUser, boolean isVerifyUserLoggedForSkipLoginCase) throws IOException {
+        LOG.info("---------------------------------BEGIN USER LOGIN-------------------------------");
+        if (plPlusUser.equalTo(currentUser)) {
+            loginAsCurrentUser(plPlusUser, isVerifyUserLoggedForSkipLoginCase);
         } else {
             if (!isUserFirstUser(currentUser)) {
                 newSession(currentUser);
@@ -372,18 +368,35 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                 login(plPlusUser);
             }
 
-            if (plPlusUser.getProduct().equals(Product.WLN) || plPlusUser.getRouting().equals(Routing.SITE_STRUCTURE_IP_USERS)) {
-                try {
-                    clientId(plPlusUser.getClientId());
-                } catch (TimeoutException e) {
-                    LOG.info("Failed to find client id");
-                }
-                closeWelcomeDialog();
-            }
+            loginAsWLNUser(plPlusUser);
         }
         currentUser.setCurrentUser(plPlusUser);
         LOG.info("The user has logged in");
         logSessionID();
+    }
+
+    private void loginAsCurrentUser(CobaltUser plPlusUser, boolean isVerifyUserLoggedForSkipLoginCase) throws IOException {
+        navigateToHomePage(plPlusUser.getProduct());
+        if (isVerifyUserLoggedForSkipLoginCase) {
+            wlnHeader.waitForPageToLoad();
+            if (wlnHeader.isSignInLinkPresentWithoutWait() && !wlnHeader.isHistoryLinkPresent()) {
+                LOG.info("User not logged in");
+                resetCurrentUser();
+                LOG.info("Reset user and log in again");
+                loginUser(plPlusUser);
+            }
+        }
+    }
+
+    private void loginAsWLNUser(CobaltUser plPlusUser) {
+        if (plPlusUser.getProduct().equals(Product.WLN)) {
+            try {
+                clientId(plPlusUser.getClientId());
+            } catch (TimeoutException e) {
+                LOG.info("Failed to find client id");
+            }
+            closeWelcomeDialog();
+        }
     }
 
     private void loginLegacySite(CobaltUser plPlusUser) {
@@ -440,177 +453,185 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         return ExcelFileReader.getCobaltPassword(userName);
     }
 
-    private void doRouting(CobaltUser user) throws InterruptedException, IOException {
+    private void skipAnonymousAuthenticationRouting(CobaltUser user){
+        if (isUseAdditionalIacAndFacEnabled() && user.getRouting().equals(Routing.NONE)) {
+            user.setRouting(Routing.DEFAULT);
+        }
+        if (!user.getRouting().equals(Routing.NONE)) {
+            navigateToRoutingPage(user.getProduct());
+            routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "True");
+        }
+    }
+
+    private void setRoutingIfLoginNotRequired(CobaltUser user) {
+        if (user.getLoginRequired().equalsIgnoreCase("NO")) {
+            routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), FALSE_TEXT);
+            setAnonymousRegistrationKey();
+        }
+    }
+
+    private void doRouting(CobaltUser user) throws IOException {
         if (user.getProduct().equals(Product.PLC) || Product.ANZ.equals(user.getProduct())) {
-            if (isUseAdditionalIacAndFacEnabled() && user.getRouting().equals(Routing.NONE)) {
-                user.setRouting(Routing.DEFAULT);
-            }
-            if (!user.getRouting().equals(Routing.NONE)) {
-                navigateToRoutingPage(user.getProduct());
-                routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "True");
-            }
+            skipAnonymousAuthenticationRouting(user);
             switch (user.getRouting()) {
                 case DEFAULT:
                     LOG.info("DEFAULT routing");
-                /*comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"), 1000)
-						.sendKeys("w_plplus_catpagestst_cs");
-				new Select(onepassLogin.findElement(By.id("WebContentCollectionSet"))).selectByValue("w_cb_wcmstst_cs");*/
                     break;
 
                 case KHSEARCH:
 
                 case RESEARCH_DOC_DISPLAY:
                     LOG.info("RESEARCH_DOC_DISPLAY routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
-                            .sendKeys("w_plplus_catpagestst_cs");
+                    comMethods.waitForElementToBeVisible(CAT_PAGE_COLLECTION_SET_ELEMENT)
+                            .sendKeys(PL_PLUS_COLLECTION_SET);
                     /** VERY IMPORTANT: TODO to remove when PMD issue is fixed */
                     onepassLogin.findElement(By.id("ProductMetadataDataVersion")).sendKeys("2482");
-                    new Select(onepassLogin.findElement(By.id("WebContentCollectionSet"))).selectByValue("w_cb_wcmstst_cs");
+                    new Select(onepassLogin.findElement(WEB_CONTENT_COLLECTION_ELEMENT)).selectByValue(WEB_CONTENT_COLLECTION_VALUE);
                     routingPage.showFeatureSelectionsLink().click();
                     WebElement ignore = routingPage.ignoreAuthorizationBlocksDropdown();
-                    routingPage.selectDropDownByVisibleText(ignore, "Grant");
+                    routingPage.selectDropDownByVisibleText(ignore, GRANT_ACCESS_OPTION_TEXT);
                     WebElement pre = routingPage.preReleaseContentDropdown();
-                    routingPage.selectDropDownByVisibleText(pre, "Grant");
+                    routingPage.selectDropDownByVisibleText(pre, GRANT_ACCESS_OPTION_TEXT);
                     WebElement bypass = routingPage.wlnByPass100KAncillaryDropdown();
-                    routingPage.selectDropDownByVisibleText(bypass, "Grant");
+                    routingPage.selectDropDownByVisibleText(bypass, GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case BETA:
                     LOG.info("BETA routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case ADESTRA_WMHK:
                     LOG.info("Adestra WM Hong Kong routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.adestraHKWhatsMarketDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.adestraHKWhatsMarketDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case WMHK:
                     LOG.info("WM Hong Kong routing");
-                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), "Review");
+                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), NOVUS_STAGE_REVIEW_TEXT);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.blockWhatsMarketHongKongSearchDropdown(), "Deny");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.blockWhatsMarketHongKongSearchDropdown(), DENY_ACCESS_OPTION_TEXT);
                     break;
 
                 case OPENWEB_WMHK:
                     LOG.info("WM Hong Kong Open Web routing");
                     user.setLoginRequired("NO");
-                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), "Review");
-                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
-                    routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
+                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), NOVUS_STAGE_REVIEW_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), FALSE_TEXT);
+                    setAnonymousRegistrationKey();
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case WMHK_DENY:
                     LOG.info("WM Hong Kong Deny routing");
-                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), "Review");
+                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), NOVUS_STAGE_REVIEW_TEXT);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.blockWhatsMarketHongKongSearchDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.blockWhatsMarketHongKongSearchDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case DASHBOARD:
                     LOG.info("Dashboard routing");
                     routingPage.infrastructureAccessTextArea().sendKeys("IAC-CROSSBORDER-DASHBOARD");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case POLLS:
                     LOG.info("POLLS routing");
-                    routingPage.infrastructureAccessTextArea().sendKeys("IAC-CROSSBORDER-POLLS");
+                    routingPage.infrastructureAccessTextArea().sendKeys(CROSS_BORDER_POLLS_IAC);
                     break;
 
                 case POLLS_OPEN_WEB:
                     LOG.info("POLLS Open Web routing");
                     user.setLoginRequired("NO");
-                    routingPage.infrastructureAccessControls().sendKeys("IAC-CROSSBORDER-POLLS");
-                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), "Review");
-                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
-                    routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
+                    routingPage.infrastructureAccessControls().sendKeys(CROSS_BORDER_POLLS_IAC);
+                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), NOVUS_STAGE_REVIEW_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), FALSE_TEXT);
+                    setAnonymousRegistrationKey();
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case DISABLE_CB_POLLS:
                     LOG.info("Disabling polls from CrossBorder routing");
-                    routingPage.removedInfrastructureAccessControls().sendKeys("IAC-CROSSBORDER-POLLS");
+                    routingPage.removedInfrastructureAccessControls().sendKeys(CROSS_BORDER_POLLS_IAC);
                     break;
 
                 case ITG:
                     LOG.info("ITG routing");
                     routingPage.infrastructureAccessControls().sendKeys("IAC-CROSSBORDER-ITG");
-                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), "Review");
+                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), NOVUS_STAGE_REVIEW_TEXT);
                     break;
 
                 case ITG_OPEN_WEB:
                     LOG.info("ITG Open Web routing");
                     user.setLoginRequired("NO");
                     routingPage.infrastructureAccessControls().sendKeys("IAC-CROSSBORDER-ITG");
-                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), "Review");
-                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
-                    routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
+                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), NOVUS_STAGE_REVIEW_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), FALSE_TEXT);
+                    setAnonymousRegistrationKey();
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case APPELLATE_HISTORY:
                     routingPage.showFeatureSelectionLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.userInternalDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.userInternalDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case RDD:
                     LOG.info("RDD routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case OPEN_WEB:
                     LOG.info("OPEN_WEB routing");
                     user.setLoginRequired("NO");
-                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
-                    routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
+                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), FALSE_TEXT);
+                    setAnonymousRegistrationKey();
                     break;
 
                 case ANZ_IAC:
                     LOG.info("ANZ_IAC_Breadcrumbs routing");
                     routingPage.infrastructureAccessControls().sendKeys("IAC-LIGER-NORT-TEST-FILTER");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case ANZ_ADESTRA_AU_EMPLOYMENT:
                     LOG.info("ANZ_ADESTRA_AU_EMPLOYMENT routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.adestraAuEmploymentDropdown(), "Deny");
+                    routingPage.selectDropDownByVisibleText(routingPage.adestraAuEmploymentDropdown(), DENY_ACCESS_OPTION_TEXT);
                     break;
 
                 case FAST_DRAFT_OPEN_WEB:
                     LOG.info("FAST_DRAFT_OPEN_WEB routing");
                     user.setLoginRequired("NO");
-                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
-                    routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
+                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), FALSE_TEXT);
+                    setAnonymousRegistrationKey();
                     break;
 
                 case FAST_DRAFT_IP_USERS:
@@ -631,51 +652,51 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                 case FAST_DRAFT_FIRM_STYLE:
                     LOG.info("FAST_DRAFT_FIRM_STYLE routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.firmStyleDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.firmStyleDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case FIRM_STYLE:
                     LOG.info("FIRM_STYLE routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.firmStyleDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.firmStyleDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case FIRM_STYLE_NO_FAC:
                     LOG.info("FIRM_STYLE_NO_FAC routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.firmStyleDropdown(), "Deny");
+                    routingPage.selectDropDownByVisibleText(routingPage.firmStyleDropdown(), DENY_ACCESS_OPTION_TEXT);
                     break;
 
                 case FIRM_STYLE_IP_USERS:
                     LOG.info("FIRM_STYLE_IP_USERS routing");
                     user.setLoginRequired("NO");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.firmStyleDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.firmStyleDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case FIRM_STYLE_IP_USERS_NO_FAC:
                     LOG.info("FIRM_STYLE_IP_USERS_NO_FAC routing");
                     user.setLoginRequired("NO");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.firmStyleDropdown(), "Deny");
+                    routingPage.selectDropDownByVisibleText(routingPage.firmStyleDropdown(), DENY_ACCESS_OPTION_TEXT);
                     break;
 
                 case KH_DOC_DISPLAY:
                     LOG.info("KH_DOC_DISPLAY routing");
                     routingPage.showFeatureSelectionsLink().click();
                     WebElement ignore1 = routingPage.ignoreAuthorizationBlocksDropdown();
-                    routingPage.selectDropDownByVisibleText(ignore1, "Grant");
+                    routingPage.selectDropDownByVisibleText(ignore1, GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case CAT_PAGES:
                     LOG.info("CAT_PAGES routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
+                    comMethods.waitForElementToBeVisible(CAT_PAGE_COLLECTION_SET_ELEMENT)
                             .sendKeys("w_plcuk_catpagestst_cs");
                     break;
 
                 case CONCEPTS_LIBRARY_LINKS:
                     LOG.info("CONCEPTS_LIBRARY_LINKS routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
+                    comMethods.waitForElementToBeVisible(CAT_PAGE_COLLECTION_SET_ELEMENT)
                             .sendKeys("w_plcuk_catpagesqa_cs");
                     break;
 
@@ -683,84 +704,69 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                 case BCI_TOOLS_OPENWEB:
                     LOG.info("BCI_PAGES open web routing");
                     user.setLoginRequired("NO");
-                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
+                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), FALSE_TEXT);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case ASK:
                     LOG.info("ASK routing");
-                    routingPage.infrastructureAccessTextArea().sendKeys("IAC-ASK-CONTENT");
-                    if (user.getLoginRequired().equalsIgnoreCase("NO")) {
-                        routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
-                        routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
-                    }
+                    enableAskContent();
+                    setRoutingIfLoginNotRequired(user);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case ASK_EDITOR:
                     LOG.info("ASK_EDITOR routing");
-                    routingPage.infrastructureAccessTextArea().sendKeys("IAC-ASK-CONTENT");
-                    if (user.getLoginRequired().equalsIgnoreCase("NO")) {
-                        routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
-                        routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
-                    }
+                    enableAskContent();
+                    setRoutingIfLoginNotRequired(user);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.askEditorDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.askEditorDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case ASK_DEV_WEB_COLLECTION:
                     LOG.info("ASK_DEV_WEB_COLLECTION routing");
-                    routingPage.infrastructureAccessTextArea().sendKeys("IAC-ASK-CONTENT");
-                    routingPage.setCategoryPageCollectionSet("w_plplus_catpagestst_cs");
+                    enableAskContent();
+                    routingPage.setCategoryPageCollectionSet(PL_PLUS_COLLECTION_SET);
                     routingPage.selectDropDownByVisibleText(routingPage.webContentCollectionSetDropdown(), "DEV");
-                    if (user.getLoginRequired().equalsIgnoreCase("NO")) {
-                        routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
-                        routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
-                    }
+                    setRoutingIfLoginNotRequired(user);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case ASK_PROD_WEB_COLLECTION_CATEGORTY_PAGE_CSET:
                     LOG.info("ASK_PROD_WEB_COLLECTION_CATEGORTY_PAGE_CSET routing");
-                    routingPage.infrastructureAccessTextArea().sendKeys("IAC-ASK-CONTENT");
-                    routingPage.setCategoryPageCollectionSet("w_plplus_catpagestst_cs");
+                    enableAskContent();
+                    routingPage.setCategoryPageCollectionSet(PL_PLUS_COLLECTION_SET);
                     routingPage.selectDropDownByVisibleText(routingPage.webContentCollectionSetDropdown(), "PROD");
-                    if (user.getLoginRequired().equalsIgnoreCase("NO")) {
-                        routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
-                        routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
-                    }
+                    setRoutingIfLoginNotRequired(user);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case ASK_UNRELEASEDCATEGORY:
                     LOG.info("ASK_UNRELEASEDCATEGORY routing");
-                    routingPage.infrastructureAccessTextArea().sendKeys("IAC-ASK-CONTENT");
-                    if (user.getLoginRequired().equalsIgnoreCase("NO")) {
-                        routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
-                        routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
-                    }
+                    enableAskContent();
+                    setRoutingIfLoginNotRequired(user);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case NONE:
@@ -775,165 +781,143 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 
                 case OPEN_WEB_SEARCH:
                     LOG.info("OPEN_WEB_SEARCH routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
-                            .sendKeys("w_plplus_catpagestst_cs");
-                    new Select(onepassLogin.findElement(By.id("WebContentCollectionSet"))).selectByVisibleText("TEST");
-                    new Select(onepassLogin.findElement(By.id("SkipAnonymousAuthenticationKey"))).selectByValue("False");
+                    comMethods.waitForElementToBeVisible(CAT_PAGE_COLLECTION_SET_ELEMENT)
+                            .sendKeys(PL_PLUS_COLLECTION_SET);
+                    new Select(onepassLogin.findElement(WEB_CONTENT_COLLECTION_ELEMENT)).selectByVisibleText("TEST");
+                    new Select(onepassLogin.findElement(By.id("SkipAnonymousAuthenticationKey"))).selectByValue(FALSE_TEXT);
                     break;
 
                 case DOCDISPLAY_UseCollectionSet:
                     LOG.info("DOCDISPLAY_UseCollectionSet routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
-                            .sendKeys("w_plplus_catpagestst_cs");
-                    new Select(onepassLogin.findElement(By.id("WebContentCollectionSet"))).selectByValue("w_cb_wcmstst_cs");
+                    comMethods.waitForElementToBeVisible(CAT_PAGE_COLLECTION_SET_ELEMENT)
+                            .sendKeys(PL_PLUS_COLLECTION_SET);
+                    new Select(onepassLogin.findElement(WEB_CONTENT_COLLECTION_ELEMENT)).selectByValue(WEB_CONTENT_COLLECTION_VALUE);
                     routingPage.showFeatureSelectionsLink().click();
                     WebElement ignore3 = routingPage.ignoreAuthorizationBlocksDropdown();
-                    routingPage.selectDropDownByVisibleText(ignore3, "Grant");
+                    routingPage.selectDropDownByVisibleText(ignore3, GRANT_ACCESS_OPTION_TEXT);
                     WebElement pre1 = routingPage.preReleaseContentDropdown();
-                    routingPage.selectDropDownByVisibleText(pre1, "Grant");
+                    routingPage.selectDropDownByVisibleText(pre1, GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case SPECIFIED_USER_TIMEOUT_3_MINUTES:
                     LOG.info("SPECIFIED_USER_TIMEOUT_3_MINUTES routing");
-                    comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).clear();
-                    comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).sendKeys("3");
+                    comMethods.waitForElementToBeVisible(SESSION_TIMEOUT_FIELD).clear();
+                    comMethods.waitForElementToBeVisible(SESSION_TIMEOUT_FIELD).sendKeys("3");
                     break;
 
                 case SPECIFIED_USER_TIMEOUT_4_MINUTES:
-                    comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).clear();
-                    comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).sendKeys("4");
+                    comMethods.waitForElementToBeVisible(SESSION_TIMEOUT_FIELD).clear();
+                    comMethods.waitForElementToBeVisible(SESSION_TIMEOUT_FIELD).sendKeys("4");
                     break;
 
                 case SPECIFIED_USER_TIMEOUT_5_MINUTES:
-                    comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).clear();
-                    comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).sendKeys("5");
+                    comMethods.waitForElementToBeVisible(SESSION_TIMEOUT_FIELD).clear();
+                    comMethods.waitForElementToBeVisible(SESSION_TIMEOUT_FIELD).sendKeys("5");
                     break;
 
                 case SPECIFIED_USER_TIMEOUT_7_MINUTES:
-                    comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).clear();
-                    comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).sendKeys("7");
+                    comMethods.waitForElementToBeVisible(SESSION_TIMEOUT_FIELD).clear();
+                    comMethods.waitForElementToBeVisible(SESSION_TIMEOUT_FIELD).sendKeys("7");
                     break;
 
                 case SPECIFIED_USER_TIMEOUT_13_MINUTES:
-                    comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).clear();
-                    comMethods.waitForElementToBeVisible(
-                            By.xpath("//input[@id='Text2' and @name='SessionTimeoutOverride']")).sendKeys("13");
+                    comMethods.waitForElementToBeVisible(SESSION_TIMEOUT_FIELD).clear();
+                    comMethods.waitForElementToBeVisible(SESSION_TIMEOUT_FIELD).sendKeys("13");
                     break;
                 case NON_SUBSCRIBER:
                     LOG.info("NON_SUBSCRIBER routing");
                     routingPage.showFeatureSelectionsLink().click();
                     WebElement plc = routingPage.practicalLawDropdown();
-                    routingPage.selectDropDownByVisibleText(plc, "Grant");
+                    routingPage.selectDropDownByVisibleText(plc, GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case RESEARCH_SEARCH:
                     LOG.info("RESEARCH_SEARCH routing");
-                    comMethods.waitForElementToBeVisible(By.id("CategoryPageCollectionSet"))
-                            .sendKeys("w_plplus_catpagestst_cs");
+                    comMethods.waitForElementToBeVisible(CAT_PAGE_COLLECTION_SET_ELEMENT)
+                            .sendKeys(PL_PLUS_COLLECTION_SET);
                     onepassLogin.findElement(By.id("ProductMetadataDataVersion")).sendKeys("2513");
-                    new Select(onepassLogin.findElement(By.id("WebContentCollectionSet"))).selectByValue("w_cb_wcmstst_cs");
+                    new Select(onepassLogin.findElement(WEB_CONTENT_COLLECTION_ELEMENT)).selectByValue(WEB_CONTENT_COLLECTION_VALUE);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case ASSERT_PAGE:
                     LOG.info("ASSERT_PAGE routing");
-                    // routingPage.setPMdDataVersion("2808");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.userInternal(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
-                    break;
-
-                case ANNOTATIONS:
-                    LOG.info("ANNOTATIONS routing");
-                    // routingPage.infrastructureAccessTextArea().sendKeys("IAC-WLNDOC-SHAREDNOTES");
-                    // routingPage.showFeatureSelectionsLink().click();
-                    // routingPage.selectDropDownByVisibleText(routingPage.waitForExpectedElement(By.id("co_website_resourceInfoTypes_BlockShareNoteLink")),"Deny");
-                    // routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(),
-                    // "Grant");
-                    // routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(),
-                    // "Grant");
-                    // routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(),
-                    // "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.userInternal(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case GLOBAL_PAGE:
                     LOG.info("GLOBAL_PAGE routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case UNRELEASED_CAT_PAGES_GRANT:    
                     LOG.info("UNRELEASED_CAT_PAGES_GRANT routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
                     
                 case UNRELEASED_CAT_PAGES:
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Deny");
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), DENY_ACCESS_OPTION_TEXT);
 
                     break;
 
                 case NOWHATSMARKETACCESS:
                     LOG.info("NOWHATSMARKETACCESS routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.whatsMarketSearchResultsDropdown(), "Deny");
+                    routingPage.selectDropDownByVisibleText(routingPage.whatsMarketSearchResultsDropdown(), DENY_ACCESS_OPTION_TEXT);
                     break;
                 case SITE_STRUCTURE_NO_COPY_FOR_LINKBUILDER:
                     routingPage.removedInfrastructureAccessControls().sendKeys("IAC-UK-LINKBUILDER-COPY");
+                    setAllContactsGroupSettings();
+                    break;
                     // DO NOT BREAK HERE!
                 case SITE_STRUCTURE:
                     routingPage.infrastructureAccessControls().sendKeys("IAC-UK-COMPARTMENTS, IAC-SMARTBREADCRUMB-ADD-NAVID, IAC-UK-LINKBUILDER");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.smartBreadcrumbDisplay(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.linkbuilderDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.smartBreadcrumbDisplay(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.linkbuilderDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case ALL_CONTACTS_GROUP:
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.enableAllContactsGroupDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.enableAllContactsGroupDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case SITE_STRUCTURE_LINKBUILDER:
                     routingPage.infrastructureAccessControls().sendKeys("IAC-SMARTBREADCRUMB-ADD-NAVID, IAC-UK-LINKBUILDER");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.smartBreadcrumbDisplay(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.linkbuilderDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.smartBreadcrumbDisplay(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.linkbuilderDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case SITE_STRUCTURE_OW:
                     LOG.info("SITE_STRUCTURE_OW routing");
                     user.setLoginRequired("NO");
                     routingPage.infrastructureAccessControls().sendKeys("IAC-UK-COMPARTMENTS, IAC-SMARTBREADCRUMB-ADD-NAVID, IAC-UK-LINKBUILDER, IAC-SEARCH-TABS");
-                    routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
-                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
+                    setAnonymousRegistrationKey();
+                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), FALSE_TEXT);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.smartBreadcrumbDisplay(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.linkbuilderDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.smartBreadcrumbDisplay(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.linkbuilderDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
                     
                 case SITE_STRUCTURE_IP_USERS:
                     LOG.info("SITE_STRUCTURE_IP_USERS routing");
                     routingPage.infrastructureAccessControls().sendKeys("IAC-UK-COMPARTMENTS, IAC-SMARTBREADCRUMB-ADD-NAVID, IAC-UK-LINKBUILDER");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.smartBreadcrumbDisplay(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.linkbuilderDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.smartBreadcrumbDisplay(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.linkbuilderDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case SITE_STRUCTURE_ERROR_PAGE:
@@ -952,13 +936,13 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                 case ADSTUKWHATMRKT:
                     LOG.info("ADSTUKWHATMRKT routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.AdestraUkWhatsMarketDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.AdestraUkWhatsMarketDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case CALENDAR_KEY_DATE_DOC:
                     LOG.info("CALENDAR_KEY_DATE_DOC routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case CALENDAR_KEY_DATE_DOC_OW:
@@ -966,10 +950,10 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     user.setLoginRequired("NO");
                     routingPage.infrastructureAccessTextArea().clear();
                     routingPage.infrastructureAccessTextArea().sendKeys("IAC-PLPLUS-CALENDAR");
-                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), "False");
+                    routingPage.selectDropDownByVisibleText(routingPage.skipAnonymousAuthenticationDropdown(), FALSE_TEXT);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case CAA:
@@ -977,8 +961,8 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     routingPage.infrastructureAccessTextArea().clear();
                     routingPage.infrastructureAccessTextArea().sendKeys("IAC-UK-COMPARTMENTS");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case SEARCH_COMO_GROUP6:
@@ -991,11 +975,11 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     LOG.info("MULTIMEDIA-CONTENT routing");
                     routingPage.documentTextArea().clear();
                     routingPage.documentTextArea().sendKeys(System.getProperty("documentModuleAuthority"));
-                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), "Review");
+                    routingPage.selectDropDownByVisibleText(routingPage.novusStageDropdown(), NOVUS_STAGE_REVIEW_TEXT);
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
+                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 default:
@@ -1013,23 +997,37 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                 routingPage.selectToggleSupportedFeatures();
                 routingPage.selectSharedNotesCheckBox();
                 routingPage.showFeatureSelectionsLink().click();
-                routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
+                routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
                 routingPage.saveChangesAndSignOnButton().click();
             } else if (user.getRouting().equals(Routing.FOLDERS)) {
 
                 navigateToRoutingPage(user.getProduct());
                 routingPage.showFeatureSelectionsLink().click();
                 routingPage.waitForPageToLoad();
-                routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), "Grant");
-                routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), "Grant");
-                routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), "Grant");
+                routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
                 routingPage.saveChangesAndSignOnButton().click();
             } else {
                 navigateToHomePage(user.getProduct());
             }
         }
+    }
+
+    private void setAllContactsGroupSettings() {
+        routingPage.showFeatureSelectionsLink().click();
+        routingPage.selectDropDownByVisibleText(routingPage.enableAllContactsGroupDropdown(), GRANT_ACCESS_OPTION_TEXT);
+    }
+
+    private void enableAskContent() {
+        LOG.info("Ask Content IAC is Enabled");
+        routingPage.infrastructureAccessTextArea().sendKeys("IAC-ASK-CONTENT");
+    }
+
+    private void setAnonymousRegistrationKey(){
+        routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
     }
 
     private void fillAdditionalIacAndFacInfoIfEnabled() throws IOException {
@@ -1090,7 +1088,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     /**
      * log user in from login page
      */
-    protected void login(CobaltUser user) throws InterruptedException, IOException {
+    protected void login(CobaltUser user) {
         if ("SUPER_REMEMBER_ME_USER".equals(user.getRole())) {
             onepassLoginUtils.loginToCobaltWithSRM(user.getUserName(), getPasswordForPlPlusUser(user.getUserName()));
         } else {
@@ -1106,55 +1104,16 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The user has logged in from the login page");
     }
 
-    String baseUrl = System.getProperty("base.url");
-
     /**
      * Do not delete this. Handles login flow for Open WEB user
-     *
-     * @throws InterruptedException
      */
-    protected void handleOpenWebFlow() throws InterruptedException {
-        /**
-         * The below commented lines ensure that HOTPROD is being hit thinking
-         * OW is turned OFF.
-         *
-         * Please uncomment and update the lines if OW will be turned OFF on any
-         * of the sites.
-         */
-		/*
-		 * switch (baseUrl) { case "hotprod": LOG.info(
-		 * "HOT PROD Site is being tested."); break; case "prod": LOG.info(
-		 * "Production Site is being tested."); wlnHeader.signInLink().click();
-		 * break; case "prodA": LOG.info("PROD A is being tested.");
-		 * wlnHeader.signInLink().click(); break; case "prodB": LOG.info(
-		 * "PROD B is being tested."); wlnHeader.signInLink().click(); break;
-		 * default: wlnHeader.signInLink().click(); break; }
-		 */
-    	plcHomePage.flashScreenPL();
-      //  plcHomePage.closeCookieConsentMessage();
+    protected void handleOpenWebFlow() {
+        plcHomePage.flashScreenPL();
         wlnHeader.signInLink().click();
         wlnHeader.waitForPageToLoad();
         wlnHeader.waitForPageToLoadAndJQueryProcessing();
         if (wlnHeader.isSignInLinkPresent()) {
             handleOpenWebFlow();
-        }
-    }
-
-    private void hackToTRemovePortAndNavigateToOnePassPage() throws InterruptedException {
-        String currentUrl;
-        int count = 10;
-        do {
-            Thread.sleep(1000);
-            currentUrl = plcHomePage.getCurrentUrl();
-            LOG.info("Current Url = " + currentUrl);
-            count--;
-        } while ((!currentUrl.contains(":9001/") && !currentUrl.contains(":9517/")) && count > 0);
-        LOG.info("Current Url = " + currentUrl);
-        if (System.getProperty("base.url").equalsIgnoreCase("ci")) {
-            onepassLogin.navigate(currentUrl.replace(":9001/", "/"));
-        }
-        if (System.getProperty("base.url").equalsIgnoreCase("demo")) {
-            onepassLogin.navigate(currentUrl.replace(":9517/", "/"));
         }
     }
 
@@ -1176,13 +1135,13 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     private void navigateToRoutingPage(Product product) {
         switch (product) {
             case WLN:
-                navigationCobalt.navigateToWLNSpecificURL("/routing");
+                navigationCobalt.navigateToWLNSpecificURL(ROUTING_URL);
                 break;
             case PLC:
-                navigationCobalt.navigateToPLUKPlus("/routing");
+                navigationCobalt.navigateToPLUKPlus(ROUTING_URL);
                 break;
             case ANZ:
-                navigationCobalt.navigateToPLCANZSpecificURL("/routing");
+                navigationCobalt.navigateToPLCANZSpecificURL(ROUTING_URL);
                 break;
             default:
                 break;
@@ -1216,21 +1175,10 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     element = onepassLogin.findElement(By.linkText("Sign Off"));
                     break;
                 case PLC:
-                    boolean alreadyLoggedIn = false;
-                    try {
-                        wlnHeader.userAvatarIcon().isDisplayed();
-                        alreadyLoggedIn = true;
-                    } catch (Exception e) {
-                        LOG.error("The user is not logged in");
-                    }
-                    if (alreadyLoggedIn) {
-                        wlnHeader.expandUserAvatarDropDown();
-                        element = wlnHeader.userPreferencesDropdown("Sign out");
-                    }
+                    clickSignOffSafely(product);
                     LOG.info("The user is signed off from PLC");
                     break;
                 case ANZ:
-                    //wlnHeader.expandUserAvatarDropDown();
                     element = wlnHeader.signOutLink();
                     LOG.info("The user is signed off from ANZ");
                     break;
@@ -1250,19 +1198,16 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         }
     }
 
-    private void unlockUser(CobaltUser user) {
-    }
-
     /**
      * New session is created. 1. Reset Routing 2. Sign-Off 3. Delete Cookies
      */
-    protected void newSession(CobaltUser user) throws IOException, InterruptedException {
+    protected void newSession(CobaltUser user) {
         signOff(user);
         onepassLogin.deleteAllCookies();
         LOG.info("New Session Created");
     }
 
-    public void userRelogsIn() throws Throwable {
+    public void userRelogsIn() throws IOException {
         LOG.info("Current user relogs in");
         signOff(currentUser);
         onepassLogin.deleteAllCookies();
@@ -1274,7 +1219,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("Current user has reloged in");
     }
 
-    public void userLogsInWithUsername() throws Throwable {
+    public void userLogsInWithUsername() {
         String userName = this.getCurrentUserName();
         onepassLogin.usernameTextField().sendKeys(userName);
         String password = getPasswordForPlPlusUser(userName);
@@ -1282,58 +1227,56 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         onepassLogin.passwordTextField().sendKeys(password);
         onepassLogin.signOnButton().click();
         LOG.info("The user has logged in");
+        logSessionID();
     }
 
-    public void userLogsInBackAgainFromSignOffPage() throws Throwable {
+    public void userLogsInBackAgainFromSignOffPage() {
         onePassLogoutPage.signOffPageSignOnButton().click();
         onepassLogin.waitForPageToLoad();
         userLogsInWithUsername();
         LOG.info("The user has logged back again from the signOff page");
     }
 
-    public void plUserLoginAndOpenFolder(String userName, String folderName) throws Throwable {
-        LOG.info("The " + userName + " opens " + folderName + " folder");
+    public void plUserLoginAndOpenFolder(String userName, String folderName) throws IOException{
+        LOG.info("The {} opens {} folder", userName, folderName);
         List<CobaltUser> cobaltUsers = new ArrayList<>();
         cobaltUsers.add(getCobaltUserForUserName(userName));
         plUserIsLoggedInWithFollowingDetails(cobaltUsers);
         userGoesToFolderSubFolder(folderName);
-        LOG.info("The " + userName + " has opened " + folderName + " folder");
+        LOG.info("The {} has opened the {} folder", userName, folderName);
     }
 
-    public void userLoginAndOpenFolder(String userName, String folderName) throws Throwable {
-        LOG.info("The user" + userName + " logins and opens a folder " + folderName);
+    public void userLoginAndOpenFolder(String userName, String folderName) throws IOException {
+        LOG.info("The user {} logged in and opens a folder {}", userName, folderName);
         List<CobaltUser> cobaltUsers = new ArrayList<>();
         cobaltUsers.add(getCobaltUserForUserName(userName));
         plUserIsLoggedInWithFollowingDetails(cobaltUsers);
         userGoesToFolderSubFolder(folderName);
-        LOG.info("The user" + userName + " has logined and opened a folder " + folderName);
+        LOG.info("The user {} has logined and opened a folder {}", userName, folderName);
     }
 
-    private void userGoesToFolderSubFolder(String folderName) throws Throwable {
+    private void userGoesToFolderSubFolder(String folderName) {
         LOG.info("The user is going to a folder subfolder");
         wlnHeader.clickHeaderLinkByName("Folders");
         openFolder(folderName);
         LOG.info("The user has gone to a folder subfolder");
     }
 
-    private String folderName;
-
     private void openFolder(String folderName) {
-        LOG.info("Open folder " + folderName);
+        LOG.info("Open folder {}", folderName);
         foldersUtils.openFolder(folderName);
-        this.folderName = folderName;
-        LOG.info(folderName + " has been opened");
+        LOG.info("{} has been opened", folderName);
     }
 
     @Given("^PL\\+ user '(.*)' navigates directly to document with guid '(.*)'$")
-    public void plUserLoginAndNavigateToDoc(String userName, String docGuid) throws Throwable {
-        LOG.info("The PL+ user is navigating directly to the document with guid " + docGuid);
+    public void plUserLoginAndNavigateToDoc(String userName, String docGuid) throws IOException {
+        LOG.info("The PL+ user is navigating directly to the document with guid: {}", docGuid);
         plUserIsLoggedInWithFollowingDetails(getCobaltUserForUserNameAsList(userName));
         navigatesDirectlyToDocumentWithGuid(docGuid);
-        LOG.info("The PL+ user has directly navigated to the document with guid " + docGuid);
+        LOG.info("The PL+ user has directly navigated to the document with guid: {}", docGuid);
     }
 
-    private void navigatesDirectlyToDocumentWithGuid(String guid) throws Throwable {
+    private void navigatesDirectlyToDocumentWithGuid(String guid) {
         LOG.info("The user is navigating directly to the document with guid");
         navigationCobalt.navigateToPLUKPlus("/Document/" + guid + "/View/FullText.html");
         resourcePage.waitForPageToLoadAndJQueryProcessing();
@@ -1341,20 +1284,20 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     }
 
     @Given("^PL\\+ user '(.*)' searches for '(.*)'$")
-    public void plUserLoginAndSearch(String userName, String term) throws Throwable {
-        LOG.info("The PL+ user " + userName + "searches for " + term);
+    public void plUserLoginAndSearch(String userName, String term) throws IOException {
+        LOG.info("The PL+ user {} searches for {}", userName, term);
         plUserIsLoggedInWithFollowingDetails(getCobaltUserForUserNameAsList(userName));
         searchFor(term);
-        LOG.info("The PL+ user " + userName + " found" + term);
+        LOG.info("The PL+ user {} found the term: {}", userName, term);
     }
 
     private void searchFor(String searchQuery) {
-        LOG.info("Searching for " + searchQuery);
+        LOG.info("Searching for {}", searchQuery);
         searchUtils.enterSearchText(searchQuery);
         searchHomePage.searchButton().sendKeys(Keys.ENTER);
         searchHomePage.waitForPageToLoad();
         searchHomePage.waitForPageToLoadAndJQueryProcessing();
-        LOG.info("Found " + searchQuery);
+        LOG.info("Found {}", searchQuery);
     }
 
     protected CobaltUser getCobaltUserForUserName(String userName) {
@@ -1374,35 +1317,19 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         onepassLogin.deleteAllCookies();
     }
 
-    public void userComeBackOnToHomePageAsLoggedInUser() throws Throwable {
-        wlnHeader.waitForPageToLoadAndJQueryProcessing();
-        if (!isHomePage()) {
-            navigationCobalt.navigateToHomePage();
-            wlnHeader.waitForPageToLoad();
-
-            wlnHeader.waitForPageToLoadAndJQueryProcessing();
-        }
-        assertThat(wlnHeader.favouritesLink().isDisplayed(), Is.is(true));
-        assertThat(wlnHeader.foldersLink().isDisplayed(), Is.is(true));
-        assertThat(wlnHeader.historyLink().isDisplayed(), Is.is(true));
-        assertThat(resourcePage.waitForExpectedElement(By.linkText("Employment")).isDisplayed(), Is.is(true));
-    }
-
     public boolean isHomePage() {
         return categoryPage.getCurrentUrl().contains("/Search/Home.html")
                 || categoryPage.getCurrentUrl().contains("/Search/BrowseRoot.html")
                 || categoryPage.getCurrentUrl().contains("Home/Home");
     }
 
-    public void userLogsInFromLoginPage(@Transpose List<CobaltUser> plPlusUserList)
-            throws InterruptedException, IOException {
+    public void userLogsInFromLoginPage(@Transpose List<CobaltUser> plPlusUserList) {
         CobaltUser plPlusUser = updateFieldsForPlPlusUser(plPlusUserList.get(0));
         login(plPlusUser);
         currentUser.setCurrentUser(plPlusUser);
     }
 
-    public void userEntersUsernameAndPasswordOnLoginPage(@Transpose List<CobaltUser> plPlusUserList)
-            throws InterruptedException, IOException {
+    public void userEntersUsernameAndPasswordOnLoginPage(@Transpose List<CobaltUser> plPlusUserList) {
         CobaltUser plPlusUser = updateFieldsForPlPlusUser(plPlusUserList.get(0));
         onepassLoginUtils.enterUserNameAndPassword(plPlusUser.getUserName(),
                 getPasswordForPlPlusUser(plPlusUser.getUserName()));
@@ -1421,19 +1348,30 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     protected void applyRootingCliValueIfPresent(CobaltUser plPlusUser) {
         String mandatoryRouting = plPlusUser.getMandatoryRouting();
         String mandatoryRoutingCli = System.getProperty("MANDATORY_ROUTING");
-        if (!StringUtils.isEmpty(mandatoryRouting)) {
-            if (mandatoryRouting.toUpperCase().contentEquals("VALUE_FROM_COMMAND_LINE")) {
+        if (!StringUtils.isEmpty(mandatoryRouting) &&
+                mandatoryRouting.toUpperCase().contentEquals("VALUE_FROM_COMMAND_LINE")) {
                 if (!StringUtils.isEmpty(mandatoryRoutingCli)) {
                     mandatoryRouting = mandatoryRoutingCli.toUpperCase();
                 } else {
                     mandatoryRouting = "NO";
                 }
-            }
         }
-        if ("false".equalsIgnoreCase(System.getProperty(ROUTING))
+        if (!BooleanUtils.toBoolean(System.getProperty(ROUTING))
                 && (StringUtils.isEmpty(mandatoryRouting) || mandatoryRouting.equals("NO"))) {
             plPlusUser.setRouting(Routing.NONE);
         }
+    }
+
+    //Cannot verify without exception if user menu is clickable or overlapped by some popup
+    private void clickSignOffSafely(Product product) {
+        try {
+            wlnHeader.signOff();
+        } catch (WebDriverException nse) {
+            LOG.info("Sign-off link not found - navigating to the home page and trying again");
+            navigateToHomePage(product);
+            wlnHeader.signOff();
+        }
+        LOG.info("The user is signed off from {}", product);
     }
 
     private void logSessionID() {

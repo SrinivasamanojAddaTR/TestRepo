@@ -10,11 +10,10 @@ import com.thomsonreuters.pageobjects.utils.CobaltUser;
 public class BaseCommonLoginNavigationWithSessionMonitoring extends BaseCommonLoginNavigation {
 
 	private RestServiceFFHImpl restServiceFFHImpl = new RestServiceFFHImpl();
-	private static Thread receivingSessionIdThread;
+	private static ThreadLocal<Thread> receivingSessionIdThread = new ThreadLocal<>();
 
 	@Override
-	protected void loginUser(CobaltUser plPlusUser, boolean isVerifyUserLoggedForSkipLoginCase)
-			throws InterruptedException, IOException {
+	protected void loginUser(CobaltUser plPlusUser, boolean isVerifyUserLoggedForSkipLoginCase) throws IOException {
 		super.loginUser(plPlusUser, isVerifyUserLoggedForSkipLoginCase);
 		if (StringUtils.isBlank(currentUser.getSessionId())) {
 			startReceivingSessionIdInSeparateThread();
@@ -22,18 +21,24 @@ public class BaseCommonLoginNavigationWithSessionMonitoring extends BaseCommonLo
 	}
 
 	private void startReceivingSessionIdInSeparateThread() {
-		if (receivingSessionIdThread == null
-				|| (receivingSessionIdThread != null && !receivingSessionIdThread.isAlive())) {
-			receivingSessionIdThread = new Thread("New Thread") {
+		if (receivingSessionIdThread.get() == null
+				|| (receivingSessionIdThread.get() != null && !receivingSessionIdThread.get().isAlive())) {
+			receivingSessionIdThread.set(new Thread("New Thread") {
+				@Override
 				public void run() {
 					while (StringUtils.isBlank(currentUser.getSessionId())) {
 						String sessionId = restServiceFFHImpl.getCurrentSession();
 						currentUser.setSessionId(sessionId);
 					}
 				}
-			};
-			receivingSessionIdThread.start();
+			});
+			receivingSessionIdThread.get().start();
 		}
+	}
+
+	public void removeReceivingSessionIdThread()
+	{
+		receivingSessionIdThread.remove();
 	}
 
 }
