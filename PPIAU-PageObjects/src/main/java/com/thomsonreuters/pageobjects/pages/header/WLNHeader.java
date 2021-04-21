@@ -13,10 +13,12 @@ public class WLNHeader extends AbstractPage {
 
     private PageActions pageActions;
 
-    private final String USER_ICON = "//*[contains(@id,'website_signOffRegion')]";
-    private final String FFH_DROPDOWN= "//*[contains(@id,'%sContainer')]//*[@class='co_hasTooltip co_dropdownArrowCollapsed']";
+    private static final String USER_ICON = "//*[contains(@id,'website_signOffRegion')]";
+    private static final String FFH_DROPDOWN= "//*[contains(@id,'%sContainer')]//*[@class='co_hasTooltip co_dropdownArrowCollapsed']";
     private static final String LOGO_BY_PRODUCT_XPATH = "//a[@id='logo']//img[@alt='%s']";
-    private final String RECENT_CLIENTID_LINK_PATTTERN= "//ul[@id='co_clientID_recents']//*[contains(text(),'%s')]";
+    private static final String RECENT_CLIENTID_LINK_PATTTERN= "//ul[@id='co_clientID_recents']//*[contains(text(),'%s')]";
+    private static final String HISTORY_LINK = "History";
+    private static final String FAVOURITES_LINK = "Favourites";
 
     public WLNHeader() {
         pageActions = new PageActions();
@@ -70,11 +72,11 @@ public class WLNHeader extends AbstractPage {
     }
 
     public WebElement historyLink() {
-        return waitForExpectedElement(By.linkText("History"), 10);
+        return waitForExpectedElement(By.linkText(HISTORY_LINK), 10);
     }
 
     public WebElement favouritesLink() {
-        return waitForExpectedElement(By.linkText("Favourites"), 10);
+        return waitForExpectedElement(By.linkText(FAVOURITES_LINK), 10);
     }
 
     public WebElement historyArrowLink() {
@@ -226,10 +228,6 @@ public class WLNHeader extends AbstractPage {
     public WebElement searchGuideCloseButton() {
         return waitForExpectedElement(By.xpath("//div[contains(@class,'co_infoBox')]//a[text()='Close']"));
     }
-    
-    public WebElement clientIDLink(){
-    	return waitForExpectedElement(By.xpath("//*[@id='co_clientIdContainer']//*[contains(@class, 'co_dropdownArrow')]"));
-    }
 
     public WebElement clientIdValue(){
         return waitForExpectedElement(By.xpath("//*[@id='co_clientIdContainer']//*[@title='Client ID']"));
@@ -354,11 +352,11 @@ public class WLNHeader extends AbstractPage {
     }
     
     public boolean isFavoritesLinkPresent() {
-    	return isElementDisplayed(By.linkText("Favourites"));
+    	return isElementDisplayed(By.linkText(FAVOURITES_LINK));
     }
        
     public boolean isHistoryLinkPresent() {
-    	return isElementDisplayed(By.linkText("History"));
+    	return isElementDisplayed(By.linkText(HISTORY_LINK));
     }
     
     public boolean isFoldersLinkPresent() {
@@ -689,10 +687,10 @@ public class WLNHeader extends AbstractPage {
 		case "Folders":
 			foldersLink().click();
 			break;
-		case "History":
+		case HISTORY_LINK:
 			historyLink().click();
 			break;
-		case "Favourites":
+		case FAVOURITES_LINK:
 			favouritesLink().click();
 			break;
         case "Alerts":

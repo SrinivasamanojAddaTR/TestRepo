@@ -1,7 +1,6 @@
 package com.thomsonreuters.pageobjects.pages.contactexpress;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

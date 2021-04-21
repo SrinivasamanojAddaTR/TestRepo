@@ -1,23 +1,15 @@
 package com.thomsonreuters.pageobjects.pages.folders;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.common.PageActions;
+import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
+import com.thomsonreuters.pageobjects.common.CommonMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
-
-
-
 public class SaveToPopup extends AbstractPage {
 
-	private PageActions pageActions;
 	private CommonMethods commonMethods = new CommonMethods();
-
-    public SaveToPopup(){
-        pageActions = new PageActions();
-    }
 
 	public WebElement save() {
 		return waitForExpectedElement(By.xpath("//*[contains(@class, 'dropdownBox_ok') and (@value='OK' or @value='Save')]"), 30);
@@ -66,7 +58,7 @@ public class SaveToPopup extends AbstractPage {
 			waitForElementVisible(By
 					.xpath("//div[@class='co_myFolders']//div[contains(@class,'co_treeFocus')]//*[.='" + folderName + "']"));
 		} catch (TimeoutException e) {
-			throw new RuntimeException("New folder is not selected on Save to Folder popup");
+			throw new PageOperationException("New folder is not selected on Save to Folder popup");
 		}
 	}
 

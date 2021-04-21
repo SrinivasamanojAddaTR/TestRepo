@@ -4,16 +4,7 @@ import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-
-/**
- * This is the page that the user arrives at after
- * Selecting the United Kingdom link - It contains links to practical law and also to research content
- */
-
-public class DemoUnitedKingdomLandingPage extends AbstractPage {
-
-    public DemoUnitedKingdomLandingPage() {
-    }
+public class UnitedKingdomLandingPage extends AbstractPage {
 
     public WebElement freeTextField() {
         return getDriver.findElement(By.id("searchInputId"));

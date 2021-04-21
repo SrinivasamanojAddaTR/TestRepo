@@ -1,6 +1,6 @@
 package com.thomsonreuters.step_definitions.uk.search;
 
-import com.thomsonreuters.pageobjects.pages.landingPage.DemoUnitedKingdomLandingPage;
+import com.thomsonreuters.pageobjects.pages.landingPage.UnitedKingdomLandingPage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
@@ -11,36 +11,35 @@ import org.openqa.selenium.WebElement;
 
 import static org.junit.Assert.assertTrue;
 
-public class UKOpenWebTestsTest1 extends BaseStepDef {
+public class UKOpenWebTestSteps extends BaseStepDef {
 
-    private DemoUnitedKingdomLandingPage demoUnitedKingdomLandingPage = new DemoUnitedKingdomLandingPage();
+    private UnitedKingdomLandingPage unitedKingdomLandingPage = new UnitedKingdomLandingPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private HomePage homePage = new HomePage();
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
 
 
     @When("^the user selects the link entitled Whats Market UK Home$")
-    public void theUserSelectsTheLinkEntitledWhatsMarketUkHome() throws Throwable {
+    public void theUserSelectsTheLinkEntitledWhatsMarketUkHome() {
         homePage.selectResourceTab();
         homePage.selectLinkPresentOnTab("What's Market");
     }
 
     @Then("^the user is presented with a message confirming that the user does not have access to the page$")
-    public void theUserIsPresentedWithAMessageConfirmingThatTheUserDoesNotHaveAccessToThePage() throws Throwable {
-        WebElement box = demoUnitedKingdomLandingPage.blockedContentMessage();
+    public void theUserIsPresentedWithAMessageConfirmingThatTheUserDoesNotHaveAccessToThePage() {
+        WebElement box = unitedKingdomLandingPage.blockedContentMessage();
         assertTrue(box.getText().contains("You do not have access to this page"));
     }
 
     @Then("^the user is able to verify that a page of search results is displayed$")
-    public void theUserIsAbleToVerifyThatAPageOfSearchResultsIsDisplayed() throws Throwable {
+    public void theUserIsAbleToVerifyThatAPageOfSearchResultsIsDisplayed() {
         assertTrue(knowHowSearchResultsPage.knowHowSearchResultTitle("1").isDisplayed());
     }
 
 
     @Then("^the user verifies the presence of the link entitled \"(.*?)\"$")
-    public void theUserVerifiesThePresenceOfTheLinkEntitled(String link) throws Throwable {
+    public void theUserVerifiesThePresenceOfTheLinkEntitled(String link) {
         assertTrue(searchResultsPage.backToLink(link).isDisplayed());
     }
-
 
 }

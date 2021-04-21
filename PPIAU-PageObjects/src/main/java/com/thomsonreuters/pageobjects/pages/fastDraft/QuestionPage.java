@@ -13,6 +13,7 @@ public class QuestionPage extends AbstractPage {
     private static final String PAGE = "//*[@class='zevon-question-pages']//a[text()=\"%s\"]";
     private static final String TEXT_FIELD = "//input[@id='%s']";
     private static final String DROPDOWN_FIELD = "//select[@id='%s']";
+    private static final String CONTACT_TO_UPDATE = "//div[@id='%s']";
 
     public WebElement page(String page) {
         return comMethods.waitForElementToBeVisible(By.xpath(String.format(PAGE, page)));
@@ -43,7 +44,7 @@ public class QuestionPage extends AbstractPage {
     }
 
     public WebElement updateContactField(String contactToUpdate) {
-        return comMethods.waitForElementToBeVisible(By.xpath("//div[@id='" + contactToUpdate + "']//button"));
+        return comMethods.waitForElementToBeVisible(By.xpath(String.format(CONTACT_TO_UPDATE, contactToUpdate) + "//button"));
     }
 
     public WebElement chooseContact(String contactToSet) {
@@ -53,14 +54,14 @@ public class QuestionPage extends AbstractPage {
 
     public void checkContactHasValue(String contactToUpdate, String contactToSet) {
     	WebElement contact = comMethods.waitForElementToBeVisible(
-                By.xpath("//div[@id='" + contactToUpdate + "']//a[@class='item-edit' and text()='" + contactToSet
+                By.xpath(String.format(CONTACT_TO_UPDATE, contactToUpdate) + "//a[@class='item-edit' and text()='" + contactToSet
                         + "']"));
 		Assert.assertNotNull(contact, "Contact '" + contactToUpdate + "' has no value '" + contactToSet + "'");
     }
 
     public void checkRemoveContactButtonPresents(String contactToUpdate, String contactToSet) {
     	WebElement contact = comMethods.waitForElementToBeVisible(
-                By.xpath("//div[@id='" + contactToUpdate + "']//button[@data-label='" + contactToSet
+                By.xpath(String.format(CONTACT_TO_UPDATE, contactToUpdate) + "//button[@data-label='" + contactToSet
                         + "' and text()='Remove']"));
 		Assert.assertNotNull(contact, "Contact '" + contactToUpdate + "' has no value '" + contactToSet + "'");
     }

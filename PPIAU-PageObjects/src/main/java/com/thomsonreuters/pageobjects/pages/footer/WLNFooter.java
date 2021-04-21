@@ -3,11 +3,9 @@ package com.thomsonreuters.pageobjects.pages.footer;
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Quotes;
-
 
 import java.util.List;
 
@@ -15,9 +13,6 @@ import java.util.List;
 public class WLNFooter extends AbstractPage {
 
     private static final String SIGN_IN_LINK = "Sign In";
-
-    public WLNFooter() {
-    }
 
     public WebElement footerFeedbackLink() {
         return findElement(By.id("PracticalLawFeedbackLink"));

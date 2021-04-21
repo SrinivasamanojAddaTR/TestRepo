@@ -1,13 +1,10 @@
 package com.thomsonreuters.pageobjects.pages.folders;
 
-import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class ShareFolderContactsPopup extends AbstractPage {
-
-	private PageActions pageActions = new PageActions();
 
 	public WebElement contact(String contactName) {
 		return waitForExpectedElement(By.xpath("//a[@class='co_contacts_selectable co_checkbox_unselected' and contains(text(),'" + contactName +"')]"));
