@@ -229,6 +229,9 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         CobaltUser plPlusUser = new CobaltUser();
         plPlusUser.setUserName(this.getCurrentUserName());
 
+        plPlusUser.setUserName(!"None".equalsIgnoreCase(System.getProperty(USERNAME)) ? System.getProperty(USERNAME)
+                : StringUtils.defaultIfEmpty(User.getInstance().getUserName(), currentUser.getUserName()));
+
         if (!BooleanUtils.toBoolean(System.getProperty(ROUTING))) {
             plPlusUser.setRouting(Routing.NONE);
         } else {

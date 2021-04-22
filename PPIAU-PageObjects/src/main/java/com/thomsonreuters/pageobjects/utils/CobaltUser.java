@@ -1,8 +1,11 @@
 package com.thomsonreuters.pageobjects.utils;
 
 import com.thomsonreuters.pageobjects.common.ExcelFileReader;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.util.ReflectionUtils;
+
+import static org.apache.commons.lang3.StringUtils.LF;
 
 public class CobaltUser {
 
@@ -10,7 +13,10 @@ public class CobaltUser {
 
     private Product product;
     private String userName;
+    private String additionalUserName;
+    private String additionalEmail;
     private String role;
+    private String regKey;
     private Routing routing;
     private String clientId;
     private boolean newSession;
@@ -18,6 +24,7 @@ public class CobaltUser {
     private String mandatoryRouting;
     private String email;
     private String sessionId;
+    private boolean skipHandleClientIdImplicitly;
 
     private static ThreadLocal<CobaltUser> firstUser = new ThreadLocal<>();
 
@@ -27,6 +34,8 @@ public class CobaltUser {
         this.userName = null;
         this.routing = Routing.DEFAULT;
         this.clientId = "TEST01";
+        this.regKey = null;
+        this.skipHandleClientIdImplicitly = false;
     }
 
     public static void removeFirstUser() {
@@ -34,7 +43,7 @@ public class CobaltUser {
     }
 
     public static CobaltUser firstUser() {
-        if (firstUser.get() == null) {
+        if (firstUser.get()==null){
             CobaltUser cobaltUser = new CobaltUser();
             cobaltUser.reset();
             firstUser.set(cobaltUser);
@@ -42,30 +51,36 @@ public class CobaltUser {
         return firstUser.get();
     }
 
-    public void reset() {
-        this.setRole(null);
-        this.setProduct(null);
-        this.setUserName(null);
-        this.setRouting(null);
-        this.setClientId(null);
-        this.setEmail(null);
-        this.setSessionId(null);
-    }
-
     public void setCurrentUser(CobaltUser user) {
         CobaltUser userDest = firstUser.get();
         ReflectionUtils.shallowCopyFieldState(user, userDest);
+    }
+
+    public void reset() {
+        setRole(null);
+        setProduct(null);
+        setUserName(null);
+        setRouting(null);
+        setClientId(null);
+        setEmail(null);
+        setRegKey(null);
+        setAdditionalUserName(null);
+        setSessionId(null);
     }
 
     public static CobaltUser updateMissingFields(CobaltUser scenarioUser) {
         if (null == scenarioUser.getProduct()) {
             scenarioUser.setProduct(Product.PLC);
         }
-		if (null == scenarioUser.getEmail()) {
-			scenarioUser.setEmail(!"".equals(ExcelFileReader.getCobaltEmail(scenarioUser.getUserName())) ? ExcelFileReader.getCobaltEmail(scenarioUser.getUserName()) : "test_user@mailinator");
-		}
-        if(null == scenarioUser.role){
+        if (null == scenarioUser.getEmail()) {
+            scenarioUser.setEmail(!StringUtils.EMPTY.equals(ExcelFileReader.getCobaltEmail(scenarioUser.getUserName())) ? ExcelFileReader
+                    .getCobaltEmail(scenarioUser.getUserName()) : "test_user@mailinator");
+        }
+        if (null == scenarioUser.role) {
             scenarioUser.setRole("DEFAULT_USER");
+        }
+        if (null == scenarioUser.regKey) {
+            scenarioUser.setRegKey(System.getProperty("regKey", ""));
         }
         if (null == scenarioUser.getRouting()) {
             scenarioUser.setRouting(Routing.DEFAULT);
@@ -77,8 +92,11 @@ public class CobaltUser {
         if (null == scenarioUser.getLoginRequired()) {
             scenarioUser.setLoginRequired("YES");
         }
-        if(null == scenarioUser.getMandatoryRouting()){
+        if (null == scenarioUser.getMandatoryRouting()) {
             scenarioUser.setMandatoryRouting("NO");
+        }
+        if (null == scenarioUser.getAdditionalUserName()) {
+            scenarioUser.setAdditionalUserName(ExcelFileReader.getAdditionalUserName(scenarioUser.getUserName()));
         }
         return scenarioUser;
     }
@@ -92,7 +110,7 @@ public class CobaltUser {
     }
 
     public String getUserName() {
-        return userName;
+        return ExcelFileReader.AdditionalUserColumns.isUseAdditionalUserEnabled() ? StringUtils.defaultIfBlank(getAdditionalUserName(), userName) : userName;
     }
 
     public void setUserName(final String userName) {
@@ -131,6 +149,14 @@ public class CobaltUser {
         this.role = role;
     }
 
+    public String getRegKey() {
+        return regKey;
+    }
+
+    public void setRegKey(final String regKey) {
+        this.regKey = regKey;
+    }
+
     public static boolean isUserFirstUser(CobaltUser that) {
         return null == that.getUserName() && null == that.getProduct() && null == that.getClientId() && that.role == null;
     }
@@ -154,21 +180,26 @@ public class CobaltUser {
 
     public boolean equalTo(CobaltUser that) {
 
-        LOG.info("Current Scenario User = " + this.toString());
-        LOG.info("Previous Scenario User = " + that.toString());
+        LOG.info("Current Scenario User = {}", this);
+        LOG.info("Previous Scenario User = {}", that);
 
         if (isUserFirstUser(that)) {
-          LOG.info("User is First Time User");
+            LOG.info("User is First Time User");
             return false;
         }
 
-        if(!this.role.equalsIgnoreCase(that.getRole())){
+        if (!this.role.equalsIgnoreCase(that.getRole())) {
             LOG.info("Users Roles don't match");
             return false;
         } else {
-            if(null == this.getUserName()) {
+            if (null == this.getUserName()) {
                 this.setUserName(that.getUserName());
             }
+        }
+
+        if (!this.getRegKey().equalsIgnoreCase(that.getRegKey())) {
+            LOG.info("The Registration Key doesn't match");
+            return false;
         }
 
         if (!this.getUserName().equalsIgnoreCase(that.getUserName())) {
@@ -191,42 +222,72 @@ public class CobaltUser {
             return false;
         }
 
-        return !that.isNewSession();
+        if (!this.isSkipHandleClientIdImplicitly() == that.isSkipHandleClientIdImplicitly()) {
+            LOG.info("Users skipHandleClientIdImplicitly don't match");
+            return false;
+        }
+
+        return !this.isNewSession();
     }
 
 
     public String toString() {
-
         StringBuilder user = new StringBuilder();
-        String NEW_LINE = System.getProperty("line.separator");
-        user.append("{" + NEW_LINE)
-                .append("product: " + product + NEW_LINE)
-                .append("userName: " + userName + NEW_LINE)
-                .append("role: " + role + NEW_LINE)
-                .append("routing: " + routing + NEW_LINE)
-                .append("clientId: " + clientId + NEW_LINE)
-                .append("email: " + email + NEW_LINE)
-                .append("newSession: " + newSession + NEW_LINE)
-                .append("loginRequired: " + loginRequired + NEW_LINE)
-                .append("mandatoryRouting" + mandatoryRouting + NEW_LINE)
+        user.append("{" + LF)
+                .append("product: " + product + LF)
+                .append("userName: " + getUserName() + LF)
+                .append("role: " + role + LF)
+                .append("regKey: " + regKey + LF)
+                .append("routing: " + routing + LF)
+                .append("clientId: " + clientId + LF)
+                .append("email: " + email + LF)
+                .append("newSession: " + newSession + LF)
+                .append("loginRequired: " + loginRequired + LF)
+                .append("mandatoryRouting: " + mandatoryRouting + LF)
+                .append("skipHandleClientIdImplicitly: " + skipHandleClientIdImplicitly + LF)
+                .append("Session ID : ").append(StringUtils.defaultIfBlank(sessionId, "session yet to be created for the user")).append(LF)
                 .append("}");
         return user.toString();
     }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getSessionId() {
-		return sessionId;
-	}
+    public String getSessionId() {
+        return sessionId;
+    }
 
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
-	}
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getAdditionalUserName() {
+        return additionalUserName;
+    }
+
+    public void setAdditionalUserName(String additionalUserName) {
+        this.additionalUserName = additionalUserName;
+    }
+
+    public String getAdditionalEmail() {
+        return additionalEmail;
+    }
+
+    public void setAdditionalEmail(String additionalEmail) {
+        this.additionalEmail = additionalEmail;
+    }
+
+    public boolean isSkipHandleClientIdImplicitly() {
+        return skipHandleClientIdImplicitly;
+    }
+
+    public void setSkipHandleClientIdImplicitly(boolean skipHandleClientIdImplicitly) {
+        this.skipHandleClientIdImplicitly = skipHandleClientIdImplicitly;
+    }
 
 }
