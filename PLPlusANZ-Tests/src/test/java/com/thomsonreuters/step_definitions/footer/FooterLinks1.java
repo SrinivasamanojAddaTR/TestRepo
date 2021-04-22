@@ -1,7 +1,6 @@
 package com.thomsonreuters.step_definitions.footer;
 
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.pages.ask.AskCategoryPage;
 import com.thomsonreuters.pageobjects.pages.company.AboutCompanyPage;
 import com.thomsonreuters.pageobjects.pages.company.AboutCompanyPageTabs;
 import com.thomsonreuters.pageobjects.pages.footer.WLNFooter;
@@ -26,7 +25,6 @@ public class FooterLinks1 extends BaseStepDef {
     private FooterUtils footerUtils = new FooterUtils();
 	private AboutCompanyPage aboutCompanyPage = new AboutCompanyPage();
 	private CommonMethods commonMethods = new CommonMethods();
-	private AskCategoryPage askCategoryPage = new AskCategoryPage();
 	@Then("^user should see the \"(.*?)\" page is opened$")
     public void userShouldseethePage(String pageTitle) throws Throwable {
         assertTrue("Title " + aboutCompanyPage.getPageTitle() + " is Not contains " + pageTitle, aboutCompanyPage.getPageTitle().contains(pageTitle));
@@ -34,7 +32,7 @@ public class FooterLinks1 extends BaseStepDef {
 
 	@Then("^user should see the \"(.*?)\" page opened in new tab$")
 	public void userShouldseethePageInNewTab(String pageTitle) throws Throwable {
-		String currentTile = commonMethods.performActionsInNewWindow(askCategoryPage.getWindowHandle(), () -> aboutCompanyPage.getPageTitle());
+		String currentTile = commonMethods.performActionsInNewWindow(footer.getWindowHandle(), () -> aboutCompanyPage.getPageTitle());
 		assertThat(currentTile)
 				.as("The user is not taken to the website with title %s", currentTile)
 				.contains(pageTitle);
@@ -120,7 +118,7 @@ public class FooterLinks1 extends BaseStepDef {
 	
 	@Then("^user was taken to url \"(.*?)\"$")
     public void userWasTakenTo(String expectedUrl) throws Throwable {
-		String currentUrl = commonMethods.performActionsInNewWindow(askCategoryPage.getWindowHandle(), () -> askCategoryPage.getCurrentUrl());
+		String currentUrl = commonMethods.performActionsInNewWindow(footer.getWindowHandle(), () -> footer.getCurrentUrl());
 		assertThat(currentUrl)
 				.as("The user is not taken to the %s web site", currentUrl)
 				.contains(expectedUrl);
@@ -128,7 +126,7 @@ public class FooterLinks1 extends BaseStepDef {
 
 	@Then("^user was taken to url \"(.*?)\" in same window$")
 	public void userWasTakenToUrlOnSameWindow(String expectedUrl) throws Throwable {
-		String currentUrl = askCategoryPage.getCurrentUrl();
+		String currentUrl = footer.getCurrentUrl();
 		assertThat(currentUrl)
 				.as("The user is not taken to the %s web site", currentUrl)
 				.contains(expectedUrl);

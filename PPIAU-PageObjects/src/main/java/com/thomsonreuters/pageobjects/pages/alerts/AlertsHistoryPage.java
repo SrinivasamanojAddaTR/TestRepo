@@ -2,7 +2,6 @@ package com.thomsonreuters.pageobjects.pages.alerts;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 
 public class AlertsHistoryPage extends AbstractPage {

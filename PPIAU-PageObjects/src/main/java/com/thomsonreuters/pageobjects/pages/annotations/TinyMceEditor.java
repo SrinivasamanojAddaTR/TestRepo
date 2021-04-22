@@ -13,15 +13,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-/**
- * This page object depicts the tinymce on annotations
- *
- * Created by UC186961 on 27/07/2015.
- */
 
 public class TinyMceEditor extends AbstractPage {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(TinyMceEditor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TinyMceEditor.class);
 
     private CommonMethods comMethods;
 
@@ -40,7 +35,7 @@ public class TinyMceEditor extends AbstractPage {
         try {
             waitForExpectedElement(By.cssSelector(TINYMCE_CONTENT)).sendKeys(txt);
         } catch (TimeoutException noSuchElementExp) {
-            LOGGER.error("Element : " + txt + " is not present", noSuchElementExp);
+            LOGGER.error("Element : {} is not present", txt);
         }
     }
 
@@ -74,7 +69,6 @@ public class TinyMceEditor extends AbstractPage {
         try {
             return waitForExpectedElement(By.cssSelector(TINYMCE_CONTENT)).getText();
         } catch (TimeoutException noSuchElementExp) {
-            LOGGER.error("Element : does not exist", noSuchElementExp);
             throw new PageOperationException("Unable to find text in tinyMCE editor." + noSuchElementExp);
         }
     }
@@ -129,7 +123,6 @@ public class TinyMceEditor extends AbstractPage {
      */
     public void openFormatsMenu() {
         try {
-            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             waitForExpectedElement(By.xpath("//span[text()='Formats']")).click();
         } catch (PageOperationException te) {
             throw new PageOperationException("Unable to select the formatsMenu.");
