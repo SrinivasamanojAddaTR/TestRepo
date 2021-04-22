@@ -33,7 +33,7 @@ public class CommonDeliveryOptionsPage extends AbstractPage {
             counter--;
             Thread.sleep(2000);
         }
-        while (elementList.size() > 0 && counter >= 0);
+        while (!(elementList.isEmpty()) && counter >= 0);
     }
 
     public WebElement cancelButton() {

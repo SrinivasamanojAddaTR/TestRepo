@@ -34,7 +34,7 @@ public class AddToFavouritesPopup extends AbstractPage {
 		try {
 			findElement(By.xpath("//label[text()='" + groupName + "']/input[@type='checkbox']"));
 		} catch (NoSuchElementException e) {
-			LOG.info("Group '" + groupName + "' is absent");
+			LOG.info("Group {} is absent", groupName);
 			return false;
 		}
 		return true;

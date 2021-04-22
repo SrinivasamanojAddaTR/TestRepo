@@ -6,9 +6,9 @@ import org.openqa.selenium.WebElement;
 
 public class NewProjectPopup extends AbstractPage {
 
-    private final static String PROJECT_NAME = "//input[@id='projectName']";
-    private final static String DOCUMENT_NAME = "//input[@id='docName']";
-    private final static String CREATE_PROJECT_BUTTON = "//input[@id='createDocument']";
+    private static final String PROJECT_NAME = "//input[@id='projectName']";
+    private static final String DOCUMENT_NAME = "//input[@id='docName']";
+    private static final String CREATE_PROJECT_BUTTON = "//input[@id='createDocument']";
 
     public WebElement documentName() {
         return waitForExpectedElement(By.xpath(DOCUMENT_NAME));
