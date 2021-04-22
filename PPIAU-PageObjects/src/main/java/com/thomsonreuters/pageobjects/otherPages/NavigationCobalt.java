@@ -21,6 +21,7 @@ public class NavigationCobalt  {
     public static final By HOME_PAGE_CSS_SELECTOR = By.xpath("//*[@id='headerLogo']//a");
     public static final By WLN_HOME_PAGE_CSS_SELECTOR = By.id("coid_website_logo");
     private static final String PLUK_FULL_BASE_URL = System.getProperty("plukFullBaseUrl", "");
+    private static final String PLAU_FULL_BASE_URL = System.getProperty("plauFullBaseUrl", "");
 
     String baseUrl = System.getProperty("base.url");
     String baseLegacyUrl = System.getProperty("base.legacy.url");
@@ -92,8 +93,31 @@ public class NavigationCobalt  {
         homePage.navigate(hosts.getPlcukProductBase() + baseUrl + hosts.getPlcukDomain() + "/Glossary/UKPracticallaw");
     }
 
-    public void navigateToANZSpecificResourcePage(String page) {
-        homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain() + page);
+    public void navigateToANZSpecificResourcePage(String sitePage) {
+        if (!PLAU_FULL_BASE_URL.trim().isEmpty()) {
+            driver.get(PLAU_FULL_BASE_URL+ sitePage);
+            return;
+        }
+        switch (baseUrl) {
+            case "prod":
+                homePage.navigate(hosts.getPlcauProductBase() + hosts.getPlcukDomain()+ sitePage);
+                break;
+            case "prodA":
+                homePage.navigate(hosts.getAuProdA() + hosts.getPlcukProdDomain()+ sitePage);
+                break;
+            case "prodB":
+                homePage.navigate(hosts.getAuProdB() + hosts.getPlcukProdDomain()+ sitePage);
+                break;
+            case "qedA":
+                homePage.navigate(hosts.getAuQedA() + baseUrl + hosts.getPlcukDomain()+ sitePage);
+                break;
+            case "qedB":
+                homePage.navigate(hosts.getAuQedB() + baseUrl + hosts.getPlcukDomain()+ sitePage);
+                break;
+            default:
+                homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain() + sitePage);
+                break;
+        }
     }
 
     /**
@@ -136,7 +160,31 @@ public class NavigationCobalt  {
     }
     
     public void navigateToPLANZPlus() {
-        homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain());
+        if (!PLAU_FULL_BASE_URL.trim().isEmpty()) {
+            driver.get(PLAU_FULL_BASE_URL );
+            return;
+        }
+        switch (baseUrl) {
+            case "prod":
+                homePage.navigate(hosts.getPlcauProductBase() + hosts.getPlcukDomain());
+                break;
+            case "prodA":
+                homePage.navigate(hosts.getAuProdA() + hosts.getPlcukProdDomain());
+                break;
+            case "prodB":
+                homePage.navigate(hosts.getAuProdB() + hosts.getPlcukProdDomain());
+                break;
+            case "qedA":
+                homePage.navigate(hosts.getAuQedA() + baseUrl + hosts.getPlcukDomain());
+                break;
+            case "qedB":
+                homePage.navigate(hosts.getAuQedB() + baseUrl + hosts.getPlcukDomain());
+                break;
+            default:
+                homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain());
+                break;
+        }
+
     }
 
     public void navigateToFirmCentral() {
@@ -153,7 +201,30 @@ public class NavigationCobalt  {
     }
 
 	public void navigateToPLCANZSpecificURL(String sitePage) {
-        homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain() + sitePage);
+        if (!PLAU_FULL_BASE_URL.trim().isEmpty()) {
+            driver.get(PLAU_FULL_BASE_URL+ sitePage);
+            return;
+        }
+        switch (baseUrl) {
+            case "prod":
+                homePage.navigate(hosts.getPlcauProductBase() + hosts.getPlcukDomain()+ sitePage);
+                break;
+            case "prodA":
+                homePage.navigate(hosts.getAuProdA() + hosts.getPlcukProdDomain()+ sitePage);
+                break;
+            case "prodB":
+                homePage.navigate(hosts.getAuProdB() + hosts.getPlcukProdDomain()+ sitePage);
+                break;
+            case "qedA":
+                homePage.navigate(hosts.getAuQedA() + baseUrl + hosts.getPlcukDomain()+ sitePage);
+                break;
+            case "qedB":
+                homePage.navigate(hosts.getAuQedB() + baseUrl + hosts.getPlcukDomain()+ sitePage);
+                break;
+            default:
+                homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain() + sitePage);
+                break;
+        }
 	}
 
     public void navigateToPLCUKPlusWithRouting(String routingString) {
