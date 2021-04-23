@@ -26,7 +26,7 @@ public class RunHeaderTest extends BaseCucumberTestRunner {
     public static void reporting() {
         if (System.getProperty("username","None").equals("None")) {
             User.getInstance().setUserName("AUtestuser9");
-            User.getInstance().setPassword("Password1");
+            User.getInstance().setPassword("P@ssword1");
             LOG.info("The credentials have been set");
         }
         else {
