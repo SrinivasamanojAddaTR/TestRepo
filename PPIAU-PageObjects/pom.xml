@@ -11,7 +11,7 @@
 
 	<properties>
 		<isCustomBuildReportsRequired>true</isCustomBuildReportsRequired>
-		<frameworkVersion>2.1.4</frameworkVersion>
+		<frameworkVersion>2.1.5</frameworkVersion>
 	</properties>
 
 	<build>
