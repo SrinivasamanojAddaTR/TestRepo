@@ -71,7 +71,7 @@ Feature:[825682] Add annotation at the top of the document
 
   Scenario Outline: Verifying that text can be displayed in bold/italic/underline/strikethrough for annotation at the top-<id>
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And the user has accessed annotations text box
@@ -88,7 +88,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario Outline: Adding Annotaiton with character Styles: bold/italic/ALIGN_LEFT/ALIGN_CENTER/ALIGN_RIGHT/strikethrough/underlined/number/bullet applying to selected text for the annotation at the top-<id>
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And the user has accessed annotations text box
@@ -113,7 +113,7 @@ Feature:[825682] Add annotation at the top of the document
 
   Scenario Outline: Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE selected after entering text-<id>
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And the user has accessed annotations text box
@@ -129,7 +129,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario Outline: Adding Annotaiton with Inline Styles: BOLD/ITALIC/STRIKETHROUGH/ITALIC/SUPERSCRIPT/SUBSCRIPT/CODE applying to selected text-<id>
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And the user has accessed annotations text box
@@ -149,7 +149,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario Outline: Bullet and number styles for annotation at the top-<id>
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And the user has accessed annotations text box
@@ -165,7 +165,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario Outline: Inline Styles: Adding Annotaiton with Alignment Styles: LEFT/CENTER/RIGHT applying to selected text-<id>
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And the user has accessed annotations text box
@@ -183,7 +183,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario Outline: Header Styles: HEADING/SUB_HEADING Styles and adding Annotaiton with Header Styles: HEADING/SUB_HEADING Applying to selected text-<id>
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     Then the user has accessed annotations text box
@@ -204,7 +204,7 @@ Feature:[825682] Add annotation at the top of the document
 
   Scenario: Blocks Styles: PARAGRAPH style by default
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     Then the user has accessed annotations text box
@@ -236,7 +236,7 @@ Feature:[825682] Add annotation at the top of the document
   @deletionAnnotations
   Scenario: Convert Pasted URL strings into Links
     Given ANZ user is logged in with following details
-      | userName | auAnnotationUser1 |
+      | userName | auAnnotationUser2 |
     When user navigates directly to document with guid "Ic51def0b9d3c11e598dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And the user has accessed annotations text box
