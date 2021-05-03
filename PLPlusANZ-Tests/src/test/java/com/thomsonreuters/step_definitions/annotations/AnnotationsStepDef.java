@@ -989,7 +989,7 @@ public class AnnotationsStepDef extends BaseStepDef {
 
     @Then("^annotations text box will be displayed with delete icon$")
     public void annotationsTextBoxWillBeDisplayedWithDeleteIcon() throws Throwable {
-        assertTrue("Bug #808769- Delete Icon is hiding by tinymce editor.", sharedAnnotationsPage.isDeleteIconDisplayedOnAnnotation(input));
+        assertTrue("Bug #808769- Delete Icon is hiding by tinymce editor.", sharedAnnotationsPage.isDeleteIconDisplayedOnAnnotation());
         LOG.info("The annotations text box is displayed with the delete icon");
     }
 

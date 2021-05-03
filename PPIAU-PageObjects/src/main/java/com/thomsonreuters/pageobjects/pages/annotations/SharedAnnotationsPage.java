@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import org.openqa.selenium.By;
@@ -17,11 +16,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -36,17 +33,21 @@ public class SharedAnnotationsPage extends AbstractPage {
 
     public static final int TIMEOUT_2_SECONDS = 2;
     public static final int TIMEOUT_5_SECONDS = 5;
-    private By IFRAME_LOCATOR = By.cssSelector("div.co_dropdownBoxExpanded .co_richEditor.co_noteArea.mce-content-body");
+    private static final By IFRAME_LOCATOR = By.cssSelector("div.co_dropdownBoxExpanded .co_richEditor.co_noteArea.mce-content-body");
     private int urlFindingCount = 0;
-    private By SAVE_INLINE_BUTTON = By.xpath("//div[@id='co_dropdownBody_1000']//input[@value='Save']");
+    private static final By SAVE_INLINE_BUTTON = By.xpath("//div[@id='co_dropdownBody_1000']//input[@value='Save']");
     private static final By INLINE_NOTES = By.cssSelector("span.co_noteHolderActive>div.co_hideState+a[title='Minimize']");
     private static final String HIGHLIGHTED_TEXT_XPATH = "//span[contains(@class, '%s') and contains(@class, 'co_selection')]";
+    private static final String SAVE_BUTTON= "input[value='Save']";
+    private static final By DISCLAIMER_CLOSE_BUTTON = By.cssSelector("a#DisclaimerMessageClose");
+    private static final By ANNOTATIONS_BODY = By.cssSelector(".co_viewNoteText.mce-content-body");
 
 
     private TinyMceEditor tinyMceEditor;
     private CommonMethods commonMethods;
 
     private static final Logger LOG = LoggerFactory.getLogger(SharedAnnotationsPage.class);
+    private int textMenuCounter;
 
     public SharedAnnotationsPage() {
         tinyMceEditor = new TinyMceEditor();
@@ -154,19 +155,6 @@ public class SharedAnnotationsPage extends AbstractPage {
         return isElementDisplayed(By.cssSelector(".co_overlayBox_optionsBottom .co_NotesLightBox_okbutton"));
     }
 
-    /**
-     * This private method is to get the displayed warning message webelement on document.
-     *
-     * @return WebElement
-     */
-//    private WebElement getWarningMessageOKButton() {
-//        try {
-//            return waitForExpectedElement(By.cssSelector(".co_overlayBox_optionsBottom .co_NotesLightBox_okbutton"), TIMEOUT_2_SECONDS);
-//        } catch (TimeoutException te) {
-//            throw new PageOperationException("Exceeded time to find the Annotations Warning message ok button" + te.getMessage());
-//        }
-//    }
-
     public WebElement getGroupsListItem(){
         return waitForExpectedElement(By.cssSelector("#coid_contacts_groupsListItems a[role='checkbox']"));
     }
@@ -194,7 +182,6 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void insertInputInWLNAnnotationTextBox(String input) {
         try {
-            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             waitForExpectedElement(By.cssSelector(".co_noteArea")).sendKeys(input);
         } catch (PageOperationException te) {
             throw new PageOperationException("Exceeded time to find the Annotations text box in WLN" + te.getMessage());
@@ -225,10 +212,10 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void saveAnnotation() {
         try {
-            WebElement saveButton = waitForExpectedElement(By.cssSelector("input[value='Save']"));
-            waitForElementsClickable(By.cssSelector("input[value='Save']"));
+            WebElement saveButton = waitForExpectedElement(By.cssSelector(SAVE_BUTTON));
+            waitForElementsClickable(By.cssSelector(SAVE_BUTTON));
             saveButton.click();
-            waitForElementInvisible(By.cssSelector("input[value='Save']"));
+            waitForElementInvisible(By.cssSelector(SAVE_BUTTON));
             waitForPageToLoad();
             waitForPageToLoadAndJQueryProcessing();
         } catch (PageOperationException | TimeoutException te) {
@@ -254,16 +241,15 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     public WebElement getCloseDisclaimer() {
-        return waitForExpectedElement(By.cssSelector("a#DisclaimerMessageClose"));
+        return waitForExpectedElement(DISCLAIMER_CLOSE_BUTTON);
     }
 
     public boolean isDisclaimerPresent(){
-        return isExists(By.cssSelector("a#DisclaimerMessageClose"));
+        return isExists(DISCLAIMER_CLOSE_BUTTON);
     }
 
     public void waitForDisclaimerAbsent(){
-        //TODO need to verify if waitForElementInvisible works similar to waitForElementToDissappear
-        waitForElementInvisible(By.cssSelector("a#DisclaimerMessageClose"));
+        waitForElementInvisible(DISCLAIMER_CLOSE_BUTTON);
     }
 
     public void clickOnCancelButton() {
@@ -329,22 +315,9 @@ public class SharedAnnotationsPage extends AbstractPage {
         return waitForExpectedElement(By.cssSelector("a.co_noteMinimize.co_widget_collapseIcon"));
     }
 
-    /**
-     * Finding the save button enabled or note - returns true if save button is enabled otherwise false.
-     *
-     * @return boolean
-     */
-//    public boolean isSaveAnnotationEnabled() {
-//        try {
-//            return waitForExpectedElement(By.cssSelector("input[value='Save']"), TIMEOUT_5_SECONDS).isEnabled();
-//        } catch (TimeoutException te) {
-//            return false;
-//        }
-//    }
-
     public boolean isSaveAnnotationEnabled() {
-        return isElementDisplayed(By.cssSelector("input[value='Save']"))
-                ? waitForExpectedElement(By.cssSelector("input[value='Save']"), TIMEOUT_5_SECONDS).isEnabled() : false;
+        return isElementDisplayed(By.cssSelector(SAVE_BUTTON))
+                && waitForExpectedElement(By.cssSelector(SAVE_BUTTON), TIMEOUT_5_SECONDS).isEnabled();
     }
 
     /**
@@ -379,7 +352,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
 
     public boolean isAnnotationsDisplayed() {
-        return isElementDisplayed(By.cssSelector(".co_viewNoteText.mce-content-body"));
+        return isElementDisplayed(ANNOTATIONS_BODY);
     }
 
     public WebElement getContactPagePrevious(){
@@ -432,9 +405,9 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public int getNotesCountFromShowAndHideIcon() {
         try {
-            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             return Integer.parseInt(waitForExpectedElement(By.id("co_ToggleAnnotationCount")).getText());
         } catch (PageOperationException | NumberFormatException poe) {
+            LOG.error("Show/Hide icon is not displayed",poe);
         }
         return 0;
     }
@@ -462,22 +435,25 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void deleteInlineAnnotations() {
         try {
-            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             for (WebElement inlineNote : waitForExpectedElements(By.cssSelector("span.co_noteHolderActive>div.co_hideState+a[title='Minimize']"))) {
                 inlineNote.click();
                 WebElement ele = inlineNote.findElement(By.xpath("./.."));
                 ele.findElement(By.className("co_viewNote")).click();
                 getDeleteElement().click();
                 if (isUndoButtonDisplayed() && isCloseButtonDisplayed()) {
-                    try {
-                        waitForElementInvisible(By.id(inlineNote.getAttribute("id")));
-                    } catch (StaleElementReferenceException sle) {
-                        LOG.warn("Inline note is not visible");
-                    }
+                    isInlineNoteVisible(inlineNote);
                 }
             }
         } catch (PageOperationException | NoSuchElementException te) {
             throw new PageOperationException("Unable to select delete icon on inline note : ");
+        }
+    }
+
+    private void isInlineNoteVisible(WebElement inlineNote){
+        try {
+            waitForElementInvisible(By.id(inlineNote.getAttribute("id")));
+        } catch (StaleElementReferenceException sle) {
+            LOG.warn("Inline note is not visible");
         }
     }
 
@@ -508,6 +484,7 @@ public class SharedAnnotationsPage extends AbstractPage {
                 return findElement(pathToAnnotation).isDisplayed();
             }
         } catch (TimeoutException | NoSuchElementException te) {
+            LOG.info("Element not displayed {}",te.getMessage());
         } catch (StaleElementReferenceException sle) {
             isSavedAnnotationDisplayed(input, result);
         }
@@ -571,17 +548,15 @@ public class SharedAnnotationsPage extends AbstractPage {
      * @return boolean
      */
     public boolean isSavedAnnotationDisplayedWithSelectedStyle(FormatType formatType, ExpectedResult result, String... input) {
-        By pathToAnnotation = By.xpath(String.format("//div[@class='co_viewNoteText mce-content-body']" + formatType.getSavedTextCSS(), input));
+        By pathToAnnotation = By.xpath("//div[@class='co_viewNoteText mce-content-body']" + String.format(formatType.getSavedTextCSS(), input));
         try {
-            for (String text : input) {
+            for (int i=0;i<input.length;i++) {
                 if (ExpectedResult.VISIBLE.equals(result)) {
                     if (!waitForElementPresent(pathToAnnotation).isDisplayed()) {
                         return false;
                     }
                 } else if (ExpectedResult.NOT_VISIBLE.equals(result)) {
-                    if (!findElement(pathToAnnotation).isDisplayed()) {
-                        return false;
-                    }
+                    return isElementDisplayed(pathToAnnotation);
                 }
             }
             return true;
@@ -604,7 +579,7 @@ public class SharedAnnotationsPage extends AbstractPage {
         Iterator<WebElement> iterator = list.iterator();
 
         while (iterator.hasNext()) {
-            WebElement element = (WebElement) iterator.next();
+            WebElement element = iterator.next();
             if (element.getText().contains(input)) {
                 metaData = new AnnotationMetaData(element.findElement(By.xpath("./..")));
                 break;
@@ -700,7 +675,6 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public boolean isEditModeDisplayedWithText(String input) {
         try {
-            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             WebElement element = waitForExpectedElement(IFRAME_LOCATOR);
             if (element.isDisplayed()) {
                 return tinyMceEditor.getText().equals(input);
@@ -715,10 +689,9 @@ public class SharedAnnotationsPage extends AbstractPage {
      * Verifies the given input annotation delete icon is displayed.
      * Returns true if annotation delete link is displayed otherwise false
      *
-     * @param textOrUrl
      * @return boolean
      */
-    public boolean isDeleteIconDisplayedOnAnnotation(String textOrUrl) {
+    public boolean isDeleteIconDisplayedOnAnnotation() {
         return isElementDisplayed(By.xpath("//div[@class='co_dropdownBoxExpanded'][contains(@style,'visible')]//a[@class='co_noteDelete']"));
     }
 
@@ -728,7 +701,6 @@ public class SharedAnnotationsPage extends AbstractPage {
      * @return webelement
      */
     private WebElement getDeleteElement() {
-        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.xpath("//div[@class='co_dropdownBoxExpanded'][contains(@style,'visible')]//a[@class='co_noteDelete']"));
     }
 
@@ -748,79 +720,17 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     /**
-     * Deletes all annotations for the given user
-     *
-     * @param user
-     */
-    public void deleteAllAnnotations(String user) {
-        AnnotationMetaData metaData = null;
-        try {
-            for (WebElement element : getAnnotationsElements()) {
-                metaData = new AnnotationMetaData(element.findElement(By.xpath("./..")));
-                if (metaData.getCreatedBy().equals(user)) {
-                    element.click();
-                    getDeleteElement().click();
-                    if (isUndoButtonDisplayed() && isCloseButtonDisplayed()) {
-                        try {
-                            waitForElementInvisible(By.id(element.getAttribute("id")));
-                        } catch (StaleElementReferenceException sle) {
-                        }
-                    }
-                }
-            }
-        } catch (StaleElementReferenceException sle) {
-            deleteAnnotation(user);
-        } catch (PageOperationException te) {
-            throw new PageOperationException("Unable to select delete icon on annotations : " + te.getCause());
-        }
-    }
-
-    /**
      * Gets all annotations present in doc level.
      *
      * @return List<WebElement>
      */
     private List<WebElement> getAnnotationsElements() {
-        int count = 0;
-        try {
-            WebElement element = null;
-            try {
-                element = waitForExpectedElement(By.cssSelector(".co_viewNoteText.mce-content-body"), TIMEOUT_5_SECONDS);
-            } catch (TimeoutException te) {
-                LOG.info("Exceeded time to wait an expected element");
-            }
-            if (element != null && element.isDisplayed()) {
-                return waitForExpectedElements(By.cssSelector(".co_viewNoteText.mce-content-body"), TIMEOUT_5_SECONDS);
-            }
-        } catch (TimeoutException te) {
-            if (count < 3) {
-                getAnnotationsElements();
-            }
-            count++;
-        }
-        return Collections.EMPTY_LIST;
+        return waitForExpectedElements(By.cssSelector(".co_viewNoteText.mce-content-body"));
     }
 
-    /**
-     * Verifies the given deleted annotation is displayed again.
-     * Returns true if delted annotation is displayed otherwise false
-     *
-     * @param message
-     * @return boolean
-     */
-//    public boolean isDeleteNotesDisplayed(String message) {
-//        try {
-//            return waitForExpectedElement(By.cssSelector(".co_notes .co_infoBox_message")).getText().contains(message);
-//        } catch (PageOperationException te) {
-//        }
-//        return false;
-//    }
-
     public boolean isDeleteNotesDisplayed(String message) {
-        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return isElementDisplayed(By.cssSelector(".co_notes .co_infoBox_message"))
-                ? waitForExpectedElement(By.cssSelector(".co_notes .co_infoBox_message")).getText().contains(message)
-                : false;
+                && waitForExpectedElement(By.cssSelector(".co_notes .co_infoBox_message")).getText().contains(message);
     }
 
 
@@ -851,7 +761,6 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void undoDelete() {
         try {
-            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             waitForExpectedElement(By.className("co_notes_undoLink")).click();
         } catch (PageOperationException te) {
             throw new PageOperationException("Unable to select undo icon on: " + te.getMessage());
@@ -935,13 +844,13 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public boolean isContactFoundInSearch(String contact) {
         try {
-            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             for (WebElement result : waitForExpectedElements(By.cssSelector("#coid_contacts_peopleListItems_contacts a[role='checkbox']"))) {
                 if (contact.equals(result.getText())) {
                     return true;
                 }
             }
         } catch (PageOperationException te) {
+            LOG.error("Exception has occured",te);
         } catch (StaleElementReferenceException sle) {
             isContactFoundInSearch(contact);
         }
@@ -956,13 +865,13 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public boolean isGroupFoundInSearch(String group) {
         try {
-            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             for (WebElement result : waitForExpectedElements(By.cssSelector("#coid_contacts_groupsListItems a[role='checkbox']"))) {
                 if (group.equals(result.getText())) {
                     return true;
                 }
             }
         } catch (PageOperationException te) {
+            LOG.error("Exception has occured",te);
         } catch (StaleElementReferenceException ste) {
             isGroupFoundInSearch(group);
         }
@@ -1020,22 +929,6 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void selectText() {
         tinyMceEditor.selectTextFromEditor();
-    }
-
-    public void selectTextFromDocumentWithColor(final String color) {
-//        Actions select = new Actions(getDriver);
-//        select.doubleClick(getTextFromDocument()).build().perform();
-       final WebElement el = getTextFromDocument();       
-        AbstractPage.waitFor(new ExpectedCondition<Boolean>() {
-			@Override
-			public Boolean apply(WebDriver driverObject) {
-				commonMethods.selectParagraphFromDocumentWithJS(el);
-				el.click();
-	            waitForPageSourceChangedAfterClick(colourForNote(color));
-	            return isTextBoxDisplayed();
-			}
-		}, commonMethods.getDriver());
-//        getDriver.getMouse().doubleClick(((Locatable) getTextFromDocument()).getCoordinates());
     }
     
     public void selectTextFromDocument() {
@@ -1103,21 +996,6 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     /**
-     * Verifies that Formats menu style is selected in tinymce editor.
-     * Returns true if format type is selected otherwise false
-     *
-     * @param formatType
-     * @return boolean
-     */
-    public boolean isLinkOptionSelected(FormatType formatType) {
-        try {
-            return waitForExpectedElement(formatType.getStyleLocator()).findElement(By.xpath(".//../..")).getAttribute("class").contains("mce-active");
-        } catch (TimeoutException te) {
-        }
-        return false;
-    }
-
-    /**
      * Removes the entered text and styles from tinymce editor.
      */
     public void clearAll() {
@@ -1155,10 +1033,7 @@ public class SharedAnnotationsPage extends AbstractPage {
         try {
             for (WebElement element : waitForExpectedElements(formatType.getStyleLocator())) {
                 if (element.isDisplayed()) {
-                    if (element.findElement(By.xpath(".//../..")).getAttribute("aria-disabled").equals("true")) {
-                        return false;
-                    }
-                    return true;
+                    return !element.findElement(By.xpath(".//../..")).getAttribute("aria-disabled").equals("true");
                 }
             }
         } catch (TimeoutException | NoSuchElementException te) {
@@ -1204,8 +1079,6 @@ public class SharedAnnotationsPage extends AbstractPage {
             }
         }
     }
-
-    static int textMenuCounter = 0;
 
     /**
      * Selects the given text and write inline notes.
@@ -1263,7 +1136,6 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void selectContact(String contact) {
         try {
-            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             for (WebElement result : waitForExpectedElements(By.cssSelector("#coid_contacts_peopleListItems_contacts a[role='checkbox']"))) {
                 if (contact.equals(result.getText())) {
                     result.click();
@@ -1325,32 +1197,26 @@ public class SharedAnnotationsPage extends AbstractPage {
     }
 
     public WebElement getAddGroupOption() {
-        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.id("groupListBoxWidgetAddGroup"));
     }
 
     public WebElement getGroupNameField() {
-        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.id("coid_contacts_newGroupName"));
     }
 
     public WebElement getSearchByNameField() {
-        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.id("coid_contacts_people_searchBoxInput_contacts_edit"));
     }
 
     public WebElement getSearchResult(String contact) {
-        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.xpath("//ul[@id='coid_contacts_peopleListItems_contacts_edit']//a[@role='checkbox'][contains(text(),'" + contact + "')]"));
     }
 
     public WebElement getCheckBoxGroupAvailableToOthers() {
-        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.id("coid_contacts_newGroupPublic"));
     }
 
     public WebElement getSaveGroupButton() {
-        //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
         return waitForExpectedElement(By.id("coid_contacts_newGroup_saveButton"));
     }
 
@@ -1377,7 +1243,7 @@ public class SharedAnnotationsPage extends AbstractPage {
      * @return String
      */
     public String getWarningMessage(MessageType messageType) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         String cssLocator = "";
 
         if (messageType.equals(MessageType.TEXT)) {
@@ -1387,7 +1253,6 @@ public class SharedAnnotationsPage extends AbstractPage {
         }
 
         try {
-            //TODO [Phase1] verify if waitForExpectedElements works similar to waitForExpectedElements
             for (WebElement element : waitForExpectedElements(By.cssSelector(cssLocator))) {
                 sb.append(element.getText());
             }
@@ -1402,7 +1267,6 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void selectOKButtonOnWarningMessage() {
         try {
-            //TODO [Phase1] verify if waitForExpectedElement works similar to waitForExpectedElement
             waitForExpectedElement(By.className("co_NotesLightBox_okbutton")).click();
         } catch (PageOperationException pe) {
             throw new PageOperationException("Having issues in selection ok button on warning message" + pe.getMessage());
