@@ -11,8 +11,8 @@ Feature: [809369] I want to view the "About Practical Law"
     Then the user verifies that the current PageTitle contains '<pageTitleForSelectedTab>'
     And about company page is not empty
 
-    Examples: 
-      | Page                | pageTitle           | tab                 | tabToSelect            | pageTitleForSelectedTab | id |
-      | About Practical Law | About Practical Law | About Practical Law | Why use Practical Law? | Why use Practical Law?  | 1  |
-      | About Practical Law | About Practical Law | About Practical Law | Resources              | Resources               | 2  |
-      | About Practical Law | About Practical Law | About Practical Law | Our team               | Our team                | 3  |
+    Examples:
+      | Page                | pageTitle               | tab                 | tabToSelect            | pageTitleForSelectedTab | id |
+      | About Practical Law | About us: Practical Law | About Practical Law | Why use Practical Law? | Why use Practical Law?  | 1  |
+      | About Practical Law | About us: Practical Law | About Practical Law | Resources              | Resources               | 2  |
+      | About Practical Law | About us: Practical Law | About Practical Law | Our team               | Our team                | 3  |

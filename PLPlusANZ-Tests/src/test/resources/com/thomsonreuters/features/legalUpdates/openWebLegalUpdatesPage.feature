@@ -61,7 +61,6 @@ So that I can find the latest updates in the industry
        | Queensland                          |
        | South Australia                     |
        | Tasmania                            |
-       | USA (National/Federal)              |
        | Victoria                            |
        | Western Australia                   |
     And he does not see in the search results page any link related to delivery options (email, download, print)

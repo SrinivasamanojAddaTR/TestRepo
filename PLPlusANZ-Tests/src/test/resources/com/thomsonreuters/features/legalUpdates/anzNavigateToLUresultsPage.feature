@@ -62,7 +62,6 @@ Feature: [848112][848110] view legal updates page
       | Queensland                          |
       | South Australia                     |
       | Tasmania                            |
-      | USA (National/Federal)              |
       | Victoria                            |
       | Western Australia                   |
     When the user clicks link 'Email Preferences' on 'Legal updates page' page
