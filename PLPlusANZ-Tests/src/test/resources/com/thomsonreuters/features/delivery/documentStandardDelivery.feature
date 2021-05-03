@@ -31,7 +31,7 @@ Feature: [818051] Document - Standard delivery features
 
     Examples:
       | guid                              | subject                                                | mailbox                                           | id |
-      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | tr-anz-tester4@epam-email-pluk.thomsonreuters.com | 1  |
+      | I53cfffa798de11e598dc8b09b4f043e0 | Completing a share transfer form: private acquisitions | tr-anz-tester6@epam-email-pluk.thomsonreuters.com | 1  |
 
 
   Scenario Outline: [818051] Email document - RTF format-<id>
