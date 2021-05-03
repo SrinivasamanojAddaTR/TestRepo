@@ -26,7 +26,7 @@ public class RunBrowseTest extends BaseCucumberTestRunner {
     public static void reporting() {
         if (System.getProperty("username").equals("None")) {
             User.getInstance().setUserName("AUtestuser3");
-            User.getInstance().setPassword("P@ssword2");
+            User.getInstance().setPassword("P@ssword4");
             LOG.info("The credentials have been set");
         } else {
             LOG.info("Username is pre-defined in the Run Command as: " + System.getProperty("username"));
