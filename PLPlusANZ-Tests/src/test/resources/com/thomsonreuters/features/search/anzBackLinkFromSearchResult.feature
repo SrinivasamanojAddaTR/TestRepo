@@ -87,7 +87,7 @@ Feature: [829761] Link back to the page  from where performed a search
     Given user clicks on "About Practical Law" link
     When the user runs a free text search for the query "<query>"
 	And the user clicks link 'About us' on 'search' page
-	Then the user is presented with a page with header "About us: About Practical Law"
+	Then the user is presented with a page with header "About us: Practical Law"
     Examples:
     |query		| id |
     |document	| 1  |
