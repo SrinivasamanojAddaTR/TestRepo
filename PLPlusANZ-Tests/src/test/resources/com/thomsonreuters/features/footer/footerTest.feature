@@ -48,8 +48,6 @@ Feature: [809111]As a user, I want to see the "Legal Information" and "Privacy" 
       | New Zealand Contributors | /Browse/Home/About/NewZealandContributors |
     And user clicks on "Product Support" link
     Then user was taken to url "https://support.thomsonreuters.com.au/product/practical-law-australia-incl-nz-resource-centre"
-    And user clicks on "Request Training" link
-    Then user was taken to url "https://support.thomsonreuters.com.au/request-training-0"
 
   Scenario: [838706] Footer is not dislocated to the middle of the page
     And ANZ user navigates directly to document with guid "Id50b77a49d2f11e598dc8b09b4f043e0"

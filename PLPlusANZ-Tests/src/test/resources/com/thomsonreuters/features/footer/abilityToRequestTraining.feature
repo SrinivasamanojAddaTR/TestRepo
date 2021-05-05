@@ -8,8 +8,9 @@ Feature: [809732] Request a Training
 
   @smoke @gold
   Scenario: The request training link takes user to request-training web page
-    When the user clicks link 'Request Training' on footer
-    Then user was taken to url "https://support.thomsonreuters.com.au/"
+    When the user clicks link 'Ask a Trainer' on footer
+    And user selects to open with outlook
+    Then user was taken to outlook with mail to "LRA.Trainers@thomsonreuters.com"
     
 
     

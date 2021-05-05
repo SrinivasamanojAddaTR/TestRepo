@@ -24,8 +24,6 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
       | New Zealand Contributors | /Browse/Home/About/NewZealandContributors |
     And user clicks on "Product Support" link
     Then user was taken to url "https://support.thomsonreuters.com.au/product/practical-law-australia-incl-nz-resource-centre"
-    And user clicks on "Request Training" link
-    Then user was taken to url "https://support.thomsonreuters.com.au/request-training-0"
 
   Scenario Outline: User verifies the functionality of footer links that lead to internal pages-<id>
     When user clicks on "<footer>" link
@@ -57,13 +55,13 @@ Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
     When user clicks on "<footer>" link
     And user should see the "<PageTitle>" page opened in new tab
     Examples:
-      | footer           | url                                                                   | PageTitle                                  | id |
-      | Product Support  | https://support.thomsonreuters.com.au/product/practical-law-australia | Practical Law Australia \| Thomson Reuters | 1  |
-      | Request Training | https://support.thomsonreuters.com.au                                 | Request Training \| Thomson Reuters        | 2  |
-      | Privacy          | https://www.thomsonreuters.com/en/privacy-statement.html              | Privacy statement \| Thomson Reuters       | 3  |
+      | footer          | url                                                                   | PageTitle                                  | id |
+      | Product Support | https://support.thomsonreuters.com.au/product/practical-law-australia | Practical Law Australia \| Thomson Reuters | 1  |
+      | Privacy         | https://www.thomsonreuters.com/en/privacy-statement.html              | Privacy statement \| Thomson Reuters       | 2  |
   @archived
     Examples:
-      | footer       | url                                                                                                                   | PageTitle                                                               |
-      | Master Terms | https://legal.thomsonreuters.com.au/terms/pdf/AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf | AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
-      | Careers      | https://www.thomsonreuters.com/en/careers.html                                                                        | Careers \| Thomson Reuters                                              |
+      | footer        | url                                                                                                                   | PageTitle                                                               |
+      | Master Terms  | https://legal.thomsonreuters.com.au/terms/pdf/AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf | AU-Thomson-Reuters-Master-Service-Agreement-Master-Terms-v1.1-03-16.pdf |
+      | Careers       | https://www.thomsonreuters.com/en/careers.html                                                                        | Careers \| Thomson Reuters                                              |
+      | Ask a Trainer | https://support.thomsonreuters.com.au                                                                                 | Request Training \| Thomson Reuters                                     |
 
