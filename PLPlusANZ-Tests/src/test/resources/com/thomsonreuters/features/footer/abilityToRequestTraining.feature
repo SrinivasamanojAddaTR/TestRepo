@@ -6,7 +6,7 @@ Feature: [809732] Request a Training
   Background:
     Given ANZ user is logged in
 
-  @smoke @gold
+  @smoke @gold @manual
   Scenario: The request training link takes user to request-training web page
     When the user clicks link 'Ask a Trainer' on footer
     And user selects to open with outlook

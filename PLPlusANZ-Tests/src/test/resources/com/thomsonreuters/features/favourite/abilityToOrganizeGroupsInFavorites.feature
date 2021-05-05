@@ -75,6 +75,7 @@ Feature: [821261][821248] As a PLAU User I want to Organise my favourite groups 
     And user clicks on "done" button
     Then the user should see the group 'NewTestGroup01' comes first than group 'NewTestGroup02'
 
+  @manual
   Scenario: [821309]user verifies the moving the page around
     When user clicks on "Favourites" link
     And user creates new favourites group 'NewFavTestGroup'
