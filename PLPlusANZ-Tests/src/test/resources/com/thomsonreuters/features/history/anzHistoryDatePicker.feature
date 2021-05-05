@@ -33,7 +33,7 @@ Feature: [821959] As a PLAU User, I want to view my history based on a specific 
       | All              | -                        | 4  |
       | All Dates Before | 06-04-2021               | 5  |
       | All Dates After  | 08-09-2016               | 6  |
-      | Specific Date    | 22-03-2021               | 7  |
+      | Specific Date    | 02-05-2021               | 7  |
       | Date Range       | 07-09-2016 to 22-03-2021 | 8  |
 
 
