@@ -12,20 +12,20 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunFoldersTest.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
-        features = "classpath:com/thomsonreuters/features/folders",
+        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunFoldersPart1Test.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+        features = "classpath:com/thomsonreuters/features/folders/part2",
         tags = {"~ ", "~@manual"},
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
-public class RunFoldersTest extends BaseCucumberTestRunner {
+public class RunFoldersPart2Test extends BaseCucumberTestRunner {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RunFoldersTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RunFoldersPart2Test.class);
 
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username","None").equals("None")) {
-            User.getInstance().setUserName("ANZtestuser2");
+            User.getInstance().setUserName("PLANZtestuser2");
             User.getInstance().setPassword("P@ssword2");
             LOG.info("The credentials have been set");
         }
