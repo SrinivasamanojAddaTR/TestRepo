@@ -16,7 +16,7 @@ Feature:[825683] Edit an annotation at the top of the document
     And saving the annotation
     Then modified annotations text will be displayed with metadata
 
-  @smoke @gold @AnnotationsSmokeTests @e2e  @deletionAnnotations
+  @smoke @gold @AnnotationsSmokeTests @e2e  @deletionAnnotations @nonDemo
   Scenario: Verify that user can modify annotations at the top
     Given ANZ user is logged in with following details
       | userName | ProdANZtestuser2 |
