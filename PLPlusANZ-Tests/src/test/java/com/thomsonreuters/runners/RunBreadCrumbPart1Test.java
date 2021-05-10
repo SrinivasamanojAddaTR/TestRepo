@@ -1,3 +1,4 @@
+//TODO removed comments need to know why is it commented before
 package com.thomsonreuters.runners;
 
 import com.thomsonreuters.pageobjects.common.BaseCucumberTestRunner;
@@ -14,7 +15,7 @@ import org.slf4j.LoggerFactory;
 @CucumberOptions(
         plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunBreadCrumbPart1Test.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
         features = "classpath:com/thomsonreuters/features/breadcrumbs/part1",
-        tags = {"~@wip", "~@manual"},
+        tags = {"~ ", "~@manual"},
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
