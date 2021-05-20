@@ -12,15 +12,14 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunDocumentTest.json", "com.epam.reportportal.cucumber.ScenarioReporter","rerun:target/ReRunDocument.txt"},
-        features = "classpath:com/thomsonreuters/features/document",
-        tags = {"~ ", "~@manual"},
+        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/ReRunDocument.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+        features = "@target/ReRunDocument.txt",
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
-public class RunDocumentTest extends BaseCucumberTestRunner {
+public class ReRunDocument extends BaseCucumberTestRunner {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RunDocumentTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ReRunDocument.class);
 
     @BeforeClass
     public static void reporting() {
