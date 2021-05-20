@@ -6,7 +6,7 @@
 	<artifactId>ppiau-pageobjects</artifactId>
 	<groupId>com.thomsonreuters.pageobjects</groupId>
 	<packaging>jar</packaging>
-	<version>21.5.72</version>
+	<version>21.5.73</version>
 	<description>PPI UK Page Objects and Utility Methods</description>
 
 	<properties>
