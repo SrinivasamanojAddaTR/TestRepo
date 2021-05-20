@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunFavouritePart1Test.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunFavouritePart1Test.json", "com.epam.reportportal.cucumber.ScenarioReporter", "rerun:target/ReRunFavouritePart1.txt"},
         features = "classpath:com/thomsonreuters/features/favourite/part1",
         tags = {"~ ", "~@manual"},
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
