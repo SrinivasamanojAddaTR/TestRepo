@@ -106,7 +106,7 @@ public class DocumentDeliveryPage extends DocumentNavigationPage {
     }
 
     public String getTootlTipText() {
-        return waitForExpectedElement(By.className("tooltip-content")).getText();
+        return waitForExpectedElement(By.xpath("//div[not(contains(@class,'is-visually-hidden'))]//div[@class='a11yTooltip-pointer']//following-sibling::div")).getText();
     }
 
     public void clickOnLink(Links link) {
