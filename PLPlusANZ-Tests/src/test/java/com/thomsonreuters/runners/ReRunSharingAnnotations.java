@@ -12,15 +12,14 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunSharingAnnotationsTest.json", "com.epam.reportportal.cucumber.ScenarioReporter","rerun:target/ReRunSharingAnnotations.txt"},
-        features = "classpath:com/thomsonreuters/features/annotations/sharing",
-        tags = {"~ ", "~@manual"},
+        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/ReRunSharingAnnotations.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+        features = "@target/ReRunAnnotationsCommon.txt",
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
-public class RunSharingAnnotationsTest extends BaseCucumberTestRunner {
+public class ReRunSharingAnnotations extends BaseCucumberTestRunner {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RunSharingAnnotationsTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ReRunSharingAnnotations.class);
 
     @BeforeClass
     public static void reporting() {
