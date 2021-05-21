@@ -12,15 +12,14 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunGlossaryTest.json", "com.epam.reportportal.cucumber.ScenarioReporter","rerun:target/ReRunGlossary.txt"},
-        features = "classpath:com/thomsonreuters/features/glossary",
-        tags = {"~ ", "~@manual"},
+        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/ReRunGlossary.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+        features = "@target/ReRunGlossary.txt",
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
-public class RunGlossaryTest extends BaseCucumberTestRunner {
+public class ReRunGlossary extends BaseCucumberTestRunner {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RunGlossaryTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ReRunGlossary.class);
 
     @BeforeClass
     public static void reporting() {
