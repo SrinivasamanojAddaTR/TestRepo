@@ -12,20 +12,19 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunDeliveryPart1Test.json", "com.epam.reportportal.cucumber.ScenarioReporter", "rerun:target/ReRunDeliveryPart1.txt"},
-        features = "classpath:com/thomsonreuters/features/delivery/part1",
-        tags = {"~ ", "~@manual"},
+        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/ReRunDeliveryPart2.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
+        features = "@target/ReRunDeliveryPart2.txt",
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
-public class RunDeliveryPart1Test extends BaseCucumberTestRunner {
+public class ReRunDeliveryPart2 extends BaseCucumberTestRunner {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RunDeliveryPart1Test.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ReRunDeliveryPart2.class);
 
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username", "None").equals("None")) {
-            User.getInstance().setUserName("AUtestuser4");
+            User.getInstance().setUserName("PLNewAUtestuser4");
             User.getInstance().setPassword("P@ssword2");
             LOG.info("The credentials have been set");
         }
