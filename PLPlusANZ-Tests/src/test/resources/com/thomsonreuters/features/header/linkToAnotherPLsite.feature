@@ -45,8 +45,7 @@ Feature: [809948][850090] Link to another Practical Law web site
 
   #open web user tests
   Scenario Outline: Open Web User verifies the Footer links and styling-<id>
-    Given the user navigates to the main PLANZ page
-    And ANZ user is not logged in
+    Given PL+ ANZ user navigates to home page
     Then user should see the following countries with respective links
       | Australia | http://anzlaw.                    |
       | UK        | /PLCTransfer.html?domainKey=PLCUK |
@@ -66,8 +65,7 @@ Feature: [809948][850090] Link to another Practical Law web site
       | China       | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China | Global \| China \| Practical Law |
 
   Scenario: Open Web User verifies the Westlaw AU  links
-    Given the user navigates to the main PLANZ page
-    And ANZ user is not logged in
+    Given PL+ ANZ user navigates to home page
     When the user selects "Resources" tab
     And the user selects "Westlaw AU"
     Then the user is taken to the login page in WLAU
