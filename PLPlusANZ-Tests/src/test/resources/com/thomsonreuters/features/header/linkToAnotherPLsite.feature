@@ -9,7 +9,7 @@ Feature: [809948][850090] Link to another Practical Law web site
       | Canada    | /PLCTransfer.html?domainKey=PLCCA |
     And the user selects "<countryName>"
     And the Practical Law Country "<url>" web site "<websiteTitle>" will be launched in the same window and tab
-    @qed
+  @qed
     Examples:
       | countryName | url             | websiteTitle             | id |
       | US          | https://1.next. | US Home \| Practical Law | 1  |
@@ -23,7 +23,7 @@ Feature: [809948][850090] Link to another Practical Law web site
       | Global      | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global       | Global Homepage \| Practical Law |
       | China       | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China | Global \| China \| Practical Law |
 
-    @demo
+  @demo
   Scenario Outline: Logged in User verifies the Footer links and styling -US(demo)-<id>
     Given ANZ user is logged in
     Then user should see the following countries with respective links
@@ -54,10 +54,10 @@ Feature: [809948][850090] Link to another Practical Law web site
     And the user selects "<countryName>"
     And the Practical Law Country "<url>" web site "<websiteTitle>" will be launched in the same window and tab
     Examples:
-      | countryName | url                      | websiteTitle                          | id |
-      | US          | https://1.next.          | US Home \| Practical Law              | 1  |
-      | UK          | https://uk.practicallaw. | UK Home \| Practical Law              | 2  |
-      | Canada      | https://ca.practicallaw. | Practical Law Canada \| Practical Law | 3  |
+      | countryName | url                      | websiteTitle                                     | id |
+      | US          | https://content.next.    | Practitioner Insights News & Analysis \| Westlaw | 1  |
+      | UK          | https://uk.practicallaw. | UK Home \| Practical Law                         | 2  |
+      | Canada      | https://ca.practicallaw. | Practical Law Canada \| Practical Law            | 3  |
   @archived
     Examples:
       | countryName | url                                                                 | websiteTitle                     |
