@@ -1,11 +1,10 @@
-Feature: [850131] View and Navigate Glossary Open Web 
+Feature: [850131] View and Navigate Glossary Open Web
 
 #intermittent issue:
 #848623 Bug [PLAU only] Glossary: Error when opening glossary article (Stream not readable)
 
-Background: 
-	Given ANZ user is not logged in
-	And PL+ ANZ user navigates to home page 
+Background:
+	Given PL+ ANZ user navigates to home page
 	And user navigates to a glossary page 
 	
 Scenario: Verify Tabbed Alphabets functionality 
