@@ -38,13 +38,9 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
 
   Scenario: User verifies topic page pagination
     Given PL+ user is logged in
-    And user opens "Practice areas" link
-    And the user navigates to practice area "Employment" filtered by "Employment tribunals" topic page
+    And user opens "Practice Areas" link
+    And the user navigates to practice area "Employment" filtered by "Employment contracts" topic page
     Then the user should see the page no "1"
     And the user varifies each page by navigates through each of the following pages
       | Pages |
       | 2     |
-      | 3     |
-      | 4     |
-      | 5     |
-      | 6     |

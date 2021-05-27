@@ -319,7 +319,7 @@ public class ResponsiveCommonSteps extends BaseStepDef {
     public void theUserVarifiesEachPageByNavigatesThroughEachOfFollowingPage(List<String> pageNos) throws Throwable {
         for (String pageNo : pageNos) {
             if (!pageNo.equalsIgnoreCase("Pages")) {
-                topicPage.getElementByLinkText(pageNo).click();
+                legalUpdatesResultsPage.specifiedPageNumberLink(pageNo).click();
                 assertTrue("Page No " + pageNo + " not displayed..!", topicPage.currentPageSelected().trim().contains(pageNo));
             }
         }
