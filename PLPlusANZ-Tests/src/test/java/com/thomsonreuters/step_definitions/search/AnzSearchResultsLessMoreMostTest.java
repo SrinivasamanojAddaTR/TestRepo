@@ -39,7 +39,7 @@ public class AnzSearchResultsLessMoreMostTest extends BaseStepDef {
                 assertTrue(structure + " is not displayed..!", searchResultsPage.jurisdictionsForFirstResult().isDisplayed());
             } else if (structure.equalsIgnoreCase("Status")) {
                 String statusText = searchResultsPage.statusForFirstResult().getText();
-                assertTrue(structure + " is not displayed..!", statusText.contains("Maintained") || statusText.contains("Published") || statusText.contains("Law stated as at"));
+                assertTrue(structure + " is not displayed..!", statusText.contains("Maintained") || statusText.contains("Published") || statusText.contains("Law stated as at") || statusText.contains("Law stated as of"));
             }
             if (option.equalsIgnoreCase("less")) {
                 assertFalse("In " + option + " abstact is displayed..!", searchResultsPage.firstResultAbstractText().isDisplayed());
