@@ -6,7 +6,7 @@ Feature: As a PLAU user,I want to view a breadcrumb trail with clickable links t
 
 
   Scenario: Verify user can view Breadcrumb trial for HomePage Search
-    When the user searches for term "law"
+    When the user searches for freetext term "law"
     And the user is able to verify that a page of search results is displayed
     Then the user verifies that the complete breadcrumb is "Home > Search Results"
 
@@ -23,7 +23,7 @@ Feature: As a PLAU user,I want to view a breadcrumb trail with clickable links t
     And the user opens 'Commercial' link
     And the user opens 'Topics' link
     And the user opens 'Franchising' link
-    When the user searches for term "law"
+    When the user searches for freetext term "law"
     Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results"
 
   Scenario: Verify user can view Breadcrumb trial for Page switching search
@@ -63,11 +63,11 @@ Feature: As a PLAU user,I want to view a breadcrumb trail with clickable links t
   Scenario: Verify user can view Breadcrumb trial for Breadcrumb click move
     When the user opens 'Practice Areas' link
     And the user opens 'Commercial' link
-    And the user searches for term "tax"
+    And the user searches for freetext term "tax"
     Then the user verifies that the complete breadcrumb is "Home > Commercial > Search Results"
     Then the user clicks on the 'Commercial' link in the breadcrumb
     And the user opens 'Franchising' link
-    When the user searches for term "tax"
+    When the user searches for freetext term "tax"
     Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results"
 
 
@@ -78,7 +78,7 @@ Feature: As a PLAU user,I want to view a breadcrumb trail with clickable links t
     And the user opens 'Building industry' link
     And the user can display the scoped search dropdown menu options
     And user selects the dropdown option "Company Law"
-    When the user searches for term "tax"
+    When the user searches for freetext term "tax"
     Then the user verifies that the complete breadcrumb is "Home > Company Law > Search Results"
 
 
@@ -86,7 +86,7 @@ Feature: As a PLAU user,I want to view a breadcrumb trail with clickable links t
     When the user opens 'Resources' link
     And the user opens 'Practice notes' link
     And the user opens 'Commercial' link
-    When the user searches for term "law"
+    When the user searches for freetext term "law"
     Then the user verifies that the complete breadcrumb is "Home > Practice notes > Commercial Practice notes > Search Results"
 
   Scenario: User verifies new breadcrumb trail after another free search run
