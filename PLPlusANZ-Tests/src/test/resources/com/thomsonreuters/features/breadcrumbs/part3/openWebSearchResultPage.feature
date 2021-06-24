@@ -6,7 +6,7 @@ Background:
  
 
  Scenario: Verify user can view Breadcrumb trial for HomePage Search
- When the user searches for term "law"
+ When the user searches for freetext term "law"
  And the user is able to verify that a page of search results is displayed 
  Then the user verifies that the complete breadcrumb is "Home > Search Results"
  
@@ -24,15 +24,15 @@ Background:
 	And the user opens 'Commercial' link
  	And the user opens 'Topics' link
 	And the user opens 'Franchising' link 
-	When the user searches for term "law"
+	When the user searches for freetext term "law"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
-	
+
 Scenario: Verify user can view Breadcrumb trial for Page switching search
 	When the user opens 'Practice Areas' link
 	And the user opens 'Commercial' link
 	And the user opens 'Topics' link
 	And the user opens 'Franchising' link 
-	When the user searches for term "law"
+	When the user searches for freetext term "law"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
 	And user clicks on Page "2" of the Topic page results list 
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results" 
@@ -74,7 +74,7 @@ Scenario:  Verify user can view Breadcrumb trial for Search in different areas
 	When the user searches for freetext term "tax"
 	Then the user verifies that the complete breadcrumb is "Home > Commercial > Franchising > Search Results"
 	
-	
+
 Scenario: Verify user can view Breadcrumb trial for Search on a topic page
 	When the user opens 'Practice Areas' link 
 	And the user opens 'Employment' link
@@ -82,15 +82,15 @@ Scenario: Verify user can view Breadcrumb trial for Search on a topic page
 	And the user opens 'Building industry' link 
 	And the user can display the scoped search dropdown menu options
 	And user selects the dropdown option "Company Law" 
-	When the user searches for term "tax"
+	When the user searches for freetext term "tax"
 	Then the user verifies that the complete breadcrumb is "Home > Company Law > Search Results" 
 	
-	
+
 Scenario: Verify user can view Breadcrumb trial Search on a document page
 	When the user opens 'Resources' link 
 	And the user opens 'Practice notes' link 
 	And the user opens 'Commercial' link 
-	When the user searches for term "law"
+	When the user searches for freetext term "law"
 	Then the user verifies that the complete breadcrumb is "Home > Practice notes > Commercial Practice notes > Search Results"
 	
 	
