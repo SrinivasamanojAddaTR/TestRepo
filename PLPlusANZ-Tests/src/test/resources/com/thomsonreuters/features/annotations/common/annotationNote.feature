@@ -15,7 +15,7 @@ Feature:[825696][825697] Annotation note: Highlight text, copy with or without r
     And user refreshes page
     Then verify that highlighted text with "pink" colour was deleted
 
-
+@archived
   Scenario: Checking that user can copy without reference
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |

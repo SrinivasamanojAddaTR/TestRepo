@@ -81,7 +81,7 @@ Feature: As a PLAU user,I want to view a breadcrumb trail with clickable links t
     When the user searches for freetext term "tax"
     Then the user verifies that the complete breadcrumb is "Home > Company Law > Search Results"
 
-
+  @archived
   Scenario: Verify user can view Breadcrumb trial Search on a document page
     When the user opens 'Resources' link
     And the user opens 'Practice notes' link
