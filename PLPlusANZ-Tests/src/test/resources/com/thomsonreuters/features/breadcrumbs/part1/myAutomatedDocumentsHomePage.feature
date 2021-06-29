@@ -24,7 +24,7 @@ Feature: To view Contract Express Home Page
     Then the user is taken to "https://au-practicallaw-test.contractexpress.com/IdServ/core/TermsOfService" resource
 
 
-  @gold
+  @archived
   Scenario: Verify clicking on Project link should traverse to My Projects Page
     Given ANZ user is logged in with following details
       | userName | ANZtestuser1 |
@@ -34,7 +34,7 @@ Feature: To view Contract Express Home Page
     Then user is taken to "My Projects" Page
 
 
-  @gold
+  @archived
   Scenario: Verify clicking on Address book  should traverse to Address book page
     Given ANZ user is logged in with following details
       | userName | ANZtestuser1 |
