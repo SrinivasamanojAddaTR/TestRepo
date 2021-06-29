@@ -2,6 +2,7 @@ Feature: [821556] View Folders Page - Deliver Documents within a folder
 
   Background:
     Given ANZ user is logged in
+    When API cleans all folders and history and user relogs in
 
   Scenario: Clean folders
     Given API cleans all folders and history
