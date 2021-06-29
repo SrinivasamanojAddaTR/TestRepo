@@ -1,6 +1,6 @@
 Feature: To view Contract Express Home Page
 
-  @gold
+  @gold @qed
   Scenario: Verify Contract Express Home page
     Given ANZ user is logged in with following details
       | userName | ANZtestuser1 |
@@ -13,7 +13,7 @@ Feature: To view Contract Express Home Page
       | Address Book          |
     And the help icon should be displayed
     And the user dropdown should be displayed
-
+@qed
   Scenario: Verify Contract Express Home page Footer
 
     Given ANZ user is logged in with following details
@@ -24,7 +24,7 @@ Feature: To view Contract Express Home Page
     Then the user is taken to "https://au-practicallaw-test.contractexpress.com/IdServ/core/TermsOfService" resource
 
 
-  @archived
+  @gold @qed
   Scenario: Verify clicking on Project link should traverse to My Projects Page
     Given ANZ user is logged in with following details
       | userName | ANZtestuser1 |
@@ -34,7 +34,7 @@ Feature: To view Contract Express Home Page
     Then user is taken to "My Projects" Page
 
 
-  @archived
+  @gold @qed
   Scenario: Verify clicking on Address book  should traverse to Address book page
     Given ANZ user is logged in with following details
       | userName | ANZtestuser1 |
