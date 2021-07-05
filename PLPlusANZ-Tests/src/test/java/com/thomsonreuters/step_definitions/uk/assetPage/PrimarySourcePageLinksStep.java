@@ -3,13 +3,18 @@ package com.thomsonreuters.step_definitions.uk.assetPage;
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.KeyphraseState;
 import com.thomsonreuters.pageobjects.pages.footer.FeedbackForm;
+import com.thomsonreuters.pageobjects.pages.footer.FeedbackFormField;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.AssetDocumentPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.PrimarySourceDocumentPage;
+import com.thomsonreuters.pageobjects.utils.form.FormUtils;
 import com.thomsonreuters.pageobjects.utils.plPlusResearchDocDisplay.AssetPageUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang3.RandomStringUtils;
+
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
@@ -21,6 +26,8 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 	AssetPageUtils assetPageUtils = new AssetPageUtils();
 	AssetDocumentPage assetDocumentPage = new AssetDocumentPage();
 	FeedbackForm feedbackForm = new FeedbackForm();
+	private FormUtils formUtils = new FormUtils();
+	private String rememberedFeedback;
 
 	private String hrefAtribute;
 
@@ -196,4 +203,9 @@ public class PrimarySourcePageLinksStep extends BaseStepDef {
 				assetPageUtils.isTheNumberOfOpenedTubsEqueals(Integer.parseInt(numberOfOpenedTubs)));
 	}
 
+	@When("^the user updates the following fields on Feedback form and remembers text from the \"(.*?)\" field$")
+	public void updateFieldsOnFeedbackForm(String fieldName, Map<String, String> dataTable) {
+		dataTable.forEach((field, value) -> formUtils.editValue(FeedbackFormField.getByFieldDisplayName(field), value));
+		rememberedFeedback = dataTable.get(fieldName);
+	}
 }

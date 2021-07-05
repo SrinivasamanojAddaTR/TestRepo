@@ -16,6 +16,10 @@ Feature: [857832] Feedback form changes
     And user clicks on "Feedback" link
     Then the feedback form with title "Practical Law Feedback" is displayed
     Then the user verify character limit message is 'Maximum length is 3000 characters'
+    When the user updates the following fields on Feedback form and remembers text from the "General comments" field
+      | General comments | This is my Test comment |
+    And the user clicks on Submit button
+    Then the feedback is submitted successfully
 
 
 
