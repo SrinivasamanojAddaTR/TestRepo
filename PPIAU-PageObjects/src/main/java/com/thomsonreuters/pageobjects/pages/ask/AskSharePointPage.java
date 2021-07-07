@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.pages.ask;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
+import com.thomsonreuters.utils.TimeoutUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -12,14 +13,13 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
 import java.net.URLEncoder;
 import java.util.List;
 
 
 public class AskSharePointPage extends AbstractPage {
 
-    public void navigateToSharePointSite() {
+    public void navigateToSharePointSite() throws UnsupportedEncodingException {
         try {
             String userName = URLEncoder.encode(System.getProperty("winusername"), "UTF-8");
             String password = URLEncoder.encode(System.getProperty("winpassword"), "UTF-8");
@@ -28,7 +28,7 @@ public class AskSharePointPage extends AbstractPage {
             waitForPageToLoad();
         } catch (UnsupportedEncodingException e) {
             LOG.info("Error occurred at SharePoint URL building. Check the -Dwinusername and -Dwinpassword variables. ", e);
-            throw new RuntimeException("Error occurred at SharePoint URL building");
+            throw new UnsupportedEncodingException("Error occurred at SharePoint URL building");
         }
     }
 
@@ -125,12 +125,12 @@ public class AskSharePointPage extends AbstractPage {
     }
 
 
-    public void pressKeyTabsAndPressEnterThroughWebdriver(int noOfTabs, int delayInMsecs) throws Throwable {
+    public void pressKeyTabsAndPressEnterThroughWebdriver(int noOfTabs, int delayInMsecs) {
         for (int i = 0; i < noOfTabs; i++) {
-            Thread.sleep(delayInMsecs);
+            TimeoutUtils.sleepInSeconds(delayInMsecs/1000);
             sendTabKeyThroughWebdriver();
         }
-        Thread.sleep(2000);
+        TimeoutUtils.sleepInSeconds(2);
         sendKeyEventThroughWebdriver(Keys.ENTER);
     }
 
@@ -163,14 +163,13 @@ public class AskSharePointPage extends AbstractPage {
             try {
                 login();
             } catch (Exception ex) {
-                System.out.println("Error in Login Thread: " + ex.getMessage());
+                LOG.error("Error in Login Thread: {}",ex.getMessage());
             }
         }
 
-        public void login() throws Exception {
+        public void login() throws AWTException {
 
-            //wait - increase this wait period if required
-            Thread.sleep(10000);
+            TimeoutUtils.sleepInSeconds(10);
 
             //create robot for keyboard operations
             Robot rb = new Robot();
@@ -185,7 +184,7 @@ public class AskSharePointPage extends AbstractPage {
 
             rb.keyPress(KeyEvent.VK_TAB);
             rb.keyRelease(KeyEvent.VK_TAB);
-            Thread.sleep(2000);
+            TimeoutUtils.sleepInSeconds(2);
 
             //Enter password by ctrl-v
             StringSelection pwd = new StringSelection(password);
@@ -197,9 +196,7 @@ public class AskSharePointPage extends AbstractPage {
 
             rb.keyPress(KeyEvent.VK_ENTER);
             rb.keyRelease(KeyEvent.VK_ENTER);
-
-            //wait
-            Thread.sleep(5000);
+            TimeoutUtils.sleepInSeconds(5);
         }
     }
 
