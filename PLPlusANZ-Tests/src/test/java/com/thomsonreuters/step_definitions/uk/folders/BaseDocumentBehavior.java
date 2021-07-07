@@ -178,7 +178,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
         researchOrganizerPage.deleteButton().click();
         researchOrganizerPage.waitForPageToLoad();
         String message = searchResultsPage.folderingPopupMessage().getText();
-        String expectedMessage = singleDocument.getTitle() + " moved to Trash. Undo";
+        String expectedMessage = singleDocument.getFullTitle() + " moved to Trash. Undo";
         assertEquals("Message is incorrect", expectedMessage, message);
         researchOrganizerPage.waitForPageToLoad();
     }
