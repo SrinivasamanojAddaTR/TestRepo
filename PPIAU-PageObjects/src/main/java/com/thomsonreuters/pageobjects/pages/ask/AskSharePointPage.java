@@ -183,7 +183,6 @@ public class AskSharePointPage extends AbstractPage {
             rb.keyRelease(KeyEvent.VK_V);
             rb.keyRelease(KeyEvent.VK_CONTROL);
 
-            //tab to password entry field
             rb.keyPress(KeyEvent.VK_TAB);
             rb.keyRelease(KeyEvent.VK_TAB);
             Thread.sleep(2000);
@@ -196,7 +195,6 @@ public class AskSharePointPage extends AbstractPage {
             rb.keyRelease(KeyEvent.VK_V);
             rb.keyRelease(KeyEvent.VK_CONTROL);
 
-            //press enter
             rb.keyPress(KeyEvent.VK_ENTER);
             rb.keyRelease(KeyEvent.VK_ENTER);
 
