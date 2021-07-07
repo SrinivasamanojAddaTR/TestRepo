@@ -22,6 +22,11 @@ public class NavigationCobalt  {
     public static final By WLN_HOME_PAGE_CSS_SELECTOR = By.id("coid_website_logo");
     private static final String PLUK_FULL_BASE_URL = System.getProperty("plukFullBaseUrl", "");
     private static final String PLAU_FULL_BASE_URL = System.getProperty("plauFullBaseUrl", "");
+    private static final String PROD_A="prodA";
+    private static final String PROD="prod";
+    private static final String QED_A="qedA";
+    private static final String QED_B="qedB";
+    private static final String PROD_B="prodB";
 
     String baseUrl = System.getProperty("base.url");
     String baseLegacyUrl = System.getProperty("base.legacy.url");
@@ -99,19 +104,19 @@ public class NavigationCobalt  {
             return;
         }
         switch (baseUrl) {
-            case "prod":
+            case PROD:
                 homePage.navigate(hosts.getPlcauProductBase() + hosts.getPlcukDomain()+ sitePage);
                 break;
-            case "prodA":
+            case PROD_A:
                 homePage.navigate(hosts.getAuProdA() + hosts.getPlcukProdDomain()+ sitePage);
                 break;
-            case "prodB":
+            case PROD_B:
                 homePage.navigate(hosts.getAuProdB() + hosts.getPlcukProdDomain()+ sitePage);
                 break;
-            case "qedA":
+            case QED_A:
                 homePage.navigate(hosts.getAuQedA() + baseUrl + hosts.getPlcukDomain()+ sitePage);
                 break;
-            case "qedB":
+            case QED_B:
                 homePage.navigate(hosts.getAuQedB() + baseUrl + hosts.getPlcukDomain()+ sitePage);
                 break;
             default:
@@ -138,19 +143,19 @@ public class NavigationCobalt  {
             return;
         }
         switch (baseUrl) {
-            case "prod":
+            case PROD:
                 homePage.navigate(hosts.getPlcukProductBase() + hosts.getPlcukProdDomain() + page);
                 break;
-            case "prodA":
+            case PROD_A:
                 homePage.navigate(hosts.getUkProdA() + hosts.getPlcukProdDomain() + page);
                 break;
-            case "prodB":
+            case PROD_B:
                 homePage.navigate(hosts.getUkProdB() + hosts.getPlcukProdDomain() + page);
                 break;
-            case "qedA":
+            case QED_A:
                 homePage.navigate(hosts.getUkQedA() + baseUrl + hosts.getPlcukDomain() + page);
                 break;
-            case "qedB":
+            case QED_B:
                 homePage.navigate(hosts.getUkQedB() + baseUrl + hosts.getPlcukDomain() + page);
                 break;
             default:
@@ -165,19 +170,19 @@ public class NavigationCobalt  {
             return;
         }
         switch (baseUrl) {
-            case "prod":
+            case PROD:
                 homePage.navigate(hosts.getPlcauProductBase() + hosts.getPlcukDomain());
                 break;
-            case "prodA":
+            case PROD_A:
                 homePage.navigate(hosts.getAuProdA() + hosts.getPlcukProdDomain());
                 break;
-            case "prodB":
+            case PROD_B:
                 homePage.navigate(hosts.getAuProdB() + hosts.getPlcukProdDomain());
                 break;
-            case "qedA":
+            case QED_A:
                 homePage.navigate(hosts.getAuQedA() + baseUrl + hosts.getPlcukDomain());
                 break;
-            case "qedB":
+            case QED_B:
                 homePage.navigate(hosts.getAuQedB() + baseUrl + hosts.getPlcukDomain());
                 break;
             default:
@@ -201,30 +206,8 @@ public class NavigationCobalt  {
     }
 
 	public void navigateToPLCANZSpecificURL(String sitePage) {
-        if (!PLAU_FULL_BASE_URL.trim().isEmpty()) {
-            driver.get(PLAU_FULL_BASE_URL+ sitePage);
-            return;
-        }
-        switch (baseUrl) {
-            case "prod":
-                homePage.navigate(hosts.getPlcauProductBase() + hosts.getPlcukDomain()+ sitePage);
-                break;
-            case "prodA":
-                homePage.navigate(hosts.getAuProdA() + hosts.getPlcukProdDomain()+ sitePage);
-                break;
-            case "prodB":
-                homePage.navigate(hosts.getAuProdB() + hosts.getPlcukProdDomain()+ sitePage);
-                break;
-            case "qedA":
-                homePage.navigate(hosts.getAuQedA() + baseUrl + hosts.getPlcukDomain()+ sitePage);
-                break;
-            case "qedB":
-                homePage.navigate(hosts.getAuQedB() + baseUrl + hosts.getPlcukDomain()+ sitePage);
-                break;
-            default:
-                homePage.navigate(hosts.getPlcauProductBase() + baseUrl + hosts.getPlcukDomain() + sitePage);
-                break;
-        }
+        navigateToANZSpecificResourcePage(sitePage);
+
 	}
 
     public void navigateToPLCUKPlusWithRouting(String routingString) {
