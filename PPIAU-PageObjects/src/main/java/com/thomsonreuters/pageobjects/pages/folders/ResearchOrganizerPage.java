@@ -24,6 +24,8 @@ public class ResearchOrganizerPage extends AbstractPage {
     private static final String DOCUMENT_WITH_GUID_PATTERN = "//*[contains(@href,'%s')]";
     private static final String CONTENT_TYPE_PATH_PATTERN = "//h4[contains(., 'Content')]/following-sibling::ul/li[contains(., \"%1$s\")]/input | //*[(normalize-space(text())=\"%1$s\")]/../descendant-or-self::input[@type='checkbox']";
     private static final String FACET_CLIENT_ID = "//span[contains(text(), 'Client ID')]/../..";
+    private static final String FOLDER_ITEM_PATTERN = "//*[@id='cobalt_foldering_ro_item_name_%s']";
+
 
     public WebElement foldersTab() {
         return waitForExpectedElement(By.id("co_researchOrganizer_myFolders"));
@@ -42,30 +44,31 @@ public class ResearchOrganizerPage extends AbstractPage {
     }
 
     public WebElement optionsButton() {
-        return waitForExpectedElement(By.xpath("(//*[@id='co_ro_folder_options']//a)[1]"),15);
+        return waitForExpectedElement(By.xpath("(//*[@id='co_ro_folder_options']//a)[1]"), 15);
     }
 
     public WebElement getFacetType() {
         return waitForExpectedElement(By.xpath(FACET_TYPE));
     }
+
     public WebElement getFacetContentType() {
         return waitForExpectedElement(By.xpath(FACET_CONTENT_TYPE));
     }
-    
+
     public WebElement optionsCopy() {
         return waitForExpectedElement(By.id("co_ro_fo_copy"));
     }
-    
+
     public WebElement optionsExport() {
         return waitForExpectedElement(By.id("co_ro_fo_export"));
     }
-    
+
     public WebElement optionsMove() {
         return waitForExpectedElement(By.id("co_ro_fo_move"));
     }
 
     public WebElement deleteOptionButton() {
-        return waitForExpectedElement(By.id("co_ro_fo_delete"),15);
+        return waitForExpectedElement(By.id("co_ro_fo_delete"), 15);
     }
 
     public WebElement renameOptionButton() {
@@ -77,63 +80,56 @@ public class ResearchOrganizerPage extends AbstractPage {
     }
 
     public WebElement getLinkToDocumentAtRowPosition(String position) {
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_name_" + String.valueOf(Integer.parseInt(position) - 1) + "']"),15);
+        return waitForExpectedElement(By.xpath(String.format(FOLDER_ITEM_PATTERN, (Integer.parseInt(position) - 1))), 15);
     }
-    
+
     public WebElement getEventTypeAtRowPosition(String position) {
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_event_" + String.valueOf(Integer.parseInt(position) - 1) + "']"),15);
+        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_event_" + (Integer.parseInt(position) - 1) + "']"), 15);
     }
 
     public WebElement getContentTypeAtRowPosition(String position) {
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_contentType_" + String.valueOf(Integer.parseInt(position) - 1) + "']"),15);
+        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_contentType_" + (Integer.parseInt(position) - 1) + "']"), 15);
     }
 
     public WebElement getResourceTypeAtRowPosition(String position) {
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_name_" + String.valueOf(Integer.parseInt(position) - 1)
-                + "']/ancestor::td//div[@class='cobalt_ro_documentDescription']/span[2]"),10);
+        return waitForExpectedElement(By.xpath(String.format(FOLDER_ITEM_PATTERN, (Integer.parseInt(position) - 1)) + "/ancestor::td//div[@class='cobalt_ro_documentDescription']/span[2]"), 10);
     }
-    
+
     public WebElement getCitationAtRowPosition(String position) {
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_name_" + String.valueOf(Integer.parseInt(position) - 1)
-                + "']/ancestor::td//div[@class='cobalt_ro_documentDescription']/span"),10);
+        return waitForExpectedElement(By.xpath(String.format(FOLDER_ITEM_PATTERN, (Integer.parseInt(position) - 1)) + "/ancestor::td//div[@class='cobalt_ro_documentDescription']/span"), 10);
     }
-    
+
     public WebElement getDescriptionAtRowPosition(String position) {
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_name_" + String.valueOf(Integer.parseInt(position) - 1)
-                + "']/ancestor::td//div[@class='cobalt_ro_documentDescription']"),10);
+        return waitForExpectedElement(By.xpath(String.format(FOLDER_ITEM_PATTERN, (Integer.parseInt(position) - 1)) + "/ancestor::td//div[@class='cobalt_ro_documentDescription']"), 10);
     }
 
     public WebElement getDateAtRowPosition(String position) {
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_eventDate_" + String.valueOf(Integer.parseInt(position) - 1) + "']"));
+        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_eventDate_" + (Integer.parseInt(position) - 1) + "']"));
     }
 
     public WebElement getClientIdAtRowPosition(String position) {
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_clientId_" + String.valueOf(Integer.parseInt(position) - 1) + "']"));
+        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_clientId_" + (Integer.parseInt(position) - 1) + "']"));
     }
 
     public WebElement rootFolderLinkLeftFrame() {
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_ro_myFolders_folderTree']//a[contains(@class,'tree_selectable') and contains(.,'s Research')]"),15);
+        return waitForExpectedElement(By.xpath("//*[@id='cobalt_ro_myFolders_folderTree']//a[contains(@class,'tree_selectable') and contains(.,'s Research')]"), 15);
     }
 
     public WebElement folderLinkLeftFrame(String folderName) {
-        return waitForExpectedElement(By.xpath("//*[@id='co_researchFolderTree']//*[text()='" + folderName + "']"),30);
+        return waitForExpectedElement(By.xpath("//*[@id='co_researchFolderTree']//*[text()='" + folderName + "']"), 30);
     }
 
-    public WebElement linkToDocumentInTrash(String title) {
-        return findElement(By.xpath("//*[contains(text(),\"" + title + "\")]"));
+    public boolean isLinkToDocumentInTrashDisplayed(String title) {
+        return isElementDisplayed(By.xpath("//*[@class='co_keyCite_treatment' and contains(text(),\"" + title + "\")]"));
     }
-    
-	public boolean isLinkToDocumentInTrashDisplayed(String title) {
-		return isElementDisplayed(By.xpath("//*[@class='co_keyCite_treatment' and contains(text(),\"" + title + "\")]"));
-	}
 
     public WebElement linkToDocument(String documentGuid, String title) {
         return findElement(By.xpath("//*[contains(@href, '" + documentGuid + "') and contains(text(),\"" + title + "\")]"));
     }
-    
-	public boolean isLinkToDocumentDisplayed(String documentGuid, String title) {
-		return isElementDisplayed(By.xpath("//*[contains(@href, '" + documentGuid + "') and contains(text(),\"" + title + "\")]"));
-	}
+
+    public boolean isLinkToDocumentDisplayed(String documentGuid, String title) {
+        return isElementDisplayed(By.xpath("//*[contains(@href, '" + documentGuid + "') and contains(text(),\"" + title + "\")]"));
+    }
 
     public WebElement linkToDocumentContentType(String documentGuid, String contentType) {
         String text = "'" + contentType + "'";
@@ -143,14 +139,14 @@ public class ResearchOrganizerPage extends AbstractPage {
         }
         return findElement(By.xpath(String.format(LINK_TO_DOCUMENT_CONTENT_TYPE, documentGuid, text)));
     }
-    
+
     public boolean isLinktoDocumentContentTypePresent(String documentGuid, String contentType) {
-    	String text = "'" + contentType + "'";
+        String text = "'" + contentType + "'";
         if (contentType.contains("'")) {
             contentType = "\"" + contentType + "\"";
             text = contentType;
         }
-    	return isExists(By.xpath(String.format(LINK_TO_DOCUMENT_CONTENT_TYPE, documentGuid, text)));
+        return isExists(By.xpath(String.format(LINK_TO_DOCUMENT_CONTENT_TYPE, documentGuid, text)));
     }
 
     public boolean isLinkToDocumentInRecentDropdownPresent(String documentGuid, String title) {
@@ -191,49 +187,48 @@ public class ResearchOrganizerPage extends AbstractPage {
     }
 
     public String getContentType(String documentGuid) {
-        return waitForExpectedElement(By.xpath("//*[contains(@href,'" + documentGuid + "')]/ancestor::td/following-sibling::td[1]/span")).getText();
+        return waitForExpectedElement(By.xpath(String.format(DOCUMENT_WITH_GUID_PATTERN, documentGuid) + "/ancestor::td/following-sibling::td[1]/span")).getText();
     }
 
     public String getCitation(String documentGuid) {
-        return waitForExpectedElement(By.xpath("//*[contains(@href,'" + documentGuid + "')]/ancestor::td//div[@class='cobalt_ro_documentDescription']/span")).getText();
-    } 
-    
+        return waitForExpectedElement(By.xpath(String.format(DOCUMENT_WITH_GUID_PATTERN, documentGuid) + "/ancestor::td//div[@class='cobalt_ro_documentDescription']/span")).getText();
+    }
+
     public String getDescription(String documentGuid) {
-        return waitForExpectedElement(By.xpath("//*[contains(@href,'" + documentGuid + "')]/ancestor::td//div[@class='cobalt_ro_documentDescription']")).getText();
+        return waitForExpectedElement(By.xpath(String.format(DOCUMENT_WITH_GUID_PATTERN, documentGuid) + "/ancestor::td//div[@class='cobalt_ro_documentDescription']")).getText();
     }
-    
-	public boolean isWMMetadataPresent(String documentGuid, String dealType, String dealValue, String date) {
-		return isElementDisplayed(By.xpath("//*[contains(@href,'" + documentGuid
-				+ "')]/ancestor::td//div[@class='cobalt_ro_documentDescription' and contains(.,\"" + dealType
-				+ "\") and contains(.,\"" + dealValue + "\") and contains(.,\"" + date + "\")]"));
-	}
-	
-    
+
+    public boolean isWMMetadataPresent(String documentGuid, String dealType, String dealValue, String date) {
+        return isElementDisplayed(By.xpath(String.format(DOCUMENT_WITH_GUID_PATTERN, documentGuid) + "/ancestor::td//div[@class='cobalt_ro_documentDescription' and contains(.,\"" + dealType
+                + "\") and contains(.,\"" + dealValue + "\") and contains(.,\"" + date + "\")]"));
+    }
+
+
     public String getTitle(String documentGuid) {
-        return waitForExpectedElement(By.xpath("//*[contains(@href,'" + documentGuid + "')]")).getText();
+        return waitForExpectedElement(By.xpath(String.format(DOCUMENT_WITH_GUID_PATTERN, documentGuid))).getText();
     }
-    
+
     public WebElement descriptionWidgetAddButton(String title) {
-		return findElement(By.xpath("//a[contains(@class, 'co_icon_addDesc') and contains(text(),'" + title + "')]"));
-	}
-    
-    public WebElement descriptionWidgetInput() {
-		return waitForElementVisible(By.xpath("//div[contains(@class, 'co_item_description_edit co_showState')]/input[@id='descriptionWidget_NaN']"));
-	}
-    
-    public WebElement descriptionWidget() {
-    	return waitForElementVisible(By.xpath("//div[contains(@class, 'co_item_description_edit co_showState')]"));
+        return findElement(By.xpath("//a[contains(@class, 'co_icon_addDesc') and contains(text(),'" + title + "')]"));
     }
-    
-    
+
+    public WebElement descriptionWidgetInput() {
+        return waitForElementVisible(By.xpath("//div[contains(@class, 'co_item_description_edit co_showState')]/input[@id='descriptionWidget_NaN']"));
+    }
+
+    public WebElement descriptionWidget() {
+        return waitForElementVisible(By.xpath("//div[contains(@class, 'co_item_description_edit co_showState')]"));
+    }
+
+
     public WebElement descriptionWidgetSaveButton() {
-		return waitForElementVisible(By.xpath("//a[@class='co_document_previouslyviewed' and text()='Save']"));
-	}
-    
+        return waitForElementVisible(By.xpath("//a[@class='co_document_previouslyviewed' and text()='Save']"));
+    }
+
     public String getCustomDescriptionTextValue() {
         return waitForExpectedElement(By.xpath("//div[contains(@class, 'co_item_description_desc co_showState')]")).getText();
     }
-    
+
     public String getContentTypeInTrash(String documentName) {
         return waitForExpectedElement(By.xpath("//*[contains(text(),\"" + documentName + "\")]/ancestor::tr/*[@class='co_detailsTable_type']")).getText();
     }
@@ -251,14 +246,14 @@ public class ResearchOrganizerPage extends AbstractPage {
     }
 
     public boolean isLinkToDocumenttPresent() {
-    	return isExists(By.xpath("//*[contains(@href, '/Document/') and @name]"));
+        return isExists(By.xpath("//*[contains(@href, '/Document/') and @name]"));
     }
 
     public boolean checkIfLinksVisible(List<String> ffhLinks) {
         int result = 0;
         for (String ffhLink : ffhLinks) {
             if (getElementByLinkText(ffhLink) != null) {
-                LOG.info(ffhLink + " link is visvible for user");
+                LOG.info(ffhLink, "{} link is visvible for user");
                 result++;
             }
         }
@@ -291,30 +286,29 @@ public class ResearchOrganizerPage extends AbstractPage {
             LOG.info("context", e);
             return;
         }
-        //select.click();
         new CommonMethods().clickElementUsingJS(select);
     }
-    
-	public WebElement applyFilters1() {
-		return waitForExpectedElement(By.xpath("//*[@id='co_multifacet_selector_1']/*[contains(@class,'co_multifacet_apply')]"));
-	}
 
-	public WebElement cancelFilters1() {
-		return waitForExpectedElement(CANCCEL_FILTERS_1_XPATH);
-	}
+    public WebElement applyFilters1() {
+        return waitForExpectedElement(By.xpath("//*[@id='co_multifacet_selector_1']/*[contains(@class,'co_multifacet_apply')]"));
+    }
 
-	public boolean isCancelFilters1Displayed() {
-		return isElementDisplayed(CANCCEL_FILTERS_1_XPATH);
-	}
+    public WebElement cancelFilters1() {
+        return waitForExpectedElement(CANCCEL_FILTERS_1_XPATH);
+    }
 
-	public WebElement facetedViewSelectType(String facetName) {
+    public boolean isCancelFilters1Displayed() {
+        return isElementDisplayed(CANCCEL_FILTERS_1_XPATH);
+    }
+
+    public WebElement facetedViewSelectType(String facetName) {
         return waitForExpectedElement(By.xpath(String.format(FACET_PATH_PATTERN, facetName)));
-	}
+    }
 
-	public WebElement facetedViewSelectClientID(String clientID) {
-		return waitForExpectedElement(By.xpath("//*[@id='facet_div_Client_IDs']//*[text()='" + clientID + "']/../descendant-or-self::input[@type='checkbox']"));
-	}
-	
+    public WebElement facetedViewSelectClientID(String clientID) {
+        return waitForExpectedElement(By.xpath("//*[@id='facet_div_Client_IDs']//*[text()='" + clientID + "']/../descendant-or-self::input[@type='checkbox']"));
+    }
+
     public WebElement facetedViewSelectContentType(String contentType) {
         return waitForExpectedElement(By.xpath(String.format(CONTENT_TYPE_PATH_PATTERN, contentType)));
     }
@@ -322,24 +316,24 @@ public class ResearchOrganizerPage extends AbstractPage {
     public WebElement folderInLeftFrame(String folderName) {
         return waitForExpectedElement(By.xpath("//*[@id='co_researchOrganizerNavigationContainer']//a[text()='" + folderName + "']"));
     }
-    
-	public boolean isFolderPresentInLeftFrame(String folderName, String parentFolder) {
-		return isExists(By.xpath(parentFolder.equals("root")
-				? "(//*[@id='co_researchOrganizerNavigationContainer']//*[text()='" + folderName
-						+ "']//ancestor::li[2]//*[text()=.])[1]"
-				: "//*[@id='co_researchOrganizerNavigationContainer']//*[text()='" + folderName
-						+ "']//ancestor::li[2]//*[text()='" + parentFolder + "']"));
-	}
-    
+
+    public boolean isFolderPresentInLeftFrame(String folderName, String parentFolder) {
+        return isExists(By.xpath(parentFolder.equals("root")
+                ? "(//*[@id='co_researchOrganizerNavigationContainer']//*[text()='" + folderName
+                + "']//ancestor::li[2]//*[text()=.])[1]"
+                : "//*[@id='co_researchOrganizerNavigationContainer']//*[text()='" + folderName
+                + "']//ancestor::li[2]//*[text()='" + parentFolder + "']"));
+    }
+
     //leave as is due complicated logic for receiving final xpath
     public boolean isFolderAbsentOnSameLevelAsSpecifiedFolder(String folderName, String specifiedFolder) {
         WebElement folder = null;
         String treeDeepthOfSpecifiedFolder;
         try {
             if (specifiedFolder.equals("root")) {
-            	treeDeepthOfSpecifiedFolder = rootFolderLinkLeftFrame().findElement(By.xpath("/ancestor::li")).getAttribute("class");
+                treeDeepthOfSpecifiedFolder = rootFolderLinkLeftFrame().findElement(By.xpath("/ancestor::li")).getAttribute("class");
             } else {
-            	treeDeepthOfSpecifiedFolder = findElement(By.xpath("//a[(contains(@class,'co_tree_name')) and contains(text(),'" + specifiedFolder + "')]/ancestor::li[@class!='co_tree_depth_0']")).getAttribute("class");
+                treeDeepthOfSpecifiedFolder = findElement(By.xpath("//a[(contains(@class,'co_tree_name')) and contains(text(),'" + specifiedFolder + "')]/ancestor::li[@class!='co_tree_depth_0']")).getAttribute("class");
             }
             folder = findElement(By.xpath("//li[@class='" + treeDeepthOfSpecifiedFolder + "']/div//a[text()='" + folderName + "']"));
             folder.isDisplayed();
@@ -349,79 +343,77 @@ public class ResearchOrganizerPage extends AbstractPage {
         }
         return true;
     }
-    
+
     public WebElement getHistoryEmpty() {
         return waitForExpectedElement(By.xpath("//*[@id='co_researchOrg_detailsContainer']//td[@class='empty' and text()='No records found.']"));
     }
 
-    
+
     public void checkFacetingIsAbsent() {
-    	waitForElementToDissappear(By.xpath("//*[@id='facet_div_Content Types' or @id='facet_div_Client_IDs']"));
+        waitForElementToDissappear(By.xpath("//*[@id='facet_div_Content Types' or @id='facet_div_Client_IDs']"));
     }
 
     public boolean hasDocumentFolderedSign(String documentId) {
-    	return isElementDisplayed(By.xpath("//*[contains(@href,'/Document/" + documentId + "')]/preceding::li[@class='co_document_icon_foldered']"));
+        return isElementDisplayed(By.xpath("//*[contains(@href,'/Document/" + documentId + "')]/preceding::li[@class='co_document_icon_foldered']"));
     }
 
-    
+
     public boolean hasDocumentPreviouslyViewedSign(String documentId) {
-    	return isElementDisplayed(By.xpath("//*[contains(@href,'/Document/" + documentId + "')]/preceding::li[@class='co_document_icon_previouslyviewed']"));
+        return isElementDisplayed(By.xpath("//*[contains(@href,'/Document/" + documentId + "')]/preceding::li[@class='co_document_icon_previouslyviewed']"));
     }
 
-	public WebElement shareFolder(String folderName) {
-		return waitForExpectedElement(By.xpath("//*[@class='co_shared_icon']"));
-	}
-	
-	public WebElement expandSharedFolder(String folderName) {
-		return findElement(By.xpath("//*[@id='cobalt_ro_sharedFolders_folderTree']//a[contains(@class,'co_tree_expand') and text()='Expand " + folderName + "']"));
-	}
+    public WebElement shareFolder(String folderName) {
+        LOG.info("Sharing folder {}", folderName);
+        return waitForExpectedElement(By.xpath("//*[@class='co_shared_icon']"));
+    }
 
-	public void checkFolderIsNowSharedMessage(String folderName) {
-		waitForElementVisible(By.xpath("//*[@id='co_researchOrganizerNotification' and text()=\"'" + folderName + "' is now shared.\"]"));
-	}
-	
+    public WebElement expandSharedFolder(String folderName) {
+        return findElement(By.xpath("//*[@id='cobalt_ro_sharedFolders_folderTree']//a[contains(@class,'co_tree_expand') and text()='Expand " + folderName + "']"));
+    }
+
+    public void checkFolderIsNowSharedMessage(String folderName) {
+        waitForElementVisible(By.xpath("//*[@id='co_researchOrganizerNotification' and text()=\"'" + folderName + "' is now shared.\"]"));
+    }
+
     public WebElement folderIconInLeftFrame(String folderName) {
-        return waitForExpectedElement(By.xpath("//*[@id='co_researchFolderTree']//*[text()='" + folderName + "']//ancestor::div[contains(@class,'co_listItem')]"),30);
+        return waitForExpectedElement(By.xpath("//*[@id='co_researchFolderTree']//*[text()='" + folderName + "']//ancestor::div[contains(@class,'co_listItem')]"), 30);
     }
-	   
-	public boolean isMetaDataPresentBelowTheDocumentTitleInFolder(String documentGuid, String metadata) {
-		return isExists(By.xpath("//*[contains(@href,'" + documentGuid
-				+ "')]/ancestor::td//div[@class='cobalt_ro_documentDescription']/span[text()='" + metadata + "']"));
-	}
 
-	public boolean isMetaDataPresentBelowTheDocumentTitleOnHistoryPage(String position, String metadata) {
-		return isExists(By.xpath("//*[@id='cobalt_foldering_ro_item_name_"
-				+ String.valueOf(Integer.parseInt(position) - 1)
-				+ "']/ancestor::td//div[@class='cobalt_ro_documentDescription']/span[text()='" + metadata + "']"));
-	}
-	
-	public boolean isFolderPresentInSharedFolders(String folderName) {
-		return isElementDisplayed(By.xpath("//*[@id='cobalt_ro_sharedFolders_folderTree']//*[text()='" + folderName + "']"));
-	}
-	
-	public boolean isUserAbleToExpandSharedFolder(String folderName) {
-		return isElementDisplayed(By.xpath("//*[@id='cobalt_ro_sharedFolders_folderTree']//a[contains(@class,'co_tree_expand') and text()='Expand " + folderName + "']"));
-	}
-	
-	
-	public void checkFolderIsNoLongerSharedMessage(String folderName) {
-		waitForElementVisible(By.xpath("//*[@class='co_infoBox_message' and text()=\"'"
-					+ folderName + "' is no longer shared.\"]"));
-	}
+    public boolean isMetaDataPresentBelowTheDocumentTitleInFolder(String documentGuid, String metadata) {
+        return isExists(By.xpath("//*[contains(@href,'" + documentGuid
+                + "')]/ancestor::td//div[@class='cobalt_ro_documentDescription']/span[text()='" + metadata + "']"));
+    }
 
-	public WebElement sharePopup(String folderName) {
-		return waitForExpectedElement(By.id("co_folderingShareFolderCommit"));
-	}
+    public boolean isMetaDataPresentBelowTheDocumentTitleOnHistoryPage(String position, String metadata) {
+        return isExists(By.xpath("//*[@id='cobalt_foldering_ro_item_name_"
+                + (Integer.parseInt(position) - 1)
+                + "']/ancestor::td//div[@class='cobalt_ro_documentDescription']/span[text()='" + metadata + "']"));
+    }
+
+    public boolean isFolderPresentInSharedFolders(String folderName) {
+        return isElementDisplayed(By.xpath("//*[@id='cobalt_ro_sharedFolders_folderTree']//*[text()='" + folderName + "']"));
+    }
+
+    public boolean isUserAbleToExpandSharedFolder(String folderName) {
+        return isElementDisplayed(By.xpath("//*[@id='cobalt_ro_sharedFolders_folderTree']//a[contains(@class,'co_tree_expand') and text()='Expand " + folderName + "']"));
+    }
+
+
+    public void checkFolderIsNoLongerSharedMessage(String folderName) {
+        waitForElementVisible(By.xpath("//*[@class='co_infoBox_message' and text()=\"'"
+                + folderName + "' is no longer shared.\"]"));
+    }
 
     /**
      * This method is used to find the notes added icon presence based on the given document index position in the history list.
+     *
      * @param position
      * @return boolean
      */
-	public boolean isNotesIconPresentForDocument(String position){
-		return isElementDisplayed(By.cssSelector("#cobalt_foldering_ro_item_icon_container_" + (Integer.parseInt(position)-1)));
-	}
-	
+    public boolean isNotesIconPresentForDocument(String position) {
+        return isElementDisplayed(By.cssSelector("#cobalt_foldering_ro_item_icon_container_" + (Integer.parseInt(position) - 1)));
+    }
+
     public By cancelByFilters() {
         return By.xpath("//*[@id='co_multifacet_selector_1']/*[contains(@class,'co_multifacet_cancel')]");
     }
@@ -452,7 +444,7 @@ public class ResearchOrganizerPage extends AbstractPage {
      */
     public List<WebElement> selectedRowWiseSearchTerm(int rowNumber) {
 
-        return waitForElementsVisible(By.xpath("//div[@id='co_researchOrg_detailsTable']//tr["+rowNumber+"]//span[@class='co_searchTerm co_keyword']"));
+        return waitForElementsVisible(By.xpath("//div[@id='co_researchOrg_detailsTable']//tr[" + rowNumber + "]//span[@class='co_searchTerm co_keyword']"));
     }
 
     /**
@@ -484,6 +476,7 @@ public class ResearchOrganizerPage extends AbstractPage {
     public WebElement historyPageDatePickerDropdownLink() {
         return waitForExpectedElement(By.id("co_dateWidget_1_dropdown"));
     }
+
     /**
      * element that provides date picker dropdown
      */
@@ -518,6 +511,7 @@ public class ResearchOrganizerPage extends AbstractPage {
 
     /**
      * Check if folder present in main content frame
+     *
      * @param folderName Folder name
      * @return True - if folder present, otherwise - false.
      */
@@ -527,6 +521,7 @@ public class ResearchOrganizerPage extends AbstractPage {
 
     /**
      * Get title of opened folder
+     *
      * @return Selected folder title
      */
     public WebElement getOpenedFolderTitle() {
@@ -535,8 +530,9 @@ public class ResearchOrganizerPage extends AbstractPage {
 
     /**
      * Click on column of table at folder view page
+     *
      * @param documentColumn Column to get data from.
-     *                       @see DocumentColumn
+     * @see DocumentColumn
      */
     public WebElement getColumn(DocumentColumn documentColumn) {
         return waitForElementPresent(By.xpath("//th[.='" + documentColumn.getName() + "']"));
@@ -545,9 +541,10 @@ public class ResearchOrganizerPage extends AbstractPage {
     /**
      * Get content of selected folder.
      * IMPORTANT! Only documents data will be retrieved. Rows, which contains nested folders, will be ignored.
+     *
      * @param column Column to get data from.
-     *               @see DocumentColumn
      * @return List with data from all presented document rows in selected folder for given column
+     * @see DocumentColumn
      */
     public List<String> getDocumentsDataInColumn(DocumentColumn column) {
         String rowXpath = "//tr[contains(@id, 'datatable') and .//input[@type='checkbox']]";
@@ -575,15 +572,17 @@ public class ResearchOrganizerPage extends AbstractPage {
 
     /**
      * Get document checkbox
+     *
      * @param documentName Document name which checkbox should be clicked to
      * @return Element with document checkbox
      */
     public WebElement getDocumentCheckbox(String documentName) {
-    	return waitForExpectedElement(By.xpath("//tr[contains(@id, 'datatable') and contains(., '" + documentName + "')]//input[@type='checkbox']"));
+        return waitForExpectedElement(By.xpath("//tr[contains(@id, 'datatable') and contains(., '" + documentName + "')]//input[@type='checkbox']"));
     }
 
     /**
      * Get "Save to folder" button
+     *
      * @return Element with "Save to folder" button
      */
     public WebElement getSaveToFolderButton() {
@@ -592,12 +591,13 @@ public class ResearchOrganizerPage extends AbstractPage {
 
     /**
      * Check if document with name is exists on the page
+     *
      * @param documentName Document name which checkbox should be clicked to
      * @return True - if doc exists, otherwise - false.
      */
     public boolean isDocumentExists(String documentName) {
-    	return isElementDisplayed(
-    	        By.xpath("//tr[contains(@id, 'datatable') and contains(., " + Quotes.escape(documentName) + ")]//input[@type='checkbox']"));
+        return isElementDisplayed(
+                By.xpath("//tr[contains(@id, 'datatable') and contains(., " + Quotes.escape(documentName) + ")]//input[@type='checkbox']"));
     }
 
     /**
@@ -607,8 +607,8 @@ public class ResearchOrganizerPage extends AbstractPage {
      * @return True - if doc exists, otherwise - false.
      */
     public boolean isDocumentWithGuidExists(String guid) {
-    	return isElementDisplayed(
-    	        By.xpath("//tr[contains(@id, 'datatable')]//a[contains(@href, '" + guid + "')]"));
+        return isElementDisplayed(
+                By.xpath("//tr[contains(@id, 'datatable')]//a[contains(@href, '" + guid + "')]"));
     }
 
     /**
@@ -618,25 +618,27 @@ public class ResearchOrganizerPage extends AbstractPage {
      * @return Element with link to the document with GUID
      */
     public WebElement getLinkWithDocGuid(String guid) {
-    	return waitForExpectedElement(
-    	        By.xpath("//tr[contains(@id, 'datatable')]//a[contains(@href, '" + guid + "')]"));
+        return waitForExpectedElement(
+                By.xpath("//tr[contains(@id, 'datatable')]//a[contains(@href, '" + guid + "')]"));
     }
 
     /**
      * Check if document with name is not exists on the page
+     *
      * @param documentName Document name which checkbox should be clicked to
      * @return True = if doc is not exists, otherwise - false.
      */
     public boolean isDocumentAbsent(String documentName) {
-    	return waitForElementToDissappear(By.xpath("//tr[contains(@id, 'datatable') and contains(., '" + documentName + "')]//input[@type='checkbox']"));
+        return waitForElementToDissappear(By.xpath("//tr[contains(@id, 'datatable') and contains(., '" + documentName + "')]//input[@type='checkbox']"));
     }
+
     /**
      * element that provides date picker for Before, After, On and From Date Text-boxes
      */
 
     public WebElement datePickerBeforeAfterOnFromTextbox(String option) {
 
-        return waitForElementVisible(By.xpath("//a[.='"+option+"']/..//label/following-sibling::input"));
+        return waitForElementVisible(By.xpath("//a[.='" + option + "']/..//label/following-sibling::input"));
     }
 
     public WebElement datePickerUntilDateTextbox() {
@@ -648,9 +650,9 @@ public class ResearchOrganizerPage extends AbstractPage {
 
         return waitForElementVisible(By.xpath("//a[.='" + option + "']/..//input[@class='co_button_submit_small co_primaryBtn']"));
     }
-    
+
     public WebElement documentCheckboxByNumber(String number) {
-    	int numberOfDocument = Integer.parseInt(number)-1;
+        int numberOfDocument = Integer.parseInt(number) - 1;
         return waitForExpectedElement(By.xpath("//input[@id='cobalt_foldering_ro_select_checkbox_" + numberOfDocument + "']"));
     }
 
@@ -659,11 +661,11 @@ public class ResearchOrganizerPage extends AbstractPage {
      *
      * @param searchTerm
      */
-    public void clickOnSearchTermInHistory(String searchTerm){
-        try{
-            waitForExpectedElement(By.xpath(String.format("//a[contains(@id,'cobalt_foldering_ro_item_name')][contains(text(),'%s')]",searchTerm))).click();
-        }catch(TimeoutException te){
-            throw new PageOperationException("Exceeded time to find the search Term "+searchTerm+" in History. "+ te.getMessage());
+    public void clickOnSearchTermInHistory(String searchTerm) {
+        try {
+            waitForExpectedElement(By.xpath(String.format("//a[contains(@id,'cobalt_foldering_ro_item_name')][contains(text(),'%s')]", searchTerm))).click();
+        } catch (TimeoutException te) {
+            throw new PageOperationException("Exceeded time to find the search Term " + searchTerm + " in History. " + te.getMessage());
         }
     }
 
@@ -724,7 +726,6 @@ public class ResearchOrganizerPage extends AbstractPage {
      */
     public void waitContentToLoad() {
         // Wait while loading picture will appears
-        // TODO To find the robust and proper wait to process loading picture
         try {
             waitForElementVisible(By.id("folderingProgress"));
         } catch (TimeoutException e) {
@@ -755,12 +756,12 @@ public class ResearchOrganizerPage extends AbstractPage {
      * -- Document4
      * To get to know that "Document3" related to "Know-how" is present, you can use isHeaderContentTypeForDocumentExists("Know-how", "Document3");
      * WARNING! It is hard to write reliable xpath due to HTML markup (rows with sub headers and data on the same level).
-     *          Therefore, the following approach was applied.
-     *
+     * Therefore, the following approach was applied.
+     * <p>
      * WARNING! If you use WebDriver implicitly wait > 0, this method could be veeeery sloooooow
      *
      * @param contentType Document content type
-     * @param resultText Document title or some another text in the search result
+     * @param resultText  Document title or some another text in the search result
      * @return True - if document related ot expected content type and it is visible. False - otherwise.
      */
     public boolean isHeaderContentTypeForDocumentExists(String contentType, String resultText) {
@@ -840,20 +841,19 @@ public class ResearchOrganizerPage extends AbstractPage {
      * Get the field (title inclusive) for result with the number in description cell
      *
      * @param resultNumber Result number
-     * @param fieldName Field name (e.g., Search Type, Content)
+     * @param fieldName    Field name (e.g., Search Type, Content)
      * @return Element with data including field title
      */
     public WebElement getDescriptionFieldForResult(String resultNumber, String fieldName) {
         return waitForExpectedElement(
                 By.xpath("//tr[contains(@id, 'datatable-row')][" + resultNumber + "]" +
-                        "/td[contains(@class, 'content')]//div[contains(@class, 'cobalt_ro_search') and starts-with(.,'" + fieldName +":')]"));
+                        "/td[contains(@class, 'content')]//div[contains(@class, 'cobalt_ro_search') and starts-with(.,'" + fieldName + ":')]"));
 
     }
 
     public Boolean isDateDisplayed(String dateOption) {
         return isElementDisplayed(By.xpath("//*[@id='datatable-row-0']//div[3]/strong[contains(.,'Date')]/..[contains(.,'" + dateOption + "')]"));
     }
-
 
 
 }
