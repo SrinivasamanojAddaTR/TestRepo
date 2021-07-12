@@ -144,7 +144,7 @@ public class GlossaryPage extends AbstractPage {
 		return waitForExpectedElement(By.xpath("//button[@class='co_glossary_scroll_buttons' and text()='Scroll down']"));
     }
 
-    public WebElement PracticeNoteLink(String resourceLink) {
+    public WebElement practiceNoteLink(String resourceLink) {
         return waitForExpectedElement(By.xpath("//div[@id='co_docContentBody']//a[contains(text(),'" + resourceLink + "')]"));
     }
 
@@ -194,7 +194,7 @@ public class GlossaryPage extends AbstractPage {
      * @return List<String>
      */
     public List<String> getGlossarySearchResultsList() {
-        List<String> listOfGlossaryTerms = new ArrayList<String>();
+        List<String> listOfGlossaryTerms = new ArrayList<>();
         try {
             for (WebElement glossaryTerm : getGlossarySearchResultElements()) {
                 listOfGlossaryTerms.add(glossaryTerm.getText());
@@ -214,7 +214,6 @@ public class GlossaryPage extends AbstractPage {
         try {
             return waitForElementsVisible(By.cssSelector(".co_searchTerm>a"));
         } catch (TimeoutException te) {
-            LOG.warn("context", te);
             throw new PageOperationException("Exceeded time to find the GlossarySearch Results" + te.getMessage());
         }
     }

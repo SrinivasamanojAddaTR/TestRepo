@@ -2,6 +2,7 @@ package com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.DocumentDisplayAbstractPage;
+import com.thomsonreuters.utils.TimeoutUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -13,13 +14,16 @@ import java.util.List;
 
 public class DocumentRightPanelPage extends DocumentDisplayAbstractPage {
 
+    private static final String META_DATA = "co_docContentMetaInfo";
+    private static final By JURISDICTIONS_VIEW_ALL_LINK = By.id("co_docContentMetaInfoJurisdictionsAllButton");
+
+    @Override
     public WebElement documentStatus() {
         try {
             return findElement(By.cssSelector("#co_docContentMetaInfo >span"));
         } catch (NoSuchElementException e) {
             return findElement(By.className("askDocPublishDate"));
         }
-        // return findElement(By.className("askDocPublishDate"));
     }
 
     public boolean isDocumentStatusPresent(){
@@ -27,7 +31,7 @@ public class DocumentRightPanelPage extends DocumentDisplayAbstractPage {
     }
 
     public WebElement relatedOrHistoryLink(String linkText) {
-        return findElement(By.id("co_docContentMetaInfo")).findElement(By.linkText(linkText));
+        return findElement(By.id(META_DATA)).findElement(By.linkText(linkText));
     }
 
     public boolean isRelatedContentLinkPresent(){
@@ -35,17 +39,16 @@ public class DocumentRightPanelPage extends DocumentDisplayAbstractPage {
     }
 
     public WebElement viewResourceHistoryLink() {
-        return findElement(By.id("co_docContentMetaInfo")).findElement(By.linkText("View Resource History"));
+        return findElement(By.id(META_DATA)).findElement(By.linkText("View Resource History"));
     }
 
-    //TODO: Change methodname
-    private List<WebElement> jurisdictions() {
+    private List<WebElement> listOfJurisdictions() {
         return findElements(By.cssSelector("#co_docContentMetaInfoJurisdictions ul li"));
     }
 
     public List<String> getVisibleJurisdictions() {
-        List<String> visibleJurisdictions = new ArrayList<String>();
-        for (WebElement element : jurisdictions()) {
+        List<String> visibleJurisdictions = new ArrayList<>();
+        for (WebElement element : listOfJurisdictions()) {
             if (element.isDisplayed() && element.getAttribute("id").equals("")) {
                 visibleJurisdictions.add(element.getText().trim());
             }
@@ -54,18 +57,15 @@ public class DocumentRightPanelPage extends DocumentDisplayAbstractPage {
     }
 
     public WebElement jurisdictionViewAllLink() {
-        return findElement(By.id("co_docContentMetaInfoJurisdictionsAllButton"));
+        return findElement(JURISDICTIONS_VIEW_ALL_LINK);
     }
 
-   // private List<WebElement> jurisdictionSection() {
-   //     return findElements(By.id("co_docContentMetaInfoJurisdictions"));
-   // }
     public WebElement relatedContentLink() {
-        return waitForExpectedElement(By.id("co_docContentMetaInfo")).findElement(By.linkText("Related Content"));
+        return waitForExpectedElement(By.id(META_DATA)).findElement(By.linkText("Related Content"));
     }
 
     public boolean isViewAllLinkDisplayed() {
-        return findElements(By.id("co_docContentMetaInfoJurisdictionsAllButton")).size() > 0;
+        return isExists(JURISDICTIONS_VIEW_ALL_LINK);
     }
 
     public boolean isSectionDisplayed(String navigationLink) {
@@ -103,11 +103,14 @@ public class DocumentRightPanelPage extends DocumentDisplayAbstractPage {
         Object obj = null;
         for(int i=0;i< 3; i++){
                 try{
-                    Thread.sleep(3000);
+                   TimeoutUtils.sleepInSeconds(3);
                     obj = executeScript(script);
-                }catch(Exception e){}
+                }catch(Exception e)
+                {
+                    LOG.info("context", e);
+                }
             if(obj == null){
-                LOG.info("retrying the script execution" + script);
+                LOG.info("retrying the script execution {}", script);
                 obj = retryExecuteScript(script);
             }else{break;}
         }
