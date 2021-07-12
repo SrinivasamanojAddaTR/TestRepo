@@ -8,8 +8,8 @@ import java.util.List;
 
 public class OnepassLogin extends AbstractPage {
 
-    public OnepassLogin() {
-    }
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
 
     public boolean isUsernameValidationErrorDisplayed(String usernameValidationError) {
 		return isTextPresent(By.xpath("//span[@id='Username_validationMessage']/span"), usernameValidationError);
@@ -147,15 +147,15 @@ public class OnepassLogin extends AbstractPage {
     }
     
     public WebElement usernameAthens(){
-    	return waitForExpectedElement(By.name("username"));
+    	return waitForExpectedElement(By.name(USERNAME));
     }
     
     public boolean isUsernameAthensPresent(){
-    	return isExists(By.name("username"));
+    	return isExists(By.name(USERNAME));
     }
     
     public WebElement passwordAthens(){
-    	return waitForExpectedElement(By.name("password"));
+    	return waitForExpectedElement(By.name(PASSWORD));
     }
     
     public WebElement singInAthensButton(){
@@ -163,15 +163,15 @@ public class OnepassLogin extends AbstractPage {
     }
     
     public WebElement usernameShiboleth(){
-    	return waitForExpectedElement(By.id("username"));
+    	return waitForExpectedElement(By.id(USERNAME));
     }
     
     public boolean isUsernameShibolethPresent(){
-    	return isExists(By.id("username"));
+    	return isExists(By.id(USERNAME));
     }
     
     public WebElement passwordShiboleth(){
-    	return waitForExpectedElement(By.id("password"));
+    	return waitForExpectedElement(By.id(PASSWORD));
     }
     
     public WebElement singInShibolethButton(){

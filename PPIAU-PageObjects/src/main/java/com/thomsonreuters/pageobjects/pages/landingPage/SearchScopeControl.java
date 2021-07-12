@@ -9,9 +9,6 @@ import java.util.List;
 
 public class SearchScopeControl extends AbstractPage {
 
-    public SearchScopeControl() {
-    }
-
     /**
      * Object representing scoped search title
      */
@@ -34,7 +31,7 @@ public class SearchScopeControl extends AbstractPage {
     }
 
     public List<String> scopedSearchDropdownOptionsList() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         List<WebElement> optionList = waitForExpectedElements(By.cssSelector("#scopedSearchMenuItems ul li"));
         for (WebElement element : optionList) {
             if (!element.getAttribute("class").contains("co_separator")) {

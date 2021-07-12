@@ -13,11 +13,7 @@ import org.openqa.selenium.WebElement;
 
 public class WhatsMarketHomePage extends AbstractPage {
 
-    public WhatsMarketHomePage() {
-    }
-
     public WebElement freeTextField() {
-
         return waitForElementVisible(By.xpath("//div[@id='co_searchInputContainer']//textarea[@id='searchInputId']"));
     }
 
@@ -26,35 +22,13 @@ public class WhatsMarketHomePage extends AbstractPage {
         return waitForExpectedElement(By.id("searchButton"));
     }
 
-
-    public WebElement whatsMarketDealTypeLink(String dealtype) {
-
-        return waitForExpectedElement(By.linkText("WMDealTypeTest"));
-    }
-
-    public void selectLinkOnWhatsMarketHome(String linkName) {
-
-        waitForExpectedElement(By.linkText(linkName)).click();
-    }
-
-
-    /**
-     * object representing the deal type links on the WM homepage e.g. Listing Rules Transactions etc
-     */
-
-    public WebElement dealTypeLink(String dealtype) {
-
-        return waitForExpectedElement(By.xpath("//div[@id='coid_categoryBoxTabPanel1']//a[contains(text(),'" + dealtype + "')]"),10);
-
-    }
-
-    public WebElement Administrations() {
+    public WebElement administrations() {
 
         return waitForExpectedElement(By.id("coid_administrations"));
 
     }
 
-    public WebElement PublicMandALink() {
+    public WebElement publicMandALink() {
 
             return waitForExpectedElement(By.id("coid_public_m___a"));
 

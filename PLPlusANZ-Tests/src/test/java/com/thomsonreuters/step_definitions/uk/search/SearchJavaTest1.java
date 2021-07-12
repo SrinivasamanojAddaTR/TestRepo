@@ -18,7 +18,6 @@ import cucumber.api.java.en.When;
 import org.hamcrest.core.Is;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -543,9 +542,9 @@ public class SearchJavaTest1 extends BaseStepDef {
     @When("^has selected the link to the deal type \"([^\"]*)\"$")
     public void hasSelectedTheLinkToTheDealType(String arg1) throws Throwable {
         if (arg1.equals("Administrations")) {
-            whatsMarketHomePage.Administrations().click();
+            whatsMarketHomePage.administrations().click();
         } else if (arg1.equals("Public M & A"))
-            whatsMarketHomePage.PublicMandALink().click();
+            whatsMarketHomePage.publicMandALink().click();
     }
 
     @When("^has selected the link to the practice area \"([^\"]*)\"$")

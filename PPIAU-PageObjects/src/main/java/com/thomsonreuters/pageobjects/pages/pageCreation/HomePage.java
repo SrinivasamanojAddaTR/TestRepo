@@ -3,7 +3,6 @@ package com.thomsonreuters.pageobjects.pages.pageCreation;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Quotes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +13,7 @@ public class HomePage extends AbstractPage {
 
     public enum PlukTab {
         PRACTICE_AREAS("Practice areas"),
-        RESOURCES("Resources"),
-        INTERNATIONAL("International");
+        RESOURCES("Resources");
 
         private String tabName;
 
@@ -31,7 +29,6 @@ public class HomePage extends AbstractPage {
     private static final By MEET_THE_TEAM_LINK = By.xpath("//*[@id='categoryPageScopeLinks']/a | //*[@class='browseHeader-meetTeamButton']");
     private static final String HOMEPAGE_LINKS ="//a[text()='%s']";
     public WebElement browseMenuPopUp() {
-
         return waitForExpectedElement(By.xpath("//div[@class='browseMenu_container']"),20);
     }
 
@@ -63,20 +60,12 @@ public class HomePage extends AbstractPage {
         return waitForExpectedElement(By.id("coid_categoryTab2_main_0"));
     }
 
-    public WebElement internationalTab() {
-        return waitForExpectedElement(By.id("coid_categoryTab3_main_0"));
-    }
-
     public WebElement practiceAreasLink() {
         return waitForExpectedElement(By.linkText("Practice areas"));
     }
 
     public WebElement resourcesLink() {
-        return waitForExpectedElement(By.linkText("Resources"));
-    }
-
-    public WebElement internationalLink() {
-        return waitForExpectedElement(By.linkText("International"));
+        return waitForExpectedElement(By.linkText(PlukTab.RESOURCES.getTabName()));
     }
 
     public WebElement askAQuestionLink() {
@@ -123,12 +112,10 @@ public class HomePage extends AbstractPage {
         return getOnlyLinkNamesFromWebElementList(getWebElementLinksInBrowseMenu(subMenuLink));
     }
     private List<WebElement> getPracticeAreasWebElementLinksInBrowseMenu() {
-        //return mergeTwoWebElementList(By.cssSelector("div[id='Practice areas0'] ul li a"), By.cssSelector("div[id='Practice areas1'] ul li a"));
         return waitForExpectedElements(By.xpath("//li[@id='Practice areas']//a"),30);
     }
 
     private List<WebElement> getWebElementLinksInBrowseMenu(String subMenuLink) {
-        //return mergeTwoWebElementList(By.cssSelector("div[id='Practice areas0'] ul li a"), By.cssSelector("div[id='Practice areas1'] ul li a"));
         return waitForExpectedElements(By.xpath("//li[@id='" + subMenuLink + "']//a"),30);
     }
 
@@ -151,10 +138,9 @@ public class HomePage extends AbstractPage {
 
     private List<String> getOnlyLinkNamesFromWebElementList(List<WebElement> elementList) {
         String currentLink;
-        List<String> links = new ArrayList<String>();
+        List<String> links = new ArrayList<>();
         for (WebElement webElementLink : elementList) {
             currentLink = webElementLink.getText();
-            //System.out.println("The menu contains the link: " + currentLink);
             links.add(currentLink);
         }
         return links;
@@ -196,14 +182,7 @@ public class HomePage extends AbstractPage {
      * Selects the Resource tab present on Home page.
      */
     public void selectResourceTab() {
-        waitForExpectedElement(By.linkText("Resources")).click();
-    }
-
-    /**
-     * Selects the International tab present on Home page.
-     */
-    public void selectInternationalTab() {
-        waitForExpectedElement(By.linkText("International")).click();
+        waitForExpectedElement(By.linkText(PlukTab.RESOURCES.getTabName())).click();
     }
 
     /**
@@ -260,7 +239,6 @@ public class HomePage extends AbstractPage {
     }
 
     public WebElement editPopupSaveChangesButton() {
-       // return waitForExpectedElement(By.xpath("//div[@id='jurisdictionsPopup']//button[text()='Save Changes']"));
         return waitForExpectedElement(By.xpath("//div[@class='co_actionBtns']/a[contains(text(),'Save Changes')]"));
     }
 
@@ -307,15 +285,6 @@ public class HomePage extends AbstractPage {
         return waitForExpectedElement(By.xpath("//a[contains(@id,'coid_" + country + "')]"));
     }
 
-    /**
-     * Get country label element for Global PL Country site
-     *
-     * @return WebElement with tab links
-     */
-    public WebElement globalPLCountrySiteLabel(String country) {
-        return waitForExpectedElement(By.xpath("//div[@id='top-level']//span[text()='" + country + "']"));
-    }
-
 
     /**
      * Get country link on Browse Menu International sub-menu for International subscription
@@ -326,58 +295,9 @@ public class HomePage extends AbstractPage {
         return waitForExpectedElement(By.xpath("//div[@id='International1']//a[contains(text(),'" + country + "')]"));
     }
 
-    /**
-     * Get country header element for PL legacy China (etc.) site
-     *
-     * @return WebElement with tab links
-     */
-
-    public WebElement legacyPLCountryTitle(String country) {
-        return waitForExpectedElement(By.xpath("//div[@class='page-heading']//h1[normalize-space(text())='" + country + "']"));
-    }
-
-    /**
-     * Get link from currently active tab (Practice Area, Resource, ...)
-     *
-     * @param linkText Link text
-     * @return Element with expected link
-     */
-    public WebElement getActiveTabLink(String linkText) {
-        String escapedLinkText = Quotes.escape(linkText);
-        return waitForExpectedElement(
-                By.xpath("//div[contains(@class, 'categoryBoxTabContents')]//div[contains(@class, 'Show')]//a[contains(., " + escapedLinkText + ")] | " +
-                        "//div[contains(@id, 'categoryBoxTabContents')]//a[contains(., " + escapedLinkText + ")]"));
-    }
-
-    public List<WebElement> getTopicLinksList(){
-        return waitForExpectedElements(By.xpath("//*[@id='coid_categoryBoxTabPanel1']//a"));
-    }
-
-    // created by Phil Harper
-    public WebElement PracticeAreaViaBrowse (String PracticeArea){
-        return waitForExpectedElement(browseMenuItem(PracticeArea));
-
-    }
-    
-    public By browseMenuItem (String link){
-        return By.xpath("//a[@class='menu-item-link'][contains(.,\"" + link + "\")]");
-    }
-    
-    public By menuBarSectionDisplayName(String name){
-    	return By.xpath("//div[@class='menuBarSectionDisplayName'][contains(.,'" + name + "')]");
-    }
-    
     public WebElement getTitle(){
         return waitForExpectedElement(By.className("co_title"));
     }
-
-    public WebElement waitForExpectedElement(By by){
-    	return super.waitForExpectedElement(by);
-    }
-    
-    public boolean isSystemErrorPresent() {
-		return isExists(By.xpath("//*[@id='co_blockedBox']//p[contains(.,'You do not have access to')]"));
-	}
 
     public WebElement getMeetTeamLink() {
         return waitForExpectedElement(MEET_THE_TEAM_LINK);

@@ -63,12 +63,5 @@ public class AnzFavourites1 extends BaseStepDef {
 		 homepage.waitForPageToLoadAndJQueryProcessing();
 
 	}
-	
-	@When("^the user selects country \"(.*)\" on international tab$")
-    public void theUserSelectsCountryLinkOnInternationalTab(String countryName) throws Throwable {
-		homepage.selectInternationalTab();
-		homepage.selectLinkPresentOnTab(countryName);
-		homepage.waitForPageToLoadAndJQueryProcessing();
-    }
 
 }

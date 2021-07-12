@@ -20,10 +20,6 @@ public class CommonResourcePage extends DocumentDisplayAbstractPage {
         return waitForExpectedElement(By.cssSelector("#co_docHeaderContainer .co_title"));
     }
 
-    public WebElement contentBody() {
-        return waitForElementPresent(By.id("co_docContentBody"));
-    }
-
     public List<WebElement> allHeadings() {
         return contentBody().findElements(By.className("co_headtext"));
     }

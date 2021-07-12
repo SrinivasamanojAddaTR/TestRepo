@@ -7,11 +7,6 @@ import org.openqa.selenium.WebElement;
 
 
 public class LegalUpdatesBasePage extends AbstractPage {
-    
-    public LegalUpdatesBasePage() {
-    	
-    }
-
 
     public WebElement headerMetaDataTag() {
         return waitForExpectedElement(By.id("co_browsePageLabel"));

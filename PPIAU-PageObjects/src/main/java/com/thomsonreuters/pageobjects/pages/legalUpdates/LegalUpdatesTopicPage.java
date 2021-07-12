@@ -7,10 +7,7 @@ import org.openqa.selenium.WebElement;
 
 public class LegalUpdatesTopicPage extends LegalUpdatesPracticeAreaPage {
 
-    public LegalUpdatesTopicPage() {
-
-    }
-
+    @Override
     public WebElement legalUpdatesWidget() {
         return waitForExpectedElement(By.xpath("//div[@class='co_genericBox co_dataFeedWidget styled co_expandedState']"));
     }

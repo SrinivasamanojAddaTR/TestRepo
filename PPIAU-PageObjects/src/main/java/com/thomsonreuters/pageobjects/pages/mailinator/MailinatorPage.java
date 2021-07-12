@@ -8,9 +8,6 @@ import java.util.List;
 
 public class MailinatorPage extends AbstractPage {
 
-    public MailinatorPage() {
-    }
-
     public WebElement userMailBoxHeading() {
         return waitForExpectedElement(By.id("publicInboxCtrl"));
     }

@@ -11,14 +11,9 @@ import java.util.List;
 
 
 public class CalendarWidget extends AbstractPage {
-	
-	private List<String> dateOptions;
+
 	private CommonMethods commonMethods = new CommonMethods();
-	
-	public CalendarWidget() {
-		
-	}
-	
+
 	public WebElement currentMonthLabel() {
 		return findElement(By.xpath("//div[@class='month-container']//span[@id='month']"));
 	}
@@ -72,7 +67,7 @@ public class CalendarWidget extends AbstractPage {
 	}
 	
 	public List<String> dateOptionsList() {
-		dateOptions = new ArrayList<String>();
+		List<String> dateOptions = new ArrayList<>();
 			for(WebElement option : waitForExpectedElements(By.xpath("//ul[@id='month' and @class='month-dropdown']//li[@class='expanded-option']"))) {
 				dateOptions.add(option.getText());
 			}

@@ -37,7 +37,6 @@ public class HomePageSteps extends BaseStepDef {
     public void userCanViewThreeTabsPracticeAreasResourcesAndInternational() throws Throwable {
         assertTrue("The 'Practice Area' tab is NOT displayed ", homePage.practiceAreasTab().isDisplayed());
         assertTrue("The 'Resources' tab is NOT displayed ", homePage.resourcesTab().isDisplayed());
-        assertTrue("The 'International' tab is NOT displayed ", homePage.internationalTab().isDisplayed());
     }
 
     @And("^the user verifies that default Tab is '(.*)'$")
@@ -169,7 +168,6 @@ public class HomePageSteps extends BaseStepDef {
     public void userCanViewThreeLinksPracticeAreasResourcesAndInternational() throws Throwable {
         assertTrue("The 'Practice Area' link is NOT displayed ", homePage.practiceAreasLink().isDisplayed());
         assertTrue("The 'Resources' link is NOT displayed ", homePage.resourcesLink().isDisplayed());
-        assertTrue("The 'International' link is NOT displayed ", homePage.internationalLink().isDisplayed());
     }
 
     @And("^the user verifies that default Link is '(.*)'$")

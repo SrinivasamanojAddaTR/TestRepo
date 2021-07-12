@@ -25,7 +25,6 @@ public class CurrentAwarenessCommonSteps extends BaseStepDef {
     private CalendarWidget calendarWidget = new CalendarWidget();
     private StandardDocumentPage standardDocumentPage = new StandardDocumentPage();
     private LegalUpdatesTopicPage legalUpdatesTopicPage = new LegalUpdatesTopicPage();
-    private KeyDatesPage keyDatesPage = new KeyDatesPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
 
     private final String SPECIFIED_PRACTICE_AREA_LEGAL_UPDATES_RESULTS_PAGE = "Construction";
@@ -105,7 +104,7 @@ public class CurrentAwarenessCommonSteps extends BaseStepDef {
     @Given("^user is on full calendar view page$")
     public void userIsOnFullCalendarViewPage() throws Throwable {
         navigationCobalt.navigateToPLUKPlus(FULL_CALENDAR_PAGE);
-        keyDatesPage.waitForPageToLoadAndJQueryProcessing();
+        calendarWidget.waitForPageToLoadAndJQueryProcessing();
     }
 
     @Given("^a user is on a legal updates results page \"(.*?)\"$")

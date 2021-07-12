@@ -6,8 +6,10 @@ import org.openqa.selenium.WebElement;
 
 public class WelcomePage extends AbstractPage {
 
+    private static final By CONTINUE_BUTTON = By.id("co_clientIDContinueButton");
+
     public WebElement continueButton() {
-        return waitForExpectedElement(By.id("co_clientIDContinueButton"));
+        return waitForExpectedElement(CONTINUE_BUTTON);
     }
 
     public WebElement clientID() {

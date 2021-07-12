@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.header.responsiveDesign;
 
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
-import com.thomsonreuters.pageobjects.pages.login.WLNextHomePage;
+import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import org.openqa.selenium.By;
@@ -9,10 +9,10 @@ import org.openqa.selenium.By;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class MyHomeLinkTest extends BaseStepDef {
+public class MyHomeLinkTestSteps extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
-    private WLNextHomePage homePage = new WLNextHomePage();
+    private PracticalLawHomepage homePage = new PracticalLawHomepage();
 
     @Then("^user should see the \"(.*?)\" link$")
     public void userShouldSeeLink(String linkText) throws Throwable {
