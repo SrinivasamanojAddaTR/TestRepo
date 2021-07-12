@@ -1,8 +1,11 @@
 package com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
+import org.eclipse.jetty.io.RuntimeIOException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import static java.lang.String.format;
 
 /**
  * Created by u0171568 (Asha Shetty) on 15/07/2015. This class is created to hold delivery page objects on the
@@ -24,7 +27,7 @@ public class ListOfItemsDeliveryOptionsPage extends AbstractPage {
         return findElement(By.xpath("//span[contains(@class,'th_flat_icon icon_folder') and not(contains(@class,'outline'))]"));
     }
 
-	public boolean EnabledDeliveryOption(String option) {
+	public boolean enabledDeliveryOption(String option) {
 		By locator = null;
 		switch (option) {
 		case "Email":
@@ -40,12 +43,12 @@ public class ListOfItemsDeliveryOptionsPage extends AbstractPage {
 			locator = By.xpath("//span[contains(@class,'th_flat_icon icon_folder') and not(contains(@class,'outline'))]");
 			break;
 		default:
-			throw new RuntimeException(String.format("Unknown option '%s'", option));
+			throw new RuntimeIOException(format("Unknown option '%s'", option));
 		}
 		return isElementDisplayed(locator);
 	}
     
-	public boolean DisabledDeliveryOption(String option) {
+	public boolean disabledDeliveryOption(String option) {
 		By locator = null;
 		switch (option) {
 		case "Email":
@@ -61,7 +64,7 @@ public class ListOfItemsDeliveryOptionsPage extends AbstractPage {
 			locator = By.xpath("//span[contains(@class,'th_flat_icon icon_folder') and (contains(@class,'outline'))]");
 			break;
 		default:
-			throw new RuntimeException(String.format("Unknown option '%s'", option));
+			throw new RuntimeIOException(format("Unknown option '%s'", option));
 		}
 		return isElementDisplayed(locator);
 	}

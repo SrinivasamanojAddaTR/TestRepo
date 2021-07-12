@@ -72,14 +72,14 @@ public class KHTopicPageTest extends BaseStepDef {
     @Then("^the following icons are enabled$")
     public void theFollowingIconsAreEnabled(List<String> deliveryOptions) throws Throwable {
         for (String option : deliveryOptions) {
-            assertThat(option + " is disabled", listOfItemsDeliveryOptionsPage.EnabledDeliveryOption(option), Is.is(true));
+            assertThat(option + " is disabled", listOfItemsDeliveryOptionsPage.enabledDeliveryOption(option), Is.is(true));
         }
     }
 
     @Then("^the following icons are disabled")
     public void theFollowingIconsAreDisabled(List<String> deliveryOptions) throws Throwable {
         for (String option : deliveryOptions) {
-            assertThat(option + " is enabled", listOfItemsDeliveryOptionsPage.DisabledDeliveryOption(option), Is.is(true));
+            assertThat(option + " is enabled", listOfItemsDeliveryOptionsPage.disabledDeliveryOption(option), Is.is(true));
         }
     }
 
@@ -181,12 +181,12 @@ public class KHTopicPageTest extends BaseStepDef {
 
     @Then("^user cannot see the Editor's pick widget on this page$")
     public void userCannotSeeTheEditorSPickWidgetOnThisPage() throws Throwable {
-        assertThat("Editor's pick widget is displayed", topicPage.NoEditorsPickWidget(), Is.is(true));
+        assertThat("Editor's pick widget is displayed", topicPage.noEditorsPickWidget(), Is.is(true));
     }
 
     @Then("^user can see the Editor's pick widget on this page$")
     public void userCanSeeTheEditorSPickWidgetOnThisPage() throws Throwable {
-        assertThat("Editor's pick widget is not displayed", topicPage.NoEditorsPickWidget(), Is.is(false));
+        assertThat("Editor's pick widget is not displayed", topicPage.noEditorsPickWidget(), Is.is(false));
     }
 
     @When("^clicks on the facet group \"(.*?)\"$")

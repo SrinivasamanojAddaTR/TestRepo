@@ -7,11 +7,7 @@ import org.openqa.selenium.WebElement;
 
 
 public class SaveForLaterWidget extends AbstractPage {
-	
-	public SaveForLaterWidget() {
-		
-	}
-	
+
 	public WebElement rootResearchFolder() {
 		return findElement(By.xpath("//a[@class='co_tree_selectable co_tree_name co_tree_position--0--' and contains(text(),'Research')]"));
 	}

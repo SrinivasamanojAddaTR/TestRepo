@@ -9,11 +9,7 @@ import java.util.List;
 
 
 public class ResearchFoldersWidget extends AbstractPage {
-	
-	public ResearchFoldersWidget() {
-		
-	}
-	
+
 	public int getFolderDocumentsCount() {
 		return findElements(By.xpath("//form[@class='co_dock_items']//li[contains(@id, 'cobalt_foldering_dock_li_documents_')]")).size();
 	}

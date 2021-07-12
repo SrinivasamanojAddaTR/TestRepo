@@ -10,7 +10,6 @@ import org.openqa.selenium.WebElement;
  */
 public class CADocumentPage extends DocumentDisplayAbstractPage{
 
-    //TODO: rewrite xPath when CA document view will be implemented
     private static final By CA_DOCUMENT_TYPE = By.xpath("//div[@id='co_document']//div[contains(@class, 'co_title')]/preceding-sibling::div[1]/div");
 
     public WebElement caDocumentType() {return waitForExpectedElement(CA_DOCUMENT_TYPE); }

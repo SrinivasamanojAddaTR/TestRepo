@@ -10,7 +10,11 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 
+import static java.lang.String.format;
+
 public class FavouritesPage extends AbstractPage {
+
+    private static final String SPAN_TEXT = "//span[text()='%s']";
 
 	public boolean isFavouritePageInGroupPresent(String pageName, String groupName){
         String text = "'" + pageName + "'";
@@ -27,7 +31,7 @@ public class FavouritesPage extends AbstractPage {
 			locator = "//*[@id='co_startPages_listRoot']//a[contains(@title, " + text + ")]";
 			break;
 		default:
-			locator = "//span[text()='" + groupName + "']/ancestor::li//a[contains(@title, " + text + ")]";
+			locator = format(SPAN_TEXT,groupName) + "/ancestor::li//a[contains(@title, " + text + ")]";
 		}
     	return isExists(By.xpath(locator));
     }
@@ -58,19 +62,19 @@ public class FavouritesPage extends AbstractPage {
     }
     
     public WebElement renameFavouriteGroupButton(String oldGroupName) {
-        return waitForExpectedElement(By.xpath("//span[text()='" + oldGroupName + "']/ancestor::li//*[@class='co_favoriteRen']"));
+        return waitForExpectedElement(By.xpath(format(SPAN_TEXT,oldGroupName) + "/ancestor::li//*[@class='co_favoriteRen']"));
     }
     
     public WebElement renameFavouriteGroupInput(String oldGroupName) {
-        return waitForExpectedElement(By.xpath("//span[text()='" + oldGroupName + "']/ancestor::li//*[@class='cobalt_favorites_rename_textbox']"));
+        return waitForExpectedElement(By.xpath(format(SPAN_TEXT,oldGroupName) + "/ancestor::li//*[@class='cobalt_favorites_rename_textbox']"));
     }
 
     public WebElement renameFavouriteOKGroupButton(String oldGroupName) {
-        return waitForExpectedElement(By.xpath("//span[text()='" + oldGroupName + "']/ancestor::li//*[@class='co_dropdownBox_ok']"));
+        return waitForExpectedElement(By.xpath(format(SPAN_TEXT,oldGroupName) + "/ancestor::li//*[@class='co_dropdownBox_ok']"));
     }
     
 	public WebElement deleteFavouriteGroupButton(String name) {
-		return waitForExpectedElement(By.xpath(String.format("//a[contains(@class, 'favoriteDel') and contains(., \"%s\")]",name)));
+		return waitForExpectedElement(By.xpath(format("//a[contains(@class, 'favoriteDel') and contains(., \"%s\")]",name)));
 	}
     
 	public WebElement pageInFavourite(String pageName) {
@@ -90,14 +94,14 @@ public class FavouritesPage extends AbstractPage {
     }
     
     public WebElement deletePageFromFavourite(String pageName) {
-        return waitForExpectedElement(By.xpath(String.format("//a[contains(@class, 'favoriteDel') and contains(., \"%s\")]",pageName)));
+        return waitForExpectedElement(By.xpath(format("//a[contains(@class, 'favoriteDel') and contains(., \"%s\")]",pageName)));
     }
 
     public List<WebElement> favouriteGroupNames() {
         return waitForExpectedElements(By.xpath("//h3//label[contains(@for,'checkboxId')]//span"));
     }
     public WebElement renameGroupCancelButton(String groupName) {
-        return waitForExpectedElement(By.xpath("//span[text()='" + groupName + "']/ancestor::li//*[@class='co_dropdownBox_cancel']"));
+        return waitForExpectedElement(By.xpath(format(SPAN_TEXT,groupName) + "/ancestor::li//*[@class='co_dropdownBox_cancel']"));
     }
 
 	public boolean checkFavouriteGroupIsPresent(String groupName) {
@@ -119,11 +123,11 @@ public class FavouritesPage extends AbstractPage {
     }
 
     public WebElement favouriteGroupLink(String groupNname, String linkText) {
-        return waitForExpectedElement(By.xpath("//span[text()='"+groupNname+"']/../../..//a[@class='co_foldering_frontpage_favorite' and normalize-space('"+linkText+"')]"));
+        return waitForExpectedElement(By.xpath(format(SPAN_TEXT,groupNname)+"/../../..//a[@class='co_foldering_frontpage_favorite' and normalize-space('"+linkText+"')]"));
     }
 
     public WebElement favouriteStrickenThroughGroupLink(String groupNname, String linkText) {
-        return waitForExpectedElement(By.xpath("//span[text()='"+groupNname+"']/../../..//li[contains(@class,'co_deleted')]//a[@class='co_foldering_frontpage_favorite' and normalize-space('"+linkText+"')]"));
+        return waitForExpectedElement(By.xpath(format(SPAN_TEXT,groupNname)+"/../../..//li[contains(@class,'co_deleted')]//a[@class='co_foldering_frontpage_favorite' and normalize-space('"+linkText+"')]"));
     }
 
     public By favouriteByGroup(String name) {
@@ -152,7 +156,7 @@ public class FavouritesPage extends AbstractPage {
             pageName = "\"" + pageName + "\"";
             text = pageName;
         }
-        String locator = "//span[text()='" + groupName + "']/ancestor::li//a[contains(@title, " + text + ")]";
+        String locator = format(SPAN_TEXT,groupName)+"/ancestor::li//a[contains(@title, " + text + ")]";
         if (groupName.contains("Frequently")) {
             locator = "//*[@id='co_frequentlyUsed_listRoot']//a[contains(@title, " + text + ")]";
         }

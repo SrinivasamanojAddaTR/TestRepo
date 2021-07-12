@@ -9,6 +9,8 @@ import java.util.*;
 
 public class TopicPage extends AbstractPage {
 
+    private static final By KNOW_HOW_TITLE = By.xpath("//a[contains(@id,'cobalt_result_knowhow_title')]");
+
     public Map<String, String> getEditorPicksAsMap() {
         waitForExpectedElement(By.cssSelector("#coid_website_browseTopColumn"));
         List<WebElement> editorPicks = waitForExpectedElements(By.cssSelector("#coid_website_browseTopColumn div[id^=ContentBlock]"));
@@ -22,10 +24,10 @@ public class TopicPage extends AbstractPage {
     }
 
     public List<String> getTopicPageFacetsAsList() {
-        List<WebElement> FacetsList = findElements(By.cssSelector("#ukplc_topic_facet_links li a"));
+        List<WebElement> facetsList = findElements(By.cssSelector("#ukplc_topic_facet_links li a"));
         List<String> facetNameLinkedList = new LinkedList<>();
-        for (int i = 0; i < FacetsList.size(); i++) {
-            String facet = FacetsList.get(i).getText().trim();
+        for (int i = 0; i < facetsList.size(); i++) {
+            String facet = facetsList.get(i).getText().trim();
             String facetName = facet.split("\n")[0];
             facetNameLinkedList.add(facetName);
         }
@@ -33,11 +35,10 @@ public class TopicPage extends AbstractPage {
     }
 
     public List<String> getResourcesList(String resourceType) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         int titleNumber = 0;
         String idTitle = "";
         List<WebElement> resourceList = waitForExpectedElements(By.xpath("//div[@id='cobalt_search_knowHowTopicPlc_" + resourceType + "']//ol/li"));
-        //List<WebElement> resourceList = findElements(By.cssSelector("#cobalt_search_knowhowtopicuk_results>div[id = 'cobalt_search_knowhowtopicuk_Practice_note:_overview'] li[id*='cobalt_search_results_knowhowtopicuk'] label"));
         for (WebElement result : resourceList) {
             idTitle = result.getAttribute("id");
             titleNumber = Integer.parseInt(idTitle.substring(idTitle.length() - 1));
@@ -50,7 +51,7 @@ public class TopicPage extends AbstractPage {
     public List<String> optionalBlockTitle() {
 
         List<WebElement> blocks = findElements(By.cssSelector("#coid_website_browseRightColumn .plplus_topic_container"));
-        List<String> blockNames = new ArrayList<String>();
+        List<String> blockNames = new ArrayList<>();
 
         for (WebElement element : blocks) {
             if (!element.getAttribute("class").contains("co_hideState")) {
@@ -73,7 +74,7 @@ public class TopicPage extends AbstractPage {
     public void selectEditorsPickResourceByTitle(String title) {
         WebElement element = waitForExpectedElement(By.linkText(title));
         String idValue = element.getAttribute("id");
-        String index = idValue.substring(idValue.lastIndexOf("_"));
+        String index = idValue.substring(idValue.lastIndexOf('_'));
         findElement(By.id("cobalt_artifact_delivery_checkbox_NaN" + index)).click();
     }
 
@@ -110,7 +111,7 @@ public class TopicPage extends AbstractPage {
         return waitForExpectedElement(By.cssSelector("li#cobalt_search_results_knowHowTopicPlc" + linkNumber + " h3 a"));
     }
 
-    public boolean NoEditorsPickWidget() {
+    public boolean noEditorsPickWidget() {
         try {
             findElement(By.cssSelector("#coid_website_browseTopColumn>div"));
         } catch (NoSuchElementException nse) {
@@ -149,15 +150,15 @@ public class TopicPage extends AbstractPage {
         return waitForExpectedElements(By.xpath("//h2[text()='" + resourceName + "']/..//a[contains(@id,'cobalt_result_knowhow_title')]"));
     }
     public List<WebElement> resourceDocTitleAllList() {
-        return waitForExpectedElements(By.xpath("//a[contains(@id,'cobalt_result_knowhow_title')]"));
+        return waitForExpectedElements(KNOW_HOW_TITLE);
     }
 
     public By resourceDocByTitleList() {
-        return By.xpath("//a[contains(@id,'cobalt_result_knowhow_title')]");
+        return KNOW_HOW_TITLE;
     }
 
     public By resourceDocByTitle() {
-        return By.xpath("//a[contains(@id,'cobalt_result_knowhow_title')]");
+        return KNOW_HOW_TITLE;
     }
 
     public List<WebElement> facetNameLinksList() {
