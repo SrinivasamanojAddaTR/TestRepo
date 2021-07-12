@@ -25,13 +25,14 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
     protected static final By THREE_COLUMN_LAYOUT_SELECTOR = By.cssSelector(".co_t3.th_lightGray");
     protected static final By DOCUMENTS_CSS_SELECTOR = By.cssSelector("td");
     protected static final By BACK_TO_RESULTS_LOCATOR = By.cssSelector("#coid_backToResults a");
-    public static final By PARENT_DOCUMENT_LINK_LOCATOR = By.cssSelector(""); // Todo Need to amend the css
+    public static final By PARENT_DOCUMENT_LINK_LOCATOR = By.cssSelector("");
     private static final By RESOURCE_TYPE = By.xpath(".//div[@class='co_documentType']/span");
     private static final By END_OF_DOCUMENT = By.id("co_endOfDocument");
     private static final By CONTENT_BODY = By.id("co_docContentBody");
     private static final By DELIVERY_OPTIONS = By.id("co_docToolbarVerticalMenuRight");
     private static final By META_CONTENT = By.id("co_docContentMetaInfo");
 	private static final By COPYRIGHT = By.xpath("//div[@class='co_center']/div[@class='co_copyright']"); //./div[contains(@class,'co_copyright co_center')]
+    private static final String CONTEXT = "context";
     
 
     /**
@@ -59,7 +60,6 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
         try {
             waitForExpectedElement(DOCUMENT_LOADING_LOCATOR);
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException(te.getMessage());
         }
     }
@@ -80,7 +80,6 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
         try {
             waitForExpectedElements(DOCUMENTS_CSS_SELECTOR);
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the document element :" + te.getMessage());
         }
     }
@@ -93,7 +92,6 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
             waitForPageToLoadAndJQueryProcessing();
             scrollIntoViewAndClick(waitForExpectedElement(BACK_TO_RESULTS_LOCATOR));
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException(te.getMessage());
         }
     }
@@ -107,7 +105,7 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
         try {
             return waitForExpectedElement(By.cssSelector("")).getAttribute("class").contains("left");
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info(CONTEXT, te);
         }
         return false;
     }
@@ -118,16 +116,6 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
         } catch (TimeoutException | ElementNotVisibleException nse) {
             LOG.error("Sign-Off link not found", nse);
         }
-    }
-
-    /**
-     * This method verifies the Parent document link is present or not and returns the boolean value accordingly.
-     *
-     * @param link
-     * @return boolean
-     */
-    public boolean isLinkPresentToParentDocument(String link) {
-    	return isElementDisplayed(PARENT_DOCUMENT_LINK_LOCATOR);
     }
 
     /**
@@ -152,47 +140,8 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
         try {
             return waitForExpectedElement(PARENT_DOCUMENT_LINK_LOCATOR);
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException(te.getMessage());
         }
-    }
-
-    /**
-     * This method verifies the selected Child link's Section appears on the right hand side document as a first section to appear.
-     *
-     * @param link
-     * @return boolean
-     */
-    public boolean isSelectedChildLinkSectionDisplayed(String link) {
-        if (StringUtils.isEmpty(link)) {
-            throw new IllegalArgumentException(" Child link name is required.");
-        }
-        try {
-            waitForElementVisible(By.xpath(""));// TODO : Modify the xpath for generic way to work for every child block section display for every linkname
-            return true;
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-        }
-        return false;
-    }
-
-    /**
-     * This method verifies the selected Child link's Section header appears on the right hand side document as a first section header to appear.
-     *
-     * @param link
-     * @return boolean
-     */
-    public boolean isSelectedChildLinkHeaderDisplayed(String link) {
-        if (StringUtils.isEmpty(link)) {
-            throw new IllegalArgumentException(" Child link name is required.");
-        }
-        try {
-            waitForElementVisible(By.xpath(""));// TODO : Modify the xpath for generic way to work for every child block header display for every linkname
-            return true;
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-        }
-        return false;
     }
 
     /**
@@ -232,9 +181,9 @@ public abstract class DocumentDisplayAbstractPage extends AbstractPage {
             throw new IllegalArgumentException(" Child link name is required.");
         }
         try {
-            return waitForElementVisible(By.xpath(".//h2[contains(@class,'co_printHeading') and contains(text(),'" + secondaryLink.getLinkName() + "')]/../..")); // TODO : Modify the xpath for generic way to work for every child block element.
+            return waitForElementVisible(By.xpath(".//h2[contains(@class,'co_printHeading') and contains(text(),'" + secondaryLink.getLinkName() + "')]/../.."));
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info(CONTEXT, te);
             throw new PageOperationException("Exceeded time to find the selected secondary menu block :" + secondaryLink);
         }
     }

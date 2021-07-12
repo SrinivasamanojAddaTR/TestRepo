@@ -23,9 +23,6 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 
 	public static final By DOC_TITLE = By.xpath("//div/*[starts-with(@class,'co_title')]");
 
-	/**
-	 * TODO: Need to add proper CSS for the selectors below.
-	 */
 	private static final By MODIFICATIONS_HEADER_LOCATOR = By
 			.xpath(".//h2[contains(@class,'co_printHeading') and contains(text(),'Modifications')]");
 	private static final By MODIFICATIONS_SECTION_LOCATOR = By
@@ -42,6 +39,9 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	private static final By BACK_TO_DOCUMENT_LINK_LOCATOR = By.cssSelector("");
 	private static final By SHOW_HIDE_BUTTON = By.cssSelector("");
 	public static final String LEGISLATION_DOC_TYPE_LOCATOR = "div.co_title+div";
+	private static final String CHILD_LINK_MESSAGE = " ChildLink name is required.";
+	private static final String JURISDICTION_NAME_MESSAGE = "Jurisdiction name is required.";
+	private static final String CONTEXT = "context";
 
 	private static final By JURISDICTION_TEXT = By
 			.xpath(".//*[@id='co_docContentBody']/div[@class='co_paragraph co_underline']/h2/strong");
@@ -72,7 +72,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 		try {
 			return waitForExpectedElement(DOC_TITLE).getText().contains(title);
 		} catch (TimeoutException te) {
-			LOG.info("context", te);
+			LOG.info(CONTEXT, te);
 		}
 		return false;
 	}
@@ -197,7 +197,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	 */
 	public boolean isJuridictionsDisplayed(Jurisdiction jurisdiction) {
 		if (jurisdiction == null) {
-			throw new IllegalArgumentException("Jurisdiction name is required.");
+			throw new IllegalArgumentException(JURISDICTION_NAME_MESSAGE);
 		}
 
 		if (isJurisdictionNavigationLinkDisplayed(jurisdiction)) {
@@ -219,7 +219,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	public boolean isJurisdictionNavigationLinkDisplayed(
 			Jurisdiction jurisdiction) {
 		if (jurisdiction == null) {
-			throw new IllegalArgumentException("Jurisdiction name is required.");
+			throw new IllegalArgumentException(JURISDICTION_NAME_MESSAGE);
 		}
 		return isElementDisplayed(jurisdiction.getJurisdictionNavigationLinkLocator());
 	}
@@ -237,7 +237,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	
 	public boolean isJurisdictionBlockPresent(Jurisdiction jurisdiction) {
 		if (jurisdiction == null) {
-			throw new IllegalArgumentException("Jurisdiction name is required.");
+			throw new IllegalArgumentException(JURISDICTION_NAME_MESSAGE);
 		}
 		return isElementDisplayed(jurisdiction.getJurisdictionBlockLocator());
 	}
@@ -252,7 +252,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	
 	public boolean isJurisdictionDocumentLinksPresent(Jurisdiction jurisdiction) {
 		if (jurisdiction == null) {
-			throw new IllegalArgumentException("Jurisdiction name is required.");
+			throw new IllegalArgumentException(JURISDICTION_NAME_MESSAGE);
 		}
 		return isElementDisplayed(jurisdiction.getJurisdictionDocumentLinkLocator());
 	}
@@ -273,7 +273,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 			return getDisplayedBlockElement(DocumentSecondaryLink.ANNOTATIONS)
 					.findElement(By.linkText("link")).isDisplayed();
 		} catch (PageOperationException pe) {
-			LOG.info("context", pe);
+			LOG.info(CONTEXT, pe);
 		}
 		return false;
 	}
@@ -314,7 +314,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 			windowHandler.closeWindow(link);
 			return true;
 		} catch (Exception t) {
-			LOG.info("context", t);
+			LOG.info(CONTEXT, t);
 		}
 		return false;
 	}
@@ -328,14 +328,9 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	 */
 	public boolean iSectionExpanded(String childLink) {
 		if (StringUtils.isEmpty(childLink)) {
-			throw new IllegalArgumentException(" ChildLink name is required.");
+			throw new IllegalArgumentException(CHILD_LINK_MESSAGE);
 		}
 		DocumentSecondaryLink.getLink(childLink);
-		/**
-		 * TODO: This is the pageobjects method for every section expanded or not
-		 * verification, so based on given link name find out the corresponding
-		 * section has expanded or not.
-		 */
 		return false;
 	}
 
@@ -348,7 +343,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	 */
 	public boolean iShowHideButtonPresent(String childLink) {
 		if (StringUtils.isEmpty(childLink)) {
-			throw new IllegalArgumentException(" ChildLink name is required.");
+			throw new IllegalArgumentException(CHILD_LINK_MESSAGE);
 		}
 
 		try {
@@ -356,7 +351,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 					DocumentSecondaryLink.valueOf(childLink)).findElement(
 					SHOW_HIDE_BUTTON).isDisplayed();
 		} catch (TimeoutException pe) {
-			LOG.info("context", pe);
+			LOG.info(CONTEXT, pe);
 		}
 		return false;
 	}
@@ -369,7 +364,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	 */
 	public void clickOnShowHideButton(String childLink) {
 		if (StringUtils.isEmpty(childLink)) {
-			throw new IllegalArgumentException(" ChildLink name is required.");
+			throw new IllegalArgumentException(CHILD_LINK_MESSAGE);
 		}
 
 		try {
@@ -424,7 +419,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 			return getDisplayedBlockElement(DocumentSecondaryLink.MODIFICATIONS)
 					.findElement(By.linkText(link)).isDisplayed();
 		} catch (PageOperationException pe) {
-			LOG.info("context", pe);
+			LOG.info(CONTEXT, pe);
 		}
 		return false;
 	}
@@ -467,42 +462,10 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 					By.xpath(".//h2[contains(@class,'co_printHeading') and contains(text(),'"
 							+ sectionName + "')]")).click();
 		} catch (TimeoutException pe) {
-			LOG.info("context", pe);
+			LOG.info(CONTEXT, pe);
 			throw new PageOperationException("Exceeded time to find the "
 					+ sectionName + " Block in the document");
 		}
-	}
-
-	public boolean isExpandAndCollapsePresentOnNavigationPrimaryLink(
-			String primaryMenu) {
-		if (StringUtils.isEmpty(primaryMenu)) {
-			throw new IllegalArgumentException(" PrimaryMenu name is required.");
-		}
-		try {
-			return waitForExpectedElement(By.xpath("")).isDisplayed(); // Todo
-																		// find
-																		// an
-																		// pageobjects
-																		// way
-																		// to
-																		// find
-																		// out
-																		// the
-																		// primary
-																		// navigation
-																		// link
-																		// and
-																		// find
-																		// the
-																		// expand
-																		// and
-																		// collapse
-																		// link
-																		// element.
-		} catch (TimeoutException te) {
-			LOG.info("context", te);
-		}
-		return false;
 	}
 
 	/**
@@ -515,8 +478,7 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	
 	public boolean isProvisionDocument(String docType) {
 		return isElementDisplayed(By.cssSelector(LEGISLATION_DOC_TYPE_LOCATOR))
-				? waitForExpectedElement(By.cssSelector(LEGISLATION_DOC_TYPE_LOCATOR)).getText().contains(docType)
-				: false;
+				&& waitForExpectedElement(By.cssSelector(LEGISLATION_DOC_TYPE_LOCATOR)).getText().contains(docType);
 	}
 
 	/**
@@ -540,7 +502,8 @@ public class ProvisionPage extends DocumentDisplayAbstractPage {
 	public WebElement annotatedStatuesText(String annotatedStatusText) {
 		return waitForExpectedElement(By.xpath("//h2[contains(text()," + "'" + annotatedStatusText + "'" + ")]"));
 	}
-	
+
+	@Override
 	public WebElement documentMetaInfo() {
 		return waitForExpectedElement(DOCUMENT_META_INFO);
 	}

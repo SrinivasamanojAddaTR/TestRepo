@@ -111,17 +111,16 @@ public class AssetDocumentPage extends DocumentDisplayAbstractPage {
 		return waitForExpectedElement(WHERE_REPORDED_LIST);
 	}
 
+	@Override
 	public WebElement contentBody() {
 		return waitForExpectedElement(CONTENT_BODY);
 	}
 
 	public String allContentBodyElementsText() {
 		List<WebElement> elements = waitForExpectedElements(CONTENT_BODY);
-		String text = "";
-		for (WebElement element : elements) {
-			text = text + element.getText();
-		}
-		return text;
+		StringBuilder text = new StringBuilder();
+		elements.forEach(element -> text.append(element.getText()));
+		return text.toString();
 	}
 
 	public WebElement topButton() {

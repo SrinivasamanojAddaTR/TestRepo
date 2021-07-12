@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 
+import static java.lang.String.format;
+
 /**
  * This page object is to identify the Case Document elements and depicts the
  * page functionality.
@@ -32,6 +34,7 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
 	private static final By PDF_DOWNLOAD_TOOLTIP = By.xpath("//div[@id='co_DownloadPDFWidget']/div[@class='tooltip-left']");
     private static final String PL_DOCUMENT_LINK_XPATH = "//*[starts-with(@id,'co_ukReferences')]//a[contains(text(),'%s')]";
     private static final String PL_PUBLISHED_LINK_XPATH = "//*[starts-with(@id,'co_ukReferences')]//a[contains(text(),'%s')]/following-sibling::span[contains(text(),'Published')][@class='co_redStatus']";
+    private static final String CONTEXT = "context";
 
     private CommonMethods commonMethods = new CommonMethods();
 
@@ -110,9 +113,6 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
 		return waitForExpectedElement(By.xpath("//div[@id='co_docHeaderContainer']//span[@class='co_starPage']"));
 	}
 
-    public CaseDocumentPage() {
-    }
-
     /**
      * This method verify the given star paging word is present or not in the
      * case law report and returns boolean vlaue accordingly.
@@ -125,7 +125,7 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
             waitForElementPresent(By.xpath(".//span[@class='co_starPage'] [contains(text(),'" + starPagingWord + "')]"));
             return true;
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info(CONTEXT, te);
         }
         return false;
     }
@@ -158,7 +158,6 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
         try {
             return waitForElementPresent(pdfDownloadLinkLocator);
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the PDF link on case document." + te.getMessage());
         }
     }
@@ -174,51 +173,12 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
         try {
             return waitForExpectedElements(judgmentSectionDetailsLocator).size();
         } catch (TimeoutException te) {
-            LOG.info("context", te);
-            logger.warn("Exceeded time to find the judgmentSectionDetailsLocator." + te.getMessage());
-            return Collections.EMPTY_LIST.size();
+            LOG.info(CONTEXT, te);
+            logger.warn("Exceeded time to find the judgmentSectionDetailsLocator. {}",te.getMessage());
+            return Collections.emptyList().size();
         }
     }
 
-    /**
-     * This method verifies the party names are displayed on the Case judgment
-     * document and returns the boolean value accordingly.
-     *
-     * @param partyNames
-     * @return boolean
-     */
-    public boolean isJudgmentPartyNamesDisplayed(String partyNames) {
-        try {
-            return waitForExpectedElement(By.cssSelector("")).isDisplayed(); // Need
-            // to
-            // amend
-            // the
-            // css.
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-            return false;
-        }
-    }
-
-    /**
-     * This method verifies the party names are displayed on the left hand side
-     * of Case judgment document and returns the boolean value accordingly.
-     *
-     * @param pageAttribute
-     * @return boolean
-     */
-    public boolean isDisplayedOnLeftHandSide(String pageAttribute) {
-        try {
-            return waitForExpectedElement(By.cssSelector("")).isDisplayed(); // Need
-            // to
-            // amend
-            // the
-            // css.
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-            return false;
-        }
-    }
 
     public boolean isDateInValidFormat(String s, String dateFormat) {
         return commonMethods.isDateInValidFormat(s, dateFormat);
@@ -378,11 +338,11 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
      */
 
     public WebElement plDocumentLinks(String name) {
-        return waitForExpectedElement(By.xpath("//*[starts-with(@id,'co_ukReferences')]//a[contains(text(),'" + name + "')]"));
+        return waitForExpectedElement(By.xpath(format(PL_DOCUMENT_LINK_XPATH,name)));
     }
 
     public Boolean isPLDocumentLinkDisplayed(String name) {
-        return isElementDisplayed(By.xpath(String.format(PL_DOCUMENT_LINK_XPATH, name)));
+        return isElementDisplayed(By.xpath(format(PL_DOCUMENT_LINK_XPATH, name)));
     }
 
     /**
@@ -390,12 +350,11 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
      */
 
     public WebElement plDocumentLinkWithMaintainedStatus(String name) {
-        return waitForExpectedElement(By.xpath("//*[starts-with(@id,'co_ukReferences')]//a[contains(text(),'" + name + "')]/following-sibling::span[contains(text(),'Maintained')][@class='co_greenStatus']"));
+        return waitForExpectedElement(By.xpath(format(PL_DOCUMENT_LINK_XPATH,name) + "/following-sibling::span[contains(text(),'Maintained')][@class='co_greenStatus']"));
     }
 
 	public Boolean isPLStatusDisplayed(String name, String status, String colour) {
-		return isElementDisplayed(By.xpath("//*[starts-with(@id,'co_ukReferences')]//a[contains(text(),'" + name
-				+ "')]/following-sibling::span[contains(@class, 'co_" + colour + "Status') and contains(text(),'"
+		return isElementDisplayed(By.xpath(format(PL_DOCUMENT_LINK_XPATH,name) + "/following-sibling::span[contains(@class, 'co_" + colour + "Status') and contains(text(),'"
 				+ status + "')]"));
 	}
 
@@ -404,11 +363,11 @@ public class CaseDocumentPage extends DocumentDisplayAbstractPage {
      */
 
     public WebElement plDocumentLinkWithPublishedStatus(String name) {
-        return waitForExpectedElement(By.xpath("//*[starts-with(@id,'co_ukReferences')]//a[contains(text(),'" + name + "')]/following-sibling::span[contains(text(),'Published')][@class='co_redStatus']"));
+        return waitForExpectedElement(By.xpath(format(PL_DOCUMENT_LINK_XPATH,name) + "/following-sibling::span[contains(text(),'Published')][@class='co_redStatus']"));
     }
 
     public Boolean isPLPublishedStatusDisplayed(String name) {
-        return isElementDisplayed(By.xpath(String.format(PL_PUBLISHED_LINK_XPATH, name)));
+        return isElementDisplayed(By.xpath(format(PL_PUBLISHED_LINK_XPATH, name)));
     }
 
     public List<WebElement> allPLHeaders() {

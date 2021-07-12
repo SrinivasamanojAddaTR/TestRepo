@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static java.lang.String.format;
+
 
 public class PrimarySourceDocumentPage extends DocumentDisplayAbstractPage {
 
@@ -15,7 +17,9 @@ public class PrimarySourceDocumentPage extends DocumentDisplayAbstractPage {
 	private static final By SPECIFIC_PROVISION_COVERAGE_SECTION = By.className("co_specificProvisionCoverage");
 	private static final By RELATED_CONTENT = By.id("co_relatedContent");
 	private static final By NUMBER_OF_LINKS_FOUND_RESULT = By.xpath(".//div[@id='co_relatedContent']/span");
+	private static final String PROVISION_SECTION_LINK_XPATH = ".//div[contains(text(), '%s')]";
 
+	@Override
 	public WebElement documentTitle() {
 		return waitForExpectedElement(DOCUMENT_TITLE);
 	}
@@ -79,8 +83,7 @@ public class PrimarySourceDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement typeDocumentSection(String documentTypeText) {
-		return waitForExpectedElement(By.xpath(".//h3[contains(text(), '" + documentTypeText
-				+ "')]/following-sibling::ul[@class='co_assetList']"));
+		return waitForExpectedElement(By.xpath(format(".//h3[contains(text(), '%s')]/following-sibling::ul[@class='co_assetList']", documentTypeText)));
 	}
 
 	public WebElement linkOfSpecificDocumentType(String linkText, String documentTypeText) {
@@ -88,7 +91,7 @@ public class PrimarySourceDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement typeOfDocumentInContentReferringSection(String documentTypeText) {
-		return waitForExpectedElement(By.xpath(".//h3[contains(text(), '" + documentTypeText + "')]"));
+		return waitForExpectedElement(By.xpath(format(".//h3[contains(text(), '%s')]",documentTypeText)));
 	}
 
 	public WebElement typeOfDocumentBelowPreviousDocumentType(String nextDocumentTypeText, String documentTypeText) {
@@ -115,22 +118,20 @@ public class PrimarySourceDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public WebElement otherProvisionsSection(String otherProvisionsText) {
-		return waitForExpectedElement(By.xpath(".//div[contains(text(), '" + otherProvisionsText + "')]"));
+		return waitForExpectedElement(By.xpath(format(PROVISION_SECTION_LINK_XPATH,otherProvisionsText)));
 	}
 
 	public WebElement linkInOtherProvisionsSection(String linkText, String otherProvisionsText) {
-		return waitForExpectedElement(By.xpath(".//div[contains(text(), '" + otherProvisionsText
-				+ "')]/../following-sibling::ul//a[contains(text(), '" + linkText + "')]"));
+		return waitForExpectedElement(By.xpath(format(PROVISION_SECTION_LINK_XPATH,otherProvisionsText) + "/../following-sibling::ul//a[contains(text(), '" + linkText + "')]"));
 	}
 
 	public WebElement specificProvisionSectionUnderOtherProvisions(String specificProvisionText,
 			String otherProvisionsText) {
-		return waitForExpectedElement(By.xpath(".//div[contains(text(), '" + otherProvisionsText
-				+ "')]/../..//h2[contains(text(), '" + specificProvisionText + "')]"));
+		return waitForExpectedElement(By.xpath(format(PROVISION_SECTION_LINK_XPATH,otherProvisionsText) + "/../..//h2[contains(text(), '" + specificProvisionText + "')]"));
 	}
 
 	public WebElement otherProvisionStyle(String sectionNameText) {
-		return waitForExpectedElement(By.xpath(".//div[contains(text(), '" + sectionNameText + "')]/../.."));
+		return waitForExpectedElement(By.xpath(format(".//div[contains(text(), '%s')]/../..",sectionNameText)));
 	}
 
 }

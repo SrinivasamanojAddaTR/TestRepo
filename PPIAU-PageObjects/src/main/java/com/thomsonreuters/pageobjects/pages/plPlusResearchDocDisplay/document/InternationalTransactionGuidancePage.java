@@ -76,7 +76,7 @@ public class InternationalTransactionGuidancePage extends StandardDocumentPage {
 
 	public List<String> getActualCountyListFromWebsite() {
 		List<String> countries = commonMethods.getTextsFromWebElements(getCountrySelectorCountryList());
-		countries.remove("Please select...");
+		countries.remove(FIRST_SELECTOR_OPTION_TEXT);
 		return countries;
 	}
 
