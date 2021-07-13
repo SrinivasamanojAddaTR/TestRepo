@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class MeetTheTeamTest extends BaseStepDef {
+public class MeetTheTeamTestSteps extends BaseStepDef {
 	
 	private MeetTheTeam meetTheTeam = new MeetTheTeam();
 	private AboutPracticalLaw aboutPracticalLaw = new AboutPracticalLaw();
@@ -27,10 +28,9 @@ public class MeetTheTeamTest extends BaseStepDef {
 		sortedpaNamesFromTOC = new ArrayList<String>();
 		sortedpaNamesFromTOC.addAll(notSortedpaNamesFromTOC);
 		Collections.sort(sortedpaNamesFromTOC);
-		assertTrue("the table of contents list practice areas not in alphabetical order", sortedpaNamesFromTOC.equals(notSortedpaNamesFromTOC));
-		
+		assertThat(sortedpaNamesFromTOC).as("the table of contents list practice areas not in alphabetical order").isEqualTo(notSortedpaNamesFromTOC);
 	}
-	
+
 	@Then("^the user selects a practice area \"(.*?)\" within the table of contents$")
 	public void theUserSelectsAPracticeAreaWithinTheTableOfContents(String paName) throws Throwable {
 		aboutPracticalLaw.theUserSelectsTabWithinTheTableOfContents(paName);
@@ -43,7 +43,7 @@ public class MeetTheTeamTest extends BaseStepDef {
 
 	@Then("^there are \"(.*?)\" team members listed for practice area$")
 	public void practiceAreaListContainsNumberOfProfiles(String profilesCount) throws Throwable {
-		assertTrue("Number of profiles is not correct", meetTheTeam.contributorProfiles().size() == Integer.valueOf(profilesCount));
+		assertThat(meetTheTeam.contributorProfiles().size()).as("Number of profiles is not correct").isEqualTo(Integer.valueOf(profilesCount));
 	}
 	
 	@Then("^profiles are not empty$")
@@ -58,6 +58,6 @@ public class MeetTheTeamTest extends BaseStepDef {
 	
 	@Then("^there are '(\\d+)' team members listed$")
 	public void userShouldSeeProfiles(int profilesCount) throws Throwable {
-		assertTrue("Number of profiles is not correct on main page", meetTheTeam.contributorProfiles().size() == profilesCount);
+		assertThat(meetTheTeam.contributorProfiles().size()).as("Number of profiles is not correct on main page").isEqualTo(profilesCount);
 	}
 }

@@ -27,7 +27,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class AnzBrowseTest extends BaseStepDef {
+public class AnzBrowseTestSteps extends BaseStepDef {
 
     private KnowHowDocumentPage knowHowDocumentPage = new KnowHowDocumentPage();
     private WLNHeader wlnHeader = new WLNHeader();
@@ -54,7 +54,6 @@ public class AnzBrowseTest extends BaseStepDef {
         } else {
             assertTrue(pageTitle + " page Title is Not matching..!", wlnHeader.pageHeaderLabel().getText().toLowerCase().contains(pageTitle.toLowerCase()));
             if (wlnHeader.getCurrentUrl().contains("Browse/Home")) {
-                //assert was added to test story 827223 - Add the page header into PLCAU
                 assertTrue("Category page controller does not to return true from ShouldHeaderBeAboveContent", wlnHeader.isBrowseHeaderWithinPageHeader());
             }
         }
@@ -68,16 +67,7 @@ public class AnzBrowseTest extends BaseStepDef {
 
     @Then("^user verifies the \"(.*)\" page Title in Open Web$")
     public void userShouldseethePageTitleInOpenWeb(String pageTitle) throws Throwable {
-//        if(pageTitle.equalsIgnoreCase("Country Q&A")){
         assertTrue(pageTitle + " page Title is Not matching..!", knowHowDocumentPage.getFullText().contains(pageTitle));
-
-//        }else {
-//            assertTrue(pageTitle+" page Title is Not matching..!", wlnHeader.pageHeaderLabel().getText().contains(pageTitle));
-//            if (wlnHeader.getCurrentUrl().contains("Browse/Home")) {
-//                //assert was added to test story 827223 - Add the page header into PLCAU
-//                assertTrue("Category page controller does not to return true from ShouldHeaderBeAboveContent", wlnHeader.isBrowseHeaderWithinPageHeader());
-//            }
-//        }
     }
 
     @Then("^user verifies the following tabs are displayed$")
@@ -169,7 +159,7 @@ public class AnzBrowseTest extends BaseStepDef {
         topicPage.waitForPageToLoadAndJQueryProcessing();
         int docRowCount = topicPage.resourceDocTitleAllList().size();
         int resourceFacetCount = Integer.parseInt(topicPage.specificFacetCount(facetName).getText());
-        assertTrue(docRowCount + " & " + resourceFacetCount + " are not matching..!", docRowCount == resourceFacetCount);
+        assertThat(docRowCount).as(docRowCount + " & " + resourceFacetCount + " are not matching..!").isEqualTo(resourceFacetCount);
     }
 
     @Then("^user should see following countries with \"(.*?)\" and \"(.*?)\" tabs$")
@@ -315,11 +305,8 @@ public class AnzBrowseTest extends BaseStepDef {
         categoryPage.openPageByText(textLink);
     }
 
-
     @Then("^user verifies title \"(.*)\" page$")
     public void userShouldseetitlePage(String pageTitle) throws Throwable {
-
         assertTrue(pageTitle + " page Title is Not matching..!", wlnHeader.pageHeaderLabel().getText().toLowerCase().contains(pageTitle.toLowerCase()));
-
     }
 }
