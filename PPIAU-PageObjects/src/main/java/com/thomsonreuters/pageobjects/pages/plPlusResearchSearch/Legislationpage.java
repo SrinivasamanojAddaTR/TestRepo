@@ -3,7 +3,6 @@ package com.thomsonreuters.pageobjects.pages.plPlusResearchSearch;
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
@@ -17,9 +16,6 @@ import java.util.List;
 
 public class Legislationpage extends AbstractPage {
 
-    public Legislationpage() {
-    }
-
     public WebElement ukLegislationClick() {
         return waitForExpectedElement(By.cssSelector("a[href*='UKLEGISLATION']"));
     }
@@ -28,7 +24,6 @@ public class Legislationpage extends AbstractPage {
         try {
             return waitForExpectedElement(By.id("cobalt_search_ukLegislation_results"));
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
             throw new PageOperationException(waitForExpectedElement(By.id("cobalt_search_no_results")).getText());
         }
     }
@@ -65,7 +60,6 @@ public class Legislationpage extends AbstractPage {
         try {
             return Integer.valueOf(waitForExpectedElement(By.xpath(".//label[text()='" + jurisdiction + "']/../span[@class='co_facetCount']")).getText());
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the facet count for : " + jurisdiction);
         }
     }
@@ -79,74 +73,28 @@ public class Legislationpage extends AbstractPage {
     }
 
     public List<String> getMainJurisdictionFacets() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.cssSelector(".co_facet_tree>li>label[for^='facet_hierarchy_jurisdictionSummary']"))) {
                 list.add(facet.getText());
             }
         } catch (PageOperationException te) {
-            LOG.info("context", te);
-            list = new ArrayList<String>();
+            LOG.info("Main Jurisdiction facets are not found", te);
+            list = new ArrayList<>();
         }
         return list;
     }
 
     public List<String> getUKJurisdictionFacets() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.xpath("//label[text()='UK']/..//ul[contains(@id,'jurisdiction')]//li//label"))) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info("UK Jurisdiction Facets are not displayed", te);
         }
         return list;
-    }
-
-    public int getFacetCount(String facetGroup, String... facetNames) {
-        String temp = "";
-        String tempStr = "/label[text()='";
-        try {
-            StringBuilder xpath = new StringBuilder();
-            if (facetGroup.equals("Jurisdiction")) {
-                xpath.append(".//div[@id='facet_div_jurisdictionSummary']/ul/li");
-            } else if (facetGroup.equals("Topic")) {
-                xpath.append(".//div[@id='facet_div_topicSummary']/ul/li");
-            } else if (facetGroup.equals("Document Type")) {
-                xpath.append(".//div[@id='facet_div_legislationDocumentTypeSummary']/ul/li");
-            } else if (facetGroup.equals("Status")) {
-                xpath.append(".//div[@id='facet_div_legislationStatusSummary']/ul/li");
-            }
-            temp = xpath.toString();
-
-            for (int i = 0; i < facetNames.length - 1; i++) {
-                WebElement checkbox = waitForExpectedElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
-                if (checkbox.getAttribute("class").equals("co_facet_expand")) {
-                    checkbox.click();
-                }
-                xpath.append("/div/ul/li");
-            }
-            xpath.append("/label[text()='%s']/../span[@class='co_facetCount']");
-            int size = Integer.valueOf(waitForExpectedElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1]))).getText());
-
-            for (int i = facetNames.length - 2; i >= 0; i--) {
-                String extraURL = "";
-                int j = i;
-                while (j > 0) {
-                    extraURL += "/div/ul/li";
-                    j--;
-                }
-                if (extraURL.length() > 0) {
-                    waitForExpectedElement(By.xpath(temp + extraURL + "/label[text()='" + facetNames[i] + "']/../a")).click();
-                } else {
-                    waitForExpectedElement(By.xpath(temp + "/label[text()='" + facetNames[i] + "']/../a")).click();
-                }
-            }
-            return size;
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-            throw new PageOperationException("Exceeded time to find the facet count for : ");
-        }
     }
 
     public WebElement checkBoxByLabelName(String label) {
@@ -212,8 +160,7 @@ public class Legislationpage extends AbstractPage {
     }
 
     public int getLegislationCount() {
-        int Size = Integer.valueOf(waitForExpectedElement(By.cssSelector(".co_search_titleCount")).getText().replace("(", "").replace(")", "").replace(",", "").trim());
-        return Size;
+        return Integer.valueOf(waitForExpectedElement(By.cssSelector(".co_search_titleCount")).getText().replace("(", "").replace(")", "").replace(",", "").trim());
     }
 
 }

@@ -11,14 +11,11 @@ import org.openqa.selenium.WebElement;
 
 public class UKNewContentTypeClick extends AbstractPage {
 
-    public UKNewContentTypeClick() {
-    }
-
     public WebElement clickUKNewContentType() {
         return waitForExpectedElement(By.cssSelector("a[href*='UKNewContentTypes']"));
     }
 
-    public WebElement Closebutton() {
+    public WebElement closeButton() {
         return waitForExpectedElement(By.cssSelector("input[value='Close']"));
     }
 

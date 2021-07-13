@@ -52,7 +52,7 @@ public class RBCommonPage extends AbstractPage {
     }
 
     public WebElement firstResentHistoryLink(){
-        return waitForExpectedElement(By.xpath(String.format("//*[@id='cobalt_foldering_ro_item_name_0']")));
+        return waitForExpectedElement(By.xpath("//*[@id='cobalt_foldering_ro_item_name_0']"));
     }
 
     public List<WebElement> resentHistoryLinks(){

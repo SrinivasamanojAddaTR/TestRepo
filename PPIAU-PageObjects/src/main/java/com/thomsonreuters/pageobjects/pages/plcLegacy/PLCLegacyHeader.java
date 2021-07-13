@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 
 public class PLCLegacyHeader extends AbstractPage {
 
-	private final static String LOGIN = "//a[text()='Log in' or text()='Log in as a different user']";
+	private  static final String LOGIN = "//a[text()='Log in' or text()='Log in as a different user']";
 
 	public void login() {
 		waitForPageToLoad();
