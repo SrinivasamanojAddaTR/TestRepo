@@ -15,7 +15,7 @@ public enum Jurisdiction {
     WALES("Wales", By.cssSelector(""), By.cssSelector(""), By.cssSelector("")),
     SCOTLAND("Scotland", By.cssSelector(""), By.cssSelector(""), By.cssSelector(""));
 
-    private final static Map<String, Jurisdiction> map = new HashMap<String, Jurisdiction>();
+    private static final Map<String, Jurisdiction> map = new HashMap<>();
 
     static {
         for (Jurisdiction jurisdictionLink : Jurisdiction.values()) {

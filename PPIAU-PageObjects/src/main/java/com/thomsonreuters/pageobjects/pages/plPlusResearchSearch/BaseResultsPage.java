@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class BaseResultsPage extends AbstractPage {
 
     public WebElement subjectDisplayed() {
         return waitForExpectedElement(By.xpath("//*[@id='co_searchResults_citation_1']/div[1]/span[contains(text(),'Subject')]"));
-           }
+    }
 
     public WebElement keyWordsDisplayed() {
         return waitForExpectedElement(By.cssSelector("#co_searchResults_citation_1 div.co_search_detailLevel_2:nth-of-type(2)>span"));
@@ -57,15 +56,15 @@ public class BaseResultsPage extends AbstractPage {
         return waitForExpectedElement(By.xpath(".//*[@id='cobalt_result_internationalCase_title1']/span[contains(text(),'Official Transcript')]"));
     }
 
-    public WebElement pdfDisplayed(){
+    public WebElement pdfDisplayed() {
         return waitForExpectedElement(By.xpath(".//*[@id='cobalt_result_internationalCase_title1']/img"));
     }
 
-    public WebElement caseAnalysDisplayed(){
+    public WebElement caseAnalysDisplayed() {
         return waitForExpectedElement(By.xpath(".//*[@id='cobalt_result_internationalCase_title1']/span[contains(text(),'Case Analysis')]"));
     }
 
-    public WebElement lawReportDisplayed(){
+    public WebElement lawReportDisplayed() {
         return waitForExpectedElement(By.cssSelector("#cobalt_result_internationalCase_title1 .co_searchTerm"));
     }
 
@@ -137,7 +136,7 @@ public class BaseResultsPage extends AbstractPage {
      * @return boolean
      */
     public boolean isResultItemDisplayed(String name) {
-    	return isElementDisplayed(By.xpath(String.format(RESULT_ITEM_CSS, name)));
+        return isElementDisplayed(By.xpath(String.format(RESULT_ITEM_CSS, name)));
     }
 
     /**
@@ -164,7 +163,6 @@ public class BaseResultsPage extends AbstractPage {
                 return waitForExpectedElement(By.cssSelector("#cobalt_search_results_ukLegislation" + rowNum + " h3 a"));
             }
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the Result Link Element based on row index : " + rowNum + " : " + te.getMessage());
         }
         throw new PageOperationException("Error in finding the Result Link Element based on row index : " + rowNum);
@@ -173,7 +171,7 @@ public class BaseResultsPage extends AbstractPage {
     public String getDocumentType() {
         try {
             return waitForExpectedElement(By.cssSelector(".co_search_result_heading_content>h1")).getText();
-        } catch (TimeoutException te){
+        } catch (TimeoutException te) {
             LOG.info("context", te);
         }
         return StringUtils.EMPTY;
@@ -186,15 +184,15 @@ public class BaseResultsPage extends AbstractPage {
      * @return boolean
      */
     public boolean isResultItemPresentOnGivenRow(String rowNum) {
-    	String docType = getDocumentType();
-    	switch (docType) {
-		case "UK-CASES":
-			return isElementDisplayed(By.cssSelector("h3 #cobalt_result_internationalCase_title" + rowNum + " span"));
-		case "UK-LEGISLATION":
-			return isElementDisplayed(By.cssSelector("#cobalt_search_results_ukLegislation" + rowNum + " h3 a"));
-		default:
-			throw new RuntimeException("Undefined doc type : " + docType);
-		}
+        String docType = getDocumentType();
+        switch (docType) {
+            case "UK-CASES":
+                return isElementDisplayed(By.cssSelector("h3 #cobalt_result_internationalCase_title" + rowNum + " span"));
+            case "UK-LEGISLATION":
+                return isElementDisplayed(By.cssSelector("#cobalt_search_results_ukLegislation" + rowNum + " h3 a"));
+            default:
+                throw new IllegalStateException("Undefined doc type : " + docType);
+        }
     }
 
     /**
@@ -222,7 +220,7 @@ public class BaseResultsPage extends AbstractPage {
     }
 
     public List<String> getResultItems() {
-        List<String> results = new ArrayList<String>();
+        List<String> results = new ArrayList<>();
         try {
             for (WebElement item : waitForExpectedElements(By.cssSelector(".co_searchResult_list li h3 a"))) {
                 results.add(item.getText());
@@ -243,23 +241,24 @@ public class BaseResultsPage extends AbstractPage {
 
     /**
      * This method is to find and click on the cases official transcript link present on search result item.
+     *
      * @param searchTerm
      */
     public void navigateToOfficialTranscript(String searchTerm) {
         try {
-            waitForElementPresent(By.xpath(String.format(CASES_OFFICIAL_TRANSCRIPT_RESULT_ITEM_CSS,searchTerm))).click();
+            waitForElementPresent(By.xpath(String.format(CASES_OFFICIAL_TRANSCRIPT_RESULT_ITEM_CSS, searchTerm))).click();
         } catch (TimeoutException te) {
-            LOG.info("context", te);
-            throw new PageOperationException("Exceeded time to find the official transcript link."+searchTerm+" ; "+te.getMessage());
+            throw new PageOperationException("Exceeded time to find the official transcript link." + searchTerm + " ; " + te.getMessage());
         }
     }
 
     /**
      * Get list contains full text per result.
      * E.g., for one result will be included: title, doc type, Status, snippet text, ...
+     *
      * @return List of results
      */
     public List<WebElement> getResultListWithFullText() {
-        return  waitForExpectedElements(By.xpath("//li[contains(@id, 'cobalt_search_results')]"));
+        return waitForExpectedElements(By.xpath("//li[contains(@id, 'cobalt_search_results')]"));
     }
 }

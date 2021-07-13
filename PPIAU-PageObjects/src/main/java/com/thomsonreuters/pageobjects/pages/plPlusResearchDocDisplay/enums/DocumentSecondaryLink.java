@@ -65,7 +65,7 @@ public enum DocumentSecondaryLink {
     private final String linkName;
     private final By cssLocator;
 
-    private final static Map<String, DocumentSecondaryLink> map = new HashMap<String, DocumentSecondaryLink>();
+    private static final Map<String, DocumentSecondaryLink> map = new HashMap<>();
 
     static {
         for (DocumentSecondaryLink documentLink : DocumentSecondaryLink.values()) {

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 public class KnowHowDocumentPage extends CommonDocumentPage {
 
-    private By documentTitle = By.cssSelector("#co_docContentHeader");
+    private static final By DOCUMENT_TITLE = By.cssSelector("#co_docContentHeader");
 
     /**
      * This method gets the displayed text as string value from the full text document.
@@ -14,9 +14,9 @@ public class KnowHowDocumentPage extends CommonDocumentPage {
      * @return String
      */
     public String getFullText() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         try {
-            WebElement title = getTitle(By.cssSelector("#co_docContentHeader"));
+            WebElement title = getTitle(DOCUMENT_TITLE);
             sb.append(title.getText());
         } catch (PageOperationException poe) {
             LOG.info("context", poe);
@@ -32,7 +32,7 @@ public class KnowHowDocumentPage extends CommonDocumentPage {
      * @return boolean
      */
     public boolean isSearchTermsPresentInParagraph(TermsInSequence termsInSequence, String... searchTerms) {
-        if (!isSearchTermsPresentInParagraph(termsInSequence, By.cssSelector("#co_docContentHeader"), searchTerms)) {
+        if (!isSearchTermsPresentInParagraph(termsInSequence, DOCUMENT_TITLE, searchTerms)) {
             return isSearchTermsPresentInParagraph(termsInSequence, By.className("co_paragraphText"), searchTerms);
         }
         return true;
@@ -51,7 +51,7 @@ public class KnowHowDocumentPage extends CommonDocumentPage {
      * @return boolean
      */
     public boolean isSearchTermsPresentInParagraphWithInNumberOfWords(TermsInSequence termsInSequence, int withInTerms, String... searchTerms) {
-        if (!isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, withInTerms, By.cssSelector("#co_docContentHeader"), searchTerms)) {
+        if (!isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, withInTerms, DOCUMENT_TITLE, searchTerms)) {
             return isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, withInTerms, By.className("co_paragraphText"), searchTerms);
         }
         return true;
@@ -68,8 +68,7 @@ public class KnowHowDocumentPage extends CommonDocumentPage {
      * This object represents the product code section as a whole
      */
     public WebElement productCodeSection() {
-        WebElement myXPath = waitForExpectedElement(By.xpath("//div[@id='co_docContentMetaInfo']//div[@class='co_practiceAreaName']/ul"));
-        return myXPath;
+        return waitForExpectedElement(By.xpath("//div[@id='co_docContentMetaInfo']//div[@class='co_practiceAreaName']/ul"));
     }
 
     /**
@@ -108,33 +107,33 @@ public class KnowHowDocumentPage extends CommonDocumentPage {
     public WebElement tableOfContentLeftHandTable() {
         return waitForExpectedElement(By.xpath("//div[@class='kh_toc-header']"), 15);
     }
-    
+
     public boolean isSearchTermHighlighted(String highlightedTerm) {
         return isExists(By.xpath("//div[(@id='co_document')]//span[text()='" + highlightedTerm + "' and @class='co_searchTerm']"));
     }
-    
+
     public boolean isHighlightedWordsPresent() {
         return isElementDisplayed(By.xpath("//span[@class='co_searchTerm']"));
     }
-    
+
     public WebElement highlightedOptionCheckbox() {
-    	return waitForExpectedElement(By.xpath("//input[@id='co_showHideSearchTerm']"));
-    }    
-    
+        return waitForExpectedElement(By.xpath("//input[@id='co_showHideSearchTerm']"));
+    }
+
     public WebElement textInSearchToggle() {
-    	return waitForExpectedElement(By.xpath("//span[@class='searchTermMessage']"));
-    }    
-    
-    public boolean isHighlightedOptionCheckboxSelected(){
-    	return highlightedOptionCheckbox().isSelected();
+        return waitForExpectedElement(By.xpath("//span[@class='searchTermMessage']"));
+    }
+
+    public boolean isHighlightedOptionCheckboxSelected() {
+        return highlightedOptionCheckbox().isSelected();
     }
 
 
     public By getDocumentTitle() {
-        return documentTitle;
+        return DOCUMENT_TITLE;
     }
 
     public WebElement alsoFoundInHeader() {
-        return waitForExpectedElement(By.xpath("//div[@id='co_endOfDocument']//div[contains(text(),'Also Found In')]"),10);
+        return waitForExpectedElement(By.xpath("//div[@id='co_endOfDocument']//div[contains(text(),'Also Found In')]"), 10);
     }
 }

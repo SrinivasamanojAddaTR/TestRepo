@@ -38,7 +38,7 @@ public enum DocumentPrimaryLink {
     private final String linkName;
     private final By cssLocator;
 
-    private final static Map<String, DocumentPrimaryLink> map = new HashMap<String, DocumentPrimaryLink>();
+    private static final Map<String, DocumentPrimaryLink> map = new HashMap<>();
 
     static {
         for (DocumentPrimaryLink documentLink : DocumentPrimaryLink.values()) {
