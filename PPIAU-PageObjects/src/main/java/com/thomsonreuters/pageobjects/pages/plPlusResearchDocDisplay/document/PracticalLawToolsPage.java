@@ -1,9 +1,7 @@
 package com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document;
 
-import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 public class PracticalLawToolsPage extends AbstractPage {
 

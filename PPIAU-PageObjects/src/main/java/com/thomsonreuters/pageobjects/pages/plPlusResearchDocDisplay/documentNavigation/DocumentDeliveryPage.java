@@ -1,13 +1,11 @@
 package com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation;
 
-import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 
 /**
@@ -16,8 +14,6 @@ import org.springframework.util.StringUtils;
  */
 
 public class DocumentDeliveryPage extends DocumentNavigationPage {
-
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(DocumentDeliveryPage.class);
 
 	public static final By ADD_TO_FOLDER_LOCATOR = By.xpath(".//*[@id='co_docToolbarSaveToWidget']/div/a");
 
@@ -28,8 +24,6 @@ public class DocumentDeliveryPage extends DocumentNavigationPage {
     private static final By DOCUMENT_DELIVERY_ICONS = By.xpath("//ul[@id='co_docToolbarVerticalMenuRight']/li");
     private static final By NEW_ANNOTATION = By.xpath("//*[@id='co_AddNewAnnotationWidget']//a");
     private static final By SHOW_HIDE_ANNOTATION = By.xpath("//*[@id='co_ToggleAnnotationWidget']");
-
-    private CommonMethods commonMethods;
 
     public DocumentDeliveryPage(){
         commonMethods = new CommonMethods();
@@ -82,6 +76,7 @@ public class DocumentDeliveryPage extends DocumentNavigationPage {
             waitForElementsClickable(links.getLocator());
             return true;
         } catch (TimeoutException pe) {
+            LOG.info("context",pe);
         }
         return false;
     }
@@ -144,20 +139,6 @@ public class DocumentDeliveryPage extends DocumentNavigationPage {
     }
     public boolean isShowHideAnnotationButtonPresent(){
         return isExists(SHOW_HIDE_ANNOTATION);
-    }
-
-    /**
-     * This does the finding of Add to folder link element and returns the same element.
-     *
-     * @return WebElement
-     */
-    private WebElement getAddToFolderLink() {
-        try {
-            return waitForExpectedElement(ADD_TO_FOLDER_LOCATOR,10);
-        } catch (TimeoutException pe) {
-            LOG.info("context", pe);
-            throw new PageOperationException("Exceeded Time to find the Add To Folder link.");
-        }
     }
 
 	public boolean isNewAnnotationButtonDisplayed(){

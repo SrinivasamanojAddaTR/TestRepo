@@ -3,6 +3,7 @@ package com.thomsonreuters.step_definitions.breadcrumb;
 import com.thomsonreuters.pageobjects.pages.contactexpress.ContractExpressHeader;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
+import com.thomsonreuters.utils.TimeoutUtils;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
@@ -12,7 +13,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class cEHomePageTest extends BaseStepDef {
+public class cEHomePageTestSteps extends BaseStepDef {
     private ContractExpressHeader header = new ContractExpressHeader();
     private HomePage homePage = new HomePage();
 
@@ -51,7 +52,7 @@ public class cEHomePageTest extends BaseStepDef {
     public void theUserClicksOnFooter(String link) throws Throwable {
         header.userNoticeAndPrivacyStatement().isDisplayed();
         System.out.println("footer link is displayed");
-        Thread.sleep(300);
+        TimeoutUtils.sleepInSeconds(1);
         header.userNoticeAndPrivacyStatement().sendKeys(Keys.ENTER);
         System.out.println("footer link is clicked");
     }
