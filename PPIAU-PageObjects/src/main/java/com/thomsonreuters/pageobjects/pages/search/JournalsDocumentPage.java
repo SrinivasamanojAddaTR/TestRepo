@@ -18,11 +18,12 @@ public class JournalsDocumentPage extends CommonDocumentPage{
      * @return String
      */
     public String getFullText() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         try {
             WebElement title = getTitle(By.cssSelector("#co_docContentHeader"));
             sb.append(title.getText());
         } catch (PageOperationException poe) {
+            LOG.info("unable to find element {}",poe.getMessage());
         }
         sb.append(getParagraphsFromFullText());
         return sb.toString();

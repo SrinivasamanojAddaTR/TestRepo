@@ -15,10 +15,6 @@ import java.util.List;
 
 public class CasesDocumentPage extends AbstractPage {
 
-    public CasesDocumentPage() {
-    }
-
-
     /**
      * Object representing out of plan document pop up
      */
@@ -32,12 +28,12 @@ public class CasesDocumentPage extends AbstractPage {
      * Object checking terms with hit mark up
      */
 
-    public List termNavigationHitMarkupCheckTermsAsList() {
+    public List<String> termNavigationHitMarkupCheckTermsAsList() {
         // Get a list of any terms marked up
         List<WebElement> eList =
                 findElements(By.xpath("//span[contains(@class,'searchTerm')]"));
         // Prepare a list of strings to store the text returned
-        List<String> getTextStringList = new ArrayList<String>();
+        List<String> getTextStringList = new ArrayList<>();
 
         for (WebElement element : eList) {
             getTextStringList.add(element.getText());

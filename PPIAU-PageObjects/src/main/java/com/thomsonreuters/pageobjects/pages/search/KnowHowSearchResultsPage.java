@@ -5,9 +5,12 @@ import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
+import org.python.antlr.ast.Str;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
+
+import static java.lang.String.format;
 
 
 public class KnowHowSearchResultsPage extends AbstractPage {
@@ -21,15 +24,15 @@ public class KnowHowSearchResultsPage extends AbstractPage {
     public static final String FACET_SELECTION = "//*[text()='%s']";
     private CommonMethods commonMethods = new CommonMethods();
     private static final By CO_FOLDERING_PROGRESS_INDICATOR = By.className("co_foldering_progress_indicator");
-
-    public KnowHowSearchResultsPage() {
-    }
+    private static final String FACET_EXPANDED_STATE = "co_facet_expand";
+    private static final String CLIENT_ID_FACET_PATTERN = "//div[@id='facet_div_Client_IDs']//label[contains(.,'%s')]";
+    private static final String LINK_WITH_LABEL_PATTERN = "/label[text()='%s']/../a";
 
     /**
      * expand a facet
      */
     public WebElement expandCollapsedFacet(String facetName) {
-        return waitForExpectedElement(By.xpath(String.format(FACET_CHECKBOX_BUTTON_COLLAPSED_PATTERN, facetName)));
+        return waitForExpectedElement(By.xpath(format(FACET_CHECKBOX_BUTTON_COLLAPSED_PATTERN, facetName)));
     }
 
     public void waitForProgressIndicatorToDisappear() {
@@ -37,7 +40,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
     }
 
     public boolean isFacetCheckboxCollapsed(String facetName) {
-        return isElementDisplayed(By.xpath(String.format(FACET_CHECKBOX_BUTTON_COLLAPSED_PATTERN, facetName)));
+        return isElementDisplayed(By.xpath(format(FACET_CHECKBOX_BUTTON_COLLAPSED_PATTERN, facetName)));
     }
 
     /**
@@ -47,7 +50,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return True - if expand facet icon is displayed for expected facet, false - otherwise.
      */
     public boolean isExpandFacetDisplayed(String facetName) {
-        return isElementDisplayed(By.xpath(String.format(EXPAND_FACET_XPATH, facetName)));
+        return isElementDisplayed(By.xpath(format(EXPAND_FACET_XPATH, facetName)));
     }
 
     public boolean isDeliveryPanelForSearchResultPresent() {
@@ -64,16 +67,16 @@ public class KnowHowSearchResultsPage extends AbstractPage {
     /**
      * this is the facet name - pass in the facet name as a string e.g. Standard clauses
      */
-    public WebElement facetName(String Name) throws Exception {
-        return waitForExpectedElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[contains(text(),'" + Name + "')]"), 10);
+    public WebElement facetName(String name) {
+        return waitForExpectedElement(By.xpath("//div[contains(@id,'narrowResultsBy')]//label[contains(text(),'" + name + "')]"), 10);
     }
 
     /**
      * check that facet name is not displayed
      */
 
-    public boolean checkFacetNameDisplayed(String Name) {
-        return isExists(By.xpath("//div[contains(@id,'narrowResultsBy')]//ul[not(contains(@class, 'hide'))]/li/label[contains(text(),'" + Name + "')]"));
+    public boolean checkFacetNameDisplayed(String name) {
+        return isExists(By.xpath("//div[contains(@id,'narrowResultsBy')]//ul[not(contains(@class, 'hide'))]/li/label[contains(text(),'" + name + "')]"));
     }
 
 
@@ -88,11 +91,11 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * Object representing any know how facet checkbox as identified by facet name
      */
     public WebElement knowHowFacetCheckbox(String facetName) {
-        return waitForExpectedElement(By.xpath(String.format(KNOW_HOW_FACET_CHECKBOX_PATH, facetName)));
+        return waitForExpectedElement(By.xpath(format(KNOW_HOW_FACET_CHECKBOX_PATH, facetName)));
     }
 
     public boolean isKnowHowFacetCheckboxExist(String facetName) {
-        return isExists(By.xpath(String.format(KNOW_HOW_FACET_CHECKBOX_PATH, facetName)));
+        return isExists(By.xpath(format(KNOW_HOW_FACET_CHECKBOX_PATH, facetName)));
     }
 
     /**
@@ -103,7 +106,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
     }
 
     public WebElement knowHowFacet(String facetName) {
-        return waitForExpectedElement(By.xpath(String.format(FACET_SELECTION, facetName)));
+        return waitForExpectedElement(By.xpath(format(FACET_SELECTION, facetName)));
     }
 
     /**
@@ -117,7 +120,6 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * Object representing Practice Area heading for know how facet group
      */
     public WebElement facetGroupHeaderPracticeArea() {
-      //  return waitForExpectedElement(By.id("co_facetHeaderknowHowPracticeAreaSummary"));
         return waitForExpectedElement(By.xpath("//header[@id='SearchFacetHierarchy-knowHowAuPracticeAreaSummaryHeader']"));
     }
 
@@ -139,21 +141,20 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * This is an object representing the facet count associated with each facet (any facet on the know how page)
      */
     public WebElement facetCount(String facetName) {
-        //return waitForExpectedElement(By.xpath("//div[@id='co_narrowResultsBy']//label[contains(text(),'" + facetname + "')]/../span[@class='co_facetCount']"), 10);
-        return waitForElementPresent(By.xpath(String.format("//span[.='%s']/parent::label[@class='SearchFacet-label']//span[@class='SearchFacet-outputTextValue']",facetName)));
+        return waitForElementPresent(By.xpath(format("//span[.='%s']/parent::label[@class='SearchFacet-label']//span[@class='SearchFacet-outputTextValue']",facetName)));
     }
 
     /**
      * This is an object for all the listed know how jurisdiction facets
      */
     public List<String> getJurisdictionFacets() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.xpath("//div[@id='co_narrowResultsBy']/div/h4[contains(text(), 'Jurisdiction')]/../ul/li/label"), 10)) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info("Jurisdiction facets not found {}", te.getMessage());
         }
         return list;
     }
@@ -174,13 +175,13 @@ public class KnowHowSearchResultsPage extends AbstractPage {
 
     public List<String> getAllFacets() {
 
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.xpath("//div[@id='co_narrowResultsBy']//ul[@class='co_facet_tree']//label"), 10)) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info("Facet not found {}", te.getMessage());
         }
         return list;
     }
@@ -189,13 +190,13 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * This is an object representing the practice area facets as a group (necessary when checking ordering for example)
      */
     public List<String> getMainPracticeAreaFacets(String facetHeaderName) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.xpath("//h4[contains(@class,'facet_header')]/self::h4[text()='" + facetHeaderName + "']/../ul/li/label"), 10)) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info("Practice area facets not found {}", te.getMessage());
         }
         return list;
     }
@@ -204,13 +205,13 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * This is an object representing the child practice area facets as a group (necessary when checking ordering for example)
      */
     public List<String> getChildPracticeAreaFacets(String facetHeaderName) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.xpath("//div[@id='facet_div_knowHowPracticeAreaSummary']//label[text()='" + facetHeaderName + "']/../div/ul/li/label"), 10)) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info("Child Practice area facets not found {}", te.getMessage());
         }
         return list;
     }
@@ -219,29 +220,21 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * This is an object representing the grandchild practice area facets as a group (necessary when checking ordering for example)
      */
     public List<String> getGrandchildPracticeAreaFacets(String facetHeaderName) {
-        List<String> list = new ArrayList<String>();
-        try {
-            for (WebElement facet : waitForExpectedElements(By.xpath("//div[@id='facet_div_knowHowPracticeAreaSummary']//label[text()='" + facetHeaderName + "']/../div/ul/li/label"), 10)) {
-                list.add(facet.getText());
-            }
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-        }
-        return list;
+        return getChildPracticeAreaFacets(facetHeaderName);
     }
 
     /**
      * This is an object representing the facet counts as a group (necessary when checking ordering for example)
      */
     public List<Integer> getFacetCounts(String facetHeaderName) {
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         try {
             for (WebElement facetCounts : waitForExpectedElements(By.xpath("//h4[contains(@class,'facet_header')]/self::h4[text()='" + facetHeaderName + "']/../ul/li/span"), 10)) {
                 int facetCounts2 = Integer.parseInt(facetCounts.getText().replace(",", ""));
                 list.add(facetCounts2);
             }
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info("Facets not found {}", te.getMessage());
         }
         return list;
     }
@@ -282,7 +275,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return boolean
      */
     public boolean isFacetDisplayed(String facetGroup, String... facetNames) {
-        return isElementDisplayed(By.xpath(String.format(generateFacetXpath(facetGroup, facetNames).toString(), facetNames[facetNames.length - 1])));
+        return isElementDisplayed(By.xpath(format(generateFacetXpath(facetGroup, facetNames).toString(), facetNames[facetNames.length - 1])));
     }
 
     /**
@@ -293,16 +286,15 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return boolean
      */
     public boolean isFacetNotDisplayed(String facetGroup, String[] facetNames) {
-        return !isElementDisplayed(By.xpath(String.format(generateFacetXpath(facetGroup, facetNames).toString(), facetNames[facetNames.length - 1])));
+        return !isElementDisplayed(By.xpath(format(generateFacetXpath(facetGroup, facetNames).toString(), facetNames[facetNames.length - 1])));
     }
 
     private StringBuilder generateFacetXpath(String facetGroup, String[] facetNames) {
         StringBuilder xpath = getFacetTypeXpath(facetGroup);
-        String tempStr = "/label[text()='";
         try {
             for (int i = 0; i < facetNames.length - 1; i++) {
-                WebElement checkbox = waitForExpectedElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"), 8);
-                if (checkbox.getAttribute("class").equals("co_facet_expand")) {
+                WebElement checkbox = waitForExpectedElement(By.xpath(xpath + format(LINK_WITH_LABEL_PATTERN,facetNames[i])), 8);
+                if (getClassAttributeOfElement(checkbox).equals(FACET_EXPANDED_STATE)) {
                     checkbox.click();
                 }
                 xpath.append("/div/ul/li");
@@ -334,7 +326,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return boolean
      */
     public boolean isParentHasAtLeastOneChildFacet(String facetGroup, String[] facetNames) {
-        return isElementDisplayed(By.xpath(String.format(generateFacetXpath(facetGroup, facetNames).toString() + "/../div/ul", facetNames[facetNames.length - 1])));
+        return isElementDisplayed(By.xpath(format(generateFacetXpath(facetGroup, facetNames).toString() , facetNames[facetNames.length - 1])+ "/../div/ul"));
     }
 
     /**
@@ -381,8 +373,8 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return List<String>
      */
     public List<String> getFacetNamesUnderFacetType(String facetType, String... parentFacetNames) {
-        List<String> list = new ArrayList<String>();
-        StringBuilder xpath = new StringBuilder();
+        List<String> list = new ArrayList<>();
+        StringBuilder xpath;
         if (StringUtils.isEmpty(facetType)) {
             throw new IllegalArgumentException("FacetType should not be blank or null");
         }
@@ -390,8 +382,8 @@ public class KnowHowSearchResultsPage extends AbstractPage {
             xpath = getFacetTypeXpath(facetType);
             if (!StringUtils.isEmpty(parentFacetNames)) {
                 for (int i = 0; i < parentFacetNames.length; i++) {
-                    WebElement checkbox = waitForExpectedElement(By.xpath(xpath + "/label[text()='" + parentFacetNames[i].trim() + "']/../a"), 8);
-                    if (checkbox.getAttribute("class").equals("co_facet_expand")) {
+                    WebElement checkbox = waitForExpectedElement(By.xpath(xpath + format(LINK_WITH_LABEL_PATTERN,parentFacetNames[i].trim())), 8);
+                    if (getClassAttributeOfElement(checkbox).equals(FACET_EXPANDED_STATE)) {
                         checkbox.click();
                     }
                     xpath.append("/label[text()='" + parentFacetNames[parentFacetNames.length - 1].trim() + "']/../div/ul/li");
@@ -405,7 +397,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
                 xpath = getFacetTypeXpath(facetType);
                 for (int i = 0; i < parentFacetNames.length; i++) {
                     WebElement checkbox = waitForExpectedElement(By.xpath(xpath + "/label[text()='" + parentFacetNames[i].trim() + "']/../a"), 8);
-                    if (!checkbox.getAttribute("class").equals("co_facet_expand")) {
+                    if (!getClassAttributeOfElement(checkbox).equals(FACET_EXPANDED_STATE)) {
                         checkbox.click();
                     }
                 }
@@ -421,19 +413,20 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      */
     public void waitForSearchResults() {
         try {
-            try {
-                waitForElementVisible(By.cssSelector(".co_search_ajaxLoading"));
-                try {
-                    waitForElementInvisible(By.cssSelector(".co_search_ajaxLoading"));
-                } catch (TimeoutException | NoSuchElementException te) {
-                    LOG.info("Page loading issue...." + te.getMessage());
-                }
-            } catch (TimeoutException | NoSuchElementException te) {
-                LOG.info("context", te);
-            }
-            //waitForExpectedElements(By.cssSelector("h3 a"));
-        } catch (PageOperationException | TimeoutException te) {
+            waitForElementVisible(By.cssSelector(".co_search_ajaxLoading"));
+            waitForSearchAjaxLoadingToDisappear();
+        } catch (TimeoutException | NoSuchElementException te) {
+            LOG.info("Search results are not loaded", te);
+        } catch (PageOperationException te) {
             throw new PageOperationException("Exceeded time to locate the results on search results page" + te.getMessage());
+        }
+    }
+
+    private void waitForSearchAjaxLoadingToDisappear(){
+        try {
+            waitForElementToDissappear(By.cssSelector(".co_search_ajaxLoading"));
+        } catch (TimeoutException | NoSuchElementException te) {
+            LOG.info(format("Page loading issue.... %s ", te.getMessage()));
         }
     }
 
@@ -444,9 +437,9 @@ public class KnowHowSearchResultsPage extends AbstractPage {
     private WebElement getCheckBox(String facetGroup, String[] facetNames) {
         try {
             String xpath = "//../input";
-            return waitForExpectedElement(By.xpath(String.format(generateFacetXpath(facetGroup, facetNames).toString(), facetNames[facetNames.length - 1]) + xpath), 8);
+            return waitForExpectedElement(By.xpath(format(generateFacetXpath(facetGroup, facetNames).toString(), facetNames[facetNames.length - 1]) + xpath), 8);
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info("Unable to find Checkbox {}", te.getMessage());
             throw new PageOperationException("Exceeded time to find the facet count for : ");
         }
     }
@@ -462,7 +455,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
         try {
             return getCheckBox(facetGroup, facetNames).isSelected();
         } catch (PageOperationException p) {
-            LOG.info("context", p);
+            LOG.info("Facet is not selected {}", p.getMessage());
             return false;
         }
     }
@@ -484,7 +477,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
             waitForExpectedElement(By.linkText("More Jurisdictions"), 8).click();
             waitForElementVisible(By.id("co_facet_knowHowJurisdictionSummary_popup"));
         } catch (TimeoutException se) {
-            LOG.info("context", se);
+            LOG.info("More Jurisdiction link is missing {}", se.getMessage());
             throw new PageOperationException("Exceeded time to find the More popup.");
         }
     }
@@ -503,16 +496,6 @@ public class KnowHowSearchResultsPage extends AbstractPage {
 
     public boolean isSelectMultipleFiltersPresent() {
         return isElementDisplayed(By.xpath("//div[@id='co_multifacet_selector_1']/a[contains(@class, 'co_multifacet_select_multiple')]"));
-    }
-
-    /**
-     * This is the object representing the Select multiple filters button
-     *
-     * @deprecated use selectMultipleFilters()
-     */
-    @Deprecated
-    public WebElement selectMultipleFiltersButton() {
-        return waitForExpectedElement(By.linkText("Select multiple filters"), 8);
     }
 
     public WebElement selectMultipleFilters() {
@@ -550,7 +533,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return List<String>
      */
     public List<String> getSearchSuggestions() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement element : waitForExpectedElements(By.cssSelector("#searchBoxIndexSpan li"), 8)) {
                 list.add(element.getText());
@@ -675,7 +658,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return boolean
      */
     public boolean isNotesAddedLinkPresent(String position) {
-        return isElementDisplayed(By.cssSelector(String.format(ADDED_NOTE_LINK_PATTERN, position, position)));
+        return isElementDisplayed(By.cssSelector(format(ADDED_NOTE_LINK_PATTERN, position, position)));
     }
 
     /**
@@ -689,14 +672,14 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * This is for "Cliend ID " facets element for history page
      */
     public WebElement clientIDFacetCheckbox(String facetName) {
-        return waitForExpectedElement(By.xpath("//div[@id='facet_div_Client_IDs']//label[contains(.,'" + facetName + "')]/../input"));
+        return waitForExpectedElement(By.xpath(format(CLIENT_ID_FACET_PATTERN,facetName)+"/../input"));
     }
 
     /**
      * This is for "Cliend ID " facets element for history page
      */
     public WebElement clientIDByFacetCheckbox(String facetName) {
-        return waitForExpectedElement(By.xpath("//div[@id='facet_div_Client_IDs']//label[contains(.,'" + facetName + "')]/../input"));
+        return waitForExpectedElement(By.xpath(format(CLIENT_ID_FACET_PATTERN,facetName)+"/../input"));
     }
 
     /**
@@ -871,7 +854,7 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return Map<String, String>, where first String is facet Name, second String is facet count
      */
     public Map<String, String> getMapWIthFacetsNameAndCount() {
-        Map<String, String> mapForFacetsNamesAndCounts = new HashMap<String, String>();
+        Map<String, String> mapForFacetsNamesAndCounts = new HashMap<>();
 
         for (WebElement facet : this.getAllFacetsElements()) {
             mapForFacetsNamesAndCounts.put(this.getFacetNameTextValue(facet)
@@ -886,12 +869,16 @@ public class KnowHowSearchResultsPage extends AbstractPage {
      * @return Mist<String>, where  String is title of search result on the page
      */
     public List<String> getListWithSearchResultsForFirstPage() {
-        List<String> listForSearchResultsTitles = new ArrayList<String>();
+        List<String> listForSearchResultsTitles = new ArrayList<>();
 
         for (WebElement searchResult : this.searchResultsTitles()) {
             listForSearchResultsTitles.add(searchResult.getText());
         }
         return listForSearchResultsTitles;
+    }
+
+    private String getClassAttributeOfElement(WebElement element){
+        return element.getAttribute("class");
     }
 
 }

@@ -9,17 +9,18 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.format;
+
 
 public class CasesSearchResultsPage extends AbstractPage {
 
-    public CasesSearchResultsPage() {
-    }
+    public static final String CASE_TITLE_PATTERN ="//a[@id='cobalt_result_internationalCase_title%s']/span";
 
     /**
      * Object representing a facet checkbox as identified by facet name
      */
     public WebElement facetCheckbox(String facetName) {
-        return waitForExpectedElement(By.xpath(String.format("//span[.='%s']/parent::label[@class='SearchFacet-label']/input",facetName)));
+        return waitForExpectedElement(By.xpath(format("//span[.='%s']/parent::label[@class='SearchFacet-label']/input",facetName)));
     }
 
     /**
@@ -55,14 +56,14 @@ public class CasesSearchResultsPage extends AbstractPage {
      * This method gets the title of the cases search result item based on the given resultItem index on the results list.
      */
     public String getResultItemCases(String resultItemNumber) {
-        return waitForExpectedElement(By.xpath("//a[@id='cobalt_result_internationalCase_title" + resultItemNumber + "']/span")).getText();
+        return waitForExpectedElement(By.xpath(format(CASE_TITLE_PATTERN,resultItemNumber))).getText();
     }
 
     /**
      * This method is an object for the case title alone (clickable element)
      */
     public WebElement caseTitle(String resultItemNumber) {
-        return waitForExpectedElement(By.xpath("//a[@id='cobalt_result_internationalCase_title" + resultItemNumber + "']/span"));
+        return waitForExpectedElement(By.xpath(format(CASE_TITLE_PATTERN,resultItemNumber)));
     }
 
     /**
@@ -97,7 +98,7 @@ public class CasesSearchResultsPage extends AbstractPage {
      * This is an object for all the listed cases jurisdiction facets
      */
     public List<String> getJurisdictionFacets() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.xpath("//div[@id='co_narrowResultsBy']/div/h4[contains(text(), 'Jurisdiction')]/../ul/li/label"))) {
                 list.add(facet.getText());
@@ -109,7 +110,7 @@ public class CasesSearchResultsPage extends AbstractPage {
     }
 
     public List<String> getJurisdictionSubFacets(String mainFacet) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.xpath("//div[@id='co_narrowResultsBy']/div/h4[contains(text(), 'Jurisdiction')]/../ul/li/label[text()='" + mainFacet + "']/../div//label"))) {
                 list.add(facet.getText());
@@ -155,13 +156,6 @@ public class CasesSearchResultsPage extends AbstractPage {
      */
     public WebElement highlightedSearchTermTermsInContext(String rank, String highlightedTerm) {
         return waitForExpectedElement(By.xpath("//div[contains(@id,'snippet_" + rank + "')]/a/span[@class='co_searchTerm'][contains(text(),'" + highlightedTerm + "')]"));
-    }
-
-    /**
-     * Object representing highlighted search terms within document summary
-     */
-    public WebElement highlightedSearchTermDocSummary(String rank, String highlightedTerm) {
-        return waitForExpectedElement(By.xpath("//div[contains(@id,'co_searchResults_summary_" + rank + "')]/ul/li)"));
     }
 
     /**

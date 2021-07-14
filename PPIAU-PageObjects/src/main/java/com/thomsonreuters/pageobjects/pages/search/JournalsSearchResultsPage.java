@@ -5,11 +5,14 @@ import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import org.python.antlr.ast.Str;
 
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static java.lang.String.format;
 
 
 /**
@@ -19,8 +22,7 @@ import java.util.List;
 
 public class JournalsSearchResultsPage extends AbstractPage {
 
-    public JournalsSearchResultsPage() {
-    }
+    public static final String JOURNAL_TITLE_PATTERN ="//a[@id='cobalt_result_internationalJournal_title%s']";
 
     /**
      * Object representing the total search result count for the search
@@ -46,7 +48,7 @@ public class JournalsSearchResultsPage extends AbstractPage {
 
     public List<String> getMainPracticeAreaFacets() {
 
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.cssSelector(".co_facet_tree>li>label"))) {
 
@@ -65,7 +67,7 @@ public class JournalsSearchResultsPage extends AbstractPage {
      * @param resultIndex
      */
     public void clickOnResultItem(int resultIndex) {
-        waitForExpectedElement(By.xpath("//a[@id='cobalt_result_internationalJournal_title" + resultIndex + "']")).click();
+        waitForExpectedElement(By.xpath(format(JOURNAL_TITLE_PATTERN,resultIndex))).click();
 
 
     }
@@ -88,7 +90,7 @@ public class JournalsSearchResultsPage extends AbstractPage {
      */
 
     public WebElement journalsResult(String result) {
-        return waitForExpectedElement(By.xpath("//a[@id='cobalt_result_internationalJournal_title" + result + "']"));
+        return waitForExpectedElement(By.xpath(format(JOURNAL_TITLE_PATTERN,result)));
 
     }
 
@@ -129,10 +131,10 @@ public class JournalsSearchResultsPage extends AbstractPage {
      * method to return search suggestions as a list for use when e.g. verifying the order
      */
 
-    public List wordWheelList() {
+    public List<String> wordWheelList() {
 
         String currentTextValue;
-        List<String> textList = new ArrayList<String>();
+        List<String> textList = new ArrayList<>();
 
         List<WebElement> eList = findElements(By.xpath("//ul[@id='co_searchSuggestion']//li"));
 
@@ -152,26 +154,7 @@ public class JournalsSearchResultsPage extends AbstractPage {
 
     public WebElement journalArticleTitleLink(String rank, String title) {
 
-        return waitForExpectedElement(By.xpath("//a[@id='cobalt_result_internationalJournal_title" + rank + "']/span[contains(text(),'" + title + "')]"));
-    }
-
-
-    /**
-     * Object representing journal citation - this is the actual citation not the prefix text "Citation"
-     */
-
-    public WebElement journalCitation(String rank, String citation) {
-
-        return waitForExpectedElement(By.xpath("//div[@id='co_searchResults_citation_" + rank + "']/div[1]//span[contains(text(),'" + citation + "')]"));
-    }
-
-    /**
-     * Object representing subject text - this is the actual subject information not the prefix "Subject"
-     */
-
-    public WebElement journalSubject(String rank, String subject) {
-
-        return waitForExpectedElement(By.xpath("//div[@id='co_searchResults_citation_" + rank + "']/div[2]//span[contains(text(),'" + subject + "')]"));
+        return waitForExpectedElement(By.xpath(format(JOURNAL_TITLE_PATTERN,rank)+"/span[contains(text(),'" + title + "')]"));
     }
 
     /**
@@ -225,7 +208,7 @@ public class JournalsSearchResultsPage extends AbstractPage {
      * @return List<String>
      */
     public List<String> getSearchSuggestions() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement element : waitForExpectedElements(By.cssSelector("#searchBoxIndexSpan li"))) {
                 list.add(element.getText());
