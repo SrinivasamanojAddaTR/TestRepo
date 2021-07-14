@@ -11,9 +11,6 @@ import org.openqa.selenium.WebElement;
 
 public class ExpandCollapse extends AbstractPage {
 
-    public ExpandCollapse() {
-    }
-
     public WebElement dropDown() {
         return waitForExpectedElement(By.id("co_searchDetailSliderLink"));
     }

@@ -26,7 +26,7 @@ public enum CaseJudgment {
      */
     APPELLATE_HISTORY("Appellate History", By.cssSelector("")),
     COUNSEL_APPELLANTS("Counsel Appellants", By.cssSelector(""));
-    private final static Map<String, By> map = new HashMap<String, By>();
+    private static final Map<String, By> map = new HashMap<>();
 
     static {
         for (CaseJudgment caseJudgmentLink : CaseJudgment.values()) {
