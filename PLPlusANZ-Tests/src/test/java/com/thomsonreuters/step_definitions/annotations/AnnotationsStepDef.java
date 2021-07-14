@@ -67,7 +67,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     private static int annotationsCount;
 
     public static final String groupName = "annotationsTestGroup";
-    public static final String groupNameAvailableToOthers = "annotationsTestGroupAvailableToOthers";
+    public static final String groupNameAvailableToOthers = "annotationsTestGroupAvailableToOthersNew";
     private static final String ANNOTATIONS_RICH_TEXT_WARNING_MESSAGE_1 = "Yournotecannotbesavedbecauseitcontainstoomuchformatting/hiddenHTMLstyling(mostlikelyduetotextcopiedfromawebpage).Pleaseremovesomeoftheformattingandtryagain.Suggestions:";
     private static final String ANNOTATIONS_RICH_TEXT_WARNING_MESSAGE_2 = "UseCtrl+Shift+Vorrightclickandselect\"pasteasplaintext\"topastethetextcopiedfromelsewherewithoutformatting;itshouldstillbepossibletoaddformattingwithourtool.";
     private static final String ANNOTATIONS_RICH_TEXT_WARNING_MESSAGE_3 = "Copyandpasteyourtextintoaworddocumentandthenpasteitbackwithreducedformatting";
