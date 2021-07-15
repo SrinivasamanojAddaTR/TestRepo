@@ -13,6 +13,7 @@ public class HistoryHoverMenuPage extends AbstractPage {
 
     public static final By ALL_HISTORY_DOCUMENTS_LOCATOR = By.cssSelector("#co_recentHistoryContainer .co_recentResearch_item>a");
     public static final By RECENTLY_ACCESSED_DOCUMENTS_LOCATOR = By.cssSelector("#co_recentDocumentsList li>div>a");
+    private static final String CONTEXT = "context";
 
     /**
      * This method is to wait until the History hover menu is loaded fully.
@@ -21,7 +22,6 @@ public class HistoryHoverMenuPage extends AbstractPage {
         try {
             waitForExpectedElements(ALL_HISTORY_DOCUMENTS_LOCATOR);
         } catch (PageOperationException te) {
-            LOG.info("context", te);
             throw new PageOperationException("Exceeded time to load the History hover menu :" + te.getMessage());
         }
     }
@@ -40,9 +40,9 @@ public class HistoryHoverMenuPage extends AbstractPage {
                 }
             }
         } catch (PageOperationException pe) {
-            LOG.info("context", pe);
+            LOG.info(CONTEXT, pe);
         } catch (StaleElementReferenceException | ElementNotVisibleException | NoSuchElementException sen) {
-            LOG.info("context", sen);
+            LOG.info(CONTEXT, sen);
             isDocumentNamePresentAndClickableInHistory(docName);
         }
         return false;

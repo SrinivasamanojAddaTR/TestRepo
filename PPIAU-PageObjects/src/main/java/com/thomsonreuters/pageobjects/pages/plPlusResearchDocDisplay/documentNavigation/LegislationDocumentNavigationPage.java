@@ -4,7 +4,6 @@ import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.enums.Jurisdiction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -14,19 +13,7 @@ import org.slf4j.LoggerFactory;
 
 public class LegislationDocumentNavigationPage extends DocumentNavigationPage {
 
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(LegislationDocumentNavigationPage.class);
-
     public static final String PROVISION = "Provision";
-    public static final By PRIMARY_MENU_EXPANSION_LOCATOR = By.cssSelector(""); // TODO: Need to add the css
-
-    /**
-     * This method is to verify the Provision primary menu is expanded or not
-     *
-     * @return boolean
-     */
-    public boolean isProvisionPrimaryMenuExpanded() {
-    	return isElementDisplayed(PRIMARY_MENU_EXPANSION_LOCATOR);
-    }
 
     /**
      * This method is to verify the Provision Primary menu is selected or not
@@ -55,7 +42,6 @@ public class LegislationDocumentNavigationPage extends DocumentNavigationPage {
         try {
             waitForExpectedElement(jurisdiction.getJurisdictionNavigationLinkLocator()).click();
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the jurisdiction " + jurisdiction.getJurisdictionDocumentLinkLocator() + "on Left hand navigation " + te.getMessage());
         }
     }

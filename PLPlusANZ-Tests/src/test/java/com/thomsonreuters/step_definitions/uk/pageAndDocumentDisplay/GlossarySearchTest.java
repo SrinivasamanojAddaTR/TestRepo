@@ -3,6 +3,7 @@ package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
+import com.thomsonreuters.utils.TimeoutUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -119,7 +120,7 @@ public class GlossarySearchTest extends BaseStepDef {
         if(initialPageSource.equals(afterSearchPageSource)) {
             glossaryPage.waitForPageToLoadAndJQueryProcessing();
             glossaryPage.waitForPageToLoad();
-            Thread.sleep(5000); //TODO : Taking time for page source to load
+            TimeoutUtils.sleepInSeconds(5);
         }
         glossaryPage.waitForPageToLoad();
     }

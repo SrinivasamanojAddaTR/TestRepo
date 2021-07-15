@@ -42,7 +42,7 @@ public class TableOfContentPage extends AbstractPage {
 
 	public List<WebElement> tocSections() {
 		List<WebElement> allSectionsLi = findElements(By.xpath(FIRST_LEVEL_TOC_LOCATOR));
-		List<WebElement> allSections = new ArrayList<WebElement>();
+		List<WebElement> allSections = new ArrayList<>();
 		for (WebElement sectionLi : allSectionsLi) {
 			List<WebElement> elements = sectionLi.findElements(By.xpath("a"));
 			if (!elements.isEmpty() && elements.get(0).isDisplayed()) {

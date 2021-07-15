@@ -83,7 +83,7 @@ public class GlPageSearchContentStep {
 					.overridingErrorMessage(
 							globalCategoryPage.jurisdictionsInTheLeftHandSide().get(i).getText() + " not equals to "
 									+ facets.get(i)).isTrue();
-			softly.assertThat(globalCategoryPage.jurisdictionsInTheLeftHandSide().get(i).isDisplayed())
+			softly.assertThat(globalCategoryPage.jurisdictionsInTheLeftHandSide().get(i).isDisplayed()).isTrue()
 					.overridingErrorMessage(
 							globalCategoryPage.jurisdictionsInTheLeftHandSide().get(i) + " is not displayed");
 		}

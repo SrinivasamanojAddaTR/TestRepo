@@ -3,7 +3,6 @@ package com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document;
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
@@ -63,7 +62,6 @@ public class ViewDocumentPopUpPage extends AbstractPage {
             getViewDocumentButtonElement().click();
             waitForElementInvisible(VIEW_OK_BUTTON);
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the View Document button : " + te.getMessage());
         }
     }
@@ -75,7 +73,6 @@ public class ViewDocumentPopUpPage extends AbstractPage {
         try {
             getCancelButtonElement().click();
         } catch (TimeoutException te) {
-            LOG.info("context", te);
             throw new PageOperationException("Exceeded time to find the Cancel button : " + te.getMessage());
         }
     }
