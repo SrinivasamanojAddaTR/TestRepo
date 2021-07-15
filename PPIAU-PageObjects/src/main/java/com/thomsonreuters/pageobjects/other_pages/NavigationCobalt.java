@@ -1,4 +1,4 @@
-package com.thomsonreuters.pageobjects.otherPages;
+package com.thomsonreuters.pageobjects.other_pages;
 
 import com.thomsonreuters.driver.configuration.Hosts;
 import com.thomsonreuters.driver.exception.PageOperationException;

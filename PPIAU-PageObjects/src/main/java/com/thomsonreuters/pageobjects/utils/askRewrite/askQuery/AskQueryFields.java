@@ -31,7 +31,7 @@ public @interface AskQueryFields {
     String[] relatedSqlQueries() default "";
     /**
      * @return name of the annotated field expected to be displayed on the Ask Dashboard
-     * {@link com.thomsonreuters.pageobjects.askReWrite.AskRewriteDashboardPage}
+     * {@link com.thomsonreuters.pageobjects.ask_re_write.AskRewriteDashboardPage}
      */
     String elementOnDashboard() default "";
 }

@@ -1,6 +1,6 @@
 package com.thomsonreuters.step_definitions.urls;
 
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.urls.DocumentPage;
 import com.thomsonreuters.pageobjects.pages.urls.plcuk.ErrorPage;
 import com.thomsonreuters.pageobjects.pages.urls.plcuk.KHDocumentPage;

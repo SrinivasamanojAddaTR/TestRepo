@@ -1,6 +1,6 @@
 package com.thomsonreuters.step_definitions.uk.globalPage;
 
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.globalPage.GlobalCategoryPage;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawUKCategoryPage;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;

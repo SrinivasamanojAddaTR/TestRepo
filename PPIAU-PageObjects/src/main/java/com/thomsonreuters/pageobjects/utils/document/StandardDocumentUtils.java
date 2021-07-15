@@ -2,7 +2,7 @@ package com.thomsonreuters.pageobjects.utils.document;
 
 import com.thomsonreuters.driver.configuration.Hosts;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.CaseDocumentPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage;

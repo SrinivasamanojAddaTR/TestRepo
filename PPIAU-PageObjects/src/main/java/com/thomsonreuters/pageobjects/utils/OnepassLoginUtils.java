@@ -1,7 +1,7 @@
 package com.thomsonreuters.pageobjects.utils;
 
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.otherPages.WelcomePage;
+import com.thomsonreuters.pageobjects.other_pages.WelcomePage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
 import com.thomsonreuters.driver.exception.PageOperationException;

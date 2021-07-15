@@ -1,12 +1,10 @@
 package com.thomsonreuters.pageobjects.utils.folders;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
-import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.*;
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.annotations.ContactsForSharingPage;
 import com.thomsonreuters.pageobjects.pages.folders.*;
-import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentDeliveryPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.document.Document;
@@ -15,7 +13,6 @@ import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

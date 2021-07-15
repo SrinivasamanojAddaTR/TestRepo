@@ -1,7 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.screen_shot_hook;
 
 import com.thomsonreuters.driver.framework.ScreenShots;
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceFFHImpl;

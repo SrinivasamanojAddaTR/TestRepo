@@ -150,12 +150,12 @@ public class NewAskQuery {
 
     /**
      * Allocates a new {@link Map} that contains key-value pairs representing the mapping between the element
-     * on the Ask Dashboard {@link com.thomsonreuters.pageobjects.askReWrite.AskRewriteDashboardPage}
+     * on the Ask Dashboard {@link com.thomsonreuters.pageobjects.ask_re_write.AskRewriteDashboardPage}
      * matching the particular field of the Ask Query created in ihe Ask Editorial system
      * and the related field in the current {@link NewAskQuery} class.
      * <p>
      * Key contains a {@link String} representation of the Ask Query field name on the Dashboard
-     * {@link com.thomsonreuters.pageobjects.askReWrite.AskRewriteDashboardPage}
+     * {@link com.thomsonreuters.pageobjects.ask_re_write.AskRewriteDashboardPage}
      * which is expected to be displayed after the new Ask Query was created.
      * Value - is the specific value of the field displayed on the Ask Dashboard web page </p>
      *

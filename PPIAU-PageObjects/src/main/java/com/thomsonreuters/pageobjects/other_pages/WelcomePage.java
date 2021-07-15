@@ -1,4 +1,4 @@
-package com.thomsonreuters.pageobjects.otherPages;
+package com.thomsonreuters.pageobjects.other_pages;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;

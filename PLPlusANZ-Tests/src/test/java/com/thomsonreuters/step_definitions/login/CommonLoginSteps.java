@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.login;
 
 import com.thomsonreuters.pageobjects.common.ExcelFileReader;
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
 import com.thomsonreuters.pageobjects.utils.CobaltUser;

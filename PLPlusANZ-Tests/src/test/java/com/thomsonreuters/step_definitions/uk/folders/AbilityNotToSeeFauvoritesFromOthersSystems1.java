@@ -2,7 +2,7 @@ package com.thomsonreuters.step_definitions.uk.folders;
 
 import com.thomsonreuters.pageobjects.common.BaseCommonLoginNavigation;
 import com.thomsonreuters.pageobjects.common.PageActions;
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.folders.CreateGroupPopup;
 import com.thomsonreuters.pageobjects.pages.folders.FavouritesPage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;

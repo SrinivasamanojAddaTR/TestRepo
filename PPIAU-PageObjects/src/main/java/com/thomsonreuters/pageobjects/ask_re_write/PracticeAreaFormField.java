@@ -1,4 +1,4 @@
-package com.thomsonreuters.pageobjects.askReWrite;
+package com.thomsonreuters.pageobjects.ask_re_write;
 
 import com.thomsonreuters.pageobjects.utils.form.DefaultFormField;
 import com.thomsonreuters.pageobjects.utils.form.FormField;

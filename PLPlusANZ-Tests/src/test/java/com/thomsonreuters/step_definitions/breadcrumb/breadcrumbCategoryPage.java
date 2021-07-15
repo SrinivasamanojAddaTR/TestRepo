@@ -4,7 +4,7 @@ package com.thomsonreuters.step_definitions.breadcrumb;
 import com.thomsonreuters.pageobjects.common.BaseCommonLoginNavigation;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.KeyphraseState;
-import com.thomsonreuters.pageobjects.otherPages.NavigationCobalt;
+import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.folders.DeleteFolderPopup;
 import com.thomsonreuters.pageobjects.pages.folders.FavouritesPage;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
