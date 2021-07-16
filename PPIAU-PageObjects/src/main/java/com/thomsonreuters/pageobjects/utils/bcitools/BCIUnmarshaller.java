@@ -8,8 +8,8 @@ import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
 
-import com.thomsonreuters.pageobjects.utils.bcitools.CalcConfig.CalcConfig;
-import com.thomsonreuters.pageobjects.utils.bcitools.CalcConfig.CalcConfigFactory;
+import com.thomsonreuters.pageobjects.utils.bcitools.calc_config.CalcConfig;
+import com.thomsonreuters.pageobjects.utils.bcitools.calc_config.CalcConfigFactory;
 
 public class BCIUnmarshaller {
 	

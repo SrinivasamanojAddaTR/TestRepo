@@ -8,7 +8,7 @@ import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.FileActions;
 import com.thomsonreuters.pageobjects.pages.urls.plcuk.KHDocumentPage;
 import com.thomsonreuters.pageobjects.rest.model.request.delivery.initiateDelivery.InitiateDelivery;
-import com.thomsonreuters.pageobjects.rest.model.response.delivery.initiateDelivery.InitiateDeliveryResponse;
+import com.thomsonreuters.pageobjects.rest.model.response.delivery.initiate_delivery.InitiateDeliveryResponse;
 import com.thomsonreuters.pageobjects.rest.model.response.delivery.status.StatusResponse;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceDeliveryImpl;
 import com.thomsonreuters.pageobjects.utils.pdf.PDFBoxUtil;
