@@ -1,7 +1,6 @@
 Feature: To view Contract Express Projects Page
 
   Background:
-  @qed
     Given ANZ user is logged in with following details
       | userName | ANZtestuser1 |
     When the user selects the user profile symbol
