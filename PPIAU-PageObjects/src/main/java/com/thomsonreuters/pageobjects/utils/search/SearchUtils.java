@@ -16,7 +16,7 @@ import com.thomsonreuters.pageobjects.utils.document.Document;
 import com.thomsonreuters.pageobjects.utils.document.LegislationDocument;
 import com.thomsonreuters.pageobjects.utils.document.ResourceType;
 import com.thomsonreuters.pageobjects.utils.document.metadata.Jurisdiction;
-import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
+import com.thomsonreuters.pageobjects.utils.legal_updates.CalendarAndDate;
 import com.thomsonreuters.utils.TimeoutUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;

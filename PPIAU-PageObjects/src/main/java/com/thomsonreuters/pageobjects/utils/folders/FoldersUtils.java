@@ -8,7 +8,7 @@ import com.thomsonreuters.pageobjects.pages.folders.*;
 import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document_navigation.DocumentDeliveryPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.document.Document;
-import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
+import com.thomsonreuters.pageobjects.utils.legal_updates.CalendarAndDate;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;

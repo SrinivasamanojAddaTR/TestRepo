@@ -1,8 +1,8 @@
 package com.thomsonreuters.step_definitions.linking;
 
 import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
-import com.thomsonreuters.pageobjects.utils.Linking.WLAUPageUtils;
-import com.thomsonreuters.pageobjects.utils.plPlusResearchDocDisplay.AssetPageUtils;
+import com.thomsonreuters.pageobjects.utils.linking_utils.WLAUPageUtils;
+import com.thomsonreuters.pageobjects.utils.pl_plus_research_docdisplay.AssetPageUtils;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

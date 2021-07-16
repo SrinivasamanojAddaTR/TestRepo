@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import com.thomsonreuters.pageobjects.pages.global_page.GlobalCategoryPage;
-import com.thomsonreuters.pageobjects.utils.globalPage.GlobalPageUtils;
+import com.thomsonreuters.pageobjects.utils.global_page.GlobalPageUtils;
 import com.thomsonreuters.pageobjects.utils.novus.NovusTools;
 
 public class XMLDocumentUtils {

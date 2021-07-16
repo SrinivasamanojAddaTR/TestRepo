@@ -3,8 +3,8 @@ package com.thomsonreuters.pageobjects.rest.service.impl;
 
 import com.thomsonreuters.pageobjects.rest.model.request.AskFormRequestData;
 import com.thomsonreuters.pageobjects.rest.service.RestService;
-import com.thomsonreuters.pageobjects.utils.askRewrite.askQuery.AskQueryType;
-import com.thomsonreuters.pageobjects.utils.askRewrite.askQuery.NewAskQuery;
+import com.thomsonreuters.pageobjects.utils.ask_re_write.ask_query.AskQueryType;
+import com.thomsonreuters.pageobjects.utils.ask_re_write.ask_query.NewAskQuery;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;

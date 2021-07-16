@@ -1,6 +1,6 @@
 package com.thomsonreuters.pageobjects.pages.research_browse;
 
-import com.thomsonreuters.pageobjects.utils.researchBrowse.ResearchContentTypeEnum;
+import com.thomsonreuters.pageobjects.utils.research_browse.ResearchContentTypeEnum;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

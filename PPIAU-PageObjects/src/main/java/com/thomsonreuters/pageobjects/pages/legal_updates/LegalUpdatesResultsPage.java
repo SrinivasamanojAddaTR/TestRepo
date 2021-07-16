@@ -1,6 +1,6 @@
 package com.thomsonreuters.pageobjects.pages.legal_updates;
 
-import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
+import com.thomsonreuters.pageobjects.utils.legal_updates.CalendarAndDate;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

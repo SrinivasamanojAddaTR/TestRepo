@@ -12,7 +12,7 @@ import com.thomsonreuters.pageobjects.rest.model.response.delivery.initiateDeliv
 import com.thomsonreuters.pageobjects.rest.model.response.delivery.status.StatusResponse;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceDeliveryImpl;
 import com.thomsonreuters.pageobjects.utils.pdf.PDFBoxUtil;
-import com.thomsonreuters.pageobjects.utils.plPlusResearchDocDisplay.AssetPageUtils;
+import com.thomsonreuters.pageobjects.utils.pl_plus_research_docdisplay.AssetPageUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;

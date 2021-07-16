@@ -26,7 +26,7 @@ import com.thomsonreuters.pageobjects.utils.document.XMLDocumentUtils;
 import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import com.thomsonreuters.pageobjects.utils.form.CheckBoxOrRadioButton;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
-import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
+import com.thomsonreuters.pageobjects.utils.legal_updates.CalendarAndDate;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;

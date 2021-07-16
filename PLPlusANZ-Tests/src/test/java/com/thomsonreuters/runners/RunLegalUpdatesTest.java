@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunLegalUpdatesTest.json", "com.epam.reportportal.cucumber.ScenarioReporter","rerun:target/ReRunLegalUpdates.txt"},
-        features = "classpath:com/thomsonreuters/features/legalUpdates",
+        features = "classpath:com/thomsonreuters/features/legal_updates",
         tags = {"~ ", "~@manual"},
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,

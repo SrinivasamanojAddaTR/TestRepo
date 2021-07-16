@@ -8,7 +8,7 @@ import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
-import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
+import com.thomsonreuters.pageobjects.utils.legal_updates.CalendarAndDate;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.step_definitions.login.ClientIdTest1;
 import com.thomsonreuters.step_definitions.uk.search.BasicKnowHowSearchUKS101Test;

@@ -1,7 +1,7 @@
 package com.thomsonreuters.pageobjects.rest.model.request;
 
-import com.thomsonreuters.pageobjects.utils.askRewrite.askQuery.NewAskQuery;
-import com.thomsonreuters.pageobjects.utils.askRewrite.dataManager.AskQueryDataYamlReader;
+import com.thomsonreuters.pageobjects.utils.ask_re_write.ask_query.NewAskQuery;
+import com.thomsonreuters.pageobjects.utils.ask_re_write.data_manager.AskQueryDataYamlReader;
 
 
 public class AskFormRequestData {
