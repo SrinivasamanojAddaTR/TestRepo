@@ -4,7 +4,7 @@ import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.ListFunctions;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
-import com.thomsonreuters.pageobjects.pages.onePass.OnePassLogoutPage;
+import com.thomsonreuters.pageobjects.pages.one_pass.OnePassLogoutPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

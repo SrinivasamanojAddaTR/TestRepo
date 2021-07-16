@@ -1,6 +1,6 @@
 package com.thomsonreuters.step_definitions.uk.legalUpdates;
 
-import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesTopicPage;
+import com.thomsonreuters.pageobjects.pages.legal_updates.LegalUpdatesTopicPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;

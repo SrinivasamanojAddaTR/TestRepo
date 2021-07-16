@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.globalPage;
 
 import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 

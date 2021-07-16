@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.login;
 
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.pages.onePass.OnePassLogoutPage;
+import com.thomsonreuters.pageobjects.pages.one_pass.OnePassLogoutPage;
 import com.thomsonreuters.pageobjects.utils.OnepassLoginUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;

@@ -2,9 +2,9 @@ package com.thomsonreuters.step_definitions.login;
 
 import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
-import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
+import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
-import com.thomsonreuters.pageobjects.pages.onePass.OnePassLogoutPage;
+import com.thomsonreuters.pageobjects.pages.one_pass.OnePassLogoutPage;
 import com.thomsonreuters.pageobjects.utils.CobaltUser;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;

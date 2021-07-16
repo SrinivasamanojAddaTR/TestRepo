@@ -1,7 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.screen_shot_hook;
 
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.utils.CobaltUser;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;

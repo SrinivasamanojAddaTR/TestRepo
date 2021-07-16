@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.header.responsiveDesign;
 
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
-import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
+import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import org.openqa.selenium.By;

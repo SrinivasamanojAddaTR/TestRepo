@@ -3,7 +3,7 @@ package com.thomsonreuters.pageobjects.utils.homepage;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.company.MeetTheTeam;
 import com.thomsonreuters.pageobjects.pages.footer.AdvisoryBoardsPage;
-import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
+import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawHomepage;
 import org.openqa.selenium.WebElement;
 import org.slf4j.LoggerFactory;
 

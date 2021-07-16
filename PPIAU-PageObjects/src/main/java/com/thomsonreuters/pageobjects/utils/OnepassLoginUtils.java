@@ -5,7 +5,7 @@ import com.thomsonreuters.pageobjects.other_pages.WelcomePage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
 import com.thomsonreuters.driver.exception.PageOperationException;
-import com.thomsonreuters.pageobjects.pages.onePass.OnePassLogoutPage;
+import com.thomsonreuters.pageobjects.pages.one_pass.OnePassLogoutPage;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.slf4j.Logger;

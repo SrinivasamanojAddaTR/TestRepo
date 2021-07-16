@@ -1,7 +1,7 @@
 package com.thomsonreuters.pageobjects.rest.service.impl;
 
 
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.rest.service.RestService;
 import com.thomsonreuters.pageobjects.utils.novus.PlcLegacyNovusUtils;
 import org.slf4j.LoggerFactory;

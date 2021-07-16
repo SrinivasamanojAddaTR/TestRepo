@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.breadcrumb;
 
 import com.thomsonreuters.pageobjects.pages.contactexpress.ContractExpressHeader;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.utils.TimeoutUtils;
 import cucumber.api.java.en.Then;

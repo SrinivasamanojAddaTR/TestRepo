@@ -4,7 +4,7 @@ import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.WindowHandler;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.generic.PPIGenericDocDisplay;
-import com.thomsonreuters.pageobjects.pages.landingPage.UKPLCSitePage;
+import com.thomsonreuters.pageobjects.pages.landing_page.UKPLCSitePage;
 import com.thomsonreuters.pageobjects.pages.search.*;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;

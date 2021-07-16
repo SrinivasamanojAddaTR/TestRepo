@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Given;

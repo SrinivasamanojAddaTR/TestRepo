@@ -2,7 +2,7 @@ package com.thomsonreuters.step_definitions.delivery;
 
 import com.thomsonreuters.pageobjects.common.FileActions;
 import com.thomsonreuters.pageobjects.common.WindowHandler;
-import com.thomsonreuters.pageobjects.pages.fastDraft.DraftViewPage;
+import com.thomsonreuters.pageobjects.pages.fast_draft.DraftViewPage;
 import com.thomsonreuters.pageobjects.utils.fastDraft.FastDraftUtils;
 import com.thomsonreuters.pageobjects.utils.pdf.PDFBoxUtil;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;

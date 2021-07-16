@@ -2,8 +2,8 @@ package com.thomsonreuters.pageobjects.utils.globalPage;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.pages.globalPage.ChinaCategoryPage;
-import com.thomsonreuters.pageobjects.pages.globalPage.GlobalCategoryPage;
+import com.thomsonreuters.pageobjects.pages.global_page.ChinaCategoryPage;
+import com.thomsonreuters.pageobjects.pages.global_page.GlobalCategoryPage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.CaseDocumentPage;
 import com.thomsonreuters.pageobjects.utils.legalUpdates.CalendarAndDate;
 

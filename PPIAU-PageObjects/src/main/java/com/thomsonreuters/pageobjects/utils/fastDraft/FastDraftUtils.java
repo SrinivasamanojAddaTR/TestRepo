@@ -3,10 +3,9 @@ package com.thomsonreuters.pageobjects.utils.fastDraft;
 import com.gargoylesoftware.htmlunit.util.UrlUtils;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.FdDeliveryDocument;
-import com.thomsonreuters.pageobjects.pages.fastDraft.*;
+import com.thomsonreuters.pageobjects.pages.fast_draft.*;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceDeliveryImpl;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.net.Urls;
 import org.slf4j.Logger;
 
 import java.io.File;

@@ -5,7 +5,7 @@ import com.thomsonreuters.pageobjects.common.SeleniumKeyboard;
 import com.thomsonreuters.pageobjects.pages.delivery.DownloadOptionsPage;
 import com.thomsonreuters.pageobjects.pages.delivery.PrintOptionsPage;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
-import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesBasePage;
+import com.thomsonreuters.pageobjects.pages.legal_updates.LegalUpdatesBasePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.CommonResourcePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentDeliveryOptionsPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentRightPanelPage;

@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.search;
 
-import com.thomsonreuters.pageobjects.pages.landingPage.UnitedKingdomLandingPage;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.landing_page.UnitedKingdomLandingPage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;

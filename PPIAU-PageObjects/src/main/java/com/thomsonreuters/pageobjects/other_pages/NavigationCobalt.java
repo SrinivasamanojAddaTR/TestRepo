@@ -2,7 +2,7 @@ package com.thomsonreuters.pageobjects.other_pages;
 
 import com.thomsonreuters.driver.configuration.Hosts;
 import com.thomsonreuters.driver.exception.PageOperationException;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 
 import com.thomsonreuters.utils.CommonStringMethods;
 import org.openqa.selenium.By;

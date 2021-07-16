@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.pages.delivery.EmailOptionsPage;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.ListOfItemsDeliveryOptionsPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;

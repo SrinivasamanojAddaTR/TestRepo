@@ -2,10 +2,10 @@ package com.thomsonreuters.pageobjects.common;
 
 import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
-import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
+import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
 import com.thomsonreuters.pageobjects.pages.login.WelcomePage;
-import com.thomsonreuters.pageobjects.pages.onePass.OnePassLogoutPage;
+import com.thomsonreuters.pageobjects.pages.one_pass.OnePassLogoutPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
 import com.thomsonreuters.pageobjects.pages.plcLegacy.PLCLegacyHeader;
 import com.thomsonreuters.pageobjects.pages.plcLegacy.PLCLegacyLoginScreen;

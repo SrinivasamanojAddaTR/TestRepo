@@ -1,12 +1,11 @@
 package com.thomsonreuters.step_definitions.legalUpdates;
 
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;

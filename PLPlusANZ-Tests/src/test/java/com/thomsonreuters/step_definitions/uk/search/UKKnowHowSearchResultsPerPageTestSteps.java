@@ -3,7 +3,7 @@ package com.thomsonreuters.step_definitions.uk.search;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.PageActions;
 import com.thomsonreuters.pageobjects.common.SortOptions;
-import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawUKCategoryPage;
+import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawUKCategoryPage;
 import com.thomsonreuters.pageobjects.pages.search.*;
 import com.thomsonreuters.utils.TimeoutUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;

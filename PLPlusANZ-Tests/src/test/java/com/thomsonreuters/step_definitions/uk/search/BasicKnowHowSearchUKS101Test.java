@@ -1,8 +1,8 @@
 package com.thomsonreuters.step_definitions.uk.search;
 
 import com.thomsonreuters.pageobjects.common.PageActions;
-import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawHomepage;
-import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawUKCategoryPage;
+import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawHomepage;
+import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawUKCategoryPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.WhatsMarketSearchResultsPage;

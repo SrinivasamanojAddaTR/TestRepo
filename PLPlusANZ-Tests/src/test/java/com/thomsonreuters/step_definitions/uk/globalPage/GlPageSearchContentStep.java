@@ -1,9 +1,9 @@
 package com.thomsonreuters.step_definitions.uk.globalPage;
 
 import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
-import com.thomsonreuters.pageobjects.pages.globalPage.GlobalCategoryPage;
-import com.thomsonreuters.pageobjects.pages.landingPage.PracticalLawUKCategoryPage;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.global_page.GlobalCategoryPage;
+import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawUKCategoryPage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowDocumentPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.MorePopUpPage;

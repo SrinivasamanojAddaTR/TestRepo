@@ -1,6 +1,6 @@
 package com.thomsonreuters.step_definitions.linking;
 
-import com.thomsonreuters.pageobjects.pages.landingPage.InternationalLandingPage;
+import com.thomsonreuters.pageobjects.pages.landing_page.InternationalLandingPage;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 

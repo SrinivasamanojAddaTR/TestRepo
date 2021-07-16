@@ -4,7 +4,7 @@ import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.footer.FeedbackForm;
 import com.thomsonreuters.pageobjects.pages.footer.FeedbackFormField;
 import com.thomsonreuters.pageobjects.pages.footer.WLNFooter;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.utils.form.FormUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.DataTable;
@@ -16,7 +16,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
 import java.util.Map;
-import java.util.Optional;
 
 import static com.thomsonreuters.driver.framework.AbstractPage.waitFor;
 import static org.junit.Assert.assertFalse;

@@ -2,8 +2,8 @@ package com.thomsonreuters.step_definitions.header.responsiveDesign;
 
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
-import com.thomsonreuters.pageobjects.pages.onePass.OnePassLogoutPage;
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.one_pass.OnePassLogoutPage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;

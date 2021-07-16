@@ -1,13 +1,11 @@
 package com.thomsonreuters.step_definitions.login;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
-import com.thomsonreuters.pageobjects.pages.legalUpdates.LegalUpdatesResultsPage;
+import com.thomsonreuters.pageobjects.pages.legal_updates.LegalUpdatesResultsPage;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentDeliveryOptionsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
-import org.junit.Assert;
-import org.openqa.selenium.TimeoutException;
 
 import static org.junit.Assert.assertFalse;
 

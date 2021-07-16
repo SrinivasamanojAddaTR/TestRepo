@@ -4,10 +4,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.hamcrest.core.Is;
 
-import com.thomsonreuters.pageobjects.pages.landingPage.SearchScopeControl;
+import com.thomsonreuters.pageobjects.pages.landing_page.SearchScopeControl;
 import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
-import com.thomsonreuters.pageobjects.pages.siteStructure.BreadCrumbPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 
 import cucumber.api.java.en.When;

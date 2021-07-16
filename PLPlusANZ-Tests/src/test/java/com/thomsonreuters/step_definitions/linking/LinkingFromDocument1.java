@@ -1,6 +1,6 @@
 package com.thomsonreuters.step_definitions.linking;
 
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.utils.Linking.WLAUPageUtils;
 import com.thomsonreuters.pageobjects.utils.plPlusResearchDocDisplay.AssetPageUtils;
 import cucumber.api.java.en.Given;

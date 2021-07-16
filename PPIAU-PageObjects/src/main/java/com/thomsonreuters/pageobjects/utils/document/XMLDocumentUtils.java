@@ -8,8 +8,7 @@ import com.thomsonreuters.pageobjects.utils.document.metadata.Jurisdiction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.thomsonreuters.driver.framework.AbstractPage;
-import com.thomsonreuters.pageobjects.pages.globalPage.GlobalCategoryPage;
+import com.thomsonreuters.pageobjects.pages.global_page.GlobalCategoryPage;
 import com.thomsonreuters.pageobjects.utils.globalPage.GlobalPageUtils;
 import com.thomsonreuters.pageobjects.utils.novus.NovusTools;
 

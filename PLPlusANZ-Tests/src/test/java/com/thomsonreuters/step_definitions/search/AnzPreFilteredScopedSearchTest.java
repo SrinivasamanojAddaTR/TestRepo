@@ -1,6 +1,6 @@
 package com.thomsonreuters.step_definitions.search;
 
-import com.thomsonreuters.pageobjects.pages.landingPage.SearchScopeControl;
+import com.thomsonreuters.pageobjects.pages.landing_page.SearchScopeControl;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.When;
 

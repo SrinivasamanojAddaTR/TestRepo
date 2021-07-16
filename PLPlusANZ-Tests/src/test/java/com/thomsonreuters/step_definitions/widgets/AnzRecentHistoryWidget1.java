@@ -1,6 +1,6 @@
 package com.thomsonreuters.step_definitions.widgets;
 
-import com.thomsonreuters.pageobjects.pages.pageCreation.HomePage;
+import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage;
 import com.thomsonreuters.pageobjects.pages.widgets.RecentHistoryWidget;
 import com.thomsonreuters.pageobjects.utils.document.Document;
