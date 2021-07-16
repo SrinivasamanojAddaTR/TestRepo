@@ -1,6 +1,6 @@
 package com.thomsonreuters.pageobjects.pages.ask;
 
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.CommonResourcePage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.CommonResourcePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

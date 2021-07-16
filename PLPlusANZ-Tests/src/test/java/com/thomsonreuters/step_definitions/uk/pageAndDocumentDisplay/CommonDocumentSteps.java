@@ -1,20 +1,18 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.CaseDocumentPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.ProvisionPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentNavigationPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.LegislationDocumentNavigationPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.enums.DocumentPrimaryLink;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.enums.ExpandAndCollapse;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchSearch.*;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.TopicPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.CaseDocumentPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.ProvisionPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.StandardDocumentPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document_navigation.DocumentNavigationPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document_navigation.LegislationDocumentNavigationPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.enums.DocumentPrimaryLink;
+import com.thomsonreuters.pageobjects.pages.pl_plus_researchsearch.*;
 import com.thomsonreuters.pageobjects.pages.search.SearchHomePage;
 import com.thomsonreuters.pageobjects.utils.document.DocumentObject;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
 import com.thomsonreuters.pageobjects.utils.document.StandardDocumentUtils;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.assertj.core.api.SoftAssertions;
@@ -26,10 +24,9 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static org.junit.Assert.*;
-import static com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.StandardDocumentPage.ResourceType.PRACTICE_NOTES;
+import static com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.StandardDocumentPage.ResourceType.PRACTICE_NOTES;
 
 
 public class CommonDocumentSteps {

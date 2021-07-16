@@ -5,7 +5,7 @@ import com.thomsonreuters.pageobjects.pages.footer.WLNFooter;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentNavigationPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document_navigation.DocumentNavigationPage;
 import com.thomsonreuters.pageobjects.utils.CobaltUser;
 import com.thomsonreuters.pageobjects.utils.OnepassLoginUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;

@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.driver.framework.AbstractPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.LegislationDocumentPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.LegislationDocumentPage;
 
 public class LegislationDocumentPageUtils {
 

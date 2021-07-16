@@ -1,7 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.Linking;
 
 import com.thomsonreuters.pageobjects.pages.login.OnepassLogin;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.AssetDocumentPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.AssetDocumentPage;
 import com.thomsonreuters.pageobjects.pages.wlau.WLAUDocumentPage;
 import com.thomsonreuters.pageobjects.utils.OnepassLoginUtils;
 

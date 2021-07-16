@@ -1,8 +1,8 @@
 package com.thomsonreuters.step_definitions.folders;
 
 import com.thomsonreuters.pageobjects.pages.folders.SaveToPopup;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.ListOfItemsDeliveryOptionsPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentDeliveryPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.ListOfItemsDeliveryOptionsPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document_navigation.DocumentDeliveryPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

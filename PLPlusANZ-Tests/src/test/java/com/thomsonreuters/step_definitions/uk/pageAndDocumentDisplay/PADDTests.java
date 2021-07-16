@@ -1,6 +1,6 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.KHResourcePage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import org.hamcrest.core.Is;

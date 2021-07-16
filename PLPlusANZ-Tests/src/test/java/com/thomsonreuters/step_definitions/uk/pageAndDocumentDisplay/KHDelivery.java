@@ -3,7 +3,7 @@ package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 import com.thomsonreuters.pageobjects.pages.delivery.DownloadOptionsPage;
 import com.thomsonreuters.pageobjects.pages.delivery.EmailOptionsPage;
 import com.thomsonreuters.pageobjects.pages.delivery.PrintOptionsPage;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentDeliveryOptionsPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.DocumentDeliveryOptionsPage;
 import com.thomsonreuters.pageobjects.utils.delivery.DeliveryFormField;
 import com.thomsonreuters.pageobjects.utils.form.FormUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;

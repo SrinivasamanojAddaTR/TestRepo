@@ -2,9 +2,9 @@ package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.generic.PPIGenericDocDisplay;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentRightPanelPage;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DraftingNotes;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.DocumentRightPanelPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.DraftingNotes;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.KHResourcePage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.And;

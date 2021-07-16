@@ -4,11 +4,11 @@ import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.Link;
 import com.thomsonreuters.pageobjects.common.SortOptions;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.CommonResourcePage;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DraftingNotes;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentNavigationPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchSearch.BaseResultsPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.CommonResourcePage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.DraftingNotes;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.KHResourcePage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document_navigation.DocumentNavigationPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_researchsearch.BaseResultsPage;
 import com.thomsonreuters.pageobjects.pages.search.*;
 import com.thomsonreuters.pageobjects.rest.LinkingBaseUtils;
 import com.thomsonreuters.pageobjects.utils.document.CaseDocument;
@@ -108,7 +108,7 @@ public class SearchUtils {
      * and are highlighted using css-style.
      * Method checks results with case ignoring
      *
-     * @param element One of result elements {@link com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage#glossaryTermsWithSearchTermList()}.
+     * @param element One of result elements {@link com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.GlossaryPage#glossaryTermsWithSearchTermList()}.
      * @param term    String with user query which should be highlighted in every result
      * @return True if check passed. Otherwise - false.
      */

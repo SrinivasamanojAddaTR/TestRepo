@@ -1,6 +1,6 @@
 package com.thomsonreuters.pageobjects.pages.search;
 
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.DocumentDisplayAbstractPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.DocumentDisplayAbstractPage;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;

@@ -3,7 +3,7 @@ package com.thomsonreuters.pageobjects.utils.sitestructure;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.common.SortOptions;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
-import com.thomsonreuters.pageobjects.pages.siteStructure.SwitchProductDropdownList;
+import com.thomsonreuters.pageobjects.pages.site_structure.SwitchProductDropdownList;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;

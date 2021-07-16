@@ -4,7 +4,7 @@ import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
 import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawHomepage;
 import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
-import com.thomsonreuters.pageobjects.pages.siteStructure.BreadCrumbPage;
+import com.thomsonreuters.pageobjects.pages.site_structure.BreadCrumbPage;
 import com.thomsonreuters.pageobjects.utils.document.StandardDocumentUtils;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;

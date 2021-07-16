@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.AssetDocumentPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.JournalDocumentPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.AssetDocumentPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.JournalDocumentPage;
 import com.thomsonreuters.pageobjects.utils.document.XMLDocumentUtils;
 import com.thomsonreuters.pageobjects.utils.novus.NovusTools;
 

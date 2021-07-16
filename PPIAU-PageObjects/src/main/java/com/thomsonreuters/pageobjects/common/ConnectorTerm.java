@@ -1,7 +1,7 @@
 package com.thomsonreuters.pageobjects.common;
 
 import com.thomsonreuters.pageobjects.pages.generic.PPIGenericDocDisplay;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.TableOfContentPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.TableOfContentPage;
 import com.thomsonreuters.pageobjects.pages.search.CommonDocumentPage;
 import com.thomsonreuters.pageobjects.pages.urls.plcuk.KHDocumentPage;
 

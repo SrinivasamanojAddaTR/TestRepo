@@ -1,6 +1,6 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.GlossaryPage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;

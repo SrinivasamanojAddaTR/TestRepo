@@ -1,7 +1,7 @@
 package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.GlossaryPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.GlossaryPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.utils.TimeoutUtils;
 import cucumber.api.java.en.And;
@@ -14,7 +14,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;

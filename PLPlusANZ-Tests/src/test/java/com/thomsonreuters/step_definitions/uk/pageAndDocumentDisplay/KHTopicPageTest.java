@@ -2,9 +2,9 @@ package com.thomsonreuters.step_definitions.uk.pageAndDocumentDisplay;
 
 import com.thomsonreuters.pageobjects.pages.delivery.EmailOptionsPage;
 import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.KHResourcePage;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.ListOfItemsDeliveryOptionsPage;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.TopicPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.KHResourcePage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.ListOfItemsDeliveryOptionsPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.TopicPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;

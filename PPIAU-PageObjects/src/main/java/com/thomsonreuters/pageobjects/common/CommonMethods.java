@@ -3,7 +3,7 @@ package com.thomsonreuters.pageobjects.common;
 import com.thomsonreuters.driver.framework.ScreenShots;
 import com.thomsonreuters.driver.framework.WebDriverDiscovery;
 import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.document.JournalDocumentPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.JournalDocumentPage;
 import com.thomsonreuters.utils.CalendarAndDate;
 import com.thomsonreuters.utils.TimeoutUtils;
 import org.apache.commons.lang.RandomStringUtils;

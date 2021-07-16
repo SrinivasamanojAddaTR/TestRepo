@@ -2,7 +2,7 @@ package com.thomsonreuters.step_definitions.login;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.pages.legal_updates.LegalUpdatesResultsPage;
-import com.thomsonreuters.pageobjects.pages.plPlusKnowHowResources.DocumentDeliveryOptionsPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.DocumentDeliveryOptionsPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;

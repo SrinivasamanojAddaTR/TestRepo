@@ -1,7 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.annotations;
 
 import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
-import com.thomsonreuters.pageobjects.pages.plPlusResearchDocDisplay.documentNavigation.DocumentDeliveryPage;
+import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document_navigation.DocumentDeliveryPage;
 
 /**
  * Created by Pavel_Ardenka on 31/10/2016.
