@@ -17,7 +17,7 @@ import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.rest.DeliveryBaseUtils;
 import com.thomsonreuters.pageobjects.rest.DocumentBaseUtils;
 import com.thomsonreuters.pageobjects.rest.LinkingBaseUtils;
-import com.thomsonreuters.pageobjects.rest.model.request.delivery.initiateDelivery.InitiateDelivery;
+import com.thomsonreuters.pageobjects.rest.model.request.delivery.initiate_delivery.InitiateDelivery;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceAnnotationsImpl;
 import com.thomsonreuters.pageobjects.utils.document.ContentType;
 import com.thomsonreuters.pageobjects.utils.document.Document;

@@ -9,7 +9,7 @@ import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.DocumentDe
 import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.StandardDocumentPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.rest.DeliveryBaseUtils;
-import com.thomsonreuters.pageobjects.rest.model.request.delivery.initiateDelivery.InitiateDelivery;
+import com.thomsonreuters.pageobjects.rest.model.request.delivery.initiate_delivery.InitiateDelivery;
 import com.thomsonreuters.pageobjects.utils.email.EmailMessageUtils;
 import com.thomsonreuters.pageobjects.utils.email.Mailbox;
 import com.thomsonreuters.pageobjects.utils.email.MailboxFactory;

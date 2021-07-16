@@ -1,6 +1,6 @@
 package com.thomsonreuters.pageobjects.pages.delivery;
 
-import com.thomsonreuters.pageobjects.rest.model.request.delivery.initiateDelivery.InitiateDelivery;
+import com.thomsonreuters.pageobjects.rest.model.request.delivery.initiate_delivery.InitiateDelivery;
 import java.util.Arrays;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

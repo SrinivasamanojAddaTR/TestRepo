@@ -1,4 +1,4 @@
-package com.thomsonreuters.pageobjects.rest.model.request.delivery.completeDeliveryInitialization;
+package com.thomsonreuters.pageobjects.rest.model.request.delivery.complete_delivery_initialization;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
