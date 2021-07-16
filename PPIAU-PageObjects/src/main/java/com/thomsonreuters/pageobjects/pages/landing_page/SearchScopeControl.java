@@ -27,7 +27,7 @@ public class SearchScopeControl extends AbstractPage {
      * Object representing scoped search dropdown options
      */
     public WebElement scopedSearchDropdownOptions(String option) {
-        return waitForExpectedElement(By.xpath("//div[@id='co_searchCategoryDropdown']//a[contains(text(),'" + option + "')]"));
+        return waitForExpectedElement(By.xpath("//div[@id='co_searchCategoryDropdown']//*[contains(text(),'" + option + "')]"));
     }
 
     public List<String> scopedSearchDropdownOptionsList() {
