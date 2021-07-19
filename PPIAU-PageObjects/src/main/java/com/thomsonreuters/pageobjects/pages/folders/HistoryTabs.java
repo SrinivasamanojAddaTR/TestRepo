@@ -39,4 +39,18 @@ public enum HistoryTabs {
 		return pageHeader;
 	}
 
+	public static HistoryTabs valueOfTab(String name) {
+		HistoryTabs[] var1 = values();
+		int var2 = var1.length;
+
+		for(int var3 = 0; var3 < var2; ++var3) {
+			HistoryTabs ht = var1[var3];
+			if (ht.name.equals(name)) {
+				return ht;
+			}
+		}
+
+		throw new IllegalArgumentException("No enum const " + name);
+	}
+
 }
