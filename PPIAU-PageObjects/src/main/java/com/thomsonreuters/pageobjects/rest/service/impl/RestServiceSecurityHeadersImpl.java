@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.rest.service.impl;
 
 import com.google.common.base.Splitter;
+import com.thomsonreuters.pageobjects.exceptions.CookieNotFoundException;
 import com.thomsonreuters.pageobjects.rest.service.RestService;
 import org.openqa.selenium.Cookie;
 import org.slf4j.Logger;
@@ -30,12 +31,12 @@ public class RestServiceSecurityHeadersImpl extends RestServiceImpl implements R
             LOG.info("-------------------BEGIN--------------------");
             HttpHeaders httpHeaders = configureHeaders();
             String requestTo = securityHeadersUrl + getCoSessionTokenFromCookies();
-            LOG.info("TO: " + requestTo);
-            LOG.info("HEADERS: " + httpHeaders);
+            LOG.info("TO: {}", requestTo);
+            LOG.info("HEADERS: {}", httpHeaders);
             HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-            LOG.info("REQ: " + requestEntity.toString());
+            LOG.info("REQ: {}", requestEntity);
             HttpEntity<String> response = getRestTemplate().exchange(requestTo, HttpMethod.GET, requestEntity, String.class);
-            LOG.info("RESP: " + response.toString());
+            LOG.info("RESP: {}", response);
             LOG.info("-------------------END--------------------");
             String responseString = response.getBody();
             return getParametersFromResponse(responseString).get(SESSION_ID_PARAM_NAME);
@@ -70,7 +71,7 @@ public class RestServiceSecurityHeadersImpl extends RestServiceImpl implements R
                 return cookie.getValue();
             }
         }
-        throw new RuntimeException("Unable to obtain cookie with name " + CO_SESSION_TOKEN_COOKIE_NAME);
+        throw new CookieNotFoundException("Unable to obtain cookie with name " + CO_SESSION_TOKEN_COOKIE_NAME);
     }
 
     /**

@@ -18,7 +18,6 @@ public class RestServiceLinkingImpl extends RestServiceImpl implements RestServi
     private static final String HEADER_ACCEPT_HTML_XML = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
     private static final int STATUS_CODE_OK = 200;
     private static final String FATWIRE_TOOL = "http://us.p02edi.practicallaw.com/cs/Satellite/?pagename=XMLWrapper&childpagename=PLC/PLC_Doc_C/XmlDataViewExt&plcref=";
-    private static final String ENTITYID_TOOL = "http://entityid.int.next.westlaw.com/EntityIdentification/v1/find/document?findValue=Practical Law Resource ID ";
     private static final String VELMA_TOOL = "https://legaltechtools.int.thomsonreuters.com/Velma/Novus/Document?guid=";
     private int latestResponseCode = -1;
     private PlcLegacyNovusUtils plcLegacyNovusUtils = new PlcLegacyNovusUtils();
@@ -35,7 +34,7 @@ public class RestServiceLinkingImpl extends RestServiceImpl implements RestServi
         try {
             return plcLegacyNovusUtils.getDocumentByPlcRef(plcRef).getGuid();
         } catch (IllegalArgumentException e) {
-            LOG.info("No documents found with plcRef " + plcRef);
+            LOG.info("No documents found with plcRef {}", plcRef);
             return "";
         }
     }
@@ -115,9 +114,9 @@ public class RestServiceLinkingImpl extends RestServiceImpl implements RestServi
             requestTo = splitedUrlBySlash[0] + "//" + splitedUrlBySlash[2];
         }
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        //LOG.info("Linking GET REQUEST '" + requestEntity.toString() + "', TO: " + requestTo);
+        LOG.info("Linking GET REQUEST '{}', TO: {}", requestEntity, requestTo);
         ResponseEntity<T> response = getRestTemplate().exchange(requestTo, HttpMethod.GET, requestEntity, expectedResponseType);
-        //LOG.info("Linking GET RESPONSE '" + response.getBody() + "'");
+        LOG.info("Linking GET RESPONSE '{}'", response.getBody());
         latestResponseCode = response.getStatusCode().value();
         return response.getBody();
     }

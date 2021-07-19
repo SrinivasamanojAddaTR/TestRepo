@@ -8,7 +8,7 @@ import com.thomsonreuters.pageobjects.utils.OnepassLoginUtils;
 public class WLAUPageUtils {
 
     private static final String WLUK_URL = "http://login.westlaw.co.uk";
-    private static final String WLAU_URL = "http://westlaw.com.au";  //should be check TODO
+    private static final String WLAU_URL = "http://westlaw.com.au";
     private static final String USER_NAME_WLAU = "WLAU_User";
     private static final String PASS_WLAU = "Epam2015";
 
@@ -18,7 +18,7 @@ public class WLAUPageUtils {
     private AssetDocumentPage assetDocumentPage = new AssetDocumentPage();
 
 
-    public void navigateToWLUK() throws Throwable {
+    public void navigateToWLUK() {
         wlauDocumentPage.navigate(WLUK_URL);
     }
 
@@ -28,10 +28,10 @@ public class WLAUPageUtils {
         onepassLoginUtils.loginToCobalt(USER_NAME_WLAU, PASS_WLAU);
     }
 
-    public boolean theUserSeeOpenedDocumentInWLAU() throws Throwable {
+    public boolean theUserSeeOpenedDocumentInWLAU() {
         Boolean isOpen = false;
         String winHandleFirst = assetDocumentPage.getCurrentWindowHandle();
-        String secondHandle = new String();
+        String secondHandle = "";
         for (String winHandle : assetDocumentPage.getDriver.getWindowHandles()) {
             assetDocumentPage.switchToWindow(winHandle);
             secondHandle = winHandle;
@@ -39,7 +39,7 @@ public class WLAUPageUtils {
         if (wlauDocumentPage.isPopUpInWLAUDisplayed()) {
             wlauDocumentPage.closePopUpButton().click();
         }
-        if (wlauDocumentPage.documentBody().isDisplayed() == true) {
+        if (wlauDocumentPage.documentBody().isDisplayed()) {
             wlauDocumentPage.signoutLink().click();
             assetDocumentPage.switchToWindow(secondHandle);
             assetDocumentPage.getDriver.close();

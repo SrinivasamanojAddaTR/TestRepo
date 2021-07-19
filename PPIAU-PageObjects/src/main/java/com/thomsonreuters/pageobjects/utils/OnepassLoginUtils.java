@@ -10,7 +10,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.slf4j.Logger;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,15 +19,16 @@ import java.util.regex.Pattern;
 
 public class OnepassLoginUtils {
 
+    private static final Logger LOG = org.slf4j.LoggerFactory.getLogger(OnepassLoginUtils.class);
+
+    private static ThreadLocal<String> userName = new ThreadLocal<>();
+    private static ThreadLocal<String> password = new ThreadLocal<>();
+
     private OnepassLogin onepassLogin = new OnepassLogin();
     private OnePassLogoutPage onePassLogoutPage = new OnePassLogoutPage();
     private WelcomePage welcome = new WelcomePage();
     private WLNHeader wlnHeader = new WLNHeader();
     protected CommonMethods comMethods = new CommonMethods();
-
-    protected static final Logger LOG = org.slf4j.LoggerFactory.getLogger(OnepassLoginUtils.class);
-    private static String userName;
-    private static String password;
 
     public OnepassLoginUtils(){
      onepassLogin = new OnepassLogin();
@@ -36,17 +36,22 @@ public class OnepassLoginUtils {
         comMethods = new CommonMethods();
     }
 
+    public void removeUserDetails() {
+        userName.remove();
+        password.remove();
+    }
+
     public String getUserName() {
-        return userName;
+        return userName.get();
     }
 
     public String getPassword() {
-        return password;
+        return password.get();
     }
 
     public void loginToCobalt(String username, String password) {
-        this.userName = username;
-        this.password = password;
+        OnepassLoginUtils.userName.set(username);
+        OnepassLoginUtils.password.set(password);
 
         enterUserNameAndPassword(username, password);
         //to avoid problem when click on sign didn't performed directly after typing password 
@@ -56,8 +61,8 @@ public class OnepassLoginUtils {
     }
 
     public void loginToCobaltWithSRM(String username, String password) {
-        this.userName = username;
-        this.password = password;
+        OnepassLoginUtils.userName.set(username);
+        OnepassLoginUtils.password.set(password);
 
         enterUserNameAndPassword(username, password);
         onepassLogin.usernameTextField().click();
@@ -68,8 +73,8 @@ public class OnepassLoginUtils {
     }
 
     public void enterUserNameAndPassword(String username, String password) {
-        this.userName = username;
-        this.password = password;
+        OnepassLoginUtils.userName.set(username);
+        OnepassLoginUtils.password.set(password);
 
         onepassLogin.usernameTextField().clear();
         onepassLogin.usernameTextField().sendKeys(username);
@@ -111,7 +116,7 @@ public class OnepassLoginUtils {
 		try {
 			return onePassLogoutPage.signOffPageSignOnButton().isDisplayed();
 		} catch (TimeoutException | NoSuchElementException nse) {
-			LOG.info("context", nse);
+			LOG.info("Unable to find 'Sign in' button", nse);
 			return false;
 		}
 	}
@@ -120,7 +125,7 @@ public class OnepassLoginUtils {
 		try {
 			return onePassLogoutPage.logOutBrandingLogo().isDisplayed();
 		} catch (PageOperationException poe) {
-			LOG.info("context", poe);
+			LOG.info("Unable to find 'Log out' logo", poe);
 			return false;
 		}
 	}
@@ -129,7 +134,7 @@ public class OnepassLoginUtils {
         try {
             return onepassLogin.loginBox().isDisplayed();
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info("Unable to find 'Login' box", poe);
             return false;
         }
     }
@@ -138,7 +143,7 @@ public class OnepassLoginUtils {
 		try {
 			return onePassLogoutPage.sessionSummaryBox().isDisplayed();
 		} catch (TimeoutException | NoSuchElementException nse) {
-			LOG.info("context", nse);
+			LOG.info("Unable to find 'Session Summary' box", nse);
 			return false;
 		}
 	}
@@ -167,13 +172,10 @@ public class OnepassLoginUtils {
                 return false; // session length within range 1-15 minutes
             }
 
-            if (now.getTime() - sessionEndTime.getTime() > 5 * 60 * 1000 || now.getTime() - sessionEndTime.getTime() < -5 * 60 * 1000) {
-                return false; // end time is within range of now +-5 minutes
-            }
-            return true;
+            return !(now.getTime() - sessionEndTime.getTime() > 5 * 60 * 1000 || now.getTime() - sessionEndTime.getTime() < -5 * 60 * 1000); // end time is within range of now +-5 minutes
 
         } catch (TimeoutException | NoSuchElementException | ParseException e) {
-            throw new RuntimeException(e);
+            throw new PageOperationException(e);
         }
     }
 
@@ -184,25 +186,18 @@ public class OnepassLoginUtils {
 
             Date eventTime = format.parse(time);
             Date now = new Date();
-            if (now.getTime() - eventTime.getTime() > 15 * 60 * 1000 || now.getTime() - eventTime.getTime() < -5 * 60 * 1000) {
-                return false; // event time is within range of now -15 - +5 minutes
-            }
-            return true;
+            return !(now.getTime() - eventTime.getTime() > 15 * 60 * 1000 || now.getTime() - eventTime.getTime() < -5 * 60 * 1000); // event time is within range of now -15 - +5 minutes
+
         } catch (TimeoutException | NoSuchElementException | ParseException e) {
-            throw new RuntimeException(e);
+            throw new PageOperationException(e);
         }
     }
-
-//	public String getSessionTableCellByDescriptionAndHeader(String descriptionContains, String header) {
-//		WebElement table = onePassLogoutPage.sessionDetailsTable();
-//		return comMethods.getTableCellByOtherColumnValueAndHeader(table, "Description", descriptionContains, header);
-//	}
 
     public boolean isUserNameTextFieldPresent() {
         try {
             return onepassLogin.usernameTextField().isDisplayed();
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info("Unable to find 'UserName' text field", poe);
             return false;
         }
     }
@@ -211,7 +206,7 @@ public class OnepassLoginUtils {
         try {
             return onepassLogin.passwordTextField().isDisplayed();
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info("Unable to find 'Password' text field", poe);
             return false;
         }
     }
@@ -220,7 +215,7 @@ public class OnepassLoginUtils {
         try {
             return onepassLogin.forgotMyUsernameOrPasswordLink().isDisplayed();
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info("Unable to find 'Forgot my username or password' link", poe);
             return false;
         }
     }
@@ -233,7 +228,7 @@ public class OnepassLoginUtils {
         try {
             return onepassLogin.createNewOnePassProfileLink().isDisplayed();
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info("Unable to find 'Create new one pass profile' link", poe);
             return false;
         }
     }
@@ -242,7 +237,7 @@ public class OnepassLoginUtils {
         try {
             return onepassLogin.updateExistingOnePassProfileLink().isDisplayed();
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info("Unable to find 'Update existing one pass profile' link", poe);
             return false;
         }
     }
@@ -251,7 +246,7 @@ public class OnepassLoginUtils {
         try {
             return onepassLogin.learnMoreAboutOnePassLink().isDisplayed();
         } catch (PageOperationException poe) {
-            LOG.info("context", poe);
+            LOG.info("Unable to find 'Learn more about one pass' link", poe);
             return false;
         }
     }
@@ -260,7 +255,7 @@ public class OnepassLoginUtils {
 		try {
 			return onePassLogoutPage.isElementDisplayed(onePassLogoutPage.resumeAsCurrentUserLinkText());
 		} catch (PageOperationException poe) {
-			LOG.info("context", poe);
+			LOG.info("Unable to find 'Resume as current user' link", poe);
 			return false;
 		}
 	}
@@ -285,7 +280,7 @@ public class OnepassLoginUtils {
 		try {
 			return onePassLogoutPage.signInWithDifferentAccountLink().isDisplayed();
 		} catch (PageOperationException poe) {
-			LOG.info("context", poe);
+			LOG.info("Unable to find 'Sign in with different account' link", poe);
 			return false;
 		}
 	}
@@ -302,8 +297,8 @@ public class OnepassLoginUtils {
     	onepassLogin.singInShibolethButton().click();
     }
 
-    public CobaltUser removeSRMOption() throws IOException, InterruptedException {
-        //TODO: this is a workaround to click sign off twice before 'Return to Sign In' Link appears it is by design at the moment
+    public CobaltUser removeSRMOption() {
+        //This is a workaround to click sign off twice before 'Return to Sign In' Link appears it is by design at the moment
         //confirmed by Robert Foster and Jacqueline Auma
         wlnHeader.signOff();
         onepassLogin.waitForPageToLoad();
