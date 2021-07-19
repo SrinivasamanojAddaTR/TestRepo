@@ -16,9 +16,6 @@ import java.util.List;
 
 public class CasesPage extends AbstractPage {
 
-    public CasesPage() {
-    }
-
     public WebElement ukCasesClick() {
         return waitForExpectedElement(By.cssSelector("a[href*='UKCASES']"));
     }
@@ -32,74 +29,28 @@ public class CasesPage extends AbstractPage {
     }
 
     public List<String> getMainJurisdictionFacets() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.cssSelector(".co_facet_tree>li>label[for^='facet_hierarchy_jurisdictionSummary']"))) {
                 list.add(facet.getText());
             }
         } catch (PageOperationException te) {
-            LOG.info("context", te);
-            list = new ArrayList<String>();
+            LOG.info("Unable to find Jurisdiction facets {}", te.getMessage());
+            list = new ArrayList<>();
         }
         return list;
     }
 
     public List<String> getUKJurisdictionFacets() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.xpath("//label[text()='UK']/..//ul[contains(@id,'jurisdiction')]//li//label"))) {
                 list.add(facet.getText());
             }
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info("UK Jurisdiction facets have not loaded {}", te.getMessage());
         }
         return list;
-    }
-
-    public int getFacetCount(String facetGroup, String... facetNames) {
-        String temp = "";
-        String tempStr = "/label[text()='";
-        try {
-            StringBuilder xpath = new StringBuilder();
-            if (facetGroup.equals("Jurisdiction")) {
-                xpath.append(".//div[@id='facet_div_jurisdictionSummary']/ul/li");
-            } else if (facetGroup.equals("Topic")) {
-                xpath.append(".//div[@id='facet_div_topicSummary']/ul/li");
-            } else if (facetGroup.equals("Court")) {
-                xpath.append(".//div[@id='facet_div_casesCourtSummary']/ul/li");
-            } else if (facetGroup.equals("Status")) {
-                xpath.append(".//div[@id='facet_div_casesStatusSummary']/ul/li");
-            }
-            temp = xpath.toString();
-
-            for (int i = 0; i < facetNames.length - 1; i++) {
-                WebElement checkbox = waitForExpectedElement(By.xpath(xpath + tempStr + facetNames[i] + "']/../a"));
-                if (checkbox.getAttribute("class").equals("co_facet_expand")) {
-                    checkbox.click();
-                }
-                xpath.append("/div/ul/li");
-            }
-            xpath.append("/label[text()='%s']/../span[@class='co_facetCount']");
-            int size = Integer.valueOf(waitForExpectedElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1]))).getText());
-
-            for (int i = facetNames.length - 2; i >= 0; i--) {
-                String extraURL = "";
-                int j = i;
-                while (j > 0) {
-                    extraURL += "/div/ul/li";
-                    j--;
-                }
-                if (extraURL.length() > 0) {
-                    waitForExpectedElement(By.xpath(temp + extraURL + "/label[text()='" + facetNames[i] + "']/../a")).click();
-                } else {
-                    waitForExpectedElement(By.xpath(temp + "/label[text()='" + facetNames[i] + "']/../a")).click();
-                }
-            }
-            return size;
-        } catch (TimeoutException te) {
-            LOG.info("context", te);
-            throw new PageOperationException("Exceeded time to find the facet count for : ");
-        }
     }
 
     public WebElement checkBoxByLabelName(String label) {
@@ -134,7 +85,7 @@ public class CasesPage extends AbstractPage {
             waitForElementPresent(By.id("co_facetHeaderjurisdictionSummary")).click();
             return getCheckBox(facetGroup, facetNames).isSelected();
         } catch (Exception e) {
-            LOG.info("context", e);
+            LOG.info("Unable to find checkbox {}", e.getMessage());
             return false;
         }
     }
@@ -163,7 +114,7 @@ public class CasesPage extends AbstractPage {
             xpath.append("/label[text()='%s']/../input");
             return waitForExpectedElement(By.xpath(String.format(xpath.toString(), facetNames[facetNames.length - 1])));
         } catch (TimeoutException te) {
-            LOG.info("context", te);
+            LOG.info("Facets Not found {}", te.getMessage());
             throw new PageOperationException("Exceeded time to find the facet count for : ");
         }
     }
@@ -205,11 +156,6 @@ public class CasesPage extends AbstractPage {
             LOG.info("context", p);
             return false;
         }
-    }
-
-    public int getCasesCount() {
-        int Size = Integer.valueOf(waitForExpectedElement(By.cssSelector(".co_search_titleCount")).getText().replace("(", "").replace(")", "").trim());
-        return Size;
     }
 
 }
