@@ -2,15 +2,11 @@ package com.thomsonreuters.pageobjects.pages.search;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 
 
 public class SearchHomePage extends AbstractPage {
-
-    public SearchHomePage() {
-    }
 
     public WebElement searchTextBox() {
         return waitForExpectedElement(By.id("searchInputId"));
@@ -52,24 +48,6 @@ public class SearchHomePage extends AbstractPage {
 
     public WebElement advanceSearchLink() {
         return waitForExpectedElement(By.id("co_search_advancedSearchLink"));
-    }
-
-    /**
-     * This method enters the given search term into the search box after clearing the existing text in it.
-     *
-     * @param searchTerm
-     * @deprecated May cause weak performance due to several WebElement obtaining
-     *             Use {@link com.thomsonreuters.pageobjects.utils.search.SearchUtils#enterSearchText(java.lang.String)}
-     */
-    @Deprecated
-    public void enterSearchText(String searchTerm) {
-        searchTextBox().clear();
-        // Workaround for bug in the firefox when text before left parenthesis is not entering
-        if(searchTerm.contains("(")){
-            searchTextBox().sendKeys(searchTerm.replace("(", Keys.chord(Keys.SHIFT, "9")));
-        }else{
-            searchTextBox().sendKeys(searchTerm);
-        }
     }
 
     /**

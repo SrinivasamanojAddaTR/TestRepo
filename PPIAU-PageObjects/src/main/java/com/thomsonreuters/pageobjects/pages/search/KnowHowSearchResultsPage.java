@@ -5,7 +5,6 @@ import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
-import org.python.antlr.ast.Str;
 import org.springframework.util.StringUtils;
 
 import java.util.*;

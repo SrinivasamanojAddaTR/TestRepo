@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
+import static java.lang.String.format;
+
 /**
  * Created by u4400015 on 30/06/2016. This is the combined search results page for westlaw uk research content
  * on practical law - there are many objects on this page which are already defined on the page searchResultsPage
@@ -14,7 +16,9 @@ import java.util.List;
  */
 public class WestlawCombinedResultsPage extends AbstractPage {
 
-    private final String WHERE_REPORTED = ".//*[@id='cobalt_search_ukCombinedResearch_checkbox_%s']/following-sibling::div[@class='co_searchContent']//strong[contains(text(),'Where Reported')]";
+    private static final String WHERE_REPORTED_XPATH_PATTERN = ".//*[@id='cobalt_search_ukCombinedResearch_checkbox_%s']/following-sibling::div[@class='co_searchContent']//strong[contains(text(),'Where Reported')]";
+    private static final String SEARCH_RESULT_LIST_XPATH_PATTERN ="//ol[@class='co_searchResult_list']/li[%s]";
+    private static final String WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN="//*[@id='cobalt_search_ukCombinedResearch_checkbox_%s']/following-sibling::div[@class='co_searchContent']";
 
     /**
      * APPLICABLE TO ALL CONTENT TYPES
@@ -27,14 +31,6 @@ public class WestlawCombinedResultsPage extends AbstractPage {
     public WebElement termsInContextHeading() {
 
         return waitForExpectedElement(By.xpath("//div[contains(@class,'co_search_detailLevel']//strong[contains(.,Terms')]"));
-    }
-
-    /**
-     * terms in context text by result position - gets all the terms in context text for a particular result
-     */
-
-    public List<WebElement> termsInContext(String position) {
-        return waitForExpectedElements(By.xpath("//div[starts-with(@id,'co_snippet_" + position + "_')]//a"));
     }
 
     /**
@@ -102,11 +98,6 @@ public class WestlawCombinedResultsPage extends AbstractPage {
         return waitForExpectedElement(By.xpath("//a[@id='cobalt_result_ukCombinedResearch_title" + position +"']"));
     }
 
-    public boolean isFirstResultTitleDisplayed(String position) {
-
-        return isElementDisplayed(By.xpath("//a[@id='cobalt_result_ukCombinedResearch_title" + position +"']"));
-    }
-
 
     /**
      * grabs the title by position and title text - can be any result (cases, legislation or journals etc)
@@ -148,7 +139,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
      */
 
     public WebElement legislationProvision(String position) {
-        return waitForExpectedElement(By.xpath("//ol[@class='co_searchResult_list']/li[" + position + "]//h3/a"));
+        return waitForExpectedElement(By.xpath(format(SEARCH_RESULT_LIST_XPATH_PATTERN,position)+"//h3/a"));
     }
 
     /**
@@ -168,11 +159,11 @@ public class WestlawCombinedResultsPage extends AbstractPage {
      * @return Element with the status icon
      */
     public WebElement getStatusIcon(String position) {
-        return waitForExpectedElement(By.xpath("//ol[@class='co_searchResult_list']/li[" + position + "]//span[contains(@class, 'th_flat_icon')]"));
+        return waitForExpectedElement(By.xpath(format(SEARCH_RESULT_LIST_XPATH_PATTERN,position)+"//span[contains(@class, 'th_flat_icon')]"));
     }
 
     public WebElement getPublishedDate(String position) {
-        return waitForExpectedElement(By.xpath("//ol[@class='co_searchResult_list']/li[" + position + "]//span[contains(@class, 'co_greenStatus')]"));
+        return waitForExpectedElement(By.xpath(format(SEARCH_RESULT_LIST_XPATH_PATTERN,position)+"//span[contains(@class, 'co_greenStatus')]"));
     }
 
     /**
@@ -184,7 +175,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
     public boolean isStatusIconExists(String position) {
         // Wait for result title and check it version presence
         resultTitle(position);
-        return isExists(By.xpath("//ol[@class='co_searchResult_list']/li[" + position + "]//span[contains(@class, 'status_icon')]"));
+        return isExists(By.xpath(format(SEARCH_RESULT_LIST_XPATH_PATTERN,position)+"//span[contains(@class, 'status_icon')]"));
     }
 
     /**
@@ -194,73 +185,15 @@ public class WestlawCombinedResultsPage extends AbstractPage {
      * @return True - if element exists. False - otherwise
      */
     public boolean isArrangementOfProvisionsLinkExists(String position) {
-        return isExists(By.xpath("//ol[@class='co_searchResult_list']/li[" + position + "]//a[starts-with(normalize-space(.), 'Part')]"));
+        return isExists(By.xpath(format(SEARCH_RESULT_LIST_XPATH_PATTERN,position)+"//a[starts-with(normalize-space(.), 'Part')]"));
     }
 
     public List<WebElement> legislationProvisionSections(String position) {
-        return waitForExpectedElements(By.xpath("//ol[@class='co_searchResult_list']/li[" + position + "]//div[@class='co_search_legSection']"));
+        return waitForExpectedElements(By.xpath(format(SEARCH_RESULT_LIST_XPATH_PATTERN,position)+"//div[@class='co_search_legSection']"));
     }
 
     public boolean isLegislationProvisionSectionExists(String position) {
-        return isExists(By.xpath("//ol[@class='co_searchResult_list']/li[" + position + "]//div[@class='co_search_legSection']"));
-    }
-
-    /**
-     * CASES OBJECTS
-     */
-
-    /**
-     * case court by position only - no text passed in as a variable
-     */
-
-    public WebElement caseCourt(String position) {
-        return waitForExpectedElement(By.xpath("//div[@id='co_searchResults_citation_" + position +"']//span[2]"));
-    }
-
-    /**
-     * case court grabbed by using expected text and position
-     */
-
-    public WebElement caseCourt(String position, String text) {
-
-        return waitForExpectedElement(By.xpath("//div[@id='co_searchResults_citation_" + position + "']//span[@class='co_search_detailLevel_1']/preceding-sibling::span[contains(text(),'" + text + "')]"));
-    }
-
-    /**
-    * case lead citation by position only (listed after court in the individual results)
-    */
-
-    public WebElement caseLeadCitation(String position) {
-
-        return waitForExpectedElement(By.xpath("//div[@id='co_searchResults_citation_" + position + "']//span[@class='co_search_detailLevel_1']"));
-    }
-
-    /**
-     * case lead citation by position and expected text
-     */
-
-    public WebElement caseLeadCitation(String position, String text) {
-
-        return waitForExpectedElement(By.xpath("//div[@id='co_searchResults_citation_" + position + "']//span[@class='co_search_detailLevel_1'][contains(text(),'" + text + "')]"));
-    }
-
-    /**
-     * case judgment date by position only
-     */
-
-    public WebElement caseJudgmentDate(String position) {
-
-        return waitForExpectedElement(By.xpath("//div[@id='co_searchResults_citation_" + position + "']//span[@class='co_search_detailLevel_1']/following-sibling::span"));
-    }
-
-
-    /**
-     * case judgment date by position and expected date
-     */
-
-    public WebElement caseJudgmentDate(String position, String text) {
-
-        return waitForExpectedElement(By.xpath("//div[@id='co_searchResults_citation_" + position + "']//span[@class='co_search_detailLevel_1']/following-sibling::span[contains(text(),'" + text + "')]"));
+        return isExists(By.xpath(format(SEARCH_RESULT_LIST_XPATH_PATTERN,position)+"//div[@class='co_search_legSection']"));
     }
 
     /**
@@ -269,7 +202,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement caseSubjectHeader(String position) {
 
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(.,'Subject')]"));
+        return waitForExpectedElement(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(.,'Subject')]"));
     }
 
     /**
@@ -278,7 +211,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement caseSubjectData(String position, String text) {
 
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(.,'Subject')]/parent::*[contains(.,'" + text + "')]"));
+        return waitForExpectedElement(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(.,'Subject')]/parent::*[contains(.,'" + text + "')]"));
 
     }
 
@@ -288,11 +221,11 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement caseSubject(String position) {
 
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(.,'Subject')]/parent::*"));
+        return waitForExpectedElement(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(.,'Subject')]/parent::*"));
     }
 
     public boolean isCaseSubjectDisplayed(String position) {
-        return isElementDisplayed(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(.,'Subject')]/parent::*"));
+        return isElementDisplayed(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(.,'Subject')]/parent::*"));
     }
 
     /**
@@ -301,7 +234,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement caseKeywordHeader (String position) {
 
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(.,'Keywords')]"));
+        return waitForExpectedElement(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(.,'Keywords')]"));
     }
 
 
@@ -311,7 +244,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement caseKeywordData(String position, String text) {
 
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(.,'Keywords')]/parent::*[contains(.,'" + text + "')]"));
+        return waitForExpectedElement(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(.,'Keywords')]/parent::*[contains(.,'" + text + "')]"));
     }
 
     /**
@@ -320,11 +253,11 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement caseKeywordData(String position) {
 
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(.,'Keywords')]/parent::*"));
+        return waitForExpectedElement(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(.,'Keywords')]/parent::*"));
     }
 
     public boolean isCaseKeywordDataDisplayed(String position) {
-        return isElementDisplayed(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(.,'Keywords')]/parent::*"));
+        return isElementDisplayed(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(.,'Keywords')]/parent::*"));
     }
 
     /**
@@ -332,7 +265,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
      */
 
     public WebElement caseWhereReportedHeader(String position) {
-        return waitForExpectedElement(By.xpath(String.format(WHERE_REPORTED, position)));
+        return waitForExpectedElement(By.xpath(format(WHERE_REPORTED_XPATH_PATTERN, position)));
     }
 
     /**
@@ -340,7 +273,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
      */
 
     public WebElement caseWhereReportedData(String position) {
-        return waitForExpectedElement(By.xpath(String.format(WHERE_REPORTED, position) + "/parent::*"));
+        return waitForExpectedElement(By.xpath(format(WHERE_REPORTED_XPATH_PATTERN, position) + "/parent::*"));
     }
 
     /**
@@ -348,25 +281,11 @@ public class WestlawCombinedResultsPage extends AbstractPage {
      */
 
     public WebElement caseWhereReportedData(String position, String text) {
-        return waitForExpectedElement(By.xpath(String.format(WHERE_REPORTED, position) + "/parent::*[contains(.,'" + text + "')]"));
+        return waitForExpectedElement(By.xpath(format(WHERE_REPORTED_XPATH_PATTERN, position) + "/parent::*[contains(.,'" + text + "')]"));
     }
 
     public List<WebElement> caseWhereReportedLinks(String position) {
-        return waitForExpectedElements(By.xpath(String.format(WHERE_REPORTED, position) +"/parent::*//a"));
-    }
-
-
-    /**
-     * Case summary object - includes the heading and the data - obtained by position only - no expected text passed in
-     */
-
-    public WebElement caseSummary(String position) {
-
-        return waitForExpectedElement(By.xpath("//*[@id='co_searchResults_summary_" + position +"' and not(contains(@class, 'hide')) and contains(., 'Summary')]"));
-    }
-
-    public boolean isCaseSummaryDisplayed(String position) {
-        return isElementDisplayed(By.xpath("//*[@id='co_searchResults_summary_" + position +"' and not(contains(@class, 'hide')) and contains(., 'Summary')]"));
+        return waitForExpectedElements(By.xpath(format(WHERE_REPORTED_XPATH_PATTERN, position) +"/parent::*//a"));
     }
 
     /**
@@ -380,7 +299,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement journalCitation(String position) {
 
-        return waitForExpectedElement(By.xpath("//ol[@class='co_searchResult_list']/li[" + position + "]//div[contains(@class, 'detail') and contains(., 'Citation')]"));
+        return waitForExpectedElement(By.xpath(format(SEARCH_RESULT_LIST_XPATH_PATTERN,position)+"//div[contains(@class, 'detail') and contains(., 'Citation')]"));
     }
 
     /**
@@ -389,7 +308,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement journalSubjectHeader(String position) {
 
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(text(),'Subject')]"));
+        return waitForExpectedElement(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(text(),'Subject')]"));
     }
 
     /**
@@ -398,7 +317,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement journalSubjectData(String position) {
 
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(text(),'Subject')]/parent::*"));
+        return waitForExpectedElement(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(text(),'Subject')]/parent::*"));
     }
 
     /**
@@ -407,7 +326,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement journalSubjectData(String position, String text) {
 
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(text(),'Subject')]/parent::*[contains(.,'" + text + "')]"));
+        return waitForExpectedElement(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(text(),'Subject')]/parent::*[contains(.,'" + text + "')]"));
     }
 
 
@@ -417,7 +336,7 @@ public class WestlawCombinedResultsPage extends AbstractPage {
 
     public WebElement journalKeywordHeader(String position) {
 
-        return waitForExpectedElement(By.xpath("//*[@id='cobalt_search_ukCombinedResearch_checkbox_" + position + "']/following-sibling::div[@class='co_searchContent']//strong[contains(text(),'Keywords')]"));
+        return waitForExpectedElement(By.xpath(format(WLUK_SEARCH_RESULT_CONTENT_XPATH_PATTERN,position)+"//strong[contains(text(),'Keywords')]"));
     }
 
     /**

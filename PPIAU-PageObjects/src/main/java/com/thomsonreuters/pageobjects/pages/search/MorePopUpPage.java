@@ -10,7 +10,7 @@ import java.util.List;
 public class MorePopUpPage extends AbstractPage {
 
     private static final By searchBoxSelector = By.id("co_facet_searchBoxInput");
-    private static final String searchItem = ".//a[@linkType='item']//span[text()='%s']";
+    private static final String SEARCH_ITEM = ".//a[@linkType='item']//span[text()='%s']";
     private static final By continueButton = By.id("co_facet_knowHowJurisdictionSummary_continueButton");
     private static final By selectedFacetsList = By.cssSelector("#co_facet_knowHowJurisdictionSummary_selectedOptions li a");
     private static final By cancelButton = By.id("co_facet_knowHowJurisdictionSummary_cancelButton");
@@ -21,7 +21,7 @@ public class MorePopUpPage extends AbstractPage {
             WebElement searchBox = waitForExpectedElement(searchBoxSelector);
             searchBox.clear();
             searchBox.sendKeys(term);
-            waitForExpectedElement(By.xpath(String.format(searchItem, term))).click();
+            waitForExpectedElement(By.xpath(String.format(SEARCH_ITEM, term))).click();
         }
     }
 
@@ -31,7 +31,7 @@ public class MorePopUpPage extends AbstractPage {
     }
 
     public List<String> getSelectedFacetNames() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         for (WebElement element : waitForExpectedElements(selectedFacetsList)) {
             list.add(element.getText());
         }
