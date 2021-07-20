@@ -52,7 +52,7 @@ public class BreadCrumbPage extends AbstractPage {
     }
 
     
-    public WebElement ViewAllLinkPresent(){
+    public WebElement viewAllLinkPresent(){
     	return waitForExpectedElement(By.xpath("//div[@class='co_genericBoxFooter']/a"));
     }
     

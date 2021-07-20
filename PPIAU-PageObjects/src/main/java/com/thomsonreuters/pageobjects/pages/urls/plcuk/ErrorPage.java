@@ -7,11 +7,11 @@ import org.openqa.selenium.WebElement;
 
 
 public class ErrorPage extends AbstractPage {
-    private String errorPage = "//*[text()='Page not found']";
+    private static final String ERROR_PAGE_XPATH = "//*[text()='Page not found']";
 
     public boolean isErrorPageBlockPresent() {
         waitForPageToLoadAndJQueryProcessing();
-        return isElementDisplayed(By.xpath(errorPage));
+        return isElementDisplayed(By.xpath(ERROR_PAGE_XPATH));
     }
 
     public boolean isErrorPageBlockPresentAU() {

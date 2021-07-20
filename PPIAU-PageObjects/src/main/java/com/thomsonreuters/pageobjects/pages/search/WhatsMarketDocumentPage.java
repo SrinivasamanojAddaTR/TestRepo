@@ -8,26 +8,32 @@ import org.openqa.selenium.WebElement;
 
 public class WhatsMarketDocumentPage extends CommonDocumentPage {
 
+    private static final By DOCUMENT_TITLE = By.cssSelector("#co_docHeaderContainer div");
+
     /**
      * This method gets the displayed text as string value from the full text document.
      *
      * @return String
      */
     public String getFullText() {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         try {
-            WebElement title = getTitle(By.cssSelector("#co_docHeaderContainer div"));
+            WebElement title = getTitle(DOCUMENT_TITLE);
             sb.append(title.getText());
-            try {
-                sb.append(findElement(By.id("kh_docBodyMain")).getText());
-            } catch (Exception e) {
-                LOG.info("context", e);
-            }
+            getMainBody(sb);
         } catch (TimeoutException te) {
             LOG.info("context", te);
         }
         sb.append(getParagraphsFromFullText());
         return sb.toString();
+    }
+
+    private void getMainBody(StringBuilder sb){
+        try {
+            sb.append(findElement(By.id("kh_docBodyMain")).getText());
+        } catch (Exception e) {
+            LOG.info("context", e);
+        }
     }
 
     /**
@@ -37,10 +43,9 @@ public class WhatsMarketDocumentPage extends CommonDocumentPage {
      * @return boolean
      */
     public boolean isSearchTermsPresentInParagraph(TermsInSequence termsInSequence, String... searchTerms) {
-        if (!isSearchTermsPresentInParagraph(termsInSequence, By.cssSelector("#co_docHeaderContainer div"), searchTerms)) {
-            if (!isSearchTermsPresentInParagraph(termsInSequence, By.cssSelector("#kh_docBodyMain"), searchTerms)) {
-                return isSearchTermsPresentInParagraph(termsInSequence, By.className("co_paragraphText"), searchTerms);
-            }
+        if (!isSearchTermsPresentInParagraph(termsInSequence, DOCUMENT_TITLE, searchTerms) &&
+                !isSearchTermsPresentInParagraph(termsInSequence, By.cssSelector("#kh_docBodyMain"), searchTerms)) {
+            return isSearchTermsPresentInParagraph(termsInSequence, By.className("co_paragraphText"), searchTerms);
         }
         return true;
     }
@@ -54,10 +59,9 @@ public class WhatsMarketDocumentPage extends CommonDocumentPage {
      * @return boolean
      */
     public boolean isSearchTermsPresentInParagraphWithInNumberOfWords(TermsInSequence termsInSequence, int withInTerms, String... searchTerms) {
-        if (!isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, withInTerms, By.cssSelector("#co_docHeaderContainer div"), searchTerms)) {
-            if (!isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, withInTerms, By.cssSelector("#kh_docBodyMain"), searchTerms)) {
-                return isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, withInTerms, By.className("co_paragraphText"), searchTerms);
-            }
+        if (!isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, withInTerms, DOCUMENT_TITLE, searchTerms) &&
+                !isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, withInTerms, By.cssSelector("#kh_docBodyMain"), searchTerms)) {
+            return isSearchTermsPresentInParagraphWithInNumberOfWords(termsInSequence, withInTerms, By.className("co_paragraphText"), searchTerms);
         }
         return true;
     }

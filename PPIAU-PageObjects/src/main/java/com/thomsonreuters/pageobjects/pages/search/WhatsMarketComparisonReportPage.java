@@ -14,25 +14,28 @@ import java.util.Map;
 
 public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage {
 
+    private static final By DEALS_COMPARISON_TERMS_CHECKBOX = By.xpath("//div[@id='fieldGroupsContainer']//li/input[@checked='checked']");
+    private static final int TIMEOUT_IN_SECONDS = 60;
+
     /**
      * this is the Deal Comparison Report heading
      */
     public WebElement dealComparisonReportHeader() {
-        return waitForExpectedElement(By.xpath("//div[@id='co_docHeaderContainer']//div[contains(text(),'Deal Comparison Report')]"), 60);
+        return waitForExpectedElement(By.xpath("//div[@id='co_docHeaderContainer']//div[contains(text(),'Deal Comparison Report')]"), TIMEOUT_IN_SECONDS);
     }
     
     /**
      * this is the Deal Comparison Report heading
      */
     public WebElement commonComparisonReportHeader() {
-        return waitForExpectedElement(By.xpath("//div[@id='co_docHeaderContainer']/div[@class='co_title']"), 30);
+        return waitForExpectedElement(By.xpath("//div[@id='co_docHeaderContainer']/div[@class='co_title']"), TIMEOUT_IN_SECONDS);
     }
 
     /**
      * this is the menu toggle option to the top left hand side of the page
      */
     public WebElement menuToggleButton() {
-        return waitForExpectedElement(By.xpath("//div[@id='kh_tocContainer']//a[@class='menu-toggle']"), 10);
+        return waitForExpectedElement(By.xpath("//div[@id='kh_tocContainer']//a[@class='menu-toggle']"), TIMEOUT_IN_SECONDS);
     }
 
     /**
@@ -95,7 +98,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
      */
     public Boolean leftHandPaneToggleButtonActive() {
         Boolean isActive = false;
-        WebElement leftHandToggle = waitForExpectedElement(By.xpath("//div[@id='co_leftColumn']"), 10);
+        WebElement leftHandToggle = waitForExpectedElement(By.xpath("//div[@id='co_leftColumn']"), TIMEOUT_IN_SECONDS);
         String classValue = leftHandToggle.getAttribute("class");
         if (classValue.equals("is-active")) {
             isActive = true;
@@ -185,7 +188,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
      */
     public WebElement organizeOptionLink(String linkText) {
 
-        return waitForExpectedElement(By.xpath("//div[@class='co_column']//a[text()='" + linkText + "']"),10);
+        return waitForExpectedElement(By.xpath("//div[@class='co_column']//a[text()='" + linkText + "']"),TIMEOUT_IN_SECONDS);
     }
 
     /**
@@ -264,7 +267,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
      * This is an object representing the company names in a deal comparison report as a group (necessary when checking ordering for example)
      */
     public List<String> getDealComparisonReportDeal() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.xpath("//div[@id='reportBodyContainer']//tbody/tr/td[2]/a"))) {
                 list.add(facet.getText().toLowerCase());
@@ -274,26 +277,12 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
         }
         return list;
     }
-    
-    /**
-     * This is an object representing values in a specific column in comparison report as a group (necessary when checking ordering for example)
-     */
-    public List<String> getValuesInColumnByColumnName(String columnName) {
-    	int columnPosition = getNumberOfColumnByName(columnName);
-        if (columnPosition == 0){
-        	return null;
-        }
-        List<String> list = new ArrayList<String>();
-        for (WebElement facet : getWebElementsInColumnByColumnNamber(columnPosition)) {
-                list.add(facet.getText().toLowerCase());
-        }
-        return Collections.EMPTY_LIST;
-    }
+
     
     public List<WebElement> getWebElementsInColumnByColumnName(String columnName) {
     	int columnPosition = getNumberOfColumnByName(columnName);
         if (columnPosition == 0){
-        	return Collections.EMPTY_LIST;
+        	return Collections.emptyList();
         }
         return getWebElementsInColumnByColumnNamber(columnPosition);
     }   
@@ -314,7 +303,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
     }
     
     public List<WebElement> comparisonColumnTitles() {
-        return waitForExpectedElements(By.xpath("//th[contains(@class,'co_dcrTable')]"),10);
+        return waitForExpectedElements(By.xpath("//th[contains(@class,'co_dcrTable')]"),TIMEOUT_IN_SECONDS);
     }  
     
     /**
@@ -328,7 +317,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
      * This is an object representing the columns on Organize Columns popup as a group (necessary when checking ordering for example)
      */
     public List<String> getColumnsOrganizeColumns() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             for (WebElement facet : waitForExpectedElements(By.xpath("//ul[@id='columnList']//a"))) {
                 list.add(facet.getText());
@@ -385,7 +374,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
      * object representing the different Comparison Terms options
      */
     public WebElement comparisonTermsOptions(String option) {
-        option = option.replaceAll("’", "'");
+        option = option.replace("’", "'");
         String text = "'" + option + "'";
         if (option.contains("'")) {
             option = "\"" + option + "\"";
@@ -399,11 +388,11 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
      * is expanded
      */
     public WebElement comparisonTermsHeader() {
-        return waitForExpectedElement(By.xpath("//div[@id='kh_tocContainer']//span[contains(text(),'Comparison Terms')]"), 20);
+        return waitForExpectedElement(By.xpath("//div[@id='kh_tocContainer']//span[contains(text(),'Comparison Terms')]"), TIMEOUT_IN_SECONDS);
     }
 
     public WebElement leftHandColumnSelect() {
-        return waitForExpectedElement(By.xpath("//div[@class='kh_toc-content']"), 35);
+        return waitForExpectedElement(By.xpath("//div[@class='kh_toc-content']"), TIMEOUT_IN_SECONDS);
     }
 
     /**
@@ -434,7 +423,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
     public String headerColumns(Integer columnNumber) {
         String columnName;
         /** Return columns that are not hidden */
-        List<WebElement> columnNames = waitForExpectedElements(By.xpath("//div[@id='reportBodyContainer']//tr/th[not(contains(@class,'co_hideState'))]//span[@class='co_dcrTable_Header']"), 10);
+        List<WebElement> columnNames = waitForExpectedElements(By.xpath("//div[@id='reportBodyContainer']//tr/th[not(contains(@class,'co_hideState'))]//span[@class='co_dcrTable_Header']"), TIMEOUT_IN_SECONDS);
         columnName = columnNames.get(columnNumber - 1).getText();
         return columnName;
     }
@@ -454,25 +443,25 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
     public WebElement organizeColumnsButton(String activeStatus) {
         WebElement button;
         if (activeStatus.equalsIgnoreCase("is")) {
-            button = waitForExpectedElement(By.xpath("//div[@id='co_contentWrapper']//self::div[@class='sidebar-is-active']"),10);
+            button = waitForExpectedElement(By.xpath("//div[@id='co_contentWrapper']//self::div[@class='sidebar-is-active']"),TIMEOUT_IN_SECONDS);
         } else  {
             // assume "is not" otherwise
-            button = waitForExpectedElement(By.xpath("//div[@id='co_contentWrapper']//self::div[@class='']"),10);
+            button = waitForExpectedElement(By.xpath("//div[@id='co_contentWrapper']//self::div[@class='']"),TIMEOUT_IN_SECONDS);
         }
         return button;
     }
 
     
     public List<WebElement> dealComparisonTermsCheckedOn() {
-        return waitForExpectedElements(By.xpath("//div[@id='fieldGroupsContainer']//li/input[@checked='checked']"),10);
+        return waitForExpectedElements(DEALS_COMPARISON_TERMS_CHECKBOX,TIMEOUT_IN_SECONDS);
     }
 
     public WebElement firstDealComparisonTermsCheckedOn() {
-        return waitForExpectedElement(By.xpath("//div[@id='fieldGroupsContainer']//li/input[@checked='checked']"),10);
+        return waitForExpectedElement(DEALS_COMPARISON_TERMS_CHECKBOX,TIMEOUT_IN_SECONDS);
     }
     
     public boolean isDealComparisonTermsCheckedOn(){
-    	return isExists(By.xpath("//div[@id='fieldGroupsContainer']//li/input[@checked='checked']"));
+    	return isExists(DEALS_COMPARISON_TERMS_CHECKBOX);
     }
     
     public WebElement itemsSelectedLabel(){
@@ -489,7 +478,7 @@ public class WhatsMarketComparisonReportPage extends DocumentDisplayAbstractPage
 	 * @return map name and element
 	 */
 	public Map<String, WebElement> getTOCCheckboxesAndColunmNames() {
-		Map<String, WebElement> map = new HashMap<String, WebElement>();
+		Map<String, WebElement> map = new HashMap<>();
 		for (WebElement tocCheckbox : getTOCCheckboxes()) {
 			if (!tocCheckbox.getAttribute("name").equals("deal")) {
 				map.put(findElement(By.xpath("//*[@for='" + tocCheckbox.getAttribute("name") + "']")).getText(),

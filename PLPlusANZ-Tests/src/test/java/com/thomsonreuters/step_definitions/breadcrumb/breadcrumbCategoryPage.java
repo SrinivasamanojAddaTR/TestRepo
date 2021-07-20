@@ -261,11 +261,11 @@ public void theUserVerifiesThatMyHomeLinkIs (KeyphraseState status){
 }
 
 @Then("^user clicks on View All button$")
-public void theUserclicksonViewlAllbutton()
+public void theUserClicksOnViewAllButton()
 {
 	
 	assertTrue("ViewAll link is not present",breadCrumbPage.isViewAllLinkPresent());
-	breadCrumbPage.ViewAllLinkPresent().click();
+	breadCrumbPage.viewAllLinkPresent().click();
 
 
 }
