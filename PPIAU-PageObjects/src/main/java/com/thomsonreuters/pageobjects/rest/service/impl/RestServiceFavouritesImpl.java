@@ -23,12 +23,12 @@ public class RestServiceFavouritesImpl extends RestServiceImpl implements RestSe
     private FavouriteGroupsResponse getFavouritesGroups(HttpHeaders httpHeaders) {
         LOG.info("-------------------BEGIN getFavouritesGroups --------------------");
         String requestTo = webDriverDiscovery.getCurrentRootAddress(true) + "/Foldering/v7/" + getUserName() + "/categoryPage/groups/all?usageTypeDbValue=0";
-        LOG.info("TO: " + requestTo);
-        LOG.info("HEADERS: " + httpHeaders);
+        LOG.info("TO: {}", requestTo);
+        LOG.info("HEADERS: {}", httpHeaders);
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        LOG.info("REQ: " + requestEntity.toString());
+        LOG.info("REQ: {}", requestEntity);
         HttpEntity<FavouriteGroupsResponse> response = getRestTemplate().exchange(requestTo, HttpMethod.GET, requestEntity, FavouriteGroupsResponse.class);
-        LOG.info("RESP: " + response.toString());
+        LOG.info("RESP: {}", response);
         LOG.info("-------------------END getFavouritesGroups--------------------");
         return response.getBody();
     }
@@ -56,12 +56,12 @@ public class RestServiceFavouritesImpl extends RestServiceImpl implements RestSe
             deleteFavouritesRequest.setFavouriteIds(favouritesIds);
             httpHeaders.add("Content-Type", "application/json;charset=UTF-8");
             String requestTo = webDriverDiscovery.getCurrentRootAddress(true) + "/Foldering/v6/" + getUserName() + "/groups/favorites/delete";
-            LOG.info("TO: " + requestTo);
-            LOG.info("HEADERS: " + httpHeaders);
+            LOG.info("TO: {}", requestTo);
+            LOG.info("HEADERS: {}", httpHeaders);
             HttpEntity<String> requestEntity = new HttpEntity<>(deleteFavouritesRequest.getNode().toString(), httpHeaders);
-            LOG.info("BODY: " + requestEntity.getBody());
+            LOG.info("BODY: {}", requestEntity);
             HttpEntity<String> response = getRestTemplate().exchange(requestTo, HttpMethod.POST, requestEntity, String.class);
-            LOG.info("RESP: " + response.toString());
+            LOG.info("RESP: {}", response);
             LOG.info("-------------------END deleteFavourites--------------------");
         }
     }
@@ -81,10 +81,10 @@ public class RestServiceFavouritesImpl extends RestServiceImpl implements RestSe
             LOG.info("-------------------BEGIN deleteFavouriteGroups --------------------");
             String requestTo = webDriverDiscovery.getCurrentRootAddress(true) +
                     "/Foldering/v6/" + getUserName() + "/categoryPage/group/" + favouritesGroup.getId();
-            LOG.info("TO: " + requestTo);
-            LOG.info("HEADERS: " + httpHeaders);
+            LOG.info("TO : {}", requestTo);
+            LOG.info("HEADERS : {}", httpHeaders);
             ResponseEntity<String> response = getRestTemplate().exchange(requestTo, HttpMethod.DELETE, new HttpEntity<>(httpHeaders), String.class);
-            LOG.info("RESP: " + response.toString());
+            LOG.info("RESP : {}", response);
             LOG.info("-------------------END deleteFavouriteGroups--------------------");
         }
     }

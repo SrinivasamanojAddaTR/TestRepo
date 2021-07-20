@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.rest.service.impl;
 
 import com.thomsonreuters.pageobjects.common.FileActions;
+import com.thomsonreuters.pageobjects.exceptions.ServiceException;
 import com.thomsonreuters.pageobjects.rest.model.response.delivery.initiate_delivery.InitiateDeliveryResponse;
 import com.thomsonreuters.pageobjects.rest.model.response.delivery.status.StatusResponse;
 import com.thomsonreuters.pageobjects.rest.service.RestService;
@@ -22,23 +23,23 @@ public class RestServiceDeliveryImpl extends RestServiceImpl implements RestServ
      * GET request to get document status response.
      * IMPORTANT: Call method when file ready to download ("Ready For Download" pop-up is showing)
      *
-     * @param InitiateDeliveryResponse Response from initiate delivery request.
+     * @param initiateDeliveryResponse Response from initiate delivery request.
      *                                 Can be a new object, but transactionId should be set
      *                                 {@link InitiateDeliveryResponse#setTransactionId(String)}
      * @return StatusResponse ({@link StatusResponse}) with appropriate data.
      * WARNING: Exception can be thrown by {@link org.springframework.web.client.RestTemplate} if response will
      * not be successfull (when response code 4**, 5**)
      */
-    public StatusResponse getDocumentStatus(InitiateDeliveryResponse InitiateDeliveryResponse) {
+    public StatusResponse getDocumentStatus(InitiateDeliveryResponse initiateDeliveryResponse) {
         LOG.info("-------------------BEGIN--------------------");
         HttpHeaders httpHeaders = configureHeaders();
-        String requestTo = getProtocol() + getCurrentBaseUrl() + "/V1/Delivery/Status/" + InitiateDeliveryResponse.getTransactionId();
-        LOG.info("TO: " + requestTo);
-        LOG.info("HEADERS: " + httpHeaders);
+        String requestTo = getProtocol() + getCurrentBaseUrl() + "/V1/Delivery/Status/" + initiateDeliveryResponse.getTransactionId();
+        LOG.info("TO: {}", requestTo);
+        LOG.info("HEADERS: {}", httpHeaders);
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        LOG.info("REQ: " + requestEntity.toString());
+        LOG.info("REQ: {}", requestEntity);
         HttpEntity<StatusResponse> response = getRestTemplate().exchange(requestTo, HttpMethod.GET, requestEntity, StatusResponse.class);
-        LOG.info("RESP: " + response.toString());
+        LOG.info("RESP: {}", response);
         LOG.info("-------------------END--------------------");
         return response.getBody();
     }
@@ -47,7 +48,7 @@ public class RestServiceDeliveryImpl extends RestServiceImpl implements RestServ
      * GET request to get document status response and check if document is ready to download
      * IMPORTANT: Call method when file ready to download ("Ready For Download" pop-up is showing)
      *
-     * @param InitiateDeliveryResponse Response from initiate delivery request.
+     * @param initiateDeliveryResponse Response from initiate delivery request.
      *                                 Can be a new object, but transactionId should be set
      *                                 {@link InitiateDeliveryResponse#setTransactionId(String)}
      * @return True - if document ready to download, otherwise - false.
@@ -55,8 +56,8 @@ public class RestServiceDeliveryImpl extends RestServiceImpl implements RestServ
      * WARNING: Exception can be thrown by {@link org.springframework.web.client.RestTemplate} if response will
      * not be successfull (when response code 4**, 5**)
      */
-    public boolean isDocumentReady(InitiateDeliveryResponse InitiateDeliveryResponse) {
-        return "completed".equalsIgnoreCase(getDocumentStatus(InitiateDeliveryResponse).getProgressStatus());
+    public boolean isDocumentReady(InitiateDeliveryResponse initiateDeliveryResponse) {
+        return "completed".equalsIgnoreCase(getDocumentStatus(initiateDeliveryResponse).getProgressStatus());
     }
 
     @Override
@@ -86,14 +87,14 @@ public class RestServiceDeliveryImpl extends RestServiceImpl implements RestServ
      */
     public File downloadDocumentAndGetFile(StatusResponse statusResponse, boolean isPrintable) {
         if (statusResponse == null || statusResponse.getDeliveryId() == null) {
-            throw new RuntimeException("Something wrong with delivery process. Probably, delivery is not working at the moment");
+            throw new ServiceException("Something wrong with delivery process. Probably, delivery is not working at the moment");
         }
         String fileUrl = getProtocol() + getCurrentBaseUrl() + (
                 (isPrintable) ?
-                "/V1/Delivery/Print.pdf?deliveryId=" + statusResponse.getDeliveryId() +
-                        "&printViaDownload=1" :
-                "/V1/Delivery/Download/" + statusResponse.getDeliveryId() + "/" +
-                        statusResponse.getFileName()
+                        "/V1/Delivery/Print.pdf?deliveryId=" + statusResponse.getDeliveryId() +
+                                "&printViaDownload=1" :
+                        "/V1/Delivery/Download/" + statusResponse.getDeliveryId() + "/" +
+                                statusResponse.getFileName()
         );
         return getFileViaHttp(fileUrl, statusResponse.getFileName());
     }
@@ -101,7 +102,7 @@ public class RestServiceDeliveryImpl extends RestServiceImpl implements RestServ
     /**
      * Download file via HTTP through GET request
      *
-     * @param fileUrl URL to file
+     * @param fileUrl        URL to file
      * @param targetFileName Relative file name which should be using for downloaded document. File will be stored in
      *                       "./target" folder.
      *                       WARNING: If file already exists then file will be downloaded with incremented file name.
@@ -109,12 +110,12 @@ public class RestServiceDeliveryImpl extends RestServiceImpl implements RestServ
      * @return File with downloaded document
      */
     public File getFileViaHttp(String fileUrl, String targetFileName) {
-    	LOG.info("-------------------BEGIN--------------------");
+        LOG.info("-------------------BEGIN--------------------");
         HttpHeaders httpHeaders = configureHeaders();
-        LOG.info("File url: " + fileUrl);
-        LOG.info("Http Headers: " + httpHeaders);
+        LOG.info("File url: {}", fileUrl);
+        LOG.info("Http Headers: {}", httpHeaders);
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        LOG.info("REQ: " + requestEntity.toString());
+        LOG.info("REQ: {}", requestEntity);
         HttpEntity<byte[]> downloadFileResponse = getRestTemplate().exchange(fileUrl, HttpMethod.GET, requestEntity, byte[].class);
         // Property points to root project dir ONLY if project running with Maven. In other cases you may receive wrong location or NullPointerException
         String targetDir = System.getProperty("basedir");
@@ -123,7 +124,7 @@ public class RestServiceDeliveryImpl extends RestServiceImpl implements RestServ
         try {
             FileUtils.writeByteArrayToFile(downloadedFile, downloadFileResponse.getBody());
         } catch (IOException e) {
-            LOG.info("Error occurred during file downloading", e.getMessage());
+            LOG.info("Error occurred during file downloading {}", e.getMessage());
         }
         LOG.info("-------------------END--------------------");
         return downloadedFile;

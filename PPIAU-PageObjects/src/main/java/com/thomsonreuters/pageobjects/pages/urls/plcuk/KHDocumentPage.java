@@ -5,87 +5,62 @@ import com.thomsonreuters.pageobjects.pages.urls.DocumentPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-
+import java.util.Arrays;
 import java.util.List;
 
 
 public class KHDocumentPage extends AbstractPage implements DocumentPage {
-
+    private static final By DOCUMENT_WIDGET = By.id("coid_website_documentWidgetDiv");
+    private static final By SEARCH_RESULT_HEADING_CONTENT = By.className("co_search_result_heading_content");
+    private static final By LINK_OUT = By.id("co_linkOutBox");
 
     public boolean isDocumentBlockPresent() {
-       //waitForPageToLoadAndJQueryProcessing();
-    	 waitForPageToLoad();
-        if (!findElements(By.id("coid_website_documentWidgetDiv")).isEmpty()) {
-            return true;
-        } else if (!findElements(By.className("co_search_result_heading_content")).isEmpty()) {
-            return true;
-        } else if (!findElements(By.id("co_linkOutBox")).isEmpty()) {
-            return true;
-        } else if (!findElements(By.cssSelector(".co_title.noTOC")).isEmpty()) {
-            return true;
+
+        waitForPageToLoad();
+        List<By> allElements = Arrays.asList(DOCUMENT_WIDGET, SEARCH_RESULT_HEADING_CONTENT, LINK_OUT,
+                By.cssSelector(".co_title.noTOC"), By.cssSelector(".co_scrollWrapper.co_categoryBoxTabContents"));
+        for (int i = 0; i < allElements.size(); i++) {
+            if (isListNotEmpty(allElements.get(i)))
+                return true;
         }
-          else if(!findElements(By.cssSelector(".co_scrollWrapper.co_categoryBoxTabContents")).isEmpty()){
-            return true;
-        }
+
         return false;
     }
 
 
-/*
-    public String getDocumentTitle1() {
-        List<WebElement> list = findElements(By.xpath("//div[@class='co_title']/div/div"));
-        StringBuffer result = new StringBuffer();
-        if (!list.isEmpty()) {
-            for (WebElement element : list) {
-                result.append(element.getText() + " ");
-            }
-        } else {
-            List<WebElement> list2 = findElements(By.xpath("//div[@class='co_title noTOC']"));
-            if (!list2.isEmpty()) {
-                result.append(list2.get(0).getText());
-            } else {
-                List<WebElement> list4 =findElements(By.cssSelector("#co_docHeaderContainer h1[class='co_title noTOC']"));
-                if(!list4.isEmpty()){
-                    result.append(list4.get(0).getText());
-                } else {
-                    List<WebElement> list3 = findElements(By.xpath("//div[@class='co_headtext co_center']"));
-                    if (!list3.isEmpty()) {
-                        result.append(list3.get(0).getText());
-                    }
-                }
-
-            }
-        }
-        return result.toString().toLowerCase();
-    }
-*/
-
     public String getDocumentTitle() {
 
-        List<WebElement> list;
-        StringBuffer result = new StringBuffer();
+        List<WebElement> list = findElements(By.xpath("//div[@class='co_title']/div/div"));
+        StringBuilder result = new StringBuilder();
 
-        if((list = findElements(By.xpath("//div[@class='co_title']/div/div"))).size() !=0){
+        if (isListNotEmpty(list)) {
             for (WebElement element : list) {
                 result.append(element.getText() + " ");
             }
 
-        }// Assign value to list and then check if it is empty
-        // Try to find any one of 3 WebElement types
-        else if(   !(  list = findElements(By.xpath("//div[@class='co_title noTOC']"))  ).isEmpty() ||
-
-                    !(   list = findElements(By.cssSelector("#co_docHeaderContainer>h1[class~='co_title']")) ).isEmpty() ||
-                    !(   list = findElements(By.xpath("//div[@class='co_headtext co_center']")) ).isEmpty()
-                ){
-            result.append(list.get(0).getText());
-        }else {
-            result.append("");
         }
+        List<By> otherElements = Arrays.asList(By.xpath("//div[@class='co_title noTOC']"), By.cssSelector("#co_docHeaderContainer>h1[class~='co_title']"),
+                By.xpath("//div[@class='co_headtext co_center']"));
+        for (int i = 0; i < otherElements.size(); i++) {
+            if (isListNotEmpty(otherElements.get(i))) {
+                list = findElements(otherElements.get(i));
+                result.append(list.get(0).getText());
+                break;
+            }
+        }
+
         return result.toString().toLowerCase();
 
 
     }
 
+    private boolean isListNotEmpty(By element) {
+        return !findElements(element).isEmpty();
+    }
+
+    private boolean isListNotEmpty(List<WebElement> elements) {
+        return !elements.isEmpty();
+    }
 
     @Override
     public String getWebSiteName() {
@@ -98,15 +73,15 @@ public class KHDocumentPage extends AbstractPage implements DocumentPage {
     }
 
     public boolean isContainLinkTo(String name) {
-        List<WebElement> elements = findElements(By.xpath("//div[@id='coid_website_documentWidgetDiv']//a[text()='"+name+"']"));
+        List<WebElement> elements = findElements(By.xpath("//div[@id='coid_website_documentWidgetDiv']//a[text()='" + name + "']"));
         return !elements.isEmpty();
     }
 
     public boolean isContainEmailLinkTo(String email) {
-        List<WebElement> elements = findElements(By.xpath("//a[text()='"+email+"']"));
-        for (WebElement element: elements){
+        List<WebElement> elements = findElements(By.xpath("//a[text()='" + email + "']"));
+        for (WebElement element : elements) {
             String href = element.getAttribute("href");
-            if(href != null && href.startsWith("mailto")){
+            if (href != null && href.startsWith("mailto")) {
                 return true;
             }
         }
@@ -117,7 +92,7 @@ public class KHDocumentPage extends AbstractPage implements DocumentPage {
         return !getAllImages().isEmpty();
     }
 
-    public List<WebElement> getAllImages(){
+    public List<WebElement> getAllImages() {
         return findElements(By.xpath("//div[@id='coid_website_documentWidgetDiv']//a[@class='co_imageLink']"));
     }
 
@@ -140,10 +115,7 @@ public class KHDocumentPage extends AbstractPage implements DocumentPage {
      * WARNING! DO NOT USE waitForPageToLoad() before invocation of this method!
      */
     public void waitDocumentPageToLoad() {
-        // Wait full page loading
         waitForPageToLoad();
-
-        // Wait until loading picture disappears
         waitForElementToDissappear(By.className(".co_loading"));
     }
 }
