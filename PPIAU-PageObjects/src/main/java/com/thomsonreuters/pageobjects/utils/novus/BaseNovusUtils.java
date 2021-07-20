@@ -1,7 +1,6 @@
 package com.thomsonreuters.pageobjects.utils.novus;
 
 import com.westgroup.novus.productapi.*;
-import edu.emory.mathcs.backport.java.util.Collections;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

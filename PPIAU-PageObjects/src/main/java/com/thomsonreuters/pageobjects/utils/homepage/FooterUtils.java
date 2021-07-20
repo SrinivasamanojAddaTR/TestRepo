@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 public class FooterUtils {
 
-    Logger LOG = LoggerFactory.getLogger(FooterUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FooterUtils.class);
     private SharedAnnotationsPage sharedAnnotationsPage = new SharedAnnotationsPage();
 
     public void closeDisclaimerMessage(){

@@ -1,6 +1,5 @@
 package com.thomsonreuters.pageobjects.utils.homepage;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.company.MeetTheTeam;
 import com.thomsonreuters.pageobjects.pages.footer.AdvisoryBoardsPage;
 import com.thomsonreuters.pageobjects.pages.landing_page.PracticalLawHomepage;
@@ -15,7 +14,7 @@ import java.util.List;
  */
 public class HomePageUtils {
 
-    protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CommonMethods.class);
+    protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(HomePageUtils.class);
 
     private PracticalLawHomepage practicalLawHomepage = new PracticalLawHomepage();
     private AdvisoryBoardsPage consultationBoardsPage = new AdvisoryBoardsPage();
@@ -26,7 +25,7 @@ public class HomePageUtils {
     }
 
     public List<String> getPAnamesFromList() {
-        ArrayList<String> paNamesFromList = new ArrayList<String>();
+        ArrayList<String> paNamesFromList = new ArrayList<>();
         List<WebElement> paLinksInList = consultationBoardsPage.paNamesInList();
         for (WebElement element : paLinksInList) {
             paNamesFromList.add(element.getText());
@@ -35,7 +34,7 @@ public class HomePageUtils {
     }
 
     public List<String> getPAnamesFromTOC() {
-        ArrayList<String> paNamesFromTOC = new ArrayList<String>();
+        ArrayList<String> paNamesFromTOC = new ArrayList<>();
         List<WebElement> practiceAreaTabs = meetTheTeam.tabsInTableOfContents();
         for(WebElement element: practiceAreaTabs) {
             paNamesFromTOC.add(element.getText());

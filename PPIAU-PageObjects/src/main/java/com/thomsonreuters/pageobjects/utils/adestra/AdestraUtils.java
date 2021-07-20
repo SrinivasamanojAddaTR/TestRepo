@@ -7,7 +7,7 @@ import com.thomsonreuters.pageobjects.utils.Product;
 import org.apache.xmlrpc.XmlRpcException;
 import org.slf4j.Logger;
 
-import java.net.MalformedURLException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class AdestraUtils {
@@ -19,7 +19,7 @@ public class AdestraUtils {
 
     public List<SubscriptionParameters> getServiceForSpecifiedRegion(String region, Product product) {
         adestraSubscriptionXMLParser.parse(product);
-        List<SubscriptionParameters> services = new ArrayList<SubscriptionParameters>();
+        List<SubscriptionParameters> services = new ArrayList<>();
         for (SubscriptionParameters parameter : adestraSubscriptionXMLParser.getResult()) {
             if (parameter.getCategoryName().equals(region)) {
                 services.add(parameter);
@@ -28,16 +28,16 @@ public class AdestraUtils {
         return services;
     }
 
-    public int createSubscriptionViaAPI(String userEmail, List<String> subscriptionsPLCID) throws Exception {
+    public int createSubscriptionViaAPI(String userEmail, List<String> subscriptionsPLCID) throws XmlRpcException, InvocationTargetException, IllegalAccessException {
         int contactId = getUserIDFromAdestra(userEmail);
-        List<Integer> subscriptionsID = new ArrayList<Integer>();
+        List<Integer> subscriptionsID = new ArrayList<>();
         for (String subscriptionPLCID : subscriptionsPLCID) {
             subscriptionsID.add(getSubscriptionIdFromAdestraByPLCId(subscriptionPLCID));
         }
         return as.addSubscription(contactId, subscriptionsID);
     }
 
-    public int removeSubscriptionViaAPI(String userEmail) throws Exception {
+    public int removeSubscriptionViaAPI(String userEmail) throws XmlRpcException {
         Integer[] emailsubsIds = as.getContactSubscribedListIds(userEmail);
         int contactId = getUserIDFromAdestra(userEmail);
         return as.removeSubscription(contactId, Arrays.asList(emailsubsIds));
@@ -55,11 +55,11 @@ public class AdestraUtils {
         return specifiedRegionServices;
     }
 
-    public int getUserIDFromAdestra(String userEmail) throws MalformedURLException, XmlRpcException {
+    public int getUserIDFromAdestra(String userEmail) throws XmlRpcException {
         return (Integer) as.getContactData(userEmail).get(AdestraServiceInterface.AdestraService.ID_KEY);
     }
 
-    public int getSubscriptionIdFromAdestraByPLCId(String subscriptionPLCID) throws Exception {
+    public int getSubscriptionIdFromAdestraByPLCId(String subscriptionPLCID) throws XmlRpcException, InvocationTargetException, IllegalAccessException {
         int subscriptionID = 0;
         Map<Integer, PreferenceList> subscriptionListsById = as.getSubscriptionListsById();
         for (PreferenceList pref : subscriptionListsById.values()) {
@@ -83,8 +83,8 @@ public class AdestraUtils {
         return services;
     }
 
-    public List<String> getAdestraSubscriptionNameListForPLCUK(String userEmail) throws Exception {
-        List<String> ids = new ArrayList<String>();
+    public List<String> getAdestraSubscriptionNameListForPLCUK(String userEmail) throws XmlRpcException, InvocationTargetException, IllegalAccessException {
+        List<String> ids = new ArrayList<>();
         Integer[] emailsubsIds = as.getContactSubscribedListIds(userEmail);
         Map<Integer, PreferenceList> subscriptionListsById = as.getSubscriptionListsById();
         for (int i = 0; i < emailsubsIds.length; i++) {
@@ -94,7 +94,7 @@ public class AdestraUtils {
     }
 
     public List<SubscriptionParameters> getServicesByIDs(List<SubscriptionParameters> servicesForSpecifiedRegion, List<String> subscriptionIDS, String region) {
-        List<SubscriptionParameters> listOfServices = new ArrayList<SubscriptionParameters>();
+        List<SubscriptionParameters> listOfServices = new ArrayList<>();
         for (int i = 0; i < servicesForSpecifiedRegion.size(); i++) {
             for (int j = 0; j < subscriptionIDS.size(); j++) {
                 if (servicesForSpecifiedRegion.get(i).getCategoryName().equals(region) && servicesForSpecifiedRegion.get(i).getName().equals(subscriptionIDS.get(j))) {
@@ -106,14 +106,14 @@ public class AdestraUtils {
     }
 
     public boolean isUserHasCorrectSubscriptions(List<SubscriptionParameters> subscriptionParameters, List<String> adestraExistingIDS) {
-        List<String> subscriptionIDS = new ArrayList<String>();
+        List<String> subscriptionIDS = new ArrayList<>();
         for (SubscriptionParameters subscriptionParameter : subscriptionParameters) {
             subscriptionIDS.add(subscriptionParameter.getName());
         }
         Collections.sort(subscriptionIDS);
-        LOG.info("subscriptions that should be selected on widget: " + subscriptionIDS.toString());
+        LOG.info("subscriptions that should be selected on widget: {}" , subscriptionIDS);
         Collections.sort(adestraExistingIDS);
-        LOG.info("subscriptions from adestra that were saved: " + adestraExistingIDS.toString());
+        LOG.info("subscriptions from adestra that were saved: {}", adestraExistingIDS);
         return adestraExistingIDS.containsAll(subscriptionIDS);
     }
 

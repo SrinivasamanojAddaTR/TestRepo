@@ -17,6 +17,7 @@ public class GenericNovusUtils extends BaseNovusUtils {
      * @param guid Document GUID
      * @return String representation of document or empty string if there are some errors were occurred during processing
      */
+    @Override
     public String getRawXmlDocumentByGuid(String guid) {
         return super.getRawXmlDocumentByGuid(guid);
     }

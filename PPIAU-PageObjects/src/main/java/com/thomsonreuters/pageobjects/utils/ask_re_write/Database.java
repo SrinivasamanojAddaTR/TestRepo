@@ -8,8 +8,6 @@ import java.sql.*;
 
 public class Database {
     private static final Logger LOG = LoggerFactory.getLogger(Database.class);
-    //TODO Need to verify and remove
-   //private static final String DB_DRIVER ="oracle.jdbc.driver.OracleDriver";
     private static final String DB_USERNAME = "askplc_test";
     private static final String DB_PASSWORD = "asktest";
     private static final String DB_URL = System.getProperty("base.legacy.url");
@@ -22,12 +20,6 @@ public class Database {
 
     private String getDBUrl(){
         String url = null;
-        //TODO Need to verify and remove
-        /*try {
-            Class.forName(DB_DRIVER);
-        } catch (ClassNotFoundException e) {
-            LOG.info("Error loading driver: {}" , e.getMessage());
-        }*/
         switch (DB_URL) {
 
             case "102":
@@ -54,11 +46,6 @@ public class Database {
     public String getDBpassword(){
         return DB_PASSWORD;
     }
-
-    //TODO Need to verify and remove
-    /*public String getDBdriver(){
-        return DB_DRIVER;
-    }*/
 
     private void createDBconnection() {
         try {
