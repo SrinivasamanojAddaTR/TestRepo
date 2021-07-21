@@ -98,7 +98,7 @@ public class EmailMessageUtils {
 	}
 
 	public File downloadAttachment(Message message) {
-		return downloadAttachment(message, PropertyLoaderUtility.loadProperties(PROPERTIES_FILE).getProperty("email.basepath"));
+		return downloadAttachment(message, System.getProperty("user.dir") + "/target/test-downloads");
 	}
 
 	public File downloadAttachment(Message message, String baseFolder) {

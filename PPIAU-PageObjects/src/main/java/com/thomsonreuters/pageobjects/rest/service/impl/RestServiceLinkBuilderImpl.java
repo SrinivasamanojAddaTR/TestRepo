@@ -1,7 +1,6 @@
 package com.thomsonreuters.pageobjects.rest.service.impl;
 
 import com.thomsonreuters.pageobjects.pages.search.KnowHowDocumentPage;
-import com.thomsonreuters.pageobjects.rest.model.request.favourites.DeleteFavouritesRequest;
 import com.thomsonreuters.pageobjects.rest.model.request.linkbuilder.GenerateLinkRequest;
 import com.thomsonreuters.pageobjects.rest.model.response.linkbuilder.GenerateLinkResponse;
 import com.thomsonreuters.pageobjects.rest.service.RestService;
@@ -21,16 +20,16 @@ public class RestServiceLinkBuilderImpl extends RestServiceImpl implements RestS
         HttpHeaders httpHeaders = configureHeaders();
         httpHeaders.add("Content-Type", "application/json;charset=UTF-8");
         String requestTo = webDriverDiscovery.getCurrentRootAddress(true) + "/V1/SharedLink/Generate";
-        LOG.info("TO: " + requestTo);
-        LOG.info("HEADERS: " + httpHeaders);
+        LOG.info("TO: {}", requestTo);
+        LOG.info("HEADERS: {}", httpHeaders);
         GenerateLinkRequest generateLinkRequest = new GenerateLinkRequest();
         generateLinkRequest.setClientId(getUserClientId());
         generateLinkRequest.setResultGuid(getSearchResultsId());
         generateLinkRequest.setType(getSearchContentType());
         HttpEntity<String> requestEntity = new HttpEntity<>(generateLinkRequest.getNode().toString(), httpHeaders);
-        LOG.info("BODY: " + requestEntity.getBody());
+        LOG.info("BODY: {}", requestEntity.getBody());
         HttpEntity<GenerateLinkResponse> response = getRestTemplate().exchange(requestTo, HttpMethod.POST, requestEntity, GenerateLinkResponse.class);
-        LOG.info("RESP: " + response.toString());
+        LOG.info("RESP: {}", response);
         LOG.info("------------------- END getGenerateLinkResponse --------------------");
         return response.getBody();
     }

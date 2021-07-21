@@ -70,20 +70,17 @@ public class RestServiceAskImpl extends RestServiceImpl implements RestService{
     private void postFormRequest(NewAskQuery newAskQuery, AskQueryType askQueryType) {
         MultiValueMap<String, String> mapRequest = new LinkedMultiValueMap<>();
         String requestTo = null;
-        switch (askQueryType) {
-            case QUESTION:
-                mapRequest.setAll(newAskQuery.getKeyValuesForRequest(AskQueryType.QUESTION));
-                requestTo = this.getProtocol() + getCurrentBaseUrl() + ASK_QUESTION_FORM;
-                break;
-            case COMMENT:
-                mapRequest.setAll(newAskQuery.getKeyValuesForRequest(AskQueryType.COMMENT));
-                requestTo = this.getProtocol() + getCurrentBaseUrl() + ASK_COMMENT_FORM;
-                break;
+        if (askQueryType.equals(AskQueryType.QUESTION)) {
+            mapRequest.setAll(newAskQuery.getKeyValuesForRequest(askQueryType));
+            requestTo = this.getProtocol() + getCurrentBaseUrl() + ASK_QUESTION_FORM;
+        } else if (askQueryType.equals(AskQueryType.COMMENT)) {
+            mapRequest.setAll(newAskQuery.getKeyValuesForRequest(askQueryType));
+            requestTo = this.getProtocol() + getCurrentBaseUrl() + ASK_COMMENT_FORM;
         }
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(mapRequest, configureHeaders());
-        LOG.info("Request: " + requestEntity.toString());
+        LOG.info("Request: {}", requestEntity);
         HttpEntity<String> response = getRestTemplate().postForEntity(requestTo, requestEntity, String.class);
-        LOG.info("Response: " + response.toString());
+        LOG.info("Response: {}", response);
     }
 
     @Override

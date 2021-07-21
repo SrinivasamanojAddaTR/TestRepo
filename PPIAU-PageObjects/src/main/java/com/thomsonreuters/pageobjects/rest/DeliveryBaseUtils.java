@@ -62,14 +62,14 @@ public class DeliveryBaseUtils {
     public boolean isDocumentNotEmpty(File documentFile, InitiateDelivery.DocFormat docFormat) throws BadLocationException {
         try {
             switch (docFormat) {
-                case Pdf:
+                case PDF:
                     return !new PDFBoxUtil().extractText(documentFile.getAbsolutePath()).trim().isEmpty();
-                case Rtf:
-                case Doc:
+                case RTF:
+                case DOC:
                     return !new AssetPageUtils().getTextFromFileWithRTForDOCextension(documentFile.getAbsolutePath()).isEmpty();
-                case Csv:
-                case Xls:
-                case Zip:
+                case CSV:
+                case XLS:
+                case ZIP:
                     return documentFile.length() > 0;
                 default:
                     return false;
@@ -259,14 +259,14 @@ public class DeliveryBaseUtils {
         String docText = "";
         try {
             switch (docFormat) {
-                case Pdf:
+                case PDF:
                     docText = new PDFBoxUtil().extractText(document.getAbsolutePath());
                     break;
-                case Rtf:
-                case Doc:
+                case RTF:
+                case DOC:
                     docText = new AssetPageUtils().getTextOnlyFromRtf(document);
                     break;
-                case Csv:
+                case CSV:
                     docText = fileActions.getTextFromFile(document);
                     break;
                 default:

@@ -14,12 +14,12 @@ public class InitiateDelivery extends ABaseRequest {
     private static final String DELIVERY_OPTIONS_NAME = "DeliveryOptions";
 
     public enum DocFormat {
-        Pdf, // Add another formats
-        Rtf,
-        Doc,
-        Csv,
-        Xls,
-        Zip;
+        PDF, // Add another formats
+        RTF,
+        DOC,
+        CSV,
+        XLS,
+        ZIP;
 
         public static DocFormat getFormatIgnoreCase(String format) {
             for (DocFormat docFormat : DocFormat.values()) {
@@ -36,9 +36,9 @@ public class InitiateDelivery extends ABaseRequest {
     }
 
     public enum WhatToDeliverOption {
-        DocumentOnly("Document"),
-        DocumentAndDraftingNotes("Document and Drafting Notes"),
-        DraftingNotesOnly("Only Drafting Notes");
+        DOCUMENT_ONLY("Document"),
+        DOCUMENT_AND_DRAFTING_NOTES("Document and Drafting Notes"),
+        DRAFTING_NOTES_ONLY("Only Drafting Notes");
 
         private String uiName;
 

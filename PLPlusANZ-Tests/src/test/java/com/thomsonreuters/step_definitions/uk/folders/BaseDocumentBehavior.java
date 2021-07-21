@@ -426,7 +426,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
         File downloadedDocument = deliveryBaseUtils.downloadAndGetDocument(true);
         assertTrue("Document was not downloaded", downloadedDocument != null && downloadedDocument.exists());
         assertTrue(deliveryBaseUtils.isDocContainsOrNotContains(
-                downloadedDocument, InitiateDelivery.DocFormat.Pdf, phrasesToExists, phrasesToAbsent));
+                downloadedDocument, InitiateDelivery.DocFormat.PDF, phrasesToExists, phrasesToAbsent));
     }
 
     @When("^the user selects the document and moves back to original folder \"([^\"]*)\"$")
@@ -542,7 +542,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
         assertTrue("Document was not downloaded", downloadedDocument != null && downloadedDocument.exists());
         assertTrue("Document text does not meet the expectations",
                 deliveryBaseUtils.isDocContainsOrNotContains(
-                        downloadedDocument, InitiateDelivery.DocFormat.Doc, phrasesToExists, phrasesToAbsent));
+                        downloadedDocument, InitiateDelivery.DocFormat.DOC, phrasesToExists, phrasesToAbsent));
     }
 
     @When("^the user selects '(.*)' option in What To Deliver block in delivery options window$")
