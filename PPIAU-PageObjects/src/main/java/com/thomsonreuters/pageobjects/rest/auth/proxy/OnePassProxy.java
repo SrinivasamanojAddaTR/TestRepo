@@ -28,7 +28,7 @@ public class OnePassProxy {
         String requestStr = "{\"Header\":{\"ProductIdentifier\":\"" + productID + "\"},\"Username\":\"" + userName + "\",\"Password\":\"" + password + "\",\"IncludeProfile\":true}";
         HttpEntity<String> requestEntity = new HttpEntity<>(requestStr, httpHeaders);
         String requestTo = HOST + "/onepass/v2/authenticate/onepass";
-        LOG.info("postForRegKeys REQUEST '" + requestEntity.toString() + "', TO: " + requestTo);
+        LOG.info("postForRegKeys REQUEST {} , TO: {}" ,requestEntity,requestTo);
         return restTemplate.postForObject(requestTo, requestEntity, PostForRegKeysResponse.class);
     }
 

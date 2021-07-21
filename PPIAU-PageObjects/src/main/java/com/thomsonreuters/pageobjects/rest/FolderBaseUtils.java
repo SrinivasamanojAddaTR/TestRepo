@@ -6,7 +6,7 @@ public class FolderBaseUtils {
 
     private RestServiceFFHImpl restService = new RestServiceFFHImpl();
 
-    public void createFolder(String newFolderName, String parentFolderName) {
+    public void createFolder(String newFolderName) {
         String rootFolderID = getRootFolderID();
         restService.postCreateFolder(newFolderName, rootFolderID);
     }
@@ -17,11 +17,6 @@ public class FolderBaseUtils {
 
     public void deleteStartPage() {
         restService.deleteStartPage();
-    }
-
-    @Deprecated
-    public void wlnDoSuperDelete() {
-        restService.wlnDeleteDoSuperDelete();
     }
 
     private String getRootFolderID() {

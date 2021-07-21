@@ -8,7 +8,7 @@ import com.thomsonreuters.pageobjects.rest.model.JsonObject;
 public class GetForSessionInfoResponse extends JsonObject {
 
     @JsonProperty("SessionId")
-    String SessionId;
+    String sessionId;
 
     @JsonProperty("ProductView")
     String productView;
@@ -22,11 +22,11 @@ public class GetForSessionInfoResponse extends JsonObject {
     }
 
     public String getSessionId() {
-        return SessionId;
+        return sessionId;
     }
 
     public void setSessionId(String sessionId) {
-        SessionId = sessionId;
+        this.sessionId = sessionId;
     }
 
 }

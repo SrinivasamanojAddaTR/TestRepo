@@ -12,7 +12,7 @@ public class ApiBehaviour extends BaseStepDef {
 
     @When("^API creates folder with name '(.+)' with parent '(.+)'$")
     public void apiCreatesFolderWithNameWithParent(String newFolderName, String parentFolderName) throws Throwable {
-        restSteps.createFolder(newFolderName, parentFolderName);
+        restSteps.createFolder(newFolderName);
     }
 
     //After using super delete user should relogin.

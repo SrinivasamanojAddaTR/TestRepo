@@ -17,7 +17,7 @@ public class UDSProxy {
     private RestTemplate restTemplate = new RestTemplate();
     private String udsHost;
     
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(OnePassProxy.class);
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(UDSProxy.class);
 
     public UDSProxy() {
         String environment = System.getProperty("base.url");
@@ -133,7 +133,7 @@ public class UDSProxy {
 		String requestStr = "[{\"PreferenceValue\":[\"\"],\"VerticalName\":\"Website\",\"PreferenceName\":\"CrossBorderDashboardTransactionGuide\",\"PreferenceType\":\"stringArrayType\",\"PreferencePermissionType\":\"ReadOnly\"}]";
 		HttpEntity<String> requestEntity = new HttpEntity<>(requestStr, httpHeaders);
 		String requestTo = udsHost + "/UDS/v6/preferences/secure/" + coSessionToken;
-		LOG.info("Remove Dashboard parameters REQUEST '" + requestEntity.toString() + "', TO: " + requestTo);
+		LOG.info("Remove Dashboard parameters REQUEST '{}', TO: {}" , requestEntity, requestTo);
 		restTemplate.postForObject(requestTo, requestEntity, String.class);
 	}
 

@@ -8,14 +8,14 @@ import com.thomsonreuters.pageobjects.rest.model.JsonObject;
 public class GetForZBResponse extends JsonObject {
 
     @JsonProperty("OfficeId")
-    String Zb;
+    String zb;
 
     public String getOfficeId() {
-        return Zb;
+        return zb;
     }
 
     public void setOfficeId(String zb) {
-    	Zb = zb;
+        this.zb = zb;
     }
 
 }

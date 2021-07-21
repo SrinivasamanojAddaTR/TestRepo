@@ -1,6 +1,5 @@
 package com.thomsonreuters.pageobjects.rest;
 
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceLinkingImpl;
 import com.thomsonreuters.pageobjects.utils.document.CaseDocument;
 import com.thomsonreuters.pageobjects.utils.document.LegislationDocument;
@@ -28,7 +27,6 @@ import java.util.Map;
 public class LinkingBaseUtils {
 
     private RestServiceLinkingImpl restServiceLinking = new RestServiceLinkingImpl();
-    private CommonMethods commonMethods = new CommonMethods();
     private GenericDocumentTransformer genericDocumentTransformer = new GenericDocumentTransformer();
     private CasesDocumentTransformer casesDocumentTransformer = new CasesDocumentTransformer();
     private LegislationDocumentTransformer legislationDocumentTransformer = new LegislationDocumentTransformer();
@@ -36,18 +34,15 @@ public class LinkingBaseUtils {
     protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(LinkingBaseUtils.class);
     private final Map<String, String> documentXmlStorage = new LinkedHashMap<>();
 
-    // TODO 1. do we need this? 2. Refactor all usages to user transformer directly
     public String getXLINKURI() {
         return genericDocumentTransformer.getXLINKURI();
     }
 
-    // TODO 1. do we need this? 2. Refactor all usages to user transformer directly
     public String getATICTURI() {
         return genericDocumentTransformer.getATICTURI();
     }
 
-    // TODO Refactor all usages to user transformer directly
-    public NodeList returnXpathNodes(String pageSource, String strXpath) throws Exception {
+    public NodeList returnXpathNodes(String pageSource, String strXpath) {
         return genericDocumentTransformer.returnXpathNodes(pageSource, strXpath);
     }
 
@@ -117,7 +112,6 @@ public class LinkingBaseUtils {
      * @param jurisdictionsNodeList Nodes with jurisdictions
      * @return List with jurisdictions {@link Jurisdiction}
      */
-    // TODO To move to GenericDocumentTransformer class
     private List<Jurisdiction> getMetaDataJurisdictionsFromNodeList(NodeList jurisdictionsNodeList) {
         List<Jurisdiction> jurisdictions = new ArrayList<>();
         int itemsCount = jurisdictionsNodeList.getLength();
@@ -145,7 +139,6 @@ public class LinkingBaseUtils {
      * @param sectionsNodeList Nodes with sections
      * @return List with jurisdictions {@link Section}
      */
-    // TODO To move to GenericDocumentTransformer class
     private List<Section> getDocumentSectionsFromNodeList(NodeList sectionsNodeList) {
         List<Section> sections = new ArrayList<>();
         int itemsCount = sectionsNodeList.getLength();
