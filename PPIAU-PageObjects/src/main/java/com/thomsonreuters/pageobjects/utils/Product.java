@@ -14,6 +14,6 @@ public enum Product {
     PLC,
     PRACTICALLAW,
     BOOKS,
-    PLC_lEGACY,
+    PLC_LEGACY,
     ANZ
 }

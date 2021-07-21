@@ -278,34 +278,9 @@ public class LegislationDocumentPage extends DocumentDisplayAbstractPage {
 		return isElementDisplayed(By.xpath(String.format(LEGISLATION_DOC_WIDGET, widget)));
 	}
 
-	public WebElement tableOfAmendmentsStatusIcon(String section, String entry) {
-		return findChildElement(legislationDocWedget(section),
-				By.xpath("./div[" + entry + "]//span[contains(@class, 'co_ukReferenceStatusIcon')]"));
-
-	}
-	
 	public boolean isWidgetStatusIconDisplayed(String entry, String widget) {
-		return isElementDisplayed(By.xpath(String.format(LEGISLATION_DOC_WIDGET + "/div[" + entry
-				+ "]//span[contains(@class, 'co_ukReferenceStatusIcon')]", widget)));
-	}
-
-	public List<WebElement> provisionTitles(String section, String entry) {
-		return legislationDocWedget(section).findElements(
-				By.xpath("./div[" + entry + "]//div[contains(@class, 'co_tableCellWidth160')]/*"));
-	}
-
-	public List<WebElement> amendmentNotes(String section, String entry) {
-		return legislationDocWedget(section)
-				.findElements(
-						By.xpath("./div["
-								+ entry
-								+ "]//div[contains(@class, 'co_tableCellText')]//div[contains(@class, 'co_tableCellText')]/div/*[contains(@class,'ng-binding')]"));
-	}
-
-	public List<WebElement> effectiveDate(String section, String entry) {
-		return legislationDocWedget(section).findElements(
-				By.xpath("./div[" + entry
-						+ "]/div[contains(@class, 'co_tableCellText')]//div[contains(@class, 'co_italic')]"));
+		return isElementDisplayed(By.xpath(String.format(LEGISLATION_DOC_WIDGET +
+				"/div[%s]//span[contains(@class, 'co_ukReferenceStatusIcon')]", widget, entry)));
 	}
 
 	public WebElement linkWithinSection(String section, String link) {
@@ -313,25 +288,8 @@ public class LegislationDocumentPage extends DocumentDisplayAbstractPage {
 	}
 
 	public boolean isTextDislayedUnderWidget(String widget, String entry, String text) {
-		return isElementDisplayed(By.xpath(String.format(LEGISLATION_DOC_WIDGET + "/div[" + entry
-				+ "]//div[contains(@class, 'co_tableCellWidth160')][contains(., \"" + text + "\")]", widget)));
-	}
-
-	public List<WebElement> linksWithinWidget(String widget, String entry) {
-		return legislationDocWedget(widget).findElements(
-				By.xpath("./div[" + entry + "]/div[contains(@class, 'co_tableCellText')]//a"));
-	}
-
-	public List<WebElement> textsWithinWidget(String widget, String entry) {
-		return legislationDocWedget(widget).findElements(
-				By.xpath("./div[" + entry
-						+ "]/div[contains(@class, 'co_tableCellText')]//span[contains(@class, 'ng-binding')]"));
-	}
-
-	public List<WebElement> datesWithinTheWidgetInEntry(String widget, String entry) {
-		return legislationDocWedget(widget).findElements(
-				By.xpath("./div[" + entry
-						+ "]/div[contains(@class, 'co_tableCellText')]//div[contains(@ng-class, 'isFutureDate')]"));
+		return isElementDisplayed(By.xpath(String.format(LEGISLATION_DOC_WIDGET +
+				"/div[%s]//div[contains(@class, 'co_tableCellWidth160')][contains(.,%s)]", widget, entry, Quotes.escape(text))));
 	}
 
 	public List<WebElement> allDatesWithinTheWidget(String widget) {

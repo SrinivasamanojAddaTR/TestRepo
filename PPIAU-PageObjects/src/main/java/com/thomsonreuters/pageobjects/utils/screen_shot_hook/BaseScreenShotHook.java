@@ -136,7 +136,7 @@ public class BaseScreenShotHook extends BaseStepDef {
 					header.signOff();
 					LOG.info("The user is signed off from ANZ");
 					break;
-				case PLC_lEGACY:
+				case PLC_LEGACY:
 					element = homePage.findElement(By.linkText("Log out"));
 					element.click();
 					break;
@@ -168,7 +168,7 @@ public class BaseScreenShotHook extends BaseStepDef {
 		case ANZ:
 			navigationCobalt.navigateToPLANZPlus();
 			break;
-		case PLC_lEGACY:
+		case PLC_LEGACY:
 			navigationCobalt.navigateToPLCLegacy();
 			break;
 		default:

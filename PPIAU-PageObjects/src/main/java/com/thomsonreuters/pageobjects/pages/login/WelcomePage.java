@@ -6,14 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
-
-
 public class WelcomePage extends AbstractPage {
 
     private static final By CONTINUE_BUTTON = By.id("co_clientIDContinueButton");
-
-    public WelcomePage() {
-    }
 
     /**
      * This method does the waiting for the complete page loading once click on continue button.

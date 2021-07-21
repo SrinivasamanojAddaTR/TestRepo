@@ -2,13 +2,14 @@ package com.thomsonreuters.pageobjects.utils;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 public class RoutingPage extends AbstractPage {
 
@@ -187,7 +188,7 @@ public class RoutingPage extends AbstractPage {
        return waitForExpectedElement(By.id("co_website_resourceInfoTypes_BlockShareNoteLink"));
     }
 
-	public WebElement AdestraUkWhatsMarketDropdown() {
+	public WebElement adestraUkWhatsMarketDropdown() {
 		return waitForExpectedElement(By.id("co_website_resourceInfoTypes_AdestraUkWhatsMarket"));
 	}
 	
@@ -201,20 +202,14 @@ public class RoutingPage extends AbstractPage {
 
 	private List<String> getDropDownOptions(WebElement element){
         Select s = new Select(element);
-        List<String> allOptions = new ArrayList<String>();
-        try{
-            for(WebElement webElement : s.getOptions()){
-                allOptions.add(webElement.getText());
-            }
-        }catch(Exception e){}
-        return allOptions;
+        return s.getOptions().stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
     public List<String> getFACDropdownOptionValues(String facName){
         if(facName.equals("BlockShareNoteLink")){
             return getDropDownOptions(getBlockShareNoteLink());
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
     
 	public WebElement searchTextArea() {

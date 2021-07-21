@@ -123,7 +123,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 
     public void plcLegacyLoginWithDetails(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
         CobaltUser user = CobaltUser.updateMissingFields(plPlusUserList.get(0));
-        user.setProduct(Product.PLC_lEGACY);
+        user.setProduct(Product.PLC_LEGACY);
         loginUser(user);
         LOG.info("The PLC user is logged in with the following details");
     }
@@ -353,13 +353,13 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         } else {
             if (!isUserFirstUser(currentUser)) {
                 newSession(currentUser);
-                if (plPlusUser.getProduct().equals(Product.PLC_lEGACY)) {
+                if (plPlusUser.getProduct().equals(Product.PLC_LEGACY)) {
                     loginLegacySite(plPlusUser);
                 }
             }
             doRouting(plPlusUser);
 
-            if (plPlusUser.getProduct().equals(Product.PLC_lEGACY) && isUserFirstUser(currentUser)) {
+            if (plPlusUser.getProduct().equals(Product.PLC_LEGACY) && isUserFirstUser(currentUser)) {
                 loginLegacySite(plPlusUser);
             }
 
@@ -420,7 +420,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
             case ANZ:
                 navigationCobalt.navigateToPLANZPlus();
                 break;
-            case PLC_lEGACY:
+            case PLC_LEGACY:
                 navigationCobalt.navigateToPLCLegacy();
                 break;
             case BOOKS:
@@ -939,7 +939,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                 case ADSTUKWHATMRKT:
                     LOG.info("ADSTUKWHATMRKT routing");
                     routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.AdestraUkWhatsMarketDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    routingPage.selectDropDownByVisibleText(routingPage.adestraUkWhatsMarketDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
                 case CALENDAR_KEY_DATE_DOC:
@@ -1185,7 +1185,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     element = wlnHeader.signOutLink();
                     LOG.info("The user is signed off from ANZ");
                     break;
-                case PLC_lEGACY:
+                case PLC_LEGACY:
                     navigationCobalt.navigateToPLCLegacy();
                     element = onepassLogin.findElement(By.linkText("Log out"));
                     LOG.info("The user is signed off from PLC_LEGACY");

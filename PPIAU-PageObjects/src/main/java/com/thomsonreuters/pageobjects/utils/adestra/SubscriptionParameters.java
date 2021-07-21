@@ -10,10 +10,6 @@ public class SubscriptionParameters {
 	private String productFrequency;
 	private String name;
 	private String description;
-	
-	public SubscriptionParameters(){
-		
-	}
 
 	public String getCategoryName() {
 		return categoryName;
@@ -56,7 +52,7 @@ public class SubscriptionParameters {
 	}
 	
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("Sub Pref: \n");
 		sb.append(" - Category Name: " + getCategoryName() + ",\n");
 		sb.append(" - Common Name: " + getCommonName() + ",\n");
