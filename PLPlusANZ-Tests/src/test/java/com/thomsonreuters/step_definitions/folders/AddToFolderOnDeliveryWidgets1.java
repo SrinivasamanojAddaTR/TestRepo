@@ -52,4 +52,9 @@ public class AddToFolderOnDeliveryWidgets1 extends BaseStepDef {
 	public void userShouldSeeAddToFolderPopUp() throws Throwable {
 		assertTrue("Add to Folder pop up is not displayed", saveToPopup.isPopUpDispayed());
 	}
+
+	@Then("^user clicks the close link on Add To Folder pop up$")
+	public void userClicksTheCloseLinkOnAddToFolderPopUp() {
+		saveToPopup.cancelButton().click();
+	}
 }
