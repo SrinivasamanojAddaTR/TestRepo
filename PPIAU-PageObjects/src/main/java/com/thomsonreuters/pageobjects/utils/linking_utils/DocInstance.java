@@ -7,7 +7,10 @@ import static org.apache.commons.lang3.StringUtils.defaultIfBlank;
 
 public class DocInstance {
 
-    String docLoc, docIdType, docPubWestCode, docGuid;
+    String docLoc;
+    String docIdType;
+    String docPubWestCode;
+    String docGuid;
 
     public String getDocLoc() {
         return docLoc;

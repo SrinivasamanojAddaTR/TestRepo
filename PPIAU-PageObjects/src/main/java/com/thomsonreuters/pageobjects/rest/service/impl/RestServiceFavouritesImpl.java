@@ -59,7 +59,7 @@ public class RestServiceFavouritesImpl extends RestServiceImpl implements RestSe
             LOG.info("TO: {}", requestTo);
             LOG.info("HEADERS: {}", httpHeaders);
             HttpEntity<String> requestEntity = new HttpEntity<>(deleteFavouritesRequest.getNode().toString(), httpHeaders);
-            LOG.info("BODY: {}", requestEntity);
+            LOG.info("BODY: {}", requestEntity.getBody());
             HttpEntity<String> response = getRestTemplate().exchange(requestTo, HttpMethod.POST, requestEntity, String.class);
             LOG.info("RESP: {}", response);
             LOG.info("-------------------END deleteFavourites--------------------");

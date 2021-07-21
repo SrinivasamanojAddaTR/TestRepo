@@ -74,7 +74,7 @@ public class AssetPageUtils {
         return assetDocumentPage.waitForExpectedElement(SIGNOF_LINK);
     }
 
-    public boolean isSignOutLinkDisplayed () {
+    public boolean isSignOutLinkDisplayed() {
         return assetDocumentPage.isElementDisplayed(SIGNOF_LINK);
     }
 
@@ -132,10 +132,10 @@ public class AssetPageUtils {
 
     public boolean isTheUserTakenToTheSelectedResource(String linkText) {
         String secondWinHandle = "";
-		if (assetDocumentPage.getWindowHandles().size() == 1) {
-			LOG.info("New window is not opened");
-			return false;
-		}
+        if (assetDocumentPage.getWindowHandles().size() == 1) {
+            LOG.info("New window is not opened");
+            return false;
+        }
 
         for (String winHandle : assetDocumentPage.getWindowHandles()) {
             assetDocumentPage.getDriver.switchTo().window(winHandle);
@@ -143,15 +143,15 @@ public class AssetPageUtils {
         }
         assetDocumentPage.waitForPageToLoad();
         String secondUrl = assetDocumentPage.getCurrentUrl();
-		boolean result = false;
-		LOG.info("Expected URL: {}", linkText);
-		LOG.info("Actual   URL: {}", secondUrl);
-		if (secondUrl.toLowerCase().contains(linkText.toLowerCase())) {
-			result = true;
-		}
-		assetDocumentPage.getDriver.switchTo().window(secondWinHandle).close();
+        boolean result = false;
+        LOG.info("Expected URL: {}", linkText);
+        LOG.info("Actual   URL: {}", secondUrl);
+        if (secondUrl.toLowerCase().contains(linkText.toLowerCase())) {
+            result = true;
+        }
+        assetDocumentPage.getDriver.switchTo().window(secondWinHandle).close();
         assetDocumentPage.getDriver.switchTo().window(winHandleFirst.get());
-		return result;
+        return result;
     }
 
     public boolean isTheUserTakenToTheLegalUpdates() {
@@ -216,16 +216,16 @@ public class AssetPageUtils {
 
     public boolean openDocumentInWestlawUK() {
 
-		if (assetDocumentPage.getWindowHandles().size() < 2) {
-			LOG.info("New window not opened");
-			return false;
-		}
+        if (assetDocumentPage.getWindowHandles().size() < 2) {
+            LOG.info("New window not opened");
+            return false;
+        }
         String secondHandle = "";
         for (String winHandle : assetDocumentPage.getWindowHandles()) {
             assetDocumentPage.switchToWindow(winHandle);
             secondHandle = winHandle;
         }
-		assetDocumentPage.waitForPageToLoad();
+        assetDocumentPage.waitForPageToLoad();
         if (documentBody().isDisplayed()) {
             outPutLink().click();
             assetDocumentPage.waitForPageToLoadAndJQueryProcessing();
@@ -246,7 +246,7 @@ public class AssetPageUtils {
 
     public boolean isTheUserTakenToSelectedPartOfTheDocument(String linkText) {
         assetDocumentPage.waitForPageToLoad();
-        return  (Boolean) assetDocumentPage.executeScript("function isScrolledIntoView(elem,off) {"
+        return (Boolean) assetDocumentPage.executeScript("function isScrolledIntoView(elem,off) {"
                 + " var $elem = $(elem); var $window = $(window); " + "var docViewTop = $window.scrollTop()+off; "
                 + "var docViewBottom = docViewTop + $window.height();" + "var elemTop = $elem.offset().top;"
                 + "var elemBottom = elemTop + $elem.height();"
@@ -293,7 +293,7 @@ public class AssetPageUtils {
             LOG.info("bailiiUrlFtomPDF: {}", bailiiUrlFtomPDF);
             LOG.info("linkHref: {}", linkHref);
             return linkHref.contains(bailiiUrlFtomPDF);
-        } catch (Exception e){
+        } catch (Exception e) {
             LOG.error("Cannot retrieve text from pdf file", e);
             return false;
         }
@@ -337,7 +337,7 @@ public class AssetPageUtils {
     public boolean isTableOfContentDisplayed() {
         assetDocumentPage.waitForPageToLoad();
         try {
-           return assetDocumentPage.isElementDisplayed(TABLE_OF_CONTENTS_SECTION);
+            return assetDocumentPage.isElementDisplayed(TABLE_OF_CONTENTS_SECTION);
         } catch (PageOperationException poe) {
             LOG.info(OPERATION_ERROR_MESSAGE, poe);
             return false;
@@ -368,10 +368,10 @@ public class AssetPageUtils {
     }
 
     public boolean isTheUserTakenToTheInternalDocument(String hrefAtribute) {
-    	String secondUrl = assetDocumentPage.getCurrentUrl();
-		LOG.info("secondUrl {}", secondUrl);
-		LOG.info("hrefAtribute {}", hrefAtribute);
-		return !firstUrl.equals(secondUrl) && secondUrl.contains(webDriverDiscovery.getCurrentRootAddress(true));
+        String secondUrl = assetDocumentPage.getCurrentUrl();
+        LOG.info("secondUrl {}", secondUrl);
+        LOG.info("hrefAtribute {}", hrefAtribute);
+        return !firstUrl.equals(secondUrl) && secondUrl.contains(webDriverDiscovery.getCurrentRootAddress(true));
     }
 
     public boolean isTheDocumentContainLink(String linkText) {
@@ -577,7 +577,7 @@ public class AssetPageUtils {
     public boolean isTheDownloadedDocumentContainTableOfContent(String linkText, File docFile) {
         try {
             String textFromPdf = pdfBoxUtil.extractText(docFile.getAbsolutePath());
-            textFromPdf = textFromPdf.replaceAll("\\n", "").replaceAll("\r", "");
+            textFromPdf = textFromPdf.replace("\\n", "").replace("\r", "");
             LOG.info("textFromPdf: {}", textFromPdf);
             return textFromPdf.contains(assetDocumentPage.partyNames().getText() + " " + linkText);
         } catch (IOException exception) {
@@ -644,7 +644,7 @@ public class AssetPageUtils {
     public boolean isTheSourceDocumentRemainsOpen(String guid) {
         String firstWindowHandle = assetDocumentPage.getWindowHandle();
         boolean isOpen = false;
-        for(String handle : assetDocumentPage.getWindowHandles()) {
+        for (String handle : assetDocumentPage.getWindowHandles()) {
             assetDocumentPage.switchToWindow(handle);
             String currentUrl = assetDocumentPage.getPageSource();
             if (currentUrl.contains(guid) && assetDocumentPage.contentBody().isEnabled()) {
@@ -692,9 +692,9 @@ public class AssetPageUtils {
         return i == numberOfOpenedTubs;
     }
 
-    public void remove(){
+    public void remove() {
         LOG.warn("Removing all the saved window handles");
         winHandleFirst.remove();
     }
-   
+
 }
