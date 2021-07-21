@@ -530,7 +530,7 @@ public class BaseDocumentBehavior extends BaseStepDef {
         assertTrue("Document was not downloaded", downloadedDocument != null && downloadedDocument.exists());
         assertTrue("Document text does not meet the expectations",
                 deliveryBaseUtils.isDocContainsOrNotContains(
-                        downloadedDocument, InitiateDelivery.DocFormat.valueOf(format), phrasesToExists, phrasesToAbsent));
+                        downloadedDocument, InitiateDelivery.DocFormat.valueOf(format.toUpperCase()), phrasesToExists, phrasesToAbsent));
     }
 
     // Draft version. And not used anywhere. Please, refactor it for test needs and use it. And remove this comment
