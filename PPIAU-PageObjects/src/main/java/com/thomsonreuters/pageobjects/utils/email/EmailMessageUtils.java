@@ -1,5 +1,11 @@
 package com.thomsonreuters.pageobjects.utils.email;
 
+import com.thomsonreuters.pageobjects.exceptions.EmailException;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.mail.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,13 +13,6 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
-import javax.mail.*;
-
-import com.thomsonreuters.pageobjects.common.PropertyLoaderUtility;
-import com.thomsonreuters.pageobjects.exceptions.EmailException;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 public class EmailMessageUtils {
@@ -23,7 +22,6 @@ public class EmailMessageUtils {
 	private static final String DATE_PATTERN_FOR_FOLDER = "yyyy-MM-dd_hh-mm-ss";
 	private static final String MESSAGE_MIMETYPE_TEXT = "text/*";
 	private static final String MESSAGE_MIMETYPE_MULTIPART = "multipart/*";
-	private static final String PROPERTIES_FILE = "pageobjects.properties";
 
 	public boolean isEmailContainsText(Message message, String text) {
 		return StringUtils.containsIgnoreCase(getMessageBody(message), text.toLowerCase());
