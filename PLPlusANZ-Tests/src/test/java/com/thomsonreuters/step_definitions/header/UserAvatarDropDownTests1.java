@@ -6,6 +6,7 @@ import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class UserAvatarDropDownTests1 extends BaseStepDef {
@@ -38,5 +39,13 @@ public class UserAvatarDropDownTests1 extends BaseStepDef {
 	public void theUserSelectsMyAutomatedDocumentOption() throws Throwable {
 		wlnHeader.myAutomatedDocuments().click();
 		wlnHeader.waitForPageToLoadAndJQueryProcessing();
+	}
+
+	@Then("^my Automated Documents option should be displayed$")
+	public void isMyAutomatedDocumentsOptionDisplayed() {
+		wlnHeader.waitForPageToLoadAndJQueryProcessing();
+		assertThat(wlnHeader.isMyAutomatedDocumentsPresent()).
+				overridingErrorMessage("My Automated Documents option should be displayed").
+				isTrue();
 	}
 }

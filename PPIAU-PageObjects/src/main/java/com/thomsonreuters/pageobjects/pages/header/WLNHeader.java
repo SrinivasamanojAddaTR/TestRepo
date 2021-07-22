@@ -427,6 +427,10 @@ public class WLNHeader extends AbstractPage {
         return findElement(By.linkText("My Automated Documents"));
     }
 
+    public boolean isMyAutomatedDocumentsPresent() {
+        return isElementDisplayed(myAutomatedDocuments());
+    }
+
     public WebElement practicalLawLogo() {
         return waitForExpectedElement(By.xpath("//a[@id='logo']//img[@alt='Practical Law']"));
     }
