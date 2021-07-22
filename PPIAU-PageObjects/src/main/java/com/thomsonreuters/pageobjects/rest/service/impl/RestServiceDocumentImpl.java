@@ -15,9 +15,9 @@ import org.springframework.stereotype.Service;
 public class RestServiceDocumentImpl extends RestServiceImpl implements RestService {
 
     protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(RestServiceDocumentImpl.class);
-    private final String DOCUMENT_MODULE_AUTHORITY = System.getProperty("documentModuleAuthority",
+    private String documentModuleAuthority = System.getProperty("documentModuleAuthority",
             "document.int.next." + getEnvironment() + ".westlaw.com");
-    private final String DOCUMENT_MODULE_URL = "http://" + DOCUMENT_MODULE_AUTHORITY + "/Document/v1";
+    private String documentModuleUrl = "http://" + documentModuleAuthority + "/Document/v1";
 
     /**
      * POST request to
@@ -34,8 +34,8 @@ public class RestServiceDocumentImpl extends RestServiceImpl implements RestServ
         ResponseEntity<DocumentMetaInfoResponse[]> result = null;
         DocumentMetaInfoRequeset docRequest = new DocumentMetaInfoRequeset();
         String request = docRequest.createMetaInfoRequest(documentGuid, "");
-        HttpEntity<String> requestEntity = new HttpEntity<String>(request, configureHeaders());
-        String requestTo = DOCUMENT_MODULE_URL + "/MetaInfoList";
+        HttpEntity<String> requestEntity = new HttpEntity<>(request, configureHeaders());
+        String requestTo = documentModuleUrl + "/MetaInfoList";
         result = getRestTemplate().postForEntity(requestTo, requestEntity, DocumentMetaInfoResponse[].class);
         return result.getBody();
     }
@@ -50,7 +50,7 @@ public class RestServiceDocumentImpl extends RestServiceImpl implements RestServ
         ResponseEntity<DocumentMetaInfoResponse> result = null;
         HttpHeaders httpHeaders = configureHeaders();
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        String url = DOCUMENT_MODULE_URL + "/MetaInfo/" + documentGuid;
+        String url = documentModuleUrl + "/MetaInfo/" + documentGuid;
         result = getRestTemplate().exchange(url, HttpMethod.GET, requestEntity,
                 DocumentMetaInfoResponse.class);
         return result.getBody();
@@ -60,7 +60,7 @@ public class RestServiceDocumentImpl extends RestServiceImpl implements RestServ
         ResponseEntity<String> result = null;
         HttpHeaders httpHeaders = configureHeaders();
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        String url = DOCUMENT_MODULE_URL + "/RawXmlFormatted/"
+        String url = documentModuleUrl + "/RawXmlFormatted/"
                 + documentGuid + "?clientId=PRACTICAL%20LAW&contextData=(sc.Default)&originalContext=Default";
         result = getRestTemplate().exchange(url, HttpMethod.GET, requestEntity, String.class);
         return result.getBody();
@@ -69,8 +69,8 @@ public class RestServiceDocumentImpl extends RestServiceImpl implements RestServ
     public HttpHeaders configureHeaders() {
         UDSCredentials credentials = getUDSCredentials();
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("x-cobalt-host", DOCUMENT_MODULE_AUTHORITY);
-        httpHeaders.set("Host", DOCUMENT_MODULE_AUTHORITY);
+        httpHeaders.set("x-cobalt-host", documentModuleAuthority);
+        httpHeaders.set("Host", documentModuleAuthority);
         httpHeaders.set("Content-Type", "application/jsonrequest; charset=utf-8");
         httpHeaders.set("x-cobalt-product-container", "WestlawNext");
         httpHeaders.set("X-Cobalt-Security-Container", "Cobalt");
