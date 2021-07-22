@@ -72,12 +72,12 @@ public class RestServiceAnnotationsImpl extends RestServiceImpl implements RestS
         HttpHeaders httpHeaders = configureHeaders();
         String requestTo = webDriverDiscovery.getCurrentRootAddress(true) + "/Document/v1/UserDocuments/" + docGuid +
                 "/null/Annotations?onePassUserName=" + getUserName() + "&tz=GMT Standard Time";
-        LOG.info("TO: " + requestTo);
-        LOG.info("HEADERS: " + httpHeaders);
+        LOG.info("TO: {}" , requestTo);
+        LOG.info("HEADERS: {}" , httpHeaders);
         HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-        LOG.info("REQ: " + requestEntity.toString());
-        HttpEntity<AnnotationsResponse> response = getRestTemplate().exchange(requestTo, HttpMethod.GET, requestEntity, AnnotationsResponse.class, new Object[0]);
-        LOG.info("RESP: " + response.toString());
+        LOG.info("REQ: {}", requestEntity);
+        HttpEntity<AnnotationsResponse> response = getRestTemplate().exchange(requestTo, HttpMethod.GET, requestEntity, AnnotationsResponse.class);
+        LOG.info("RESP: {}" , response);
         LOG.info("-------------------END getAnnotations--------------------");
         return response.getBody();
     }
@@ -98,17 +98,16 @@ public class RestServiceAnnotationsImpl extends RestServiceImpl implements RestS
             HttpHeaders httpHeaders = configureHeaders();
             String requestTo = getProtocol() + getCurrentBaseUrl() + "/Document/v1/UserDocuments/" + annotation.getDocumentGuid() +
                     "/Annotations/" + type + "/" + annotation.getAnnotationSid();
-            LOG.info("TO: " + requestTo);
-            LOG.info("HEADERS: " + httpHeaders);
+            LOG.info("TO: {}" , requestTo);
+            LOG.info("HEADERS: {}" , httpHeaders);
             HttpEntity<String> requestEntity = new HttpEntity<>(httpHeaders);
-            LOG.info("REQ: " + requestEntity.toString());
+            LOG.info("REQ: {}" , requestEntity);
             ResponseEntity<AnnotationsResponse> response = getRestTemplate().exchange(requestTo, HttpMethod.DELETE, requestEntity, AnnotationsResponse.class);
-            LOG.info("RESP: " + response.toString());
+            LOG.info("RESP: {}" , response);
             LOG.info("-------------------END deleteAnnotation--------------------");
             responseCodes.add(response.getStatusCode().value());
         } else {
-            LOG.info("Annotation with ID " + annotation.getAnnotationSid() + " is shared and can't be deleted by " +
-                    "current user");
+            LOG.info("Annotation with ID {} is shared and can't be deleted by current user", annotation.getAnnotationSid());
         }
     }
 

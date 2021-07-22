@@ -16,7 +16,7 @@ public class GenerateLinkRequest extends ABaseRequest {
 
     private static final String CLIENT_ID = "clientId";
     private static final String RESULT_GUID = "resultGuid";
-    private static final String TYPE = "type";
+    private static final String DEFAUL_TYPE = "type";
 
     public String getClientId() {
         return clientId;
@@ -30,8 +30,8 @@ public class GenerateLinkRequest extends ABaseRequest {
         return resultGuid;
     }
 
-    public static String getTYPE() {
-        return TYPE;
+    public static String getDefaulType() {
+        return DEFAUL_TYPE;
     }
 
     public void setResultGuid(String resultGuid) {
@@ -54,7 +54,7 @@ public class GenerateLinkRequest extends ABaseRequest {
         ObjectNode generateLinkNode = objectMapper.createObjectNode();
         generateLinkNode.put(CLIENT_ID, clientId);
         generateLinkNode.put(RESULT_GUID, resultGuid);
-        generateLinkNode.put(TYPE, type);
+        generateLinkNode.put(DEFAUL_TYPE, type);
         return generateLinkNode;
     }
 }

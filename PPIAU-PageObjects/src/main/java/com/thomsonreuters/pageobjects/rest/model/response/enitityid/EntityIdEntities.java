@@ -11,13 +11,13 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EntityIdEntities extends ABaseResponse {
-    private List<EntityIdentity> entityIdentities = new ArrayList<>();
+    private List<EntityIdentity> entityIdentitiesList = new ArrayList<>();
 
-    public List<EntityIdentity> getEntityIdentities() {
-        return entityIdentities;
+    public List<EntityIdentity> getEntityIdentitiesList() {
+        return entityIdentitiesList;
     }
 
-    public void setEntityIdentities(List<EntityIdentity> entityIdentities) {
-        this.entityIdentities = entityIdentities;
+    public void setEntityIdentitiesList(List<EntityIdentity> entityIdentitiesList) {
+        this.entityIdentitiesList = entityIdentitiesList;
     }
 }
