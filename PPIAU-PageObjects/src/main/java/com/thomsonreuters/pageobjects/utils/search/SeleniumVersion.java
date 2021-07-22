@@ -6,12 +6,15 @@ package com.thomsonreuters.pageobjects.utils.search;
  * to determine which Selenium version is in use.
  * Determining selenium version in runtime. Based on system properties defined in the profiles sel2 and sel3
  * in the project POM file
- * TODO Remove this class and its usage when S&B will be moved to selenium 3
  */
 public final class SeleniumVersion {
 
+    private SeleniumVersion() {
+    }
+
     /**
      * Is selenium 3 used
+     *
      * @return True - if current build was started using selenium 3. False - otherwise.
      */
     public static boolean isThird() {
