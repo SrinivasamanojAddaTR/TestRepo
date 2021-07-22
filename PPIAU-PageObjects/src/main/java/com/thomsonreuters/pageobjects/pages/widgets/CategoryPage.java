@@ -48,7 +48,6 @@ public class CategoryPage extends AbstractPage {
 			return By.cssSelector(String.format(searchBy, count));
 		}
 
-		// TODO - Does not handle accordion yet
 		public By getSubPanel(LayoutGroup activeLayoutGroup, int layoutGroupCount, int count) {
 			if (activeLayoutGroup == LayoutGroup.TAB) {
 				return By.cssSelector(String.format("div#coid_categoryBoxTabPanel%d div#coid_categoryBoxTab%dSubPanel%d", layoutGroupCount,

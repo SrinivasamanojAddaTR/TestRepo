@@ -14,7 +14,6 @@ import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceDeliveryImpl;
 import com.thomsonreuters.pageobjects.utils.pdf.PDFBoxUtil;
 import com.thomsonreuters.pageobjects.utils.pl_plus_research_docdisplay.AssetPageUtils;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +43,8 @@ public class DeliveryBaseUtils {
      *
      * @param docFormat   Document format {@link InitiateDelivery.DocFormat}
      * @param isPrintable Is delivery called for printable document?
-     * @throws BadLocationException
      */
-    public boolean isDocDownloadedAndChecked(InitiateDelivery.DocFormat docFormat, boolean isPrintable) throws BadLocationException {
+    public boolean isDocDownloadedAndChecked(InitiateDelivery.DocFormat docFormat, boolean isPrintable) {
         File downloadedDocument = downloadAndGetDocument(isPrintable);
         return isDocumentNotEmpty(downloadedDocument, docFormat);
     }
@@ -57,9 +55,8 @@ public class DeliveryBaseUtils {
      * @param documentFile Downloaded document file
      * @param docFormat    Document format
      * @return True - if check passed. Otherwise - false.
-     * @throws BadLocationException
      */
-    public boolean isDocumentNotEmpty(File documentFile, InitiateDelivery.DocFormat docFormat) throws BadLocationException {
+    public boolean isDocumentNotEmpty(File documentFile, InitiateDelivery.DocFormat docFormat) {
         try {
             switch (docFormat) {
                 case PDF:
@@ -136,13 +133,12 @@ public class DeliveryBaseUtils {
      * @return File with downloaded Firm Style document
      */
     public File downloadFsDocument() {
-    	ExpectedCondition<Boolean> condition = new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver webDriver) {
-                JavascriptExecutor jsExecutor = (JavascriptExecutor) webDriver;
-                return (jsExecutor.executeScript("return typeof documentTabView != 'undefined' && typeof Cobalt.Url.Absolute != 'undefined';")).equals("true");
-            }
+
+        ExpectedCondition<Boolean> condition = webDriver -> {
+            JavascriptExecutor jsExecutor = (JavascriptExecutor) webDriver;
+            return (jsExecutor.executeScript("return typeof documentTabView != 'undefined' && typeof Cobalt.Url.Absolute != 'undefined';")).equals("true");
         };
+
         AbstractPage.waitFor(condition, webDriverDiscovery.getWebDriver());
         String plcRefScript = "return documentTabView.documentData.LegacyId;";
         String fileUrl = (String) khDocumentPage.executeScript("return " +
@@ -186,7 +182,6 @@ public class DeliveryBaseUtils {
      * not be successfull (when response code 4**, 5**)
      * @throws BadLocationException if document was not parsed successfully
      */
-    // TODO To refactor: we don't need docFormat arg here. It can be obtained from file
     public boolean isDocContainsOrNotContains(File document, InitiateDelivery.DocFormat docFormat,
                                               String phraseShouldExists, String phraseShouldAbsent) throws BadLocationException {
         String docText = getTextFromFile(document);
@@ -210,9 +205,8 @@ public class DeliveryBaseUtils {
      * not be successfull (when response code 4**, 5**)
      */
     public boolean isDocAsSingleStringContainsOrNotContains(File document, String phraseShouldExists, String phraseShouldAbsent) {
-        //TODO Pavel should rename this method
         Preconditions.checkNotNull(phraseShouldExists, "phraseShouldExists parameter(Text, which should exist in the document) is NULL");
-        String docText = getTextFromFile(document).replaceAll(REGEX_NEW_LINE, REPLACE_NEW_LINE_WITH);
+        String docText = getTextFromFile(document).replace(REGEX_NEW_LINE, REPLACE_NEW_LINE_WITH);
         return commonMethods.isStringContainsOrNotContains(docText, phraseShouldExists, phraseShouldAbsent);
     }
 
@@ -232,13 +226,8 @@ public class DeliveryBaseUtils {
         if (initiateDeliveryResponse.getTransactionId() == null) {
             throw new IllegalArgumentException("Initiate Delivery Response does not contains transaction Id");
         }
-        Function<RestServiceDeliveryImpl, StatusResponse> waitCondition = new Function<RestServiceDeliveryImpl, StatusResponse>() {
-            @Override
-            public StatusResponse apply(RestServiceDeliveryImpl service) {
-                return (service.isDocumentReady(initiateDeliveryResponse)) ?
-                        service.getDocumentStatus(initiateDeliveryResponse) : null;
-            }
-        };
+        Function<RestServiceDeliveryImpl, StatusResponse> waitCondition = service -> (service.isDocumentReady(initiateDeliveryResponse)) ?
+                    service.getDocumentStatus(initiateDeliveryResponse) : null;
         // Wait until document status will be "completed" and return StatusResponse result
         return AbstractPage.waitFor(waitCondition, deliveryService);
     }

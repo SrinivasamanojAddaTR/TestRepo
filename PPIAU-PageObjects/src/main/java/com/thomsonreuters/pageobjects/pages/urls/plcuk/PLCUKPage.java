@@ -17,7 +17,7 @@ public class PLCUKPage extends AbstractPage {
     }
 
     public Set<String> getAllLinksMatches(String regex) {
-        HashSet<String> result = new HashSet<String>();
+        HashSet<String> result = new HashSet<>();
         for (WebElement webElement : findElements(By.xpath("//a[@href]"))) {
             if (webElement.getAttribute("href").matches(regex)) {
                 result.add(webElement.getAttribute("href"));

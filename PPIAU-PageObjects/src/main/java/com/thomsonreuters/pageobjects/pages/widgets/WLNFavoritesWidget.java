@@ -3,7 +3,9 @@ package com.thomsonreuters.pageobjects.pages.widgets;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.NotFoundException;
 
+import static java.lang.String.format;
 
 
 public class WLNFavoritesWidget extends AbstractPage {
@@ -19,7 +21,7 @@ public class WLNFavoritesWidget extends AbstractPage {
             LOG.warn("context", e);
             return;
         }
-        throw new RuntimeException("The page '" + linkName + "' is present in '" + groupName + "' group");
+        throw new NotFoundException(format("The page '%s' is present in '%s' group",linkName,groupName));
     }
 
 }

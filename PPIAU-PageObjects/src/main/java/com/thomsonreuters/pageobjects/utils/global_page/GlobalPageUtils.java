@@ -1,7 +1,6 @@
 package com.thomsonreuters.pageobjects.utils.global_page;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
-import com.thomsonreuters.pageobjects.common.CommonMethods;
 import com.thomsonreuters.pageobjects.pages.global_page.ChinaCategoryPage;
 import com.thomsonreuters.pageobjects.pages.global_page.GlobalCategoryPage;
 import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.CaseDocumentPage;
@@ -20,7 +19,7 @@ import java.util.regex.Pattern;
 
 public class GlobalPageUtils {
 
-	protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(CommonMethods.class);
+	protected static final org.slf4j.Logger LOG = LoggerFactory.getLogger(GlobalPageUtils.class);
 
 	private GlobalCategoryPage globalCategoryPage = new GlobalCategoryPage();
 	private ChinaCategoryPage chinaCategoryPage = new ChinaCategoryPage();
@@ -31,10 +30,9 @@ public class GlobalPageUtils {
 
 	private static final String CLOSE_COOKIE_POLICY_LINK_XPATH = "//div[@id='CookieConsentMessage']//a[text()='Close']";
 
-	private List<String> updatesDates;
 
 	public boolean isTheListSortedInAlphabeticalOrder(List<String> checkedList) {
-		List<String> originalList = new ArrayList<String>();
+		List<String> originalList = new ArrayList<>();
 		originalList.addAll(checkedList);
 		Collections.sort(checkedList);
 		return originalList.equals(checkedList);
@@ -58,10 +56,11 @@ public class GlobalPageUtils {
 	}
 
 	public List<String> getAllDatesFromResultListOfLegalUpdates() {
+		List<String> updatesDates;
 		Pattern pattern = Pattern.compile(DATE_PATTERN);
-		updatesDates = new ArrayList<String>();
+		updatesDates = new ArrayList<>();
 		for (WebElement el : chinaCategoryPage.getAllDatesFromResultListOfLegalUpdates()) {
-			LOG.info("Adding LU date from widget: " + el.getText());
+			LOG.info("Adding LU date from widget: {}", el.getText());
 			if (!el.getText().isEmpty()) {
 				Matcher	matcher = pattern.matcher(el.getText());
 				while (matcher.find()) {
@@ -77,7 +76,7 @@ public class GlobalPageUtils {
 		String linesStyle = (String) globalCategoryPage.executeScript(
 				"return getComputedStyle($('#coid_website_browseMainColumn .co_column .co_featureBox, #coid_website_browseMainColumn .co_genericBox')["
 						+ number + "]).borderBottomStyle;");
-		LOG.info("Line style: ", linesStyle);
+		LOG.info("Line style: {}", linesStyle);
 		return linesStyle;
 	}
 
@@ -85,16 +84,15 @@ public class GlobalPageUtils {
 		globalCategoryPage.waitForPageToLoad();
 		String fontSize = (String) globalCategoryPage.executeScript(
 				"return getComputedStyle($(\"" + tag + ":contains(" + "'" + header + "'" + ")\")[0]).fontSize;");
-		LOG.info("Font size: ", fontSize);
+		LOG.info("Font size: {}", fontSize);
 		return fontSize;
 	}
 
 	public String getLineHeightStyle() {
 		globalCategoryPage.waitForPageToLoad();
 		globalCategoryPage.waitForPageToLoadAndJQueryProcessing();
-		String lineHeight = (String) globalCategoryPage.executeScript(
+		return (String) globalCategoryPage.executeScript(
 				"return getComputedStyle($('#coid_website_browseMainColumn .co_scrollWrapper .co_dataFeedWidget .co_artifactContent h3')[0]).lineHeight;");
-		return lineHeight;
 	}
 
 	public void clickMoreOptionOnKnowHowGlobalJurisdiction() {
@@ -108,7 +106,7 @@ public class GlobalPageUtils {
 	}
 
 	public List<String> getLinkNamesFromWebElementList(List<WebElement> elementList) {
-		List<String> links = new ArrayList<String>();
+		List<String> links = new ArrayList<>();
 		for (WebElement webElementLink : elementList) {
 			links.add(webElementLink.getText());
 		}
@@ -153,7 +151,7 @@ public class GlobalPageUtils {
 				globalCategoryPage.waitForExpectedElement(By.xpath(CLOSE_COOKIE_POLICY_LINK_XPATH), 2).click();
 			}
 		} catch (PageOperationException poe) {
-			LOG.info("context", poe.getMessage());
+			LOG.info("context {}", poe.getMessage());
 		}
 	}
 
