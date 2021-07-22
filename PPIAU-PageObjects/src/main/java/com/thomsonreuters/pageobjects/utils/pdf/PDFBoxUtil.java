@@ -1,7 +1,10 @@
 package com.thomsonreuters.pageobjects.utils.pdf;
 
 import com.google.common.collect.HashMultimap;
+import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.Link;
+import com.thomsonreuters.pageobjects.exceptions.ParseException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.exceptions.COSVisitorException;
 import org.apache.pdfbox.pdfparser.PDFStreamParser;
 import org.apache.pdfbox.pdfwriter.ContentStreamWriter;
@@ -21,6 +24,8 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDChoiceField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.apache.pdfbox.util.PDFTextStripperByArea;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -36,6 +41,8 @@ import java.util.Map;
 
 public class PDFBoxUtil {
 
+	private static final Logger LOG = LoggerFactory.getLogger(PDFBoxUtil.class);
+
 	public static final String LINE_BREAK_IN_PDF = "\\u000d\\u000a";
 
 	public PDDocument readDocument(String urlToPdf) {
@@ -43,7 +50,7 @@ public class PDFBoxUtil {
 		try {
 			document = PDDocument.loadNonSeq(new File(urlToPdf), null);
 		} catch (IOException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new ParseException(e.getMessage());
 		}
 		return document;
 	}
@@ -60,7 +67,7 @@ public class PDFBoxUtil {
 			parser = new PDFStreamParser(page.getContents().getStream());
 			parser.parse();
 		} catch (IOException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new ParseException(e.getMessage());
 		}
 		return parser;
 	}
@@ -71,7 +78,7 @@ public class PDFBoxUtil {
 			PDField nameField = (PDField) acroForm.getFields().get(0);
 			nameField.setValue(newName);
 		} catch (IOException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new ParseException(e.getMessage());
 		}
 	}
 
@@ -81,7 +88,7 @@ public class PDFBoxUtil {
 			PDField occupationField = (PDField) acroForm.getFields().get(7);
 			occupationField.setValue(newOccupation);
 		} catch (IOException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new ParseException(e.getMessage());
 		}
 	}
 
@@ -101,7 +108,7 @@ public class PDFBoxUtil {
 					.getFields().get(3);
 			dateOfBirthYear.setValue(newBirthYear);
 		} catch (IOException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new PageOperationException(e.getMessage());
 		}
 	}
 
@@ -114,23 +121,20 @@ public class PDFBoxUtil {
 			ContentStreamWriter tokenWriter = new ContentStreamWriter(out);
 			tokenWriter.writeTokens(parser.getTokens());
 		} catch (IOException e1) {
-			throw new RuntimeException(e1.getMessage());
+			throw new ParseException(e1.getMessage());
 		}
 		page.setContents(updatedStream);
 		document.setAllSecurityToBeRemoved(true);
 		try {
 			document.save(urlToPdf);
-			if (document != null) {
-				document.close();
-			}
+			document.close();
 		} catch (COSVisitorException | IOException e) {
-			throw new RuntimeException(e.getMessage());
+			throw new ParseException(e.getMessage());
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	private HashMultimap<String, PDAction> extractLinks(PDDocument document)
-			throws Exception {
+	private HashMultimap<String, PDAction> extractLinks(PDDocument document) throws IOException {
 		HashMultimap<String, PDAction> links = HashMultimap.create();
 		for (PDPage page : (List<PDPage>) document.getDocumentCatalog()
 				.getAllPages()) {
@@ -139,7 +143,7 @@ public class PDFBoxUtil {
 		return links;
 	}
 
-	private HashMultimap<String, PDAction> extractLinks(PDPage page) throws Exception {
+	private HashMultimap<String, PDAction> extractLinks(PDPage page) throws IOException {
 		HashMultimap<String, PDAction> links = HashMultimap.create();
 		PDFTextStripperByArea stripper = new PDFTextStripperByArea();
 		List<PDAnnotation> annotations = page.getAnnotations();
@@ -177,15 +181,15 @@ public class PDFBoxUtil {
 				String label = stripper.getTextForRegion(String.valueOf(j))
 						.trim();
 				stripper.getFonts();
-				System.out.println("label: " + label);
+				LOG.info("label: {}", label);
 				links.put(label, link.getAction());
 			}
 		}
 		return links;
 	}
 
-	public Map<String, String> extractURLs(String path) throws Exception {
-		Map<String, String> urls = new HashMap<String, String>();
+	public Map<String, String> extractURLs(String path) throws IOException {
+		Map<String, String> urls = new HashMap<>();
 		PDDocument document = null;
 		try {
 			document = PDDocument.load(path);
@@ -206,7 +210,7 @@ public class PDFBoxUtil {
 		return urls;
 	}
 
-    public List<Link> extractURLsToLinks(String path) throws Exception {
+    public List<Link> extractURLsToLinks(String path) throws IOException {
         List<Link> links = new ArrayList<>();
         PDDocument document = null;
         try {
@@ -236,8 +240,8 @@ public class PDFBoxUtil {
 
 	public String extractTextJoinLines(String path) throws IOException {
 		String textWithLineBreaks = extractText(path);
-		String parsedText = textWithLineBreaks.replaceAll(LINE_BREAK_IN_PDF, " ");
-		return parsedText;
+		return textWithLineBreaks.replace(LINE_BREAK_IN_PDF, StringUtils.SPACE);
+
 	}
 
 	public String extractFirstPageText(String path) throws IOException {
@@ -245,8 +249,7 @@ public class PDFBoxUtil {
 		PDFTextStripper pdfStripper = new PDFTextStripper();
 		pdfStripper.setStartPage(1);
 		pdfStripper.setEndPage(1);
-		String parsedText = pdfStripper.getText(document);
-		return parsedText;
+		return pdfStripper.getText(document);
 	}
 
 	public float getFontSizeFromPdf(String path, String text, int index)
@@ -268,8 +271,7 @@ public class PDFBoxUtil {
 		Parser stripper = new Parser();
 		String content = stripper.getText(doc);
 		doc.close();
-		String pdfLinesWithFont[] = content.split("\\r?\\n");
-		return pdfLinesWithFont;
+		return content.split("\\r?\\n");
 	}
 	
 	
@@ -288,7 +290,7 @@ public class PDFBoxUtil {
                     try {
     					ImageIO.write(((PDXObjectImage) object).getRGBImage(), "jpg", file);
     				} catch (IOException e) {
-    					throw new RuntimeException(e.getMessage());
+    					throw new PageOperationException(e.getMessage());
     				}
     		}
 		return true;
@@ -308,7 +310,7 @@ public class PDFBoxUtil {
     				try {
     					return ((PDXObjectImage) object).getRGBImage();
 					} catch (IOException e) {
-    					throw new RuntimeException(e.getMessage());
+    					throw new PageOperationException(e.getMessage());
 					}
     			}
     		}
@@ -321,14 +323,12 @@ public class PDFBoxUtil {
 		PDFTextStripper pdfStripper = new PDFTextStripper();
 		pdfStripper.setStartPage(startPage);
 		pdfStripper.setEndPage(endPage);
-		String parsedText = pdfStripper.getText(document);
-		return parsedText;
+		return pdfStripper.getText(document);
 	}
 	
 	public String extractPageTextByPageNumberJoinLines(String path, int startPage, int endPage) throws IOException {
 		String textWithLineBreaks = extractPageTextByPageNumber(path, startPage, endPage);
-		String parsedText = textWithLineBreaks.replaceAll(LINE_BREAK_IN_PDF, " ");
-		return parsedText;
+		return textWithLineBreaks.replace(LINE_BREAK_IN_PDF, StringUtils.SPACE);
 	}
 
 }
