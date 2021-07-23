@@ -18,7 +18,7 @@ import java.util.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class GlossarySearchTest extends BaseStepDef {
+public class GlossarySearchTestSteps extends BaseStepDef {
 
     private GlossaryPage glossaryPage = new GlossaryPage();
 

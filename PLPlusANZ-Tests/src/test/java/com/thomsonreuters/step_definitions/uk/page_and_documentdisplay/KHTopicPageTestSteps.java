@@ -20,7 +20,7 @@ import java.util.Map;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
 
-public class KHTopicPageTest extends BaseStepDef {
+public class KHTopicPageTestSteps extends BaseStepDef {
 
     private TopicPage topicPage = new TopicPage();
     private KHResourcePage resourcePage = new KHResourcePage();

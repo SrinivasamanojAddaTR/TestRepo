@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class BrowseMenuTest extends BaseStepDef {
+public class BrowseMenuTestSteps extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
     private GlossaryPage glossaryPage = new GlossaryPage();

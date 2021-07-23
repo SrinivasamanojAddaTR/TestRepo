@@ -7,7 +7,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
-public class SearchGuideConnectorsTest extends BaseStepDef {
+public class SearchGuideConnectorsTestSteps extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
 

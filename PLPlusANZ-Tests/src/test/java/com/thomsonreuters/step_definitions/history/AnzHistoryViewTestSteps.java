@@ -11,7 +11,7 @@ import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.legal_updates.CalendarAndDate;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.step_definitions.login.ClientIdTest1;
-import com.thomsonreuters.step_definitions.uk.search.BasicKnowHowSearchUKS101Test;
+import com.thomsonreuters.step_definitions.uk.search.BasicKnowHowSearchUKS101TestSteps;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -28,7 +28,7 @@ import java.util.List;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class AnzHistoryViewTest extends BaseStepDef {
+public class AnzHistoryViewTestSteps extends BaseStepDef {
 
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
     private LegalUpdatesResultsPage legalUpdatesResultsPage = new LegalUpdatesResultsPage();
@@ -37,7 +37,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private CommonMethods commonMethods = new CommonMethods();
     private ClientIdTest1 clientIdTest = new ClientIdTest1();
-    private BasicKnowHowSearchUKS101Test basicKnowHowSearchUKS101Test = new BasicKnowHowSearchUKS101Test();
+    private BasicKnowHowSearchUKS101TestSteps basicKnowHowSearchUKS101TestSteps = new BasicKnowHowSearchUKS101TestSteps();
     private WLNHeader wlnHeader = new WLNHeader();
     private FooterUtils footerUtils = new FooterUtils();
     private String storedTitle = null;
@@ -343,7 +343,7 @@ public class AnzHistoryViewTest extends BaseStepDef {
             String todayDate = CalendarAndDate.getCurrentDate();
             if (researchOrganizerPage.waitForExpectedElements(researchOrganizerPage.historyPageResultByTitleLink(), 10).size() != 0) {
                 String actualDate = researchOrganizerPage.getDateAtRowPosition("1").getText();
-                basicKnowHowSearchUKS101Test.theUserRunsAFreeTextSearchForTheQuery(searchTerm);
+                basicKnowHowSearchUKS101TestSteps.theUserRunsAFreeTextSearchForTheQuery(searchTerm);
                 legalUpdatesResultsPage.getAllUpdatesTitles().get(0).click();
                 legalUpdatesResultsPage.waitForPageToLoad();
                 legalUpdatesResultsPage.waitForPageToLoadAndJQueryProcessing();

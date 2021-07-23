@@ -8,7 +8,7 @@ import org.hamcrest.core.Is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class PADDTests extends BaseStepDef {
+public class PADDTestSteps extends BaseStepDef {
 
     private KHResourcePage khResourcePage = new KHResourcePage();
     int draftingNotesCount=0;

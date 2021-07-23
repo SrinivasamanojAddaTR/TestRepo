@@ -5,7 +5,7 @@ import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
-import com.thomsonreuters.step_definitions.uk.search.BasicKnowHowSearchUKS101Test;
+import com.thomsonreuters.step_definitions.uk.search.BasicKnowHowSearchUKS101TestSteps;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -17,12 +17,12 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by UC181137 on 23/10/2015.
  */
-public class AnzSearchResultsLessMoreMostTest extends BaseStepDef {
+public class AnzSearchResultsLessMoreMostTestSteps extends BaseStepDef {
 
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private SearchUtils searchUtils = new SearchUtils();
-    private BasicKnowHowSearchUKS101Test basicKnowHowSearchUKS101Test = new BasicKnowHowSearchUKS101Test();
+    private BasicKnowHowSearchUKS101TestSteps basicKnowHowSearchUKS101TestSteps = new BasicKnowHowSearchUKS101TestSteps();
     private FooterUtils footerUtils = new FooterUtils();
 
 
@@ -73,7 +73,7 @@ public class AnzSearchResultsLessMoreMostTest extends BaseStepDef {
             searchTermArray[0] = searchTermArray[0].toLowerCase();
             searchTermArray[2] = searchTermArray[2].toLowerCase();
         }
-        basicKnowHowSearchUKS101Test.theUserRunsAFreeTextSearchForTheQuery(query);
+        basicKnowHowSearchUKS101TestSteps.theUserRunsAFreeTextSearchForTheQuery(query);
     }
 
     @When("^user should see the search results$")

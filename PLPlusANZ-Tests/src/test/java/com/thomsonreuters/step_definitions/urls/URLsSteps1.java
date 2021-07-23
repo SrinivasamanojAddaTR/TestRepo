@@ -4,7 +4,7 @@ import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
-import com.thomsonreuters.step_definitions.header.responsive_design.UsernameLinkTest;
+import com.thomsonreuters.step_definitions.header.responsive_design.UsernameLinkTestSteps;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,7 +17,7 @@ public class URLsSteps1 extends BaseStepDef {
 	private NavigationCobalt navigationCobalt = new NavigationCobalt();
 	private HomePage page = new HomePage();
 	private CategoryPage categoryPage = new CategoryPage();
-	private UsernameLinkTest usernameLinkTest = new UsernameLinkTest();
+	private UsernameLinkTestSteps usernameLinkTest = new UsernameLinkTestSteps();
 
 	@When("^the user opens \"(.*?)\" url on PL AU website$")
 	public void theUserOpensUrlOnPLAUSite(String url) throws Throwable {

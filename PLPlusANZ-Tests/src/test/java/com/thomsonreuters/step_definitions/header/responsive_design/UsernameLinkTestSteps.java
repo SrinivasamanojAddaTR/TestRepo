@@ -15,7 +15,7 @@ import org.openqa.selenium.interactions.Actions;
 
 import static org.junit.Assert.assertTrue;
 
-public class UsernameLinkTest extends BaseStepDef {
+public class UsernameLinkTestSteps extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
     private HomePage homePage = new HomePage();

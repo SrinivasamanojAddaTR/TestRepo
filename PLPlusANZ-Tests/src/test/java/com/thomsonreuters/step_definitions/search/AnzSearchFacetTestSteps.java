@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Created by UC181137 on 23/10/2015.
  */
-public class AnzSearchFacetTest extends BaseStepDef {
+public class AnzSearchFacetTestSteps extends BaseStepDef {
 
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();
     private SearchUtils searchUtils = new SearchUtils();

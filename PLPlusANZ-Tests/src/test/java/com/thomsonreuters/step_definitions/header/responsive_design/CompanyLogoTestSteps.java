@@ -5,7 +5,7 @@ import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import org.junit.Assert;
 
-public class CompanyLogoTest extends BaseStepDef {
+public class CompanyLogoTestSteps extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
 

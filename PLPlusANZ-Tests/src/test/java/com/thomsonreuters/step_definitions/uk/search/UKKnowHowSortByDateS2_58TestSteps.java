@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by Steph Armytage on 03/11/2014.
  */
-public class UKKnowHowSortByDateS2_58Test extends BaseStepDef {
+public class UKKnowHowSortByDateS2_58TestSteps extends BaseStepDef {
 
     public SearchResultsPage searchResultsPage = new SearchResultsPage();
     private KnowHowSearchResultsPage knowHowSearchResultsPage = new KnowHowSearchResultsPage();

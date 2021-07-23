@@ -15,7 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertTrue;
 
-public class BasicKnowHowSearchUKS101Test extends BaseStepDef {
+public class BasicKnowHowSearchUKS101TestSteps extends BaseStepDef {
 
     private PracticalLawHomepage practicalLawHomepage = new PracticalLawHomepage();
     private SearchResultsPage searchResultsPage = new SearchResultsPage();

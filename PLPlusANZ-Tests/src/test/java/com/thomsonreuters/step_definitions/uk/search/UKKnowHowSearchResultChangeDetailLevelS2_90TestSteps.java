@@ -8,7 +8,7 @@ import cucumber.api.java.en.When;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class UKKnowHowSearchResultChangeDetailLevelS2_90Test extends BaseStepDef {
+public class UKKnowHowSearchResultChangeDetailLevelS2_90TestSteps extends BaseStepDef {
 
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
 

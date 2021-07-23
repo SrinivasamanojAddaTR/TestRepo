@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class GlossaryPageDefinitionTest extends BaseStepDef {
+public class GlossaryPageDefinitionTestSteps extends BaseStepDef {
 
     private GlossaryPage glossaryPage = new GlossaryPage();
 

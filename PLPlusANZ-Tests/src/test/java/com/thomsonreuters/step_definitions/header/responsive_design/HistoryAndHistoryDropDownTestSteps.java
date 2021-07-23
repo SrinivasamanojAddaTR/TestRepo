@@ -6,7 +6,7 @@ import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import cucumber.api.java.en.Then;
 import org.junit.Assert;
 
-public class HistoryAndHistoryDropDownTest extends BaseStepDef {
+public class HistoryAndHistoryDropDownTestSteps extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
     private PracticalLawHomepage plcHomePage = new PracticalLawHomepage();

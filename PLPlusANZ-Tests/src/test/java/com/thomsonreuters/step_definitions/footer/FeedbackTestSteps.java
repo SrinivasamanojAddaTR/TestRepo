@@ -21,7 +21,7 @@ import static com.thomsonreuters.driver.framework.AbstractPage.waitFor;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class FeedbackTests extends BaseStepDef {
+public class FeedbackTestSteps extends BaseStepDef {
 
     private WLNFooter footer = new WLNFooter();
     private FeedbackForm feedbackForm = new FeedbackForm();

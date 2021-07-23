@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by UC181137 on 23/10/2015.
  */
-public class AnzPreFilteredScopedSearchTest extends BaseStepDef {
+public class AnzPreFilteredScopedSearchTestSteps extends BaseStepDef {
 
     private SearchScopeControl searchScopeControl = new SearchScopeControl();
 

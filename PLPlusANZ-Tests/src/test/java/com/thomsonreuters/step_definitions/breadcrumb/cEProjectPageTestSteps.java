@@ -8,7 +8,7 @@ import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 
 import cucumber.api.java.en.Then;
 
-public class cEProjectPageTest extends BaseStepDef {
+public class cEProjectPageTestSteps extends BaseStepDef {
 	private ContractExpressHeader header = new ContractExpressHeader();
 	private HomePage homePage = new HomePage();
 	

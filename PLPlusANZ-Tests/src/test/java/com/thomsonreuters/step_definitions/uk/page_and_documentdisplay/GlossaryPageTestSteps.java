@@ -8,7 +8,7 @@ import cucumber.api.java.en.When;
 
 import static org.junit.Assert.assertTrue;
 
-public class GlossaryPageTest extends BaseStepDef {
+public class GlossaryPageTestSteps extends BaseStepDef {
 
     private GlossaryPage glossaryPage = new GlossaryPage();
     private FooterUtils footerUtils = new FooterUtils();

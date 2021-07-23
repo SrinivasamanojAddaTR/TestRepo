@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertTrue;
 
-public class CountryToggleDropdownTest extends BaseStepDef {
+public class CountryToggleDropdownTestSteps extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
 

@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by UC181137 on 23/10/2015.
  */
-public class AnzSearchConnectorsGuideTest extends BaseStepDef {
+public class AnzSearchConnectorsGuideTestSteps extends BaseStepDef {
 
     private WLNHeader header = new WLNHeader();
 

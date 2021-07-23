@@ -7,7 +7,7 @@ import cucumber.api.java.en.Then;
 
 import java.util.List;
 
-public class UKKnowHowPaginationS2_27Test extends BaseStepDef {
+public class UKKnowHowPaginationS2_27TestSteps extends BaseStepDef {
 
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
 
