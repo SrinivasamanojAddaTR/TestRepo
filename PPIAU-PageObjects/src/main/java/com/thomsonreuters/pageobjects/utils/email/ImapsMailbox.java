@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.email;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
+import com.thomsonreuters.pageobjects.exceptions.PLAUException;
 import com.thomsonreuters.utils.TimeoutUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +84,7 @@ public class ImapsMailbox extends AbstractMailbox {
     }
 
     @Override
-    public Message waitForMessageWithTitle(final String title, int timeoutSeconds, int intervalSeconds) throws Throwable {
+    public Message waitForMessageWithTitle(final String title, int timeoutSeconds, int intervalSeconds) throws PLAUException {
         // Wait while expected message won't be null.
         Function<ImapsMailbox, Optional<Message>> waitCondition = mailbox -> {
             try {
@@ -104,12 +105,12 @@ public class ImapsMailbox extends AbstractMailbox {
         if (expectedMessage.isPresent()) {
             return expectedMessage.get();
         }
-        throw new MessagingException("The message with title '" + title + "' wasn't received in " + timeoutSeconds + " seconds");
+        throw new PLAUException("The message with title '" + title + "' wasn't received in " + timeoutSeconds + " seconds");
     }
 
 
     @Override
-    public Message waitForMessageWithTitleAndSender(String title, String sender, int timeoutSeconds, int intervalSeconds) throws Throwable {
+    public Message waitForMessageWithTitleAndSender(String title, String sender, int timeoutSeconds, int intervalSeconds) throws MessagingException {
 
         Message result = null;
         long stopTime = System.currentTimeMillis() + timeoutSeconds * 1000;

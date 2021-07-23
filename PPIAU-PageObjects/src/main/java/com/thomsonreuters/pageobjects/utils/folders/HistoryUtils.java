@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.folders;
 
 
+import com.thomsonreuters.pageobjects.exceptions.PLAUException;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class HistoryUtils {
             researchOrganizerPage.waitForPageToLoadAndJQueryProcessingWithCustomTimeOut(60);
             researchOrganizerPage.waitForElementPresent(tab.getPageHeader());
         } else {
-            throw new RuntimeException("History tab '" + tab.getName() + "' absent!");
+            throw new PLAUException("History tab '" + tab.getName() + "' absent!");
         }
     }
 }

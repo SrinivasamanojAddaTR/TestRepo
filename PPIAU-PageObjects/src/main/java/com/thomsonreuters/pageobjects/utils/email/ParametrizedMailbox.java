@@ -1,5 +1,6 @@
 package com.thomsonreuters.pageobjects.utils.email;
 
+import com.thomsonreuters.pageobjects.exceptions.PLAUException;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.slf4j.Logger;
@@ -63,12 +64,12 @@ public class ParametrizedMailbox extends AbstractMailbox {
     }
 
     @Override
-    public Message waitForMessageWithTitle(final String title, int timeoutSeconds, int intervalSeconds) throws Throwable {
+    public Message waitForMessageWithTitle(final String title, int timeoutSeconds, int intervalSeconds) throws PLAUException {
         return waitForMessageWithTitleAndSender(title, null, timeoutSeconds, intervalSeconds);
     }
 
     @Override
-    public Message waitForMessageWithTitleAndSender(final String title, final String sender, int timeoutSeconds, int intervalSeconds) throws Throwable {
+    public Message waitForMessageWithTitleAndSender(final String title, final String sender, int timeoutSeconds, int intervalSeconds) throws PLAUException {
         final boolean withSender = !StringUtils.isEmpty(sender);
         final String withSenderMessage = withSender ? " and sender '" + sender + "'" : "";
         final SearchTerm searchTerm = new SearchTerm() {
