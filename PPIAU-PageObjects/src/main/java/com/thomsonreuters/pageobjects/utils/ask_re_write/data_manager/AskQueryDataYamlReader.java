@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AskQueryDataYamlReader {
     private static final String ASK_QUERIES_DATA_FILE = "/askQueriesData.yaml";
-    private static List<Object> queriesDataSets;
+    private List<Object> queriesDataSets;
 
     /**
      * reads the data from the specified .yaml file and passes it into

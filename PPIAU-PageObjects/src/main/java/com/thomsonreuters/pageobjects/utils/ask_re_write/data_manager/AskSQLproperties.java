@@ -1,15 +1,17 @@
 package com.thomsonreuters.pageobjects.utils.ask_re_write.data_manager;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.thomsonreuters.pageobjects.exceptions.PropertyFileReaderException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class AskSQLproperties {
-    private static final Logger LOG = LoggerFactory.getLogger(AskSQLproperties.class);
+
+    private AskSQLproperties()
+    {
+
+    }
 
     private static final Properties properties;
 
@@ -19,8 +21,7 @@ public class AskSQLproperties {
         try {
             properties.load(propertiesStream);
         } catch (IOException exception) {
-            LOG.error(exception.getMessage());
-            throw new RuntimeException(exception);
+            throw new PropertyFileReaderException(exception.getMessage());
         }
     }
 

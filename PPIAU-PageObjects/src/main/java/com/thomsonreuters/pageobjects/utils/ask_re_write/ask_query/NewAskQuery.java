@@ -1,6 +1,7 @@
 package com.thomsonreuters.pageobjects.utils.ask_re_write.ask_query;
 
 
+import com.thomsonreuters.pageobjects.exceptions.VariableAccessException;
 import com.thomsonreuters.pageobjects.utils.ask_re_write.Database;
 import org.slf4j.LoggerFactory;
 
@@ -70,11 +71,8 @@ public class NewAskQuery {
             relatedSqlQueries = {"PRACTICE_AREA.FORM_NAME"})
     private String practiceArea;
 
-    @AskQueryFields(questionFieldInRequest = "submit", commentFieldInRequest = "commentSubmit")
-    private final String submit = "submit";
-
     @AskQueryFields(elementOnDashboard = "Resource Id", sendToServer = false, relatedSqlQueries = {"QUESTION.PLC_REF"})
-    private String plc_ref;
+    private String plcRef;
 
     @AskQueryFields(elementOnDashboard = "Date Received", sendToServer = false, relatedSqlQueries = {"QUESTION.DATE_CREATED_ON_ASK"})
     private final String dateReceived = String.valueOf(new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(new Date()));
@@ -82,8 +80,7 @@ public class NewAskQuery {
     @AskQueryFields(elementOnDashboard = "Query Type", sendToServer = false)
     private String queryType;
 
-    @AskQueryFields(elementOnDashboard = "Status", sendToServer = false, relatedSqlQueries = {"QUESTION.STATUS"})
-    private final String status = "Not started";
+
 
     /**
      * Allocates a new {@link Map} that contains key-value pairs needed for constructing
@@ -106,13 +103,14 @@ public class NewAskQuery {
                 field.setAccessible(true);
                 if (fieldAnnotation.sendToServer()) {
                     String fieldInRequest = null;
-                    switch (queryType) {
-                        case QUESTION:
-                            fieldInRequest = fieldAnnotation.questionFieldInRequest();
-                            break;
-                        case COMMENT:
-                            fieldInRequest = fieldAnnotation.commentFieldInRequest();
-                            break;
+
+                    if (queryType.equals(AskQueryType.QUESTION))
+                    {
+                        fieldInRequest = fieldAnnotation.questionFieldInRequest();
+                    }
+                    else if (queryType.equals(AskQueryType.COMMENT))
+                    {
+                        fieldInRequest = fieldAnnotation.commentFieldInRequest();
                     }
                     keyValues.put(fieldInRequest, tryGetField(field));
                 }
@@ -183,7 +181,7 @@ public class NewAskQuery {
         } catch (IllegalAccessException ex) {
             LOG.error("No access to private field " + field.getName(), ex);
         }
-        throw new RuntimeException("Value was not returned from field: " + field.getName());
+        throw new VariableAccessException("Value was not returned from field: " + field.getName());
     }
 
     public String getDescription() {
@@ -266,12 +264,12 @@ public class NewAskQuery {
         this.practiceArea = practiceArea;
     }
 
-    public String getPlc_ref() {
-        return plc_ref;
+    public String getPlcRef() {
+        return plcRef;
     }
 
-    public void setPlc_ref(String plc_ref) {
-        this.plc_ref = plc_ref;
+    public void setPlcRef(String plcRef) {
+        this.plcRef = plcRef;
     }
 
     public String getQueryType() {
