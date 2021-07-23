@@ -2,15 +2,19 @@ package com.thomsonreuters.pageobjects.utils.email;
 
 import com.thomsonreuters.driver.framework.AbstractPage;
 import com.thomsonreuters.pageobjects.pages.mailinator.MailinatorPage;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+
 import java.util.List;
 
 public class MailinatorMethods extends AbstractPage {
 
     private MailinatorPage mailinatorPage = new MailinatorPage();
 
-    private static final String MAILINATOR_URL = "https://www.mailinator.com/";
+    private final String MAILINATOR_URL =  "https://www.mailinator.com/";
 
+    public MailinatorMethods() {
+    }
 
     public void navigateToMailinatorSite() {
         navigate(MAILINATOR_URL);
@@ -22,8 +26,8 @@ public class MailinatorMethods extends AbstractPage {
         mailinatorPage.userMailBoxHeading();
         Thread.sleep(60000);
         for (int row = 0; row < mailinatorPage.emailFrom().size(); row++) {
-            LOG.info("Email sender: {}", mailinatorPage.emailFrom().get(row).getText());
-            LOG.info("Email subject: {}", mailinatorPage.emailSubject().get(row).getText());
+            LOG.info("Email sender: " + mailinatorPage.emailFrom().get(row).getText());
+            LOG.info("Email subject: " + mailinatorPage.emailSubject().get(row).getText());
             if (mailinatorPage.emailFrom().get(row).getText().equalsIgnoreCase(sender)
                     && mailinatorPage.emailSubject().get(row).getText().trim().contains(subject.trim())) {
                 return true;
@@ -39,13 +43,13 @@ public class MailinatorMethods extends AbstractPage {
         for (WebElement emailCheckbox : emailCheckboxes) {
             emailCheckbox.click();
         }
-        if (!emailCheckboxes.isEmpty()) {
+        if (emailCheckboxes.size() > 0) {
             mailinatorPage.deleteEmailButton().click();
         }
     }
 
     private void openInboxFolder(String userEmail) {
-        LOG.info("Checking inbox for email user:{} ", userEmail);
+        LOG.info("Checking inbox for email user: " + userEmail);
         mailinatorPage.checkMailTextBox().sendKeys(userEmail.trim());
         mailinatorPage.checkItButton().click();
     }

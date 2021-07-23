@@ -487,6 +487,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     LOG.info("RESEARCH_DOC_DISPLAY routing");
                     comMethods.waitForElementToBeVisible(CAT_PAGE_COLLECTION_SET_ELEMENT)
                             .sendKeys(PL_PLUS_COLLECTION_SET);
+                    /** VERY IMPORTANT: TODO to remove when PMD issue is fixed */
                     onepassLogin.findElement(By.id("ProductMetadataDataVersion")).sendKeys("2482");
                     new Select(onepassLogin.findElement(WEB_CONTENT_COLLECTION_ELEMENT)).selectByValue(WEB_CONTENT_COLLECTION_VALUE);
                     routingPage.showFeatureSelectionsLink().click();
