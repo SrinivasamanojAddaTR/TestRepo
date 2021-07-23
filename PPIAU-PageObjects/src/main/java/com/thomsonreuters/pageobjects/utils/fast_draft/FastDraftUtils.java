@@ -48,19 +48,19 @@ public class FastDraftUtils {
 		projectPage.renameDocument(documentName).click();
 	}
 
-	public void uploadFormEFromFD(String documentName, String path) throws Throwable {
+	public void uploadFormEFromFD(String documentName, String path) {
 		projectPage.uploadFormE(documentName).click();
 		projectPage.selectUploadFormE().sendKeys(path);
 		projectPage.upload().click();
 		projectPage.waitForPageToLoad();
 	}
 
-	public void clickUploadFormEFromFormEPage() throws Throwable {
+	public void clickUploadFormEFromFormEPage() {
 		formEpage.uploadFormE().click();
 		formEpage.waitForPageToLoad();
 	}
 
-	public void uploadFormEFromFormEPage(String path) throws Throwable {
+	public void uploadFormEFromFormEPage(String path) {
 		clickUploadFormEFromFormEPage();
 		projectPage.selectUploadFormE().sendKeys(path);
 		projectPage.upload().click();

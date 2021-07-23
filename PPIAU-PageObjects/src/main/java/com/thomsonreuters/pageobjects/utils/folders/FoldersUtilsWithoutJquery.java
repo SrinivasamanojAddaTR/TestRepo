@@ -21,50 +21,6 @@ public class FoldersUtilsWithoutJquery extends FoldersUtils {
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private DocumentDeliveryPage documentDeliveryPage = new DocumentDeliveryPage();
 
-    @Override
-    public void openFolder(String folder) {
-        super.openFolder(folder);
-    }
-
-    @Override
-    public boolean doesFolderExist(String folder) {
-        return super.doesFolderExist(folder);
-    }
-
-    @Override
-    public void shareFolder(String folderName) {
-        super.shareFolder(folderName);
-    }
-
-    @Override
-    public void shareFolderViaEmail(String owner, String folderName, String userNameToShare) {
-        super.shareFolderViaEmail(owner, folderName, userNameToShare);
-    }
-
-    @Override
-    public void shareFolderViaEmailByEmail(String owner, String folderName, String emailToShare) {
-        super.shareFolderViaEmailByEmail(owner, folderName, emailToShare);
-    }
-
-    @Override
-    public void createNewGroupToShareFolder(String groupName, String member) {
-        super.createNewGroupToShareFolder(groupName, member);
-    }
-
-    @Override
-    public boolean isDocSortedBy(DocumentColumn column, SortOptions sortDirection) {
-        return super.isDocSortedBy(column, sortDirection);
-    }
-
-    @Override
-    public void moveToOriginalFolder(String folderName) {
-        super.moveToOriginalFolder(folderName);
-    }
-
-    @Override
-    public void waitAjaxIfNecessary() {
-        super.waitAjaxIfNecessary();
-    }
 
     @Override
     public String saveToFolder(String folder) {
@@ -113,28 +69,13 @@ public class FoldersUtilsWithoutJquery extends FoldersUtils {
         return parentFolder;
     }
 
-    @Override
-    public void deleteFolder(String folderName) {
-        super.deleteFolder(folderName);
-    }
-
-    @Override
-    public void renameFolderDoubleClick(String folderName) {
-        super.renameFolderDoubleClick(folderName);
-    }
-
-    @Override
-    public void renameFolder(String folderName) {
-        super.renameFolder(folderName);
-    }
-
     /**
      * Add document to folder if necessary
      *
      * @param newFolderName The folder name where document should be saved. Pass this as null or empty if you don't
      *                      need to add document to create a folder
-     * @param parentFolder The parent folder name where folder with "newFolderName" should be created or exists. Pass
-     *                     this as null or empty if don't need to add document to folder at all
+     * @param parentFolder  The parent folder name where folder with "newFolderName" should be created or exists. Pass
+     *                      this as null or empty if don't need to add document to folder at all
      */
     public void addDocumentToFolder(String newFolderName, String parentFolder) {
         if (StringUtils.isNotEmpty(parentFolder)) {
