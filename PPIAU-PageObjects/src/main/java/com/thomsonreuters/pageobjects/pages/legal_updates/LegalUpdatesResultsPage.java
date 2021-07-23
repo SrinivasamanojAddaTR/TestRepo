@@ -4,7 +4,6 @@ import com.thomsonreuters.pageobjects.utils.legal_updates.CalendarAndDate;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,26 +15,21 @@ import java.util.regex.Pattern;
 
 public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
 
-    public final static String TWENTY_PER_PAGE_SELECT_OPTION = "20 per page";
-    public final static String FIFTY_PER_PAGE_SELECT_OPTION = "50 per page";
-    public final static String ONE_HUNDRED_PER_PAGE_SELECT_OPTION = "100 per page";
-    private final String resultsHeaderLocator = "//div[@id='co_search_headerToolbar']";
-    private final String resultsFooterLocator = "//div[@id='co_search_footerToolbar']";
-
-    private List<String> legalUpdatesStatuses;
-
-    private List<Date> publishingDates;
-
-    private List<String> first5LUtitles;
+    public static final String TWENTY_PER_PAGE_SELECT_OPTION = "20 per page";
+    public static final String FIFTY_PER_PAGE_SELECT_OPTION = "50 per page";
+    public static final String ONE_HUNDRED_PER_PAGE_SELECT_OPTION = "100 per page";
+    private static final String RESULTS_HEADER_LOCATOR = "//div[@id='co_search_headerToolbar']";
+    private static final String RESULTS_FOOTER_LOCATOR = "//div[@id='co_search_footerToolbar']";
+    private static final int TIMEOUT_IN_SECONDS = 10;
 
     private HashMap<String, By> paginationArrowMap;
 
     public LegalUpdatesResultsPage() {
-    	initPaginationArrowsMap();
+        initPaginationArrowsMap();
     }
 
     private void initPaginationArrowsMap() {
-        paginationArrowMap = new HashMap<String, By>();
+        paginationArrowMap = new HashMap<>();
         paginationArrowMap.put("<<", By.id("co_search_footer_pagination_first"));
         paginationArrowMap.put("<", By.id("co_search_footer_pagination_prev"));
         paginationArrowMap.put(">>", By.id("co_search_footer_pagination_last"));
@@ -55,19 +49,19 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
     }
 
     public WebElement resultsPageHeader() {
-        return waitForExpectedElement(By.xpath(resultsHeaderLocator));
+        return waitForExpectedElement(By.xpath(RESULTS_HEADER_LOCATOR));
     }
 
     public WebElement findElementOnResultsPageHeader(String elementXpath) {
-        return waitForExpectedElement(By.xpath(resultsHeaderLocator + elementXpath));
+        return waitForExpectedElement(By.xpath(RESULTS_HEADER_LOCATOR + elementXpath));
     }
 
     public WebElement resultsPageFooter() {
-        return waitForExpectedElement(By.xpath(resultsFooterLocator));
+        return waitForExpectedElement(By.xpath(RESULTS_FOOTER_LOCATOR));
     }
 
     public WebElement findElementOnResultsPageFooter(String elementXpath) {
-        return waitForExpectedElement(By.xpath(resultsFooterLocator + elementXpath));
+        return waitForExpectedElement(By.xpath(RESULTS_FOOTER_LOCATOR + elementXpath));
     }
 
     public WebElement subscribeLink() {
@@ -87,9 +81,9 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
     }
 
     public boolean isDeliveryMethodLinkPresent() {
-    	return isElementDisplayed(By.xpath("//a[text()='Deliver']"));
+        return isElementDisplayed(By.xpath("//a[text()='Deliver']"));
     }
-    
+
     public WebElement resultsPerPageLink() {
         return waitForExpectedElement(By.id("selectedDisplayItemCount"));
     }
@@ -205,17 +199,17 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
     public WebElement resourceTypeFilter() {
         return waitForExpectedElement(By.xpath("//div[@id='facet_div_documentType']//h4[@id='co_facetHeaderdocumentType']"));
     }
-    
+
     public WebElement unitedKingdomLegalUpdatesBreadCrumbLink() {
         return waitForExpectedElement(By.linkText("United Kingdom: Legal Updates"));
     }
 
     public WebElement moreDetailBox() {
-        return waitForExpectedElement(By.xpath("//div[@class='co_searchResults_summary co_search_detailLevel_2']"),10);
+        return waitForExpectedElement(By.xpath("//div[@class='co_searchResults_summary co_search_detailLevel_2']"), TIMEOUT_IN_SECONDS);
     }
 
     public WebElement resultsList() {
-        return waitForExpectedElement(By.id("cobalt_search_knowHowPlc_results"),10);
+        return waitForExpectedElement(By.id("cobalt_search_knowHowPlc_results"), TIMEOUT_IN_SECONDS);
     }
 
     public String getfacetSubTitleText() {
@@ -233,37 +227,37 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
     public List<WebElement> getAllUpdatesTitles() {
         return waitForExpectedElements(By.xpath("//a[contains(@id,'cobalt_result_knowhow_title')]"));
     }
-    
+
     public WebElement sortDropDown() {
-    	return waitForExpectedElement(By.id("co_search_sortOptions"));
+        return waitForExpectedElement(By.id("co_search_sortOptions"));
     }
 
     public List<String> getFirstLU5Titles() {
-        first5LUtitles = new ArrayList<String>();
+        List<String> first5LUtitles = new ArrayList<>();
         List<WebElement> allTitles = getAllUpdatesTitles();
         for (int i = 0; i < 5; i++) {
-            LOG.info("Adding LU Title from results page: " + allTitles.get(i).getText());
+            LOG.info("Adding LU Title from results page: {}", allTitles.get(i).getText());
             first5LUtitles.add(allTitles.get(i).getText().trim());
         }
         return first5LUtitles;
     }
-    
+
     public boolean isSortDropDownDisplayed() {
-    	return isElementDisplayed(By.id("co_search_sortOptions"));
+        return isElementDisplayed(By.id("co_search_sortOptions"));
     }
-    
+
 
     public boolean isChildTopicsFacetsDisplayed() {
-    	return isElementDisplayed(By.id("facet_div_knowHowPracticeAreaSummary"));
+        return isElementDisplayed(By.id("facet_div_knowHowPracticeAreaSummary"));
     }
-    
-    
+
+
     public boolean isResultsListDisplayed() {
-    	return isElementDisplayed(By.id("cobalt_search_knowHowPlc_results"));
+        return isElementDisplayed(By.id("cobalt_search_knowHowPlc_results"));
     }
 
     public List<String> legalUpdatesStatuses() {
-        legalUpdatesStatuses = new ArrayList<String>();
+        List<String> legalUpdatesStatuses = new ArrayList<>();
         for (WebElement el : waitForExpectedElements(By.xpath("//span[@class='co_greenStatus']"))) {
             legalUpdatesStatuses.add(el.getText());
         }
@@ -271,7 +265,7 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
     }
 
     public List<Date> getPublishingDatesFromStatuses(List<String> statuses) {
-        publishingDates = new ArrayList<Date>();
+        List<Date> publishingDates = new ArrayList<>();
         Pattern p = Pattern.compile("\\d{2}\\s\\w+\\s\\d{4}");
         for (String status : statuses) {
             Matcher m = p.matcher(status);
@@ -285,17 +279,17 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
         }
         return publishingDates;
     }
-    
+
     public boolean isResourceTypeFilterDisplayed() {
-    	return isElementDisplayed(By.xpath("//div[@id='facet_div_documentType']//h4[@id='co_facetHeaderdocumentType']"));
+        return isElementDisplayed(By.xpath("//div[@id='facet_div_documentType']//h4[@id='co_facetHeaderdocumentType']"));
     }
-    
+
     public boolean ismoreDetailBoxDisplayed() {
-    	return isElementDisplayed(By.xpath("//div[@class='co_searchResults_summary co_search_detailLevel_2']"));
+        return isElementDisplayed(By.xpath("//div[@class='co_searchResults_summary co_search_detailLevel_2']"));
     }
 
     public boolean isPaginationArrowDisplayed(String paginationArrow) {
-    	return isElementDisplayed(paginationArrowMap.get(paginationArrow));
+        return isElementDisplayed(paginationArrowMap.get(paginationArrow));
     }
 
 }

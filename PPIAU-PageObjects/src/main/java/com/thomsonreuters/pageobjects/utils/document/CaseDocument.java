@@ -5,6 +5,7 @@ import com.thomsonreuters.pageobjects.common.Link;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Pavel_Ardenka on 11/07/2016.
@@ -30,9 +31,9 @@ public class CaseDocument extends Document {
         POSITIVE_TREATMENT(NEUTRAL_TREATMENT.getName(), "4", NEUTRAL_TREATMENT.getStatusIconClassName(), NEUTRAL_TREATMENT.getCaseTreatmentFacets()),
         POSSIBLY_TREATMENT(NEUTRAL_TREATMENT.getName(), "5", NEUTRAL_TREATMENT.getStatusIconClassName(), NEUTRAL_TREATMENT.getCaseTreatmentFacets()),
         APPEAL_NO_TREATMENT("Appeal Outstanding", "0A", MILDLY_TREATMENT.getStatusIconClassName(), new String[]{"No Treatment", "Appeal Outstanding"}),
-        APPEAL_NEUTRAL("Positive/Neutral Judicial Consideration With Appeal Outstanding", "1A", "icon_circle_checkmark_green_exclamation_yellow_small", new String[]{"Positive/Neutral", "Appeal Outstanding"}),
-        APPEAL_MILDLY("Mixed Judicial Consideration With Appeal Outstanding", "2A", MILDLY_TREATMENT.getStatusIconClassName(), new String[]{"Mixed/Mildly Negative", "Appeal Outstanding"}),
-        APPEAL_NEGATIVE("Negative Judicial Consideration With Appeal Outstanding", "3A", "icon_circle_minus_red_exclamation_yellow_small", new String[]{"Negative", "Appeal Outstanding"}),
+        APPEAL_NEUTRAL("Positive/Neutral Judicial Consideration With Appeal Outstanding", "1A", "icon_circle_checkmark_green_exclamation_yellow_small", new String[]{"Positive/Neutral", APPEAL_NO_TREATMENT.getName()}),
+        APPEAL_MILDLY("Mixed Judicial Consideration With Appeal Outstanding", "2A", MILDLY_TREATMENT.getStatusIconClassName(), new String[]{"Mixed/Mildly Negative", APPEAL_NO_TREATMENT.getName()}),
+        APPEAL_NEGATIVE("Negative Judicial Consideration With Appeal Outstanding", "3A", "icon_circle_minus_red_exclamation_yellow_small", new String[]{"Negative", APPEAL_NO_TREATMENT.getName()}),
         APPEAL_POSITIVE(APPEAL_NEUTRAL.getName(), "4A", APPEAL_NEUTRAL.getStatusIconClassName(), APPEAL_NEUTRAL.getCaseTreatmentFacets()),
         APPEAL_POSSIBLY(APPEAL_NEUTRAL.getName(), "5A", APPEAL_NEUTRAL.getStatusIconClassName(), APPEAL_NEUTRAL.getCaseTreatmentFacets());
 
@@ -170,4 +171,28 @@ public class CaseDocument extends Document {
     public void setTermsInContext(List<Link> termsInContext) {
         this.termsInContext = termsInContext;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        CaseDocument that = (CaseDocument) o;
+        return Objects.equals(partyNames, that.partyNames) &&
+                documentStatus == that.documentStatus &&
+                Objects.equals(docTitleHref, that.docTitleHref) &&
+                Objects.equals(court, that.court) &&
+                Objects.equals(judgmentDate, that.judgmentDate) &&
+                Objects.equals(whereReported, that.whereReported) &&
+                Objects.equals(summary, that.summary) &&
+                Objects.equals(subject, that.subject) &&
+                Objects.equals(keywords, that.keywords) &&
+                Objects.equals(termsInContext, that.termsInContext);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), partyNames, documentStatus, docTitleHref, court, judgmentDate, whereReported, summary, subject, keywords, termsInContext);
+    }
+
 }
