@@ -132,7 +132,7 @@ public class ImapsMailbox extends AbstractMailbox {
             }
         }
         if (result == null) {
-            throw new MessagingException("Could not get message with title '" + title + "' and sender '" + sender + "'");
+            throw new PLAUException("Could not get message with title '" + title + "' and sender '" + sender + "'");
         }
         return result;
     }

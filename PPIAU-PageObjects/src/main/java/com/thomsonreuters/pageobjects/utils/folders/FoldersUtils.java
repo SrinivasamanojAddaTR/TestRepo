@@ -2,6 +2,7 @@ package com.thomsonreuters.pageobjects.utils.folders;
 
 import com.thomsonreuters.driver.exception.PageOperationException;
 import com.thomsonreuters.pageobjects.common.*;
+import com.thomsonreuters.pageobjects.exceptions.PLAUException;
 import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.annotations.ContactsForSharingPage;
 import com.thomsonreuters.pageobjects.pages.folders.*;
@@ -95,7 +96,6 @@ public class FoldersUtils {
 
     public String addDescription(String description, String documentGUID) {
         String docTitle = researchOrganizerPage.getTitle(documentGUID);
-//    	pageActions.mouseOverAndClickElement(researchOrganizerPage.descriptionWidgetAddButton(docTitle));
         WebElement el = researchOrganizerPage.descriptionWidgetAddButton(docTitle);
         commonMethods.mouseOver(el);
         el.click();
@@ -237,7 +237,6 @@ public class FoldersUtils {
         return destinationFolderName;
     }
 
-    // TODO 1. Move to AbstractPage. 2. Make waitForPageToLoadAndJQueryProcessing() more flexible / parametrized
     public void waitAjaxIfNecessary() {
         if (!commonMethods.getDriver().getCurrentUrl().contains("Glossary")) {
             researchOrganizerPage.waitForPageToLoadAndJQueryProcessing();
@@ -253,13 +252,13 @@ public class FoldersUtils {
         } else {
             saveToPopup.waitForPageToLoad();
             try {
-                if(saveToPopup.isRootFolderExpanded()){
+                if (saveToPopup.isRootFolderExpanded()) {
                     saveToPopup.expandRootFolderWait().click();
                 }
                 saveToPopup.waitForPageToLoad();
                 saveToPopup.selectFolderWait(folder).click();
             } catch (NoSuchElementException e) {
-                throw new RuntimeException("Folder '" + folder + "'doesn't present");
+                throw new PLAUException("Folder '" + folder + "'doesn't present");
             }
         }
         saveToPopup.save().click();
@@ -359,7 +358,7 @@ public class FoldersUtils {
             WebElement document = searchResultsPage.searchResultPosition(String.valueOf(i));
             String guid = document.getAttribute("docguid");
             String documentName = document.getText();
-            LOG.info("Document guid is '" + guid + "'. Document name is '" + documentName + "'");
+            LOG.info("Document guid is '{}'. Document name is '{}'", guid, documentName);
             guids.add(guid);
             titles.add(documentName);
         }
@@ -375,9 +374,9 @@ public class FoldersUtils {
             saveToPopup.expandRootFolder().click();
             saveToPopup.selectFolder(folderName).click();
         } catch (NoSuchElementException e) {
-            LOG.info("Folder with " + folderName + " name was not found");
+            LOG.info("Folder with {} name was not found", folderName);
         }
-        throw new RuntimeException("Folder '" + folderName + "' presents");
+        throw new PLAUException("Folder '" + folderName + "' presents");
     }
 
     public void createFolderWithContent(String folder, List<String> listOfGuid) {

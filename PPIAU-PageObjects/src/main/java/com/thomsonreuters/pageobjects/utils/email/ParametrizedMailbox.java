@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import javax.mail.Flags;
 import javax.mail.Folder;
 import javax.mail.Message;
