@@ -9,9 +9,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Pavel_Ardenka on 18/07/2016.
@@ -34,14 +32,6 @@ public class LegislationDocumentTransformer extends BaseDocumentTransformer {
     private static final String XML_NOVUS_GUID_ATTRIBUTE_NAME = "tuuid";
     private static final String XML_NOVUS_VERSION_ATTRIBUTE_NAME = "version";
     private static final String XML_NOVUS_VERSIONS_ATTRIBUTE_NAME = "versions";
-    private static final String XML_NOVUS_PROVISION_GROUPS = "//provisions-table//pgroup";
-    private static final String XML_NOVUS_PROVISION_GROUP = "(//provisions-table//pgroup)[%1$d]";
-    private static final String XML_NOVUS_PROVISION_GROUP_CITE = XML_NOVUS_PROVISION_GROUP + "/pgroup-number//cite.query";
-    private static final String XML_NOVUS_PROVISION_GROUP_TITLE = XML_NOVUS_PROVISION_GROUP + "/pgroup-title";
-    private static final String XML_NOVUS_PROVISION_GROUP_ENTRIES = XML_NOVUS_PROVISION_GROUP + "/pgroup-entry";
-    private static final String XML_NOVUS_PROVISION_GROUP_ENTRY = XML_NOVUS_PROVISION_GROUP_ENTRIES + "[%2$d]";
-    private static final String XML_NOVUS_PROVISION_GROUP_ENTRY_CITE = XML_NOVUS_PROVISION_GROUP_ENTRY + "/pgroup-number//cite.query";
-    private static final String XML_NOVUS_PROVISION_GROUP_ENTRY_TITLE = XML_NOVUS_PROVISION_GROUP_ENTRY + "/pgroup-title";
     private static final String XML_NOVUS_BILL_TYPE_NAME = "//resultList/bill/type";
 
 
@@ -76,7 +66,7 @@ public class LegislationDocumentTransformer extends BaseDocumentTransformer {
             }
             setCommencementData(xmlFromNovus, document);
         } catch (Exception e) {
-            LOG.info("XML processing error. GUID: " + document.getGuid(), e);
+            LOG.info("XML processing error. GUID : " + document.getGuid(), e);
         }
     }
 
@@ -177,7 +167,7 @@ public class LegislationDocumentTransformer extends BaseDocumentTransformer {
             document.setStartDate(commonMethods.getDateFromString(startDateNodeList.item(0).getTextContent(),
                     XML_NOVUS_ELEMENT_DATE_FORMAT));
         } catch (Exception e) {
-            LOG.warn("There is no start date for the document: " + document.getGuid());
+            LOG.warn("There is no start date for the document: {}", document.getGuid());
         }
     }
 
@@ -194,7 +184,7 @@ public class LegislationDocumentTransformer extends BaseDocumentTransformer {
             document.setEndDate(commonMethods.getDateFromString(endDateNodeList.item(0).getTextContent(),
                     XML_NOVUS_ELEMENT_DATE_FORMAT));
         } catch (Exception e) {
-            LOG.warn("There is no end date for the document: " + document.getGuid());
+            LOG.warn("There is no end date for the document: {}", document.getGuid());
         }
     }
 
@@ -216,55 +206,7 @@ public class LegislationDocumentTransformer extends BaseDocumentTransformer {
             document.setVersion(version);
             document.setVersionsCount(versions);
         } catch (Exception e) {
-            LOG.warn("There is no version / versions for the document: " + document.getGuid());
+            LOG.warn("There is no version / versions for the document: {}", document.getGuid());
         }
     }
-
-    /**
-     * Set provisions table for AOP / AOA / SI
-     * WARNING: The document should have provision already {@link LegislationDocument#setProvision(String)}
-     *
-     * @param xmlFromNovus XML document representation
-     * @param document Link to the legislation document object
-     */
-    private void setProvisionsTable(String xmlFromNovus, LegislationDocument document) {
-        try {
-            if (document.isTopLeveled()) {
-                Map<String, List<String>> aopProvisions = new LinkedHashMap<>();
-                int provisionGroupsCount = returnXpathNodes(xmlFromNovus, XML_NOVUS_PROVISION_GROUPS).getLength();
-                for (int i = 0; i < provisionGroupsCount; i++) {
-                    List<String> provisions = new ArrayList<>();
-                    int groupNodeIndex = i + 1;
-                    String groupName = returnXpathNodes(xmlFromNovus,
-                            String.format(XML_NOVUS_PROVISION_GROUP_CITE, groupNodeIndex)).item(0).getTextContent();
-                    NodeList groupTitleNodeList = returnXpathNodes(xmlFromNovus,
-                            String.format(XML_NOVUS_PROVISION_GROUP_TITLE, groupNodeIndex));
-                    groupName = (groupTitleNodeList.getLength() > 0) ?
-                            groupName + " " + groupTitleNodeList.item(0).getTextContent() : groupName;
-                    int entriesCount = returnXpathNodes(xmlFromNovus,
-                            String.format(XML_NOVUS_PROVISION_GROUP_ENTRIES, groupNodeIndex)).getLength();
-                    // The first root section "Whole document" should be skipped because it not shown in the search results and not a provision
-                    if (i > 0) {
-                        provisions.add(groupName);
-                    }
-                    for (int k = 0; k < entriesCount; k++) {
-                        int entryNodeIndex = k + 1;
-                        String entryName = returnXpathNodes(xmlFromNovus,
-                                String.format(XML_NOVUS_PROVISION_GROUP_ENTRY_CITE, groupNodeIndex, entryNodeIndex)).item(0).getTextContent();
-                        NodeList entryTitleNodeList = returnXpathNodes(xmlFromNovus,
-                                String.format(XML_NOVUS_PROVISION_GROUP_ENTRY_TITLE, groupNodeIndex, entryNodeIndex));
-                        entryName = (entryTitleNodeList.getLength() > 0) ?
-                                entryName + " " + entryTitleNodeList.item(0).getTextContent() : entryName;
-                        provisions.add(entryName);
-                    }
-                    aopProvisions.put(groupName, provisions);
-                }
-
-                document.setAopProvisions(aopProvisions);
-            }
-        } catch (Exception e) {
-            LOG.warn("There is no version / versions for the document: " + document.getGuid());
-        }
     }
-
-}

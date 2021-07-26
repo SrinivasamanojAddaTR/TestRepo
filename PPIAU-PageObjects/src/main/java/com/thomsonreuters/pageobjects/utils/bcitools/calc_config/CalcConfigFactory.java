@@ -48,9 +48,9 @@ public class CalcConfigFactory {
   
     private static class InterfaceInvocationHandler implements InvocationHandler {
     	
-    	private final int BEGIN_INDEX = 3;
+    	private static final int BEGIN_INDEX = 3;
   
-        private Map<String, Object> values = new HashMap<String, Object>();
+        private Map<String, Object> values = new HashMap<>();
   
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             String methodName = method.getName();

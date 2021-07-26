@@ -18,6 +18,7 @@ public abstract class AbstractMailbox implements Mailbox {
     static final String INBOX_FOLDER_NAME = "INBOX";
     static final String SENT_FOLDER_NAME = "Sent";
     static final String TIMEOUT_MILLIS = "90000"; // 1.5 minutes
+    static final String MAIL = "mail.";
 
     Store store = null;
     Folder openedFolder = null;
@@ -35,12 +36,10 @@ public abstract class AbstractMailbox implements Mailbox {
     }
 
     private <T extends AbstractMailbox> Thread getCleanUpThread(final T instance) {
-        return new Thread(new Runnable() {
-            @Override
-            public void run() {
-                LOG.info("Session closing for '{}'", instance.toString());
-                instance.close();
-            }
+        return new Thread(() ->
+        {
+            LOG.info("Session closing for '{}'", instance);
+            instance.close();
         });
     }
 
@@ -64,9 +63,9 @@ public abstract class AbstractMailbox implements Mailbox {
             close();
             Properties props = new Properties();
             props.setProperty("mail.store.protocol", protocol);
-            props.setProperty("mail." + protocol + ".connectiontimeout", TIMEOUT_MILLIS);
-            props.setProperty("mail." + protocol + ".timeout", TIMEOUT_MILLIS);
-            props.setProperty("mail." + protocol + ".wtiretimeout", TIMEOUT_MILLIS);
+            props.setProperty(MAIL + protocol + ".connectiontimeout", TIMEOUT_MILLIS);
+            props.setProperty(MAIL + protocol + ".timeout", TIMEOUT_MILLIS);
+            props.setProperty(MAIL + protocol + ".wtiretimeout", TIMEOUT_MILLIS);
             Session session = Session.getInstance(props);
             store = session.getStore();
             store.connect(incomingServer, userName, password);

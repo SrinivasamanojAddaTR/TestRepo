@@ -2,6 +2,7 @@ package com.thomsonreuters.pageobjects.utils.ask_re_write.data_manager;
 
 
 import com.google.common.collect.Lists;
+import com.thomsonreuters.pageobjects.exceptions.QueryNotInitialized;
 import com.thomsonreuters.pageobjects.utils.ask_re_write.ask_query.NewAskQuery;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -40,7 +41,7 @@ public class AskQueryDataYamlReader {
                 return newAskQuestion;
             }
         }
-        throw new RuntimeException("New Ask Query was not initialised from file: " +
+        throw new QueryNotInitialized("New Ask Query was not initialised from file: " +
                 ASK_QUERIES_DATA_FILE + " by description: " + description);
     }
 }

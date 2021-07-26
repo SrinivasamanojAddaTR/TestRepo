@@ -55,7 +55,7 @@ public class CasesDocumentTransformer extends BaseDocumentTransformer {
             document.setDocumentStatus(CaseDocument.CaseDocumentStatus.getStatusByColorCode(
                     flagColorCodeNodeList.item(0).getTextContent()));
         } catch (Exception e) {
-            LOG.warn("There is no flag color code for the document: " + document.getGuid());
+            LOG.warn("There is no flag color code for the document: {}", document.getGuid());
         }
     }
 
