@@ -8,7 +8,7 @@ public enum HistoryTabs {
 			By.id("co_ro_history_search_types_documents_non_clickable")),
 	SEARCHES("Searches", By.xpath("//*[text()='Searches']"), By.id("co_ro_history_search_types_searches_clickable"),
 			By.id("co_ro_history_search_types_searches_non_clickable")),
-	ALL_HISTORY("All History", By.xpath("//*[text()='All History']"), By.id("co_ro_history_search_types_all_history_clickable"),
+	ALL_HISTORY("All_History", By.xpath("//*[text()='All History']"), By.id("co_ro_history_search_types_all_history_clickable"),
 			By.id("co_ro_history_search_types_all_history_non_clickable"));
 
 	private String name;
