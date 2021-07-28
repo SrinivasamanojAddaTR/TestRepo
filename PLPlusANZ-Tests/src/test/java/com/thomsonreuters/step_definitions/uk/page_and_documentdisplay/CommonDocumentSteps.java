@@ -52,13 +52,6 @@ public class CommonDocumentSteps {
 
     private static final Logger LOG = LoggerFactory.getLogger(CommonDocumentSteps.class);
 
-    @When("^user enters search with \"(.*?)\"$")
-    public void enterSearchTerm(String docName) throws Throwable {
-        standardDocumentUtils.goToDocument(docName);
-        documentObject = docsMap.get(docName);
-        searchUtils.enterSearchText("adv: \"" + documentObject.getDocName() + "\"");
-    }
-
     @When("^User selects \"(.*?)\"$")
     public void userSelects(String docName) throws Throwable {
         assertTrue(docName + " is missing/not able to find in search results",
