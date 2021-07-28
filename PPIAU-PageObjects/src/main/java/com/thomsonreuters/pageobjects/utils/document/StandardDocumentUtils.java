@@ -1,15 +1,12 @@
 package com.thomsonreuters.pageobjects.utils.document;
 
-import com.thomsonreuters.driver.configuration.Hosts;
 import com.thomsonreuters.pageobjects.common.CommonMethods;
-import com.thomsonreuters.pageobjects.other_pages.NavigationCobalt;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.CaseDocumentPage;
 import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.StandardDocumentPage;
 import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document.ViewDocumentPopUpPage;
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.rest.LinkingBaseUtils;
-import com.thomsonreuters.pageobjects.utils.RoutingPage;
 import com.thomsonreuters.pageobjects.utils.folders.FoldersUtils;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -17,32 +14,20 @@ import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.*;
-
 public class StandardDocumentUtils {
 
     private LinkingBaseUtils linkingUtils = new LinkingBaseUtils();
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private StandardDocumentPage standardDocumentPage = new StandardDocumentPage();
     private CommonMethods comMethods = new CommonMethods();
-    private FoldersUtils foldersUtils = new FoldersUtils();
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
-    private RoutingPage routingPage = new RoutingPage();
     private ViewDocumentPopUpPage viewDocumentPopUpPage = new ViewDocumentPopUpPage();
     private CaseDocumentPage caseDocumentPage = new CaseDocumentPage();
-    private NavigationCobalt navigationCobalt = new NavigationCobalt();
-    private Hosts hosts = Hosts.getInstance();
-    private DocumentObject documentObject;
-    private String baseUrl = System.getProperty("base.url");
 
     // Error message for Cucumber report
     private String paLinksCheckErrMsg = "";
 
     private static final Logger LOG = LoggerFactory.getLogger(StandardDocumentUtils.class);
-    private static Map<String, DocumentObject> docsMap = new HashMap<String, DocumentObject>();
-    private static int routingCount = 0;
 
     /**
      * Check if all links for document in section are valid
@@ -111,8 +96,9 @@ public class StandardDocumentUtils {
      */
     private boolean isDocumentLinksAreValid(String sectionName, Element linkToCheck) {
         String hrefValue = linkToCheck.attr("href");
-        LOG.debug("Checking link '" + linkToCheck.text() + "' and href '" + hrefValue + "', section '"
-                + sectionName + "'");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug(buildLogMessage(sectionName, linkToCheck, hrefValue));
+        }
 
         Elements header = linkingUtils.getElementsFromHtml(linkingUtils.getPageSourceForLink(hrefValue), ".co_title");
 
@@ -124,6 +110,17 @@ public class StandardDocumentUtils {
             return false;
         }
         return true;
+    }
+    private String buildLogMessage(String sectionName, Element linkToCheck, String hrefValue) {
+        StringBuilder logMessageBuilder = new StringBuilder();
+        logMessageBuilder.append("Checking link '");
+        logMessageBuilder.append(linkToCheck.text());
+        logMessageBuilder.append("' and href '");
+        logMessageBuilder.append(hrefValue);
+        logMessageBuilder.append("', section '");
+        logMessageBuilder.append(sectionName);
+        logMessageBuilder.append("'");
+        return logMessageBuilder.toString();
     }
 
     public Document openSearchResultLinkAtPositionAndStoreItsTitleAndGuid(String linkPosition) {
@@ -140,126 +137,14 @@ public class StandardDocumentUtils {
         return standardDocumentPage.documentMetaInfo().getAttribute("id").split("_")[3];
     }
 
-    public boolean linkContainsTextAndHrefAttribute(String position, String text, String url) throws Throwable {
+    public boolean linkContainsTextAndHrefAttribute(String position, String text, String url) {
         standardDocumentPage.waitForPageToLoad();
         WebElement actualDocument = researchOrganizerPage.getLinkToDocumentAtRowPosition(position);
         String currentText = actualDocument.getText();
         String currentUrl = actualDocument.getAttribute("href");
-        text = foldersUtils.makeDocumentShorterForFoldersAndHistoryChecks(text);
+        text = FoldersUtils.makeDocumentShorterForFoldersAndHistoryChecks(text);
 
         return currentUrl.contains(url) && currentText.contains(text);
-//        SoftAssertions softAssertions = new SoftAssertions();
-//        softAssertions.assertThat(currentUrl)
-//                .withFailMessage("Current URL '" + currentUrl + "' does not contain expected '" + url + "'")
-//                .contains(url);
-//        softAssertions
-//                .assertThat(currentText)
-//                .withFailMessage(
-//                        "Current document title '" + currentText + "' does not contain expected text '" + text + "'")
-//                .contains(text);
-//        softAssertions.assertAll();
-    }
-
-    /**
-     * This private method is used for accessing document directly and to store the case analysis document primary and secondary links as a java object.
-     * And directly place the user on the case document screen.
-     *
-     * @param document
-     */
-    public void goToDocument(String document) {
-        documentObject = getDocument(document);
-        /*String documentLink = getPlcUKUrl() + "/Document/" + documentObject.getDocId() + "/View/FullText.html";
-        logger.info("Document Link : " + documentLink);
-        webDriverDiscovery.getURL(documentLink);*/
-    }
-
-    /**
-     * This private method is used for document, to store the case/legislation document primary and secondary links as a java object.
-     *
-     * @param document
-     * @return DocumentObject
-     */
-    public DocumentObject getDocument(String document) {
-
-        // Loading the properties based on the document name
-        if (!docsMap.keySet().contains(document)) {
-
-            // Setting the properties into java object and maintaining the document objects as a map for future use.
-            DocumentObject docObject = getDocumentAsObject(document);
-            docsMap.put(document, docObject);
-        }
-        return documentObject;
-    }
-
-    /*
-     * This method is used for CaseAnalysis and Legislation documents only. And read the properties file based on the given file name and move the properties into docbase java bean.
-     *
-     * @param document - name of the document.
-     * @return CaseAnalysisDoc object.
-     */
-    public DocumentObject getDocumentAsObject(String document) {
-        DocumentObject docObject = new DocumentObject();
-        Properties caseProps = new Properties();
-
-        // Reading the properties from the given document properties file.
-
-        try {
-            FileInputStream fis = null;
-            try {
-                fis = new FileInputStream("src/test/resources/actData/" + document + ".properties");
-                caseProps.load(fis);
-            } finally {
-                if (null != fis) {
-                    fis.close();
-                }
-            }
-        } catch (IOException e) {
-            try {
-                FileInputStream fis = null;
-                try {
-                    fis = new FileInputStream("src/test/resources/actData/" + document + ".properties");
-                    caseProps.load(fis);
-                } finally {
-                    if (null != fis) {
-                        fis.close();
-                    }
-                }
-            } catch (IOException e1) {
-                LOG.warn(" Unable to find the file.");
-            }
-        }
-
-        // Setting the properties into java object.
-
-        if (caseProps != null) {
-            int nameCount = 0, idCount = 0;
-            Map<String, List<String>> map = new HashMap<String, List<String>>();
-
-            for (Object mapKey : caseProps.keySet()) {
-                if (mapKey != null) {
-                    if (mapKey.equals("name")) {
-                        docObject.setDocName((String) caseProps.get(mapKey));
-                        nameCount++;
-                    } else if (mapKey.equals("docid")) {
-                        docObject.setDocId((String) caseProps.get(mapKey));
-                        idCount++;
-                    } else {
-                        String caseAnalysisChildMenu = (String) caseProps.get(mapKey);
-                        List<String> childMenus = new ArrayList<String>();
-                        for (String str : caseAnalysisChildMenu.split(";")) {
-                            childMenus.add(str);
-                        }
-
-                        map.put((String) mapKey, childMenus);
-                    }
-                }
-            }
-            if (map.size() > 0) {
-                docObject.setPrimaryLinks(map.keySet());
-                docObject.setSecondaryLinks(map);
-            }
-        }
-        return docObject;
     }
 
     public void selectViewDocument() {

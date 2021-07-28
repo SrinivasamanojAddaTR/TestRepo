@@ -4,6 +4,7 @@ import com.thomsonreuters.pageobjects.utils.legal_updates.CalendarAndDate;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,12 +21,11 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
     public static final String ONE_HUNDRED_PER_PAGE_SELECT_OPTION = "100 per page";
     private static final String RESULTS_HEADER_LOCATOR = "//div[@id='co_search_headerToolbar']";
     private static final String RESULTS_FOOTER_LOCATOR = "//div[@id='co_search_footerToolbar']";
-    private static final int TIMEOUT_IN_SECONDS = 10;
 
     private HashMap<String, By> paginationArrowMap;
 
     public LegalUpdatesResultsPage() {
-        initPaginationArrowsMap();
+    	initPaginationArrowsMap();
     }
 
     private void initPaginationArrowsMap() {
@@ -81,9 +81,9 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
     }
 
     public boolean isDeliveryMethodLinkPresent() {
-        return isElementDisplayed(By.xpath("//a[text()='Deliver']"));
+    	return isElementDisplayed(By.xpath("//a[text()='Deliver']"));
     }
-
+    
     public WebElement resultsPerPageLink() {
         return waitForExpectedElement(By.id("selectedDisplayItemCount"));
     }
@@ -199,17 +199,17 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
     public WebElement resourceTypeFilter() {
         return waitForExpectedElement(By.xpath("//div[@id='facet_div_documentType']//h4[@id='co_facetHeaderdocumentType']"));
     }
-
+    
     public WebElement unitedKingdomLegalUpdatesBreadCrumbLink() {
         return waitForExpectedElement(By.linkText("United Kingdom: Legal Updates"));
     }
 
     public WebElement moreDetailBox() {
-        return waitForExpectedElement(By.xpath("//div[@class='co_searchResults_summary co_search_detailLevel_2']"), TIMEOUT_IN_SECONDS);
+        return waitForExpectedElement(By.xpath("//div[@class='co_searchResults_summary co_search_detailLevel_2']"),10);
     }
 
     public WebElement resultsList() {
-        return waitForExpectedElement(By.id("cobalt_search_knowHowPlc_results"), TIMEOUT_IN_SECONDS);
+        return waitForExpectedElement(By.id("cobalt_search_knowHowPlc_results"),10);
     }
 
     public String getfacetSubTitleText() {
@@ -227,33 +227,33 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
     public List<WebElement> getAllUpdatesTitles() {
         return waitForExpectedElements(By.xpath("//a[contains(@id,'cobalt_result_knowhow_title')]"));
     }
-
+    
     public WebElement sortDropDown() {
-        return waitForExpectedElement(By.id("co_search_sortOptions"));
+    	return waitForExpectedElement(By.id("co_search_sortOptions"));
     }
 
     public List<String> getFirstLU5Titles() {
         List<String> first5LUtitles = new ArrayList<>();
         List<WebElement> allTitles = getAllUpdatesTitles();
         for (int i = 0; i < 5; i++) {
-            LOG.info("Adding LU Title from results page: {}", allTitles.get(i).getText());
+            LOG.info("Adding LU Title from results page: {}" , allTitles.get(i).getText());
             first5LUtitles.add(allTitles.get(i).getText().trim());
         }
         return first5LUtitles;
     }
-
+    
     public boolean isSortDropDownDisplayed() {
-        return isElementDisplayed(By.id("co_search_sortOptions"));
+    	return isElementDisplayed(By.id("co_search_sortOptions"));
     }
-
+    
 
     public boolean isChildTopicsFacetsDisplayed() {
-        return isElementDisplayed(By.id("facet_div_knowHowPracticeAreaSummary"));
+    	return isElementDisplayed(By.id("facet_div_knowHowPracticeAreaSummary"));
     }
-
-
+    
+    
     public boolean isResultsListDisplayed() {
-        return isElementDisplayed(By.id("cobalt_search_knowHowPlc_results"));
+    	return isElementDisplayed(By.id("cobalt_search_knowHowPlc_results"));
     }
 
     public List<String> legalUpdatesStatuses() {
@@ -279,17 +279,17 @@ public class LegalUpdatesResultsPage extends LegalUpdatesBasePage {
         }
         return publishingDates;
     }
-
+    
     public boolean isResourceTypeFilterDisplayed() {
-        return isElementDisplayed(By.xpath("//div[@id='facet_div_documentType']//h4[@id='co_facetHeaderdocumentType']"));
+    	return isElementDisplayed(By.xpath("//div[@id='facet_div_documentType']//h4[@id='co_facetHeaderdocumentType']"));
     }
-
+    
     public boolean ismoreDetailBoxDisplayed() {
-        return isElementDisplayed(By.xpath("//div[@class='co_searchResults_summary co_search_detailLevel_2']"));
+    	return isElementDisplayed(By.xpath("//div[@class='co_searchResults_summary co_search_detailLevel_2']"));
     }
 
     public boolean isPaginationArrowDisplayed(String paginationArrow) {
-        return isElementDisplayed(paginationArrowMap.get(paginationArrow));
+    	return isElementDisplayed(paginationArrowMap.get(paginationArrow));
     }
 
 }

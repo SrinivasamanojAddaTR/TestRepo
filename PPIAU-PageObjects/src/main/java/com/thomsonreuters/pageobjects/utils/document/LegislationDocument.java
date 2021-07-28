@@ -31,24 +31,24 @@ public class LegislationDocument extends Document {
     public enum LegislationDocStatus {
         AMENDMENTS_PENDING("Amendments Pending", "A", true, "icon_circle_exclamation_orange_small", BillType.NONE),
         BILL_HYBRID(BillType.HYBRID.getTypeName(), "BC", false, "icon_circle_right_dashed_arrow_purple_small", BillType.HYBRID),
-        BILL_PUBLIC_GOVERNMENT(BillType.PUBLIC_GOVERNMENT.getTypeName(), "BC", false, "icon_circle_right_dashed_arrow_purple_small", BillType.PUBLIC_GOVERNMENT),
+        BILL_PUBLIC_GOVERNMENT(BillType.PUBLIC_GOVERNMENT.getTypeName(), "BC", false, BILL_HYBRID.getStatusIconClassName(), BillType.PUBLIC_GOVERNMENT),
         BILL_PUBLIC_PRIVATE(BillType.PUBLIC_PRIVATE.getTypeName(), "BC", false, "icon_circle_right_dashed_arrow_purple_small", BillType.PUBLIC_PRIVATE),
         FUTURE("Prospective Law", "F", true, "icon_circle_redo_blue_small", BillType.NONE),
         HISTORIC("Superseded", "H", true, "icon_circle_minus_red_small", BillType.NONE),
-        PARTIALLY_REPEALED("Partially Repealed", "I", true, "icon_circle_exclamation_orange_small", BillType.NONE),
+        PARTIALLY_REPEALED("Partially Repealed", "I", true, AMENDMENTS_PENDING.getStatusIconClassName(), BillType.NONE),
         LEGISLATION_IN_FORCE("Law in Force", "L", true, "icon_circle_checkmark_green_small", BillType.NONE),
-        NOT_YET_IN_FORCE("Not Yet in Force", "N", true, "icon_circle_minus_red_small", BillType.NONE),
-        PARTIALLY_IN_FORCE("Partially in Force", "P", true, "icon_circle_exclamation_orange_small", BillType.NONE),
-        REPEALED("Repealed", "R", true, "icon_circle_minus_red_small", BillType.NONE),
+        NOT_YET_IN_FORCE("Not Yet in Force", "N", true, HISTORIC.getStatusIconClassName(), BillType.NONE),
+        PARTIALLY_IN_FORCE("Partially in Force", "P", true, AMENDMENTS_PENDING.getStatusIconClassName(), BillType.NONE),
+        REPEALED("Repealed", "R", true, HISTORIC.getStatusIconClassName(), BillType.NONE),
         UNKNOWN("", "U", false, "", BillType.NONE), // Is it correct status code? Need an example
         AS_ORIGINALLY_ENACTED("As Originally Enacted", "V", false, "icon_circle_dotted_small", BillType.NONE),
         NOT_APPLICABLE("", "X", true, "", BillType.NONE),
         SUPERSEDED_BILL("Historic Law", "BS", true, "icon_circle_minus_red_small", BillType.NONE),
         LIF_AMENDMENTS_PENDING("Law in Force, Amendments Pending", "LA", true, "icon_circle_checkmark_green_exclamation_yellow_small", BillType.NONE),
-        PARTIAL_AMENDMENTS_PENDING("Partially in Force, Amendments Pending", "PA", true, "icon_circle_exclamation_orange_small", BillType.NONE),
+        PARTIAL_AMENDMENTS_PENDING("Partially in Force, Amendments Pending", "PA", true, AMENDMENTS_PENDING.getStatusIconClassName(), BillType.NONE),
         NYIF_AMENDMENTS_PENDING("Not Yet in Force, Amendments Pending", "NA", true, "icon_circle_minus_red_exclamation_yellow_small", BillType.NONE),
         FUTURE_AMENDMENTS_PENDING("Prospective Law, Amendments Pending", "FA", true, "icon_circle_redo_blue_exclamation_yellow_small", BillType.NONE), // has date? Need an example
-        PARTIALLY_REPEALED_AMENDMENTS_PENDING("Partially Repealed, Amendments Pending", "IA", true, "icon_circle_exclamation_orange_small", BillType.NONE),
+        PARTIALLY_REPEALED_AMENDMENTS_PENDING("Partially Repealed, Amendments Pending", "IA", true, AMENDMENTS_PENDING.getStatusIconClassName(), BillType.NONE),
         NOT_AVAILABLE("", null, true, "icon_circle_b_purple_exclamation_yellow_small", BillType.NONE);
 
         private String name;
@@ -236,5 +236,29 @@ public class LegislationDocument extends Document {
 
     public void setSearchResultLinkTitle(String searchResultLinkTitle) {
         this.searchResultLinkTitle = searchResultLinkTitle;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LegislationDocument)) return false;
+        if (!super.equals(o)) return false;
+        LegislationDocument that = (LegislationDocument) o;
+        return rank == that.rank &&
+                version == that.version &&
+                versionsCount == that.versionsCount &&
+                parentArrangementDocument.equals(that.parentArrangementDocument) &&
+                sectionsDocuments.equals(that.sectionsDocuments) &&
+                provision.equals(that.provision) &&
+                searchResultLinkTitle.equals(that.searchResultLinkTitle) &&
+                legislationDocStatus == that.legislationDocStatus &&
+                startDate.equals(that.startDate) &&
+                endDate.equals(that.endDate) &&
+                aopProvisions.equals(that.aopProvisions);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), parentArrangementDocument, sectionsDocuments, provision, searchResultLinkTitle, rank, legislationDocStatus, version, versionsCount, startDate, endDate, aopProvisions);
     }
 }

@@ -105,7 +105,7 @@ public class Document {
 
 	@Override
 	public String toString() {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		sb.append("Document: \n");
 		sb.append(" - Document Name: " + getTitle() + ",\n");
 		sb.append(" - Document GUID: " + getGuid() + ",\n");

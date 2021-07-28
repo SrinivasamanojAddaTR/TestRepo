@@ -10,10 +10,10 @@ public enum ResourceType {
 
     LEGISLATION("Legislation", "legis", "//date-facet", Arrays.asList("UK_SMG_LEGIS", "UK_SMG_LEGHIST", "UK_SMG_LEGFUT", "UK_SMG_LEGLOC")),
     CASES("Cases", "case", "//md.publisheddate", Arrays.asList("UK_SMG_CASES", "UK_SMG_CASESLOC", "UK_SMG_CASESSVG")),
-    JOURNALS("Journals", "journal", "//md.publisheddate", Arrays.asList("UK_SMG_JRN")),
+    JOURNALS("Journals", "journal", CASES.getNovusSortingDateXpath(), Arrays.asList("UK_SMG_JRN")),
     // Generic type is not using on the site and just for code purposes only and means Document object
-    GENERIC("Generic document", "", "//md.publisheddate", Arrays.asList("")),
-    PLC_LEGACY("PLC Legacy document", "", "//md.publisheddate", Arrays.asList("w_plc_find"));
+    GENERIC("Generic document", "", CASES.getNovusSortingDateXpath(), Arrays.asList("")),
+    PLC_LEGACY("PLC Legacy document", "", CASES.getNovusSortingDateXpath(), Arrays.asList("w_plc_find"));
 
     private String friendlyName;
     //md.infotype prefix, e.g. legis, legis-AOP, case, caseloc
