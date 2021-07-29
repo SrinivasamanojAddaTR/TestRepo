@@ -108,7 +108,7 @@ public class DeliverySteps1 extends BaseStepDef {
 
     @Then("^user copies the link in valid format from email into the browser$")
     public void userCopiesLinkFromEmailIntoBrowser() throws Throwable {
-        Pattern p = Pattern.compile("(<a href=.+>)(https:\\/\\/(a|au).anzlaw.+\\/w-\\d{3}-\\d{4})(<\\/a>)");
+        Pattern p = Pattern.compile("(<a href=.+>)(https:\\/\\/(a.|au.|)anzlaw.+\\/w-\\d{3}-\\d{4})(<\\/a>)");
         Matcher m = p.matcher(messageBody);
         if (m.find()) {
             String url = m.group(2);
