@@ -178,7 +178,7 @@ Feature: [818824] Search - Standard Delivery Features
   @gold
   Scenario Outline: [818824] Email document in Microsoft Word format-<id>
     Given the user runs a free text search for the query "<query>"
-    And the user selects the checkbox associated with result "5"
+    And the user selects the checkbox associated with result "4"
     When user clicks on Email delivery option for Search
     And the user should be able to see Email basic tab options as follows
       | Subject | <subject> |

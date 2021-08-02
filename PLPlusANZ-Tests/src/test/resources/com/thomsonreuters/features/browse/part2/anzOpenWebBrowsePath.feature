@@ -115,6 +115,6 @@ Feature: [850065] As an open web user, I can launch the PL Australia web site an
     And the user clicks on Sign On link on the header
     Then the user is able to sign in with OnePass
       | userName | AUtestuser3 |
-    Then user verifies the "Ill and Injured Employees"
+    Then user verifies the "Ill and Injured Employees" page
     And user expands the "Resource Type" facets group
     And user verifies the "Practice Notes" facets are displayed on the topic page
