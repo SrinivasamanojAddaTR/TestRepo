@@ -25,7 +25,7 @@ public class BCIUnmarshaller {
 			config = (CalcConfig) jaxbUnmarshaller.unmarshal(file);
 
 		} catch (JAXBException e) {
-			LOG.error("Something went wrong during unmarshalling: " + e.getMessage());
+			LOG.error("Something went wrong during unmarshalling: {}", e.getMessage());
 		}
 		
 		return config;

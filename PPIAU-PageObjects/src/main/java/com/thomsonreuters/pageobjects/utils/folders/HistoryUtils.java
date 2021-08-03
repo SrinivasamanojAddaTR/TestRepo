@@ -2,18 +2,13 @@ package com.thomsonreuters.pageobjects.utils.folders;
 
 
 import com.thomsonreuters.pageobjects.exceptions.PLAUException;
-import org.openqa.selenium.WebElement;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.thomsonreuters.pageobjects.pages.folders.HistoryTabs;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
+import org.openqa.selenium.WebElement;
 
 
 public class HistoryUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FoldersUtils.class);
-    
     private ResearchOrganizerPage researchOrganizerPage = new ResearchOrganizerPage();
 
     public void openHistoryTab(HistoryTabs tab) {

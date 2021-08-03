@@ -197,8 +197,6 @@ public class LinkingBaseUtils {
      * @param guid Document GUID to obtaining
      */
     private void storeXmlDocument(String guid) {
-        if (!documentXmlStorage.containsKey(guid)) {
-            documentXmlStorage.put(guid, genericNovusUtils.getRawXmlDocumentByGuid(guid));
-        }
+        documentXmlStorage.computeIfAbsent(guid, keyGuid -> documentXmlStorage.put(keyGuid, genericNovusUtils.getRawXmlDocumentByGuid(keyGuid)));
     }
 }

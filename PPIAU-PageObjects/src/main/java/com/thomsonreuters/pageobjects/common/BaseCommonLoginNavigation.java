@@ -789,7 +789,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     new Select(onepassLogin.findElement(By.id("SkipAnonymousAuthenticationKey"))).selectByValue(FALSE_TEXT);
                     break;
 
-                case DOCDISPLAY_UseCollectionSet:
+                case DOCDISPLAY_USE_COLLECTION_SET:
                     LOG.info("DOCDISPLAY_UseCollectionSet routing");
                     comMethods.waitForElementToBeVisible(CAT_PAGE_COLLECTION_SET_ELEMENT)
                             .sendKeys(PL_PLUS_COLLECTION_SET);

@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.NodeList;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
