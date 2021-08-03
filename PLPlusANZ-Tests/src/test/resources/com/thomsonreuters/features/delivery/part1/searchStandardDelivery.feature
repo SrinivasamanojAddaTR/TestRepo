@@ -31,6 +31,7 @@ Feature: [818824] Search - Standard Delivery Features
   @gold
   Scenario Outline: [818824] Download documents in PDF format-<id>
     Given the user runs a free text search for the query "<query>"
+    And the user can select the option to show more detail
     And the user saves document body from following results
       | 1 |
       | 2 |
