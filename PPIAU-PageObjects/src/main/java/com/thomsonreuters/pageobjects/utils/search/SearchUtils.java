@@ -92,22 +92,6 @@ public class SearchUtils {
         }
     }
 
-    /**
-     * Check that user query in result element is highlighted. Method check that all <span> elements in result element contain search query
-     * and are highlighted using css-style.
-     * Method checks results with case ignoring
-     *
-     * @param element One of result elements {@link com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.GlossaryPage#glossaryTermsWithSearchTermList()}.
-     * @param term    String with user query which should be highlighted in every result
-     * @return True if check passed. Otherwise - false.
-     */
-    public boolean isSearchWordHighlightedInGlossaryPage(WebElement element, String term) {
-        for (WebElement spanElement : element.findElements(By.xpath("./span"))) {
-            if ((!spanElement.getText().trim().toLowerCase().contains(term)) && (!GLOSSARY_SEARCH_HIGHLIGHT_COLOR.equals(spanElement.getCssValue("background-color"))))
-                return false;
-        }
-        return true;
-    }
     public void chooseSingleOrMultipleFacetSelectionMode(FacetSelectionMode mode) {
         if (mode.equals(FacetSelectionMode.SINGLE) && wlukSearchResultsPage.isMultipleFiltersToggleSelected() ||
                 mode.equals(FacetSelectionMode.MULTIPLE) && !wlukSearchResultsPage.isMultipleFiltersToggleSelected()) {
