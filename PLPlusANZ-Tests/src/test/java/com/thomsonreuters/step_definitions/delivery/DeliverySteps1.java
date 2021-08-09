@@ -124,6 +124,7 @@ public class DeliverySteps1 extends BaseStepDef {
         email.emailButton().click();
         deliveryOptionsPage.waitForPageToLoad();
         deliveryOptionsPage.waitForPageToLoadAndJQueryProcessing();
+        deliveryOptionsPage.waitUntilLoadIndicatorDisappears();
     }
 
     @When("^user (downloads|prints|exports) the document with name \"(.*?)\" and extension \"(.*?)\"$")

@@ -120,7 +120,7 @@ Feature: [818051] Document - Standard delivery features
     And the document does not include drafting notes
     Examples:
       | guid                              | subject                           | docText                  | mailbox                                           | id |
-      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes: transfer of shares | The chairperson reported | tr-anz-tester4@epam-email-pluk.thomsonreuters.com | 1  |
+      | Ifb5c26ca995811e598dc8b09b4f043e0 | Board minutes: transfer of shares | The chairperson reported | tr-anz-tester20@epam-email-pluk.thomsonreuters.com | 1  |
 
 
   Scenario Outline: [818051] Email document - PDF format, drafting notes only-<id>

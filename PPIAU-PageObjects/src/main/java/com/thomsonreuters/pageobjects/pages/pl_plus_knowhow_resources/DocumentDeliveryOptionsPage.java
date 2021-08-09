@@ -52,4 +52,8 @@ public class DocumentDeliveryOptionsPage extends AbstractPage
 	public boolean isPrintPresent() {
 		return isElementDisplayed(By.id("deliveryLinkRowPrint"));
 	}
+
+    public void waitUntilLoadIndicatorDisappears() {
+        waitForElementToDissappear(By.xpath("//*[contains(@class,'co_loading')]"));
+    }
 }
