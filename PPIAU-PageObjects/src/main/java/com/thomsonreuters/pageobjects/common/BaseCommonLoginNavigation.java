@@ -736,28 +736,12 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
 
                 case ASK_DEV_WEB_COLLECTION:
                     LOG.info("ASK_DEV_WEB_COLLECTION routing");
-                    enableAskContent();
-                    routingPage.setCategoryPageCollectionSet(PL_PLUS_COLLECTION_SET);
-                    routingPage.selectDropDownByVisibleText(routingPage.webContentCollectionSetDropdown(), "DEV");
-                    setRoutingIfLoginNotRequired(user);
-                    routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    enableAskCommonSettings("DEV", user);
                     break;
 
                 case ASK_PROD_WEB_COLLECTION_CATEGORTY_PAGE_CSET:
                     LOG.info("ASK_PROD_WEB_COLLECTION_CATEGORTY_PAGE_CSET routing");
-                    enableAskContent();
-                    routingPage.setCategoryPageCollectionSet(PL_PLUS_COLLECTION_SET);
-                    routingPage.selectDropDownByVisibleText(routingPage.webContentCollectionSetDropdown(), "PROD");
-                    setRoutingIfLoginNotRequired(user);
-                    routingPage.showFeatureSelectionsLink().click();
-                    routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
-                    routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
-                    routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
-                    routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
+                    enableAskCommonSettings("PROD", user);
                     break;
 
                 case ASK_UNRELEASEDCATEGORY:
@@ -1026,6 +1010,18 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     private void enableAskContent() {
         LOG.info("Ask Content IAC is Enabled");
         routingPage.infrastructureAccessTextArea().sendKeys("IAC-ASK-CONTENT");
+    }
+
+    private void enableAskCommonSettings(String environment, CobaltUser user){
+        enableAskContent();
+        routingPage.setCategoryPageCollectionSet(PL_PLUS_COLLECTION_SET);
+        routingPage.selectDropDownByVisibleText(routingPage.webContentCollectionSetDropdown(), environment);
+        setRoutingIfLoginNotRequired(user);
+        routingPage.showFeatureSelectionsLink().click();
+        routingPage.selectDropDownByVisibleText(routingPage.ignoreAuthorizationBlocksDropdown(), GRANT_ACCESS_OPTION_TEXT);
+        routingPage.selectDropDownByVisibleText(routingPage.preReleaseContentDropdown(), GRANT_ACCESS_OPTION_TEXT);
+        routingPage.selectDropDownByVisibleText(routingPage.wlnByPass100KAncillaryDropdown(), GRANT_ACCESS_OPTION_TEXT);
+        routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
     }
 
     private void setAnonymousRegistrationKey(){
