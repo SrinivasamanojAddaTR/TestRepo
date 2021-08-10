@@ -11,6 +11,7 @@ import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.utils.document.Document;
 import com.thomsonreuters.pageobjects.utils.legal_updates.CalendarAndDate;
 
+import com.thomsonreuters.utils.TimeoutUtils;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -400,6 +401,7 @@ public class FoldersUtils {
     }
 
     public void selectGroup(String group) {
+        contactsForSharingPage.waitForPageToLoadAndJQueryProcessing();
         contactsForSharingPage.findGroup(group).click();
     }
 
@@ -420,6 +422,7 @@ public class FoldersUtils {
         clickOnContactsLink();
         contactsForSharingPage.waitForPageToLoadAndJQueryProcessing();
         searchGroup(groupName);
+        TimeoutUtils.sleepInSeconds(10);
         contactsForSharingPage.waitForPageToLoadAndJQueryProcessing();
         if (!contactsForSharingPage.isGroupsItemPresent(groupName)) {
             addGroup(groupName, member);

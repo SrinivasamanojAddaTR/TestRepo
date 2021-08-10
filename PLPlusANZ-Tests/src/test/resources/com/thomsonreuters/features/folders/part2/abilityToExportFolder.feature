@@ -157,6 +157,7 @@ Feature: [821552] View Folders Page - Options "Export Folder" Feature
     And the user selects option Export and chooses the "<folder>" folder
     And the user clicks the Back button on Export Wizard
     Then the user sees an Export wizard
+    Then the user clicks the Cancel button on Export Wizard
     Examples:
       | folder     | id |
       | testFolder | 1  |

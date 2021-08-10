@@ -140,6 +140,8 @@ public class DeliverySteps1 extends BaseStepDef {
             download.waitForPageToLoad();
             assertTrue("Download button absent", download.getDownloadButtonWhenDocReadyToDownload().isDisplayed());
             assertTrue("Document is not ready to download", download.getReadyForDownloadWindow().getText().contains("ready"));
+            download.confirmDownloadButton().click();
+            download.waitForPageToLoad();
         } else { // print
             print.printButton().click();
             download.waitForPageToLoad();
