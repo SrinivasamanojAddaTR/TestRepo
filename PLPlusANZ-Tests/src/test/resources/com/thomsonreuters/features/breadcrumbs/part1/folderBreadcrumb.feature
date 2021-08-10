@@ -3,7 +3,7 @@ Feature: To view Breadcrumbs for Folders Page
 Background: 
     Given ANZ user is logged in
     When API cleans all folders and history and user relogs in
-
+@ffh
 Scenario: Verify that logged in PLAU user can see a breadcrumb trail with a clickable Folders page link on PLAU site when navigating to a Document from Folders and navigate back to the Folders page when clicking on this link. 
     
     When the user open 'Practice Areas' link

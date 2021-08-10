@@ -23,7 +23,7 @@ Feature:[825682] Add annotation at the top of the document
     Then verify saved annotations text will be displayed with metadata
     Then the Client ID next to the timestamp will not be displayed
 
-
+@ffh
   Scenario: User should be able to see notes added icon in history and folders
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser1 |

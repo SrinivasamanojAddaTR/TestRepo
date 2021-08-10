@@ -1,3 +1,4 @@
+@ffh
 Feature: [850126] Open Web user cannot use favourites or my start page
 
 #bug 867500 RULES TBC: Bug [PLAU & PLUK] Security Issue: Open web user can access and modify FFH pages by bookmarked links

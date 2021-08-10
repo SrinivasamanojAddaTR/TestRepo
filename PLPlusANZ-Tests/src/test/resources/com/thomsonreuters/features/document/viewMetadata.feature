@@ -6,7 +6,7 @@ Background:
    Given ANZ user is logged in
 
 
-  @smoke @gold
+  @smoke @gold @ffh
   Scenario Outline: [818000] As a PL AU login/password user I want to view document metadata-<id>
 	Given ANZ user navigates directly to document with guid "<guid>"
 	Then resource status "<resource status>" is displayed on the document right hand panel 

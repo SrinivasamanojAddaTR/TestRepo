@@ -1,3 +1,4 @@
+@ffh
 Feature: [821898] As a PLAU user I want to filter my foldered documents So that I can quickly find the types of documents I am interested in viewing
 
 

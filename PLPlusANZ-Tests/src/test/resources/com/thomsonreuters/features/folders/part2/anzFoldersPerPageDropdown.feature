@@ -1,3 +1,4 @@
+@ffh
 Feature: [821934] As a PLAU User, I want to increase or decrease the number of documents listed in my foldered page view
   So that I can view a list of documents based on my needs
 

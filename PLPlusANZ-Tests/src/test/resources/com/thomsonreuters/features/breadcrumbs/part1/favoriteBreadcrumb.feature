@@ -17,7 +17,7 @@ Scenario: Verify that logged in PLAU user can see a breadcrumb trail with a clic
     When the user clicks on the 'Favourites' link in the breadcrumb
     Then the user is presented with a page with header "Favourites"
 
-
+@ffh
 Scenario: User conducting a scope search, then navigating to Folders. Favourites and History
 
     When the user open 'Practice Areas' link

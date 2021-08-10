@@ -1,3 +1,4 @@
+@ffh
 Feature: [821542] As a PLAU User I want to copy a folder and its contents So that I can save time creating folders and adding documents
 
   Scenario: 

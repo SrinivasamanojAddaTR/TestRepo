@@ -54,7 +54,7 @@ Feature: [829761] Link back to the page  from where performed a search
     Examples:
     |country	|query		| id |
     |Italy		|document	| 1  |
- 
+ @ffh
   Scenario Outline: Verify Back link is displayed on folder search results page-<id>
     Given the user clicks on 'Folders' link on the header
     When the user runs a free text search for the query "<query>"
@@ -63,7 +63,7 @@ Feature: [829761] Link back to the page  from where performed a search
     Examples:
     |query		| id |
     |document	| 1  |
-
+@ffh
   Scenario Outline: Verify Back link is displayed on history search results page-<id>
     Given the user clicks on 'History' link on the header
     When the user runs a free text search for the query "<query>"
@@ -73,7 +73,7 @@ Feature: [829761] Link back to the page  from where performed a search
     |query		| id |
     |document	| 1  |
 
-
+@ffh
   Scenario Outline: Verify Back link is displayed on favourite search results page-<id>
     Given the user clicks on 'Favourites' link on the header
     When the user runs a free text search for the query "<query>"

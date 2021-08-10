@@ -1,3 +1,4 @@
+@ffh
 Feature: [821888] As a PLAU User I want to view the Trash can feature So that I can permanently delete my foldered documents
 
   Scenario Outline: Moving to Trash folder and restoring-<id>

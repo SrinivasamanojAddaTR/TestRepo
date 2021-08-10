@@ -1,3 +1,4 @@
+@ffh
 Feature: [821953] As a PLAU User, I want to view my history So that I can view my recent searches and the documents I have recently viewed
 
 Background:

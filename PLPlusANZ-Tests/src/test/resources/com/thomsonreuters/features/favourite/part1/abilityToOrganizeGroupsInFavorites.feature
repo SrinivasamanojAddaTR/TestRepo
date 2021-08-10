@@ -1,3 +1,4 @@
+@ffh
 Feature: [821261][821248] As a PLAU User I want to Organise my favourite groups So that I can display my favourite groups in the order I require
   [821282] As a PLAU User I want to delete page links from my favourite groups So that I can remove pages that are no longer my favourites
   [821309]As a PLAU User I want to change the order of my page links within a group So that I can display page links in the order that I require

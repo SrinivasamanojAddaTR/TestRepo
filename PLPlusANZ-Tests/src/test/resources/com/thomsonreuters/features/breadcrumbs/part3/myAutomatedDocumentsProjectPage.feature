@@ -7,7 +7,7 @@ Feature: To view Contract Express Projects Page
     And the user selects My Automated Document option
     And the user clicks on "Projects" link
 
-  @gold @qed
+  @gold @qed @ffh
   Scenario: To verify New Folder, New Project and Search bar are displayed
     Given user is taken to "My Projects" Page
     Then user verifies the following CE links are displayed

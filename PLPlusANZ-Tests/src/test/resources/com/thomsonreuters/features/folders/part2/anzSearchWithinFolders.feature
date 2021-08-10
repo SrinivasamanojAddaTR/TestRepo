@@ -1,4 +1,4 @@
-
+@ffh
 Feature: [821891] As a PLAU user I want to search for a document in my folders So that I can find a document I want to view
 
 Background:

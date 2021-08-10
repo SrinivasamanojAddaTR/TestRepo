@@ -1,3 +1,4 @@
+@ffh
 Feature: [821257] As a PLAU User I want to be able to view my frequently used items So that I can quickly access the practical law pages I use the most
 
   Scenario: 
