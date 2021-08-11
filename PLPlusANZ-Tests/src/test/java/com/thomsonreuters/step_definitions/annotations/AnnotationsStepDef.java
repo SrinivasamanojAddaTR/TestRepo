@@ -10,6 +10,7 @@ import com.thomsonreuters.pageobjects.pages.annotations.SharedAnnotationsPage;
 import com.thomsonreuters.pageobjects.pages.folders.HistoryTabs;
 import com.thomsonreuters.pageobjects.pages.folders.ResearchOrganizerPage;
 import com.thomsonreuters.pageobjects.pages.header.WLNHeader;
+import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.DocumentDeliveryOptionsPage;
 import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document_navigation.DocumentDeliveryPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowSearchResultsPage;
 import com.thomsonreuters.pageobjects.rest.service.impl.RestServiceAnnotationsImpl;
@@ -50,6 +51,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     private ArrayList<String> contacts;
     private FoldersUtils foldersUtils;
     private ContactsForSharingPage contactsForSharingPage;
+    private DocumentDeliveryOptionsPage deliveryOptionsPage;
 
     public static List<String> numbersList;
     public static String editOption;
@@ -83,6 +85,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         contacts = new ArrayList<String>();
         foldersUtils = new FoldersUtils();
         contactsForSharingPage = new ContactsForSharingPage();
+        deliveryOptionsPage=new DocumentDeliveryOptionsPage();
     }
 
     @When("^the user has accessed annotations text box$")
@@ -1279,6 +1282,7 @@ public class AnnotationsStepDef extends BaseStepDef {
         deliveryPage.clickOnAddToFolderLink();
         foldersUtils.saveToFolder(folderName);
         deliveryPage.waitForPageToLoad();
+        deliveryOptionsPage.waitUntilLoadIndicatorDisappears();
         LOG.info("A current document is added to " + folderName + " folder");
     }
 
