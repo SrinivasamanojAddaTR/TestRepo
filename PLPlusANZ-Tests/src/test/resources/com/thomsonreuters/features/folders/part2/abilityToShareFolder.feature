@@ -4,7 +4,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
 
   Background:
     Given ANZ user is logged in with following details
-      | userName | PLANZtestuser20 |
+      | userName | PLANZFolderUser20 |
 
 
   Scenario:
@@ -27,7 +27,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
 
     Examples:
       | folder | parentFolder | owner           | emailToShare                                      | id |
-      | share1 | root         | PLANZtestuser20 | tr-anz-tester2@epam-email-pluk.thomsonreuters.com | 1  |
+      | share1 | root         | PLANZFolderUser20 | tr-anz-tester2@epam-email-pluk.thomsonreuters.com | 1  |
 
 
   Scenario Outline: Share with groups and endsharing-<id>
@@ -42,7 +42,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     When the user clicks on 'Folders' link on the header
     Then the folder "<folder>" appears in shared folders
     Given ANZ user is logged in with following details
-      | userName | PLANZtestuser20 |
+      | userName | PLANZFolderUser20 |
     When the user clicks on 'Folders' link on the header
     And the user unshare the folder "<folder>"
     Then new message about the folder "<folder>" is no longer shared
@@ -72,7 +72,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     When the user clicks on 'Folders' link on the header
     Then the folder "<folder>" appears in shared folders
     Given ANZ user is logged in with following details
-      | userName | PLANZtestuser20 |
+      | userName | PLANZFolderUser20 |
     When the user clicks on 'Folders' link on the header
     And the user unshare the folder "<folder>"
     Then new message about the folder "<folder>" is no longer shared
@@ -103,7 +103,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     Then the folder "<folder>" appears in shared folders
     And user is not able to expand shared folder "<folder>"
     Given ANZ user is logged in with following details
-      | userName | PLANZtestuser20 |
+      | userName | PLANZFolderUser20 |
     When the user clicks on 'Folders' link on the header
     When the user adds contact 'PL_TEST, 0009' as "<role2>" to shared folder "<folder>" with subfolders
     Given ANZ user is logged in with following details
@@ -112,7 +112,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     Then the folder "<folder>" appears in shared folders
     And user is able to expand shared folder "<folder>"
     Given ANZ user is logged in with following details
-      | userName | PLANZtestuser20 |
+      | userName | PLANZFolderUser20 |
     When the user clicks on 'Folders' link on the header
     When the user removes contact 'PL_TEST, 0009' from shared folder "<folder>"
     Given ANZ user is logged in with following details
@@ -124,7 +124,7 @@ Feature: [821929] As a PLAU User I want to create a group So that I can share a 
     When the user clicks on 'Folders' link on the header
     Then user with role "<role>" is not able to create new folder "<folder3>" in shared folder "<folder>"
     Given ANZ user is logged in with following details
-      | userName | PLANZtestuser20 |
+      | userName | PLANZFolderUser20 |
     When the user clicks on 'Folders' link on the header
     When the user changes contact 'PL_TEST, 0008' permissions to "<role2>" for shared folder "<folder>"
     Given ANZ user is logged in with following details

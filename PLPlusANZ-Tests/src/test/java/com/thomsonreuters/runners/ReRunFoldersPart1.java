@@ -24,7 +24,7 @@ public class ReRunFoldersPart1 extends BaseCucumberTestRunner {
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username","None").equals("None")) {
-            User.getInstance().setUserName("PLANZtestuser20");
+            User.getInstance().setUserName("PLANZFolderUser20");
             User.getInstance().setPassword("P@ssword2");
             LOG.info("The credentials have been set");
         }
