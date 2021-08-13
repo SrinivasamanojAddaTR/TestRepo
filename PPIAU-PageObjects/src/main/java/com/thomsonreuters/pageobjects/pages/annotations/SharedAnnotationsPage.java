@@ -39,6 +39,7 @@ public class SharedAnnotationsPage extends AbstractPage {
     private static final By INLINE_NOTES = By.cssSelector("span.co_noteHolderActive>div.co_hideState+a[title='Minimize']");
     private static final String HIGHLIGHTED_TEXT_XPATH = "//span[contains(@class, '%s') and contains(@class, 'co_selection')]";
     private static final String SAVE_BUTTON= "input[value='Save']";
+    private static final By OK_CONFRIMATION_BTN_BY = By.xpath("//div[@class='co_note_okbutton']//a[contains(text(),'OK')]");
     private static final By DISCLAIMER_CLOSE_BUTTON = By.cssSelector("a#DisclaimerMessageClose");
     private static final By ANNOTATIONS_BODY = By.cssSelector(".co_viewNoteText.mce-content-body");
 
@@ -212,11 +213,13 @@ public class SharedAnnotationsPage extends AbstractPage {
      */
     public void saveAnnotation() {
         try {
-            WebElement saveButton = waitForExpectedElement(By.cssSelector(SAVE_BUTTON));
-            waitForElementsClickable(By.cssSelector(SAVE_BUTTON));
+            WebElement saveButton = waitForExpectedElement(By.xpath("//*[contains(@id,'co_dropdownBodyContent')]/form//input[@value='Save']"));
             saveButton.click();
-            waitForElementInvisible(By.cssSelector(SAVE_BUTTON));
             waitForPageToLoad();
+            waitForPageToLoadAndJQueryProcessing();
+            if (isElementDisplayed(OK_CONFRIMATION_BTN_BY)) {
+                click(OK_CONFRIMATION_BTN_BY);
+            }
             waitForPageToLoadAndJQueryProcessing();
         } catch (PageOperationException | TimeoutException te) {
             throw new PageOperationException("Exceeded time to find the save button" + te.getMessage());

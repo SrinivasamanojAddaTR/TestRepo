@@ -1112,6 +1112,7 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void userAddedNewInlineAnnotation() {
         input = "input" + System.currentTimeMillis();
         sharedAnnotationsPage.amendInput(input);
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
         sharedAnnotationsPage.saveAnnotation();
         LOG.info("The user has added inline annotations with name {}",input);
 
