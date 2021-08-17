@@ -1,6 +1,6 @@
 Feature:[825685] Delete an annotation at the top of the document
 
-  @smoke @gold @e2e  @deletionAnnotations @nonProd
+  @smoke @gold @e2e  @deletionAnnotations @nonProd @sanity
   Scenario: Delete annotation at the top, undo Deleted Annotations and close link on Delete Annotations
     Given ANZ user is logged in with following details
       | userName | ANZtestuser1 |

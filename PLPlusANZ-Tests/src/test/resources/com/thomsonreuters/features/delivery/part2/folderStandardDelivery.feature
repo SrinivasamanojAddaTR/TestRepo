@@ -12,7 +12,7 @@ Feature: [821556] View Folders Page - Deliver Documents within a folder
 ## Download	
 ###############################################################################################################
 
-  @smoke
+  @smoke @gold
   Scenario Outline: [821556] Download documents in PDF format-<id>
     Given the user opens <folder> folder with the set of documents
       | Iabd12ee0995911e598dc8b09b4f043e0 |

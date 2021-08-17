@@ -1,6 +1,6 @@
 Feature:[825683] Edit an annotation at the top of the document
 
-  @smoke @gold @AnnotationsSmokeTests @e2e  @deletionAnnotations @nonProd
+  @smoke @gold @AnnotationsSmokeTests @e2e  @deletionAnnotations @nonProd @sanity
   Scenario: Verify that user can modify annotations at the top
     Given ANZ user is logged in with following details
       | userName | ANZtestuser1 |

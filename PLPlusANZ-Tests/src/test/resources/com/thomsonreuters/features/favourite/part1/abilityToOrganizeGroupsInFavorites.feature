@@ -8,8 +8,7 @@ Feature: [821261][821248] As a PLAU User I want to Organise my favourite groups 
     When API cleans all folders and history
 
   #And user relogs in
-  @run123
-  @smoke
+  @smoke @gold
   Scenario: [821261]user verifies the delete and undo links operation for fav group and also verifies the "Done" button
     When user clicks on "Favourites" link
     Then the user is presented with a page with header "Favourites"

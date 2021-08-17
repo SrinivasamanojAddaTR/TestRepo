@@ -3,7 +3,7 @@ Feature: As a PLAU user,I want to view a Document level in a breadcrumb trail on
 Background:
  Given ANZ user is logged in
 
- @smoke
+ @smoke @gold
   Scenario: Verify that logged in PLAU user can see a Document level in breadcrumb trail.
   When the user open 'Practice Areas' link
   And the user opens 'Employment' link

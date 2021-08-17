@@ -17,7 +17,7 @@ Feature: [818051] Document - Standard delivery features
 
 
 
-  @smoke @gold
+  @smoke @gold @sanity
   Scenario Outline: [818051] Email document - MS Word format-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on email delivery option for the document
@@ -170,7 +170,7 @@ Feature: [818051] Document - Standard delivery features
 ###########################################################################################################################################
 #download
 ###########################################################################################################################################
-  @smoke @gold
+  @smoke @gold @sanity
   Scenario Outline: [818051] Download document - MS Word format-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When clicks on Download delivery option for the document

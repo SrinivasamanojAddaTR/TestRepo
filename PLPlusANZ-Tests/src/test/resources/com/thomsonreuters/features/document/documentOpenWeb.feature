@@ -57,15 +57,18 @@ Feature: [850119] View Document Open Web
       | guid                              | title                       | author                     | summary                         | body                | id |
       | Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence: acquisitions | by Practical Law Corporate | This note considers the purpose | The potential buyer | 1  |
 
-  @smoke @gold
   Scenario Outline: [850119] As a PL AU open web user I want to view full document if it is free to view-<id>
     When ANZ user navigates directly to document with guid "<guid>"
     Then document title is displayed as "<title>"
     And the full text document will be displayed including "<body>"
+  @sanity
     Examples:
-      | guid                              | title                                    | body                           | id |
-      | I5bef34d7226611e698dc8b09b4f043e0 | Acquisition finance in Austria: overview | To compare answers across      | 1  |
-      | Idb567852df4611e598dc8b09b4f043e0 | Control                                  | In some cases control is given | 2  |
+      | guid                              | title                                    | body                      | id |
+      | I5bef34d7226611e698dc8b09b4f043e0 | Acquisition finance in Austria: overview | To compare answers across | 1  |
+  @smoke @gold
+    Examples:
+      | guid                              | title   | body                           | id |
+      | Idb567852df4611e598dc8b09b4f043e0 | Control | In some cases control is given | 2  |
 	
 
 

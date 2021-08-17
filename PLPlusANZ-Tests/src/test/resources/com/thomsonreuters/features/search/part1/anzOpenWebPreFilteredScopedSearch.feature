@@ -4,7 +4,7 @@ Feature: [850104] As an open web user, I want to perform a pre-filter search So 
      Given PL+ ANZ user navigates to home page
 
 
-  @smoke @gold
+  @smoke @gold @sanity
   Scenario: Verify valid search results for single and multiple terms in Open Web
     Given the user can verify that the scoped search dropdown states "All Content"
     When the user can display the scoped search dropdown menu options
