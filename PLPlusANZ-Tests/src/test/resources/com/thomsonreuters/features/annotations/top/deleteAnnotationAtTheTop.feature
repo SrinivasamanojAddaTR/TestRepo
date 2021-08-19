@@ -19,7 +19,7 @@ Feature:[825685] Delete an annotation at the top of the document
     And user clicks the close link
     Then annotations close and undo links will be disappeared
 
-  @smoke @gold @e2e  @deletionAnnotations @nonDemo
+  @smoke @gold @e2e  @deletionAnnotations @nonDemo @sanity
   Scenario: Delete annotation at the top, undo Deleted Annotations and close link on Delete Annotations
     Given ANZ user is logged in with following details
       | userName | ProdANZtestuser2 |

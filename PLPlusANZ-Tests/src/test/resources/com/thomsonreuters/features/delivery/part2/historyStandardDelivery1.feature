@@ -12,7 +12,7 @@ Feature: [831297] View History Page - Deliver Documents  listed within my docume
 ## Print 	
 ###############################################################################################################
 
-  @smoke @nonDemo @ffh
+  @smoke @nonDemo @ffh @sanity
   Scenario Outline: [831297] Print a single document-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     When the user clicks on 'History' link on the header

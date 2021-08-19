@@ -16,7 +16,7 @@ Feature:[825683] Edit an annotation at the top of the document
     And saving the annotation
     Then modified annotations text will be displayed with metadata
 
-  @smoke @gold @AnnotationsSmokeTests @e2e  @deletionAnnotations @nonDemo
+  @smoke @gold @AnnotationsSmokeTests @e2e  @deletionAnnotations @nonDemo @sanity
   Scenario: Verify that user can modify annotations at the top
     Given ANZ user is logged in
     When user navigates directly to document with guid "I5114280ee4c611e598dc8b09b4f043e0" on PL AU website
