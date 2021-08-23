@@ -46,7 +46,7 @@ Background:
     Then the user verifies the search result contains the both search terms "tax" "interest" "3" terms of each other in the full text with the first preceding the second
   Examples:
     | result | id |
-    | 2      | 1  |
+    | 4      | 1  |
 
   Scenario Outline: Validate that use of the % connector prevents terms placed after it from being retrieved-<id>
     When the user runs a free text search for the query "tax % purchase"
