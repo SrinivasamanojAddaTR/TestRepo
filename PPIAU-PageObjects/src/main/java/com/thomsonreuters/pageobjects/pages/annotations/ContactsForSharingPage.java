@@ -4,7 +4,7 @@ import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.*;
 
 public class ContactsForSharingPage extends AbstractPage {
-    public static final String SEARCH_RESULT_CHECKBOX_PATH = "//*[@id='coid_contacts_peopleListItems_contacts_edit']//*[@role='checkbox' and contains(text(),%s)]]";
+    public static final String SEARCH_RESULT_CHECKBOX_PATH = "//*[@id='coid_contacts_peopleListItems_contacts_edit']//*[@role='checkbox' and contains(text(),'%s')]";
     public static final String CHECKBOX_PATH = "//*[@role='checkbox' and contains(text(),'%s')]";
 
     public WebElement contactsLink() {
