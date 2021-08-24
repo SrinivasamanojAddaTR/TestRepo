@@ -47,13 +47,13 @@ Feature: [825681] View annotation
   Scenario: Verify that logged in user can see  inline annotation during the subsequent sessions
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
-    When user navigates directly to document with guid "Ifbf497fd995811e598dc8b09b4f043e0" on PL AU website
+    When user navigates directly to document with guid "I488504ddbfe211e698dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
     Then verify saved annotations text will be displayed with metadata
     And user relogs in
-    And user navigates directly to document with guid "Ifbf497fd995811e598dc8b09b4f043e0" on PL AU website
+    And user navigates directly to document with guid "I488504ddbfe211e698dc8b09b4f043e0" on PL AU website
     Then check that inline annotations is collapsed
 
   @gold @deletionAnnotations
@@ -80,7 +80,7 @@ Feature: [825681] View annotation
   Scenario: Verify that logged in user can collapse or expand inline annotation
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser3 |
-    When user navigates directly to document with guid "Ifbf497fd995811e598dc8b09b4f043e0" on PL AU website
+    When user navigates directly to document with guid "I488504ddbfe211e698dc8b09b4f043e0" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
