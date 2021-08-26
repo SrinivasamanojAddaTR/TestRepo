@@ -26,7 +26,7 @@ public class RunSharingAnnotationsTest extends BaseCucumberTestRunner {
     public static void reporting() {
         if (System.getProperty("username", "None").equals("None")) {
             User.getInstance().setUserName("shareAnnotationUser1");
-            User.getInstance().setPassword("Password1");
+            User.getInstance().setPassword("P@ssword2");
             LOG.info("The credentials have been set");
         } else {
             LOG.info("Username is pre-defined in the Run Command as: " + System.getProperty("username"));
