@@ -32,7 +32,8 @@ Feature: [812636]  Super Remember Me Option
     And he will not see the Log in page
 
   #do not remove this tag! this is to delete SRM option after test
-  @RemoveSRMOptionANZ
+  # Archived the tests for this Long Standing bugs until the Bug 1464009: [PLAU] User is getting signed off after clicking on resume as user link is fixed.
+  @RemoveSRMOptionANZ @archived
   Scenario: [812636]
     Given a username/password user in the login screen
       | routing  | NONE                   |

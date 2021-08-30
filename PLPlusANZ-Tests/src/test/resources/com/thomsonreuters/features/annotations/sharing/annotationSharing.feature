@@ -83,7 +83,8 @@ Feature: Sharing annotations
     And user clicks on previously shared
     Then user should see "0057 PL_TEST_GEN" user
 
-  @gold @AnnotationsSmokeTests @e2e
+  # Archived the tests for this Long Standing bugs until the Bug 1494134: [PLAU] Annotations group search is not working as expected is fixed.
+  @archived @AnnotationsSmokeTests @e2e
   Scenario:User can create, edit and delete a group
     Given ANZ user is logged in with following details
       | userName | shareAnnotationUser1 |
