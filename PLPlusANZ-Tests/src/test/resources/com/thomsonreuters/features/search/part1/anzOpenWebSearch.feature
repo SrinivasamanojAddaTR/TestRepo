@@ -41,6 +41,7 @@ Feature: [850092] As an open web user I want to perform a search So that I can v
      Given PL+ ANZ user navigates to home page
      When the user runs specific operator search for the query "Tax And Accounting"
      And the user can select the option to show more detail
+	 And the user selects the "100" from per page dropdown
      And user clicks on "Share purchases" link
      And user verifies the "Share purchases" page Title in Open Web
      When user clicks on "Search Results" link
