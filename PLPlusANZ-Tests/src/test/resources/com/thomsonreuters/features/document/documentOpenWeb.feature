@@ -61,7 +61,7 @@ Feature: [850119] View Document Open Web
     When ANZ user navigates directly to document with guid "<guid>"
     Then document title is displayed as "<title>"
     And the full text document will be displayed including "<body>"
-  @sanity
+  @sanity @smoke
     Examples:
       | guid                              | title                                    | body                      | id |
       | I5bef34d7226611e698dc8b09b4f043e0 | Acquisition finance in Austria: overview | To compare answers across | 1  |

@@ -179,18 +179,18 @@ Feature: [818824] Search - Standard Delivery Features
   @gold
   Scenario Outline: [818824] Email document in Microsoft Word format-<id>
     Given the user runs a free text search for the query "<query>"
+    And the user saves the document title for result "4"
     And the user selects the checkbox associated with result "4"
     When user clicks on Email delivery option for Search
-    And the user should be able to see Email basic tab options as follows
-      | Subject | <subject> |
+    And the user should be able to see subject as document selected
     When the user edits the basic email options as follows
       | To     | <mailbox>      |
       | Format | Microsoft Word |
     And Email button is clicked
-    Then user receives an email at "<mailbox>" with document in Microsoft Word format and with subject "<subject>"
+    Then user receives an email at "<mailbox>" with document in Microsoft Word format and with remembered subject
     Examples:
-      | query | subject                        | mailbox                                           | id |
-      | BOOT  | Better off overall test (BOOT) | tr-anz-tester1@epam-email-pluk.thomsonreuters.com | 1  |
+      | query | mailbox                                           | id |
+      | BOOT  | tr-anz-tester1@epam-email-pluk.thomsonreuters.com | 1  |
 
 
   @gold

@@ -25,7 +25,7 @@ Feature: [821959] As a PLAU User, I want to view my history based on a specific 
     And the user selects the "20" from per page dropdown
     When the user selects the date <Option> with <Date>
     Then the user should see the results <Option> with any selected <Date>
-  @sanity
+  @sanity @smoke
     Examples:
       | Option | Date | id |
       | Today  | -    | 1  |

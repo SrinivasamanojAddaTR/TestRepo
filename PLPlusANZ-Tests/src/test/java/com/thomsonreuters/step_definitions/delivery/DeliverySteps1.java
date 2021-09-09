@@ -10,17 +10,21 @@ import com.thomsonreuters.pageobjects.pages.pl_plus_research_docdisplay.document
 import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.rest.DeliveryBaseUtils;
 import com.thomsonreuters.pageobjects.rest.model.request.delivery.initiate_delivery.InitiateDelivery;
+import com.thomsonreuters.pageobjects.utils.delivery.DeliveryFormField;
 import com.thomsonreuters.pageobjects.utils.email.EmailMessageUtils;
 import com.thomsonreuters.pageobjects.utils.email.Mailbox;
 import com.thomsonreuters.pageobjects.utils.email.MailboxFactory;
+import com.thomsonreuters.pageobjects.utils.form.FormUtils;
 import com.thomsonreuters.pageobjects.utils.pdf.PDFBoxUtil;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
+import org.hamcrest.core.Is;
+import org.junit.Assert;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.Assert;
 
 import javax.mail.Message;
 import java.io.File;
@@ -31,6 +35,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class DeliverySteps1 extends BaseStepDef {
@@ -47,6 +52,8 @@ public class DeliverySteps1 extends BaseStepDef {
     private DeliveryBaseUtils deliveryBaseUtils = new DeliveryBaseUtils();
     private SearchResultsPage searchResultsPage = new SearchResultsPage();
     private File downloadedFile = null;
+    private String documentTitle;
+    private FormUtils formUtils = new FormUtils();
     private final static String DOWNLOADED_FILE_PATH = System.getProperty("user.home") + "/Downloads";
     private final static String TITLE = "title";
     private final static String DOCUMENT_BODY = "document body";
@@ -82,6 +89,11 @@ public class DeliverySteps1 extends BaseStepDef {
         Assert.assertTrue("File extension is not " + expected + ". Filename is: " + downloadedFile.getName(),
                 downloadedFile.getName().toLowerCase().endsWith(expected));
 
+    }
+
+    @And("^the user saves the document title for result \"([^\"]*)\"$")
+    public void userSavesTheDocumentTitleForResult(String result) {
+        documentTitle = searchResultsPage.resultByNumber(result).getText();
     }
 
     private Message waitAndGetReceivedEmail(String email, String subject) throws Throwable {
@@ -297,4 +309,39 @@ public class DeliverySteps1 extends BaseStepDef {
                 break;
         }
     }
+
+    @And("^the user should be able to see subject as document selected$")
+    public void userShouldBeAbleToSeeSubjectAsDocumentSelected() {
+        String value=formUtils.getValue(DeliveryFormField.getByFieldDisplayName("Subject")).trim();
+        assertThat(value, Is.is(documentTitle));
+
+    }
+    @Then("^user receives an email at \"(.*?)\" with document in (Microsoft Word|PDF|Word Processor \\(RTF\\)) format and with remembered subject$")
+    public void userReceivesAnEmailAtWithDocumentInMicrosoftWordFormatAndWithRememberedSubject(String email, String format) throws Throwable {
+        Message message = waitAndGetReceivedEmail(email, documentTitle);
+        downloadedFile = emailMessageUtils.downloadAttachment(message);
+        String expected = null;
+        switch (format) {
+            case "Microsoft Word":
+                expected = "doc";
+                break;
+            case "PDF":
+                expected = "pdf";
+                break;
+            case "Word Processor (RTF)":
+                expected = "rtf";
+                break;
+            case "Microsoft Excel (CSV)":
+                expected = "csv";
+                break;
+            case "Microsoft Excel (XLS)":
+                expected = "xls";
+                break;
+            default:
+                break;
+        }
+        Assert.assertTrue("File extension is not " + expected + ". Filename is: " + downloadedFile.getName(),
+                downloadedFile.getName().toLowerCase().endsWith(expected));
+    }
+
 }

@@ -13,7 +13,7 @@ Feature: [808905]As a PLAU User, I want to view the home page So that I can view
       | Tab       | Content                                                                                                          |
       | Topics    | <Topics>                                                                                                         |
       | Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary |
-    @sanity
+    @sanity @smoke
     Examples:
       | PA                     | Topics                                                                             | id |
       | Company Law            | Company administration and meetings, Company formation and constitution, Directors | 1  |

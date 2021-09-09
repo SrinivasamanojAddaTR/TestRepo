@@ -17,7 +17,7 @@ Feature: [813246][808751] As a PLAU User, I want to perform a home page search a
     And the user selects the "20" from per page dropdown
     And the user can select the option to show more detail
     And the user should see the each search result with search term "<Search Term>" in the search result snippet
-  @sanity
+  @sanity @smoke
     Examples:
       | Search Term | id |
       | Tax         | 1  |
