@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class DeliverySteps1 extends BaseStepDef {
@@ -313,35 +313,36 @@ public class DeliverySteps1 extends BaseStepDef {
     @And("^the user should be able to see subject as document selected$")
     public void userShouldBeAbleToSeeSubjectAsDocumentSelected() {
         String value=formUtils.getValue(DeliveryFormField.getByFieldDisplayName("Subject")).trim();
-        assertThat(value, Is.is(documentTitle));
-
+        assertThat(value).as("Subject does not match with the Document title").isEqualTo(documentTitle);
     }
+
     @Then("^user receives an email at \"(.*?)\" with document in (Microsoft Word|PDF|Word Processor \\(RTF\\)) format and with remembered subject$")
     public void userReceivesAnEmailAtWithDocumentInMicrosoftWordFormatAndWithRememberedSubject(String email, String format) throws Throwable {
         Message message = waitAndGetReceivedEmail(email, documentTitle);
         downloadedFile = emailMessageUtils.downloadAttachment(message);
-        String expected = null;
+        String expectedExtension = null;
         switch (format) {
             case "Microsoft Word":
-                expected = "doc";
+                expectedExtension = "doc";
                 break;
             case "PDF":
-                expected = "pdf";
+                expectedExtension = "pdf";
                 break;
             case "Word Processor (RTF)":
-                expected = "rtf";
+                expectedExtension = "rtf";
                 break;
             case "Microsoft Excel (CSV)":
-                expected = "csv";
+                expectedExtension = "csv";
                 break;
             case "Microsoft Excel (XLS)":
-                expected = "xls";
+                expectedExtension = "xls";
                 break;
             default:
                 break;
         }
-        Assert.assertTrue("File extension is not " + expected + ". Filename is: " + downloadedFile.getName(),
-                downloadedFile.getName().toLowerCase().endsWith(expected));
+        assertThat(downloadedFile)
+            .overridingErrorMessage("File extension is invalid")
+            .hasExtension(expectedExtension);
     }
 
 }
