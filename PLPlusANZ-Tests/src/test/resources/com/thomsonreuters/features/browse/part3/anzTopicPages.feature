@@ -34,13 +34,17 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
       | Company Law            | Execution formalities       | Practice notes | 2  |
       | Corporate Transactions | Share acquisitions: private | Checklists     | 3  |
 
- #Althogh this test works fine on PLCUK but there won't be enough documents on Australia's topic pages. Therefore putting   tag
-
   Scenario: User verifies topic page pagination
-    Given PL+ user is logged in
+    Given ANZ user is logged in
     And user opens "Practice Areas" link
     And the user navigates to practice area "Employment" filtered by "Employment contracts" topic page
     Then the user should see the page no "1"
     And the user varifies each page by navigates through each of the following pages
       | Pages |
       | 2     |
+
+  # Added this scenario on Product owner's request to modify above scenario to perform below verification:
+  # Verify if PLAU user can log-in to PLUK application
+  Scenario: ANZ User verifies ability to login to PLUK
+    Given PL+ user is logged in
+    And user should see history link
