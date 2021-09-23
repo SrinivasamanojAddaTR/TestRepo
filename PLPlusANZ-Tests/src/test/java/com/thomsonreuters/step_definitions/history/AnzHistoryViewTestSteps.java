@@ -15,15 +15,13 @@ import com.thomsonreuters.step_definitions.uk.search.BasicKnowHowSearchUKS101Tes
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.apache.commons.lang.time.DateUtils;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -264,6 +262,8 @@ public class AnzHistoryViewTestSteps extends BaseStepDef {
             boolean isCriteriaTrue = false;
             SimpleDateFormat rowDateFormat = new SimpleDateFormat("dd MMM yyyy");
             SimpleDateFormat originalDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            originalDateFormat.setTimeZone(TimeZone.getTimeZone("AET"));
+            SimpleDateFormat specificDateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Calendar today = Calendar.getInstance();
             Date todayDate = null;
             Date customDate1, customDate2;
@@ -272,53 +272,28 @@ public class AnzHistoryViewTestSteps extends BaseStepDef {
                 String  rowStrDate = researchOrganizerPage.getDateAtRowPosition(String.valueOf(rowCount)).getText();
                 Date rowOriginalDate = rowDateFormat.parse(rowStrDate);
                 if (option.equalsIgnoreCase("Today")) {
-                    String rowOriginalStrDate = rowDateFormat.format(rowOriginalDate);
-                    String todayStrDate = CalendarAndDate.getCurrentDate();
-                    if (rowOriginalStrDate.contains(todayStrDate)) {
-                        isCriteriaTrue = true;
-                    }
+                    isCriteriaTrue = isCriteriaForTodayMatches(rowOriginalDate, originalDateFormat);
                 } else if (option.equalsIgnoreCase("Last 7 Days")) {
-                    today.add(Calendar.DAY_OF_MONTH, -7);
-                    todayDate = today.getTime();
-                    if (todayDate.before(rowOriginalDate)) {
-                        isCriteriaTrue = true;
-                    }
+                    isCriteriaTrue = isCriteriaForLastXDaysMatches(rowOriginalDate, -7);
                 } else if (option.equalsIgnoreCase("Last 30 Days")) {
-                    today.add(Calendar.DAY_OF_MONTH, -30);
-                    todayDate = today.getTime();
-                    if (todayDate.before(rowOriginalDate)) {
-                        isCriteriaTrue = true;
-                    }
+                    isCriteriaTrue = isCriteriaForLastXDaysMatches(rowOriginalDate, -30);
                 } else if (option.equalsIgnoreCase("All")) {
-                    todayDate = today.getTime();
-                    if (todayDate.after(rowOriginalDate)) {
-                        isCriteriaTrue = true;
-                    }
+                    isCriteriaTrue = isCriteriaForAllMatches(rowOriginalDate);
                 } else if (option.equalsIgnoreCase("All Dates Before")) {
-                    customDate1 = originalDateFormat.parse(date);
-                    if (rowOriginalDate.before(customDate1) || rowOriginalDate.equals(customDate1)) {
-                        isCriteriaTrue = true;
-                    }
+                    isCriteriaTrue = isCriteriaForAllDatesBeforeMatches(rowOriginalDate, originalDateFormat, date);
                 } else if (option.equalsIgnoreCase("All Dates After")) {
-                    customDate1 = originalDateFormat.parse(date);
-                    if (rowOriginalDate.after(customDate1)) {
-                        isCriteriaTrue = true;
-                    }
+                    isCriteriaTrue = isCriteriaForAllDatesAfterMatches(rowOriginalDate, originalDateFormat, date);
                 } else if (option.equalsIgnoreCase("Specific Date")) {
-                    customDate1 = originalDateFormat.parse(date);
+                    customDate1 = specificDateFormat.parse(date);
                     String customStrDate1 = rowDateFormat.format(customDate1);
                     String rowOriginalStrDate = rowDateFormat.format(rowOriginalDate);
-                    LOG.info("rowOrigiginalStrDate :" + rowOriginalStrDate + " , customStrDate1 :" + customStrDate1);
-                    if (rowOriginalStrDate.contains(customStrDate1)) {
-                        isCriteriaTrue = true;
-                    }
+                    LOG.info("rowOriginalStrDate :" + rowOriginalStrDate + " , customStrDate1 :" + customStrDate1);
+                    isCriteriaTrue = isCriteriaForSpecificDateMatches(customStrDate1, rowOriginalStrDate);
                 } else if (option.equalsIgnoreCase("Date Range")) {
-                    String dateRange[] = date.split("to");
+                    String[] dateRange = date.split("to");
                     customDate1 = originalDateFormat.parse(dateRange[0].trim());
                     customDate2 = originalDateFormat.parse(dateRange[1].trim());
-                    if (rowOriginalDate.after(customDate1) || rowOriginalDate.before(customDate2)) {
-                        isCriteriaTrue = true;
-                    }
+                    isCriteriaTrue = isCriteriaForDateRangeMatches(customDate1, customDate2, rowOriginalDate);
                 }
                 assertTrue(rowOriginalDate.toString() + " is not satisfying criteria..!", isCriteriaTrue);
             }
@@ -369,14 +344,39 @@ public class AnzHistoryViewTestSteps extends BaseStepDef {
         }
     }
 
-    @When("^the user clicks on the facet \"(.*?)\" checkbox$")
-    public void theUserClicksOnTheFacetCheckbox(String arg1) throws Throwable {
-
+    private boolean isCriteriaForTodayMatches(Date rowOriginalDate, SimpleDateFormat originalDateFormat) throws ParseException{
+        Date todayDay = originalDateFormat.parse(new Date().toString());
+        return DateUtils.isSameDay(rowOriginalDate, todayDay);
     }
 
-    @Then("^the user should see the results from both \"(.*?)\" or \"(.*?)\" and \"(.*?)\"$")
-    public void theUserShouldSeeTheResultsFromBothOrAnd(String arg1, String arg2, String arg3) throws Throwable {
-
+    private boolean isCriteriaForLastXDaysMatches(Date rowOriginalDate, int numberOfDays){
+        Calendar today = Calendar.getInstance();
+        today.add(Calendar.DAY_OF_MONTH, numberOfDays);
+        Date todayDate = today.getTime();
+        return todayDate.before(rowOriginalDate);
     }
 
+    private boolean isCriteriaForAllMatches(Date rowOriginalDate){
+        Calendar today = Calendar.getInstance();
+        Date todayDate = today.getTime();
+        return todayDate.after(rowOriginalDate);
+    }
+
+    private boolean isCriteriaForAllDatesBeforeMatches(Date rowOriginalDate, SimpleDateFormat originalDateFormat, String date) throws ParseException{
+        Date customDate = originalDateFormat.parse(date);
+        return (rowOriginalDate.before(customDate) || rowOriginalDate.equals(customDate));
+    }
+
+    private boolean isCriteriaForAllDatesAfterMatches(Date rowOriginalDate, SimpleDateFormat originalDateFormat, String date) throws ParseException{
+        Date customDate = originalDateFormat.parse(date);
+        return rowOriginalDate.after(customDate);
+    }
+
+    private boolean isCriteriaForSpecificDateMatches(String customStrDate, String rowOriginalStrDate) {
+        return rowOriginalStrDate.contains(customStrDate);
+    }
+
+    private boolean isCriteriaForDateRangeMatches(Date customDateStart, Date customDateEnd, Date rowOriginalDate) {
+        return (rowOriginalDate.after(customDateStart) || rowOriginalDate.before(customDateEnd));
+    }
 }

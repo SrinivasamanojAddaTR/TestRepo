@@ -29,6 +29,8 @@ public class FeedbackTestSteps extends BaseStepDef {
     private CommonMethods commonMethods = new CommonMethods();
     private HomePage homepage = new HomePage();
 
+    private static final String FEEDBACK_ALERT_MSG = "Thanks for taking the time to use the feedback button on Practical Law! We love hearing directly from subscribers so we can make Practical Law even better for you";
+
     @When("^the user clicks on Beta Feedback button on footer$")
     public void theUserClicksOnBetaFeedbackButton() throws InterruptedException {
         footer.betaFeedbackLink().click();
@@ -98,7 +100,7 @@ public class FeedbackTestSteps extends BaseStepDef {
     public void theFeedbackIsSubmittedSuccessfully() throws Throwable {
         ExpectedCondition<Boolean> condition = driver -> {
             try {
-                return "The feedback was successfully submitted".equalsIgnoreCase(homepage.getAlertDialogMsgAndAccept());
+                return homepage.getAlertDialogMsgAndAccept().contains(FEEDBACK_ALERT_MSG);
             } catch (NoAlertPresentException ex) {
                 return false;
             }
