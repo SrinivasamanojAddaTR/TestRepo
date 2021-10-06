@@ -251,7 +251,7 @@ public class AssetPageUtils {
                 + "var docViewBottom = docViewTop + $window.height();" + "var elemTop = $elem.offset().top;"
                 + "var elemBottom = elemTop + $elem.height();"
                 + "return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));}"
-                + "return isScrolledIntoView($(\"h2:contains('" + linkText + "')\"),200)");
+                + "return isScrolledIntoView($(\"h2:contains('" + linkText + "')\"),100)");
     }
 
     public boolean isTheUserSeeJumpLinksInTheLeftHandSideNavigationPanel(String jumpLinkText) {
