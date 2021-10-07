@@ -102,7 +102,6 @@ public class AbilityNotToSeeFauvoritesFromOthersSystems1 extends BaseStepDef {
     public void deleteFavoriteGroup(String groupName) throws Throwable {
         favouritesPage.organize().click();
         pageActions.mouseOver(favouritesPage.favouriteGroup(groupName));
-        favouritesPage.waitForPageToLoad();
         favouritesPage.deleteFavouriteGroupButton(groupName).click();
         favouritesPage.doneOrganizing().click();
     }
