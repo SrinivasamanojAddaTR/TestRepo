@@ -100,7 +100,7 @@ public class AnzBrowseTestSteps extends BaseStepDef {
                 assertThat(linksArray)
                     .allSatisfy(
                         link -> assertThat(homePage.tabSubFeatureHeadings(link.trim()).isDisplayed())
-                            .overridingErrorMessage(format("%s not present!", entry.getValue()))
+                            .overridingErrorMessage("%s not present!", entry.getValue())
                             .isTrue());
             } else if (!entry.getKey().equalsIgnoreCase("Tab")) {
                 String linksArray[] = entry.getValue().split(";");
@@ -108,7 +108,7 @@ public class AnzBrowseTestSteps extends BaseStepDef {
                 assertThat(linksArray)
                     .allSatisfy(
                         link -> assertThat(homePage.isElementDisplayed(homePage.getElementByLinkText(link.trim())))
-                            .overridingErrorMessage(format("%s not present!", entry.getValue()))
+                            .overridingErrorMessage("%s not present!", entry.getValue())
                             .isTrue());
             }
         }
