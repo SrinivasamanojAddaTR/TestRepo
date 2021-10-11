@@ -12,7 +12,7 @@ Feature: [822634] Topics URL
     Examples: 
       | topicUrl          | topicName                           | practiceAreaRef | id |
       | /topic/w-000-5049 | Discrimination & Harassment         | w-000-5039      | 1  |
-      | /topic/w-000-5054 | Ill and injured employees           | w-000-5039      | 2  |
+      | /topic/w-000-5054 | Health, safety and incapacity       | w-000-5039      | 2  |
       | /topic/w-000-5069 | Unfair Dismissal                    | w-000-5039      | 3  |
       | /topic/w-000-6561 | Share acquisitions: private         | w-000-5040 	  | 4  |
       | /topic/w-000-6565 | Company administration and meetings | w-000-6549      | 5  |

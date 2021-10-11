@@ -12,13 +12,13 @@ Feature: [808905]As a PLAU User, I want to view the home page So that I can view
     When user selects the following tab and see the relative links or content
       | Tab       | Content                                                                                                          |
       | Topics    | <Topics>                                                                                                         |
-      | Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary |
+      | Resources | Practice notes; Standard documents and drafting notes; Standard clauses and drafting notes; Checklists; Glossary |
     @sanity @smoke
     Examples:
       | PA                     | Topics                                                                             | id |
-      | Company Law            | Company administration and meetings, Company formation and constitution, Directors | 1  |
+      | Company Law            | Company administration and meetings; Company formation and constitution; Directors | 1  |
   @smoke @gold
     Examples:
       | PA                     | Topics                                                                             | id |
       | Corporate Transactions | Share acquisitions: private                                                        | 2  |
-      | Employment             | Federal discrimination and harassment, Ill and injured employees                   | 3  |
+      | Employment             | Federal discrimination and harassment; Health, safety and incapacity               | 3  |

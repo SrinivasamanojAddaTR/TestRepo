@@ -12,10 +12,10 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
     And user expands the "Resource Type" facets group
     And user verifies the "<Resources>" facets are displayed on the topic page
     Examples:
-      | PA                     | Topic Page                  | Resources                                    | id |
-      | Employment             | Ill and injured employees   | Practice notes,Standard documents,Checklists | 1  |
-      | Company Law            | Corporate governance        | Practice notes,Standard documents,Checklists | 2  |
-      | Corporate Transactions | Due diligence: acquisitions | Practice notes,Standard documents,Checklists | 3  |
+      | PA                     | Topic Page                      | Resources                                    | id |
+      | Employment             | Health, safety and incapacity   | Practice notes,Standard documents,Checklists | 1  |
+      | Company Law            | Corporate governance            | Practice notes,Standard documents,Checklists | 2  |
+      | Corporate Transactions | Due diligence: acquisitions     | Practice notes,Standard documents,Checklists | 3  |
 
 
   @gold
@@ -29,10 +29,10 @@ Feature: [815698]As a PLAU User, I want to view a Topics page So that I can view
     When clicks on the facet group "<Resource Type>"
     Then the user verifies the topic facet "<Resource Type>" count is equivalent to no. of results displayed
     Examples:
-      | PA                     | Topic Page                  | Resource Type  | id |
-      | Employment             | Ill and injured employees   | Checklists     | 1  |
-      | Company Law            | Execution formalities       | Practice notes | 2  |
-      | Corporate Transactions | Share acquisitions: private | Checklists     | 3  |
+      | PA                     | Topic Page                   | Resource Type  | id |
+      | Employment             | Health, safety and incapacity| Checklists     | 1  |
+      | Company Law            | Execution formalities        | Practice notes | 2  |
+      | Corporate Transactions | Share acquisitions: private  | Checklists     | 3  |
 
   Scenario: User verifies topic page pagination
     Given ANZ user is logged in

@@ -24,6 +24,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.String.format;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -94,17 +95,21 @@ public class AnzBrowseTestSteps extends BaseStepDef {
         Map<String, String> tableMap = dataTable.asMap(String.class, String.class);
         for (Map.Entry<String, String> entry : tableMap.entrySet()) {
             if (entry.getKey().equalsIgnoreCase("International")) {
-                String linksArray[] = entry.getValue().split(",");
+                String linksArray[] = entry.getValue().split(";");
                 homePage.specificTab(entry.getKey()).click();
-                for (String link : linksArray) {
-                    assertTrue(entry.getValue() + " not present..!", homePage.tabSubFeatureHeadings(link.trim()).isDisplayed());
-                }
+                assertThat(linksArray)
+                    .allSatisfy(
+                        link -> assertThat(homePage.tabSubFeatureHeadings(link.trim()).isDisplayed())
+                            .overridingErrorMessage(format("%s not present!", entry.getValue()))
+                            .isTrue());
             } else if (!entry.getKey().equalsIgnoreCase("Tab")) {
-                String linksArray[] = entry.getValue().split(",");
+                String linksArray[] = entry.getValue().split(";");
                 homePage.specificTab(entry.getKey()).click();
-                for (String link : linksArray) {
-                    assertTrue(entry.getValue() + " not present..!", homePage.isElementDisplayed(homePage.getElementByLinkText(link.trim())));//commonMethods.waitElementByLinkText(link.trim()).isDisplayed());
-                }
+                assertThat(linksArray)
+                    .allSatisfy(
+                        link -> assertThat(homePage.isElementDisplayed(homePage.getElementByLinkText(link.trim())))
+                            .overridingErrorMessage(format("%s not present!", entry.getValue()))
+                            .isTrue());
             }
         }
     }

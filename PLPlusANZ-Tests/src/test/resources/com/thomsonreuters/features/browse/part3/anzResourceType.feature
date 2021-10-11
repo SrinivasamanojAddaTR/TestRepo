@@ -6,7 +6,7 @@ Feature: [825619]As a PLAU User, I want to view a Resource Type by Practice Area
    Given ANZ user is logged in
     When user selects the following tab and see the relative links or content
       |tab | content |
-      | Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary, Global guides|
+      | Resources | Practice notes; Standard documents and drafting notes; Standard clauses and drafting notes; Checklists; Glossary; Global guides|
     Then user verifies following Resource Types with presence of all Practice Areas
       | Resource Types                        | Practice Areas |
       | Practice notes                        | Company Law, Corporate Transactions, Employment |
@@ -20,7 +20,7 @@ Feature: [825619]As a PLAU User, I want to view a Resource Type by Practice Area
    Given ANZ user is logged in
     When user selects the following tab and see the relative links or content
       |tab | content |
-      | Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary, Global guides|
+      | Resources | Practice notes; Standard documents and drafting notes; Standard clauses and drafting notes; Checklists; Glossary; Global guides|
     And the user navigates to resource page "<Resource Type>" filtered by "<PA>" practice area
 	And user should see the label "<PA> <Resource Type>" in the search result heading 
      Examples:

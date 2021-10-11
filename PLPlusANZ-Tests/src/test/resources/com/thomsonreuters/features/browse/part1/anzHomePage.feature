@@ -15,5 +15,5 @@ Feature: [814203] As a PLAU User, I want to view the home page So that I can vie
 		|Corporate Transactions|
 	When user selects the following tab and see the relative links or content 
 		|tab | content |
-		| Resources | Practice notes, Standard documents and drafting notes, Standard clauses and drafting notes, Checklists, Glossary, Global guides|
-		#|International | Countries, International subscriptions, Country Q&A comparison tool |
+		| Resources | Practice notes; Standard documents and drafting notes; Standard clauses and drafting notes; Checklists; Glossary; Global guides|
+		#|International | Countries; International subscriptions; Country Q&A comparison tool |
