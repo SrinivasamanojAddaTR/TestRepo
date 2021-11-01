@@ -29,10 +29,10 @@ Feature: [812856] As a PLAU user I want to see an open web view of my document w
       | mandatoryRouting | YES                              |
       | routing          | SPECIFIED_USER_TIMEOUT_3_MINUTES |
       | userName         | AUtestuser14                     |
-    When he is viewing a free ANZ document "/Document/Ifb5c26cb995811e598dc8b09b4f043e0/View/FullText.html"
+    When he is viewing a free ANZ document "/Document/I25d6da18f9e311eabea4f0dc9fb69570/View/FullText.html"
     And he has a session open and timed out
     Then user gets redirected to the document page that he was visiting and is logged in
-    And the full text document will be displayed including "Reasons for an acquisition"
+    And the full text document will be displayed including "What to expect as a commercial lawyer"
 	And 'Related Content' link is displayed on the right hand panel 
 	When the user clicks on "Related Content" link
     Then the user should see the related content section displayed
