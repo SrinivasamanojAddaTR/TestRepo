@@ -46,7 +46,7 @@ Background:
     Then the user verifies the search result contains the both search terms "tax" "interest" "3" terms of each other in the full text with the first preceding the second
   Examples:
     | result | id |
-    | 4      | 1  |
+    | 1      | 1  |
 
   Scenario Outline: Validate that use of the % connector prevents terms placed after it from being retrieved-<id>
     When the user runs a free text search for the query "tax % purchase"
@@ -54,7 +54,7 @@ Background:
     Then the user verifies the search result contains the first search term "tax" in the full text for the first term and not the second "purchase"
   Examples:
     | result | id |
-    | 2      | 1  |
+    | 1      | 1  |
 
   Scenario Outline: Validate that it is possible to create searches using a mixture of connectors and operators-<id>
     When the user runs a free text search for the query "(financial and tax) % assistance"
