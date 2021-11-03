@@ -6,7 +6,7 @@ Feature: [822634] Topics URL
   Scenario Outline: Topics page URL-<id>
     When the user opens "<topicUrl>" url on PL AU website
     Then the user is presented with a page with header "<topicName>"
-    And the page URL contains "<topicUrl>?sv=<practiceAreaRef>"
+    And the page URL contains "<topicUrl>?comp=plcau&sv=<practiceAreaRef>"
     And Add Page to Favorites icon is displayed
 
     Examples: 
