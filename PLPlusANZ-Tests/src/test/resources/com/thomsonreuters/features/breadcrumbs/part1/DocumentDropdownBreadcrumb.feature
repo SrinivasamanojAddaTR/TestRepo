@@ -46,7 +46,7 @@ Feature: As a PLAU user,I want a dropdown list to appear at the end of by breadc
     And the user goes back in browser
     And the user clicks on the 'Asset purchase agreement: simultaneous signing and completion' link in the doc
     And the user goes back in browser
-    And the user clicks on the 'Share purchase agreement simultaneous signing and completion' link in the doc
+    And the user clicks on the 'Share purchase agreement: simultaneous signing and completion' link in the doc
     And the user goes back in browser
     And the user clicks on the 'Assignment of commercial and retail leases in each state and territory' link in the doc
     And the user goes back in browser
