@@ -9,6 +9,7 @@ import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.GlossaryPa
 import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.TopicPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowDocumentPage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
+import com.thomsonreuters.pageobjects.utils.OnepassLoginUtils;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
 import com.thomsonreuters.pageobjects.utils.screen_shot_hook.BaseStepDef;
 import com.thomsonreuters.pageobjects.utils.search.SearchUtils;
@@ -41,6 +42,7 @@ public class AnzBrowseTestSteps extends BaseStepDef {
     private FooterUtils footerUtils = new FooterUtils();
     private CommonMethods commonMethods = new CommonMethods();
     private SearchUtils searchUtils = new SearchUtils();
+    private OnepassLoginUtils onepassLoginUtils = new OnepassLoginUtils();
 
     @Then("^user navigates directly to url \"(.*)\"$")
     public void userNavigatesDirectlyToUrl(String url) throws Throwable {
@@ -268,6 +270,7 @@ public class AnzBrowseTestSteps extends BaseStepDef {
                     getDriver().navigate().back();
                     glossaryPage.waitForExpectedElement(By.linkText(linkText));
                 }
+                onepassLoginUtils.scrollToTheTopOfTheDocument();
                 wlnHeader.companyLogo().click();
                 wlnHeader.waitForPageToLoad();
                 homePage.specificTab("Resources").click();
