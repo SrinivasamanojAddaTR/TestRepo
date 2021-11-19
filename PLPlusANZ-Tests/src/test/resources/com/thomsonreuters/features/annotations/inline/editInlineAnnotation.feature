@@ -4,7 +4,7 @@ Feature:[845624] Edit an inline annotation
   Scenario: Verify that user can modify inline annotations
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    When user navigates directly to document with guid "I1b74907e995911e598dc8b09b4f043e0" on PL AU website
+    When user navigates directly to document with guid "I7eca8c79418d11ec9f24ec7b211d8087" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation
@@ -20,7 +20,7 @@ Feature:[845624] Edit an inline annotation
   Scenario: Verify that inline annotation will not be updated if user clicks on cancel button
     Given ANZ user is logged in with following details
       | userName | auAnnotationUser2 |
-    When user navigates directly to document with guid "I1b74907e995911e598dc8b09b4f043e0" on PL AU website
+    When user navigates directly to document with guid "I7eca8c79418d11ec9f24ec7b211d8087" on PL AU website
     And user closes disclaimer in the bottom
     And user looks through the body of the document and select text with colour "blueBox"
     And user added new inline annotation

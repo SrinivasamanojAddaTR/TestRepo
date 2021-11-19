@@ -25,7 +25,7 @@ Background:
 
 @gold
 Scenario: [818000] As a PL AU login/password user I want to view related content section after clicking on link
-	Given ANZ user navigates directly to document with guid "I1b74907e995911e598dc8b09b4f043e0"	
+	Given ANZ user navigates directly to document with guid "I7eca8c79418d11ec9f24ec7b211d8087"
 	When the user clicks on "Related Content" link
     Then the user should see the related content section displayed
 
