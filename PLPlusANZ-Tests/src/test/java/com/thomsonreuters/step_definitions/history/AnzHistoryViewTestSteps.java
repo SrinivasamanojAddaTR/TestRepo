@@ -16,6 +16,8 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.commons.lang.time.DateUtils;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
@@ -40,6 +42,7 @@ public class AnzHistoryViewTestSteps extends BaseStepDef {
     private FooterUtils footerUtils = new FooterUtils();
     private String storedTitle = null;
     private String searchResultAndCount = null;
+    private static final String AUSTRALIA_SYDNEY_TIMEZONE = "Australia/Sydney";
 
     @When("^the user clicks on the first result and stores its title$")
     public void theUserClicksOnTheFirstResultAndStoresItsTitle() throws Throwable {
@@ -357,9 +360,11 @@ public class AnzHistoryViewTestSteps extends BaseStepDef {
     }
 
     private boolean isCriteriaForAllMatches(Date rowOriginalDate){
-        Calendar today = Calendar.getInstance();
-        Date todayDate = today.getTime();
-        return todayDate.after(rowOriginalDate);
+        DateTime currentDateTime = DateTime.now();
+        DateTimeZone auTimeZone = DateTimeZone.forID(AUSTRALIA_SYDNEY_TIMEZONE);
+        DateTime dateTimeInAu = currentDateTime.withZone(auTimeZone);
+        Date dateInAu = dateTimeInAu.toLocalDateTime().toDate();
+        return dateInAu.after(rowOriginalDate);
     }
 
     private boolean isCriteriaForAllDatesBeforeMatches(Date rowOriginalDate, SimpleDateFormat originalDateFormat, String date) throws ParseException{
