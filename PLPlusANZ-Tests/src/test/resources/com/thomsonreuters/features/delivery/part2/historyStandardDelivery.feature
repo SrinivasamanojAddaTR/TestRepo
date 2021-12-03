@@ -86,7 +86,7 @@ Feature: [831297] View History Page - Deliver Documents  listed within my docume
     And the document does not include document body that contains text "<docText2>"
     Examples:
       | guid1                             | guid2                             | title1             | title2                      | docText1                      | docText2               | id |
-      | If13ba3b4d4d811e598dc8b09b4f043e0 | Ifb5c26cc995811e598dc8b09b4f043e0 | Transfer of shares | Due diligence: acquisitions | When are shares transferable? | What is due diligence? | 1  |
+      | If13ba3b4d4d811e598dc8b09b4f043e0 | Ifb5c26cc995811e598dc8b09b4f043e0 | Transfer of shares | Due diligence on private acquisitions | When are shares transferable? | What is due diligence? | 1  |
 
 
   Scenario Outline: [831297] Download list of items in CSV format-<id>
