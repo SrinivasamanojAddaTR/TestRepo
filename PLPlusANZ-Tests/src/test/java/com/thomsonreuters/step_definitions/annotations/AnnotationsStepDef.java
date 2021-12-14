@@ -221,12 +221,14 @@ public class AnnotationsStepDef extends BaseStepDef {
     public void clickOnHighlightedText(String colour) throws Throwable {
         sharedAnnotationsPage.clickOnHighlightedText(colour);
         LOG.info("User clicks on the highlighted text with: " + colour + " colour");
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     @When("^user clicks on delete highlighted text$")
     public void clickOnDeleteHighlightedText() throws Throwable {
         sharedAnnotationsPage.clickOnDeleteHighlight();
         LOG.info("User clicks on the delete highlighted text");
+        sharedAnnotationsPage.waitForPageToLoadAndJQueryProcessing();
     }
 
     @When("^user looks through the body of the document and select text$")
