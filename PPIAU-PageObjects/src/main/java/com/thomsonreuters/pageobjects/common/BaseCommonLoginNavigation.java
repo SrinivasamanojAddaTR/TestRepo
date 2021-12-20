@@ -702,7 +702,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                             .sendKeys("w_plcuk_catpagesqa_cs");
                     break;
 
-                    
+
                 case BCI_TOOLS_OPENWEB:
                     LOG.info("BCI_PAGES open web routing");
                     user.setLoginRequired("NO");
@@ -844,12 +844,12 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
 
-                case UNRELEASED_CAT_PAGES_GRANT:    
+                case UNRELEASED_CAT_PAGES_GRANT:
                     LOG.info("UNRELEASED_CAT_PAGES_GRANT routing");
                     routingPage.showFeatureSelectionsLink().click();
                     routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
-                    
+
                 case UNRELEASED_CAT_PAGES:
                     routingPage.showFeatureSelectionsLink().click();
                     routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), DENY_ACCESS_OPTION_TEXT);
@@ -896,7 +896,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     routingPage.selectDropDownByVisibleText(routingPage.linkbuilderDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     routingPage.selectDropDownByVisibleText(routingPage.unreleasedCatPagesDropdown(), GRANT_ACCESS_OPTION_TEXT);
                     break;
-                    
+
                 case SITE_STRUCTURE_IP_USERS:
                     LOG.info("SITE_STRUCTURE_IP_USERS routing");
                     routingPage.infrastructureAccessControls().sendKeys("IAC-UK-COMPARTMENTS, IAC-SMARTBREADCRUMB-ADD-NAVID, IAC-UK-LINKBUILDER");
@@ -1042,19 +1042,38 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         String[] existingIacs = org.apache.commons.lang3.StringUtils
                 .split(org.apache.commons.lang3.StringUtils.remove(iacsArea.getAttribute("value"), " "), ",");
 
+        // IAC which should be turned off
+        String iacsOffFromProp = props.getProperty("iacsOff", StringUtils.EMPTY);
+        String[] iacsOff = (isDisableUsingAdditionalIacAndFac ? iacsOffFromProp
+                : getPropertyValue("iacsOff", iacsOffFromProp)).split(",");
+        WebElement iacsOffArea = routingPage.removedInfrastructureAccessControls();
+        String[] existingIacsOff = StringUtils.split(StringUtils.remove(iacsOffArea.getAttribute("value"), " "), ",");
+
         // at first remove from additional iacs already entered values, then union arrays and perform join
         String finalIacs = org.apache.commons.lang3.StringUtils
                 .join(ArrayUtils.addAll(ArrayUtils.removeElements(iacs, existingIacs), existingIacs), ",");
         iacsArea.clear();
         iacsArea.sendKeys(finalIacs);
-        String facs = isDisableUsingAdditionalIacAndFac ? props.getProperty("facs")
-                : getPropertyValue("facs", props.getProperty("facs"));
+
+        String finalIacsOff = StringUtils.join(ArrayUtils.addAll(ArrayUtils.removeElements(iacsOff, existingIacsOff), existingIacsOff), ",");
+        iacsOffArea.clear();
+        iacsOffArea.sendKeys(finalIacsOff);
+
         if (routingPage.showFeatureSelectionsLink().getText().contains("Show")) {
             routingPage.showFeatureSelectionsLink().click();
         }
+        changeIacsState(isDisableUsingAdditionalIacAndFac, props, "facs", GRANT_ACCESS_OPTION_TEXT);
+        changeIacsState(isDisableUsingAdditionalIacAndFac, props, "facsOff", DENY_ACCESS_OPTION_TEXT);
+
+    }
+
+    private void changeIacsState(boolean isDisableUsingAdditionalIacAndFac, Properties props, String propertyName, String optionText) {
+        String facs = isDisableUsingAdditionalIacAndFac ? props.getProperty(propertyName)
+                : getPropertyValue(propertyName, props.getProperty(propertyName));
         if (!StringUtils.isEmpty(facs)) {
             for (String fac : facs.split(",")) {
-                routingPage.selectDropDownByVisibleText(routingPage.getDropDownByLabel(fac), GRANT_ACCESS_OPTION_TEXT);
+                routingPage.selectDropDownByVisibleText(routingPage.getDropDownByLabel(fac.trim()),
+                        optionText);
             }
         }
     }
