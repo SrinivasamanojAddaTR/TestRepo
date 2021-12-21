@@ -44,7 +44,7 @@ public class ResearchOrganizerPage extends AbstractPage {
     }
 
     public WebElement optionsButton() {
-        return waitForExpectedElement(By.xpath("(//*[@id='co_ro_folder_options']//a)[1]"), 15);
+        return waitForExpectedElement(By.xpath("//*[@id='co_ro_folder_options']/button"), 15);
     }
 
     public WebElement getFacetType() {
