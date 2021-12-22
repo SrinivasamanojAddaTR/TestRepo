@@ -1,4 +1,4 @@
-
+@delivery
 Feature: [820474] Glossary Delivery
   As a PLAU User
   I want to deliver a glossary document
