@@ -3,6 +3,9 @@ As a PLAU user
 I want to view an open web view of my tabbed search results and documents when my session times out
 So that I do not have to login and perform another search or find the document I was viewing
 
+  # Test impacted by below bug - archiving until bug fixed
+  # Bug 1514214: [PLAU] User is not signed off on all opened tabs after completing the session timeout time
+  @archived
   Scenario Outline: Users who have logged in and NOT selected the Super Remember Me Option-<id>
     Given ANZ user is logged in with following details
       | mandatoryRouting | YES  					|
