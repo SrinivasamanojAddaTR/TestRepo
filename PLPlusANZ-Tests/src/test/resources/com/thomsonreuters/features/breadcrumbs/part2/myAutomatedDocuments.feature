@@ -7,7 +7,7 @@ Feature: Contact Express
     When the user selects the user profile symbol
     Then my Automated Documents option should be displayed
 
-  @qed
+  @gold
   Scenario: Verify clicking on My Automated Documents  navigates to Contract Express page
     Given ANZ user is logged in with following details
       | userName | ANZtestuser1 |
