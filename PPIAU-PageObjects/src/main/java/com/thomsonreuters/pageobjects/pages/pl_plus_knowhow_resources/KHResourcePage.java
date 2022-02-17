@@ -12,7 +12,6 @@ public class KHResourcePage extends CommonResourcePage {
 	private static final By SIGN_IN_LINK_LOCATOR = By.xpath("//div[@id='co_loggedOutContentLogin']//a[text()='Sign in']");
 	private static final By REQUEST_A_FREE_TRIAL_LOCATOR = By.xpath("//div[@id='co_loggedOutContentRight']//a[text()='Request a free trial']");
 	private static final By REGISTER_FOR_FREE_ACCESS_LOCATOR = By.linkText("Request a free trial");
-	private static final By DRAFTING_NOTES_MODAL_EXPANDED = By.xpath("//*[@id='co_ToggleDraftingNotesWidget']/*[contains(@aria-expanded,'true')]");
 
     public WebElement whatsMarketLastViewedTag() {
         return findElement(By.id("co_lastViewInfo"));
@@ -134,7 +133,7 @@ public class KHResourcePage extends CommonResourcePage {
     public List<String> getNotesOptions() {
         List<String> options = new ArrayList<>();
         try {
-            for (WebElement element : waitForExpectedElements(By.cssSelector("#co_ToggleDraftingNotesWidget li span"))) {
+            for (WebElement element : waitForExpectedElements(By.cssSelector("#co_draftingNotesOptionsModalContainer li a"))) {
                 options.add(element.getText());
             }
         } catch (TimeoutException te) {
@@ -148,15 +147,22 @@ public class KHResourcePage extends CommonResourcePage {
             selectShowAndHideDraftingNotesLink();
         }
         try {
-            waitForExpectedElement(By.xpath("//*[@id='co_ToggleDraftingNotesWidget']//span[text()='" + showAndHideNotesOptions.getOptionName() + "']")).click();
+            waitForExpectedElement(By.xpath("//div[@id='co_draftingNotesOptionsModalContainerInner']//a[text()='" + showAndHideNotesOptions.getOptionName() + "']")).click();
         } catch (TimeoutException te) {
             throw new PageOperationException("Exceeded time to find the drafting Notes option : " + showAndHideNotesOptions + " : " + te.getMessage());
         }
     }
 
     public boolean isDraftingNotesOptionsDisplayed() {
-
-           return isElementDisplayed(DRAFTING_NOTES_MODAL_EXPANDED);
+        try {
+            String notes = waitForExpectedElement(By.id("co_draftingNotesOptionsModalContainerInner")).getAttribute("class");
+            if (notes.equals("")) {
+                return true;
+            }
+        } catch (TimeoutException te) {
+            LOG.info("Drafting Notes Options not displayed within expected time");
+        }
+        return false;
     }
 
     public int getNotesIconsCount() {
