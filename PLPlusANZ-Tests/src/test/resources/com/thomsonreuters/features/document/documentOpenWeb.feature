@@ -31,7 +31,7 @@ Feature: [850119] View Document Open Web
       | Ifb5c26cc995811e598dc8b09b4f043e0 | Due diligence on private acquisitions | Legal due diligence review template: corporate records | Maintained    | 1  |
 
 #bug/story  868506, 871345 - for trial link
-  @gold
+  @gold @test
   Scenario Outline: [850119] As a PL AU open web user I want to view open web version of document-<id>
     Given ANZ user navigates directly to document with guid "<guid>"
     Then document title is displayed as "<title>"
