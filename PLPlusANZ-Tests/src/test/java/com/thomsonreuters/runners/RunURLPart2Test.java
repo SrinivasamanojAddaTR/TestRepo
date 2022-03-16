@@ -12,21 +12,21 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunURLTest.json", "com.epam.reportportal.cucumber.ScenarioReporter","rerun:target/ReRunURL.txt"},
-        features = "classpath:com/thomsonreuters/features/urls",
+        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunURLPart2Test.json", "com.epam.reportportal.cucumber.ScenarioReporter","rerun:target/ReRunURLPart2.txt"},
+        features = "classpath:com/thomsonreuters/features/urls/part2",
         tags = {"~ ", "~@manual"},
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
-public class RunURLTest extends BaseCucumberTestRunner {
+public class RunURLPart2Test extends BaseCucumberTestRunner {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RunURLTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RunURLPart2Test.class);
 
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username", "None").equals("None")) {
-            User.getInstance().setUserName("AUtestuser11");
-            User.getInstance().setPassword("Password1");
+            User.getInstance().setUserName("PLAUtestuser12");
+            User.getInstance().setPassword("P@ssword2");
             LOG.info("The credentials have been set");
         }
         else {
