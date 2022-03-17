@@ -12,19 +12,19 @@ import org.slf4j.LoggerFactory;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/ReRunInlineAnnotation.json", "com.epam.reportportal.cucumber.ScenarioReporter"},
-        features = "@target/ReRunInlineAnnotation.txt",
+        plugin = {"pretty", "junit:target/junit_cucumber.xml", "json:target/json-files/RunAnnotationsAtTheTopTestFontSizePart2Test.json", "com.epam.reportportal.cucumber.ScenarioReporter","rerun:target/ReRunAnnotationsAtTheTopFontSizePart2.txt"},
+        features = "classpath:com/thomsonreuters/features/annotations/fontSizePart2",
+        tags = {"~ ","~@manual"},
         glue = {"com.thomsonreuters.step_definitions", "com.thomsonreuters.hooks"},
         monochrome = true,
         snippets = SnippetType.CAMELCASE)
-public class ReRunInlineAnnotation extends BaseCucumberTestRunner {
-
-    private static final Logger LOG = LoggerFactory.getLogger(ReRunInlineAnnotation.class);
+public class RunAnnotationsAtTheTopFontSizePart2Test extends BaseCucumberTestRunner {
+    private static final Logger LOG = LoggerFactory.getLogger(RunAnnotationsAtTheTopFontSizePart2Test.class);
 
     @BeforeClass
     public static void reporting() {
         if (System.getProperty("username", "None").equals("None")) {
-            User.getInstance().setUserName("auAnnotationUser2");
+            User.getInstance().setUserName("auAnnotationUser6");
             User.getInstance().setPassword("P@ssword2");
             LOG.info("The credentials have been set");
         } else {
