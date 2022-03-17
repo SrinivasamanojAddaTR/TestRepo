@@ -40,7 +40,7 @@ public class SharedAnnotationsPage extends AbstractPage {
     private static final String HIGHLIGHTED_TEXT_XPATH = "//span[contains(@class, '%s') and contains(@class, 'co_selection')]";
     private static final String SAVE_BUTTON= "input[value='Save']";
     private static final By OK_CONFRIMATION_BTN_BY = By.xpath("//div[@class='co_note_okbutton']//a[contains(text(),'OK')]");
-    private static final By DISCLAIMER_CLOSE_BUTTON = By.cssSelector("a#DisclaimerMessageClose");
+    private static final By DISCLAIMER_CLOSE_BUTTON = By.xpath("//div[@id='DisclaimerMessage']//a[text()='Close'] | //div[@id='DisclaimerMessage']//*[text()='Close']");
     private static final By ANNOTATIONS_BODY = By.cssSelector(".co_viewNoteText.mce-content-body");
 
 

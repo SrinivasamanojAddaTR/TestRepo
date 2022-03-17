@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 public class PracticalLawHomepage extends AbstractPage {
 
-    private static final By CLOSE_CONSENT_MESSAGE_XPATH = By.xpath("//div[@id='CookieConsentMessage']//a[text()='Close']");
+    private static final By CLOSE_CONSENT_MESSAGE_XPATH = By.xpath("//div[@id='CookieConsentMessage']//a[text()='Close'] | //div[@id='CookieConsentMessage']//*[text()='Close']");
 	private static final By FLASH_SCREEN = By.xpath("//div[@id='co_welcomeCenterLightbox']/div[2]/div/div/div/ul/li/a");
 	private static final By CLOSE_FLASH_SCREEN_ID = By.id("undefined");
 	private static final By SIGN_OFF_REGION = By.id("coid_website_signOffRegion");
