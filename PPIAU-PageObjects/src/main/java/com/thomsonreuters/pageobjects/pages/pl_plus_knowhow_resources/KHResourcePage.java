@@ -12,6 +12,7 @@ public class KHResourcePage extends CommonResourcePage {
 	private static final By SIGN_IN_LINK_LOCATOR = By.xpath("//div[@id='co_loggedOutContentLogin']//a[text()='Sign in']");
 	private static final By REQUEST_A_FREE_TRIAL_LOCATOR = By.xpath("//div[@id='co_loggedOutContentRight']//a[text()='Request a free trial']");
 	private static final By REGISTER_FOR_FREE_ACCESS_LOCATOR = By.linkText("Request a free trial");
+	private static final By DRAFTING_NOTES_WIDGET = By.id("co_AnchorToggleDraftingNotesWidget");
 
     public WebElement whatsMarketLastViewedTag() {
         return findElement(By.id("co_lastViewInfo"));
@@ -156,7 +157,7 @@ public class KHResourcePage extends CommonResourcePage {
     public boolean isDraftingNotesOptionsDisplayed() {
         boolean isDisplayed = false;
         try {
-            isDisplayed = Boolean.parseBoolean(waitForExpectedElement(By.id("co_AnchorToggleDraftingNotesWidget")).getAttribute("aria-expanded"));
+            isDisplayed = Boolean.parseBoolean(waitForExpectedElement(DRAFTING_NOTES_WIDGET).getAttribute("aria-expanded"));
         } catch (TimeoutException te) {
             LOG.info("Drafting Notes Options not displayed within expected time");
         }
@@ -197,11 +198,11 @@ public class KHResourcePage extends CommonResourcePage {
     }
 
     public WebElement draftingNotesDeliveryIcon() {
-        return waitForExpectedElement(By.id("co_AnchorToggleDraftingNotesWidget"));
+        return waitForExpectedElement(DRAFTING_NOTES_WIDGET);
     }
 
     public boolean isDraftingNotesDeliveryIconExist() {
-        return isExists(By.id("co_AnchorToggleDraftingNotesWidget"));
+        return isExists(DRAFTING_NOTES_WIDGET);
     }
 
     public List<WebElement> collapsedDraftingNotesList() {
