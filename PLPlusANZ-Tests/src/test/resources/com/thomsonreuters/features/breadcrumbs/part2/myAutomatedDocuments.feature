@@ -8,7 +8,7 @@ Feature: Contact Express
     Then my Automated Documents option should be displayed
 
   @gold
-  Scenario: Verify clicking on My Automated Documents  navigates to Contract Express page
+  Scenario: Verify clicking on My Automated Documents navigates to Contract Express page
     Given ANZ user is logged in with following details
       | userName | ANZtestuser1 |
     When the user selects the user profile symbol
