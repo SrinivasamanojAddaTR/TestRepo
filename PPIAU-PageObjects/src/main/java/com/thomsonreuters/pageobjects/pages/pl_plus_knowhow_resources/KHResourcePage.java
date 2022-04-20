@@ -134,7 +134,7 @@ public class KHResourcePage extends CommonResourcePage {
     public List<String> getNotesOptions() {
         List<String> options = new ArrayList<>();
         try {
-            for (WebElement element : waitForExpectedElements(By.cssSelector("#co_docToolbarToggleDraftingNotesWidget .a11yDropdown-itemText"))) {
+            for (WebElement element : waitForExpectedElements(By.cssSelector("#co_draftingNotesOptionsModalContainer li a"))) {
                 options.add(element.getText());
             }
         } catch (TimeoutException te) {
@@ -148,20 +148,22 @@ public class KHResourcePage extends CommonResourcePage {
             selectShowAndHideDraftingNotesLink();
         }
         try {
-            waitForExpectedElement(By.xpath("//li[@id='co_docToolbarToggleDraftingNotesWidget']//li//span[text()='" + showAndHideNotesOptions.getOptionName() + "']")).click();
+            waitForExpectedElement(By.xpath("//div[@id='co_draftingNotesOptionsModalContainerInner']//a[text()='" + showAndHideNotesOptions.getOptionName() + "']")).click();
         } catch (TimeoutException te) {
             throw new PageOperationException("Exceeded time to find the drafting Notes option : " + showAndHideNotesOptions + " : " + te.getMessage());
         }
     }
 
     public boolean isDraftingNotesOptionsDisplayed() {
-        boolean isDisplayed = false;
         try {
-            isDisplayed = Boolean.parseBoolean(waitForExpectedElement(DRAFTING_NOTES_WIDGET).getAttribute("aria-expanded"));
+            String notes = waitForExpectedElement(By.id("co_draftingNotesOptionsModalContainerInner")).getAttribute("class");
+            if (notes.equals("")) {
+                return true;
+            }
         } catch (TimeoutException te) {
             LOG.info("Drafting Notes Options not displayed within expected time");
         }
-        return isDisplayed;
+        return false;
     }
 
     public int getNotesIconsCount() {
