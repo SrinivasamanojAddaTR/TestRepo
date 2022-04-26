@@ -1,3 +1,4 @@
+@open_web
 Feature: [850127]OPEN WEB (TEST ONLY) Footer Pages
   As a open web user
   I want to view and link to footer pages
