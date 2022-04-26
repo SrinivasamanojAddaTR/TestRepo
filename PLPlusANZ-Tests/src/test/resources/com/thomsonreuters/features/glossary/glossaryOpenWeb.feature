@@ -1,3 +1,4 @@
+@open_web
 Feature: [850131] View and Navigate Glossary Open Web
 
 #intermittent issue:
