@@ -6,7 +6,7 @@ So that I can find the latest updates in the industry
 
 	Background:
     Given PL+ ANZ user navigates to home page
-
+  @open_web
   Scenario Outline: [850132] Open web user verifies the Legal updates by Practice Area going through Legal Update Resource page-<id>
     When the user select Legal Updates link on Resource tab area
     Then list of practice areas will be displayed
@@ -18,7 +18,7 @@ So that I can find the latest updates in the industry
     Examples: 
       | practiceArea | id |
       | Employment   | 1  |
-
+  @open_web
   Scenario Outline: [850132] Open web user verifies the Legal updates by Practice Area going through PA page-<id>
     When the user clicks on the tab "Practice Areas"
     And the user opens "<practiceArea>" link
@@ -29,7 +29,7 @@ So that I can find the latest updates in the industry
     Examples: 
       | practiceArea | id |
       | Employment   | 1  |
-
+   @open_web
    Scenario: [850132] As a open web User I want to view all existing legal updates on PL content
     When the user select Legal Updates link on Resource tab area
 	When the user clicks on the 'View all' link of the "Legal updates" widget
