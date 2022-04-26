@@ -1,3 +1,4 @@
+@open_web
 Feature: [850111] As an open web user, I want to filter my search results So that I can narrow the search results to the area of the law I am interested in
 
 

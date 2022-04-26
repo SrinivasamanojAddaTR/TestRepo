@@ -1,3 +1,4 @@
+@open_web
 Feature: [850092] As an open web user I want to perform a search So that I can view the documents that are available in PL Australia
 
   Background:

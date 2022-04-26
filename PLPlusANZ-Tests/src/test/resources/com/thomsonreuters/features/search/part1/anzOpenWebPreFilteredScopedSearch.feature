@@ -1,3 +1,4 @@
+@open_web
 Feature: [850104] As an open web user, I want to perform a pre-filter search So that I can scope my search to a specific practice area and see what content is available
 
   Background:

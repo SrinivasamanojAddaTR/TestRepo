@@ -1,4 +1,4 @@
-
+@open_web
 Feature: [813300]As an open web user, I want to be able to choose to show less or more detail in my search result So that I can display the appropriate level of detail for each search result
 
   Background:
