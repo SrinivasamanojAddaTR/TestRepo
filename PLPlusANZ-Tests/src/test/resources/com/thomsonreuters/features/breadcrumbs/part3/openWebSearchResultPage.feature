@@ -1,3 +1,4 @@
+@open_web
 Feature: As a open web user user,I want to view a breadcrumb trail with clickable links to Search results on the Practical Law Australia website, so that I can view my navigation path whilst browsing the website and easily navigate to the Search Results that I have visited in my way to the viewing page or document.
 
 

@@ -1,4 +1,5 @@
-Feature: Verify that logged in Open Web user can see breadcrumb trail with clickable Homepage link on PLAU site and navigate back to Homepage when clicking on this link. 
+@open_web
+Feature: Verify that logged in Open Web user can see breadcrumb trail with clickable Homepage link on PLAU site and navigate back to Homepage when clicking on this link.
 
 Background: 
 	Given PL+ ANZ user navigates to home page

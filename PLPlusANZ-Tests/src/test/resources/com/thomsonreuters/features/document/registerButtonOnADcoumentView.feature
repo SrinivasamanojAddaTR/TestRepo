@@ -1,3 +1,4 @@
+@open_web
 Feature: [848107] Ability to use register button on document view
 
   @gold

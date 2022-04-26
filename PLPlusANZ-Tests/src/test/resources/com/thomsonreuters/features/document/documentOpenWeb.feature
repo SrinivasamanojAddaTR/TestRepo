@@ -1,3 +1,4 @@
+@open_web
 Feature: [850119] View Document Open Web
 
   Background:

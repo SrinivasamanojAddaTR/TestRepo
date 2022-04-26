@@ -1,3 +1,4 @@
+@open_web
 Feature: Verify that logged in Open Web user can see breadcrumb trail while navigated to document view page
 
   Background:
