@@ -1,3 +1,4 @@
+@open_web
 Feature: [812636]  Super Remember Me Option
 
   Background: 

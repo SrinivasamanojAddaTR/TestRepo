@@ -1,3 +1,4 @@
+@open_web
 Feature: [812218]  Password Authentication: Login to Practical Law Australia
 
   Background: 

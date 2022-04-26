@@ -1,4 +1,4 @@
-@smoke @gold
+@smoke @gold @open_web
 Feature: [850067] Not logged in user can log in as username and password
 
 

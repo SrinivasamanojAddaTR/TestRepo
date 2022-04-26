@@ -1,5 +1,5 @@
 Feature: [812856] As a PLAU user I want to see an open web view of my document when my session times out
-
+  @open_web
   Scenario: [812856] Modify timeout re-direct to skip Open web authentication if a user is not Open web (username/password users).
     Given ANZ user is logged in with routing details
       | mandatoryRouting | YES                              |
@@ -14,7 +14,7 @@ Feature: [812856] As a PLAU user I want to see an open web view of my document w
     And clicks on Sign in
     Then user gets redirected to the document page that he was visiting and is logged in
 
-  @RemoveSRMOptionANZ
+  @RemoveSRMOptionANZ @open_web
   Scenario: [812856] View a single document and timeout when Super Remember Me enabled
     Given ANZ user is not logged in
     When the user navigates to the main PLANZ page
