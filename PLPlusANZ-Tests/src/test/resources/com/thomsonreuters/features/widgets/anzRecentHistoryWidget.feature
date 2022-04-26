@@ -16,7 +16,7 @@ Feature: [820326] As a PLAU User I want to view my recent history So that I can 
     #And the user navigates to the main PLANZ page
     #And the user clicks document link on recent history widget and document should open
 
-
+    @open_web
 	Scenario:  [850126] Open web user should not see recent history widget
 	Given ANZ user is not logged in
 	When the user navigates to the main PLANZ page
