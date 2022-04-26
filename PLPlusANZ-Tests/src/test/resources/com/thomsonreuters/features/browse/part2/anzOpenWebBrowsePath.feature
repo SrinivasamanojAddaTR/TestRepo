@@ -1,3 +1,4 @@
+@open_web
 Feature: [850065] As an open web user, I can launch the PL Australia web site and browse within the site, So that I can see the practice areas, topics, resources and international materials that are available
 
   #TODO global guides is under consideration will appear in future
