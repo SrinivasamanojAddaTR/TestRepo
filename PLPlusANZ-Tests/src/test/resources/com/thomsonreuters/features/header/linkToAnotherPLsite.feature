@@ -44,7 +44,6 @@ Feature: [809948][850090] Link to another Practical Law web site
     Then the user is taken to the login page in WLAU
 
   #open web user tests
-  @open_web
   Scenario Outline: Open Web User verifies the Footer links and styling-<id>
     Given PL+ ANZ user navigates to home page
     Then user should see the following countries with respective links
@@ -54,6 +53,7 @@ Feature: [809948][850090] Link to another Practical Law web site
       | Canada    | /PLCTransfer.html?domainKey=PLCCA |
     And the user selects "<countryName>"
     And the Practical Law Country "<url>" web site "<websiteTitle>" will be launched in the same window and tab
+    @open_web
     Examples:
       | countryName | url                      | websiteTitle                                     | id |
       | US          | https://content.next.    | Practitioner Insights News & Analysis \| Westlaw | 1  |
