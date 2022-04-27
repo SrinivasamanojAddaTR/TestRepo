@@ -1,3 +1,4 @@
+@open_web
 Feature: [818358] [820465] Delivery Widget
 
 Background:
