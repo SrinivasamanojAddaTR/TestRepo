@@ -7,9 +7,10 @@ Feature: [809918]Edit Preferences (User Preferences)
     Then the Edit Profile option will be displayed
     Then the user selects Edit profile option
     Then the user will be taken to the Manage One Pass page
-    
 
-    Scenario: [850126] Open Web user should not see user avatar link
+
+  @open_web
+  Scenario: [850126] Open Web user should not see user avatar link
     Given ANZ user is not logged in
     And PL+ ANZ user navigates to home page
     When the user navigates to the main PLANZ page

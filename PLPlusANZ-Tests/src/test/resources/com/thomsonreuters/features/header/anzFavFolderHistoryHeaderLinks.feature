@@ -16,7 +16,7 @@ Feature: [820792][822937] As a PLAU user,  I want to view folders, favourites an
 
 
 
-  @gold @ffh
+  @gold @ffh @open_web
   Scenario: User wants to see Favourite, Folders and History links not available in open web
     When PL+ ANZ user navigates to home page
     Then user should not see the "Folders" link

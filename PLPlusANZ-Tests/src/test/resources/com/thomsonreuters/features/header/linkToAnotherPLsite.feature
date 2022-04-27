@@ -44,6 +44,7 @@ Feature: [809948][850090] Link to another Practical Law web site
     Then the user is taken to the login page in WLAU
 
   #open web user tests
+  @open_web
   Scenario Outline: Open Web User verifies the Footer links and styling-<id>
     Given PL+ ANZ user navigates to home page
     Then user should see the following countries with respective links
@@ -64,7 +65,8 @@ Feature: [809948][850090] Link to another Practical Law web site
       | Global      | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global       | Global Homepage \| Practical Law |
       | China       | https://uk.practicallaw.thomsonreuters.com/Browse/Home/Global/China | Global \| China \| Practical Law |
 
-  Scenario: Open Web User verifies the Westlaw AU  links
+  @open_web
+  Scenario: Open Web User verifies the Westlaw AU links
     Given PL+ ANZ user navigates to home page
     When the user selects "Resources" tab
     And the user selects "Westlaw AU"
