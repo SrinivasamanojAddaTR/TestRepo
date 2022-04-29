@@ -8,6 +8,7 @@ import com.thomsonreuters.pageobjects.pages.page_creation.HomePage;
 import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.GlossaryPage;
 import com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources.TopicPage;
 import com.thomsonreuters.pageobjects.pages.search.KnowHowDocumentPage;
+import com.thomsonreuters.pageobjects.pages.search.SearchResultsPage;
 import com.thomsonreuters.pageobjects.pages.widgets.CategoryPage;
 import com.thomsonreuters.pageobjects.utils.OnepassLoginUtils;
 import com.thomsonreuters.pageobjects.utils.homepage.FooterUtils;
@@ -43,6 +44,7 @@ public class AnzBrowseTestSteps extends BaseStepDef {
     private CommonMethods commonMethods = new CommonMethods();
     private SearchUtils searchUtils = new SearchUtils();
     private OnepassLoginUtils onepassLoginUtils = new OnepassLoginUtils();
+    private SearchResultsPage searchResultsPage = new SearchResultsPage();
 
     @Then("^user navigates directly to url \"(.*)\"$")
     public void userNavigatesDirectlyToUrl(String url) throws Throwable {
@@ -128,9 +130,16 @@ public class AnzBrowseTestSteps extends BaseStepDef {
         topicPage.waitForPageToLoadAndJQueryProcessing();
         String resourceList[] = resources.split(",");
         for (String resourceName : resourceList) {
-            assertTrue(resourceName + " is not displayed..!", topicPage.resourceHeading(resourceName.trim()).isDisplayed());
+            boolean checkTopicHeading = topicPage.isResourceHeadingDisplayed(resourceName.trim());
+            if (!checkTopicHeading) {
+                while (searchResultsPage.isSelectNextPageDisplayed()) {
+                    searchResultsPage.selectNextPage().click();
+                    assertThat(topicPage.isResourceHeadingDisplayed(resourceName.trim())).overridingErrorMessage("%s is not displayed..!",resourceName).isTrue();
+                }
+            }
         }
     }
+
 
     @Then("^user expands the \"(.*?)\" facets group$")
     public void expandFacetGroup(String type) {

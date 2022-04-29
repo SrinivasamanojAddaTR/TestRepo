@@ -3,6 +3,7 @@ package com.thomsonreuters.pageobjects.pages.pl_plus_knowhow_resources;
 import com.thomsonreuters.driver.framework.AbstractPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 import java.util.*;
@@ -142,6 +143,17 @@ public class TopicPage extends AbstractPage {
     public WebElement resourceHeading(String resourceName) {
         return waitForExpectedElement(By.xpath("//div[@id='cobalt_search_knowHowTopicPlc_results']//h2[contains(text(),'" + resourceName + "')]"));
     }
+
+    public boolean isResourceHeadingDisplayed(String resourceName) {
+        boolean result;
+        try {
+            result = resourceHeading(resourceName).isDisplayed();
+        } catch (TimeoutException ex) {
+            result = false;
+        }
+        return result;
+    }
+
     public WebElement specificFacetCount(String facetName) {
         return waitForElementPresent(By.xpath(String.format("//span[.='%s']/parent::label[@class='SearchFacet-label']//span[@class='SearchFacet-outputTextValue']",facetName)));
     }

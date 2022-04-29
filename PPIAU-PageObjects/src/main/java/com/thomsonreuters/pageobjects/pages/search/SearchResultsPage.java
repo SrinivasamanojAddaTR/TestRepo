@@ -289,6 +289,16 @@ public class SearchResultsPage extends AbstractPage {
         return waitForElementPresent(By.id("co_search_footer_pagination_next"));
     }
 
+    public boolean isSelectNextPageDisplayed() {
+        boolean result;
+        try {
+            result = selectNextPage().isDisplayed();
+        } catch (TimeoutException ex) {
+            result = false;
+        }
+        return result;
+    }
+
     /**
      * this is the by element to select the next page
      */
