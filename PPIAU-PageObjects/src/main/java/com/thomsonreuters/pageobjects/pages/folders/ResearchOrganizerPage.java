@@ -474,7 +474,7 @@ public class ResearchOrganizerPage extends AbstractPage {
      * element that provides date picker dropdown
      */
     public WebElement historyPageDatePickerDropdownLink() {
-        return waitForExpectedElement(By.id("co_dateWidget_Date_dropdown"));
+        return waitForExpectedElement(By.id("co_dateWidget_1_dropdown"));
     }
 
     /**
@@ -482,7 +482,7 @@ public class ResearchOrganizerPage extends AbstractPage {
      */
     public List<WebElement> datePickerDropdownOptionsList() {
 
-        return waitForElementsVisible(By.xpath("//div[@id='co_dateWidget_footer_Date']//li//a"));
+        return waitForElementsVisible(By.xpath("//div[@id='co_dateWidget_footer_1']//li//a"));
     }
 
     /**
@@ -498,7 +498,7 @@ public class ResearchOrganizerPage extends AbstractPage {
      */
     public WebElement datePickerDropdownSelectedOption() {
 
-        return waitForElementVisible(By.id("co_dateWidget_Date_dropdown_span"));
+        return waitForElementVisible(By.id("co_dateWidget_1_dropdown_span"));
     }
 
     /**
@@ -643,7 +643,7 @@ public class ResearchOrganizerPage extends AbstractPage {
 
     public WebElement datePickerUntilDateTextbox() {
 
-        return waitForElementVisible(By.id("co_dateWidgetCustomRangeUntilText_Date_fromUntil"));
+        return waitForElementVisible(By.id("co_dateWidgetCustomRangeUntilText_1_fromUntil"));
     }
 
     public WebElement datePikcerOKButton(String option) {
