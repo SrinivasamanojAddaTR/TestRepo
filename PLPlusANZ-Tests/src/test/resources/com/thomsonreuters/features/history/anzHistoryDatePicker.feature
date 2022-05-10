@@ -25,19 +25,19 @@ Feature: [821959] As a PLAU User, I want to view my history based on a specific 
     And the user selects the "20" from per page dropdown
     When the user selects the date <Option> with <Date>
     Then the user should see the results <Option> with any selected <Date>
-  @sanity @smoke
+    @sanity @smoke
     Examples:
       | Option | Date | id |
       | Today  | -    | 1  |
-  @smoke @gold
+    @smoke @gold
     Examples:
       | Option           | Date                     | id |
       | Last 7 Days      | -                        | 2  |
       | Last 30 Days     | -                        | 3  |
       | All              | -                        | 4  |
-      | All Dates Before | 05-05-2021               | 5  |
+      | All Dates Before | 10-10-2021               | 5  |
       | All Dates After  | 08-09-2016               | 6  |
-      | Date Range       | 07-09-2016 to 05-05-2021 | 8  |
+      | Date Range       | 07-09-2016 to 10-10-2021 | 8  |
     #Archived due to Long Standing Bug 1466120: [PLAU] No Search results are displayed when made specific date search in history page
     @archived
     Examples:
