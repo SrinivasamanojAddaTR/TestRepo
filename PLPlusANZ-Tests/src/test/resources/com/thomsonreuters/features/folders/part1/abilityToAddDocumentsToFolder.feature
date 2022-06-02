@@ -20,7 +20,7 @@ Scenario Outline: From Home Page-<id>
     Then the folder "<folder>" is empty
     Examples: 
       | query    | folder | parentFolder | id |
-      | document | test20  | root        | 1  |
+      | law      | test20  | root        | 1  |
 
 
  @gold
