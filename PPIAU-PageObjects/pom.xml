@@ -10,7 +10,7 @@
 
 	<properties>
 		<isCustomBuildReportsRequired>true</isCustomBuildReportsRequired>
-		<frameworkVersion>2.1.22</frameworkVersion>
+		<frameworkVersion>2.1.23</frameworkVersion>
 	</properties>
 
 	<build>
