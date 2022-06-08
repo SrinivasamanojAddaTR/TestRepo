@@ -83,7 +83,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     private KHResourcePage resourcePage;
     private CategoryPage categoryPage;
     private SiteStructureUtils siteStructureUtils;
-    private FooterUtils footerUtils;
+    protected FooterUtils footerUtils;
     private SearchUtils searchUtils;
 
     public BaseCommonLoginNavigation() {
