@@ -143,9 +143,9 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The user has clicked on the SignOn link on the header");
     }
 
-    public void plAnzUserNaviagatesToHomePage() {
+    public void plAnzUserNaviagatesToHomePage() throws IOException {
         getDriver().manage().deleteAllCookies();
-        navigationCobalt.navigateToPLANZPlus();
+        doRoutingforOpenWeb();
         resetCurrentUser();
         wlnHeader.waitForPageToLoadAndJQueryProcessing();
         footerUtils.closeDisclaimerMessage();
@@ -280,16 +280,23 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         LOG.info("The user has navigated to the routing page");
     }
 
-    public void anzUserIsNotLoggedIn() {
+    public void anzUserIsNotLoggedIn() throws IOException {
         if (!isUserFirstUser(currentUser)) {
             newSession(currentUser);
-            navigationCobalt.navigateToPLANZPlus();
+            doRoutingforOpenWeb();
             wlnHeader.waitForPageToLoadAndJQueryProcessing();
             wlnHeader.closePrivacyNoticePopup();
             footerUtils.closeDisclaimerMessage();
             TimeoutUtils.sleepInSeconds(TIMEOUT_BEFORE_LOGIN);
             footerUtils.ourCookiesPolicy();
         } else {
+            doRoutingforOpenWeb();
+            wlnHeader.waitForPageToLoadAndJQueryProcessing();
+            footerUtils.closeDisclaimerMessage();
+            wlnHeader.closePrivacyNoticePopup();
+            footerUtils.closeDisclaimerMessage();
+            TimeoutUtils.sleepInSeconds(TIMEOUT_BEFORE_LOGIN);
+            footerUtils.ourCookiesPolicy();
             LOG.info("No need to create new session. Current user: {} is the first user", currentUser);
         }
         LOG.info("ANZ user has logged in");
@@ -323,11 +330,12 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     }
 
     public void plUserIsApplyingRoutingWithoutLogin(@Transpose List<CobaltUser> plPlusUserList) throws IOException {
+        boolean facRouting = false;
         CobaltUser plPlusUser = CobaltUser.updateMissingFields(plPlusUserList.get(0));
         if (StringUtils.isEmpty(plPlusUser.getUserName())) {
             plPlusUser.setUserName(this.getCurrentUserName());
         }
-        doRouting(CobaltUser.updateMissingFields(plPlusUserList.get(0)));
+        doRouting(CobaltUser.updateMissingFields(plPlusUserList.get(0)), facRouting);
         plcHomePage.waitForPageToLoadAndJQueryProcessing();
         plcHomePage.closeCookieConsentMessage();
         LOG.info("The PL+ user has applied routing without login");
@@ -347,6 +355,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
     }
 
     protected void loginUser(CobaltUser plPlusUser, boolean isVerifyUserLoggedForSkipLoginCase) throws IOException {
+        boolean facRouting = true;
         LOG.info("---------------------------------BEGIN USER LOGIN-------------------------------");
         if (plPlusUser.equalTo(currentUser)) {
             loginAsCurrentUser(plPlusUser, isVerifyUserLoggedForSkipLoginCase);
@@ -357,7 +366,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     loginLegacySite(plPlusUser);
                 }
             }
-            doRouting(plPlusUser);
+            doRouting(plPlusUser, facRouting);
 
             if (plPlusUser.getProduct().equals(Product.PLC_LEGACY) && isUserFirstUser(currentUser)) {
                 loginLegacySite(plPlusUser);
@@ -473,7 +482,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         }
     }
 
-    private void doRouting(CobaltUser user) throws IOException {
+    private void doRouting(CobaltUser user, boolean facRouting) throws IOException {
         if (user.getProduct().equals(Product.PLC) || Product.ANZ.equals(user.getProduct())) {
             skipAnonymousAuthenticationRouting(user);
             switch (user.getRouting()) {
@@ -972,7 +981,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
                     throw new UnknownError("Routing Code not implemented " + user.getRouting());
             }
 
-            fillAdditionalIacAndFacInfoIfEnabled();
+            fillAdditionalIacAndFacInfoIfEnabled(facRouting);
             plcHomePage.waitForPageToLoadAndJQueryProcessing();
             routingPage.saveChangesAndSignOnButton().click();
         } else if (user.getProduct().equals(Product.WLN)) {
@@ -1002,6 +1011,15 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         }
     }
 
+    private void doRoutingforOpenWeb() throws IOException {
+        boolean facRouting = false;
+        navigateToRoutingPage(Product.ANZ);
+        fillAdditionalIacAndFacInfoIfEnabled(facRouting);
+        plcHomePage.waitForPageToLoadAndJQueryProcessing();
+        routingPage.moveToAndClickElement(routingPage.saveChangesAndSignOnButton());
+        plcHomePage.waitForPageToLoadAndJQueryProcessing();
+    }
+
     private void setAllContactsGroupSettings() {
         routingPage.showFeatureSelectionsLink().click();
         routingPage.selectDropDownByVisibleText(routingPage.enableAllContactsGroupDropdown(), GRANT_ACCESS_OPTION_TEXT);
@@ -1028,7 +1046,7 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         routingPage.anonymousRegistrationKeyTextBox().sendKeys("1890639-SKKON3");
     }
 
-    private void fillAdditionalIacAndFacInfoIfEnabled() throws IOException {
+    private void fillAdditionalIacAndFacInfoIfEnabled(boolean facRouting) throws IOException {
         if (!isUseAdditionalIacAndFacEnabled()) {
             LOG.info("Using additional IACs and FACs is disabled");
             return;
@@ -1059,12 +1077,13 @@ public class BaseCommonLoginNavigation extends BaseStepDef {
         iacsOffArea.clear();
         iacsOffArea.sendKeys(finalIacsOff);
 
-        if (routingPage.showFeatureSelectionsLink().getText().contains("Show")) {
-            routingPage.showFeatureSelectionsLink().click();
+        if(facRouting){
+            if (routingPage.showFeatureSelectionsLink().getText().contains("Show")) {
+                routingPage.showFeatureSelectionsLink().click();
+            }
+            changeIacsState(isDisableUsingAdditionalIacAndFac, props, "facs", GRANT_ACCESS_OPTION_TEXT);
+            changeIacsState(isDisableUsingAdditionalIacAndFac, props, "facsOff", DENY_ACCESS_OPTION_TEXT);
         }
-        changeIacsState(isDisableUsingAdditionalIacAndFac, props, "facs", GRANT_ACCESS_OPTION_TEXT);
-        changeIacsState(isDisableUsingAdditionalIacAndFac, props, "facsOff", DENY_ACCESS_OPTION_TEXT);
-
     }
 
     private void changeIacsState(boolean isDisableUsingAdditionalIacAndFac, Properties props, String propertyName, String optionText) {

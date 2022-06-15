@@ -38,7 +38,7 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 
 
 	@Given("^PL\\+ ANZ user navigates to home page$")
-	public void plAnzUserNaviagatesToHomePage() {
+	public void plAnzUserNaviagatesToHomePage() throws IOException {
 		super.plAnzUserNaviagatesToHomePage();
 	}
 
@@ -88,7 +88,7 @@ public class CommonLoginNaviagtionSteps extends BaseCommonLoginNavigation {
 	}
 
 	@Given("^ANZ user is not logged in$")
-	public void anzUserIsNotLoggedIn() {
+	public void anzUserIsNotLoggedIn() throws IOException {
 		super.anzUserIsNotLoggedIn();
 		resetCurrentUser();
 	}
