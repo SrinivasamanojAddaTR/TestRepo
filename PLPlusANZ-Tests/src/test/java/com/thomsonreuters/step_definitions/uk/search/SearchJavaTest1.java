@@ -280,7 +280,7 @@ public class SearchJavaTest1 extends BaseStepDef {
     public void theUserSelectsTheCheckboxAssociatedWithResult(String index) throws Throwable {
         searchResultsPage.waitForPageToLoad();
         WebElement resultItemCheckBox = searchResultsPage.resultCheckbox(index);
-        searchResultsPage.scrollIntoViewAndClick(resultItemCheckBox);
+        searchResultsPage.scrollViewToCenterAndClick(resultItemCheckBox);
     }
 
     @When("^the user selects the checkbox associated with whats market result \"([^\"]*)\"$")
